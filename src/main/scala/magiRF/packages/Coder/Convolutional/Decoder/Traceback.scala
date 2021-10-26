@@ -3,7 +3,6 @@ package magiRF.packages.Coder.Convolutional.Decoder
 import spinal.core._
 import spinal.lib._
 import spinal.lib.fsm._
-import utils.common.LIFO.StreamLifo
 
 object TracebackStates extends SpinalEnum {
     val IDLE, TB0, TB1, DECODE, HALT = newElement()
