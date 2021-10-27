@@ -5,6 +5,20 @@ import spinal.lib.bus.misc.BusSlaveFactory
 import spinal.lib._
 import utils.common.ClkCrossing.ClkCrossing
 
+case class dataDivConfig(
+							baseDataWidth      : Int,
+							unitDataWidth      : Int
+						){
+	def baseDataType: UInt = UInt(baseDataWidth bits)
+	def unitDataType: UInt = if(unitDataWidth == 0) baseDataType else UInt(unitDataWidth bits)
+	def cntType: UInt = UInt(cntWidth bits)
+
+	def cntWidth: Int = log2Up(baseDataWidth)
+	def cntStep: Int = if(unitDataWidth == 0) 0 else unitDataWidth
+	def cntInit: Int = (1 << cntWidth) - baseDataWidth
+	def cntLimit: Int = if(unitDataWidth == 0) 0 else (1 << cntWidth) - cntStep
+}
+
 case class dataDivDynamic(config: dataDivConfig) extends Component {
 	val io = new Bundle {
 		val base_data = slave(Stream(config.baseDataType))
