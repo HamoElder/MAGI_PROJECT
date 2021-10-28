@@ -173,8 +173,8 @@ public:
       waveEnabled = true;
       signalAccess[0] = new CDataSignalAccess( top.raw_data_valid );
       signalAccess[1] = new CDataSignalAccess( top.raw_data_ready );
-      signalAccess[2] = new CDataSignalAccess( top._zz_in_b );
-      signalAccess[3] = new CDataSignalAccess( top.clc );
+      signalAccess[2] = new CDataSignalAccess( top.raw_data_payload_last );
+      signalAccess[3] = new CDataSignalAccess( top._zz_in_b );
       signalAccess[4] = new CDataSignalAccess( top.clk );
       signalAccess[5] = new CDataSignalAccess( top.reset );
 

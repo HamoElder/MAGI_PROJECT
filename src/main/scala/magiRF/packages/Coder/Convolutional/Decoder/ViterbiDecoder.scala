@@ -7,9 +7,9 @@ case class ViterbiDecoderConfig(
                                    decodedDataWidth: Int,
                                    constraintLength: Int,
                                    tracebackWinSize: Int,
-                                   softWidth       : Int           = 1,
-                                   genPoly         : List[Int]       = null,
-                                   useCombLogic    :Boolean     = true
+                                   softWidth       : Int        = 1,
+                                   genPoly         : List[Int]  = null,
+                                   useCombLogic    :Boolean     = false
                                ) {
     require(softWidth > 0, "raw data width must larger than zero.")
     require(tracebackWinSize > 5 * constraintLength, "trace back slide windows size must larger than 5 times constrain length.")
@@ -22,8 +22,8 @@ case class ViterbiDecoderConfig(
     def regNum: Int = constraintLength - 1
     def statesNum: Int = Math.pow(2, regNum).toInt
     def statesWidth: Int = log2Up(statesNum)
+    def statesType: UInt = UInt(statesWidth bits)
 
-    def minIndexDataType: UInt = UInt(statesWidth bits)
     def survivalPathDataType: UInt = UInt(statesNum bits)
 
     def trellisWidth: Int = statesWidth * 2 + rawDataWidth + 1
@@ -36,31 +36,37 @@ case class ViterbiDecoderConfig(
     def distWidth: Int = log2Up(rawDataWidth + 1)
     def distType: UInt = UInt(distWidth bits)
 
-    def tracebackLength: Int = 3 * tracebackWinSize
-    def tracebackSize: Int = log2Up(tracebackLength)
-    def lifoDepth: Int = tracebackLength - tracebackWinSize
     def combLogicDelay: Int = if(useCombLogic) 0 else regNum
-    require((lifoDepth % decodedDataWidth) == 0, "decoded data Full")
+    def delayCntType: UInt = UInt(log2Up(combLogicDelay + 1) bits)
+    def TBMemSize: Int = 3 * tracebackWinSize
+
+    def TBMemCntWidth: Int = log2Up(TBMemSize + 1)
+    def TBMemCntType: UInt = UInt(TBMemCntWidth bits)
+
+    def lifoDepth: Int = tracebackWinSize
+    def lifoCntWidth: Int = log2Up(lifoDepth + 1)
+    def lifoCntType: UInt = UInt(lifoCntWidth bits)
+    require((lifoDepth % decodedDataWidth) == 0, "The depth of Lifo must be the ")
     def decodedDataType: Bits = Bits(decodedDataWidth bits)
 }
 
 case class ViterbiDecoder(config: ViterbiDecoderConfig) extends Component {
     val io = new Bundle {
-        val raw_data = slave(Stream(config.rawDataType))
-        val clc = in(Bool())
+        val raw_data = slave(Stream(Fragment(config.rawDataType)))
 //        val decoded_data = master(Flow(config.decodedDataType))
     }
     noIoPrefix()
     val pmu_core = PathMetric(config)
-    pmu_core.io.raw_data << io.raw_data.asFlow
-    pmu_core.io.clc := io.clc
-    io.raw_data.ready := True
-    StreamFifo
+    pmu_core.io.raw_data.fragment := io.raw_data.fragment
+    pmu_core.io.raw_data.last := io.raw_data.last
+    pmu_core.io.raw_data.valid := io.raw_data.fire
+
     val tbu_core = Traceback(config)
     tbu_core.io.min_idx := pmu_core.io.min_idx
     tbu_core.io.s_path << pmu_core.io.s_path
-    tbu_core.io.clc := io.clc
 
+    io.raw_data.ready := !tbu_core.io.halt && pmu_core.io.raw_data.ready
+    pmu_core.io.tbu_finished := tbu_core.io.finished
 }
 
 object ViterbiDecoderBench {
@@ -82,30 +88,34 @@ object ViterbiDecoderSimApp extends App{
     import scala.util.Random
 
     import magiRF.top.OAM_BETA.OAM_CDMA
-    val viterbi_decoder = ViterbiDecoderConfig(1, 3, 84, 1, List(7, 5))
+    val viterbi_decoder = ViterbiDecoderConfig(1, 3, 16, 1, List(7, 5))
     SimConfig.withWave.doSim(new ViterbiDecoder(viterbi_decoder)){ dut =>
         dut.clockDomain.forkStimulus(5)
         dut.io.raw_data.valid #= false
-        dut.io.clc #= true
+        dut.io.raw_data.last #= false
         dut.clockDomain.waitSampling(10)
-        dut.io.clc #= false
-        dut.clockDomain.waitSampling(1)
         dut.io.raw_data.valid #= true
-        dut.io.raw_data.payload #= 3
+        dut.io.raw_data.payload.fragment #= 3
         dut.clockDomain.waitSampling(1)
-        dut.io.raw_data.payload #= 0
+        dut.io.raw_data.payload.fragment #= 2
         dut.clockDomain.waitSampling(1)
-        dut.io.raw_data.payload #= 3
+        dut.io.raw_data.payload.fragment #= 3
         dut.clockDomain.waitSampling(1)
-        dut.io.raw_data.payload #= 3
+        dut.io.raw_data.payload.fragment #= 3
         dut.clockDomain.waitSampling(1)
-        dut.io.raw_data.payload #= 1
+        dut.io.raw_data.payload.fragment #= 1
         dut.clockDomain.waitSampling(1)
-        dut.io.raw_data.payload #= 1
+        dut.io.raw_data.payload.fragment #= 1
         dut.clockDomain.waitSampling(1)
-        dut.io.raw_data.payload #= 3
+//        for(idx <- 0 until 1000){
+//            dut.io.raw_data.payload.fragment #= 3
+//            dut.clockDomain.waitSampling(1)
+//        }
+        dut.io.raw_data.payload.fragment #= 3
+        dut.io.raw_data.last #= true
         dut.clockDomain.waitSampling(1)
         dut.io.raw_data.valid #= false
-        dut.clockDomain.waitSampling(100)
+        dut.io.raw_data.last #= false
+        dut.clockDomain.waitSampling(1000)
     }
 }

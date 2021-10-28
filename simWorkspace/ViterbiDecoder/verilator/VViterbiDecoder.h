@@ -28,8 +28,8 @@ VL_MODULE(VViterbiDecoder) {
     VL_IN8(reset,0,0);
     VL_IN8(raw_data_valid,0,0);
     VL_OUT8(raw_data_ready,0,0);
+    VL_IN8(raw_data_payload_last,0,0);
     VL_IN8(_zz_in_b,1,0);
-    VL_IN8(clc,0,0);
     
     // LOCAL SIGNALS
     // Internals; generally not touched by application code
@@ -43,18 +43,38 @@ VL_MODULE(VViterbiDecoder) {
     CData/*1:0*/ ViterbiDecoder__DOT__pmu_core__DOT__candidate_branches_7;
     CData/*3:0*/ ViterbiDecoder__DOT__pmu_core__DOT__survival_path;
     CData/*0:0*/ ViterbiDecoder__DOT__pmu_core__DOT__raw_data_next;
+    CData/*0:0*/ ViterbiDecoder__DOT__pmu_core__DOT__raw_data_last_next;
     CData/*0:0*/ ViterbiDecoder__DOT__pmu_core__DOT__survival_path_valid;
+    CData/*0:0*/ ViterbiDecoder__DOT__pmu_core__DOT__survival_path_last;
+    CData/*0:0*/ ViterbiDecoder__DOT__pmu_core__DOT__raw_data_ready_1;
     CData/*0:0*/ ViterbiDecoder__DOT__pmu_core__DOT__addCompareSelect_4__DOT__when_AddCompareSelect_l17;
     CData/*0:0*/ ViterbiDecoder__DOT__pmu_core__DOT__addCompareSelect_5__DOT__when_AddCompareSelect_l17;
     CData/*0:0*/ ViterbiDecoder__DOT__pmu_core__DOT__addCompareSelect_6__DOT__when_AddCompareSelect_l17;
     CData/*0:0*/ ViterbiDecoder__DOT__pmu_core__DOT__addCompareSelect_7__DOT__when_AddCompareSelect_l17;
-    CData/*7:0*/ ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_in;
-    CData/*0:0*/ ViterbiDecoder__DOT__tbu_core__DOT__ram_sel;
-    CData/*0:0*/ ViterbiDecoder__DOT__tbu_core__DOT__when_Traceback_l32;
-    CData/*7:0*/ ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_out;
-    CData/*0:0*/ ViterbiDecoder__DOT__tbu_core__DOT__fsm_wantStart;
-    CData/*2:0*/ ViterbiDecoder__DOT__tbu_core__DOT__fsm_stateReg;
-    CData/*2:0*/ ViterbiDecoder__DOT__tbu_core__DOT__fsm_stateNext;
+    CData/*1:0*/ ViterbiDecoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx;
+    CData/*1:0*/ ViterbiDecoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_1;
+    CData/*1:0*/ ViterbiDecoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_2;
+    CData/*3:0*/ ViterbiDecoder__DOT__tbu_core__DOT___zz_survival_path_ram_0_port1;
+    CData/*3:0*/ ViterbiDecoder__DOT__tbu_core__DOT___zz_survival_path_ram_1_port1;
+    CData/*1:0*/ ViterbiDecoder__DOT__tbu_core__DOT___zz_min_cursor_next;
+    CData/*0:0*/ ViterbiDecoder__DOT__tbu_core__DOT___zz_tb_node_data_next;
+    CData/*0:0*/ ViterbiDecoder__DOT__tbu_core__DOT__ram_select;
+    CData/*5:0*/ ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_write;
+    CData/*0:0*/ ViterbiDecoder__DOT__tbu_core__DOT__pkg_tail;
+    CData/*0:0*/ ViterbiDecoder__DOT__tbu_core__DOT__tb_finish;
+    CData/*0:0*/ ViterbiDecoder__DOT__tbu_core__DOT__when_Traceback_l46;
+    CData/*0:0*/ ViterbiDecoder__DOT__tbu_core__DOT__decoded_ram_sel;
+    CData/*5:0*/ ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read;
+    CData/*0:0*/ ViterbiDecoder__DOT__tbu_core__DOT__pipe_halt;
+    CData/*1:0*/ ViterbiDecoder__DOT__tbu_core__DOT__min_cursor;
+    CData/*0:0*/ ViterbiDecoder__DOT__tbu_core__DOT__tail_repeat;
+    CData/*0:0*/ ViterbiDecoder__DOT__tbu_core__DOT__tb_node_data;
+    CData/*0:0*/ ViterbiDecoder__DOT__tbu_core__DOT__tb_node_valid_1;
+    CData/*0:0*/ ViterbiDecoder__DOT__tbu_core__DOT__tb_node_last;
+    CData/*1:0*/ ViterbiDecoder__DOT__tbu_core__DOT__halt_cnt;
+    CData/*2:0*/ ViterbiDecoder__DOT__tbu_core__DOT__traceback_state;
+    CData/*0:0*/ ViterbiDecoder__DOT__tbu_core__DOT__when_Traceback_l95;
+    CData/*0:0*/ ViterbiDecoder__DOT__tbu_core__DOT__when_Traceback_l114;
     SData/*15:0*/ ViterbiDecoder__DOT__pmu_core__DOT__node_weight_0;
     SData/*15:0*/ ViterbiDecoder__DOT__pmu_core__DOT__node_weight_1;
     SData/*15:0*/ ViterbiDecoder__DOT__pmu_core__DOT__node_weight_2;
@@ -67,26 +87,43 @@ VL_MODULE(VViterbiDecoder) {
     SData/*15:0*/ ViterbiDecoder__DOT__pmu_core__DOT__addCompareSelect_6__DOT__branch_weight_1;
     SData/*15:0*/ ViterbiDecoder__DOT__pmu_core__DOT__addCompareSelect_7__DOT__branch_weight_0;
     SData/*15:0*/ ViterbiDecoder__DOT__pmu_core__DOT__addCompareSelect_7__DOT__branch_weight_1;
-    WData/*167:0*/ ViterbiDecoder__DOT__tbu_core__DOT__decoded_lifo_0[6];
-    WData/*167:0*/ ViterbiDecoder__DOT__tbu_core__DOT__decoded_lifo_1[6];
-    WData/*95:0*/ ViterbiDecoder__DOT__tbu_core__DOT__fsm_stateReg_string[3];
-    WData/*95:0*/ ViterbiDecoder__DOT__tbu_core__DOT__fsm_stateNext_string[3];
+    SData/*15:0*/ ViterbiDecoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val;
+    SData/*15:0*/ ViterbiDecoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_1;
+    SData/*15:0*/ ViterbiDecoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_2;
+    WData/*87:0*/ ViterbiDecoder__DOT__tbu_core__DOT__traceback_state_string[3];
+    CData/*3:0*/ ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_0[48];
+    CData/*3:0*/ ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1[48];
     
     // LOCAL VARIABLES
     // Internals; generally not touched by application code
-    CData/*2:0*/ __Vtableidx1;
+    CData/*3:0*/ ViterbiDecoder__DOT__tbu_core__DOT____Vxrand4;
+    CData/*3:0*/ ViterbiDecoder__DOT__tbu_core__DOT____Vxrand2;
+    CData/*3:0*/ ViterbiDecoder__DOT__tbu_core__DOT____Vlvbound1;
+    CData/*3:0*/ ViterbiDecoder__DOT__tbu_core__DOT____Vlvbound3;
     CData/*2:0*/ __Vtableidx2;
     CData/*2:0*/ __Vtableidx3;
-    CData/*5:0*/ __Vtableidx4;
-    CData/*7:0*/ __Vdly__ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_in;
-    CData/*0:0*/ __Vdly__ViterbiDecoder__DOT__tbu_core__DOT__ram_sel;
+    CData/*0:0*/ __Vdly__ViterbiDecoder__DOT__tbu_core__DOT__ram_select;
+    CData/*5:0*/ __Vdly__ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_write;
+    CData/*5:0*/ __Vdly__ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read;
+    CData/*0:0*/ __Vdly__ViterbiDecoder__DOT__tbu_core__DOT__tail_repeat;
+    CData/*2:0*/ __Vdly__ViterbiDecoder__DOT__tbu_core__DOT__traceback_state;
+    CData/*5:0*/ __Vdlyvdim0__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_0__v0;
+    CData/*3:0*/ __Vdlyvval__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_0__v0;
+    CData/*0:0*/ __Vdlyvset__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_0__v0;
+    CData/*0:0*/ __Vdly__ViterbiDecoder__DOT__tbu_core__DOT__decoded_ram_sel;
+    CData/*1:0*/ __Vdly__ViterbiDecoder__DOT__tbu_core__DOT__halt_cnt;
     CData/*0:0*/ __Vclklast__TOP__clk;
     CData/*0:0*/ __Vclklast__TOP__reset;
     IData/*31:0*/ __Vm_traceActivity;
-    static WData/*95:0*/ __Vtable1_ViterbiDecoder__DOT__tbu_core__DOT__fsm_stateReg_string[8][3];
-    static WData/*95:0*/ __Vtable2_ViterbiDecoder__DOT__tbu_core__DOT__fsm_stateNext_string[8][3];
-    static CData/*0:0*/ __Vtable3_ViterbiDecoder__DOT__tbu_core__DOT__fsm_wantStart[8];
-    static CData/*2:0*/ __Vtable4_ViterbiDecoder__DOT__tbu_core__DOT__fsm_stateNext[64];
+    CData/*4:0*/ __Vtablechg1[64];
+    static CData/*0:0*/ __Vtable1_ViterbiDecoder__DOT__pmu_core__DOT__raw_data_next[64];
+    static CData/*0:0*/ __Vtable1_ViterbiDecoder__DOT__pmu_core__DOT__raw_data_last_next[64];
+    static CData/*0:0*/ __Vtable1_ViterbiDecoder__DOT__pmu_core__DOT__survival_path_valid[64];
+    static CData/*0:0*/ __Vtable1_ViterbiDecoder__DOT__pmu_core__DOT__survival_path_last[64];
+    static CData/*0:0*/ __Vtable1_ViterbiDecoder__DOT__pmu_core__DOT__raw_data_ready_1[64];
+    static CData/*1:0*/ __Vtable2_ViterbiDecoder__DOT__tbu_core__DOT___zz_min_cursor_next[8];
+    static CData/*0:0*/ __Vtable2_ViterbiDecoder__DOT__tbu_core__DOT___zz_tb_node_data_next[8];
+    static WData/*87:0*/ __Vtable3_ViterbiDecoder__DOT__tbu_core__DOT__traceback_state_string[8][3];
     
     // INTERNAL VARIABLES
     // Internals; generally not touched by application code
@@ -129,19 +166,25 @@ VL_MODULE(VViterbiDecoder) {
   public:
     static void _eval_initial(VViterbiDecoder__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _eval_settle(VViterbiDecoder__Syms* __restrict vlSymsp) VL_ATTR_COLD;
-    static void _initial__TOP__1(VViterbiDecoder__Syms* __restrict vlSymsp) VL_ATTR_COLD;
+    static void _initial__TOP__6(VViterbiDecoder__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _sequent__TOP__2(VViterbiDecoder__Syms* __restrict vlSymsp);
     static void _sequent__TOP__3(VViterbiDecoder__Syms* __restrict vlSymsp);
     static void _sequent__TOP__4(VViterbiDecoder__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__6(VViterbiDecoder__Syms* __restrict vlSymsp);
-    static void _settle__TOP__5(VViterbiDecoder__Syms* __restrict vlSymsp) VL_ATTR_COLD;
+    static void _sequent__TOP__5(VViterbiDecoder__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__8(VViterbiDecoder__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__9(VViterbiDecoder__Syms* __restrict vlSymsp);
+    static void _settle__TOP__7(VViterbiDecoder__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void traceChgThis(VViterbiDecoder__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__10(VViterbiDecoder__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__11(VViterbiDecoder__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__2(VViterbiDecoder__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__3(VViterbiDecoder__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__4(VViterbiDecoder__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__5(VViterbiDecoder__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__6(VViterbiDecoder__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__7(VViterbiDecoder__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__8(VViterbiDecoder__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__9(VViterbiDecoder__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceFullThis(VViterbiDecoder__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
     static void traceFullThis__1(VViterbiDecoder__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
     static void traceInitThis(VViterbiDecoder__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
