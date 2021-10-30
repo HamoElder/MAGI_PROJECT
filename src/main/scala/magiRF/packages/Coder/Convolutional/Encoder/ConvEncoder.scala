@@ -22,13 +22,13 @@ case class ConvEncoderConfig(
 case class ConvEncoder(config: ConvEncoderConfig) extends Component{
 	val io = new Bundle{
 		val tail_bits = slave(Flow(config.regDataType))
-		val raw_data = slave(Flow(config.rawDataType))
-		val coded_data = master(Flow(config.codedDataType))
+		val raw_data = slave(Flow(Fragment(config.rawDataType)))
+		val coded_data = master(Flow(Fragment(config.codedDataType)))
 	}
 	noIoPrefix()
 	val raw_data_payload: Bits = RegNext(io.raw_data.payload)
-	val raw_data_valid: Bool = RegNext(io.raw_data.valid)
-
+	val raw_data_valid: Bool = RegNext(io.raw_data.valid) init(False)
+	val raw_data_last = RegNext(io.raw_data.last) init(False)
 	val coded_data: Bits = Reg(config.codedDataType)
 	val coded_data_valid: Bool = Reg(Bool()) init(False)
 
@@ -60,7 +60,7 @@ case class ConvEncoder(config: ConvEncoderConfig) extends Component{
 
 	io.coded_data.payload := coded_data
 	io.coded_data.valid := coded_data_valid
-
+	io.coded_data.last := RegNext(raw_data_last) init(False)
 	def xorRGen(data: Bits, poly: Int, n: Int): Bool = {
 //			poly_shift = poly_shift >> 1
 //		println(poly.toBinaryString, n, (poly & (1 << (n - 1))) != 0)
@@ -78,31 +78,5 @@ object ConvEncoderBench {
 		val conv_coder_config = ConvEncoderConfig(8, 7, List(91, 121))
 		SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
 			targetDirectory = "rtl/ConvCode").generateSystemVerilog(new ConvEncoder(conv_coder_config)).printPruned().printUnused()
-	}
-}
-
-object ConvEncoderSimApp extends App{
-	import spinal.core.sim._
-//	val conv_coder_config = ConvEncoderConfig(4, 7, List(91, 121))
-	val conv_coder_config = ConvEncoderConfig(7, 3, List(7, 5))
-	SimConfig.withWave.doSim(new ConvEncoder(conv_coder_config)){ dut =>
-		dut.clockDomain.forkStimulus(5)
-		dut.io.raw_data.valid #= false
-		dut.io.tail_bits.valid #= false
-		dut.io.tail_bits.payload #= 0
-		dut.clockDomain.waitSampling(10)
-		dut.io.tail_bits.valid #= true
-		dut.io.tail_bits.payload #= 0
-		dut.clockDomain.waitSampling(5)
-		dut.io.tail_bits.valid #= false
-		dut.clockDomain.waitSampling(1)
-		for(idx <- 0 until 200){
-			dut.io.raw_data.valid #= true
-//			dut.io.raw_data.payload #= 170 // 85
-			dut.io.raw_data.payload #= 25 // 5
-			dut.clockDomain.waitSampling(1)
-		}
-		dut.io.raw_data.valid #= false
-		dut.clockDomain.waitSampling(1000)
 	}
 }

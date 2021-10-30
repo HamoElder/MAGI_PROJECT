@@ -7,7 +7,7 @@
 #ifndef _VVITERBIDECODER__SYMS_H_
 #define _VVITERBIDECODER__SYMS_H_  // guard
 
-#include "verilated.h"
+#include "verilated_heavy.h"
 
 // INCLUDE MODULE CLASSES
 #include "VViterbiDecoder.h"

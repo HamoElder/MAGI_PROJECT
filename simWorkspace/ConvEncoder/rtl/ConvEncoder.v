@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : ConvEncoder
-// Git hash  : 042e119db55a8dee1226da860b3f6745fa521a3f
+// Git hash  : 8ea3836c6991c66e54ff283e1ce84688f7fe9417
 
 
 
@@ -8,9 +8,11 @@ module ConvEncoder (
   input               tail_bits_valid,
   input      [2:0]    tail_bits_payload,
   input               raw_data_valid,
-  input      [6:0]    raw_data_payload,
+  input               raw_data_payload_last,
+  input      [6:0]    raw_data_payload_fragment,
   output              coded_data_valid,
-  output     [13:0]   coded_data_payload,
+  output              coded_data_payload_last,
+  output     [13:0]   coded_data_payload_fragment,
   input               clk,
   input               reset
 );
@@ -21,7 +23,7 @@ module ConvEncoder (
   wire       [3:0]    _zz_r_enc_4;
   wire       [3:0]    _zz_r_enc_5;
   wire       [3:0]    _zz_r_enc_6;
-  reg        [6:0]    raw_data_payload_1;
+  reg        [6:0]    raw_data_payload;
   reg                 raw_data_valid_1;
   reg        [13:0]   coded_data;
   reg                 coded_data_valid_1;
@@ -49,14 +51,15 @@ module ConvEncoder (
   wire       [2:0]    _zz_code_vec_1_4;
   wire       [2:0]    _zz_code_vec_1_5;
   wire       [2:0]    _zz_code_vec_1_6;
+  reg                 raw_data_payload_last_regNext;
 
-  assign _zz_r_enc_0 = {raw_data_payload_1[0],r_enc_buf};
-  assign _zz_r_enc_1 = {raw_data_payload_1[1],r_enc_0};
-  assign _zz_r_enc_2 = {raw_data_payload_1[2],r_enc_1};
-  assign _zz_r_enc_3 = {raw_data_payload_1[3],r_enc_2};
-  assign _zz_r_enc_4 = {raw_data_payload_1[4],r_enc_3};
-  assign _zz_r_enc_5 = {raw_data_payload_1[5],r_enc_4};
-  assign _zz_r_enc_6 = {raw_data_payload_1[6],r_enc_5};
+  assign _zz_r_enc_0 = {raw_data_payload[0],r_enc_buf};
+  assign _zz_r_enc_1 = {raw_data_payload[1],r_enc_0};
+  assign _zz_r_enc_2 = {raw_data_payload[2],r_enc_1};
+  assign _zz_r_enc_3 = {raw_data_payload[3],r_enc_2};
+  assign _zz_r_enc_4 = {raw_data_payload[4],r_enc_3};
+  assign _zz_r_enc_5 = {raw_data_payload[5],r_enc_4};
+  assign _zz_r_enc_6 = {raw_data_payload[6],r_enc_5};
   assign r_enc_0 = _zz_r_enc_0[3 : 1];
   assign r_enc_1 = _zz_r_enc_1[3 : 1];
   assign r_enc_2 = _zz_r_enc_2[3 : 1];
@@ -98,11 +101,11 @@ module ConvEncoder (
   assign _zz_code_vec_1_4 = (r_enc_4 & 3'b101);
   assign _zz_code_vec_1_5 = (r_enc_5 & 3'b101);
   assign _zz_code_vec_1_6 = (r_enc_6 & 3'b101);
-  assign coded_data_payload = coded_data;
+  assign coded_data_payload_fragment = coded_data;
   assign coded_data_valid = coded_data_valid_1;
+  assign coded_data_payload_last = raw_data_payload_last_regNext;
   always @(posedge clk) begin
-    raw_data_payload_1 <= raw_data_payload;
-    raw_data_valid_1 <= raw_data_valid;
+    raw_data_payload <= raw_data_payload_fragment;
     if(tail_bits_valid) begin
       r_enc_buf <= tail_bits_payload;
     end else begin
@@ -115,8 +118,11 @@ module ConvEncoder (
 
   always @(posedge clk or posedge reset) begin
     if(reset) begin
+      raw_data_valid_1 <= 1'b0;
       coded_data_valid_1 <= 1'b0;
+      raw_data_payload_last_regNext <= 1'b0;
     end else begin
+      raw_data_valid_1 <= raw_data_valid;
       if(!tail_bits_valid) begin
         if(raw_data_valid_1) begin
           coded_data_valid_1 <= 1'b1;
@@ -124,6 +130,7 @@ module ConvEncoder (
           coded_data_valid_1 <= 1'b0;
         end
       end
+      raw_data_payload_last_regNext <= raw_data_payload_last;
     end
   end
 

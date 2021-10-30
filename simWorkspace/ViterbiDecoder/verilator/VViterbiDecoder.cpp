@@ -69,16 +69,12 @@ void VViterbiDecoder::_eval_initial_loop(VViterbiDecoder__Syms* __restrict vlSym
 VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__2(VViterbiDecoder__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VViterbiDecoder::_sequent__TOP__2\n"); );
     VViterbiDecoder* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Variables
-    CData/*5:0*/ __Vdlyvdim0__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1__v0;
-    CData/*3:0*/ __Vdlyvval__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1__v0;
-    CData/*0:0*/ __Vdlyvset__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1__v0;
     // Body
     vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__halt_cnt 
         = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__halt_cnt;
     vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__decoded_ram_sel 
         = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__decoded_ram_sel;
-    __Vdlyvset__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1__v0 = 0U;
+    vlTOPp->__Vdlyvset__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1__v0 = 0U;
     vlTOPp->__Vdlyvset__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_0__v0 = 0U;
     if ((1U & (~ ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state) 
                   >> 2U)))) {
@@ -94,39 +90,36 @@ VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__2(VViterbiDecoder__Syms* __re
         }
     }
     if ((4U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
-        if ((1U & (~ ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state) 
-                      >> 1U)))) {
-            if ((1U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
-                vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__pipe_halt = 1U;
-            }
-        }
-    } else {
-        if ((2U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
-            if ((1U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
-                vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__pipe_halt = 1U;
-            }
-        } else {
-            vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__pipe_halt = 0U;
-        }
-    }
-    if ((4U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
         if ((2U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
             vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__tb_node_data 
-                = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_tb_node_data_next;
+                = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__in_data_rom
+                [vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__cursor];
         } else {
             if ((1U & (~ (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state)))) {
                 vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__tb_node_data 
-                    = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_tb_node_data_next;
+                    = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__in_data_rom
+                    [vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__cursor];
             }
         }
     } else {
         if ((2U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
             if ((1U & (~ (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state)))) {
                 vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__tb_node_data 
-                    = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_tb_node_data_next;
+                    = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__in_data_rom
+                    [vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__cursor];
             }
         }
     }
+    vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_survival_path_ram_1_port1 
+        = ((0x2fU >= (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read))
+            ? vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1
+           [vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read]
+            : (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT____Vxrand4));
+    vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_survival_path_ram_0_port1 
+        = ((0x2fU >= (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read))
+            ? vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_0
+           [vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read]
+            : (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT____Vxrand2));
     vlTOPp->ViterbiDecoder__DOT__pmu_core__DOT__candidate_branches_5 
         = (3U & ((1U & ((IData)(vlTOPp->_zz_in_b) >> 1U)) 
                  + (1U & (IData)(vlTOPp->_zz_in_b))));
@@ -151,23 +144,29 @@ VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__2(VViterbiDecoder__Syms* __re
     vlTOPp->ViterbiDecoder__DOT__pmu_core__DOT__candidate_branches_7 
         = (3U & ((1U & (1U ^ ((IData)(vlTOPp->_zz_in_b) 
                               >> 1U))) + (1U & (IData)(vlTOPp->_zz_in_b))));
-    vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_survival_path_ram_1_port1 
-        = ((0x2fU >= (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read))
-            ? vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1
-           [vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read]
-            : (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT____Vxrand4));
-    vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_survival_path_ram_0_port1 
-        = ((0x2fU >= (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read))
-            ? vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_0
-           [vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read]
-            : (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT____Vxrand2));
+    if ((4U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
+        if ((1U & (~ ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state) 
+                      >> 1U)))) {
+            if ((1U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
+                vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__pipe_halt = 1U;
+            }
+        }
+    } else {
+        if ((2U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
+            if ((1U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
+                vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__pipe_halt = 1U;
+            }
+        } else {
+            vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__pipe_halt = 0U;
+        }
+    }
     if ((4U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
         if ((1U & (~ ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state) 
                       >> 1U)))) {
             if ((1U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
                 vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__decoded_ram_sel = 1U;
             } else {
-                if ((0x3fU == (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read))) {
+                if ((0x2fU == (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read))) {
                     if (vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__tail_repeat) {
                         vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__decoded_ram_sel 
                             = (1U & (~ (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__decoded_ram_sel)));
@@ -178,14 +177,14 @@ VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__2(VViterbiDecoder__Syms* __re
     } else {
         if ((2U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
             if ((1U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
-                if ((2U == (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__halt_cnt))) {
+                if ((3U == (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__halt_cnt))) {
                     vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__decoded_ram_sel 
                         = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_select;
                 }
             }
         } else {
             if ((1U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
-                if ((0x3fU == (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read))) {
+                if ((0x2fU == (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read))) {
                     vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__decoded_ram_sel 
                         = (1U & (~ (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__decoded_ram_sel)));
                 }
@@ -197,10 +196,10 @@ VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__2(VViterbiDecoder__Syms* __re
         vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT____Vlvbound3 
             = vlTOPp->ViterbiDecoder__DOT__pmu_core__DOT__survival_path;
         if ((0x2fU >= (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_write))) {
-            __Vdlyvval__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1__v0 
+            vlTOPp->__Vdlyvval__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1__v0 
                 = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT____Vlvbound3;
-            __Vdlyvset__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1__v0 = 1U;
-            __Vdlyvdim0__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1__v0 
+            vlTOPp->__Vdlyvset__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1__v0 = 1U;
+            vlTOPp->__Vdlyvdim0__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1__v0 
                 = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_write;
         }
     }
@@ -219,34 +218,34 @@ VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__2(VViterbiDecoder__Syms* __re
     if ((4U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
         if ((2U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
             vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__min_cursor 
-                = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_min_cursor_next;
+                = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__states_shift_rom
+                [vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__cursor];
         } else {
             if ((1U & (~ (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state)))) {
                 vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__min_cursor 
-                    = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_min_cursor_next;
+                    = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__states_shift_rom
+                    [vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__cursor];
             }
         }
     } else {
         if ((2U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
             if ((1U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
-                if ((2U == (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__halt_cnt))) {
+                if ((3U == (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__halt_cnt))) {
                     vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__min_cursor 
                         = vlTOPp->ViterbiDecoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_2;
                 }
             } else {
                 vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__min_cursor 
-                    = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_min_cursor_next;
+                    = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__states_shift_rom
+                    [vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__cursor];
             }
         } else {
             if ((1U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
                 vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__min_cursor 
-                    = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_min_cursor_next;
+                    = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__states_shift_rom
+                    [vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__cursor];
             }
         }
-    }
-    if (__Vdlyvset__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1__v0) {
-        vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1[__Vdlyvdim0__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1__v0] 
-            = __Vdlyvval__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1__v0;
     }
 }
 
@@ -254,6 +253,10 @@ VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__3(VViterbiDecoder__Syms* __re
     VL_DEBUG_IF(VL_DBG_MSGF("+    VViterbiDecoder::_sequent__TOP__3\n"); );
     VViterbiDecoder* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
+    if (vlTOPp->__Vdlyvset__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1__v0) {
+        vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1[vlTOPp->__Vdlyvdim0__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1__v0] 
+            = vlTOPp->__Vdlyvval__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_1__v0;
+    }
     if (vlTOPp->__Vdlyvset__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_0__v0) {
         vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_0[vlTOPp->__Vdlyvdim0__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_0__v0] 
             = vlTOPp->__Vdlyvval__ViterbiDecoder__DOT__tbu_core__DOT__survival_path_ram_0__v0;
@@ -407,16 +410,18 @@ VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__4(VViterbiDecoder__Syms* __re
     VL_DEBUG_IF(VL_DBG_MSGF("+    VViterbiDecoder::_sequent__TOP__4\n"); );
     VViterbiDecoder* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
+    vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__goto_tail 
+        = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__goto_tail;
     vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__tail_repeat 
         = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__tail_repeat;
-    vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read 
-        = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read;
     vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__ram_select 
         = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_select;
     vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__traceback_state 
         = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state;
     vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_write 
         = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_write;
+    vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read 
+        = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read;
     if (vlTOPp->reset) {
         vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__ram_select = 0U;
         vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_write = 0U;
@@ -424,6 +429,7 @@ VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__4(VViterbiDecoder__Syms* __re
         vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__tail_repeat = 0U;
         vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__tb_node_valid_1 = 0U;
         vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__tb_node_last = 0U;
+        vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__goto_tail = 0U;
         vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__traceback_state = 5U;
     } else {
         if (vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__tb_finish) {
@@ -443,7 +449,7 @@ VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__4(VViterbiDecoder__Syms* __re
         }
         if ((4U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
             if ((2U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
-                if (vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__when_Traceback_l114) {
+                if (vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__when_Traceback_l142) {
                     vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__traceback_state = 0U;
                     vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__tb_node_last = 1U;
                 } else {
@@ -460,9 +466,9 @@ VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__4(VViterbiDecoder__Syms* __re
                     vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__traceback_state = 0U;
                 } else {
                     vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read 
-                        = (0x3fU & ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read) 
-                                    - (IData)(1U)));
-                    if (vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__when_Traceback_l114) {
+                        = ((0U == (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read))
+                            ? 0x2fU : (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_ram_addr_read));
+                    if (vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__when_Traceback_l115) {
                         vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__traceback_state 
                             = ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__tail_repeat)
                                 ? 4U : 5U);
@@ -479,22 +485,22 @@ VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__4(VViterbiDecoder__Syms* __re
         } else {
             if ((2U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
                 if ((1U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
-                    if (vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__pkg_tail) {
+                    if (vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__goto_tail) {
                         vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__tail_repeat 
                             = ((0x10U > (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_write)) 
                                & ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__decoded_ram_sel) 
                                   == (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_select)));
                     }
-                    if ((2U == (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__halt_cnt))) {
+                    if ((3U == (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__halt_cnt))) {
                         vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read 
                             = (0x3fU & ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read) 
                                         - (IData)(1U)));
                         vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__traceback_state 
-                            = ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__pkg_tail)
+                            = ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__goto_tail)
                                 ? 4U : 1U);
                     }
                 } else {
-                    if (vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__when_Traceback_l114) {
+                    if (vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__when_Traceback_l142) {
                         vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__traceback_state = 0U;
                         vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__tb_node_last = 1U;
                     } else {
@@ -507,9 +513,9 @@ VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__4(VViterbiDecoder__Syms* __re
             } else {
                 if ((1U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
                     vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read 
-                        = (0x3fU & ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read) 
-                                    - (IData)(1U)));
-                    if (vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__when_Traceback_l114) {
+                        = ((0U == (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read))
+                            ? 0x2fU : (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_ram_addr_read));
+                    if (vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__when_Traceback_l115) {
                         vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__traceback_state = 2U;
                     }
                 } else {
@@ -520,6 +526,8 @@ VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__4(VViterbiDecoder__Syms* __re
                         vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read 
                             = (0x3fU & ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_write) 
                                         - (IData)(1U)));
+                        vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__goto_tail 
+                            = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__pkg_tail;
                     }
                 }
             }
@@ -531,8 +539,10 @@ VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__5(VViterbiDecoder__Syms* __re
     VL_DEBUG_IF(VL_DBG_MSGF("+    VViterbiDecoder::_sequent__TOP__5\n"); );
     VViterbiDecoder* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Variables
-    CData/*5:0*/ __Vtableidx1;
+    CData/*6:0*/ __Vtableidx1;
     // Body
+    vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__goto_tail 
+        = vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__goto_tail;
     vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_select 
         = vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__ram_select;
     vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_write 
@@ -552,15 +562,17 @@ VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__5(VViterbiDecoder__Syms* __re
         }
     }
     __Vtableidx1 = (((IData)(vlTOPp->ViterbiDecoder__DOT__pmu_core__DOT__raw_data_last_next) 
-                     << 5U) | (((IData)(vlTOPp->ViterbiDecoder__DOT__pmu_core__DOT__raw_data_next) 
-                                << 4U) | (((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__tb_finish) 
-                                           << 3U) | 
-                                          (((IData)(vlTOPp->raw_data_payload_last) 
-                                            << 2U) 
-                                           | ((((IData)(vlTOPp->raw_data_valid) 
-                                                & (IData)(vlTOPp->raw_data_ready)) 
-                                               << 1U) 
-                                              | (IData)(vlTOPp->reset))))));
+                     << 6U) | (((IData)(vlTOPp->ViterbiDecoder__DOT__pmu_core__DOT__raw_data_next) 
+                                << 5U) | ((((IData)(vlTOPp->raw_data_payload_last) 
+                                            & (IData)(vlTOPp->ViterbiDecoder__DOT__raw_data_fire)) 
+                                           << 4U) | 
+                                          (((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__tb_finish) 
+                                            << 3U) 
+                                           | (((IData)(vlTOPp->raw_data_payload_last) 
+                                               << 2U) 
+                                              | (((IData)(vlTOPp->ViterbiDecoder__DOT__raw_data_fire) 
+                                                  << 1U) 
+                                                 | (IData)(vlTOPp->reset)))))));
     vlTOPp->ViterbiDecoder__DOT__pmu_core__DOT__raw_data_next 
         = vlTOPp->__Vtable1_ViterbiDecoder__DOT__pmu_core__DOT__raw_data_next
         [__Vtableidx1];
@@ -590,28 +602,21 @@ VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__8(VViterbiDecoder__Syms* __re
         = vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__halt_cnt;
     vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__decoded_ram_sel 
         = vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__decoded_ram_sel;
-    vlTOPp->__Vtableidx2 = (7U & ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__decoded_ram_sel)
-                                   ? (((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__min_cursor) 
-                                       << 1U) + (1U 
-                                                 & ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_survival_path_ram_1_port1) 
-                                                    >> (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__min_cursor))))
-                                   : (((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__min_cursor) 
-                                       << 1U) + (1U 
-                                                 & ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_survival_path_ram_0_port1) 
-                                                    >> (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__min_cursor))))));
-    vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_min_cursor_next 
-        = vlTOPp->__Vtable2_ViterbiDecoder__DOT__tbu_core__DOT___zz_min_cursor_next
-        [vlTOPp->__Vtableidx2];
-    vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_tb_node_data_next 
-        = vlTOPp->__Vtable2_ViterbiDecoder__DOT__tbu_core__DOT___zz_tb_node_data_next
-        [vlTOPp->__Vtableidx2];
+    vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__cursor 
+        = (7U & ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__decoded_ram_sel)
+                  ? (((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__min_cursor) 
+                      << 1U) + (1U & ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_survival_path_ram_1_port1) 
+                                      >> (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__min_cursor))))
+                  : (((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__min_cursor) 
+                      << 1U) + (1U & ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_survival_path_ram_0_port1) 
+                                      >> (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__min_cursor))))));
     if ((4U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
         if ((1U & (~ ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state) 
                       >> 1U)))) {
             if ((1U & (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state))) {
                 vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__tb_finish = 1U;
             } else {
-                if ((0x3fU == (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read))) {
+                if ((0x2fU == (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read))) {
                     if ((1U & (~ (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__tail_repeat)))) {
                         vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__tb_finish = 1U;
                     }
@@ -628,8 +633,16 @@ VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__8(VViterbiDecoder__Syms* __re
     }
 }
 
-VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__9(VViterbiDecoder__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VViterbiDecoder::_sequent__TOP__9\n"); );
+VL_INLINE_OPT void VViterbiDecoder::_combo__TOP__9(VViterbiDecoder__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VViterbiDecoder::_combo__TOP__9\n"); );
+    VViterbiDecoder* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
+    vlTOPp->ViterbiDecoder__DOT__raw_data_fire = ((IData)(vlTOPp->raw_data_valid) 
+                                                  & (IData)(vlTOPp->raw_data_ready));
+}
+
+VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__10(VViterbiDecoder__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VViterbiDecoder::_sequent__TOP__10\n"); );
     VViterbiDecoder* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__when_Traceback_l95 
@@ -639,22 +652,27 @@ VL_INLINE_OPT void VViterbiDecoder::_sequent__TOP__9(VViterbiDecoder__Syms* __re
            | (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__pkg_tail));
     vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__tail_repeat 
         = vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__tail_repeat;
-    vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read 
-        = vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read;
     vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state 
         = vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__traceback_state;
-    vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__when_Traceback_l114 
-        = (0x3fU == (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read));
-    vlTOPp->__Vtableidx3 = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state;
+    vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read 
+        = vlTOPp->__Vdly__ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read;
+    vlTOPp->__Vtableidx2 = vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state;
     vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state_string[0U] 
-        = vlTOPp->__Vtable3_ViterbiDecoder__DOT__tbu_core__DOT__traceback_state_string
-        [vlTOPp->__Vtableidx3][0U];
+        = vlTOPp->__Vtable2_ViterbiDecoder__DOT__tbu_core__DOT__traceback_state_string
+        [vlTOPp->__Vtableidx2][0U];
     vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state_string[1U] 
-        = vlTOPp->__Vtable3_ViterbiDecoder__DOT__tbu_core__DOT__traceback_state_string
-        [vlTOPp->__Vtableidx3][1U];
+        = vlTOPp->__Vtable2_ViterbiDecoder__DOT__tbu_core__DOT__traceback_state_string
+        [vlTOPp->__Vtableidx2][1U];
     vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__traceback_state_string[2U] 
-        = vlTOPp->__Vtable3_ViterbiDecoder__DOT__tbu_core__DOT__traceback_state_string
-        [vlTOPp->__Vtableidx3][2U];
+        = vlTOPp->__Vtable2_ViterbiDecoder__DOT__tbu_core__DOT__traceback_state_string
+        [vlTOPp->__Vtableidx2][2U];
+    vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT___zz_ram_addr_read 
+        = (0x3fU & ((IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read) 
+                    - (IData)(1U)));
+    vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__when_Traceback_l115 
+        = (0x2fU == (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read));
+    vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__when_Traceback_l142 
+        = (0U == (IData)(vlTOPp->ViterbiDecoder__DOT__tbu_core__DOT__ram_addr_read));
 }
 
 void VViterbiDecoder::_eval(VViterbiDecoder__Syms* __restrict vlSymsp) {
@@ -676,10 +694,12 @@ void VViterbiDecoder::_eval(VViterbiDecoder__Syms* __restrict vlSymsp) {
         vlTOPp->_sequent__TOP__8(vlSymsp);
         vlTOPp->__Vm_traceActivity = (8U | vlTOPp->__Vm_traceActivity);
     }
+    vlTOPp->_combo__TOP__9(vlSymsp);
+    vlTOPp->__Vm_traceActivity = (0x10U | vlTOPp->__Vm_traceActivity);
     if ((((IData)(vlTOPp->clk) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk))) 
          | ((IData)(vlTOPp->reset) & (~ (IData)(vlTOPp->__Vclklast__TOP__reset))))) {
-        vlTOPp->_sequent__TOP__9(vlSymsp);
-        vlTOPp->__Vm_traceActivity = (0x10U | vlTOPp->__Vm_traceActivity);
+        vlTOPp->_sequent__TOP__10(vlSymsp);
+        vlTOPp->__Vm_traceActivity = (0x20U | vlTOPp->__Vm_traceActivity);
     }
     // Final
     vlTOPp->__Vclklast__TOP__clk = vlTOPp->clk;

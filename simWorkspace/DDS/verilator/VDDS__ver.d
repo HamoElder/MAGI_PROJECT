@@ -1,0 +1,1 @@
+verilator/VDDS.cpp verilator/VDDS.h verilator/VDDS.mk verilator/VDDS__Slow.cpp verilator/VDDS__Syms.cpp verilator/VDDS__Syms.h verilator/VDDS__Trace.cpp verilator/VDDS__Trace__Slow.cpp verilator/VDDS__ver.d verilator/VDDS_classes.mk  : /usr/bin/verilator_bin /home/missdown/MAGI_PROJECT/tmp/job_1/DDS.v /usr/bin/verilator_bin 

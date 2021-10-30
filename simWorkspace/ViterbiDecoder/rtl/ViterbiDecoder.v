@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : ViterbiDecoder
-// Git hash  : 5bfb4b1917c3fb3091cb8a8db0f1b8fc1680d1dd
+// Git hash  : 8ea3836c6991c66e54ff283e1ce84688f7fe9417
 
 
 `define TracebackStates_binary_sequential_type [2:0]
@@ -76,6 +76,8 @@ module Traceback (
   input               clk,
   input               reset
 );
+  wire       [1:0]    _zz_states_shift_rom_port0;
+  wire       [0:0]    _zz_in_data_rom_port0;
   reg        [3:0]    _zz_survival_path_ram_0_port1;
   reg        [3:0]    _zz_survival_path_ram_1_port1;
   wire       [3:0]    _zz_survival_path_ram_0_port;
@@ -94,24 +96,8 @@ module Traceback (
   wire       [2:0]    _zz_cursor_5;
   wire       [2:0]    _zz_cursor_6;
   wire       [0:0]    _zz_cursor_7;
-  reg        [1:0]    _zz_min_cursor_next;
-  reg        [0:0]    _zz_tb_node_data_next;
-  wire       [1:0]    states_shift_rom_0;
-  wire       [1:0]    states_shift_rom_1;
-  wire       [1:0]    states_shift_rom_2;
-  wire       [1:0]    states_shift_rom_3;
-  wire       [1:0]    states_shift_rom_4;
-  wire       [1:0]    states_shift_rom_5;
-  wire       [1:0]    states_shift_rom_6;
-  wire       [1:0]    states_shift_rom_7;
-  wire       [0:0]    in_data_rom_0;
-  wire       [0:0]    in_data_rom_1;
-  wire       [0:0]    in_data_rom_2;
-  wire       [0:0]    in_data_rom_3;
-  wire       [0:0]    in_data_rom_4;
-  wire       [0:0]    in_data_rom_5;
-  wire       [0:0]    in_data_rom_6;
-  wire       [0:0]    in_data_rom_7;
+  wire       [5:0]    _zz_ram_addr_read;
+  wire       [5:0]    _zz_ram_addr_read_1;
   reg                 ram_select;
   reg        [5:0]    ram_addr_write;
   reg                 pkg_tail;
@@ -130,17 +116,20 @@ module Traceback (
   reg        [0:0]    tb_node_data;
   reg                 tb_node_valid_1;
   reg                 tb_node_last;
+  reg                 goto_tail;
   reg        [1:0]    halt_cnt;
   reg        `TracebackStates_binary_sequential_type traceback_state;
   wire                when_Traceback_l95;
-  wire                when_Traceback_l106;
-  wire                when_Traceback_l114;
-  wire                when_Traceback_l132;
-  wire                when_Traceback_l140;
+  wire                when_Traceback_l107;
+  wire                when_Traceback_l115;
+  wire                when_Traceback_l133;
+  wire                when_Traceback_l142;
   `ifndef SYNTHESIS
   reg [87:0] traceback_state_string;
   `endif
 
+  (* ram_style = "distributed" *) reg [1:0] states_shift_rom [0:7];
+  (* ram_style = "distributed" *) reg [0:0] in_data_rom [0:7];
   reg [3:0] survival_path_ram_0 [0:47];
   reg [3:0] survival_path_ram_1 [0:47];
 
@@ -152,12 +141,22 @@ module Traceback (
   assign _zz_cursor_5 = ({1'd0,min_cursor} <<< 1);
   assign _zz_cursor_7 = ram_0_value[min_cursor];
   assign _zz_cursor_6 = {2'd0, _zz_cursor_7};
+  assign _zz_ram_addr_read = (ram_addr_read - 6'h01);
+  assign _zz_ram_addr_read_1 = (ram_addr_read - 6'h01);
   assign _zz_survival_path_ram_0_port = s_path_payload_fragment;
   assign _zz_survival_path_ram_0_port_1 = ((ram_select == 1'b0) && s_path_valid);
   assign _zz_ram_0_value = 1'b1;
   assign _zz_survival_path_ram_1_port = s_path_payload_fragment;
   assign _zz_survival_path_ram_1_port_1 = ((ram_select == 1'b1) && s_path_valid);
   assign _zz_ram_1_value = 1'b1;
+  initial begin
+    $readmemb("ViterbiDecoder.v_toplevel_tbu_core_states_shift_rom.bin",states_shift_rom);
+  end
+  assign _zz_states_shift_rom_port0 = states_shift_rom[cursor];
+  initial begin
+    $readmemb("ViterbiDecoder.v_toplevel_tbu_core_in_data_rom.bin",in_data_rom);
+  end
+  assign _zz_in_data_rom_port0 = in_data_rom[cursor];
   always @(posedge clk) begin
     if(_zz_survival_path_ram_0_port_1) begin
       survival_path_ram_0[ram_addr_write] <= _zz_survival_path_ram_0_port;
@@ -182,43 +181,6 @@ module Traceback (
     end
   end
 
-  always @(*) begin
-    case(cursor)
-      3'b000 : begin
-        _zz_min_cursor_next = states_shift_rom_0;
-        _zz_tb_node_data_next = in_data_rom_0;
-      end
-      3'b001 : begin
-        _zz_min_cursor_next = states_shift_rom_1;
-        _zz_tb_node_data_next = in_data_rom_1;
-      end
-      3'b010 : begin
-        _zz_min_cursor_next = states_shift_rom_2;
-        _zz_tb_node_data_next = in_data_rom_2;
-      end
-      3'b011 : begin
-        _zz_min_cursor_next = states_shift_rom_3;
-        _zz_tb_node_data_next = in_data_rom_3;
-      end
-      3'b100 : begin
-        _zz_min_cursor_next = states_shift_rom_4;
-        _zz_tb_node_data_next = in_data_rom_4;
-      end
-      3'b101 : begin
-        _zz_min_cursor_next = states_shift_rom_5;
-        _zz_tb_node_data_next = in_data_rom_5;
-      end
-      3'b110 : begin
-        _zz_min_cursor_next = states_shift_rom_6;
-        _zz_tb_node_data_next = in_data_rom_6;
-      end
-      default : begin
-        _zz_min_cursor_next = states_shift_rom_7;
-        _zz_tb_node_data_next = in_data_rom_7;
-      end
-    endcase
-  end
-
   `ifndef SYNTHESIS
   always @(*) begin
     case(traceback_state)
@@ -233,33 +195,17 @@ module Traceback (
   end
   `endif
 
-  assign states_shift_rom_0 = 2'b00;
-  assign in_data_rom_0 = 1'b0;
-  assign states_shift_rom_1 = 2'b01;
-  assign in_data_rom_1 = 1'b0;
-  assign states_shift_rom_2 = 2'b10;
-  assign in_data_rom_2 = 1'b0;
-  assign states_shift_rom_3 = 2'b11;
-  assign in_data_rom_3 = 1'b0;
-  assign states_shift_rom_4 = 2'b00;
-  assign in_data_rom_4 = 1'b1;
-  assign states_shift_rom_5 = 2'b01;
-  assign in_data_rom_5 = 1'b1;
-  assign states_shift_rom_6 = 2'b10;
-  assign in_data_rom_6 = 1'b1;
-  assign states_shift_rom_7 = 2'b11;
-  assign in_data_rom_7 = 1'b1;
   assign when_Traceback_l46 = (6'h2f <= ram_addr_write);
   assign ram_0_value = _zz_survival_path_ram_0_port1;
   assign ram_1_value = _zz_survival_path_ram_1_port1;
   assign cursor = (decoded_ram_sel ? _zz_cursor : _zz_cursor_4);
-  assign min_cursor_next = _zz_min_cursor_next;
-  assign tb_node_data_next = _zz_tb_node_data_next;
+  assign min_cursor_next = _zz_states_shift_rom_port0;
+  assign tb_node_data_next = _zz_in_data_rom_port0;
   assign when_Traceback_l95 = (((ram_addr_write == 6'h10) && (decoded_ram_sel == ram_select)) || pkg_tail);
-  assign when_Traceback_l106 = (halt_cnt == 2'b10);
-  assign when_Traceback_l114 = (ram_addr_read == 6'h3f);
-  assign when_Traceback_l132 = (ram_addr_read == 6'h3f);
-  assign when_Traceback_l140 = (ram_addr_read == 6'h3f);
+  assign when_Traceback_l107 = (halt_cnt == 2'b11);
+  assign when_Traceback_l115 = (ram_addr_read == 6'h2f);
+  assign when_Traceback_l133 = (ram_addr_read == 6'h2f);
+  assign when_Traceback_l142 = (ram_addr_read == 6'h0);
   assign finished = tb_finish;
   assign halt = pipe_halt;
   assign tb_node_valid = tb_node_valid_1;
@@ -274,6 +220,7 @@ module Traceback (
       tail_repeat <= 1'b0;
       tb_node_valid_1 <= 1'b0;
       tb_node_last <= 1'b0;
+      goto_tail <= 1'b0;
       traceback_state <= `TracebackStates_binary_sequential_FINISH;
     end else begin
       if(tb_finish) begin
@@ -304,19 +251,20 @@ module Traceback (
           if(when_Traceback_l95) begin
             traceback_state <= `TracebackStates_binary_sequential_HALT;
             ram_addr_read <= (ram_addr_write - 6'h01);
+            goto_tail <= pkg_tail;
           end
         end
         `TracebackStates_binary_sequential_HALT : begin
-          if(pkg_tail) begin
+          if(goto_tail) begin
             tail_repeat <= ((ram_addr_write < 6'h10) && (decoded_ram_sel == ram_select));
           end
-          if(when_Traceback_l106) begin
-            traceback_state <= (pkg_tail ? `TracebackStates_binary_sequential_TAIL_DECODE : `TracebackStates_binary_sequential_TB);
+          if(when_Traceback_l107) begin
+            traceback_state <= (goto_tail ? `TracebackStates_binary_sequential_TAIL_DECODE : `TracebackStates_binary_sequential_TB);
             ram_addr_read <= (ram_addr_read - 6'h01);
           end
         end
         `TracebackStates_binary_sequential_TAIL_DECODE : begin
-          if(when_Traceback_l114) begin
+          if(when_Traceback_l115) begin
             traceback_state <= (tail_repeat ? `TracebackStates_binary_sequential_TAIL_DECODE : `TracebackStates_binary_sequential_FINISH);
             if(tail_repeat) begin
               tail_repeat <= 1'b0;
@@ -325,17 +273,17 @@ module Traceback (
               tb_node_last <= 1'b1;
             end
           end
-          ram_addr_read <= (ram_addr_read - 6'h01);
+          ram_addr_read <= ((ram_addr_read == 6'h0) ? 6'h2f : _zz_ram_addr_read);
           tb_node_valid_1 <= 1'b1;
         end
         `TracebackStates_binary_sequential_TB : begin
-          if(when_Traceback_l132) begin
+          if(when_Traceback_l133) begin
             traceback_state <= `TracebackStates_binary_sequential_DECODE;
           end
-          ram_addr_read <= (ram_addr_read - 6'h01);
+          ram_addr_read <= ((ram_addr_read == 6'h0) ? 6'h2f : _zz_ram_addr_read_1);
         end
         default : begin
-          if(when_Traceback_l140) begin
+          if(when_Traceback_l142) begin
             traceback_state <= `TracebackStates_binary_sequential_IDLE;
             tb_node_last <= 1'b1;
           end else begin
@@ -362,13 +310,13 @@ module Traceback (
       `TracebackStates_binary_sequential_HALT : begin
         pipe_halt <= 1'b1;
         halt_cnt <= (halt_cnt + 2'b01);
-        if(when_Traceback_l106) begin
+        if(when_Traceback_l107) begin
           min_cursor <= min_idx;
           decoded_ram_sel <= ram_select;
         end
       end
       `TracebackStates_binary_sequential_TAIL_DECODE : begin
-        if(when_Traceback_l114) begin
+        if(when_Traceback_l115) begin
           if(tail_repeat) begin
             decoded_ram_sel <= (! decoded_ram_sel);
           end else begin
@@ -380,7 +328,7 @@ module Traceback (
       end
       `TracebackStates_binary_sequential_TB : begin
         pipe_halt <= 1'b0;
-        if(when_Traceback_l132) begin
+        if(when_Traceback_l133) begin
           decoded_ram_sel <= (! decoded_ram_sel);
         end
         min_cursor <= min_cursor_next;
@@ -452,6 +400,7 @@ module PathMetric (
   reg                 survival_path_valid;
   reg                 survival_path_last;
   reg                 raw_data_ready_1;
+  wire                when_PathMetric_l29;
 
   BranchMetric branchMetric_4 (
     ._zz_in_a      (2'b00                  ), //i
@@ -523,6 +472,7 @@ module PathMetric (
     .clk        (clk               ), //i
     .reset      (reset             )  //i
   );
+  assign when_PathMetric_l29 = (raw_data_payload_last && raw_data_valid);
   assign addCompareSelect_4_dist_0 = {14'd0, candidate_branches_0};
   assign addCompareSelect_4_dist_1 = {14'd0, candidate_branches_1};
   assign addCompareSelect_5_dist_0 = {14'd0, candidate_branches_2};
@@ -549,7 +499,7 @@ module PathMetric (
       if(tbu_finished) begin
         raw_data_ready_1 <= 1'b1;
       end else begin
-        if(raw_data_payload_last) begin
+        if(when_PathMetric_l29) begin
           raw_data_ready_1 <= 1'b0;
         end
       end

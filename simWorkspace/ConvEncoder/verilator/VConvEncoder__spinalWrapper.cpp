@@ -159,7 +159,7 @@ public:
     uint32_t timeCheck;
     bool waveEnabled;
     VConvEncoder top;
-    ISignalAccess *signalAccess[8];
+    ISignalAccess *signalAccess[10];
     #ifdef TRACE
 	  VerilatedVcdC tfp;
 	  #endif
@@ -174,11 +174,13 @@ public:
       signalAccess[0] = new CDataSignalAccess( top.tail_bits_valid );
       signalAccess[1] = new CDataSignalAccess( top.tail_bits_payload );
       signalAccess[2] = new CDataSignalAccess( top.raw_data_valid );
-      signalAccess[3] = new CDataSignalAccess( top.raw_data_payload );
-      signalAccess[4] = new CDataSignalAccess( top.coded_data_valid );
-      signalAccess[5] = new SDataSignalAccess( top.coded_data_payload );
-      signalAccess[6] = new CDataSignalAccess( top.clk );
-      signalAccess[7] = new CDataSignalAccess( top.reset );
+      signalAccess[3] = new CDataSignalAccess( top.raw_data_payload_last );
+      signalAccess[4] = new CDataSignalAccess( top.raw_data_payload_fragment );
+      signalAccess[5] = new CDataSignalAccess( top.coded_data_valid );
+      signalAccess[6] = new CDataSignalAccess( top.coded_data_payload_last );
+      signalAccess[7] = new SDataSignalAccess( top.coded_data_payload_fragment );
+      signalAccess[8] = new CDataSignalAccess( top.clk );
+      signalAccess[9] = new CDataSignalAccess( top.reset );
 
       #ifdef TRACE
       Verilated::traceEverOn(true);
@@ -189,7 +191,7 @@ public:
     }
 
     virtual ~Wrapper_1(){
-      for(int idx = 0;idx < 8;idx++){
+      for(int idx = 0;idx < 10;idx++){
           delete signalAccess[idx];
       }
 

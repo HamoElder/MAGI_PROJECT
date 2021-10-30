@@ -29,9 +29,11 @@ VL_MODULE(VConvEncoder) {
     VL_IN8(tail_bits_valid,0,0);
     VL_IN8(tail_bits_payload,2,0);
     VL_IN8(raw_data_valid,0,0);
-    VL_IN8(raw_data_payload,6,0);
+    VL_IN8(raw_data_payload_last,0,0);
+    VL_IN8(raw_data_payload_fragment,6,0);
     VL_OUT8(coded_data_valid,0,0);
-    VL_OUT16(coded_data_payload,13,0);
+    VL_OUT8(coded_data_payload_last,0,0);
+    VL_OUT16(coded_data_payload_fragment,13,0);
     
     // LOCAL SIGNALS
     // Internals; generally not touched by application code
@@ -42,12 +44,13 @@ VL_MODULE(VConvEncoder) {
     CData/*3:0*/ ConvEncoder__DOT___zz_r_enc_4;
     CData/*3:0*/ ConvEncoder__DOT___zz_r_enc_5;
     CData/*3:0*/ ConvEncoder__DOT___zz_r_enc_6;
-    CData/*6:0*/ ConvEncoder__DOT__raw_data_payload_1;
+    CData/*6:0*/ ConvEncoder__DOT__raw_data_payload;
     CData/*0:0*/ ConvEncoder__DOT__raw_data_valid_1;
     CData/*0:0*/ ConvEncoder__DOT__coded_data_valid_1;
     CData/*2:0*/ ConvEncoder__DOT__r_enc_buf;
     CData/*6:0*/ ConvEncoder__DOT__code_vec_0;
     CData/*6:0*/ ConvEncoder__DOT__code_vec_1;
+    CData/*0:0*/ ConvEncoder__DOT__raw_data_payload_last_regNext;
     SData/*13:0*/ ConvEncoder__DOT__coded_data;
     
     // LOCAL VARIABLES

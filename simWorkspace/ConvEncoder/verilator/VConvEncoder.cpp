@@ -70,6 +70,31 @@ VL_INLINE_OPT void VConvEncoder::_sequent__TOP__1(VConvEncoder__Syms* __restrict
     VL_DEBUG_IF(VL_DBG_MSGF("+    VConvEncoder::_sequent__TOP__1\n"); );
     VConvEncoder* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
+    vlTOPp->ConvEncoder__DOT__raw_data_payload_last_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->raw_data_payload_last));
+    if (vlTOPp->reset) {
+        vlTOPp->ConvEncoder__DOT__coded_data_valid_1 = 0U;
+    } else {
+        if ((1U & (~ (IData)(vlTOPp->tail_bits_valid)))) {
+            vlTOPp->ConvEncoder__DOT__coded_data_valid_1 
+                = vlTOPp->ConvEncoder__DOT__raw_data_valid_1;
+        }
+    }
+    vlTOPp->coded_data_payload_last = vlTOPp->ConvEncoder__DOT__raw_data_payload_last_regNext;
+    vlTOPp->coded_data_valid = vlTOPp->ConvEncoder__DOT__coded_data_valid_1;
+}
+
+VL_INLINE_OPT void VConvEncoder::_sequent__TOP__2(VConvEncoder__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvEncoder::_sequent__TOP__2\n"); );
+    VConvEncoder* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
+    if ((1U & (~ (IData)(vlTOPp->tail_bits_valid)))) {
+        if (vlTOPp->ConvEncoder__DOT__raw_data_valid_1) {
+            vlTOPp->ConvEncoder__DOT__coded_data = 
+                (((IData)(vlTOPp->ConvEncoder__DOT__code_vec_0) 
+                  << 7U) | (IData)(vlTOPp->ConvEncoder__DOT__code_vec_1));
+        }
+    }
     if (vlTOPp->tail_bits_valid) {
         vlTOPp->ConvEncoder__DOT__r_enc_buf = vlTOPp->tail_bits_payload;
     } else {
@@ -77,47 +102,44 @@ VL_INLINE_OPT void VConvEncoder::_sequent__TOP__1(VConvEncoder__Syms* __restrict
             vlTOPp->ConvEncoder__DOT__r_enc_buf = (7U 
                                                    & ((IData)(vlTOPp->ConvEncoder__DOT___zz_r_enc_6) 
                                                       >> 1U));
-            vlTOPp->ConvEncoder__DOT__coded_data = 
-                (((IData)(vlTOPp->ConvEncoder__DOT__code_vec_0) 
-                  << 7U) | (IData)(vlTOPp->ConvEncoder__DOT__code_vec_1));
         }
     }
-    vlTOPp->ConvEncoder__DOT__raw_data_payload_1 = vlTOPp->raw_data_payload;
-    vlTOPp->coded_data_payload = vlTOPp->ConvEncoder__DOT__coded_data;
+    vlTOPp->ConvEncoder__DOT__raw_data_payload = vlTOPp->raw_data_payload_fragment;
+    vlTOPp->coded_data_payload_fragment = vlTOPp->ConvEncoder__DOT__coded_data;
     vlTOPp->ConvEncoder__DOT___zz_r_enc_0 = ((8U & 
-                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload_1) 
+                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload) 
                                                << 3U)) 
                                              | (IData)(vlTOPp->ConvEncoder__DOT__r_enc_buf));
     vlTOPp->ConvEncoder__DOT___zz_r_enc_1 = ((8U & 
-                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload_1) 
+                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload) 
                                                << 2U)) 
                                              | (7U 
                                                 & ((IData)(vlTOPp->ConvEncoder__DOT___zz_r_enc_0) 
                                                    >> 1U)));
     vlTOPp->ConvEncoder__DOT___zz_r_enc_2 = ((8U & 
-                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload_1) 
+                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload) 
                                                << 1U)) 
                                              | (7U 
                                                 & ((IData)(vlTOPp->ConvEncoder__DOT___zz_r_enc_1) 
                                                    >> 1U)));
-    vlTOPp->ConvEncoder__DOT___zz_r_enc_3 = ((8U & (IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload_1)) 
+    vlTOPp->ConvEncoder__DOT___zz_r_enc_3 = ((8U & (IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload)) 
                                              | (7U 
                                                 & ((IData)(vlTOPp->ConvEncoder__DOT___zz_r_enc_2) 
                                                    >> 1U)));
     vlTOPp->ConvEncoder__DOT___zz_r_enc_4 = ((8U & 
-                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload_1) 
+                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload) 
                                                >> 1U)) 
                                              | (7U 
                                                 & ((IData)(vlTOPp->ConvEncoder__DOT___zz_r_enc_3) 
                                                    >> 1U)));
     vlTOPp->ConvEncoder__DOT___zz_r_enc_5 = ((8U & 
-                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload_1) 
+                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload) 
                                                >> 2U)) 
                                              | (7U 
                                                 & ((IData)(vlTOPp->ConvEncoder__DOT___zz_r_enc_4) 
                                                    >> 1U)));
     vlTOPp->ConvEncoder__DOT___zz_r_enc_6 = ((8U & 
-                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload_1) 
+                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload) 
                                                >> 3U)) 
                                              | (7U 
                                                 & ((IData)(vlTOPp->ConvEncoder__DOT___zz_r_enc_5) 
@@ -302,42 +324,29 @@ VL_INLINE_OPT void VConvEncoder::_sequent__TOP__1(VConvEncoder__Syms* __restrict
                                                       << 3U)))));
 }
 
-VL_INLINE_OPT void VConvEncoder::_sequent__TOP__2(VConvEncoder__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvEncoder::_sequent__TOP__2\n"); );
-    VConvEncoder* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
-    if (vlTOPp->reset) {
-        vlTOPp->ConvEncoder__DOT__coded_data_valid_1 = 0U;
-    } else {
-        if ((1U & (~ (IData)(vlTOPp->tail_bits_valid)))) {
-            vlTOPp->ConvEncoder__DOT__coded_data_valid_1 
-                = vlTOPp->ConvEncoder__DOT__raw_data_valid_1;
-        }
-    }
-    vlTOPp->coded_data_valid = vlTOPp->ConvEncoder__DOT__coded_data_valid_1;
-}
-
 VL_INLINE_OPT void VConvEncoder::_sequent__TOP__4(VConvEncoder__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VConvEncoder::_sequent__TOP__4\n"); );
     VConvEncoder* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->ConvEncoder__DOT__raw_data_valid_1 = vlTOPp->raw_data_valid;
+    vlTOPp->ConvEncoder__DOT__raw_data_valid_1 = ((~ (IData)(vlTOPp->reset)) 
+                                                  & (IData)(vlTOPp->raw_data_valid));
 }
 
 void VConvEncoder::_eval(VConvEncoder__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VConvEncoder::_eval\n"); );
     VConvEncoder* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    if (((IData)(vlTOPp->clk) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk)))) {
+    if ((((IData)(vlTOPp->clk) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk))) 
+         | ((IData)(vlTOPp->reset) & (~ (IData)(vlTOPp->__Vclklast__TOP__reset))))) {
         vlTOPp->_sequent__TOP__1(vlSymsp);
         vlTOPp->__Vm_traceActivity = (2U | vlTOPp->__Vm_traceActivity);
     }
-    if ((((IData)(vlTOPp->clk) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk))) 
-         | ((IData)(vlTOPp->reset) & (~ (IData)(vlTOPp->__Vclklast__TOP__reset))))) {
+    if (((IData)(vlTOPp->clk) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk)))) {
         vlTOPp->_sequent__TOP__2(vlSymsp);
         vlTOPp->__Vm_traceActivity = (4U | vlTOPp->__Vm_traceActivity);
     }
-    if (((IData)(vlTOPp->clk) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk)))) {
+    if ((((IData)(vlTOPp->clk) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk))) 
+         | ((IData)(vlTOPp->reset) & (~ (IData)(vlTOPp->__Vclklast__TOP__reset))))) {
         vlTOPp->_sequent__TOP__4(vlSymsp);
         vlTOPp->__Vm_traceActivity = (8U | vlTOPp->__Vm_traceActivity);
     }
@@ -372,8 +381,10 @@ void VConvEncoder::_eval_debug_assertions() {
         Verilated::overWidthError("tail_bits_payload");}
     if (VL_UNLIKELY((raw_data_valid & 0xfeU))) {
         Verilated::overWidthError("raw_data_valid");}
-    if (VL_UNLIKELY((raw_data_payload & 0x80U))) {
-        Verilated::overWidthError("raw_data_payload");}
+    if (VL_UNLIKELY((raw_data_payload_last & 0xfeU))) {
+        Verilated::overWidthError("raw_data_payload_last");}
+    if (VL_UNLIKELY((raw_data_payload_fragment & 0x80U))) {
+        Verilated::overWidthError("raw_data_payload_fragment");}
     if (VL_UNLIKELY((clk & 0xfeU))) {
         Verilated::overWidthError("clk");}
     if (VL_UNLIKELY((reset & 0xfeU))) {

@@ -26,7 +26,7 @@ void VConvEncoder::traceChgThis(VConvEncoder__Syms* __restrict vlSymsp, Verilate
     {
         if (VL_UNLIKELY((1U & (vlTOPp->__Vm_traceActivity 
                                | (vlTOPp->__Vm_traceActivity 
-                                  >> 1U))))) {
+                                  >> 2U))))) {
             vlTOPp->traceChgThis__2(vlSymsp, vcdp, code);
         }
         if (VL_UNLIKELY((2U & vlTOPp->__Vm_traceActivity))) {
@@ -75,9 +75,8 @@ void VConvEncoder::traceChgThis__3(VConvEncoder__Syms* __restrict vlSymsp, Veril
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBus(c+73,(vlTOPp->ConvEncoder__DOT__raw_data_payload_1),7);
-        vcdp->chgBus(c+81,(vlTOPp->ConvEncoder__DOT__coded_data),14);
-        vcdp->chgBus(c+89,(vlTOPp->ConvEncoder__DOT__r_enc_buf),3);
+        vcdp->chgBit(c+73,(vlTOPp->ConvEncoder__DOT__coded_data_valid_1));
+        vcdp->chgBit(c+81,(vlTOPp->ConvEncoder__DOT__raw_data_payload_last_regNext));
     }
 }
 
@@ -87,7 +86,9 @@ void VConvEncoder::traceChgThis__4(VConvEncoder__Syms* __restrict vlSymsp, Veril
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBit(c+97,(vlTOPp->ConvEncoder__DOT__coded_data_valid_1));
+        vcdp->chgBus(c+89,(vlTOPp->ConvEncoder__DOT__raw_data_payload),7);
+        vcdp->chgBus(c+97,(vlTOPp->ConvEncoder__DOT__coded_data),14);
+        vcdp->chgBus(c+105,(vlTOPp->ConvEncoder__DOT__r_enc_buf),3);
     }
 }
 
@@ -97,7 +98,7 @@ void VConvEncoder::traceChgThis__5(VConvEncoder__Syms* __restrict vlSymsp, Veril
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBit(c+105,(vlTOPp->ConvEncoder__DOT__raw_data_valid_1));
+        vcdp->chgBit(c+113,(vlTOPp->ConvEncoder__DOT__raw_data_valid_1));
     }
 }
 
@@ -107,13 +108,15 @@ void VConvEncoder::traceChgThis__6(VConvEncoder__Syms* __restrict vlSymsp, Veril
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBit(c+113,(vlTOPp->tail_bits_valid));
-        vcdp->chgBus(c+121,(vlTOPp->tail_bits_payload),3);
-        vcdp->chgBit(c+129,(vlTOPp->raw_data_valid));
-        vcdp->chgBus(c+137,(vlTOPp->raw_data_payload),7);
-        vcdp->chgBit(c+145,(vlTOPp->coded_data_valid));
-        vcdp->chgBus(c+153,(vlTOPp->coded_data_payload),14);
-        vcdp->chgBit(c+161,(vlTOPp->clk));
-        vcdp->chgBit(c+169,(vlTOPp->reset));
+        vcdp->chgBit(c+121,(vlTOPp->tail_bits_valid));
+        vcdp->chgBus(c+129,(vlTOPp->tail_bits_payload),3);
+        vcdp->chgBit(c+137,(vlTOPp->raw_data_valid));
+        vcdp->chgBit(c+145,(vlTOPp->raw_data_payload_last));
+        vcdp->chgBus(c+153,(vlTOPp->raw_data_payload_fragment),7);
+        vcdp->chgBit(c+161,(vlTOPp->coded_data_valid));
+        vcdp->chgBit(c+169,(vlTOPp->coded_data_payload_last));
+        vcdp->chgBus(c+177,(vlTOPp->coded_data_payload_fragment),14);
+        vcdp->chgBit(c+185,(vlTOPp->clk));
+        vcdp->chgBit(c+193,(vlTOPp->reset));
     }
 }

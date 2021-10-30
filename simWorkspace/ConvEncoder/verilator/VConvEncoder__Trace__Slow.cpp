@@ -60,27 +60,31 @@ void VConvEncoder::traceInitThis__1(VConvEncoder__Syms* __restrict vlSymsp, Veri
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->declBit(c+113,"tail_bits_valid", false,-1);
-        vcdp->declBus(c+121,"tail_bits_payload", false,-1, 2,0);
-        vcdp->declBit(c+129,"raw_data_valid", false,-1);
-        vcdp->declBus(c+137,"raw_data_payload", false,-1, 6,0);
-        vcdp->declBit(c+145,"coded_data_valid", false,-1);
-        vcdp->declBus(c+153,"coded_data_payload", false,-1, 13,0);
-        vcdp->declBit(c+161,"clk", false,-1);
-        vcdp->declBit(c+169,"reset", false,-1);
-        vcdp->declBit(c+113,"ConvEncoder tail_bits_valid", false,-1);
-        vcdp->declBus(c+121,"ConvEncoder tail_bits_payload", false,-1, 2,0);
-        vcdp->declBit(c+129,"ConvEncoder raw_data_valid", false,-1);
-        vcdp->declBus(c+137,"ConvEncoder raw_data_payload", false,-1, 6,0);
-        vcdp->declBit(c+145,"ConvEncoder coded_data_valid", false,-1);
-        vcdp->declBus(c+153,"ConvEncoder coded_data_payload", false,-1, 13,0);
-        vcdp->declBit(c+161,"ConvEncoder clk", false,-1);
-        vcdp->declBit(c+169,"ConvEncoder reset", false,-1);
-        vcdp->declBus(c+73,"ConvEncoder raw_data_payload_1", false,-1, 6,0);
-        vcdp->declBit(c+105,"ConvEncoder raw_data_valid_1", false,-1);
-        vcdp->declBus(c+81,"ConvEncoder coded_data", false,-1, 13,0);
-        vcdp->declBit(c+97,"ConvEncoder coded_data_valid_1", false,-1);
-        vcdp->declBus(c+89,"ConvEncoder r_enc_buf", false,-1, 2,0);
+        vcdp->declBit(c+121,"tail_bits_valid", false,-1);
+        vcdp->declBus(c+129,"tail_bits_payload", false,-1, 2,0);
+        vcdp->declBit(c+137,"raw_data_valid", false,-1);
+        vcdp->declBit(c+145,"raw_data_payload_last", false,-1);
+        vcdp->declBus(c+153,"raw_data_payload_fragment", false,-1, 6,0);
+        vcdp->declBit(c+161,"coded_data_valid", false,-1);
+        vcdp->declBit(c+169,"coded_data_payload_last", false,-1);
+        vcdp->declBus(c+177,"coded_data_payload_fragment", false,-1, 13,0);
+        vcdp->declBit(c+185,"clk", false,-1);
+        vcdp->declBit(c+193,"reset", false,-1);
+        vcdp->declBit(c+121,"ConvEncoder tail_bits_valid", false,-1);
+        vcdp->declBus(c+129,"ConvEncoder tail_bits_payload", false,-1, 2,0);
+        vcdp->declBit(c+137,"ConvEncoder raw_data_valid", false,-1);
+        vcdp->declBit(c+145,"ConvEncoder raw_data_payload_last", false,-1);
+        vcdp->declBus(c+153,"ConvEncoder raw_data_payload_fragment", false,-1, 6,0);
+        vcdp->declBit(c+161,"ConvEncoder coded_data_valid", false,-1);
+        vcdp->declBit(c+169,"ConvEncoder coded_data_payload_last", false,-1);
+        vcdp->declBus(c+177,"ConvEncoder coded_data_payload_fragment", false,-1, 13,0);
+        vcdp->declBit(c+185,"ConvEncoder clk", false,-1);
+        vcdp->declBit(c+193,"ConvEncoder reset", false,-1);
+        vcdp->declBus(c+89,"ConvEncoder raw_data_payload", false,-1, 6,0);
+        vcdp->declBit(c+113,"ConvEncoder raw_data_valid_1", false,-1);
+        vcdp->declBus(c+97,"ConvEncoder coded_data", false,-1, 13,0);
+        vcdp->declBit(c+73,"ConvEncoder coded_data_valid_1", false,-1);
+        vcdp->declBus(c+105,"ConvEncoder r_enc_buf", false,-1, 2,0);
         vcdp->declBus(c+1,"ConvEncoder r_enc_0", false,-1, 2,0);
         vcdp->declBus(c+9,"ConvEncoder r_enc_1", false,-1, 2,0);
         vcdp->declBus(c+17,"ConvEncoder r_enc_2", false,-1, 2,0);
@@ -90,6 +94,7 @@ void VConvEncoder::traceInitThis__1(VConvEncoder__Syms* __restrict vlSymsp, Veri
         vcdp->declBus(c+49,"ConvEncoder r_enc_6", false,-1, 2,0);
         vcdp->declBus(c+57,"ConvEncoder code_vec_0", false,-1, 6,0);
         vcdp->declBus(c+65,"ConvEncoder code_vec_1", false,-1, 6,0);
+        vcdp->declBit(c+81,"ConvEncoder raw_data_payload_last_regNext", false,-1);
     }
 }
 
@@ -115,18 +120,21 @@ void VConvEncoder::traceFullThis__1(VConvEncoder__Syms* __restrict vlSymsp, Veri
                                    >> 1U))),3);
         vcdp->fullBus(c+57,(vlTOPp->ConvEncoder__DOT__code_vec_0),7);
         vcdp->fullBus(c+65,(vlTOPp->ConvEncoder__DOT__code_vec_1),7);
-        vcdp->fullBus(c+73,(vlTOPp->ConvEncoder__DOT__raw_data_payload_1),7);
-        vcdp->fullBus(c+81,(vlTOPp->ConvEncoder__DOT__coded_data),14);
-        vcdp->fullBus(c+89,(vlTOPp->ConvEncoder__DOT__r_enc_buf),3);
-        vcdp->fullBit(c+97,(vlTOPp->ConvEncoder__DOT__coded_data_valid_1));
-        vcdp->fullBit(c+105,(vlTOPp->ConvEncoder__DOT__raw_data_valid_1));
-        vcdp->fullBit(c+113,(vlTOPp->tail_bits_valid));
-        vcdp->fullBus(c+121,(vlTOPp->tail_bits_payload),3);
-        vcdp->fullBit(c+129,(vlTOPp->raw_data_valid));
-        vcdp->fullBus(c+137,(vlTOPp->raw_data_payload),7);
-        vcdp->fullBit(c+145,(vlTOPp->coded_data_valid));
-        vcdp->fullBus(c+153,(vlTOPp->coded_data_payload),14);
-        vcdp->fullBit(c+161,(vlTOPp->clk));
-        vcdp->fullBit(c+169,(vlTOPp->reset));
+        vcdp->fullBit(c+73,(vlTOPp->ConvEncoder__DOT__coded_data_valid_1));
+        vcdp->fullBit(c+81,(vlTOPp->ConvEncoder__DOT__raw_data_payload_last_regNext));
+        vcdp->fullBus(c+89,(vlTOPp->ConvEncoder__DOT__raw_data_payload),7);
+        vcdp->fullBus(c+97,(vlTOPp->ConvEncoder__DOT__coded_data),14);
+        vcdp->fullBus(c+105,(vlTOPp->ConvEncoder__DOT__r_enc_buf),3);
+        vcdp->fullBit(c+113,(vlTOPp->ConvEncoder__DOT__raw_data_valid_1));
+        vcdp->fullBit(c+121,(vlTOPp->tail_bits_valid));
+        vcdp->fullBus(c+129,(vlTOPp->tail_bits_payload),3);
+        vcdp->fullBit(c+137,(vlTOPp->raw_data_valid));
+        vcdp->fullBit(c+145,(vlTOPp->raw_data_payload_last));
+        vcdp->fullBus(c+153,(vlTOPp->raw_data_payload_fragment),7);
+        vcdp->fullBit(c+161,(vlTOPp->coded_data_valid));
+        vcdp->fullBit(c+169,(vlTOPp->coded_data_payload_last));
+        vcdp->fullBus(c+177,(vlTOPp->coded_data_payload_fragment),14);
+        vcdp->fullBit(c+185,(vlTOPp->clk));
+        vcdp->fullBit(c+193,(vlTOPp->reset));
     }
 }

@@ -26,7 +26,7 @@ case class PathMetric(config: ViterbiDecoderConfig) extends Component {
     val raw_data_ready = Reg(Bool()) init(False)
     when(io.tbu_finished){
         raw_data_ready := True
-    }.elsewhen(io.raw_data.last){
+    }.elsewhen(io.raw_data.last && io.raw_data.valid){
         raw_data_ready := False
     }
     for (idx <- 0 until config.trellisSize by 2){

@@ -29,42 +29,43 @@ void VConvEncoder::_settle__TOP__3(VConvEncoder__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VConvEncoder::_settle__TOP__3\n"); );
     VConvEncoder* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->coded_data_payload = vlTOPp->ConvEncoder__DOT__coded_data;
+    vlTOPp->coded_data_payload_fragment = vlTOPp->ConvEncoder__DOT__coded_data;
     vlTOPp->coded_data_valid = vlTOPp->ConvEncoder__DOT__coded_data_valid_1;
+    vlTOPp->coded_data_payload_last = vlTOPp->ConvEncoder__DOT__raw_data_payload_last_regNext;
     vlTOPp->ConvEncoder__DOT___zz_r_enc_0 = ((8U & 
-                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload_1) 
+                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload) 
                                                << 3U)) 
                                              | (IData)(vlTOPp->ConvEncoder__DOT__r_enc_buf));
     vlTOPp->ConvEncoder__DOT___zz_r_enc_1 = ((8U & 
-                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload_1) 
+                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload) 
                                                << 2U)) 
                                              | (7U 
                                                 & ((IData)(vlTOPp->ConvEncoder__DOT___zz_r_enc_0) 
                                                    >> 1U)));
     vlTOPp->ConvEncoder__DOT___zz_r_enc_2 = ((8U & 
-                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload_1) 
+                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload) 
                                                << 1U)) 
                                              | (7U 
                                                 & ((IData)(vlTOPp->ConvEncoder__DOT___zz_r_enc_1) 
                                                    >> 1U)));
-    vlTOPp->ConvEncoder__DOT___zz_r_enc_3 = ((8U & (IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload_1)) 
+    vlTOPp->ConvEncoder__DOT___zz_r_enc_3 = ((8U & (IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload)) 
                                              | (7U 
                                                 & ((IData)(vlTOPp->ConvEncoder__DOT___zz_r_enc_2) 
                                                    >> 1U)));
     vlTOPp->ConvEncoder__DOT___zz_r_enc_4 = ((8U & 
-                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload_1) 
+                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload) 
                                                >> 1U)) 
                                              | (7U 
                                                 & ((IData)(vlTOPp->ConvEncoder__DOT___zz_r_enc_3) 
                                                    >> 1U)));
     vlTOPp->ConvEncoder__DOT___zz_r_enc_5 = ((8U & 
-                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload_1) 
+                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload) 
                                                >> 2U)) 
                                              | (7U 
                                                 & ((IData)(vlTOPp->ConvEncoder__DOT___zz_r_enc_4) 
                                                    >> 1U)));
     vlTOPp->ConvEncoder__DOT___zz_r_enc_6 = ((8U & 
-                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload_1) 
+                                              ((IData)(vlTOPp->ConvEncoder__DOT__raw_data_payload) 
                                                >> 3U)) 
                                              | (7U 
                                                 & ((IData)(vlTOPp->ConvEncoder__DOT___zz_r_enc_5) 
@@ -278,9 +279,11 @@ void VConvEncoder::_ctor_var_reset() {
     tail_bits_valid = VL_RAND_RESET_I(1);
     tail_bits_payload = VL_RAND_RESET_I(3);
     raw_data_valid = VL_RAND_RESET_I(1);
-    raw_data_payload = VL_RAND_RESET_I(7);
+    raw_data_payload_last = VL_RAND_RESET_I(1);
+    raw_data_payload_fragment = VL_RAND_RESET_I(7);
     coded_data_valid = VL_RAND_RESET_I(1);
-    coded_data_payload = VL_RAND_RESET_I(14);
+    coded_data_payload_last = VL_RAND_RESET_I(1);
+    coded_data_payload_fragment = VL_RAND_RESET_I(14);
     clk = VL_RAND_RESET_I(1);
     reset = VL_RAND_RESET_I(1);
     ConvEncoder__DOT___zz_r_enc_0 = VL_RAND_RESET_I(4);
@@ -290,12 +293,13 @@ void VConvEncoder::_ctor_var_reset() {
     ConvEncoder__DOT___zz_r_enc_4 = VL_RAND_RESET_I(4);
     ConvEncoder__DOT___zz_r_enc_5 = VL_RAND_RESET_I(4);
     ConvEncoder__DOT___zz_r_enc_6 = VL_RAND_RESET_I(4);
-    ConvEncoder__DOT__raw_data_payload_1 = VL_RAND_RESET_I(7);
+    ConvEncoder__DOT__raw_data_payload = VL_RAND_RESET_I(7);
     ConvEncoder__DOT__raw_data_valid_1 = VL_RAND_RESET_I(1);
     ConvEncoder__DOT__coded_data = VL_RAND_RESET_I(14);
     ConvEncoder__DOT__coded_data_valid_1 = VL_RAND_RESET_I(1);
     ConvEncoder__DOT__r_enc_buf = VL_RAND_RESET_I(3);
     ConvEncoder__DOT__code_vec_0 = VL_RAND_RESET_I(7);
     ConvEncoder__DOT__code_vec_1 = VL_RAND_RESET_I(7);
+    ConvEncoder__DOT__raw_data_payload_last_regNext = VL_RAND_RESET_I(1);
     __Vm_traceActivity = 0;
 }
