@@ -4,6 +4,7 @@ import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
 import spinal.lib.fsm._
+import utils.common.ClkCrossing.ClkCrossing
 
 /******************************************************************************
  * ---------------------------------------------------------------------------------------------------------------------------
@@ -11,7 +12,7 @@ import spinal.lib.fsm._
  * ---------------------------------------------------------------------------------------------------------------------------
  * |                   |         ----                                 |         ----                                         |
  * |      Circular     |  x --> |    | --> K(x.cos(z) - y.sin(z))     |  x --> |    | --> K(x^2 + y^2)^{1/2}                 |
- * |       u = 1       |  y --> |    | --> K(y.cos(z) - x.sin(z))     |  y --> |    | --> 0                                  |
+ * |       u = 1       |  y --> |    | --> K(y.cos(z) + x.sin(z))     |  y --> |    | --> 0                                  |
  * |e^{i}=atan(2^{-i}) |  z --> |    | --> 0                          |  z --> |    | --> z + atan(y / x)                    |
  * |                   |         ----                                 |         ----                                         |
  * |                   |    For cos(z) & sin(z), set x = 1/K, y = 0   |    For atan(y), set x = 1, z = 0                     |
@@ -58,12 +59,12 @@ case class CordicIO(config: CordicConfig) extends Bundle with IMasterSlave {
 case class CordicRotator(config: CordicConfig) extends Component {
 	val io = new Bundle{
 		val iter_limit = if(config.usePipeline) null else in(config.iterCntType)
-		val rot_mode = in(Bool())
+		val rotate_mode = in(Bool())
 		val x_u = in(UInt(2 bits))
 
-		val w_en = in(Bool())
-		val w_addr = in(UInt(config.addressWidth bits))
-		val w_data = in(config.dataType)
+		val w_en = if(config.useProgrammable) in(Bool()) else null
+		val w_addr = if(config.useProgrammable) in(UInt(config.addressWidth bits)) else null
+		val w_data = if(config.useProgrammable) in(config.dataType) else null
 
 		val raw_data = slave(Stream(CordicIO(config)))
 		val result = master(Stream(CordicIO(config)))
@@ -76,9 +77,16 @@ case class CordicRotator(config: CordicConfig) extends Component {
 		val valid_bypass = Vec(Reg(Bool()) init(False), config.iterations)
 
 		val rot_mem = Vec(Reg(config.dataType), config.iterations)
-		when(io.w_en){
-			rot_mem(io.w_addr.resized) := io.w_data
+		if(config.useProgrammable){
+			when(io.w_en){
+				rot_mem(io.w_addr.resized) := io.w_data
+			}
+		}else{
+			for(idx <- 0 until config.iterations){
+				rot_mem(idx) := config.cordicRamGen()(idx)
+			}
 		}
+
 		when(io.raw_data.fire){
 			x_n(0) := io.raw_data.x
 			y_n(0) := io.raw_data.y
@@ -89,7 +97,7 @@ case class CordicRotator(config: CordicConfig) extends Component {
 		}
 
 		for (idx <- 1 until config.iterations){
-			val d_n = io.rot_mode ? (z_n(idx - 1) >= 0) | (y_n(idx - 1) < 0)
+			val d_n = io.rotate_mode ? (z_n(idx - 1) >= 0) | (y_n(idx - 1) < 0)
 			val sx = config.dataType
 			sx.raw := (x_n(idx - 1).raw |>> (idx - 1))
 			val sy = config.dataType
@@ -137,10 +145,14 @@ case class CordicRotator(config: CordicConfig) extends Component {
 		sy.raw := (y_n.raw |>> iterCnt_Next)
 
 		val rot_mem = Mem(config.dataType, initialContent  = config.cordicRamGen()).addAttribute("ram_style", "block")
-		rot_mem.write(address = io.w_addr.resized, data = io.w_data, enable = io.w_en)
+
+		if(config.useProgrammable){
+			rot_mem.write(address = io.w_addr.resized, data = io.w_data, enable = io.w_en)
+		}
+
 		val at = rot_mem.readSync(address = iterCnt.resized)
 
-		val d_n = io.rot_mode ? (z_n >= 0) | (y_n < 0)
+		val d_n = io.rotate_mode ? (z_n >= 0) | (y_n < 0)
 		//	val d_n = io.rot_mode ? (z_n >= 0) | ((y_n < 0) ^ (x_n < 0))
 		val busy = iterCnt =/= 0
 		val raw_data_ready = Reg(Bool()) init(True)
@@ -207,6 +219,43 @@ case class CordicRotator(config: CordicConfig) extends Component {
 		io.result.valid := result_valid
 	}
 
+	// Bus interface function module
+	def driveFrom(busCtrl: BusSlaveFactory, baseAddress: BigInt, coreClockDomain: ClockDomain, rfClockDomain: ClockDomain): Area = new Area {
+
+		val iter_limit = if(config.usePipeline) null else cloneOf(io.iter_limit)
+		val rotate_mode = cloneOf(io.rotate_mode)
+		val x_u = cloneOf(io.x_u)
+
+		val w_en = if(config.useProgrammable) cloneOf(io.w_en) else null
+		val w_addr = if(config.useProgrammable) cloneOf(io.w_addr) else null
+		val w_data = if(config.useProgrammable) cloneOf(io.w_data) else null
+
+		busCtrl.driveAndRead(rotate_mode, address = baseAddress + 0x00, bitOffset = 0,
+			documentation = "Cordic Module Rotate Mode Enable. (1 bits)") init(True)
+		busCtrl.driveAndRead(x_u, address = baseAddress + 0x00, bitOffset = 1,
+			documentation = "Cordic Module Rotations Methods Select( 0-Circular / 1-Linear / 2-Hyperbolic).(2 bits)") init(0)
+
+		if(!config.usePipeline){
+			busCtrl.driveAndRead(iter_limit, address = baseAddress + 0x00, bitOffset = 8,
+				documentation = s"Cordic Module Maximum Number of Iterations(Only Used in Iterative Mode). (${config.iterWidth} bits)") init(config.iterations)
+			io.iter_limit := ClkCrossing(coreClockDomain, rfClockDomain, iter_limit)
+		}
+		if(config.useProgrammable){
+			busCtrl.drive(w_en, address = baseAddress + 0x00, bitOffset = 3,
+				documentation = "Cordic Module Ram Write Enable. (1 bits)") init(False)
+			busCtrl.drive(w_addr, address = baseAddress + 0x04, bitOffset = 0,
+				documentation = s"Cordic Module Ram Address Value Set. (${config.addressWidth} bits)") init(0)
+			busCtrl.drive(w_data, address = baseAddress + 0x08, bitOffset = 0,
+				documentation = s"Cordic Module Ram Data Value Set. (${config.dataType.getBitsWidth} bits)") init(0)
+			io.w_en := ClkCrossing(coreClockDomain, rfClockDomain, w_en)
+			io.w_addr := ClkCrossing(coreClockDomain, rfClockDomain, w_addr)
+			io.w_data := ClkCrossing(coreClockDomain, rfClockDomain, w_data)
+		}
+
+		io.rotate_mode := ClkCrossing(coreClockDomain, rfClockDomain, rotate_mode)
+		io.x_u := ClkCrossing(coreClockDomain, rfClockDomain, x_u)
+	}
+
 }
 
 
@@ -214,6 +263,6 @@ object CordicRotatorBench {
 	def main(args: Array[String]): Unit = {
 		val cordic_config = CordicConfig(16 exp, -15 exp, 16, false)
 		SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
-			targetDirectory = "rtl").generateSystemVerilog(new CordicRotator(cordic_config)).printPruned()
+			targetDirectory = "rtl/CordicRotator").generateSystemVerilog(new CordicRotator(cordic_config)).printPruned()
 	}
 }

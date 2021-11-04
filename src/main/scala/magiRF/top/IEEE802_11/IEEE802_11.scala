@@ -27,7 +27,7 @@ object IEEE802_11 {
 	) map { x =>  x * Math.sqrt(13.0 / 6.0) }
 	val stf64 = ifft(stfFreq)
 
-	val stf = (stf64 ++ stf64 ++ stf64).slice(0, 160)
+	val stf: Array[Complex] = (stf64 ++ stf64 ++ stf64).slice(0, 160)
 
 	val ltfFreq: Array[Complex] = Array[Complex](
 		zero,

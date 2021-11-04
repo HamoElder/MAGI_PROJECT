@@ -172,7 +172,7 @@ public:
       lastFlushAt = high_resolution_clock::now();
       waveEnabled = true;
       signalAccess[0] = new CDataSignalAccess( top.iter_limit );
-      signalAccess[1] = new CDataSignalAccess( top.rot_mode );
+      signalAccess[1] = new CDataSignalAccess( top.rotate_mode );
       signalAccess[2] = new CDataSignalAccess( top.x_u );
       signalAccess[3] = new CDataSignalAccess( top.w_en );
       signalAccess[4] = new CDataSignalAccess( top.w_addr );

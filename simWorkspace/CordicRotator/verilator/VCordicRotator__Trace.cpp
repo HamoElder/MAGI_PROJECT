@@ -53,7 +53,7 @@ void VCordicRotator::traceChgThis__3(VCordicRotator__Syms* __restrict vlSymsp, V
     // Body
     {
         vcdp->chgBus(c+17,(vlTOPp->iter_limit),5);
-        vcdp->chgBit(c+25,(vlTOPp->rot_mode));
+        vcdp->chgBit(c+25,(vlTOPp->rotate_mode));
         vcdp->chgBus(c+33,(vlTOPp->x_u),2);
         vcdp->chgBit(c+41,(vlTOPp->w_en));
         vcdp->chgBus(c+49,(vlTOPp->w_addr),8);

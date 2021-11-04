@@ -36,10 +36,12 @@ case class ConvCombTest(encoder_config: ConvEncoderConfig, decoder_config: Viter
 }
 
 object ConvCombTestSimApp extends App{
-    val viterbi_decoder = ViterbiDecoderConfig(3, 16, 1, List(7, 5), false)
-    val conv_coder_config = ConvEncoderConfig(1, 3, List(7, 5))
+//    val viterbi_decoder = ViterbiDecoderConfig(3, 16, 1, List(7, 5), false)
+//    val conv_coder_config = ConvEncoderConfig(1, 3, List(7, 5))
 //    val viterbi_decoder = ViterbiDecoderConfig(7, 84, 1, List(91, 121))
 //    val conv_coder_config = ConvEncoderConfig(1, 7, List(91, 121))
+    val viterbi_decoder = ViterbiDecoderConfig(7, 84, 1, List(91, 121, 117))
+    val conv_coder_config = ConvEncoderConfig(1, 7, List(91, 121, 117))
     SimConfig.withWave.allOptimisation.doSim(new ConvCombTest(conv_coder_config, viterbi_decoder, 1024)) { dut =>
 
         dut.clockDomain.forkStimulus(5)
@@ -68,7 +70,7 @@ object ConvCombTestSimApp extends App{
         dut.clockDomain.waitSampling(1)
         dut.io.raw_data.payload.fragment #= 0
         dut.clockDomain.waitSampling(1)
-        for(idx <- 0 until 150){
+        for(idx <- 0 until 1500){
 //            dut.io.raw_data.fragment.randomize() // 85
             dut.io.raw_data.fragment #= idx % 2
             dut.clockDomain.waitSampling(1)
@@ -78,6 +80,6 @@ object ConvCombTestSimApp extends App{
         dut.clockDomain.waitSampling(1)
         dut.io.raw_data.last #= false
         dut.io.raw_data.valid #= false
-        dut.clockDomain.waitSampling(1000)
+        dut.clockDomain.waitSampling(3000)
     }
 }

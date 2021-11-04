@@ -243,7 +243,7 @@ VL_INLINE_OPT void VCordicRotator::_combo__TOP__5(VCordicRotator__Syms* __restri
     VCordicRotator* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->CordicRotator__DOT___zz_result_payload_x_9 
-        = ((IData)(vlTOPp->rot_mode) ? VL_LTES_III(1,32,32, 0U, vlTOPp->CordicRotator__DOT___zz_result_payload_x_3)
+        = ((IData)(vlTOPp->rotate_mode) ? VL_LTES_III(1,32,32, 0U, vlTOPp->CordicRotator__DOT___zz_result_payload_x_3)
             : VL_GTS_III(1,32,32, 0U, vlTOPp->CordicRotator__DOT___zz_result_payload_x_2));
     vlTOPp->raw_data_ready = ((IData)(vlTOPp->CordicRotator__DOT___zz_raw_data_ready) 
                               & (IData)(vlTOPp->result_ready));
@@ -304,8 +304,8 @@ void VCordicRotator::_eval_debug_assertions() {
     // Body
     if (VL_UNLIKELY((iter_limit & 0xe0U))) {
         Verilated::overWidthError("iter_limit");}
-    if (VL_UNLIKELY((rot_mode & 0xfeU))) {
-        Verilated::overWidthError("rot_mode");}
+    if (VL_UNLIKELY((rotate_mode & 0xfeU))) {
+        Verilated::overWidthError("rotate_mode");}
     if (VL_UNLIKELY((x_u & 0xfcU))) {
         Verilated::overWidthError("x_u");}
     if (VL_UNLIKELY((w_en & 0xfeU))) {

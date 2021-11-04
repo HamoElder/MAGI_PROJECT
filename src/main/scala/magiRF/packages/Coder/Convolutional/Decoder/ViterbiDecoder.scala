@@ -29,7 +29,7 @@ case class ViterbiDecoderConfig(
     def trellisDataType: Bits = Bits(trellisWidth bits)
     def trellisSize: Int = 2 * statesNum
 
-    def nodeWeightWidth: Int = 16
+    def nodeWeightWidth: Int = 8
     def nodeWeightType: UInt = UInt(nodeWeightWidth bits)
 
     def distWidth: Int = log2Up(rawDataWidth + 1)
@@ -42,7 +42,8 @@ case class ViterbiDecoderConfig(
     def TBMemCntWidth: Int = log2Up(TBMemSize)
     def TBMemCntType: UInt = UInt(TBMemCntWidth bits)
 
-    def lifoDepth: Int = TBMemSize + tracebackWinSize + 16
+//    def lifoDepth: Int = TBMemSize + tracebackWinSize + 16
+    def lifoDepth: Int = 512
     def lifoCntWidth: Int = log2Up(lifoDepth)
     def lifoCntType: UInt = UInt(lifoCntWidth bits)
     def invertDataType: Bits = Bits(2 bits)

@@ -61,7 +61,7 @@ void VCordicRotator::traceInitThis__1(VCordicRotator__Syms* __restrict vlSymsp, 
     // Body
     {
         vcdp->declBus(c+17,"iter_limit", false,-1, 4,0);
-        vcdp->declBit(c+25,"rot_mode", false,-1);
+        vcdp->declBit(c+25,"rotate_mode", false,-1);
         vcdp->declBus(c+33,"x_u", false,-1, 1,0);
         vcdp->declBit(c+41,"w_en", false,-1);
         vcdp->declBus(c+49,"w_addr", false,-1, 7,0);
@@ -79,7 +79,7 @@ void VCordicRotator::traceInitThis__1(VCordicRotator__Syms* __restrict vlSymsp, 
         vcdp->declBit(c+145,"clk", false,-1);
         vcdp->declBit(c+153,"reset", false,-1);
         vcdp->declBus(c+17,"CordicRotator iter_limit", false,-1, 4,0);
-        vcdp->declBit(c+25,"CordicRotator rot_mode", false,-1);
+        vcdp->declBit(c+25,"CordicRotator rotate_mode", false,-1);
         vcdp->declBus(c+33,"CordicRotator x_u", false,-1, 1,0);
         vcdp->declBit(c+41,"CordicRotator w_en", false,-1);
         vcdp->declBus(c+49,"CordicRotator w_addr", false,-1, 7,0);
@@ -111,7 +111,7 @@ void VCordicRotator::traceFullThis__1(VCordicRotator__Syms* __restrict vlSymsp, 
         vcdp->fullBit(c+1,(vlTOPp->CordicRotator__DOT__raw_data_fire));
         vcdp->fullBit(c+9,(vlTOPp->CordicRotator__DOT__result_fire));
         vcdp->fullBus(c+17,(vlTOPp->iter_limit),5);
-        vcdp->fullBit(c+25,(vlTOPp->rot_mode));
+        vcdp->fullBit(c+25,(vlTOPp->rotate_mode));
         vcdp->fullBus(c+33,(vlTOPp->x_u),2);
         vcdp->fullBit(c+41,(vlTOPp->w_en));
         vcdp->fullBus(c+49,(vlTOPp->w_addr),8);

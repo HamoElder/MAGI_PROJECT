@@ -11,6 +11,7 @@ case class PuncturingConfig(
     val codeRate = mask.size
     val maskSize = mask.head.size
 
+//    val
 }
 
 case class Puncturing(config: PuncturingConfig) extends Component {
@@ -20,7 +21,6 @@ case class Puncturing(config: PuncturingConfig) extends Component {
     }
     noIoPrefix()
 
-//    val
 
 
 

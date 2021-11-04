@@ -11,11 +11,15 @@ case class ShiftRegisterE[T <: Data](dataType: T, depth: Int) extends Component{
         val enable = in(Bool())
     }
     noIoPrefix()
-    val shift_reg: Vec[T] = Vec(Reg(dataType), depth)
+    val shift_reg: Vec[T] = Vec(Reg(dataType)  init(dataType.getZero), depth)
     when(io.enable){
         shift_reg(0) := io.input
         for(idx <- 1 until depth){
             shift_reg(idx) := shift_reg(idx - 1)
+        }
+    }.otherwise{
+        for(idx <- 0 until depth){
+            shift_reg(idx) := dataType.getZero
         }
     }
     io.output := shift_reg(depth - 1)
@@ -27,7 +31,7 @@ case class ShiftRegisterNE[T <: Data](dataType: T, depth: Int) extends Component
         val output = out(cloneOf(dataType))
     }
     noIoPrefix()
-    val shift_reg: Vec[T] = Vec(Reg(dataType), depth)
+    val shift_reg: Vec[T] = Vec(Reg(dataType) init(dataType.getZero), depth)
     shift_reg(0) := io.input
     for(idx <- 1 until depth){
         shift_reg(idx) := shift_reg(idx - 1)

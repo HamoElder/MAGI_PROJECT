@@ -15,7 +15,7 @@ object CordicRotatorSimApp extends App{
         .doSim(new CordicRotator(cordic_config)){ dut =>
             dut.clockDomain.forkStimulus(5)
             dut.io.iter_limit #= 15
-            dut.io.rot_mode #= false
+            dut.io.rotate_mode #= false
             dut.io.w_en #= false
             dut.io.x_u #= 1
             dut.io.raw_data.valid #= false

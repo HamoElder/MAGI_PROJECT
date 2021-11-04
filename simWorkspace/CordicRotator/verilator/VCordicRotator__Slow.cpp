@@ -65,7 +65,7 @@ void VCordicRotator::_settle__TOP__4(VCordicRotator__Syms* __restrict vlSymsp) {
         = (vlTOPp->CordicRotator__DOT___zz_result_payload_x_3 
            + vlTOPp->CordicRotator__DOT___zz___05Fzz_1_port1);
     vlTOPp->CordicRotator__DOT___zz_result_payload_x_9 
-        = ((IData)(vlTOPp->rot_mode) ? VL_LTES_III(1,32,32, 0U, vlTOPp->CordicRotator__DOT___zz_result_payload_x_3)
+        = ((IData)(vlTOPp->rotate_mode) ? VL_LTES_III(1,32,32, 0U, vlTOPp->CordicRotator__DOT___zz_result_payload_x_3)
             : VL_GTS_III(1,32,32, 0U, vlTOPp->CordicRotator__DOT___zz_result_payload_x_2));
     vlTOPp->CordicRotator__DOT___zz_result_payload_x_6 
         = VL_SHIFTRS_III(32,32,5, vlTOPp->CordicRotator__DOT___zz_result_payload_x_2, (IData)(vlTOPp->CordicRotator__DOT___zz_result_payload_x_regNext));
@@ -134,7 +134,7 @@ void VCordicRotator::_ctor_var_reset() {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VCordicRotator::_ctor_var_reset\n"); );
     // Body
     iter_limit = VL_RAND_RESET_I(5);
-    rot_mode = VL_RAND_RESET_I(1);
+    rotate_mode = VL_RAND_RESET_I(1);
     x_u = VL_RAND_RESET_I(2);
     w_en = VL_RAND_RESET_I(1);
     w_addr = VL_RAND_RESET_I(8);

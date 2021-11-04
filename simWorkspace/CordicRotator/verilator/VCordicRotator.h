@@ -27,7 +27,7 @@ VL_MODULE(VCordicRotator) {
     VL_IN8(clk,0,0);
     VL_IN8(reset,0,0);
     VL_IN8(iter_limit,4,0);
-    VL_IN8(rot_mode,0,0);
+    VL_IN8(rotate_mode,0,0);
     VL_IN8(x_u,1,0);
     VL_IN8(w_en,0,0);
     VL_IN8(w_addr,7,0);

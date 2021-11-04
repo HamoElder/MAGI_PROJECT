@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : CordicRotator
-// Git hash  : 8ea3836c6991c66e54ff283e1ce84688f7fe9417
+// Git hash  : d56fca2d93dfc76f393b3b10236c69be445a29e8
 
 
 `define StateMachineEnum_binary_sequential_type [1:0]
@@ -12,7 +12,7 @@
 
 module CordicRotator (
   input      [4:0]    iter_limit,
-  input               rot_mode,
+  input               rotate_mode,
   input      [1:0]    x_u,
   input               w_en,
   input      [7:0]    w_addr,
@@ -129,7 +129,7 @@ module CordicRotator (
   assign _zz_result_payload_x_6 = ($signed(_zz_result_payload_x_2) >>> _zz_result_payload_x_regNext);
   assign _zz_result_payload_x_7 = _zz_result_payload_x;
   assign _zz_result_payload_x_8 = _zz__zz_1_port1[31 : 0];
-  assign _zz_result_payload_x_9 = (rot_mode ? ($signed(_zz__zz_result_payload_x_9) <= $signed(_zz_result_payload_x_3)) : ($signed(_zz_result_payload_x_2) < $signed(_zz__zz_result_payload_x_9_1)));
+  assign _zz_result_payload_x_9 = (rotate_mode ? ($signed(_zz__zz_result_payload_x_9) <= $signed(_zz_result_payload_x_3)) : ($signed(_zz_result_payload_x_2) < $signed(_zz__zz_result_payload_x_9_1)));
   always @(*) begin
     _zz_2 = 1'b0;
     case(_zz_3)
