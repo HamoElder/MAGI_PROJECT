@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : CordicRotator
-// Git hash  : d56fca2d93dfc76f393b3b10236c69be445a29e8
+// Git hash  : ebd159d8d2177a8eaf5a34f4cda125d1a3950e99
 
 
 `define StateMachineEnum_binary_sequential_type [1:0]
@@ -61,7 +61,7 @@ module CordicRotator (
   reg        `StateMachineEnum_binary_sequential_type _zz_3;
   reg        `StateMachineEnum_binary_sequential_type _zz_4;
   wire                raw_data_fire;
-  wire                when_CordicRotator_l190;
+  wire                when_CordicRotator_l212;
   wire                result_fire;
   `ifndef SYNTHESIS
   reg [15:0] _zz_3_string;
@@ -146,7 +146,7 @@ module CordicRotator (
         end
       end
       `StateMachineEnum_binary_sequential_e2 : begin
-        if(when_CordicRotator_l190) begin
+        if(when_CordicRotator_l212) begin
           _zz_4 = `StateMachineEnum_binary_sequential_e3;
         end
       end
@@ -167,7 +167,7 @@ module CordicRotator (
   end
 
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign when_CordicRotator_l190 = (iter_limit <= _zz_result_payload_x);
+  assign when_CordicRotator_l212 = (iter_limit <= _zz_result_payload_x);
   assign result_fire = (result_valid && result_ready);
   always @(posedge clk) begin
     if(!resetn) begin

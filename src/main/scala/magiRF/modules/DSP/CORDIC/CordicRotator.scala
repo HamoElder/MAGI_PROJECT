@@ -5,6 +5,7 @@ import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
 import spinal.lib.fsm._
 import utils.common.ClkCrossing.ClkCrossing
+import scala.math.sqrt
 
 /******************************************************************************
  * ---------------------------------------------------------------------------------------------------------------------------
@@ -42,6 +43,26 @@ import utils.common.ClkCrossing.ClkCrossing
  *       n = number of iterations
  *
  */
+
+
+case class CordicConfig(
+						   dataTypePeak          : ExpNumber = 8 exp,
+						   dataTypeResolution    : ExpNumber = -2 exp,
+						   iterations            : Int,
+						   cordicDoubleRamGen    : (Int) => Seq[Double] = null,
+						   usePipeline           : Boolean = false,
+						   useProgrammable       : Boolean = false
+					   ) {
+	def addressWidth = 8
+	def dataType: SFix = SFix(dataTypePeak, dataTypeResolution)
+	def iterWidth: Int = log2Up(iterations) + 1
+	def iterCntType: UInt = UInt(iterWidth bits)
+	def cordicRamGen(): Seq[SFix] = for(idx <- 0 until iterations) yield {
+		val ram = SFix(dataTypePeak, dataTypeResolution)
+		ram := cordicDoubleRamGen(iterations)(idx)
+		ram
+	}
+}
 
 case class CordicIO(config: CordicConfig) extends Bundle with IMasterSlave {
 	val x = config.dataType
@@ -261,7 +282,19 @@ case class CordicRotator(config: CordicConfig) extends Component {
 
 object CordicRotatorBench {
 	def main(args: Array[String]): Unit = {
-		val cordic_config = CordicConfig(16 exp, -15 exp, 16, false)
+		/**
+		 * Get sequences of length n that go 1.0, 0.5, 0.25, ...
+		 */
+		def linearRam(n: Int):Seq[Double] = for (i <- 0 until n) yield Math.pow(2.0, -i)
+		/**
+		 * Get gain for n-stage CORDIC
+		 */
+//		def gain(n: Int) = linear(n).map(x => sqrt(1 + x * x)).reduce(_ * _)
+		/**
+		 * Get sequences of length n that go atan(1), atan(0.5), atan(0.25), ...
+		 */
+		def arctanRam(n: Int):Seq[Double] = linearRam(n).map(Math.atan)
+		val cordic_config = CordicConfig(16 exp, -15 exp, 16, arctanRam, false)
 		SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
 			targetDirectory = "rtl/CordicRotator").generateSystemVerilog(new CordicRotator(cordic_config)).printPruned()
 	}

@@ -6,8 +6,19 @@ import spinal.core._
 import spinal.lib._
 
 object CordicRotatorSimApp extends App{
-
-    val cordic_config = CordicConfig(16 exp, -15 exp, 16, false)
+    /**
+     * Get sequences of length n that go 1.0, 0.5, 0.25, ...
+     */
+    def linearRam(n: Int):Seq[Double] = for (i <- 0 until n) yield Math.pow(2.0, -i)
+    /**
+     * Get gain for n-stage CORDIC
+     */
+    //		def gain(n: Int) = linear(n).map(x => sqrt(1 + x * x)).reduce(_ * _)
+    /**
+     * Get sequences of length n that go atan(1), atan(0.5), atan(0.25), ...
+     */
+    def arctanRam(n: Int):Seq[Double] = linearRam(n).map(Math.atan)
+    val cordic_config = CordicConfig(16 exp, -15 exp, 16, linearRam, usePipeline = false, useProgrammable = true)
 
     SimConfig
         .withWave

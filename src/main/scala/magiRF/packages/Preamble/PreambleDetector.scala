@@ -18,6 +18,7 @@ case class PreambleDetectorConfig(
     def dataType: SInt = SInt(iqWidth bits)
     def gateThresholdWidth: Int = 2 * iqWidth
     def gateThresholdDataType: SInt = SInt(gateThresholdWidth bits)
+    def corrResultDataType: SInt = gateThresholdDataType
     def useAutoCorr: Boolean = (refData == null)
     def autoCorrelatorConfig: AutoCorrelatorConfig = AutoCorrelatorConfig(iqWidth, delayT, slideWinSize)
     def crossCorrelatorConfig: CrossCorrelatorConfig = CrossCorrelatorConfig(iqWidth, refData)
@@ -27,10 +28,13 @@ case class PreambleDetectorConfig(
 
 case class PreambleDetector(config: PreambleDetectorConfig) extends Component{
     val io = new Bundle{
-        val raw_data = slave(Flow(IQBundle(config.dataType)))
-        val raw_data_out = master(Flow(IQBundle(config.dataType)))
         val gate_threshold = in(config.gateThresholdDataType)
         val pkg_detected = out(Bool())
+
+        val raw_data = slave(Flow(IQBundle(config.dataType)))
+        val raw_data_out = master(Flow(IQBundle(config.dataType)))
+        val corr_result = if(config.useAutoCorr) master(Flow(IQBundle(config.corrResultDataType))) else null
+
     }
     noIoPrefix()
 
@@ -59,7 +63,7 @@ case class PreambleDetector(config: PreambleDetectorConfig) extends Component{
             gate_pkg_det := False
         }
         io.raw_data_out << io.raw_data
-
+        io.corr_result << auto_corr_core.io.corr_result
     }
     else{
         val cross_corr_core = CrossCorrelator(config.crossCorrelatorConfig)

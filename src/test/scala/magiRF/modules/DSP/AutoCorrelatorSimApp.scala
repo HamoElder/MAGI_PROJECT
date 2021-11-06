@@ -12,7 +12,7 @@ object AutoCorrelatorSimApp extends App{
         dut.clockDomain.forkStimulus(5)
         dut.io.raw_data.valid #= false
         dut.clockDomain.waitSampling(10)
-        for(idx <- 1 until 32767){
+        for(idx <- 1 until 128){
             dut.io.raw_data.valid #= true
 
             dut.io.raw_data.cha_i #= idx

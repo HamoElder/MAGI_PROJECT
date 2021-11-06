@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : AutoCorrelator
-// Git hash  : d56fca2d93dfc76f393b3b10236c69be445a29e8
+// Git hash  : ebd159d8d2177a8eaf5a34f4cda125d1a3950e99
 
 
 

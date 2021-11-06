@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : PhaseRotator
-// Git hash  : d56fca2d93dfc76f393b3b10236c69be445a29e8
+// Git hash  : ebd159d8d2177a8eaf5a34f4cda125d1a3950e99
 
 
 
@@ -8,11 +8,12 @@ module PhaseRotator (
   input               raw_data_valid,
   input      [15:0]   raw_data_payload_cha_i,
   input      [15:0]   raw_data_payload_cha_q,
+  input               phiCorrect_valid,
+  input      [15:0]   phiCorrect_payload,
   output              rotated_data_valid,
   input               rotated_data_ready,
   output     [15:0]   rotated_data_payload_cha_i,
   output     [15:0]   rotated_data_payload_cha_q,
-  input      [15:0]   phiCorrect,
   input               clk,
   input               resetn
 );
@@ -21,23 +22,23 @@ module PhaseRotator (
   wire       [15:0]   cordic_pipeline_core_result_payload_x;
   wire       [15:0]   cordic_pipeline_core_result_payload_y;
   wire       [15:0]   cordic_pipeline_core_result_payload_z;
-  wire       [15:0]   _zz_when_PhaseRotator_l37;
+  wire       [15:0]   _zz_when_PhaseRotator_l39;
   wire       [15:0]   _zz_phiNext;
   wire       [15:0]   _zz_phiNext_1;
-  wire       [15:0]   _zz_when_PhaseRotator_l39;
-  wire       [15:0]   _zz_when_PhaseRotator_l39_1;
+  wire       [15:0]   _zz_when_PhaseRotator_l41;
+  wire       [15:0]   _zz_when_PhaseRotator_l41_1;
   reg        [15:0]   phi;
   reg        [15:0]   phiNext;
   wire       [15:0]   math_pi;
   wire       [15:0]   math_2_pi;
-  wire                when_PhaseRotator_l37;
   wire                when_PhaseRotator_l39;
+  wire                when_PhaseRotator_l41;
 
-  assign _zz_when_PhaseRotator_l37 = ($signed(phi) + $signed(phiCorrect));
+  assign _zz_when_PhaseRotator_l39 = ($signed(phi) + $signed(phiCorrect_payload));
   assign _zz_phiNext = ($signed(phi) - $signed(math_2_pi));
   assign _zz_phiNext_1 = ($signed(phi) + $signed(math_2_pi));
-  assign _zz_when_PhaseRotator_l39 = ($signed(phi) + $signed(phiCorrect));
-  assign _zz_when_PhaseRotator_l39_1 = (- math_pi);
+  assign _zz_when_PhaseRotator_l41 = ($signed(phi) + $signed(phiCorrect_payload));
+  assign _zz_when_PhaseRotator_l41_1 = (- math_pi);
   CordicRotator cordic_pipeline_core (
     .rotate_mode           (1'b1                                   ), //i
     .x_u                   (2'b00                                  ), //i
@@ -56,25 +57,25 @@ module PhaseRotator (
   );
   assign math_pi = 16'h0064;
   assign math_2_pi = 16'h00c9;
-  assign when_PhaseRotator_l37 = ($signed(math_pi) < $signed(_zz_when_PhaseRotator_l37));
+  assign when_PhaseRotator_l39 = ($signed(math_pi) < $signed(_zz_when_PhaseRotator_l39));
   always @(*) begin
-    if(when_PhaseRotator_l37) begin
-      phiNext = ($signed(_zz_phiNext) + $signed(phiCorrect));
+    if(when_PhaseRotator_l39) begin
+      phiNext = ($signed(_zz_phiNext) + $signed(phiCorrect_payload));
     end else begin
-      if(when_PhaseRotator_l39) begin
-        phiNext = ($signed(_zz_phiNext_1) + $signed(phiCorrect));
+      if(when_PhaseRotator_l41) begin
+        phiNext = ($signed(_zz_phiNext_1) + $signed(phiCorrect_payload));
       end else begin
-        phiNext = ($signed(phi) + $signed(phiCorrect));
+        phiNext = ($signed(phi) + $signed(phiCorrect_payload));
       end
     end
   end
 
-  assign when_PhaseRotator_l39 = ($signed(_zz_when_PhaseRotator_l39) < $signed(_zz_when_PhaseRotator_l39_1));
+  assign when_PhaseRotator_l41 = ($signed(_zz_when_PhaseRotator_l41) < $signed(_zz_when_PhaseRotator_l41_1));
   assign rotated_data_valid = cordic_pipeline_core_result_valid;
   assign rotated_data_payload_cha_i = cordic_pipeline_core_result_payload_x;
   assign rotated_data_payload_cha_q = cordic_pipeline_core_result_payload_y;
   always @(posedge clk) begin
-    if(raw_data_valid) begin
+    if(phiCorrect_valid) begin
       phi <= phiNext;
     end else begin
       phi <= 16'h0;

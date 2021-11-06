@@ -8,8 +8,8 @@ object PhaseRotatorSimApp extends App{
     SimConfig.withWave.doSim(new PhaseRotator(phase_rotator_config)){ dut =>
         dut.clockDomain.forkStimulus(5)
         dut.io.raw_data.valid #= false
-        dut.io.phiCorrect #= 0
-        dut.io.rotated_data.ready #= true
+        dut.io.phiCorrect.payload #= 1
+        dut.io.phiCorrect.valid #= true
         dut.clockDomain.waitSampling(10)
         for(idx <- 0 until 1600){
             dut.io.raw_data.valid #= true
@@ -18,6 +18,6 @@ object PhaseRotatorSimApp extends App{
             dut.clockDomain.waitSampling(1)
         }
         dut.io.raw_data.valid #= false
-        dut.clockDomain.waitSampling(1000)
+        dut.clockDomain.waitSampling(100)
     }
 }
