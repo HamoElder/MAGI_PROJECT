@@ -23,9 +23,9 @@ object CFOEstimatorSimApp extends App{
             for(idx <- 0 until 1600){
                 dut.io.rotated_data.valid #= true
                 val raw_data = stf(idx % 160)
-                val cfo_data = stf(idx % 160) *
-                dut.io.rotated_data.cha_i #= (raw_data.re * 512).toInt
-                dut.io.rotated_data.cha_q #= (stf((idx + 1) % 160).im * 512).toInt
+                val cfo_data = stf(idx % 160) * 512
+                dut.io.rotated_data.cha_i #= cfo_data.re.toInt
+                dut.io.rotated_data.cha_q #= cfo_data.im.toInt
 
                 dut.clockDomain.waitSampling(1)
             }
