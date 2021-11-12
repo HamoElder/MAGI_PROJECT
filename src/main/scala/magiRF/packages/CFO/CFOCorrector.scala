@@ -1,6 +1,7 @@
 package magiRF.packages.CFO
 
 
+import Misc.math.Complex
 import spinal.core._
 import spinal.lib._
 import utils.bus.IQBundle.IQBundle
@@ -24,6 +25,7 @@ case class CFOCorrectorConfig(
 
 case class CFOCorrector(config: CFOCorrectorConfig) extends Component(){
     val io = new Bundle{
+        val ref_data = slave(Flow(IQBundle(config.dataType)))
         val raw_data: Flow[IQBundle[SInt]] = slave(Flow(IQBundle(config.dataType)))
         val rotated_data: Flow[IQBundle[SInt]] = master(Flow(IQBundle(config.dataType)))
         val enable = in(Bool())
@@ -59,28 +61,24 @@ object CFOCorrectorSimApp extends App{
         .allOptimisation
         .doSim(new CFOCorrector(cfo_corrector_config)){ dut =>
             dut.clockDomain.forkStimulus(5)
-            dut.io.rotated_data.valid #= false
+            dut.io.raw_data.valid #= false
+            dut.io.raw_data.valid #= false
+            dut.io.enable #= true
             dut.clockDomain.waitSampling(10)
             for(idx <- 0 until 1600){
-                dut.io.rotated_data.valid #= true
-                dut.io.rotated_data.cha_i #= (ltf(Random.nextInt().abs % ltf.length).re * 512).toInt
-                dut.io.rotated_data.cha_q #= (ltf(Random.nextInt().abs % ltf.length).im * 512).toInt
+                dut.io.raw_data.valid #= true
+                val raw_data = stf(idx % 160) * 2048
+                val fs = Complex(Math.cos(idx.toDouble/3200.0* 2.0* Math.PI), Math.sin(idx.toDouble/3200.0* 2.0* Math.PI))
+                val neg_fs = Complex(Math.cos(-idx.toDouble/3200.0* 2.0* Math.PI), Math.sin(-idx.toDouble/3200.0* 2.0* Math.PI))
+                val cfo_data = raw_data * fs
+                dut.io.raw_data.cha_i #= cfo_data.re.toInt
+                dut.io.raw_data.cha_q #= cfo_data.im.toInt
+                dut.io.ref_data.cha_i #= raw_data.re.toInt
+                dut.io.ref_data.cha_q #= raw_data.im.toInt
+                dut.io.ref_data.valid #= true
                 dut.clockDomain.waitSampling(1)
             }
-            for(idx <- 0 until 1600){
-                dut.io.rotated_data.valid #= true
-                dut.io.rotated_data.cha_i #= (stf((idx) % 160).re * 512).toInt
-                dut.io.rotated_data.cha_q #= (stf((idx) % 160).im * 512).toInt
-
-                dut.clockDomain.waitSampling(1)
-            }
-            for(idx <- 0 until 1600){
-                dut.io.rotated_data.valid #= true
-                dut.io.rotated_data.cha_i #= (ltf(Random.nextInt().abs % ltf.length).re * 512).toInt
-                dut.io.rotated_data.cha_q #= (ltf(Random.nextInt().abs % ltf.length).im * 512).toInt
-                dut.clockDomain.waitSampling(1)
-            }
-            dut.io.rotated_data.valid #= false
+            dut.io.raw_data.valid #= false
             dut.clockDomain.waitSampling(100)
         }
 }

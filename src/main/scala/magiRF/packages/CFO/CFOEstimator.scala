@@ -18,16 +18,17 @@ case class CFOEstimatorConfig(
                               ){
     def dataType: SInt = SInt(iqWidth bits)
     def phiDataType: SFix = SFix(dataTypePeak, dataTypeResolution)
-    def shearWidth: Int = iqWidth
+    def shearWidth: Int = 2 * iqWidth
 
     def linearRam(n: Int):Seq[Double] = for (i <- 0 until n) yield Math.pow(2.0, -i)
     def arctanRam(n: Int):Seq[Double] = linearRam(n).map(Math.atan)
 
-//    def cntLimit: Int = delayT + iterations
-//    def cntWidth: Int = log2Up(cntLimit + 1)
-//    def cntDataType: UInt = UInt(cntWidth bits)
-    def autoCorrelatorConfig: AutoCorrelatorConfig = AutoCorrelatorConfig(iqWidth, delayT, slideWinSize)
-    def cordicConfig: CordicConfig = CordicConfig(dataTypePeak, dataTypeResolution, iterations = iterations, arctanRam, usePipeline = true)
+    def autoCorrelatorConfig: AutoCorrelatorConfig = AutoCorrelatorConfig(iqWidth, 64, 64)
+    def cordicConfig: CordicConfig = CordicConfig(15 exp, -16 exp, iterations = iterations, arctanRam, usePipeline = true)
+
+    def cntLimit: Int = 80
+    def cntWidth: Int = log2Up(cntLimit + 1)
+    def cntDataType: UInt = UInt(cntWidth bits)
 }
 
 
@@ -38,8 +39,10 @@ case class CFOEstimator(config : CFOEstimatorConfig) extends Component {
     }
     noIoPrefix()
 
-    val scale: SFix = config.phiDataType
-    scale := (1.0 /  config.slideWinSize)
+    val scale: SFix = SFix(15 exp, -16 exp)
+    scale := 1.0 / 16.0
+
+    val impluse_cnt = Reg(config.cntDataType) init(0)
     val auto_corr_core = AutoCorrelator(config.autoCorrelatorConfig)
     auto_corr_core.io.raw_data << io.rotated_data
 
@@ -47,14 +50,21 @@ case class CFOEstimator(config : CFOEstimatorConfig) extends Component {
     cordic_core.io.rotate_mode := False
     cordic_core.io.x_u := 0
 
-    cordic_core.io.raw_data.x.raw := auto_corr_core.io.corr_result.cha_i.round(config.shearWidth)
-    cordic_core.io.raw_data.y.raw := -auto_corr_core.io.corr_result.cha_q.round(config.shearWidth)
+    cordic_core.io.raw_data.x.raw := auto_corr_core.io.corr_result.cha_i
+    cordic_core.io.raw_data.y.raw := -auto_corr_core.io.corr_result.cha_q
     cordic_core.io.raw_data.z.raw := 0
     cordic_core.io.raw_data.valid := auto_corr_core.io.corr_result.valid
-    cordic_core.io.result.ready := True
-    io.delta_phi.valid := cordic_core.io.result.valid
-    io.delta_phi.payload := (cordic_core.io.result.z * scale).raw.round(config.shearWidth)
 
+    io.delta_phi.valid := cordic_core.io.result.valid && (impluse_cnt === config.cntLimit)
+
+    val probe_val = cordic_core.io.result.z * scale
+    io.delta_phi.payload := (probe_val).raw.round(22).sat(26)
+//    io.delta_phi.payload := cordic_core.io.result.z.raw.round(11).sat(5)
+    when(io.rotated_data.valid){
+        impluse_cnt := (impluse_cnt === config.cntLimit)? U(0) | impluse_cnt + 1
+    }.otherwise{
+        impluse_cnt := 0
+    }
 }
 
 object CFOEstimatorBench{

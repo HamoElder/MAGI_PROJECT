@@ -7,7 +7,7 @@
 #ifndef _VCFOESTIMATOR__SYMS_H_
 #define _VCFOESTIMATOR__SYMS_H_  // guard
 
-#include "verilated.h"
+#include "verilated_heavy.h"
 
 // INCLUDE MODULE CLASSES
 #include "VCFOEstimator.h"

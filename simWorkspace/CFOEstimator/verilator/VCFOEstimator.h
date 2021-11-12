@@ -8,7 +8,7 @@
 #ifndef _VCFOESTIMATOR_H_
 #define _VCFOESTIMATOR_H_  // guard
 
-#include "verilated.h"
+#include "verilated_heavy.h"
 
 //==========
 
@@ -36,6 +36,9 @@ VL_MODULE(VCFOEstimator) {
     // Internals; generally not touched by application code
     // Anonymous structures to workaround compiler member-count bugs
     struct {
+        CData/*0:0*/ CFOEstimator__DOT__cordic_core_result_valid;
+        CData/*4:0*/ CFOEstimator__DOT___zz_impluse_cnt;
+        CData/*4:0*/ CFOEstimator__DOT__impluse_cnt;
         CData/*0:0*/ CFOEstimator__DOT__auto_corr_core__DOT__shiftRegisterE_3__DOT__shift_reg_0_valid;
         CData/*0:0*/ CFOEstimator__DOT__auto_corr_core__DOT__shiftRegisterE_3__DOT__shift_reg_1_valid;
         CData/*0:0*/ CFOEstimator__DOT__auto_corr_core__DOT__shiftRegisterE_3__DOT__shift_reg_2_valid;
@@ -54,22 +57,15 @@ VL_MODULE(VCFOEstimator) {
         CData/*0:0*/ CFOEstimator__DOT__auto_corr_core__DOT__shiftRegisterE_3__DOT__shift_reg_15_valid;
         CData/*0:0*/ CFOEstimator__DOT__auto_corr_core__DOT__corr_core__DOT__mul_data_valid;
         CData/*0:0*/ CFOEstimator__DOT__auto_corr_core__DOT__corr_core__DOT__corr_result_valid_1;
+        CData/*4:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x;
+        CData/*4:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_regNext;
         CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_valid;
-        CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_valid_1;
-        CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_valid_2;
-        CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_valid_3;
-        CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_valid_4;
-        CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_valid_5;
-        CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_valid_6;
-        CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_valid_7;
-        CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_valid_8;
-        CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_valid_9;
-        CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_valid_10;
-        CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_valid_11;
-        CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_valid_12;
-        CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_valid_13;
-        CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_valid_14;
-        CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_valid_15;
+        CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_9;
+        CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_raw_data_ready;
+        CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_2;
+        CData/*1:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_3;
+        CData/*1:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_4;
+        CData/*0:0*/ CFOEstimator__DOT__cordic_core__DOT__raw_data_fire;
         SData/*15:0*/ CFOEstimator__DOT__auto_corr_core__DOT__shiftRegisterE_3__DOT__shift_reg_0_payload_cha_i;
         SData/*15:0*/ CFOEstimator__DOT__auto_corr_core__DOT__shiftRegisterE_3__DOT__shift_reg_0_payload_cha_q;
         SData/*15:0*/ CFOEstimator__DOT__auto_corr_core__DOT__shiftRegisterE_3__DOT__shift_reg_1_payload_cha_i;
@@ -100,74 +96,31 @@ VL_MODULE(VCFOEstimator) {
         SData/*15:0*/ CFOEstimator__DOT__auto_corr_core__DOT__shiftRegisterE_3__DOT__shift_reg_13_payload_cha_q;
         SData/*15:0*/ CFOEstimator__DOT__auto_corr_core__DOT__shiftRegisterE_3__DOT__shift_reg_14_payload_cha_i;
         SData/*15:0*/ CFOEstimator__DOT__auto_corr_core__DOT__shiftRegisterE_3__DOT__shift_reg_14_payload_cha_q;
-    };
-    struct {
         SData/*15:0*/ CFOEstimator__DOT__auto_corr_core__DOT__shiftRegisterE_3__DOT__shift_reg_15_payload_cha_i;
         SData/*15:0*/ CFOEstimator__DOT__auto_corr_core__DOT__shiftRegisterE_3__DOT__shift_reg_15_payload_cha_q;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x;
+        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz___05Fzz_1_port0;
+        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz___05Fzz_result_payload_x_1;
+    };
+    struct {
+        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz___05Fzz_result_payload_x_1_1;
+        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz___05Fzz_result_payload_x_2;
+        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz___05Fzz_result_payload_x_2_1;
+        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz___05Fzz_result_payload_x_3;
+        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz___05Fzz_result_payload_x_3_1;
         SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_1;
         SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_2;
         SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_3;
         SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_4;
+        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_y;
+        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_z;
         SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_5;
         SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_6;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_7;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_8;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_9;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_10;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_11;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_12;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_13;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_14;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_15;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_16;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_17;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_18;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_19;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_20;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_21;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_22;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_23;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_24;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_25;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_26;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_27;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_28;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_29;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_30;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_y;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_31;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_32;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_33;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_34;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_35;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_36;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_37;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_38;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_39;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_40;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_41;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_42;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_43;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_44;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_45;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_z;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_46;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_47;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_48;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_49;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_50;
-        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_result_payload_x_51;
-        IData/*16:0*/ CFOEstimator__DOT___zz_when_SInt_l125;
-        IData/*16:0*/ CFOEstimator__DOT___zz_when_SInt_l125_4;
         IData/*16:0*/ CFOEstimator__DOT___zz_delta_phi_payload_1;
         IData/*31:0*/ CFOEstimator__DOT__auto_corr_core__DOT__corr_core__DOT___zz_corr_val_i;
         IData/*31:0*/ CFOEstimator__DOT__auto_corr_core__DOT__corr_core__DOT___zz_corr_val_q;
         IData/*31:0*/ CFOEstimator__DOT__auto_corr_core__DOT__corr_core__DOT__corr_val_i;
         IData/*31:0*/ CFOEstimator__DOT__auto_corr_core__DOT__corr_core__DOT__corr_val_q;
         IData/*31:0*/ CFOEstimator__DOT__auto_corr_core__DOT__corr_core__DOT__k1;
-    };
-    struct {
         IData/*31:0*/ CFOEstimator__DOT__auto_corr_core__DOT__corr_core__DOT__mul_i;
         IData/*31:0*/ CFOEstimator__DOT__auto_corr_core__DOT__corr_core__DOT__mul_q;
         IData/*31:0*/ CFOEstimator__DOT__auto_corr_core__DOT__corr_core__DOT__shiftRegisterE_3__DOT__shift_reg_0;
@@ -202,16 +155,17 @@ VL_MODULE(VCFOEstimator) {
         IData/*31:0*/ CFOEstimator__DOT__auto_corr_core__DOT__corr_core__DOT__shiftRegisterE_4__DOT__shift_reg_13;
         IData/*31:0*/ CFOEstimator__DOT__auto_corr_core__DOT__corr_core__DOT__shiftRegisterE_4__DOT__shift_reg_14;
         IData/*31:0*/ CFOEstimator__DOT__auto_corr_core__DOT__corr_core__DOT__shiftRegisterE_4__DOT__shift_reg_15;
-        QData/*32:0*/ CFOEstimator__DOT___zz___05Fzz_when_SInt_l332_2;
-        QData/*32:0*/ CFOEstimator__DOT___zz___05Fzz_when_SInt_l332_5;
         QData/*32:0*/ CFOEstimator__DOT___zz___05Fzz_delta_phi_payload_5;
+        SData/*15:0*/ CFOEstimator__DOT__cordic_core__DOT___zz_1[16];
     };
     
     // LOCAL VARIABLES
     // Internals; generally not touched by application code
+    CData/*5:0*/ __Vtableidx1;
     CData/*0:0*/ __Vclklast__TOP__clk;
     CData/*0:0*/ __Vclklast__TOP__reset;
     IData/*31:0*/ __Vm_traceActivity;
+    static CData/*1:0*/ __Vtable1_CFOEstimator__DOT__cordic_core__DOT___zz_4[64];
     
     // INTERNAL VARIABLES
     // Internals; generally not touched by application code
@@ -245,7 +199,7 @@ VL_MODULE(VCFOEstimator) {
     static QData _change_request(VCFOEstimator__Syms* __restrict vlSymsp);
     static QData _change_request_1(VCFOEstimator__Syms* __restrict vlSymsp);
   public:
-    static void _combo__TOP__12(VCFOEstimator__Syms* __restrict vlSymsp);
+    static void _combo__TOP__10(VCFOEstimator__Syms* __restrict vlSymsp);
   private:
     void _ctor_var_reset() VL_ATTR_COLD;
   public:
@@ -257,14 +211,13 @@ VL_MODULE(VCFOEstimator) {
   public:
     static void _eval_initial(VCFOEstimator__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _eval_settle(VCFOEstimator__Syms* __restrict vlSymsp) VL_ATTR_COLD;
-    static void _sequent__TOP__10(VCFOEstimator__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__2(VCFOEstimator__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__3(VCFOEstimator__Syms* __restrict vlSymsp);
+    static void _initial__TOP__8(VCFOEstimator__Syms* __restrict vlSymsp) VL_ATTR_COLD;
+    static void _sequent__TOP__1(VCFOEstimator__Syms* __restrict vlSymsp);
     static void _sequent__TOP__4(VCFOEstimator__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__5(VCFOEstimator__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__6(VCFOEstimator__Syms* __restrict vlSymsp);
     static void _sequent__TOP__7(VCFOEstimator__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__8(VCFOEstimator__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__9(VCFOEstimator__Syms* __restrict vlSymsp);
-    static void _settle__TOP__11(VCFOEstimator__Syms* __restrict vlSymsp) VL_ATTR_COLD;
+    static void _settle__TOP__9(VCFOEstimator__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void traceChgThis(VCFOEstimator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__2(VCFOEstimator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__3(VCFOEstimator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);

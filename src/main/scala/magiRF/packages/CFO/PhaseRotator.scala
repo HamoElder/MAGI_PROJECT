@@ -44,8 +44,9 @@ case class PhaseRotator(config: PhaseRotatorConfig) extends Component {
         phiNext := phi + io.phiCorrect.payload
     }
 
-    when(io.raw_data.valid && io.phiCorrect.valid){
-        phi := phiNext
+    when(io.raw_data.valid){
+//        phi := io.phiCorrect.valid ? phiNext | phi
+        phi := -37
     }.otherwise{
         phi := 0
     }
@@ -62,7 +63,7 @@ case class PhaseRotator(config: PhaseRotatorConfig) extends Component {
     io.rotated_data.valid := cordic_pipeline_core.io.result.valid
     io.rotated_data.cha_i := cordic_pipeline_core.io.result.x.raw
     io.rotated_data.cha_q := cordic_pipeline_core.io.result.y.raw
-    cordic_pipeline_core.io.result.ready := True
+
 }
 
 

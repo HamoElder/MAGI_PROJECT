@@ -35,8 +35,13 @@ import scala.math.sqrt
  *
  * Notes: When using the CORDIC algorithm for Hyperbolic rotations the scaling factor K is different from the one used
  *   for Circular rotations.
+ *   The Circular rotations scaling factor is denoted K_n = prod^{n}1/(cos(theta)^(i)) = prod^{n}sqrt(1+(tan(theta^i)^2))
+ *                                                          = prod^{n}sqrt(1+2^(-2*i))
+ *       K_n = 1.6476                     when n -> inf
+ *       1 / (K_n) = 0.6073               when n -> inf
+ *       n = number of iterations
  *
- *   The Hyperbolic scaling factor is denoted K^{*} and is calculated using the equation:
+ *   The Hyperbolic scaling factor is denoted K{*} and is calculated using the equation:
  *       K^{*}_n = prod^{n}sqrt(1 - 2^(-2i))
  *       K^{*}_n = 0.82816                when n -> inf
  *       1 / (K^{*}_n) = 1.20750          when n -> inf
@@ -88,7 +93,7 @@ case class CordicRotator(config: CordicConfig) extends Component {
 		val w_data = if(config.useProgrammable) in(config.dataType) else null
 
 		val raw_data = slave(Stream(CordicIO(config)))
-		val result = master(Stream(CordicIO(config)))
+		val result = master(Flow(CordicIO(config)))
 	}
 	noIoPrefix()
 	if(config.usePipeline){
@@ -119,6 +124,7 @@ case class CordicRotator(config: CordicConfig) extends Component {
 
 		for (idx <- 1 until config.iterations){
 			val d_n = io.rotate_mode ? (z_n(idx - 1) >= 0) | (y_n(idx - 1) < 0)
+			//	val d_n = io.rotate_mode ? (z_n >= 0) | ((y_n(idx - 1) < 0) ^ (x_n(idx - 1) < 0))
 			val sx = config.dataType
 			sx.raw := (x_n(idx - 1).raw |>> (idx - 1))
 			val sy = config.dataType
@@ -145,7 +151,7 @@ case class CordicRotator(config: CordicConfig) extends Component {
 		io.result.y := y_n(config.iterations - 1)
 		io.result.z := z_n(config.iterations - 1)
 
-		io.raw_data.ready := io.result.ready
+		io.raw_data.ready := True
 	}
 	else {
 		val iterCnt = Reg(config.iterCntType) init(0)
@@ -174,11 +180,11 @@ case class CordicRotator(config: CordicConfig) extends Component {
 		val at = rot_mem.readSync(address = iterCnt.resized)
 
 		val d_n = io.rotate_mode ? (z_n >= 0) | (y_n < 0)
-		//	val d_n = io.rot_mode ? (z_n >= 0) | ((y_n < 0) ^ (x_n < 0))
+		//	val d_n = io.rotate_mode ? (z_n >= 0) | ((y_n < 0) ^ (x_n < 0))
 		val busy = iterCnt =/= 0
 		val raw_data_ready = Reg(Bool()) init(True)
 
-		val fsm = new StateMachine{
+		val fsm: StateMachine = new StateMachine{
 
 			val IDLE : State = new State with EntryPoint{
 				whenIsActive {
@@ -232,7 +238,7 @@ case class CordicRotator(config: CordicConfig) extends Component {
 			}
 		}
 
-		io.raw_data.ready := raw_data_ready && io.result.ready
+		io.raw_data.ready := raw_data_ready
 
 		io.result.x := result_x
 		io.result.y := result_y

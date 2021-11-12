@@ -1,5 +1,7 @@
 package magiRF.packages.CFO
 
+import Misc.math.Complex
+
 import scala.util.Random
 import spinal.core.sim._
 import magiRF.top.IEEE802_11.IEEE802_11.{ltf, stf}
@@ -22,11 +24,12 @@ object CFOEstimatorSimApp extends App{
 //            }
             for(idx <- 0 until 1600){
                 dut.io.rotated_data.valid #= true
-                val raw_data = stf(idx % 160)
-                val cfo_data = stf(idx % 160) * 512
+                val raw_data = stf(idx % 160) * 2048
+
+                val fs = Complex(Math.cos(idx.toDouble/320.0* 2.0* Math.PI), Math.sin(idx.toDouble/320.0* 2.0* Math.PI))
+                val cfo_data = raw_data*fs
                 dut.io.rotated_data.cha_i #= cfo_data.re.toInt
                 dut.io.rotated_data.cha_q #= cfo_data.im.toInt
-
                 dut.clockDomain.waitSampling(1)
             }
 //            for(idx <- 0 until 1600){

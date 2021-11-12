@@ -30,7 +30,6 @@ object CordicRotatorSimApp extends App{
             dut.io.w_en #= false
             dut.io.x_u #= 1
             dut.io.raw_data.valid #= false
-            dut.io.result.ready #= true
             dut.clockDomain.waitSampling(10)
             dut.io.w_en #= true
             for (idx <- 0 until cordic_config.iterations){
