@@ -7,70 +7,60 @@ import utils.common.PrintXDC.PrintXDC
 import utils.common.ShiftReg.ShiftRegister
 
 
-case class SystolicCore(dataWidth: Int, adderDataWidth: Int, coffDataWidth: Int, useEnable: Boolean = false) extends Component{
+case class SystolicCore(dataWidth: Int, adderDataWidth: Int, coffDataWidth: Int) extends Component{
     val io = new Bundle{
         val input_data = in(SInt(dataWidth bits))
         val coff_data = in(SInt(coffDataWidth bits))
         val adder_data = in(SInt(adderDataWidth bits))
+        val valid = in(Bool())
 
         val next_input_data = out(SInt(dataWidth bits))
         val next_adder_data = out(SInt(adderDataWidth bits))
 
-        val enable = if(useEnable) in(Bool()) else null
+        val next_valid = out(Bool())
     }
     noIoPrefix()
-    if(useEnable){
-        val next_input = ShiftRegister(io.input_data, depth = 2, enable = io.enable)
-        val current_adder = io.adder_data
-        val mult = RegNextWhen(io.coff_data* next_input, io.enable)
-        val next_adder = RegNextWhen(mult + current_adder, io.enable)
 
-        io.next_input_data :=
-    }
-    else{
-        val next_input = ShiftRegister(io.input_data, depth = 2)
-        val current_adder = io.adder_data
-        val mult = RegNext(io.coff_data * next_input)
-        val next_adder = RegNext(mult + current_adder)
+    val next_input = ShiftRegister(io.input_data, depth = 2, enable = io.valid, useInitZero = true)
+    val current_adder = io.adder_data
+    val mult = RegNextWhen(io.coff_data* next_input, io.valid) init(0)
+    val next_adder = RegNextWhen(mult + current_adder, io.valid) init(0)
 
-        io.next_input_data := next_input
-        io.next_adder_data := next_adder
-    }
+    io.next_valid := RegNext(io.valid) init(False)
+    io.next_input_data := next_input
+    io.next_adder_data := next_adder
 
 }
 
-case class SystolicFIR(dataWidth: Int, H: List[Int], useSingleChannel: Boolean = false) extends Component{
+
+case class SystolicFIR(dataWidth: Int, H: List[Int], chaNum: Int) extends Component{
+    val coffDataWidth: Int = log2Up(H.max + 1) + 1
+    val filteredDataWidth: Int = dataWidth+coffDataWidth
+
     val io = new Bundle{
-        val raw_data = slave(Flow(IQBundle(SInt(dataWidth bits))))
-        val filtered_data = master(Flow(IQBundle(SInt(dataWidth+log2Up(H.max + 1)+1 bits))))
+        val raw_data = slave(Stream(Vec(SInt(dataWidth bits), chaNum)))
+        val filtered_data = master(Flow(Vec(SInt(filteredDataWidth bits), chaNum)))
     }
     noIoPrefix()
-    io.filtered_data.cha_i := firStage(io.raw_data.cha_i, H, S(0))
-    io.filtered_data.cha_q := firStage(io.raw_data.cha_q, H, S(0))
-    io.filtered_data.valid := io.raw_data.valid
-//    def firStage(input: SInt, H: List[Int], adder: SInt, data_valid: Bool): SInt = {
-//        val next_input = Delay(input, 2, when = data_valid)
-//        val current_adder = adder
-//        if(H.nonEmpty){
-//            val mult = RegNextWhen(H.head*next_input, data_valid)
-//            val next_adder = RegNextWhen(mult+current_adder, data_valid)
-//            val next_H = H.drop(1)
-//            firStage(next_input, next_H, next_adder, data_valid)
-//        }
-//        else{
-//            adder
-//        }
-//    }
-    def firStage(input: SInt, H: List[Int], adder: SInt): SInt = {
-        val next_input = ShiftRegister(input, depth = 2)
-        val current_adder = adder
-        if(H.nonEmpty){
-            val mult = RegNext(H.head*next_input)
-            val next_adder = RegNext(mult + current_adder)
-            val next_H = H.drop(1)
-            firStage(next_input, next_H, next_adder)
+    val filtered_data_valid_vec: Vec[Bool] = Vec(Bool(), chaNum)
+    for(idx <- 0 until chaNum){
+        val fir_stage_out = firStage(io.raw_data.payload(idx), H, S(0), io.raw_data.valid)
+        io.filtered_data.payload(idx) := fir_stage_out._1
+        filtered_data_valid_vec(idx) := fir_stage_out._2
+    }
+    io.filtered_data.valid := filtered_data_valid_vec(0)
+    io.raw_data.ready := True
+
+    def firStage(input: SInt, H: List[Int], adder: SInt, valid: Bool): (SInt, Bool) = {
+        if(H.nonEmpty) {
+            val systolic_core = SystolicCore(dataWidth, filteredDataWidth, coffDataWidth)
+            systolic_core.io.input_data := input
+            systolic_core.io.coff_data := H.head
+            systolic_core.io.adder_data := adder
+            systolic_core.io.valid := valid
+            firStage(systolic_core.io.next_input_data, H.drop(1), systolic_core.io.next_adder_data, systolic_core.io.next_valid)
         }else{
-            adder
+            (adder, valid)
         }
     }
 }
@@ -79,24 +69,25 @@ case class SystolicFIR(dataWidth: Int, H: List[Int], useSingleChannel: Boolean =
 object SystolicFIRFilterBench{
     def main(args: Array[String]): Unit ={
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
-            targetDirectory = "rtl").generateSystemVerilog(new SystolicFIR(16, (0 until 16).map(idx => 1024).toList)).printUnused()
+            targetDirectory = "rtl").generateSystemVerilog(new SystolicFIR(16, List(6,0,-4,-3,5,6,-6,-13,7,44,64,44,7,-13,-6,6,5,-3,-4,0,6), chaNum = 1)).printUnused()
     }
 }
 
 object SystolicFIRFilterSimApp extends App{
     import spinal.core.sim._
 
-    SimConfig.withWave.doSim(new SystolicFIR(16, (0 until 16).map(idx => 127).toList)){ dut =>
+    SimConfig.withWave.doSim(new SystolicFIR(16, List(6,0,-4,-3,5,6,-6,-13,7,44,64,44,7,-13,-6,6,5,-3,-4,0,6), chaNum = 1)){ dut =>
         dut.clockDomain.forkStimulus(5)
         dut.io.raw_data.valid #= false
-        dut.io.raw_data.cha_i #= 0
-        dut.io.raw_data.cha_q #= 0
+        dut.io.raw_data.payload(0) #= 0
+//        dut.io.raw_data.payload(1) #= 0
         dut.clockDomain.waitSampling(100)
+        var valid_bool = false
         for(idx <- 1 until 500){
+//            valid_bool = !valid_bool
             dut.io.raw_data.valid #= true
-            dut.io.raw_data.cha_i #= 17
-            dut.io.raw_data.cha_q #= 17
-
+            dut.io.raw_data.payload(0) #= idx
+//            dut.io.raw_data.payload(1) #= idx
             dut.clockDomain.waitSampling(1)
         }
         dut.clockDomain.waitSampling(1)

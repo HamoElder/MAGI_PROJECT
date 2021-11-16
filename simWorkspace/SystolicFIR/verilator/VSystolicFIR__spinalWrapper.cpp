@@ -159,7 +159,7 @@ public:
     uint32_t timeCheck;
     bool waveEnabled;
     VSystolicFIR top;
-    ISignalAccess *signalAccess[8];
+    ISignalAccess *signalAccess[7];
     #ifdef TRACE
 	  VerilatedVcdC tfp;
 	  #endif
@@ -172,13 +172,12 @@ public:
       lastFlushAt = high_resolution_clock::now();
       waveEnabled = true;
       signalAccess[0] = new CDataSignalAccess( top.raw_data_valid );
-      signalAccess[1] = new SDataSignalAccess( top.raw_data_payload_cha_i );
-      signalAccess[2] = new SDataSignalAccess( top.raw_data_payload_cha_q );
+      signalAccess[1] = new CDataSignalAccess( top.raw_data_ready );
+      signalAccess[2] = new SDataSignalAccess( top.raw_data_payload_0 );
       signalAccess[3] = new CDataSignalAccess( top.filtered_data_valid );
-      signalAccess[4] = new IDataSignalAccess( top.filtered_data_payload_cha_i );
-      signalAccess[5] = new IDataSignalAccess( top.filtered_data_payload_cha_q );
-      signalAccess[6] = new CDataSignalAccess( top.clk );
-      signalAccess[7] = new CDataSignalAccess( top.reset );
+      signalAccess[4] = new IDataSignalAccess( top.filtered_data_payload_0 );
+      signalAccess[5] = new CDataSignalAccess( top.clk );
+      signalAccess[6] = new CDataSignalAccess( top.reset );
 
       #ifdef TRACE
       Verilated::traceEverOn(true);
@@ -189,7 +188,7 @@ public:
     }
 
     virtual ~Wrapper_1(){
-      for(int idx = 0;idx < 8;idx++){
+      for(int idx = 0;idx < 7;idx++){
           delete signalAccess[idx];
       }
 

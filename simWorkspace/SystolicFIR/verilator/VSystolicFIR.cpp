@@ -66,372 +66,817 @@ void VSystolicFIR::_eval_initial_loop(VSystolicFIR__Syms* __restrict vlSymsp) {
     } while (VL_UNLIKELY(__Vchange));
 }
 
-VL_INLINE_OPT void VSystolicFIR::_combo__TOP__1(VSystolicFIR__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VSystolicFIR::_combo__TOP__1\n"); );
+VL_INLINE_OPT void VSystolicFIR::_sequent__TOP__4(VSystolicFIR__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VSystolicFIR::_sequent__TOP__4\n"); );
     VSystolicFIR* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->filtered_data_valid = vlTOPp->raw_data_valid;
+    vlTOPp->SystolicFIR__DOT__systolicCore_41__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_40__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_41__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_40__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_41__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_41__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_40__DOT__next_adder));
+        }
+    }
+    vlTOPp->filtered_data_valid = vlTOPp->SystolicFIR__DOT__systolicCore_41__DOT__valid_regNext;
+    vlTOPp->filtered_data_payload_0 = vlTOPp->SystolicFIR__DOT__systolicCore_41__DOT__next_adder;
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_41__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_40__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_41__DOT__mult 
+                = (0xffffffU & VL_MULS_III(24,24,24, (IData)(6U), 
+                                           (0xffffffU 
+                                            & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_41__DOT__shiftRegister_21__DOT__shift_reg_1)))));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_40__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_39__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_40__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_40__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_39__DOT__next_adder));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_41__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_40__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_41__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_41__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_40__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_39__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_40__DOT__mult = 0U;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_39__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_38__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_39__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_39__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_38__DOT__next_adder));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_41__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_40__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_41__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_40__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_39__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_38__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_39__DOT__mult 
+                = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0xfffffcU), 
+                                           (0xffffffU 
+                                            & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_39__DOT__shiftRegister_21__DOT__shift_reg_1)))));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_38__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_37__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_38__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_38__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_37__DOT__next_adder));
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_40__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_39__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_40__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_39__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_40__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_40__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_38__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_37__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_38__DOT__mult 
+                = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0xfffffdU), 
+                                           (0xffffffU 
+                                            & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_38__DOT__shiftRegister_21__DOT__shift_reg_1)))));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_37__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_36__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_37__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_37__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_36__DOT__next_adder));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_40__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_39__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_40__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_39__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_37__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_36__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_37__DOT__mult 
+                = (0xffffffU & VL_MULS_III(24,24,24, (IData)(5U), 
+                                           (0xffffffU 
+                                            & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_37__DOT__shiftRegister_21__DOT__shift_reg_1)))));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_36__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_35__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_36__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_36__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_35__DOT__next_adder));
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_39__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_38__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_39__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_38__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_39__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_39__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_36__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_35__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_36__DOT__mult 
+                = (0xffffffU & VL_MULS_III(24,24,24, (IData)(6U), 
+                                           (0xffffffU 
+                                            & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_36__DOT__shiftRegister_21__DOT__shift_reg_1)))));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_35__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_34__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_35__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_35__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_34__DOT__next_adder));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_39__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_38__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_39__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_38__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_35__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_34__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_35__DOT__mult 
+                = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0xfffffaU), 
+                                           (0xffffffU 
+                                            & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_35__DOT__shiftRegister_21__DOT__shift_reg_1)))));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_34__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_33__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_34__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_34__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_33__DOT__next_adder));
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_38__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_37__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_38__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_37__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_38__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_38__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_34__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_33__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_34__DOT__mult 
+                = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0xfffff3U), 
+                                           (0xffffffU 
+                                            & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_34__DOT__shiftRegister_21__DOT__shift_reg_1)))));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_33__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_32__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_33__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_33__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_32__DOT__next_adder));
+        }
+    }
 }
 
 VL_INLINE_OPT void VSystolicFIR::_sequent__TOP__5(VSystolicFIR__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VSystolicFIR::_sequent__TOP__5\n"); );
     VSystolicFIR* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->SystolicFIR__DOT__shiftRegister_67__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_67__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_50__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_50__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_31 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_30 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_29));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_31 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_30 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_29));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_67__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_66__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_50__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_49__DOT__shift_reg_1;
-    vlTOPp->filtered_data_payload_cha_q = vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_31;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_30 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_66__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_29 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_28 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_27));
-    vlTOPp->filtered_data_payload_cha_i = vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_31;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_30 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_49__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_29 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_28 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_27));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_66__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_66__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_28 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_65__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_27 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_26 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_25));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_49__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_49__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_28 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_48__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_27 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_26 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_25));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_66__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_65__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_26 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_64__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_25 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_24 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_23));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_49__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_48__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_26 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_47__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_25 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_24 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_23));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_65__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_65__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_24 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_63__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_23 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_22 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_21));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_48__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_48__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_24 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_46__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_23 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_22 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_21));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_65__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_64__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_22 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_62__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_21 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_20 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_19));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_48__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_47__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_22 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_45__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_21 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_20 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_19));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_64__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_64__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_20 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_61__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_19 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_18 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_17));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_47__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_47__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_20 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_44__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_19 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_18 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_17));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_64__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_63__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_18 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_60__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_17 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_16 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_15));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_38__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_37__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_38__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_37__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_33__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_32__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_33__DOT__mult 
+                = (0xffffffU & VL_MULS_III(24,24,24, (IData)(7U), 
+                                           (0xffffffU 
+                                            & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_33__DOT__shiftRegister_21__DOT__shift_reg_1)))));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_32__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_31__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_32__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_32__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_31__DOT__next_adder));
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_37__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_36__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_37__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_36__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_37__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_37__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_32__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_31__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_32__DOT__mult 
+                = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x2cU), 
+                                           (0xffffffU 
+                                            & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_32__DOT__shiftRegister_21__DOT__shift_reg_1)))));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_31__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_30__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_31__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_31__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_30__DOT__next_adder));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_37__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_36__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_37__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_36__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_31__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_30__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_31__DOT__mult 
+                = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x40U), 
+                                           (0xffffffU 
+                                            & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_31__DOT__shiftRegister_21__DOT__shift_reg_1)))));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_30__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_29__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_30__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_30__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_29__DOT__next_adder));
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_36__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_35__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_36__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_35__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_36__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_36__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_30__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_29__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_30__DOT__mult 
+                = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x2cU), 
+                                           (0xffffffU 
+                                            & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_30__DOT__shiftRegister_21__DOT__shift_reg_1)))));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_29__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_28__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_29__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_29__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_28__DOT__next_adder));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_36__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_35__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_36__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_35__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_29__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_28__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_29__DOT__mult 
+                = (0xffffffU & VL_MULS_III(24,24,24, (IData)(7U), 
+                                           (0xffffffU 
+                                            & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_29__DOT__shiftRegister_21__DOT__shift_reg_1)))));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_28__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_27__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_28__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_28__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_27__DOT__next_adder));
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_35__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_34__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_35__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_34__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_35__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_35__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_28__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_27__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_28__DOT__mult 
+                = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0xfffff3U), 
+                                           (0xffffffU 
+                                            & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_28__DOT__shiftRegister_21__DOT__shift_reg_1)))));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_27__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_26__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_27__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_27__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_26__DOT__next_adder));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_35__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_34__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_35__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_34__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_27__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_26__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_27__DOT__mult 
+                = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0xfffffaU), 
+                                           (0xffffffU 
+                                            & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_27__DOT__shiftRegister_21__DOT__shift_reg_1)))));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_26__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_25__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_26__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_26__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_25__DOT__next_adder));
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_34__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_33__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_34__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_33__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_34__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_34__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_26__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_25__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_26__DOT__mult 
+                = (0xffffffU & VL_MULS_III(24,24,24, (IData)(6U), 
+                                           (0xffffffU 
+                                            & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_26__DOT__shiftRegister_21__DOT__shift_reg_1)))));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_25__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_24__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_25__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_25__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_24__DOT__next_adder));
+        }
+    }
 }
 
 VL_INLINE_OPT void VSystolicFIR::_sequent__TOP__6(VSystolicFIR__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VSystolicFIR::_sequent__TOP__6\n"); );
     VSystolicFIR* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->SystolicFIR__DOT__shiftRegister_47__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_46__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_18 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_43__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_17 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_16 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_15));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_63__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_63__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_16 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_59__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_15 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_14 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_13));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_46__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_46__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_16 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_42__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_15 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_14 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_13));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_63__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_62__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_14 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_58__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_13 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_12 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_11));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_46__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_45__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_14 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_41__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_13 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_12 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_11));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_62__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_62__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_12 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_57__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_11 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_10 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_9));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_45__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_45__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_12 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_40__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_11 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_10 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_9));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_62__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_61__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_10 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_56__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_9 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_8 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_7));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_45__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_44__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_10 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_39__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_9 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_8 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_7));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_61__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_61__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_8 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_55__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_7 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_6 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_5));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_44__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_44__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_8 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_38__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_7 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_6 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_5));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_61__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_60__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_6 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_54__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_5 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_4 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_3));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_44__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_43__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_6 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_37__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_5 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_4 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_3));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_60__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_60__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_4 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_53__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_3 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_2 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_1));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_43__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_43__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_4 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_36__DOT__shift_reg_1)))));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_34__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_33__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_34__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_33__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_25__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_24__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_25__DOT__mult 
+                = (0xffffffU & VL_MULS_III(24,24,24, (IData)(5U), 
+                                           (0xffffffU 
+                                            & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_25__DOT__shiftRegister_21__DOT__shift_reg_1)))));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_24__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_23__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_24__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_24__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_23__DOT__next_adder));
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_33__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_32__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_33__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_32__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_33__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_33__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_24__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_23__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_24__DOT__mult 
+                = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0xfffffdU), 
+                                           (0xffffffU 
+                                            & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_24__DOT__shiftRegister_21__DOT__shift_reg_1)))));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_23__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_22__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_23__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_23__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_22__DOT__next_adder));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_33__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_32__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_33__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_32__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_22__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_21__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_22__DOT__next_adder 
+                = (0xffffffU & (vlTOPp->SystolicFIR__DOT__systolicCore_22__DOT__mult 
+                                + vlTOPp->SystolicFIR__DOT__systolicCore_21__DOT__next_adder));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_23__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_22__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_23__DOT__mult 
+                = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0xfffffcU), 
+                                           (0xffffffU 
+                                            & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_23__DOT__shiftRegister_21__DOT__shift_reg_1)))));
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_32__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_31__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_32__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_31__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_32__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_32__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_22__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_21__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_22__DOT__mult = 0U;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_21__DOT__next_adder = 0U;
+    } else {
+        if (vlTOPp->raw_data_valid) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_21__DOT__next_adder 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_21__DOT__mult;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_32__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_31__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_32__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_31__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_21__DOT__mult = 0U;
+    } else {
+        if (vlTOPp->raw_data_valid) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_21__DOT__mult 
+                = (0xffffffU & VL_MULS_III(24,24,24, (IData)(6U), 
+                                           (0xffffffU 
+                                            & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_21__DOT__shiftRegister_21__DOT__shift_reg_1)))));
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_31__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_30__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_31__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_30__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_31__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_31__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_31__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_30__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_31__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_30__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_30__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_29__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_30__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_29__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_30__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_30__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_30__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_29__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_30__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_29__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_29__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_28__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_29__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_28__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_29__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_29__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_29__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_28__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_29__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_28__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_28__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_27__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_28__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_27__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_28__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_28__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_28__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_27__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_28__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_27__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_27__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_26__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_27__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_26__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_27__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_27__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
 }
 
 VL_INLINE_OPT void VSystolicFIR::_sequent__TOP__7(VSystolicFIR__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VSystolicFIR::_sequent__TOP__7\n"); );
     VSystolicFIR* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_3 
-        = (0xffffffU & (vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_2 
-                        + vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_1));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_60__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_59__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_1 
-        = vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q_2 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_52__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_43__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_42__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_1 
-        = vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i_2 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_35__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_59__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_59__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_q 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_51__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_42__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_42__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT___zz_filtered_data_payload_cha_i 
-        = (0xffffffU & VL_MULS_III(24,24,24, (IData)(0x7fU), 
-                                   (0xffffffU & VL_EXTENDS_II(24,16, (IData)(vlTOPp->SystolicFIR__DOT__shiftRegister_34__DOT__shift_reg_1)))));
-    vlTOPp->SystolicFIR__DOT__shiftRegister_59__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_58__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_42__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_41__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_58__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_58__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_41__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_41__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_58__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_57__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_41__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_40__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_57__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_57__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_40__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_40__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_57__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_56__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_40__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_39__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_56__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_56__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_39__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_39__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_56__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_55__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_39__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_38__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_55__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_55__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_38__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_38__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_55__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_54__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_38__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_37__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_54__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_54__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_37__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_37__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_54__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_53__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_37__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_36__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_53__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_53__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_36__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_36__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_53__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_52__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_36__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_35__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_52__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_52__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_35__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_35__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_52__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_51__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_35__DOT__shift_reg_0 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_34__DOT__shift_reg_1;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_51__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_51__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_34__DOT__shift_reg_1 
-        = vlTOPp->SystolicFIR__DOT__shiftRegister_34__DOT__shift_reg_0;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_51__DOT__shift_reg_0 
-        = vlTOPp->raw_data_payload_cha_q;
-    vlTOPp->SystolicFIR__DOT__shiftRegister_34__DOT__shift_reg_0 
-        = vlTOPp->raw_data_payload_cha_i;
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_27__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_26__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_27__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_26__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_26__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_25__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_26__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_25__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_26__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_26__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_26__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_25__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_26__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_25__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_25__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_24__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_25__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_24__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_25__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_25__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_25__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_24__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_25__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_24__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_24__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_23__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_24__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_23__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_24__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_24__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_24__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_23__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_24__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_23__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_23__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_22__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_23__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_22__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_23__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_23__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_23__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_22__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_23__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_22__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_22__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->SystolicFIR__DOT__systolicCore_21__DOT__valid_regNext));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_22__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_21__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_22__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_22__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_22__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->SystolicFIR__DOT__systolicCore_21__DOT__valid_regNext) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_22__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_21__DOT__shiftRegister_21__DOT__shift_reg_1;
+        }
+    }
+    vlTOPp->SystolicFIR__DOT__systolicCore_21__DOT__valid_regNext 
+        = ((~ (IData)(vlTOPp->reset)) & (IData)(vlTOPp->raw_data_valid));
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_21__DOT__shiftRegister_21__DOT__shift_reg_1 = 0U;
+    } else {
+        if (vlTOPp->raw_data_valid) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_21__DOT__shiftRegister_21__DOT__shift_reg_1 
+                = vlTOPp->SystolicFIR__DOT__systolicCore_21__DOT__shiftRegister_21__DOT__shift_reg_0;
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->SystolicFIR__DOT__systolicCore_21__DOT__shiftRegister_21__DOT__shift_reg_0 = 0U;
+    } else {
+        if (vlTOPp->raw_data_valid) {
+            vlTOPp->SystolicFIR__DOT__systolicCore_21__DOT__shiftRegister_21__DOT__shift_reg_0 
+                = vlTOPp->raw_data_payload_0;
+        }
+    }
 }
 
 void VSystolicFIR::_eval(VSystolicFIR__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VSystolicFIR::_eval\n"); );
     VSystolicFIR* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->_combo__TOP__1(vlSymsp);
-    if (((IData)(vlTOPp->clk) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk)))) {
+    if ((((IData)(vlTOPp->clk) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk))) 
+         | ((IData)(vlTOPp->reset) & (~ (IData)(vlTOPp->__Vclklast__TOP__reset))))) {
         vlTOPp->__Vm_traceActivity = (2U | vlTOPp->__Vm_traceActivity);
+        vlTOPp->_sequent__TOP__4(vlSymsp);
         vlTOPp->_sequent__TOP__5(vlSymsp);
         vlTOPp->_sequent__TOP__6(vlSymsp);
         vlTOPp->_sequent__TOP__7(vlSymsp);
     }
     // Final
     vlTOPp->__Vclklast__TOP__clk = vlTOPp->clk;
+    vlTOPp->__Vclklast__TOP__reset = vlTOPp->reset;
 }
 
 VL_INLINE_OPT QData VSystolicFIR::_change_request(VSystolicFIR__Syms* __restrict vlSymsp) {
