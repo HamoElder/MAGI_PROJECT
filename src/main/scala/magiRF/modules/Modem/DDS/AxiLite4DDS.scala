@@ -31,8 +31,8 @@ case class AxiLite4DDS(config : AxiLite4DDSConfig) extends Component{
         val data = Vec(master(Flow(config.ddsConfig.dataType)), config.channelsNum)
         val phase = if(config.usePhaseChannel) Vec(master(Flow(config.ddsConfig.phaseType)), config.channelsNum) else null
 
-        val rf_clk = in Bool()
-        val rf_resetn = in Bool()
+        val rf_clk = in(Bool())
+        val rf_resetn = in(Bool())
     }
     noIoPrefix()
     AxiLite4SpecRenamer(io.axil4Ctrl)

@@ -12,48 +12,30 @@ void VConvCombTest::traceFullThis__1(VConvCombTest__Syms* __restrict vlSymsp, Ve
     {
         vcdp->fullBus(c+1,((0x7fU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
                                      >> 1U))),7);
-        vcdp->fullBit(c+9,((1U & ((((((((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                        >> 1U) ^ (0x2dU 
-                                                  & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                                     >> 2U))) 
-                                      ^ (0x16U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                                  >> 3U))) 
-                                     ^ (0xbU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                                >> 4U))) 
-                                    ^ (5U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                             >> 5U))) 
-                                   ^ (2U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                            >> 6U))) 
-                                  ^ (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                           >> 7U))))));
-        vcdp->fullBit(c+17,((1U & ((((((((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                         >> 1U) ^ (0x3cU 
-                                                   & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                                      >> 2U))) 
-                                       ^ (0x1eU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                                   >> 3U))) 
-                                      ^ (0xfU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                                 >> 4U))) 
-                                     ^ (7U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                              >> 5U))) 
-                                    ^ (3U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                             >> 6U))) 
-                                   ^ (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                            >> 7U))))));
-        vcdp->fullBit(c+25,((1U & ((((((((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                         >> 1U) ^ (0x3aU 
-                                                   & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                                      >> 2U))) 
-                                       ^ (0x1dU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                                   >> 3U))) 
-                                      ^ (0xeU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                                 >> 4U))) 
-                                     ^ (7U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                              >> 5U))) 
-                                    ^ (3U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                             >> 6U))) 
-                                   ^ (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                            >> 7U))))));
+        vcdp->fullBit(c+9,((1U & ((((((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                      >> 1U) ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                                >> 2U)) 
+                                    ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                       >> 4U)) ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                                  >> 5U)) 
+                                  ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                     >> 7U)))));
+        vcdp->fullBit(c+17,((1U & ((((((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                       >> 1U) ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                                 >> 4U)) 
+                                     ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                        >> 5U)) ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                                   >> 6U)) 
+                                   ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                      >> 7U)))));
+        vcdp->fullBit(c+25,((1U & ((((((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                       >> 1U) ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                                 >> 3U)) 
+                                     ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                        >> 5U)) ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                                   >> 6U)) 
+                                   ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                      >> 7U)))));
         vcdp->fullBus(c+33,(((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_64__DOT__when_AddCompareSelect_l17)
                               ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_64__DOT__branch_weight_0)
                               : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_64__DOT__branch_weight_1))),8);
@@ -205,15 +187,6 @@ void VConvCombTest::traceFullThis__1(VConvCombTest__Syms* __restrict vlSymsp, Ve
         vcdp->fullBus(c+625,(((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_101__DOT__when_AddCompareSelect_l17)
                                ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_101__DOT__branch_weight_0)
                                : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_101__DOT__branch_weight_1))),8);
-    }
-}
-
-void VConvCombTest::traceFullThis__3(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
-    // Body
-    {
         vcdp->fullBit(c+633,((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_101__DOT__when_AddCompareSelect_l17)))));
         vcdp->fullBus(c+641,(((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_102__DOT__when_AddCompareSelect_l17)
                                ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_102__DOT__branch_weight_0)
@@ -274,6 +247,15 @@ void VConvCombTest::traceFullThis__3(VConvCombTest__Syms* __restrict vlSymsp, Ve
         vcdp->fullBus(c+865,(((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_116__DOT__when_AddCompareSelect_l17)
                                ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_116__DOT__branch_weight_0)
                                : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_116__DOT__branch_weight_1))),8);
+    }
+}
+
+void VConvCombTest::traceFullThis__3(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    int c = code;
+    if (0 && vcdp && c) {}  // Prevent unused
+    // Body
+    {
         vcdp->fullBit(c+873,((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_116__DOT__when_AddCompareSelect_l17)))));
         vcdp->fullBus(c+881,(((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_117__DOT__when_AddCompareSelect_l17)
                                ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_117__DOT__branch_weight_0)
@@ -464,15 +446,6 @@ void VConvCombTest::traceFullThis__3(VConvCombTest__Syms* __restrict vlSymsp, Ve
         vcdp->fullBus(c+2193,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_111__DOT__branch_weight_1),8);
         vcdp->fullBit(c+2201,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_111__DOT__when_AddCompareSelect_l17));
         vcdp->fullBus(c+2209,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_112__DOT__branch_weight_0),8);
-    }
-}
-
-void VConvCombTest::traceFullThis__5(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
-    // Body
-    {
         vcdp->fullBus(c+2217,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_112__DOT__branch_weight_1),8);
         vcdp->fullBit(c+2225,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_112__DOT__when_AddCompareSelect_l17));
         vcdp->fullBus(c+2233,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_113__DOT__branch_weight_0),8);
@@ -534,6 +507,15 @@ void VConvCombTest::traceFullThis__5(VConvCombTest__Syms* __restrict vlSymsp, Ve
                                                - (IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT__logic_pushPtr_value))))),12);
         vcdp->fullBit(c+2625,(vlTOPp->ConvCombTest__DOT__decoder_raw_data_ready));
         vcdp->fullBit(c+2633,((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoded_fifo__DOT__logic_full)))));
+    }
+}
+
+void VConvCombTest::traceFullThis__6(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    int c = code;
+    if (0 && vcdp && c) {}  // Prevent unused
+    // Body
+    {
         vcdp->fullBit(c+2641,(vlTOPp->ConvCombTest__DOT__decoded_fifo_io_pop_valid));
         vcdp->fullBus(c+2649,(((((IData)(vlTOPp->ConvCombTest__DOT__decoded_fifo__DOT__logic_risingOccupancy) 
                                  & (IData)(vlTOPp->ConvCombTest__DOT__decoded_fifo__DOT__logic_ptrMatch)) 
@@ -695,15 +677,6 @@ void VConvCombTest::traceFullThis__5(VConvCombTest__Syms* __restrict vlSymsp, Ve
         vcdp->fullBus(c+3521,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_27),8);
         vcdp->fullBus(c+3529,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_28),8);
         vcdp->fullBus(c+3537,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_29),8);
-    }
-}
-
-void VConvCombTest::traceFullThis__12(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
-    // Body
-    {
         vcdp->fullBus(c+3545,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_30),8);
         vcdp->fullBus(c+3553,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_31),8);
         vcdp->fullBus(c+3561,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_32),8);
@@ -744,6 +717,15 @@ void VConvCombTest::traceFullThis__12(VConvCombTest__Syms* __restrict vlSymsp, V
         vcdp->fullBus(c+3841,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_67),8);
         vcdp->fullBus(c+3849,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_68),8);
         vcdp->fullBus(c+3857,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_69),8);
+    }
+}
+
+void VConvCombTest::traceFullThis__11(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    int c = code;
+    if (0 && vcdp && c) {}  // Prevent unused
+    // Body
+    {
         vcdp->fullBus(c+3865,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_70),8);
         vcdp->fullBus(c+3873,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_71),8);
         vcdp->fullBus(c+3881,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_72),8);
@@ -906,15 +888,6 @@ void VConvCombTest::traceFullThis__12(VConvCombTest__Syms* __restrict vlSymsp, V
         vcdp->fullBus(c+5137,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_36),2);
         vcdp->fullBus(c+5145,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_37),2);
         vcdp->fullBus(c+5153,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_38),2);
-    }
-}
-
-void VConvCombTest::traceFullThis__14(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
-    // Body
-    {
         vcdp->fullBus(c+5161,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_39),2);
         vcdp->fullBus(c+5169,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_40),2);
         vcdp->fullBus(c+5177,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_41),2);
@@ -975,6 +948,15 @@ void VConvCombTest::traceFullThis__14(VConvCombTest__Syms* __restrict vlSymsp, V
         vcdp->fullBus(c+5617,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_96),2);
         vcdp->fullBus(c+5625,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_97),2);
         vcdp->fullBus(c+5633,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_98),2);
+    }
+}
+
+void VConvCombTest::traceFullThis__13(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    int c = code;
+    if (0 && vcdp && c) {}  // Prevent unused
+    // Body
+    {
         vcdp->fullBus(c+5641,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_99),2);
         vcdp->fullBus(c+5649,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_100),2);
         vcdp->fullBus(c+5657,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_101),2);
@@ -1166,15 +1148,6 @@ void VConvCombTest::traceFullThis__14(VConvCombTest__Syms* __restrict vlSymsp, V
         vcdp->fullBit(c+7169,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_154));
         vcdp->fullBit(c+7177,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_155));
         vcdp->fullBit(c+7185,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_156));
-    }
-}
-
-void VConvCombTest::traceFullThis__16(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
-    // Body
-    {
         vcdp->fullBit(c+7193,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_157));
         vcdp->fullBit(c+7201,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_158));
         vcdp->fullBit(c+7209,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_159));
@@ -1235,6 +1208,15 @@ void VConvCombTest::traceFullThis__16(VConvCombTest__Syms* __restrict vlSymsp, V
         vcdp->fullBit(c+7649,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_214));
         vcdp->fullBit(c+7657,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_215));
         vcdp->fullBit(c+7665,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_216));
+    }
+}
+
+void VConvCombTest::traceFullThis__15(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    int c = code;
+    if (0 && vcdp && c) {}  // Prevent unused
+    // Body
+    {
         vcdp->fullBit(c+7673,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_217));
         vcdp->fullBit(c+7681,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_218));
         vcdp->fullBit(c+7689,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_219));
@@ -1426,15 +1408,6 @@ void VConvCombTest::traceFullThis__16(VConvCombTest__Syms* __restrict vlSymsp, V
         vcdp->fullBit(c+9177,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_137));
         vcdp->fullBit(c+9185,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_138));
         vcdp->fullBit(c+9193,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_139));
-    }
-}
-
-void VConvCombTest::traceFullThis__18(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
-    // Body
-    {
         vcdp->fullBit(c+9201,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_140));
         vcdp->fullBit(c+9209,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_141));
         vcdp->fullBit(c+9217,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_142));
@@ -1495,6 +1468,15 @@ void VConvCombTest::traceFullThis__18(VConvCombTest__Syms* __restrict vlSymsp, V
         vcdp->fullBit(c+9657,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_197));
         vcdp->fullBit(c+9665,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_198));
         vcdp->fullBit(c+9673,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_199));
+    }
+}
+
+void VConvCombTest::traceFullThis__17(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    int c = code;
+    if (0 && vcdp && c) {}  // Prevent unused
+    // Body
+    {
         vcdp->fullBit(c+9681,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_200));
         vcdp->fullBit(c+9689,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_201));
         vcdp->fullBit(c+9697,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_202));
@@ -1686,15 +1668,6 @@ void VConvCombTest::traceFullThis__18(VConvCombTest__Syms* __restrict vlSymsp, V
         vcdp->fullBit(c+11185,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_120));
         vcdp->fullBit(c+11193,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_121));
         vcdp->fullBit(c+11201,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_122));
-    }
-}
-
-void VConvCombTest::traceFullThis__20(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
-    // Body
-    {
         vcdp->fullBit(c+11209,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_123));
         vcdp->fullBit(c+11217,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_124));
         vcdp->fullBit(c+11225,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_125));
@@ -1755,6 +1728,15 @@ void VConvCombTest::traceFullThis__20(VConvCombTest__Syms* __restrict vlSymsp, V
         vcdp->fullBit(c+11665,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_180));
         vcdp->fullBit(c+11673,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_181));
         vcdp->fullBit(c+11681,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_182));
+    }
+}
+
+void VConvCombTest::traceFullThis__19(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    int c = code;
+    if (0 && vcdp && c) {}  // Prevent unused
+    // Body
+    {
         vcdp->fullBit(c+11689,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_183));
         vcdp->fullBit(c+11697,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_184));
         vcdp->fullBit(c+11705,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_185));
@@ -1946,17 +1928,6 @@ void VConvCombTest::traceFullThis__20(VConvCombTest__Syms* __restrict vlSymsp, V
         vcdp->fullBit(c+13193,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_103));
         vcdp->fullBit(c+13201,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_104));
         vcdp->fullBit(c+13209,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_105));
-    }
-}
-
-void VConvCombTest::traceFullThis__22(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
-    // Variables
-    WData/*95:0*/ __Vtemp2153[3];
-    // Body
-    {
         vcdp->fullBit(c+13217,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_106));
         vcdp->fullBit(c+13225,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_107));
         vcdp->fullBit(c+13233,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_108));
@@ -2017,6 +1988,17 @@ void VConvCombTest::traceFullThis__22(VConvCombTest__Syms* __restrict vlSymsp, V
         vcdp->fullBit(c+13673,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_163));
         vcdp->fullBit(c+13681,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_164));
         vcdp->fullBit(c+13689,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_165));
+    }
+}
+
+void VConvCombTest::traceFullThis__21(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    int c = code;
+    if (0 && vcdp && c) {}  // Prevent unused
+    // Variables
+    WData/*95:0*/ __Vtemp2153[3];
+    // Body
+    {
         vcdp->fullBit(c+13697,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_166));
         vcdp->fullBit(c+13705,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_167));
         vcdp->fullBit(c+13713,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_168));
@@ -2201,15 +2183,6 @@ void VConvCombTest::traceFullThis__22(VConvCombTest__Syms* __restrict vlSymsp, V
                                                 >> 2U)) 
                                          + (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
                                                   >> 1U)))))),2);
-    }
-}
-
-void VConvCombTest::traceFullThis__27(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
-    // Body
-    {
         vcdp->fullBus(c+14969,((3U & ((1U & (~ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
                                                 >> 3U))) 
                                       + ((1U & (~ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
@@ -2232,6 +2205,15 @@ void VConvCombTest::traceFullThis__27(VConvCombTest__Syms* __restrict vlSymsp, V
                                          + (1U & (~ 
                                                   ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
                                                    >> 1U))))))),2);
+    }
+}
+
+void VConvCombTest::traceFullThis__26(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    int c = code;
+    if (0 && vcdp && c) {}  // Prevent unused
+    // Body
+    {
         vcdp->fullBus(c+14993,((3U & ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
                                              >> 3U)) 
                                       + ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
@@ -2330,5 +2312,59 @@ void VConvCombTest::traceFullThis__27(VConvCombTest__Syms* __restrict vlSymsp, V
                                                   >> 1U)))))),3);
         vcdp->fullBus(c+15129,((7U & (5U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
                                             >> 1U)))),3);
+        vcdp->fullBus(c+15137,((7U & (2U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                            >> 1U)))),3);
+        vcdp->fullBus(c+15145,(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__decoded_ram_select),2);
+        vcdp->fullBus(c+15153,(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__halt_cnt),3);
+        vcdp->fullBit(c+15161,((7U == (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__halt_cnt))));
+        vcdp->fullBit(c+15169,((1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                                      >> 2U))));
+        vcdp->fullBit(c+15177,((1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                                      >> 1U))));
+        vcdp->fullBit(c+15185,((1U & (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0))));
+        vcdp->fullBus(c+15193,((3U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                                      >> 1U))),2);
+        vcdp->fullBus(c+15201,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram[0]),3);
+        vcdp->fullBus(c+15202,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram[1]),3);
+        vcdp->fullBus(c+15203,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram[2]),3);
+        vcdp->fullBus(c+15204,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram[3]),3);
+        vcdp->fullBus(c+15205,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram[4]),3);
+        vcdp->fullBus(c+15206,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram[5]),3);
+        vcdp->fullBus(c+15207,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram[6]),3);
+        vcdp->fullBus(c+15208,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram[7]),3);
+        vcdp->fullBus(c+15209,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram[8]),3);
+        vcdp->fullBus(c+15210,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram[9]),3);
+        vcdp->fullBus(c+15211,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram[10]),3);
+        vcdp->fullBus(c+15212,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram[11]),3);
+        vcdp->fullBus(c+15213,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram[12]),3);
+        vcdp->fullBus(c+15214,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram[13]),3);
+        vcdp->fullBus(c+15215,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram[14]),3);
+        vcdp->fullBus(c+15216,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram[15]),3);
+        vcdp->fullBit(c+15329,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_last));
+        vcdp->fullBit(c+15337,(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_last));
+        vcdp->fullBus(c+15345,(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_addr_read),8);
+        vcdp->fullBit(c+15353,(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tail_repeat));
+        vcdp->fullBus(c+15361,(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state),3);
+        vcdp->fullBit(c+15369,((0xa7U == (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_addr_read))));
+        vcdp->fullBit(c+15377,(vlTOPp->tail_bits_valid));
+        vcdp->fullBus(c+15385,(vlTOPp->tail_bits_payload),7);
+        vcdp->fullBit(c+15393,(vlTOPp->raw_data_valid));
+        vcdp->fullBit(c+15401,(vlTOPp->raw_data_payload_last));
+        vcdp->fullBit(c+15409,(vlTOPp->raw_data_payload_fragment));
+        vcdp->fullBit(c+15417,(vlTOPp->decoded_data_valid));
+        vcdp->fullBit(c+15425,(vlTOPp->decoded_data_payload_last));
+        vcdp->fullBit(c+15433,(vlTOPp->decoded_data_payload_fragment));
+        vcdp->fullBit(c+15441,(vlTOPp->clk));
+        vcdp->fullBit(c+15449,(vlTOPp->reset));
+        vcdp->fullBit(c+15457,(0U));
+        vcdp->fullBus(c+15465,(0U),3);
+        vcdp->fullBus(c+15473,(7U),3);
+        vcdp->fullBus(c+15481,(4U),3);
+        vcdp->fullBus(c+15489,(3U),3);
+        vcdp->fullBus(c+15497,(1U),3);
+        vcdp->fullBus(c+15505,(6U),3);
+        vcdp->fullBus(c+15513,(5U),3);
+        vcdp->fullBus(c+15521,(2U),3);
+        vcdp->fullBit(c+15529,(1U));
     }
 }

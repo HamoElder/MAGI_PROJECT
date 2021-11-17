@@ -29,58 +29,57 @@ void VConvCombTest::traceChgThis(VConvCombTest__Syms* __restrict vlSymsp, Verila
                                   >> 1U))))) {
             vlTOPp->traceChgThis__2(vlSymsp, vcdp, code);
             vlTOPp->traceChgThis__4(vlSymsp, vcdp, code);
-            vlTOPp->traceChgThis__6(vlSymsp, vcdp, code);
         }
         if (VL_UNLIKELY((1U & (vlTOPp->__Vm_traceActivity 
                                | (vlTOPp->__Vm_traceActivity 
                                   >> 2U))))) {
-            vlTOPp->traceChgThis__7(vlSymsp, vcdp, code);
+            vlTOPp->traceChgThis__5(vlSymsp, vcdp, code);
         }
         if (VL_UNLIKELY((1U & ((vlTOPp->__Vm_traceActivity 
                                 | (vlTOPp->__Vm_traceActivity 
                                    >> 2U)) | (vlTOPp->__Vm_traceActivity 
                                               >> 3U))))) {
-            vlTOPp->traceChgThis__8(vlSymsp, vcdp, code);
+            vlTOPp->traceChgThis__7(vlSymsp, vcdp, code);
         }
         if (VL_UNLIKELY((1U & (vlTOPp->__Vm_traceActivity 
                                | (vlTOPp->__Vm_traceActivity 
                                   >> 3U))))) {
-            vlTOPp->traceChgThis__9(vlSymsp, vcdp, code);
+            vlTOPp->traceChgThis__8(vlSymsp, vcdp, code);
         }
         if (VL_UNLIKELY((1U & (vlTOPp->__Vm_traceActivity 
                                | (vlTOPp->__Vm_traceActivity 
                                   >> 4U))))) {
-            vlTOPp->traceChgThis__10(vlSymsp, vcdp, code);
+            vlTOPp->traceChgThis__9(vlSymsp, vcdp, code);
         }
         if (VL_UNLIKELY((2U & vlTOPp->__Vm_traceActivity))) {
-            vlTOPp->traceChgThis__11(vlSymsp, vcdp, code);
-            vlTOPp->traceChgThis__13(vlSymsp, vcdp, code);
-            vlTOPp->traceChgThis__15(vlSymsp, vcdp, code);
-            vlTOPp->traceChgThis__17(vlSymsp, vcdp, code);
-            vlTOPp->traceChgThis__19(vlSymsp, vcdp, code);
-            vlTOPp->traceChgThis__21(vlSymsp, vcdp, code);
+            vlTOPp->traceChgThis__10(vlSymsp, vcdp, code);
+            vlTOPp->traceChgThis__12(vlSymsp, vcdp, code);
+            vlTOPp->traceChgThis__14(vlSymsp, vcdp, code);
+            vlTOPp->traceChgThis__16(vlSymsp, vcdp, code);
+            vlTOPp->traceChgThis__18(vlSymsp, vcdp, code);
+            vlTOPp->traceChgThis__20(vlSymsp, vcdp, code);
         }
         if (VL_UNLIKELY((1U & ((vlTOPp->__Vm_traceActivity 
                                 >> 1U) | (vlTOPp->__Vm_traceActivity 
                                           >> 3U))))) {
-            vlTOPp->traceChgThis__23(vlSymsp, vcdp, code);
+            vlTOPp->traceChgThis__22(vlSymsp, vcdp, code);
         }
         if (VL_UNLIKELY((4U & vlTOPp->__Vm_traceActivity))) {
-            vlTOPp->traceChgThis__24(vlSymsp, vcdp, code);
+            vlTOPp->traceChgThis__23(vlSymsp, vcdp, code);
         }
         if (VL_UNLIKELY((1U & ((vlTOPp->__Vm_traceActivity 
                                 >> 2U) | (vlTOPp->__Vm_traceActivity 
                                           >> 3U))))) {
-            vlTOPp->traceChgThis__25(vlSymsp, vcdp, code);
+            vlTOPp->traceChgThis__24(vlSymsp, vcdp, code);
         }
         if (VL_UNLIKELY((8U & vlTOPp->__Vm_traceActivity))) {
-            vlTOPp->traceChgThis__26(vlSymsp, vcdp, code);
-            vlTOPp->traceChgThis__28(vlSymsp, vcdp, code);
+            vlTOPp->traceChgThis__25(vlSymsp, vcdp, code);
+            vlTOPp->traceChgThis__27(vlSymsp, vcdp, code);
         }
         if (VL_UNLIKELY((0x10U & vlTOPp->__Vm_traceActivity))) {
-            vlTOPp->traceChgThis__30(vlSymsp, vcdp, code);
+            vlTOPp->traceChgThis__28(vlSymsp, vcdp, code);
         }
-        vlTOPp->traceChgThis__31(vlSymsp, vcdp, code);
+        vlTOPp->traceChgThis__29(vlSymsp, vcdp, code);
     }
     // Final
     vlTOPp->__Vm_traceActivity = 0U;
@@ -94,48 +93,30 @@ void VConvCombTest::traceChgThis__2(VConvCombTest__Syms* __restrict vlSymsp, Ver
     {
         vcdp->chgBus(c+1,((0x7fU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
                                     >> 1U))),7);
-        vcdp->chgBit(c+9,((1U & ((((((((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                       >> 1U) ^ (0x2dU 
-                                                 & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                                    >> 2U))) 
-                                     ^ (0x16U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                                 >> 3U))) 
-                                    ^ (0xbU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                               >> 4U))) 
-                                   ^ (5U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                            >> 5U))) 
-                                  ^ (2U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                           >> 6U))) 
-                                 ^ (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                          >> 7U))))));
-        vcdp->chgBit(c+17,((1U & ((((((((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                        >> 1U) ^ (0x3cU 
-                                                  & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                                     >> 2U))) 
-                                      ^ (0x1eU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                                  >> 3U))) 
-                                     ^ (0xfU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                                >> 4U))) 
-                                    ^ (7U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                             >> 5U))) 
-                                   ^ (3U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                            >> 6U))) 
-                                  ^ (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                           >> 7U))))));
-        vcdp->chgBit(c+25,((1U & ((((((((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                        >> 1U) ^ (0x3aU 
-                                                  & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                                     >> 2U))) 
-                                      ^ (0x1dU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                                  >> 3U))) 
-                                     ^ (0xeU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                                >> 4U))) 
-                                    ^ (7U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                             >> 5U))) 
-                                   ^ (3U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                            >> 6U))) 
-                                  ^ (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                           >> 7U))))));
+        vcdp->chgBit(c+9,((1U & ((((((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                     >> 1U) ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                               >> 2U)) 
+                                   ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                      >> 4U)) ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                                 >> 5U)) 
+                                 ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                    >> 7U)))));
+        vcdp->chgBit(c+17,((1U & ((((((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                      >> 1U) ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                                >> 4U)) 
+                                    ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                       >> 5U)) ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                                  >> 6U)) 
+                                  ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                     >> 7U)))));
+        vcdp->chgBit(c+25,((1U & ((((((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                      >> 1U) ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                                >> 3U)) 
+                                    ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                       >> 5U)) ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                                  >> 6U)) 
+                                  ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                     >> 7U)))));
         vcdp->chgBus(c+33,(((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_64__DOT__when_AddCompareSelect_l17)
                              ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_64__DOT__branch_weight_0)
                              : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_64__DOT__branch_weight_1))),8);
@@ -287,15 +268,6 @@ void VConvCombTest::traceChgThis__2(VConvCombTest__Syms* __restrict vlSymsp, Ver
         vcdp->chgBus(c+625,(((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_101__DOT__when_AddCompareSelect_l17)
                               ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_101__DOT__branch_weight_0)
                               : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_101__DOT__branch_weight_1))),8);
-    }
-}
-
-void VConvCombTest::traceChgThis__4(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
-    // Body
-    {
         vcdp->chgBit(c+633,((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_101__DOT__when_AddCompareSelect_l17)))));
         vcdp->chgBus(c+641,(((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_102__DOT__when_AddCompareSelect_l17)
                               ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_102__DOT__branch_weight_0)
@@ -356,6 +328,15 @@ void VConvCombTest::traceChgThis__4(VConvCombTest__Syms* __restrict vlSymsp, Ver
         vcdp->chgBus(c+865,(((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_116__DOT__when_AddCompareSelect_l17)
                               ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_116__DOT__branch_weight_0)
                               : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_116__DOT__branch_weight_1))),8);
+    }
+}
+
+void VConvCombTest::traceChgThis__4(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    int c = code;
+    if (0 && vcdp && c) {}  // Prevent unused
+    // Body
+    {
         vcdp->chgBit(c+873,((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_116__DOT__when_AddCompareSelect_l17)))));
         vcdp->chgBus(c+881,(((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_117__DOT__when_AddCompareSelect_l17)
                               ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_117__DOT__branch_weight_0)
@@ -546,15 +527,6 @@ void VConvCombTest::traceChgThis__4(VConvCombTest__Syms* __restrict vlSymsp, Ver
         vcdp->chgBus(c+2193,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_111__DOT__branch_weight_1),8);
         vcdp->chgBit(c+2201,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_111__DOT__when_AddCompareSelect_l17));
         vcdp->chgBus(c+2209,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_112__DOT__branch_weight_0),8);
-    }
-}
-
-void VConvCombTest::traceChgThis__6(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
-    // Body
-    {
         vcdp->chgBus(c+2217,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_112__DOT__branch_weight_1),8);
         vcdp->chgBit(c+2225,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_112__DOT__when_AddCompareSelect_l17));
         vcdp->chgBus(c+2233,(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_113__DOT__branch_weight_0),8);
@@ -605,7 +577,7 @@ void VConvCombTest::traceChgThis__6(VConvCombTest__Syms* __restrict vlSymsp, Ver
     }
 }
 
-void VConvCombTest::traceChgThis__7(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void VConvCombTest::traceChgThis__5(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
@@ -738,7 +710,7 @@ void VConvCombTest::traceChgThis__7(VConvCombTest__Syms* __restrict vlSymsp, Ver
     }
 }
 
-void VConvCombTest::traceChgThis__8(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void VConvCombTest::traceChgThis__7(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
@@ -749,7 +721,7 @@ void VConvCombTest::traceChgThis__8(VConvCombTest__Syms* __restrict vlSymsp, Ver
     }
 }
 
-void VConvCombTest::traceChgThis__9(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void VConvCombTest::traceChgThis__8(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
@@ -763,7 +735,7 @@ void VConvCombTest::traceChgThis__9(VConvCombTest__Syms* __restrict vlSymsp, Ver
     }
 }
 
-void VConvCombTest::traceChgThis__10(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void VConvCombTest::traceChgThis__9(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
@@ -776,7 +748,7 @@ void VConvCombTest::traceChgThis__10(VConvCombTest__Syms* __restrict vlSymsp, Ve
     }
 }
 
-void VConvCombTest::traceChgThis__11(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void VConvCombTest::traceChgThis__10(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
@@ -970,7 +942,7 @@ void VConvCombTest::traceChgThis__11(VConvCombTest__Syms* __restrict vlSymsp, Ve
     }
 }
 
-void VConvCombTest::traceChgThis__13(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void VConvCombTest::traceChgThis__12(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
@@ -1230,7 +1202,7 @@ void VConvCombTest::traceChgThis__13(VConvCombTest__Syms* __restrict vlSymsp, Ve
     }
 }
 
-void VConvCombTest::traceChgThis__15(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void VConvCombTest::traceChgThis__14(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
@@ -1490,7 +1462,7 @@ void VConvCombTest::traceChgThis__15(VConvCombTest__Syms* __restrict vlSymsp, Ve
     }
 }
 
-void VConvCombTest::traceChgThis__17(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void VConvCombTest::traceChgThis__16(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
@@ -1750,7 +1722,7 @@ void VConvCombTest::traceChgThis__17(VConvCombTest__Syms* __restrict vlSymsp, Ve
     }
 }
 
-void VConvCombTest::traceChgThis__19(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void VConvCombTest::traceChgThis__18(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
@@ -2010,7 +1982,7 @@ void VConvCombTest::traceChgThis__19(VConvCombTest__Syms* __restrict vlSymsp, Ve
     }
 }
 
-void VConvCombTest::traceChgThis__21(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void VConvCombTest::traceChgThis__20(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
@@ -2238,7 +2210,7 @@ void VConvCombTest::traceChgThis__21(VConvCombTest__Syms* __restrict vlSymsp, Ve
     }
 }
 
-void VConvCombTest::traceChgThis__23(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void VConvCombTest::traceChgThis__22(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
@@ -2249,7 +2221,7 @@ void VConvCombTest::traceChgThis__23(VConvCombTest__Syms* __restrict vlSymsp, Ve
     }
 }
 
-void VConvCombTest::traceChgThis__24(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void VConvCombTest::traceChgThis__23(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
@@ -2321,7 +2293,7 @@ void VConvCombTest::traceChgThis__24(VConvCombTest__Syms* __restrict vlSymsp, Ve
     }
 }
 
-void VConvCombTest::traceChgThis__25(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void VConvCombTest::traceChgThis__24(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
@@ -2336,5 +2308,135 @@ void VConvCombTest::traceChgThis__25(VConvCombTest__Syms* __restrict vlSymsp, Ve
                                    & (1U == (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor)))
                                 : ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_last) 
                                    & (1U == (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_head_cursor))))));
+    }
+}
+
+void VConvCombTest::traceChgThis__25(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    int c = code;
+    if (0 && vcdp && c) {}  // Prevent unused
+    // Body
+    {
+        vcdp->chgBit(c+14937,((1U & (IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0))));
+        vcdp->chgBus(c+14945,((7U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                     >> 1U))),3);
+        vcdp->chgBit(c+14953,(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish));
+        vcdp->chgBus(c+14961,((3U & ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                            >> 3U)) 
+                                     + ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                               >> 2U)) 
+                                        + (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                 >> 1U)))))),2);
+        vcdp->chgBus(c+14969,((3U & ((1U & (~ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                               >> 3U))) 
+                                     + ((1U & (~ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                  >> 2U))) 
+                                        + (1U & (~ 
+                                                 ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                  >> 1U))))))),2);
+        vcdp->chgBus(c+14977,((3U & ((1U & (1U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                  >> 3U))) 
+                                     + ((1U & (2U ^ 
+                                               ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                >> 2U))) 
+                                        + (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                 >> 1U)))))),2);
+        vcdp->chgBus(c+14985,((3U & ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                            >> 3U)) 
+                                     + ((1U & (1U ^ 
+                                               ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                >> 2U))) 
+                                        + (1U & (~ 
+                                                 ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                  >> 1U))))))),2);
+        vcdp->chgBus(c+14993,((3U & ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                            >> 3U)) 
+                                     + ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                               >> 2U)) 
+                                        + (1U & (~ 
+                                                 ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                  >> 1U))))))),2);
+        vcdp->chgBus(c+15001,((3U & ((1U & (1U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                  >> 3U))) 
+                                     + ((1U & (3U ^ 
+                                               ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                >> 2U))) 
+                                        + (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                 >> 1U)))))),2);
+        vcdp->chgBus(c+15009,((3U & ((1U & (1U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                  >> 3U))) 
+                                     + ((1U & (2U ^ 
+                                               ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                >> 2U))) 
+                                        + (1U & (~ 
+                                                 ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                  >> 1U))))))),2);
+        vcdp->chgBus(c+15017,((3U & ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                            >> 3U)) 
+                                     + ((1U & (1U ^ 
+                                               ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                >> 2U))) 
+                                        + (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                 >> 1U)))))),2);
+        vcdp->chgBus(c+15025,((7U & ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                            >> 3U)) 
+                                     + ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                               >> 2U)) 
+                                        + (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                 >> 1U)))))),3);
+        vcdp->chgBus(c+15033,((7U & ((1U & (~ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                               >> 3U))) 
+                                     + ((1U & (~ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                  >> 2U))) 
+                                        + (1U & (~ 
+                                                 ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                  >> 1U))))))),3);
+        vcdp->chgBus(c+15041,((7U & (~ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                        >> 1U)))),3);
+        vcdp->chgBus(c+15049,((7U & ((1U & (1U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                  >> 3U))) 
+                                     + ((1U & (2U ^ 
+                                               ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                >> 2U))) 
+                                        + (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                 >> 1U)))))),3);
+        vcdp->chgBus(c+15057,((7U & ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                            >> 3U)) 
+                                     + ((1U & (1U ^ 
+                                               ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                >> 2U))) 
+                                        + (1U & (~ 
+                                                 ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                  >> 1U))))))),3);
+        vcdp->chgBus(c+15065,((7U & (4U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                           >> 1U)))),3);
+        vcdp->chgBus(c+15073,((7U & (3U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                           >> 1U)))),3);
+        vcdp->chgBus(c+15081,((7U & ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                            >> 3U)) 
+                                     + ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                               >> 2U)) 
+                                        + (1U & (~ 
+                                                 ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                  >> 1U))))))),3);
+        vcdp->chgBus(c+15089,((7U & ((1U & (1U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                  >> 3U))) 
+                                     + ((1U & (3U ^ 
+                                               ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                >> 2U))) 
+                                        + (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                 >> 1U)))))),3);
+        vcdp->chgBus(c+15097,((7U & (1U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                           >> 1U)))),3);
+        vcdp->chgBus(c+15105,((7U & (6U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                           >> 1U)))),3);
+        vcdp->chgBus(c+15113,((7U & ((1U & (1U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                  >> 3U))) 
+                                     + ((1U & (2U ^ 
+                                               ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                >> 2U))) 
+                                        + (1U & (~ 
+                                                 ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
+                                                  >> 1U))))))),3);
     }
 }

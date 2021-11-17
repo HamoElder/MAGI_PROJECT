@@ -31,15 +31,20 @@ VL_MODULE(VStreamPkgGen) {
     VL_IN8(raw_data_payload_strb,3,0);
     VL_OUT8(pkg_data_valid,0,0);
     VL_IN8(pkg_data_ready,0,0);
-    VL_OUT8(pkg_data_payload,7,0);
+    VL_OUT8(pkg_data_payload_last,0,0);
+    VL_OUT8(pkg_data_payload_fragment,7,0);
+    VL_IN16(slices_limit,11,0);
     VL_IN(raw_data_payload_data,31,0);
     
     // LOCAL SIGNALS
     // Internals; generally not touched by application code
     CData/*3:0*/ StreamPkgGen__DOT__strb_buf;
+    CData/*0:0*/ StreamPkgGen__DOT__raw_data_fire;
     CData/*2:0*/ StreamPkgGen__DOT__split_core__DOT__cnt;
     CData/*0:0*/ StreamPkgGen__DOT__split_core__DOT__raw_data_fire;
     CData/*0:0*/ StreamPkgGen__DOT__split_core__DOT__split_data_fire;
+    SData/*11:0*/ StreamPkgGen__DOT___zz_pkg_slices_cnt_1;
+    SData/*11:0*/ StreamPkgGen__DOT__pkg_slices_cnt;
     IData/*31:0*/ StreamPkgGen__DOT__split_core__DOT__data_buf;
     
     // LOCAL VARIABLES

@@ -29,15 +29,22 @@ void VStreamPkgGen::_settle__TOP__3(VStreamPkgGen__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VStreamPkgGen::_settle__TOP__3\n"); );
     VStreamPkgGen* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->raw_data_ready = (0U == (IData)(vlTOPp->StreamPkgGen__DOT__split_core__DOT__cnt));
-    vlTOPp->pkg_data_payload = (0xffU & vlTOPp->StreamPkgGen__DOT__split_core__DOT__data_buf);
+    vlTOPp->StreamPkgGen__DOT___zz_pkg_slices_cnt_1 
+        = (0xfffU & ((IData)(1U) + (IData)(vlTOPp->StreamPkgGen__DOT__pkg_slices_cnt)));
+    vlTOPp->pkg_data_payload_fragment = (0xffU & vlTOPp->StreamPkgGen__DOT__split_core__DOT__data_buf);
     vlTOPp->pkg_data_valid = ((0U != (IData)(vlTOPp->StreamPkgGen__DOT__split_core__DOT__cnt)) 
                               & (IData)(vlTOPp->StreamPkgGen__DOT__strb_buf));
+    vlTOPp->pkg_data_payload_last = ((IData)(vlTOPp->StreamPkgGen__DOT__pkg_slices_cnt) 
+                                     == (0xfffU & ((IData)(vlTOPp->slices_limit) 
+                                                   - (IData)(1U))));
     vlTOPp->StreamPkgGen__DOT__split_core__DOT__raw_data_fire 
         = ((IData)(vlTOPp->raw_data_valid) & (0U == (IData)(vlTOPp->StreamPkgGen__DOT__split_core__DOT__cnt)));
     vlTOPp->StreamPkgGen__DOT__split_core__DOT__split_data_fire 
         = ((0U != (IData)(vlTOPp->StreamPkgGen__DOT__split_core__DOT__cnt)) 
            & (IData)(vlTOPp->pkg_data_ready));
+    vlTOPp->raw_data_ready = (0U == (IData)(vlTOPp->StreamPkgGen__DOT__split_core__DOT__cnt));
+    vlTOPp->StreamPkgGen__DOT__raw_data_fire = ((IData)(vlTOPp->raw_data_valid) 
+                                                & (IData)(vlTOPp->raw_data_ready));
 }
 
 void VStreamPkgGen::_eval_initial(VStreamPkgGen__Syms* __restrict vlSymsp) {
@@ -66,16 +73,21 @@ void VStreamPkgGen::_eval_settle(VStreamPkgGen__Syms* __restrict vlSymsp) {
 void VStreamPkgGen::_ctor_var_reset() {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VStreamPkgGen::_ctor_var_reset\n"); );
     // Body
+    slices_limit = VL_RAND_RESET_I(12);
     raw_data_valid = VL_RAND_RESET_I(1);
     raw_data_ready = VL_RAND_RESET_I(1);
     raw_data_payload_data = VL_RAND_RESET_I(32);
     raw_data_payload_strb = VL_RAND_RESET_I(4);
     pkg_data_valid = VL_RAND_RESET_I(1);
     pkg_data_ready = VL_RAND_RESET_I(1);
-    pkg_data_payload = VL_RAND_RESET_I(8);
+    pkg_data_payload_last = VL_RAND_RESET_I(1);
+    pkg_data_payload_fragment = VL_RAND_RESET_I(8);
     clk = VL_RAND_RESET_I(1);
     reset = VL_RAND_RESET_I(1);
+    StreamPkgGen__DOT___zz_pkg_slices_cnt_1 = VL_RAND_RESET_I(12);
     StreamPkgGen__DOT__strb_buf = VL_RAND_RESET_I(4);
+    StreamPkgGen__DOT__pkg_slices_cnt = VL_RAND_RESET_I(12);
+    StreamPkgGen__DOT__raw_data_fire = VL_RAND_RESET_I(1);
     StreamPkgGen__DOT__split_core__DOT__cnt = VL_RAND_RESET_I(3);
     StreamPkgGen__DOT__split_core__DOT__data_buf = VL_RAND_RESET_I(32);
     StreamPkgGen__DOT__split_core__DOT__raw_data_fire = VL_RAND_RESET_I(1);

@@ -56,15 +56,14 @@ void VConvCombTest::traceFullThis(VConvCombTest__Syms* __restrict vlSymsp, Veril
     {
         vlTOPp->traceFullThis__1(vlSymsp, vcdp, code);
         vlTOPp->traceFullThis__3(vlSymsp, vcdp, code);
-        vlTOPp->traceFullThis__5(vlSymsp, vcdp, code);
-        vlTOPp->traceFullThis__12(vlSymsp, vcdp, code);
-        vlTOPp->traceFullThis__14(vlSymsp, vcdp, code);
-        vlTOPp->traceFullThis__16(vlSymsp, vcdp, code);
-        vlTOPp->traceFullThis__18(vlSymsp, vcdp, code);
-        vlTOPp->traceFullThis__20(vlSymsp, vcdp, code);
-        vlTOPp->traceFullThis__22(vlSymsp, vcdp, code);
-        vlTOPp->traceFullThis__27(vlSymsp, vcdp, code);
-        vlTOPp->traceFullThis__29(vlSymsp, vcdp, code);
+        vlTOPp->traceFullThis__6(vlSymsp, vcdp, code);
+        vlTOPp->traceFullThis__11(vlSymsp, vcdp, code);
+        vlTOPp->traceFullThis__13(vlSymsp, vcdp, code);
+        vlTOPp->traceFullThis__15(vlSymsp, vcdp, code);
+        vlTOPp->traceFullThis__17(vlSymsp, vcdp, code);
+        vlTOPp->traceFullThis__19(vlSymsp, vcdp, code);
+        vlTOPp->traceFullThis__21(vlSymsp, vcdp, code);
+        vlTOPp->traceFullThis__26(vlSymsp, vcdp, code);
     }
     // Final
     vlTOPp->__Vm_traceActivity = 0U;

@@ -4,137 +4,7 @@
 #include "VConvCombTest__Syms.h"
 
 
-void VConvCombTest::traceChgThis__26(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
-    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
-    if (0 && vcdp && c) {}  // Prevent unused
-    // Body
-    {
-        vcdp->chgBit(c+14937,((1U & (IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0))));
-        vcdp->chgBus(c+14945,((7U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                     >> 1U))),3);
-        vcdp->chgBit(c+14953,(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish));
-        vcdp->chgBus(c+14961,((3U & ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                            >> 3U)) 
-                                     + ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                               >> 2U)) 
-                                        + (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                 >> 1U)))))),2);
-        vcdp->chgBus(c+14969,((3U & ((1U & (~ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                               >> 3U))) 
-                                     + ((1U & (~ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                  >> 2U))) 
-                                        + (1U & (~ 
-                                                 ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                  >> 1U))))))),2);
-        vcdp->chgBus(c+14977,((3U & ((1U & (1U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                  >> 3U))) 
-                                     + ((1U & (2U ^ 
-                                               ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                >> 2U))) 
-                                        + (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                 >> 1U)))))),2);
-        vcdp->chgBus(c+14985,((3U & ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                            >> 3U)) 
-                                     + ((1U & (1U ^ 
-                                               ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                >> 2U))) 
-                                        + (1U & (~ 
-                                                 ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                  >> 1U))))))),2);
-        vcdp->chgBus(c+14993,((3U & ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                            >> 3U)) 
-                                     + ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                               >> 2U)) 
-                                        + (1U & (~ 
-                                                 ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                  >> 1U))))))),2);
-        vcdp->chgBus(c+15001,((3U & ((1U & (1U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                  >> 3U))) 
-                                     + ((1U & (3U ^ 
-                                               ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                >> 2U))) 
-                                        + (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                 >> 1U)))))),2);
-        vcdp->chgBus(c+15009,((3U & ((1U & (1U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                  >> 3U))) 
-                                     + ((1U & (2U ^ 
-                                               ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                >> 2U))) 
-                                        + (1U & (~ 
-                                                 ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                  >> 1U))))))),2);
-        vcdp->chgBus(c+15017,((3U & ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                            >> 3U)) 
-                                     + ((1U & (1U ^ 
-                                               ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                >> 2U))) 
-                                        + (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                 >> 1U)))))),2);
-        vcdp->chgBus(c+15025,((7U & ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                            >> 3U)) 
-                                     + ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                               >> 2U)) 
-                                        + (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                 >> 1U)))))),3);
-        vcdp->chgBus(c+15033,((7U & ((1U & (~ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                               >> 3U))) 
-                                     + ((1U & (~ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                  >> 2U))) 
-                                        + (1U & (~ 
-                                                 ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                  >> 1U))))))),3);
-        vcdp->chgBus(c+15041,((7U & (~ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                        >> 1U)))),3);
-        vcdp->chgBus(c+15049,((7U & ((1U & (1U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                  >> 3U))) 
-                                     + ((1U & (2U ^ 
-                                               ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                >> 2U))) 
-                                        + (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                 >> 1U)))))),3);
-        vcdp->chgBus(c+15057,((7U & ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                            >> 3U)) 
-                                     + ((1U & (1U ^ 
-                                               ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                >> 2U))) 
-                                        + (1U & (~ 
-                                                 ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                  >> 1U))))))),3);
-        vcdp->chgBus(c+15065,((7U & (4U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                           >> 1U)))),3);
-        vcdp->chgBus(c+15073,((7U & (3U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                           >> 1U)))),3);
-        vcdp->chgBus(c+15081,((7U & ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                            >> 3U)) 
-                                     + ((1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                               >> 2U)) 
-                                        + (1U & (~ 
-                                                 ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                  >> 1U))))))),3);
-        vcdp->chgBus(c+15089,((7U & ((1U & (1U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                  >> 3U))) 
-                                     + ((1U & (3U ^ 
-                                               ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                >> 2U))) 
-                                        + (1U & ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                 >> 1U)))))),3);
-        vcdp->chgBus(c+15097,((7U & (1U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                           >> 1U)))),3);
-        vcdp->chgBus(c+15105,((7U & (6U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                           >> 1U)))),3);
-        vcdp->chgBus(c+15113,((7U & ((1U & (1U ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                  >> 3U))) 
-                                     + ((1U & (2U ^ 
-                                               ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                >> 2U))) 
-                                        + (1U & (~ 
-                                                 ((IData)(vlTOPp->ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0) 
-                                                  >> 1U))))))),3);
-    }
-}
-
-void VConvCombTest::traceChgThis__28(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void VConvCombTest::traceChgThis__27(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
@@ -182,7 +52,7 @@ void VConvCombTest::traceChgThis__28(VConvCombTest__Syms* __restrict vlSymsp, Ve
     }
 }
 
-void VConvCombTest::traceChgThis__30(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void VConvCombTest::traceChgThis__28(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused
@@ -195,7 +65,7 @@ void VConvCombTest::traceChgThis__30(VConvCombTest__Syms* __restrict vlSymsp, Ve
     }
 }
 
-void VConvCombTest::traceChgThis__31(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
+void VConvCombTest::traceChgThis__29(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     int c = code;
     if (0 && vcdp && c) {}  // Prevent unused

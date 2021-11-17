@@ -159,7 +159,7 @@ public:
     uint32_t timeCheck;
     bool waveEnabled;
     VStreamPkgGen top;
-    ISignalAccess *signalAccess[9];
+    ISignalAccess *signalAccess[11];
     #ifdef TRACE
 	  VerilatedVcdC tfp;
 	  #endif
@@ -171,15 +171,17 @@ public:
       timeCheck = 0;
       lastFlushAt = high_resolution_clock::now();
       waveEnabled = true;
-      signalAccess[0] = new CDataSignalAccess( top.raw_data_valid );
-      signalAccess[1] = new CDataSignalAccess( top.raw_data_ready );
-      signalAccess[2] = new IDataSignalAccess( top.raw_data_payload_data );
-      signalAccess[3] = new CDataSignalAccess( top.raw_data_payload_strb );
-      signalAccess[4] = new CDataSignalAccess( top.pkg_data_valid );
-      signalAccess[5] = new CDataSignalAccess( top.pkg_data_ready );
-      signalAccess[6] = new CDataSignalAccess( top.pkg_data_payload );
-      signalAccess[7] = new CDataSignalAccess( top.clk );
-      signalAccess[8] = new CDataSignalAccess( top.reset );
+      signalAccess[0] = new SDataSignalAccess( top.slices_limit );
+      signalAccess[1] = new CDataSignalAccess( top.raw_data_valid );
+      signalAccess[2] = new CDataSignalAccess( top.raw_data_ready );
+      signalAccess[3] = new IDataSignalAccess( top.raw_data_payload_data );
+      signalAccess[4] = new CDataSignalAccess( top.raw_data_payload_strb );
+      signalAccess[5] = new CDataSignalAccess( top.pkg_data_valid );
+      signalAccess[6] = new CDataSignalAccess( top.pkg_data_ready );
+      signalAccess[7] = new CDataSignalAccess( top.pkg_data_payload_last );
+      signalAccess[8] = new CDataSignalAccess( top.pkg_data_payload_fragment );
+      signalAccess[9] = new CDataSignalAccess( top.clk );
+      signalAccess[10] = new CDataSignalAccess( top.reset );
 
       #ifdef TRACE
       Verilated::traceEverOn(true);
@@ -190,7 +192,7 @@ public:
     }
 
     virtual ~Wrapper_1(){
-      for(int idx = 0;idx < 9;idx++){
+      for(int idx = 0;idx < 11;idx++){
           delete signalAccess[idx];
       }
 

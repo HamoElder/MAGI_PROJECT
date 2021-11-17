@@ -86,11 +86,10 @@ VL_INLINE_OPT void VStreamPkgGen::_sequent__TOP__1(VStreamPkgGen__Syms* __restri
                    >> 8U);
         }
     }
-    if (((IData)(vlTOPp->raw_data_valid) & (IData)(vlTOPp->raw_data_ready))) {
+    if (vlTOPp->StreamPkgGen__DOT__raw_data_fire) {
         __Vdly__StreamPkgGen__DOT__strb_buf = vlTOPp->raw_data_payload_strb;
     } else {
-        if (((0U != (IData)(vlTOPp->StreamPkgGen__DOT__split_core__DOT__cnt)) 
-             & (IData)(vlTOPp->pkg_data_ready))) {
+        if (vlTOPp->StreamPkgGen__DOT__split_core__DOT__split_data_fire) {
             __Vdly__StreamPkgGen__DOT__strb_buf = (0xfU 
                                                    & ((IData)(vlTOPp->StreamPkgGen__DOT__strb_buf) 
                                                       >> 1U));
@@ -99,7 +98,7 @@ VL_INLINE_OPT void VStreamPkgGen::_sequent__TOP__1(VStreamPkgGen__Syms* __restri
     vlTOPp->StreamPkgGen__DOT__split_core__DOT__data_buf 
         = __Vdly__StreamPkgGen__DOT__split_core__DOT__data_buf;
     vlTOPp->StreamPkgGen__DOT__strb_buf = __Vdly__StreamPkgGen__DOT__strb_buf;
-    vlTOPp->pkg_data_payload = (0xffU & vlTOPp->StreamPkgGen__DOT__split_core__DOT__data_buf);
+    vlTOPp->pkg_data_payload_fragment = (0xffU & vlTOPp->StreamPkgGen__DOT__split_core__DOT__data_buf);
 }
 
 VL_INLINE_OPT void VStreamPkgGen::_sequent__TOP__2(VStreamPkgGen__Syms* __restrict vlSymsp) {
@@ -107,9 +106,24 @@ VL_INLINE_OPT void VStreamPkgGen::_sequent__TOP__2(VStreamPkgGen__Syms* __restri
     VStreamPkgGen* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Variables
     CData/*2:0*/ __Vdly__StreamPkgGen__DOT__split_core__DOT__cnt;
+    SData/*11:0*/ __Vdly__StreamPkgGen__DOT__pkg_slices_cnt;
     // Body
+    __Vdly__StreamPkgGen__DOT__pkg_slices_cnt = vlTOPp->StreamPkgGen__DOT__pkg_slices_cnt;
     __Vdly__StreamPkgGen__DOT__split_core__DOT__cnt 
         = vlTOPp->StreamPkgGen__DOT__split_core__DOT__cnt;
+    if (vlTOPp->reset) {
+        __Vdly__StreamPkgGen__DOT__pkg_slices_cnt = 0U;
+    } else {
+        if ((1U & (~ (IData)(vlTOPp->StreamPkgGen__DOT__raw_data_fire)))) {
+            if (vlTOPp->StreamPkgGen__DOT__split_core__DOT__split_data_fire) {
+                __Vdly__StreamPkgGen__DOT__pkg_slices_cnt 
+                    = (((IData)(vlTOPp->StreamPkgGen__DOT__pkg_slices_cnt) 
+                        == (0xfffU & ((IData)(vlTOPp->slices_limit) 
+                                      - (IData)(1U))))
+                        ? 0U : (IData)(vlTOPp->StreamPkgGen__DOT___zz_pkg_slices_cnt_1));
+            }
+        }
+    }
     if (vlTOPp->reset) {
         __Vdly__StreamPkgGen__DOT__split_core__DOT__cnt = 0U;
     } else {
@@ -123,22 +137,30 @@ VL_INLINE_OPT void VStreamPkgGen::_sequent__TOP__2(VStreamPkgGen__Syms* __restri
             }
         }
     }
+    vlTOPp->StreamPkgGen__DOT__pkg_slices_cnt = __Vdly__StreamPkgGen__DOT__pkg_slices_cnt;
     vlTOPp->StreamPkgGen__DOT__split_core__DOT__cnt 
         = __Vdly__StreamPkgGen__DOT__split_core__DOT__cnt;
-    vlTOPp->raw_data_ready = (0U == (IData)(vlTOPp->StreamPkgGen__DOT__split_core__DOT__cnt));
+    vlTOPp->StreamPkgGen__DOT___zz_pkg_slices_cnt_1 
+        = (0xfffU & ((IData)(1U) + (IData)(vlTOPp->StreamPkgGen__DOT__pkg_slices_cnt)));
     vlTOPp->pkg_data_valid = ((0U != (IData)(vlTOPp->StreamPkgGen__DOT__split_core__DOT__cnt)) 
                               & (IData)(vlTOPp->StreamPkgGen__DOT__strb_buf));
+    vlTOPp->raw_data_ready = (0U == (IData)(vlTOPp->StreamPkgGen__DOT__split_core__DOT__cnt));
 }
 
 VL_INLINE_OPT void VStreamPkgGen::_combo__TOP__4(VStreamPkgGen__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VStreamPkgGen::_combo__TOP__4\n"); );
     VStreamPkgGen* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
+    vlTOPp->pkg_data_payload_last = ((IData)(vlTOPp->StreamPkgGen__DOT__pkg_slices_cnt) 
+                                     == (0xfffU & ((IData)(vlTOPp->slices_limit) 
+                                                   - (IData)(1U))));
     vlTOPp->StreamPkgGen__DOT__split_core__DOT__raw_data_fire 
         = ((IData)(vlTOPp->raw_data_valid) & (0U == (IData)(vlTOPp->StreamPkgGen__DOT__split_core__DOT__cnt)));
     vlTOPp->StreamPkgGen__DOT__split_core__DOT__split_data_fire 
         = ((0U != (IData)(vlTOPp->StreamPkgGen__DOT__split_core__DOT__cnt)) 
            & (IData)(vlTOPp->pkg_data_ready));
+    vlTOPp->StreamPkgGen__DOT__raw_data_fire = ((IData)(vlTOPp->raw_data_valid) 
+                                                & (IData)(vlTOPp->raw_data_ready));
 }
 
 void VStreamPkgGen::_eval(VStreamPkgGen__Syms* __restrict vlSymsp) {
@@ -181,6 +203,8 @@ VL_INLINE_OPT QData VStreamPkgGen::_change_request_1(VStreamPkgGen__Syms* __rest
 void VStreamPkgGen::_eval_debug_assertions() {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VStreamPkgGen::_eval_debug_assertions\n"); );
     // Body
+    if (VL_UNLIKELY((slices_limit & 0xf000U))) {
+        Verilated::overWidthError("slices_limit");}
     if (VL_UNLIKELY((raw_data_valid & 0xfeU))) {
         Verilated::overWidthError("raw_data_valid");}
     if (VL_UNLIKELY((raw_data_payload_strb & 0xf0U))) {

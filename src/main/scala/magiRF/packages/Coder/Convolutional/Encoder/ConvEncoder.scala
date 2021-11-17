@@ -53,8 +53,8 @@ case class ConvEncoder(config: ConvEncoderConfig) extends Component{
 
 	for(poly <- 0 until config.codeRate){
 		for(idx <- 0 until config.dataWidth){
-			code_vec(poly)(idx) :=  (r_enc(idx) & config.genPoly(poly)).xorR
-//			code_vec(poly)(idx) := xorRGen(r_enc(idx), config.genPoly(poly), config.constraintLength)
+//			code_vec(poly)(idx) :=  (r_enc(idx) & config.genPoly(poly)).xorR
+			code_vec(poly)(idx) := xorRGen(r_enc(idx), config.genPoly(poly), config.constraintLength)
 		}
 	}
 
@@ -75,7 +75,8 @@ case class ConvEncoder(config: ConvEncoderConfig) extends Component{
 
 object ConvEncoderBench {
 	def main(args: Array[String]): Unit = {
-		val conv_coder_config = ConvEncoderConfig(8, 7, List(91, 121))
+//		val conv_coder_config = ConvEncoderConfig(8, 7, List(91, 121))
+		val conv_coder_config = ConvEncoderConfig(1, 7, List(91, 121))
 		SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
 			targetDirectory = "rtl/ConvCode").generateSystemVerilog(new ConvEncoder(conv_coder_config)).printPruned().printUnused()
 	}

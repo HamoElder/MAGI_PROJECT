@@ -73,7 +73,7 @@ case class ViterbiDecoder(config: ViterbiDecoderConfig) extends Component {
 object ViterbiDecoderBench {
     def main(args: Array[String]): Unit = {
 //        val viterbi_decoder = ViterbiDecoderConfig(1, 3, 84, 3, List(7, 5))
-        val viterbi_decoder = ViterbiDecoderConfig(7, 84, 3, List(91, 121))
+        val viterbi_decoder = ViterbiDecoderConfig(7, 84, 1, List(91, 121))
         ViterbiGen.TrellisGen(viterbi_decoder)
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
             targetDirectory = "rtl/ViterbiDecoder").generateSystemVerilog(new ViterbiDecoder(viterbi_decoder)).printPruned()

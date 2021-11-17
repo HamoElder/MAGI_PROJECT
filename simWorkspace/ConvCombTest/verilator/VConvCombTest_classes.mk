@@ -58,7 +58,6 @@ VM_SUPPORT_SLOW += \
 	VConvCombTest__Syms \
 	VConvCombTest__Trace__Slow \
 	VConvCombTest__Trace__1__Slow \
-	VConvCombTest__Trace__2__Slow \
 
 # Global classes, need linked once per executable, fast-path, compile with highest optimization
 VM_GLOBAL_FAST += \

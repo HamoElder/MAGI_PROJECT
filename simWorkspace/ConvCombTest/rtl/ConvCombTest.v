@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : ConvCombTest
-// Git hash  : 0b3d102b123e19b8186911f4a98533f63c818f48
+// Git hash  : 2ce930f6910cd2adedf6f3cae0cb3061d3a3ed6a
 
 
 `define TracebackStates_binary_sequential_type [2:0]
@@ -514,19 +514,13 @@ module ConvEncoder (
   wire       [0:0]    code_vec_0;
   wire       [0:0]    code_vec_1;
   wire       [0:0]    code_vec_2;
-  wire       [6:0]    _zz_code_vec_0;
-  wire       [6:0]    _zz_code_vec_1;
-  wire       [6:0]    _zz_code_vec_2;
   reg                 raw_data_last_regNext;
 
   assign _zz_r_enc_0 = {raw_data_payload[0],r_enc_buf};
   assign r_enc_0 = _zz_r_enc_0[7 : 1];
-  assign _zz_code_vec_0 = (r_enc_0 & 7'h5b);
-  assign code_vec_0[0] = ((((((_zz_code_vec_0[0] ^ _zz_code_vec_0[1]) ^ _zz_code_vec_0[2]) ^ _zz_code_vec_0[3]) ^ _zz_code_vec_0[4]) ^ _zz_code_vec_0[5]) ^ _zz_code_vec_0[6]);
-  assign _zz_code_vec_1 = (r_enc_0 & 7'h79);
-  assign code_vec_1[0] = ((((((_zz_code_vec_1[0] ^ _zz_code_vec_1[1]) ^ _zz_code_vec_1[2]) ^ _zz_code_vec_1[3]) ^ _zz_code_vec_1[4]) ^ _zz_code_vec_1[5]) ^ _zz_code_vec_1[6]);
-  assign _zz_code_vec_2 = (r_enc_0 & 7'h75);
-  assign code_vec_2[0] = ((((((_zz_code_vec_2[0] ^ _zz_code_vec_2[1]) ^ _zz_code_vec_2[2]) ^ _zz_code_vec_2[3]) ^ _zz_code_vec_2[4]) ^ _zz_code_vec_2[5]) ^ _zz_code_vec_2[6]);
+  assign code_vec_0[0] = ((((r_enc_0[0] ^ r_enc_0[1]) ^ r_enc_0[3]) ^ r_enc_0[4]) ^ r_enc_0[6]);
+  assign code_vec_1[0] = ((((r_enc_0[0] ^ r_enc_0[3]) ^ r_enc_0[4]) ^ r_enc_0[5]) ^ r_enc_0[6]);
+  assign code_vec_2[0] = ((((r_enc_0[0] ^ r_enc_0[2]) ^ r_enc_0[4]) ^ r_enc_0[5]) ^ r_enc_0[6]);
   assign coded_data_payload_fragment = coded_data;
   assign coded_data_valid = coded_data_valid_1;
   assign coded_data_payload_last = raw_data_last_regNext;

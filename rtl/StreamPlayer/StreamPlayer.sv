@@ -1,5 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : StreamPlayer
+// Git hash  : 2ce930f6910cd2adedf6f3cae0cb3061d3a3ed6a
 
 
 
