@@ -1,6 +1,5 @@
 package magiRF.modules.Filters.FIR
 
-import magiRF.modules.Filters.filterBundle
 import spinal.core._
 import spinal.lib._
 

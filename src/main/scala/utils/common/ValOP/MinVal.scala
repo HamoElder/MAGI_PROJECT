@@ -1,13 +1,12 @@
 package utils.common.ValOP
 
-import magiRF.modules.Filters.filterBundle
 import spinal.core._
 import spinal.lib._
 
 case class MinVal[T <: Data](dataType: T, vecSize: Int, useSign: Boolean, useCombLogic: Boolean, useIndex: Boolean) extends Component {
-    def dataWidth = dataType.getBitsWidth
-    def idxWidth = log2Up(vecSize)
-    def idxType = UInt(idxWidth bits)
+    def dataWidth: Int = dataType.getBitsWidth
+    def idxWidth: Int = log2Up(vecSize)
+    def idxType: UInt = UInt(idxWidth bits)
     val io = new Bundle{
         val data = in(Vec(cloneOf(dataType), size = vecSize))
         val min_val = out(cloneOf(dataType))

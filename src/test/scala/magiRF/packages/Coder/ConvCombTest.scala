@@ -30,8 +30,9 @@ case class ConvCombTest(encoder_config: ConvEncoderConfig, decoder_config: Viter
     decoder.io.raw_data.valid := encoded_fifo.io.pop.valid
     decoder.io.raw_data.last := encoded_fifo.io.pop.last
     encoded_fifo.io.pop.ready := decoder.io.raw_data.ready
-
-    io.decoded_data << decoder.io.decoded_data
+    val decoded_fifo = StreamFifo(Fragment(decoder_config.decodedDataType), fifoDepth)
+    decoded_fifo.io.push << decoder.io.decoded_data.toStream.freeRun()
+    io.decoded_data << decoded_fifo.io.pop.toFlow
 
 }
 
@@ -42,7 +43,7 @@ object ConvCombTestSimApp extends App{
 //    val conv_coder_config = ConvEncoderConfig(1, 7, List(91, 121))
     val viterbi_decoder = ViterbiDecoderConfig(7, 84, 1, List(91, 121, 117))
     val conv_coder_config = ConvEncoderConfig(1, 7, List(91, 121, 117))
-    SimConfig.withWave.allOptimisation.doSim(new ConvCombTest(conv_coder_config, viterbi_decoder, 1024)) { dut =>
+    SimConfig.withWave.allOptimisation.doSim(new ConvCombTest(conv_coder_config, viterbi_decoder, 2048)) { dut =>
 
         dut.clockDomain.forkStimulus(5)
         dut.io.raw_data.valid #= false

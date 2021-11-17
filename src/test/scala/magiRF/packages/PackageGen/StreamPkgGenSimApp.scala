@@ -1,11 +1,11 @@
 package magiRF.packages.PackageGen
 
-import magiRF.packages.PackageGen.{StreamPkgGen, StreamPkgGenConfig}
 import spinal.core.sim._
+import spinal.lib.LITTLE
 
 object StreamPkgGenSimApp extends App{
 
-    val pkg_gen_config = StreamPkgGenConfig(32, 8, useLittleEndian = false)
+    val pkg_gen_config = StreamPkgGenConfig(32, 8, endianness = LITTLE)
     SimConfig
         .withWave
         .allOptimisation

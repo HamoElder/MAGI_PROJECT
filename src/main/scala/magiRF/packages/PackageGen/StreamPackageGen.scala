@@ -9,7 +9,7 @@ case class StreamPkgGenConfig(
                                  rawDataWidth       : Int,
                                  pkgDataWidth       : Int,
 //								 maxPkgCnt          : Int,
-								 useLittleEndian    : Boolean = true
+								 endianness         : Endianness = LITTLE
                                  ) {
 	// use Little-endian: right shift
 	def rawDataType: Bits = Bits(rawDataWidth bits)
@@ -28,8 +28,8 @@ case class StreamPkgGen(config: StreamPkgGenConfig) extends Component {
 	noIoPrefix()
 
 	val strb_buf = Reg(cloneOf(io.raw_data.strb))
-	val bit_valid = if(config.useLittleEndian) strb_buf(0) else strb_buf(config.pkgBytesNum - 1)
-	val split_core = StreamPayloadSplit(io.raw_data.payload.data, io.pkg_data.payload, config.useLittleEndian)
+	val bit_valid = if(config.endianness == LITTLE) strb_buf(0) else strb_buf(config.pkgBytesNum - 1)
+	val split_core = StreamPayloadSplit(io.raw_data.payload.data, io.pkg_data.payload, config.endianness == LITTLE)
 	split_core.io.raw_data.valid := io.raw_data.valid
 	split_core.io.raw_data.payload := io.raw_data.payload.data
 	io.raw_data.ready := split_core.io.raw_data.ready
@@ -42,7 +42,7 @@ case class StreamPkgGen(config: StreamPkgGenConfig) extends Component {
 	when(io.raw_data.fire){
 		strb_buf := io.raw_data.strb
 	}.elsewhen(split_core.io.split_data.fire){
-		if(config.useLittleEndian){
+		if(config.endianness == LITTLE){
 			strb_buf := strb_buf |>> 1
 		}else{
 			strb_buf := strb_buf |<< 1

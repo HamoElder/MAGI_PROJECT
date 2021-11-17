@@ -42,12 +42,9 @@ case class ViterbiDecoderConfig(
     def TBMemCntWidth: Int = log2Up(TBMemSize)
     def TBMemCntType: UInt = UInt(TBMemCntWidth bits)
 
-//    def lifoDepth: Int = TBMemSize + tracebackWinSize + 16
-    def lifoDepth: Int = 512
-    def lifoCntWidth: Int = log2Up(lifoDepth)
-    def lifoCntType: UInt = UInt(lifoCntWidth bits)
-    def invertDataType: Bits = Bits(2 bits)
+    def lifoDepth: Int = TBMemSize + tracebackWinSize + 16
 
+    def invertDataType: Bits = Bits(2 bits)
     def decodedDataType: Bits = Bits(1 bits)
 }
 
