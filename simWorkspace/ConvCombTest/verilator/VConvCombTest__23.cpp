@@ -5,8 +5,8 @@
 #include "VConvCombTest.h"
 #include "VConvCombTest__Syms.h"
 
-VL_INLINE_OPT void VConvCombTest::_sequent__TOP__100(VConvCombTest__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__100\n"); );
+VL_INLINE_OPT void VConvCombTest::_sequent__TOP__108(VConvCombTest__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__108\n"); );
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Variables
     CData/*6:0*/ __Vtableidx1;
@@ -191,8 +191,19 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__100(VConvCombTest__Syms* __rest
     }
 }
 
-VL_INLINE_OPT void VConvCombTest::_sequent__TOP__109(VConvCombTest__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__109\n"); );
+VL_INLINE_OPT void VConvCombTest::_combo__TOP__110(VConvCombTest__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_combo__TOP__110\n"); );
+    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
+    vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0 
+        = (((IData)(vlTOPp->raw_data_payload_fragment) 
+            << 7U) | (IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT__r_enc_buf));
+    vlTOPp->ConvCombTest__DOT__encoder__DOT__raw_data_fire 
+        = ((IData)(vlTOPp->raw_data_valid) & (~ (IData)(vlTOPp->tail_bits_valid)));
+}
+
+VL_INLINE_OPT void VConvCombTest::_sequent__TOP__111(VConvCombTest__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__111\n"); );
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__halt_cnt 
@@ -265,8 +276,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__109(VConvCombTest__Syms* __rest
     }
 }
 
-VL_INLINE_OPT void VConvCombTest::_sequent__TOP__110(VConvCombTest__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__110\n"); );
+VL_INLINE_OPT void VConvCombTest::_sequent__TOP__112(VConvCombTest__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__112\n"); );
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__when_Traceback_l104 
@@ -307,17 +318,11 @@ void VConvCombTest::_eval(VConvCombTest__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_eval\n"); );
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
+    vlTOPp->_combo__TOP__1(vlSymsp);
+    vlTOPp->__Vm_traceActivity = (2U | vlTOPp->__Vm_traceActivity);
     if (((IData)(vlTOPp->clk) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk)))) {
-        vlTOPp->__Vm_traceActivity = (2U | vlTOPp->__Vm_traceActivity);
-        vlTOPp->_sequent__TOP__21(vlSymsp);
-        vlTOPp->_sequent__TOP__28(vlSymsp);
+        vlTOPp->__Vm_traceActivity = (4U | vlTOPp->__Vm_traceActivity);
         vlTOPp->_sequent__TOP__29(vlSymsp);
-        vlTOPp->_sequent__TOP__30(vlSymsp);
-        vlTOPp->_sequent__TOP__31(vlSymsp);
-        vlTOPp->_sequent__TOP__32(vlSymsp);
-        vlTOPp->_sequent__TOP__33(vlSymsp);
-        vlTOPp->_sequent__TOP__34(vlSymsp);
-        vlTOPp->_sequent__TOP__35(vlSymsp);
         vlTOPp->_sequent__TOP__36(vlSymsp);
         vlTOPp->_sequent__TOP__37(vlSymsp);
         vlTOPp->_sequent__TOP__38(vlSymsp);
@@ -361,35 +366,44 @@ void VConvCombTest::_eval(VConvCombTest__Syms* __restrict vlSymsp) {
         vlTOPp->_sequent__TOP__76(vlSymsp);
         vlTOPp->_sequent__TOP__77(vlSymsp);
         vlTOPp->_sequent__TOP__78(vlSymsp);
+        vlTOPp->_sequent__TOP__79(vlSymsp);
+        vlTOPp->_sequent__TOP__80(vlSymsp);
+        vlTOPp->_sequent__TOP__81(vlSymsp);
+        vlTOPp->_sequent__TOP__82(vlSymsp);
+        vlTOPp->_sequent__TOP__83(vlSymsp);
         vlTOPp->_sequent__TOP__84(vlSymsp);
         vlTOPp->_sequent__TOP__85(vlSymsp);
         vlTOPp->_sequent__TOP__86(vlSymsp);
-        vlTOPp->_sequent__TOP__87(vlSymsp);
-        vlTOPp->_sequent__TOP__88(vlSymsp);
-        vlTOPp->_sequent__TOP__89(vlSymsp);
-        vlTOPp->_sequent__TOP__90(vlSymsp);
-        vlTOPp->_sequent__TOP__91(vlSymsp);
         vlTOPp->_sequent__TOP__92(vlSymsp);
         vlTOPp->_sequent__TOP__93(vlSymsp);
-    }
-    if ((((IData)(vlTOPp->clk) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk))) 
-         | ((IData)(vlTOPp->reset) & (~ (IData)(vlTOPp->__Vclklast__TOP__reset))))) {
-        vlTOPp->__Vm_traceActivity = (4U | vlTOPp->__Vm_traceActivity);
+        vlTOPp->_sequent__TOP__94(vlSymsp);
         vlTOPp->_sequent__TOP__95(vlSymsp);
         vlTOPp->_sequent__TOP__96(vlSymsp);
         vlTOPp->_sequent__TOP__97(vlSymsp);
         vlTOPp->_sequent__TOP__98(vlSymsp);
         vlTOPp->_sequent__TOP__99(vlSymsp);
         vlTOPp->_sequent__TOP__100(vlSymsp);
-    }
-    if (((IData)(vlTOPp->clk) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk)))) {
-        vlTOPp->_sequent__TOP__109(vlSymsp);
-        vlTOPp->__Vm_traceActivity = (8U | vlTOPp->__Vm_traceActivity);
+        vlTOPp->_sequent__TOP__101(vlSymsp);
     }
     if ((((IData)(vlTOPp->clk) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk))) 
          | ((IData)(vlTOPp->reset) & (~ (IData)(vlTOPp->__Vclklast__TOP__reset))))) {
-        vlTOPp->_sequent__TOP__110(vlSymsp);
+        vlTOPp->__Vm_traceActivity = (8U | vlTOPp->__Vm_traceActivity);
+        vlTOPp->_sequent__TOP__103(vlSymsp);
+        vlTOPp->_sequent__TOP__104(vlSymsp);
+        vlTOPp->_settle__TOP__3(vlSymsp);
+        vlTOPp->_settle__TOP__4(vlSymsp);
+        vlTOPp->_settle__TOP__5(vlSymsp);
+        vlTOPp->_sequent__TOP__108(vlSymsp);
+    }
+    vlTOPp->_combo__TOP__110(vlSymsp);
+    if (((IData)(vlTOPp->clk) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk)))) {
+        vlTOPp->_sequent__TOP__111(vlSymsp);
         vlTOPp->__Vm_traceActivity = (0x10U | vlTOPp->__Vm_traceActivity);
+    }
+    if ((((IData)(vlTOPp->clk) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk))) 
+         | ((IData)(vlTOPp->reset) & (~ (IData)(vlTOPp->__Vclklast__TOP__reset))))) {
+        vlTOPp->_sequent__TOP__112(vlSymsp);
+        vlTOPp->__Vm_traceActivity = (0x20U | vlTOPp->__Vm_traceActivity);
     }
     // Final
     vlTOPp->__Vclklast__TOP__clk = vlTOPp->clk;

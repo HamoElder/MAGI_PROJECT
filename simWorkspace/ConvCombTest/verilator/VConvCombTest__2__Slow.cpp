@@ -8,7 +8,6 @@
 void VConvCombTest::_ctor_var_reset_3() {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_ctor_var_reset_3\n"); );
     // Body
-    ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_72 = VL_RAND_RESET_I(1);
     ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_73 = VL_RAND_RESET_I(1);
     ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_74 = VL_RAND_RESET_I(1);
     ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_75 = VL_RAND_RESET_I(1);
@@ -1001,6 +1000,15 @@ void VConvCombTest::_ctor_var_reset_3() {
     VL_CONST_W_3X(88,__Vtable2_ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state_string[5],0x0046494e,0x49534820,0x20202020);
     VL_CONST_W_3X(88,__Vtable2_ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state_string[6],0x003f3f3f,0x3f3f3f3f,0x3f3f3f3f);
     VL_CONST_W_3X(88,__Vtable2_ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state_string[7],0x003f3f3f,0x3f3f3f3f,0x3f3f3f3f);
+    __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_select = VL_RAND_RESET_I(2);
+    __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_addr_write = VL_RAND_RESET_I(8);
+    __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_addr_read = VL_RAND_RESET_I(8);
+    __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tail_repeat = VL_RAND_RESET_I(1);
+    __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__goto_tail = VL_RAND_RESET_I(1);
+    __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state = VL_RAND_RESET_I(3);
+    __Vdly__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state = VL_RAND_RESET_I(1);
+    __Vdly__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor = VL_RAND_RESET_I(9);
+    __Vdly__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_head_cursor = VL_RAND_RESET_I(9);
     __Vdlyvdim0__ConvCombTest__DOT__encoded_fifo__DOT__logic_ram__v0 = 0;
     __Vdlyvval__ConvCombTest__DOT__encoded_fifo__DOT__logic_ram__v0 = VL_RAND_RESET_I(4);
     __Vdlyvset__ConvCombTest__DOT__encoded_fifo__DOT__logic_ram__v0 = 0;
@@ -1020,14 +1028,5 @@ void VConvCombTest::_ctor_var_reset_3() {
     __Vdlyvdim0__ConvCombTest__DOT__decoded_fifo__DOT__logic_ram__v0 = 0;
     __Vdlyvval__ConvCombTest__DOT__decoded_fifo__DOT__logic_ram__v0 = VL_RAND_RESET_I(2);
     __Vdlyvset__ConvCombTest__DOT__decoded_fifo__DOT__logic_ram__v0 = 0;
-    __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_select = VL_RAND_RESET_I(2);
-    __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_addr_write = VL_RAND_RESET_I(8);
-    __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_addr_read = VL_RAND_RESET_I(8);
-    __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tail_repeat = VL_RAND_RESET_I(1);
-    __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__goto_tail = VL_RAND_RESET_I(1);
-    __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state = VL_RAND_RESET_I(3);
-    __Vdly__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state = VL_RAND_RESET_I(1);
-    __Vdly__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor = VL_RAND_RESET_I(9);
-    __Vdly__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_head_cursor = VL_RAND_RESET_I(9);
     __Vm_traceActivity = 0;
 }

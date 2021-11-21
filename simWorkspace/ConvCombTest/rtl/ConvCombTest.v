@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : ConvCombTest
-// Git hash  : 2ce930f6910cd2adedf6f3cae0cb3061d3a3ed6a
+// Git hash  : 20f2bbecaafb9bca8a0b2f811067904083589e4b
 
 
 `define TracebackStates_binary_sequential_type [2:0]
@@ -20,6 +20,7 @@ module ConvCombTest (
   input               tail_bits_valid,
   input      [6:0]    tail_bits_payload,
   input               raw_data_valid,
+  output              raw_data_ready,
   input               raw_data_payload_last,
   input      [0:0]    raw_data_payload_fragment,
   output              decoded_data_valid,
@@ -28,6 +29,7 @@ module ConvCombTest (
   input               clk,
   input               reset
 );
+  wire                encoder_raw_data_ready;
   wire                encoder_coded_data_valid;
   wire                encoder_coded_data_payload_last;
   wire       [2:0]    encoder_coded_data_payload_fragment;
@@ -52,6 +54,7 @@ module ConvCombTest (
     .tail_bits_valid                (tail_bits_valid                      ), //i
     .tail_bits_payload              (tail_bits_payload                    ), //i
     .raw_data_valid                 (raw_data_valid                       ), //i
+    .raw_data_ready                 (encoder_raw_data_ready               ), //o
     .raw_data_payload_last          (raw_data_payload_last                ), //i
     .raw_data_payload_fragment      (raw_data_payload_fragment            ), //i
     .coded_data_valid               (encoder_coded_data_valid             ), //o
@@ -101,6 +104,7 @@ module ConvCombTest (
     .clk                         (clk                                    ), //i
     .reset                       (reset                                  )  //i
   );
+  assign raw_data_ready = encoder_raw_data_ready;
   assign decoded_data_valid = decoded_fifo_io_pop_valid;
   assign decoded_data_payload_last = decoded_fifo_io_pop_payload_last;
   assign decoded_data_payload_fragment = decoded_fifo_io_pop_payload_fragment;
@@ -495,6 +499,7 @@ module ConvEncoder (
   input               tail_bits_valid,
   input      [6:0]    tail_bits_payload,
   input               raw_data_valid,
+  output              raw_data_ready,
   input               raw_data_payload_last,
   input      [0:0]    raw_data_payload_fragment,
   output              coded_data_valid,
@@ -504,9 +509,6 @@ module ConvEncoder (
   input               reset
 );
   wire       [7:0]    _zz_r_enc_0;
-  reg        [0:0]    raw_data_payload;
-  reg                 raw_data_valid_1;
-  reg                 raw_data_last;
   reg        [2:0]    coded_data;
   reg                 coded_data_valid_1;
   reg        [6:0]    r_enc_buf;
@@ -514,45 +516,43 @@ module ConvEncoder (
   wire       [0:0]    code_vec_0;
   wire       [0:0]    code_vec_1;
   wire       [0:0]    code_vec_2;
-  reg                 raw_data_last_regNext;
+  wire                raw_data_fire;
+  reg                 raw_data_payload_last_regNext;
 
-  assign _zz_r_enc_0 = {raw_data_payload[0],r_enc_buf};
+  assign _zz_r_enc_0 = {raw_data_payload_fragment[0],r_enc_buf};
   assign r_enc_0 = _zz_r_enc_0[7 : 1];
+  assign raw_data_fire = (raw_data_valid && raw_data_ready);
+  assign raw_data_ready = (! tail_bits_valid);
   assign code_vec_0[0] = ((((r_enc_0[0] ^ r_enc_0[1]) ^ r_enc_0[3]) ^ r_enc_0[4]) ^ r_enc_0[6]);
   assign code_vec_1[0] = ((((r_enc_0[0] ^ r_enc_0[3]) ^ r_enc_0[4]) ^ r_enc_0[5]) ^ r_enc_0[6]);
   assign code_vec_2[0] = ((((r_enc_0[0] ^ r_enc_0[2]) ^ r_enc_0[4]) ^ r_enc_0[5]) ^ r_enc_0[6]);
   assign coded_data_payload_fragment = coded_data;
   assign coded_data_valid = coded_data_valid_1;
-  assign coded_data_payload_last = raw_data_last_regNext;
-  always @(posedge clk) begin
-    raw_data_payload <= raw_data_payload_fragment;
-    if(tail_bits_valid) begin
-      r_enc_buf <= tail_bits_payload;
-    end else begin
-      if(raw_data_valid_1) begin
-        r_enc_buf <= r_enc_0;
-        coded_data <= {code_vec_0,{code_vec_1,code_vec_2}};
-      end
-    end
-  end
-
+  assign coded_data_payload_last = raw_data_payload_last_regNext;
   always @(posedge clk or posedge reset) begin
     if(reset) begin
-      raw_data_valid_1 <= 1'b0;
-      raw_data_last <= 1'b0;
       coded_data_valid_1 <= 1'b0;
-      raw_data_last_regNext <= 1'b0;
+      raw_data_payload_last_regNext <= 1'b0;
     end else begin
-      raw_data_valid_1 <= raw_data_valid;
-      raw_data_last <= raw_data_payload_last;
       if(!tail_bits_valid) begin
-        if(raw_data_valid_1) begin
+        if(raw_data_fire) begin
           coded_data_valid_1 <= 1'b1;
         end else begin
           coded_data_valid_1 <= 1'b0;
         end
       end
-      raw_data_last_regNext <= raw_data_last;
+      raw_data_payload_last_regNext <= raw_data_payload_last;
+    end
+  end
+
+  always @(posedge clk) begin
+    if(tail_bits_valid) begin
+      r_enc_buf <= tail_bits_payload;
+    end else begin
+      if(raw_data_fire) begin
+        r_enc_buf <= r_enc_0;
+        coded_data <= {code_vec_0,{code_vec_1,code_vec_2}};
+      end
     end
   end
 

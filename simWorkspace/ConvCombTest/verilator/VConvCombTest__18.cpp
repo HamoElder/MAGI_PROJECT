@@ -5,86 +5,86 @@
 #include "VConvCombTest.h"
 #include "VConvCombTest__Syms.h"
 
-VL_INLINE_OPT void VConvCombTest::_sequent__TOP__73(VConvCombTest__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__73\n"); );
+VL_INLINE_OPT void VConvCombTest::_sequent__TOP__78(VConvCombTest__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__78\n"); );
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Variables
-    WData/*511:0*/ __Vtemp1925[16];
-    WData/*511:0*/ __Vtemp1926[16];
-    WData/*511:0*/ __Vtemp1927[16];
-    WData/*511:0*/ __Vtemp1928[16];
-    WData/*511:0*/ __Vtemp1929[16];
-    WData/*511:0*/ __Vtemp1930[16];
-    WData/*511:0*/ __Vtemp1931[16];
-    WData/*511:0*/ __Vtemp1932[16];
-    WData/*511:0*/ __Vtemp1933[16];
-    WData/*511:0*/ __Vtemp1934[16];
-    WData/*511:0*/ __Vtemp1935[16];
-    WData/*511:0*/ __Vtemp1936[16];
-    WData/*511:0*/ __Vtemp1937[16];
-    WData/*511:0*/ __Vtemp1938[16];
-    WData/*511:0*/ __Vtemp1939[16];
-    WData/*511:0*/ __Vtemp1940[16];
-    WData/*511:0*/ __Vtemp1941[16];
-    WData/*511:0*/ __Vtemp1942[16];
-    WData/*511:0*/ __Vtemp1943[16];
-    WData/*511:0*/ __Vtemp1944[16];
-    WData/*511:0*/ __Vtemp1945[16];
-    WData/*511:0*/ __Vtemp1946[16];
-    WData/*511:0*/ __Vtemp1947[16];
-    WData/*511:0*/ __Vtemp1948[16];
-    WData/*511:0*/ __Vtemp1949[16];
-    WData/*511:0*/ __Vtemp1950[16];
-    WData/*511:0*/ __Vtemp1951[16];
-    WData/*511:0*/ __Vtemp1952[16];
-    WData/*511:0*/ __Vtemp1953[16];
-    WData/*511:0*/ __Vtemp1954[16];
-    WData/*511:0*/ __Vtemp1955[16];
-    WData/*511:0*/ __Vtemp1956[16];
-    WData/*511:0*/ __Vtemp1957[16];
-    WData/*511:0*/ __Vtemp1958[16];
-    WData/*511:0*/ __Vtemp1959[16];
-    WData/*511:0*/ __Vtemp1960[16];
-    WData/*511:0*/ __Vtemp1961[16];
-    WData/*511:0*/ __Vtemp1962[16];
-    WData/*511:0*/ __Vtemp1963[16];
-    WData/*511:0*/ __Vtemp1964[16];
-    WData/*511:0*/ __Vtemp1965[16];
-    WData/*511:0*/ __Vtemp1966[16];
-    WData/*511:0*/ __Vtemp1967[16];
-    WData/*511:0*/ __Vtemp1968[16];
-    WData/*511:0*/ __Vtemp1969[16];
-    WData/*511:0*/ __Vtemp1970[16];
-    WData/*511:0*/ __Vtemp1971[16];
-    WData/*511:0*/ __Vtemp1972[16];
-    WData/*511:0*/ __Vtemp1973[16];
-    WData/*511:0*/ __Vtemp1974[16];
-    WData/*511:0*/ __Vtemp1975[16];
-    WData/*511:0*/ __Vtemp1976[16];
-    WData/*511:0*/ __Vtemp1977[16];
-    WData/*511:0*/ __Vtemp1978[16];
+    WData/*511:0*/ __Vtemp1764[16];
+    WData/*511:0*/ __Vtemp1765[16];
+    WData/*511:0*/ __Vtemp1766[16];
+    WData/*511:0*/ __Vtemp1767[16];
+    WData/*511:0*/ __Vtemp1768[16];
+    WData/*511:0*/ __Vtemp1769[16];
+    WData/*511:0*/ __Vtemp1770[16];
+    WData/*511:0*/ __Vtemp1771[16];
+    WData/*511:0*/ __Vtemp1772[16];
+    WData/*511:0*/ __Vtemp1773[16];
+    WData/*511:0*/ __Vtemp1774[16];
+    WData/*511:0*/ __Vtemp1775[16];
+    WData/*511:0*/ __Vtemp1776[16];
+    WData/*511:0*/ __Vtemp1777[16];
+    WData/*511:0*/ __Vtemp1778[16];
+    WData/*511:0*/ __Vtemp1779[16];
+    WData/*511:0*/ __Vtemp1780[16];
+    WData/*511:0*/ __Vtemp1781[16];
+    WData/*511:0*/ __Vtemp1782[16];
+    WData/*511:0*/ __Vtemp1783[16];
+    WData/*511:0*/ __Vtemp1784[16];
+    WData/*511:0*/ __Vtemp1785[16];
+    WData/*511:0*/ __Vtemp1786[16];
+    WData/*511:0*/ __Vtemp1787[16];
+    WData/*511:0*/ __Vtemp1788[16];
+    WData/*511:0*/ __Vtemp1789[16];
+    WData/*511:0*/ __Vtemp1790[16];
+    WData/*511:0*/ __Vtemp1791[16];
+    WData/*511:0*/ __Vtemp1792[16];
+    WData/*511:0*/ __Vtemp1793[16];
+    WData/*511:0*/ __Vtemp1794[16];
+    WData/*511:0*/ __Vtemp1795[16];
+    WData/*511:0*/ __Vtemp1796[16];
+    WData/*511:0*/ __Vtemp1797[16];
+    WData/*511:0*/ __Vtemp1798[16];
+    WData/*511:0*/ __Vtemp1799[16];
+    WData/*511:0*/ __Vtemp1800[16];
+    WData/*511:0*/ __Vtemp1801[16];
+    WData/*511:0*/ __Vtemp1802[16];
+    WData/*511:0*/ __Vtemp1803[16];
+    WData/*511:0*/ __Vtemp1804[16];
+    WData/*511:0*/ __Vtemp1805[16];
+    WData/*511:0*/ __Vtemp1806[16];
+    WData/*511:0*/ __Vtemp1807[16];
+    WData/*511:0*/ __Vtemp1808[16];
+    WData/*511:0*/ __Vtemp1809[16];
+    WData/*511:0*/ __Vtemp1810[16];
+    WData/*511:0*/ __Vtemp1811[16];
+    WData/*511:0*/ __Vtemp1812[16];
+    WData/*511:0*/ __Vtemp1813[16];
+    WData/*511:0*/ __Vtemp1814[16];
+    WData/*511:0*/ __Vtemp1815[16];
+    WData/*511:0*/ __Vtemp1816[16];
+    WData/*511:0*/ __Vtemp1817[16];
     // Body
     if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
         if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1925[0U] = 1U;
-            __Vtemp1925[1U] = 0U;
-            __Vtemp1925[2U] = 0U;
-            __Vtemp1925[3U] = 0U;
-            __Vtemp1925[4U] = 0U;
-            __Vtemp1925[5U] = 0U;
-            __Vtemp1925[6U] = 0U;
-            __Vtemp1925[7U] = 0U;
-            __Vtemp1925[8U] = 0U;
-            __Vtemp1925[9U] = 0U;
-            __Vtemp1925[0xaU] = 0U;
-            __Vtemp1925[0xbU] = 0U;
-            __Vtemp1925[0xcU] = 0U;
-            __Vtemp1925[0xdU] = 0U;
-            __Vtemp1925[0xeU] = 0U;
-            __Vtemp1925[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1926, __Vtemp1925, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x200000U & __Vtemp1926[1U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_53 
+            __Vtemp1764[0U] = 1U;
+            __Vtemp1764[1U] = 0U;
+            __Vtemp1764[2U] = 0U;
+            __Vtemp1764[3U] = 0U;
+            __Vtemp1764[4U] = 0U;
+            __Vtemp1764[5U] = 0U;
+            __Vtemp1764[6U] = 0U;
+            __Vtemp1764[7U] = 0U;
+            __Vtemp1764[8U] = 0U;
+            __Vtemp1764[9U] = 0U;
+            __Vtemp1764[0xaU] = 0U;
+            __Vtemp1764[0xbU] = 0U;
+            __Vtemp1764[0xcU] = 0U;
+            __Vtemp1764[0xdU] = 0U;
+            __Vtemp1764[0xeU] = 0U;
+            __Vtemp1764[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1765, __Vtemp1764, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x80000000U & __Vtemp1765[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_31 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -92,25 +92,25 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__73(VConvCombTest__Syms* __restr
     }
     if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
         if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1927[0U] = 1U;
-            __Vtemp1927[1U] = 0U;
-            __Vtemp1927[2U] = 0U;
-            __Vtemp1927[3U] = 0U;
-            __Vtemp1927[4U] = 0U;
-            __Vtemp1927[5U] = 0U;
-            __Vtemp1927[6U] = 0U;
-            __Vtemp1927[7U] = 0U;
-            __Vtemp1927[8U] = 0U;
-            __Vtemp1927[9U] = 0U;
-            __Vtemp1927[0xaU] = 0U;
-            __Vtemp1927[0xbU] = 0U;
-            __Vtemp1927[0xcU] = 0U;
-            __Vtemp1927[0xdU] = 0U;
-            __Vtemp1927[0xeU] = 0U;
-            __Vtemp1927[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1928, __Vtemp1927, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x400000U & __Vtemp1928[1U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_54 
+            __Vtemp1766[0U] = 1U;
+            __Vtemp1766[1U] = 0U;
+            __Vtemp1766[2U] = 0U;
+            __Vtemp1766[3U] = 0U;
+            __Vtemp1766[4U] = 0U;
+            __Vtemp1766[5U] = 0U;
+            __Vtemp1766[6U] = 0U;
+            __Vtemp1766[7U] = 0U;
+            __Vtemp1766[8U] = 0U;
+            __Vtemp1766[9U] = 0U;
+            __Vtemp1766[0xaU] = 0U;
+            __Vtemp1766[0xbU] = 0U;
+            __Vtemp1766[0xcU] = 0U;
+            __Vtemp1766[0xdU] = 0U;
+            __Vtemp1766[0xeU] = 0U;
+            __Vtemp1766[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1767, __Vtemp1766, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x800000U & __Vtemp1767[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_183 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -118,1230 +118,25 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__73(VConvCombTest__Syms* __restr
     }
     if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
         if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1929[0U] = 1U;
-            __Vtemp1929[1U] = 0U;
-            __Vtemp1929[2U] = 0U;
-            __Vtemp1929[3U] = 0U;
-            __Vtemp1929[4U] = 0U;
-            __Vtemp1929[5U] = 0U;
-            __Vtemp1929[6U] = 0U;
-            __Vtemp1929[7U] = 0U;
-            __Vtemp1929[8U] = 0U;
-            __Vtemp1929[9U] = 0U;
-            __Vtemp1929[0xaU] = 0U;
-            __Vtemp1929[0xbU] = 0U;
-            __Vtemp1929[0xcU] = 0U;
-            __Vtemp1929[0xdU] = 0U;
-            __Vtemp1929[0xeU] = 0U;
-            __Vtemp1929[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1930, __Vtemp1929, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x800000U & __Vtemp1930[1U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_55 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1931[0U] = 1U;
-            __Vtemp1931[1U] = 0U;
-            __Vtemp1931[2U] = 0U;
-            __Vtemp1931[3U] = 0U;
-            __Vtemp1931[4U] = 0U;
-            __Vtemp1931[5U] = 0U;
-            __Vtemp1931[6U] = 0U;
-            __Vtemp1931[7U] = 0U;
-            __Vtemp1931[8U] = 0U;
-            __Vtemp1931[9U] = 0U;
-            __Vtemp1931[0xaU] = 0U;
-            __Vtemp1931[0xbU] = 0U;
-            __Vtemp1931[0xcU] = 0U;
-            __Vtemp1931[0xdU] = 0U;
-            __Vtemp1931[0xeU] = 0U;
-            __Vtemp1931[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1932, __Vtemp1931, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x1000000U & __Vtemp1932[1U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_56 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1933[0U] = 1U;
-            __Vtemp1933[1U] = 0U;
-            __Vtemp1933[2U] = 0U;
-            __Vtemp1933[3U] = 0U;
-            __Vtemp1933[4U] = 0U;
-            __Vtemp1933[5U] = 0U;
-            __Vtemp1933[6U] = 0U;
-            __Vtemp1933[7U] = 0U;
-            __Vtemp1933[8U] = 0U;
-            __Vtemp1933[9U] = 0U;
-            __Vtemp1933[0xaU] = 0U;
-            __Vtemp1933[0xbU] = 0U;
-            __Vtemp1933[0xcU] = 0U;
-            __Vtemp1933[0xdU] = 0U;
-            __Vtemp1933[0xeU] = 0U;
-            __Vtemp1933[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1934, __Vtemp1933, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x2000000U & __Vtemp1934[1U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_57 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1935[0U] = 1U;
-            __Vtemp1935[1U] = 0U;
-            __Vtemp1935[2U] = 0U;
-            __Vtemp1935[3U] = 0U;
-            __Vtemp1935[4U] = 0U;
-            __Vtemp1935[5U] = 0U;
-            __Vtemp1935[6U] = 0U;
-            __Vtemp1935[7U] = 0U;
-            __Vtemp1935[8U] = 0U;
-            __Vtemp1935[9U] = 0U;
-            __Vtemp1935[0xaU] = 0U;
-            __Vtemp1935[0xbU] = 0U;
-            __Vtemp1935[0xcU] = 0U;
-            __Vtemp1935[0xdU] = 0U;
-            __Vtemp1935[0xeU] = 0U;
-            __Vtemp1935[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1936, __Vtemp1935, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x4000000U & __Vtemp1936[1U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_58 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1937[0U] = 1U;
-            __Vtemp1937[1U] = 0U;
-            __Vtemp1937[2U] = 0U;
-            __Vtemp1937[3U] = 0U;
-            __Vtemp1937[4U] = 0U;
-            __Vtemp1937[5U] = 0U;
-            __Vtemp1937[6U] = 0U;
-            __Vtemp1937[7U] = 0U;
-            __Vtemp1937[8U] = 0U;
-            __Vtemp1937[9U] = 0U;
-            __Vtemp1937[0xaU] = 0U;
-            __Vtemp1937[0xbU] = 0U;
-            __Vtemp1937[0xcU] = 0U;
-            __Vtemp1937[0xdU] = 0U;
-            __Vtemp1937[0xeU] = 0U;
-            __Vtemp1937[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1938, __Vtemp1937, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x8000000U & __Vtemp1938[1U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_59 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1939[0U] = 1U;
-            __Vtemp1939[1U] = 0U;
-            __Vtemp1939[2U] = 0U;
-            __Vtemp1939[3U] = 0U;
-            __Vtemp1939[4U] = 0U;
-            __Vtemp1939[5U] = 0U;
-            __Vtemp1939[6U] = 0U;
-            __Vtemp1939[7U] = 0U;
-            __Vtemp1939[8U] = 0U;
-            __Vtemp1939[9U] = 0U;
-            __Vtemp1939[0xaU] = 0U;
-            __Vtemp1939[0xbU] = 0U;
-            __Vtemp1939[0xcU] = 0U;
-            __Vtemp1939[0xdU] = 0U;
-            __Vtemp1939[0xeU] = 0U;
-            __Vtemp1939[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1940, __Vtemp1939, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x10000000U & __Vtemp1940[1U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_60 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1941[0U] = 1U;
-            __Vtemp1941[1U] = 0U;
-            __Vtemp1941[2U] = 0U;
-            __Vtemp1941[3U] = 0U;
-            __Vtemp1941[4U] = 0U;
-            __Vtemp1941[5U] = 0U;
-            __Vtemp1941[6U] = 0U;
-            __Vtemp1941[7U] = 0U;
-            __Vtemp1941[8U] = 0U;
-            __Vtemp1941[9U] = 0U;
-            __Vtemp1941[0xaU] = 0U;
-            __Vtemp1941[0xbU] = 0U;
-            __Vtemp1941[0xcU] = 0U;
-            __Vtemp1941[0xdU] = 0U;
-            __Vtemp1941[0xeU] = 0U;
-            __Vtemp1941[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1942, __Vtemp1941, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x20000000U & __Vtemp1942[1U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_61 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1943[0U] = 1U;
-            __Vtemp1943[1U] = 0U;
-            __Vtemp1943[2U] = 0U;
-            __Vtemp1943[3U] = 0U;
-            __Vtemp1943[4U] = 0U;
-            __Vtemp1943[5U] = 0U;
-            __Vtemp1943[6U] = 0U;
-            __Vtemp1943[7U] = 0U;
-            __Vtemp1943[8U] = 0U;
-            __Vtemp1943[9U] = 0U;
-            __Vtemp1943[0xaU] = 0U;
-            __Vtemp1943[0xbU] = 0U;
-            __Vtemp1943[0xcU] = 0U;
-            __Vtemp1943[0xdU] = 0U;
-            __Vtemp1943[0xeU] = 0U;
-            __Vtemp1943[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1944, __Vtemp1943, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x40000000U & __Vtemp1944[1U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_62 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1945[0U] = 1U;
-            __Vtemp1945[1U] = 0U;
-            __Vtemp1945[2U] = 0U;
-            __Vtemp1945[3U] = 0U;
-            __Vtemp1945[4U] = 0U;
-            __Vtemp1945[5U] = 0U;
-            __Vtemp1945[6U] = 0U;
-            __Vtemp1945[7U] = 0U;
-            __Vtemp1945[8U] = 0U;
-            __Vtemp1945[9U] = 0U;
-            __Vtemp1945[0xaU] = 0U;
-            __Vtemp1945[0xbU] = 0U;
-            __Vtemp1945[0xcU] = 0U;
-            __Vtemp1945[0xdU] = 0U;
-            __Vtemp1945[0xeU] = 0U;
-            __Vtemp1945[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1946, __Vtemp1945, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x80000000U & __Vtemp1946[1U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_63 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1947[0U] = 1U;
-            __Vtemp1947[1U] = 0U;
-            __Vtemp1947[2U] = 0U;
-            __Vtemp1947[3U] = 0U;
-            __Vtemp1947[4U] = 0U;
-            __Vtemp1947[5U] = 0U;
-            __Vtemp1947[6U] = 0U;
-            __Vtemp1947[7U] = 0U;
-            __Vtemp1947[8U] = 0U;
-            __Vtemp1947[9U] = 0U;
-            __Vtemp1947[0xaU] = 0U;
-            __Vtemp1947[0xbU] = 0U;
-            __Vtemp1947[0xcU] = 0U;
-            __Vtemp1947[0xdU] = 0U;
-            __Vtemp1947[0xeU] = 0U;
-            __Vtemp1947[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1948, __Vtemp1947, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((1U & __Vtemp1948[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_64 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1949[0U] = 1U;
-            __Vtemp1949[1U] = 0U;
-            __Vtemp1949[2U] = 0U;
-            __Vtemp1949[3U] = 0U;
-            __Vtemp1949[4U] = 0U;
-            __Vtemp1949[5U] = 0U;
-            __Vtemp1949[6U] = 0U;
-            __Vtemp1949[7U] = 0U;
-            __Vtemp1949[8U] = 0U;
-            __Vtemp1949[9U] = 0U;
-            __Vtemp1949[0xaU] = 0U;
-            __Vtemp1949[0xbU] = 0U;
-            __Vtemp1949[0xcU] = 0U;
-            __Vtemp1949[0xdU] = 0U;
-            __Vtemp1949[0xeU] = 0U;
-            __Vtemp1949[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1950, __Vtemp1949, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((2U & __Vtemp1950[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_65 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1951[0U] = 1U;
-            __Vtemp1951[1U] = 0U;
-            __Vtemp1951[2U] = 0U;
-            __Vtemp1951[3U] = 0U;
-            __Vtemp1951[4U] = 0U;
-            __Vtemp1951[5U] = 0U;
-            __Vtemp1951[6U] = 0U;
-            __Vtemp1951[7U] = 0U;
-            __Vtemp1951[8U] = 0U;
-            __Vtemp1951[9U] = 0U;
-            __Vtemp1951[0xaU] = 0U;
-            __Vtemp1951[0xbU] = 0U;
-            __Vtemp1951[0xcU] = 0U;
-            __Vtemp1951[0xdU] = 0U;
-            __Vtemp1951[0xeU] = 0U;
-            __Vtemp1951[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1952, __Vtemp1951, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((4U & __Vtemp1952[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_66 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1953[0U] = 1U;
-            __Vtemp1953[1U] = 0U;
-            __Vtemp1953[2U] = 0U;
-            __Vtemp1953[3U] = 0U;
-            __Vtemp1953[4U] = 0U;
-            __Vtemp1953[5U] = 0U;
-            __Vtemp1953[6U] = 0U;
-            __Vtemp1953[7U] = 0U;
-            __Vtemp1953[8U] = 0U;
-            __Vtemp1953[9U] = 0U;
-            __Vtemp1953[0xaU] = 0U;
-            __Vtemp1953[0xbU] = 0U;
-            __Vtemp1953[0xcU] = 0U;
-            __Vtemp1953[0xdU] = 0U;
-            __Vtemp1953[0xeU] = 0U;
-            __Vtemp1953[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1954, __Vtemp1953, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((8U & __Vtemp1954[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_67 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1955[0U] = 1U;
-            __Vtemp1955[1U] = 0U;
-            __Vtemp1955[2U] = 0U;
-            __Vtemp1955[3U] = 0U;
-            __Vtemp1955[4U] = 0U;
-            __Vtemp1955[5U] = 0U;
-            __Vtemp1955[6U] = 0U;
-            __Vtemp1955[7U] = 0U;
-            __Vtemp1955[8U] = 0U;
-            __Vtemp1955[9U] = 0U;
-            __Vtemp1955[0xaU] = 0U;
-            __Vtemp1955[0xbU] = 0U;
-            __Vtemp1955[0xcU] = 0U;
-            __Vtemp1955[0xdU] = 0U;
-            __Vtemp1955[0xeU] = 0U;
-            __Vtemp1955[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1956, __Vtemp1955, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x10U & __Vtemp1956[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_68 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1957[0U] = 1U;
-            __Vtemp1957[1U] = 0U;
-            __Vtemp1957[2U] = 0U;
-            __Vtemp1957[3U] = 0U;
-            __Vtemp1957[4U] = 0U;
-            __Vtemp1957[5U] = 0U;
-            __Vtemp1957[6U] = 0U;
-            __Vtemp1957[7U] = 0U;
-            __Vtemp1957[8U] = 0U;
-            __Vtemp1957[9U] = 0U;
-            __Vtemp1957[0xaU] = 0U;
-            __Vtemp1957[0xbU] = 0U;
-            __Vtemp1957[0xcU] = 0U;
-            __Vtemp1957[0xdU] = 0U;
-            __Vtemp1957[0xeU] = 0U;
-            __Vtemp1957[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1958, __Vtemp1957, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x20U & __Vtemp1958[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_69 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1959[0U] = 1U;
-            __Vtemp1959[1U] = 0U;
-            __Vtemp1959[2U] = 0U;
-            __Vtemp1959[3U] = 0U;
-            __Vtemp1959[4U] = 0U;
-            __Vtemp1959[5U] = 0U;
-            __Vtemp1959[6U] = 0U;
-            __Vtemp1959[7U] = 0U;
-            __Vtemp1959[8U] = 0U;
-            __Vtemp1959[9U] = 0U;
-            __Vtemp1959[0xaU] = 0U;
-            __Vtemp1959[0xbU] = 0U;
-            __Vtemp1959[0xcU] = 0U;
-            __Vtemp1959[0xdU] = 0U;
-            __Vtemp1959[0xeU] = 0U;
-            __Vtemp1959[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1960, __Vtemp1959, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x40U & __Vtemp1960[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_70 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1961[0U] = 1U;
-            __Vtemp1961[1U] = 0U;
-            __Vtemp1961[2U] = 0U;
-            __Vtemp1961[3U] = 0U;
-            __Vtemp1961[4U] = 0U;
-            __Vtemp1961[5U] = 0U;
-            __Vtemp1961[6U] = 0U;
-            __Vtemp1961[7U] = 0U;
-            __Vtemp1961[8U] = 0U;
-            __Vtemp1961[9U] = 0U;
-            __Vtemp1961[0xaU] = 0U;
-            __Vtemp1961[0xbU] = 0U;
-            __Vtemp1961[0xcU] = 0U;
-            __Vtemp1961[0xdU] = 0U;
-            __Vtemp1961[0xeU] = 0U;
-            __Vtemp1961[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1962, __Vtemp1961, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x80U & __Vtemp1962[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_71 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1963[0U] = 1U;
-            __Vtemp1963[1U] = 0U;
-            __Vtemp1963[2U] = 0U;
-            __Vtemp1963[3U] = 0U;
-            __Vtemp1963[4U] = 0U;
-            __Vtemp1963[5U] = 0U;
-            __Vtemp1963[6U] = 0U;
-            __Vtemp1963[7U] = 0U;
-            __Vtemp1963[8U] = 0U;
-            __Vtemp1963[9U] = 0U;
-            __Vtemp1963[0xaU] = 0U;
-            __Vtemp1963[0xbU] = 0U;
-            __Vtemp1963[0xcU] = 0U;
-            __Vtemp1963[0xdU] = 0U;
-            __Vtemp1963[0xeU] = 0U;
-            __Vtemp1963[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1964, __Vtemp1963, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x100U & __Vtemp1964[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_72 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1965[0U] = 1U;
-            __Vtemp1965[1U] = 0U;
-            __Vtemp1965[2U] = 0U;
-            __Vtemp1965[3U] = 0U;
-            __Vtemp1965[4U] = 0U;
-            __Vtemp1965[5U] = 0U;
-            __Vtemp1965[6U] = 0U;
-            __Vtemp1965[7U] = 0U;
-            __Vtemp1965[8U] = 0U;
-            __Vtemp1965[9U] = 0U;
-            __Vtemp1965[0xaU] = 0U;
-            __Vtemp1965[0xbU] = 0U;
-            __Vtemp1965[0xcU] = 0U;
-            __Vtemp1965[0xdU] = 0U;
-            __Vtemp1965[0xeU] = 0U;
-            __Vtemp1965[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1966, __Vtemp1965, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x200U & __Vtemp1966[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_73 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1967[0U] = 1U;
-            __Vtemp1967[1U] = 0U;
-            __Vtemp1967[2U] = 0U;
-            __Vtemp1967[3U] = 0U;
-            __Vtemp1967[4U] = 0U;
-            __Vtemp1967[5U] = 0U;
-            __Vtemp1967[6U] = 0U;
-            __Vtemp1967[7U] = 0U;
-            __Vtemp1967[8U] = 0U;
-            __Vtemp1967[9U] = 0U;
-            __Vtemp1967[0xaU] = 0U;
-            __Vtemp1967[0xbU] = 0U;
-            __Vtemp1967[0xcU] = 0U;
-            __Vtemp1967[0xdU] = 0U;
-            __Vtemp1967[0xeU] = 0U;
-            __Vtemp1967[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1968, __Vtemp1967, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x400U & __Vtemp1968[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_74 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1969[0U] = 1U;
-            __Vtemp1969[1U] = 0U;
-            __Vtemp1969[2U] = 0U;
-            __Vtemp1969[3U] = 0U;
-            __Vtemp1969[4U] = 0U;
-            __Vtemp1969[5U] = 0U;
-            __Vtemp1969[6U] = 0U;
-            __Vtemp1969[7U] = 0U;
-            __Vtemp1969[8U] = 0U;
-            __Vtemp1969[9U] = 0U;
-            __Vtemp1969[0xaU] = 0U;
-            __Vtemp1969[0xbU] = 0U;
-            __Vtemp1969[0xcU] = 0U;
-            __Vtemp1969[0xdU] = 0U;
-            __Vtemp1969[0xeU] = 0U;
-            __Vtemp1969[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1970, __Vtemp1969, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x800U & __Vtemp1970[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_75 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1971[0U] = 1U;
-            __Vtemp1971[1U] = 0U;
-            __Vtemp1971[2U] = 0U;
-            __Vtemp1971[3U] = 0U;
-            __Vtemp1971[4U] = 0U;
-            __Vtemp1971[5U] = 0U;
-            __Vtemp1971[6U] = 0U;
-            __Vtemp1971[7U] = 0U;
-            __Vtemp1971[8U] = 0U;
-            __Vtemp1971[9U] = 0U;
-            __Vtemp1971[0xaU] = 0U;
-            __Vtemp1971[0xbU] = 0U;
-            __Vtemp1971[0xcU] = 0U;
-            __Vtemp1971[0xdU] = 0U;
-            __Vtemp1971[0xeU] = 0U;
-            __Vtemp1971[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1972, __Vtemp1971, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x1000U & __Vtemp1972[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_76 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1973[0U] = 1U;
-            __Vtemp1973[1U] = 0U;
-            __Vtemp1973[2U] = 0U;
-            __Vtemp1973[3U] = 0U;
-            __Vtemp1973[4U] = 0U;
-            __Vtemp1973[5U] = 0U;
-            __Vtemp1973[6U] = 0U;
-            __Vtemp1973[7U] = 0U;
-            __Vtemp1973[8U] = 0U;
-            __Vtemp1973[9U] = 0U;
-            __Vtemp1973[0xaU] = 0U;
-            __Vtemp1973[0xbU] = 0U;
-            __Vtemp1973[0xcU] = 0U;
-            __Vtemp1973[0xdU] = 0U;
-            __Vtemp1973[0xeU] = 0U;
-            __Vtemp1973[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1974, __Vtemp1973, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x2000U & __Vtemp1974[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_77 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1975[0U] = 1U;
-            __Vtemp1975[1U] = 0U;
-            __Vtemp1975[2U] = 0U;
-            __Vtemp1975[3U] = 0U;
-            __Vtemp1975[4U] = 0U;
-            __Vtemp1975[5U] = 0U;
-            __Vtemp1975[6U] = 0U;
-            __Vtemp1975[7U] = 0U;
-            __Vtemp1975[8U] = 0U;
-            __Vtemp1975[9U] = 0U;
-            __Vtemp1975[0xaU] = 0U;
-            __Vtemp1975[0xbU] = 0U;
-            __Vtemp1975[0xcU] = 0U;
-            __Vtemp1975[0xdU] = 0U;
-            __Vtemp1975[0xeU] = 0U;
-            __Vtemp1975[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1976, __Vtemp1975, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x4000U & __Vtemp1976[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_78 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1977[0U] = 1U;
-            __Vtemp1977[1U] = 0U;
-            __Vtemp1977[2U] = 0U;
-            __Vtemp1977[3U] = 0U;
-            __Vtemp1977[4U] = 0U;
-            __Vtemp1977[5U] = 0U;
-            __Vtemp1977[6U] = 0U;
-            __Vtemp1977[7U] = 0U;
-            __Vtemp1977[8U] = 0U;
-            __Vtemp1977[9U] = 0U;
-            __Vtemp1977[0xaU] = 0U;
-            __Vtemp1977[0xbU] = 0U;
-            __Vtemp1977[0xcU] = 0U;
-            __Vtemp1977[0xdU] = 0U;
-            __Vtemp1977[0xeU] = 0U;
-            __Vtemp1977[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1978, __Vtemp1977, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x8000U & __Vtemp1978[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_79 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-}
-
-VL_INLINE_OPT void VConvCombTest::_sequent__TOP__74(VConvCombTest__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__74\n"); );
-    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Variables
-    WData/*511:0*/ __Vtemp1979[16];
-    WData/*511:0*/ __Vtemp1980[16];
-    WData/*511:0*/ __Vtemp1981[16];
-    WData/*511:0*/ __Vtemp1982[16];
-    WData/*511:0*/ __Vtemp1983[16];
-    WData/*511:0*/ __Vtemp1984[16];
-    WData/*511:0*/ __Vtemp1985[16];
-    WData/*511:0*/ __Vtemp1986[16];
-    WData/*511:0*/ __Vtemp1987[16];
-    WData/*511:0*/ __Vtemp1988[16];
-    WData/*511:0*/ __Vtemp1989[16];
-    WData/*511:0*/ __Vtemp1990[16];
-    WData/*511:0*/ __Vtemp1991[16];
-    WData/*511:0*/ __Vtemp1992[16];
-    WData/*511:0*/ __Vtemp1993[16];
-    WData/*511:0*/ __Vtemp1994[16];
-    WData/*511:0*/ __Vtemp1995[16];
-    WData/*511:0*/ __Vtemp1996[16];
-    WData/*511:0*/ __Vtemp1997[16];
-    WData/*511:0*/ __Vtemp1998[16];
-    WData/*511:0*/ __Vtemp1999[16];
-    WData/*511:0*/ __Vtemp2000[16];
-    WData/*511:0*/ __Vtemp2001[16];
-    WData/*511:0*/ __Vtemp2002[16];
-    WData/*511:0*/ __Vtemp2003[16];
-    WData/*511:0*/ __Vtemp2004[16];
-    WData/*511:0*/ __Vtemp2005[16];
-    WData/*511:0*/ __Vtemp2006[16];
-    WData/*511:0*/ __Vtemp2007[16];
-    WData/*511:0*/ __Vtemp2008[16];
-    WData/*511:0*/ __Vtemp2009[16];
-    WData/*511:0*/ __Vtemp2010[16];
-    WData/*511:0*/ __Vtemp2011[16];
-    WData/*511:0*/ __Vtemp2012[16];
-    WData/*511:0*/ __Vtemp2013[16];
-    WData/*511:0*/ __Vtemp2014[16];
-    WData/*511:0*/ __Vtemp2015[16];
-    WData/*511:0*/ __Vtemp2016[16];
-    WData/*511:0*/ __Vtemp2017[16];
-    WData/*511:0*/ __Vtemp2018[16];
-    WData/*511:0*/ __Vtemp2019[16];
-    WData/*511:0*/ __Vtemp2020[16];
-    WData/*511:0*/ __Vtemp2021[16];
-    WData/*511:0*/ __Vtemp2022[16];
-    WData/*511:0*/ __Vtemp2023[16];
-    WData/*511:0*/ __Vtemp2024[16];
-    WData/*511:0*/ __Vtemp2025[16];
-    WData/*511:0*/ __Vtemp2026[16];
-    WData/*511:0*/ __Vtemp2027[16];
-    WData/*511:0*/ __Vtemp2028[16];
-    WData/*511:0*/ __Vtemp2029[16];
-    WData/*511:0*/ __Vtemp2030[16];
-    WData/*511:0*/ __Vtemp2031[16];
-    WData/*511:0*/ __Vtemp2032[16];
-    // Body
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1979[0U] = 1U;
-            __Vtemp1979[1U] = 0U;
-            __Vtemp1979[2U] = 0U;
-            __Vtemp1979[3U] = 0U;
-            __Vtemp1979[4U] = 0U;
-            __Vtemp1979[5U] = 0U;
-            __Vtemp1979[6U] = 0U;
-            __Vtemp1979[7U] = 0U;
-            __Vtemp1979[8U] = 0U;
-            __Vtemp1979[9U] = 0U;
-            __Vtemp1979[0xaU] = 0U;
-            __Vtemp1979[0xbU] = 0U;
-            __Vtemp1979[0xcU] = 0U;
-            __Vtemp1979[0xdU] = 0U;
-            __Vtemp1979[0xeU] = 0U;
-            __Vtemp1979[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1980, __Vtemp1979, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x10000U & __Vtemp1980[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_80 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1981[0U] = 1U;
-            __Vtemp1981[1U] = 0U;
-            __Vtemp1981[2U] = 0U;
-            __Vtemp1981[3U] = 0U;
-            __Vtemp1981[4U] = 0U;
-            __Vtemp1981[5U] = 0U;
-            __Vtemp1981[6U] = 0U;
-            __Vtemp1981[7U] = 0U;
-            __Vtemp1981[8U] = 0U;
-            __Vtemp1981[9U] = 0U;
-            __Vtemp1981[0xaU] = 0U;
-            __Vtemp1981[0xbU] = 0U;
-            __Vtemp1981[0xcU] = 0U;
-            __Vtemp1981[0xdU] = 0U;
-            __Vtemp1981[0xeU] = 0U;
-            __Vtemp1981[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1982, __Vtemp1981, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x20000U & __Vtemp1982[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_81 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1983[0U] = 1U;
-            __Vtemp1983[1U] = 0U;
-            __Vtemp1983[2U] = 0U;
-            __Vtemp1983[3U] = 0U;
-            __Vtemp1983[4U] = 0U;
-            __Vtemp1983[5U] = 0U;
-            __Vtemp1983[6U] = 0U;
-            __Vtemp1983[7U] = 0U;
-            __Vtemp1983[8U] = 0U;
-            __Vtemp1983[9U] = 0U;
-            __Vtemp1983[0xaU] = 0U;
-            __Vtemp1983[0xbU] = 0U;
-            __Vtemp1983[0xcU] = 0U;
-            __Vtemp1983[0xdU] = 0U;
-            __Vtemp1983[0xeU] = 0U;
-            __Vtemp1983[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1984, __Vtemp1983, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x40000U & __Vtemp1984[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_82 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1985[0U] = 1U;
-            __Vtemp1985[1U] = 0U;
-            __Vtemp1985[2U] = 0U;
-            __Vtemp1985[3U] = 0U;
-            __Vtemp1985[4U] = 0U;
-            __Vtemp1985[5U] = 0U;
-            __Vtemp1985[6U] = 0U;
-            __Vtemp1985[7U] = 0U;
-            __Vtemp1985[8U] = 0U;
-            __Vtemp1985[9U] = 0U;
-            __Vtemp1985[0xaU] = 0U;
-            __Vtemp1985[0xbU] = 0U;
-            __Vtemp1985[0xcU] = 0U;
-            __Vtemp1985[0xdU] = 0U;
-            __Vtemp1985[0xeU] = 0U;
-            __Vtemp1985[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1986, __Vtemp1985, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x80000U & __Vtemp1986[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_83 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1987[0U] = 1U;
-            __Vtemp1987[1U] = 0U;
-            __Vtemp1987[2U] = 0U;
-            __Vtemp1987[3U] = 0U;
-            __Vtemp1987[4U] = 0U;
-            __Vtemp1987[5U] = 0U;
-            __Vtemp1987[6U] = 0U;
-            __Vtemp1987[7U] = 0U;
-            __Vtemp1987[8U] = 0U;
-            __Vtemp1987[9U] = 0U;
-            __Vtemp1987[0xaU] = 0U;
-            __Vtemp1987[0xbU] = 0U;
-            __Vtemp1987[0xcU] = 0U;
-            __Vtemp1987[0xdU] = 0U;
-            __Vtemp1987[0xeU] = 0U;
-            __Vtemp1987[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1988, __Vtemp1987, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x100000U & __Vtemp1988[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_84 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1989[0U] = 1U;
-            __Vtemp1989[1U] = 0U;
-            __Vtemp1989[2U] = 0U;
-            __Vtemp1989[3U] = 0U;
-            __Vtemp1989[4U] = 0U;
-            __Vtemp1989[5U] = 0U;
-            __Vtemp1989[6U] = 0U;
-            __Vtemp1989[7U] = 0U;
-            __Vtemp1989[8U] = 0U;
-            __Vtemp1989[9U] = 0U;
-            __Vtemp1989[0xaU] = 0U;
-            __Vtemp1989[0xbU] = 0U;
-            __Vtemp1989[0xcU] = 0U;
-            __Vtemp1989[0xdU] = 0U;
-            __Vtemp1989[0xeU] = 0U;
-            __Vtemp1989[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1990, __Vtemp1989, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x200000U & __Vtemp1990[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_85 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1991[0U] = 1U;
-            __Vtemp1991[1U] = 0U;
-            __Vtemp1991[2U] = 0U;
-            __Vtemp1991[3U] = 0U;
-            __Vtemp1991[4U] = 0U;
-            __Vtemp1991[5U] = 0U;
-            __Vtemp1991[6U] = 0U;
-            __Vtemp1991[7U] = 0U;
-            __Vtemp1991[8U] = 0U;
-            __Vtemp1991[9U] = 0U;
-            __Vtemp1991[0xaU] = 0U;
-            __Vtemp1991[0xbU] = 0U;
-            __Vtemp1991[0xcU] = 0U;
-            __Vtemp1991[0xdU] = 0U;
-            __Vtemp1991[0xeU] = 0U;
-            __Vtemp1991[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1992, __Vtemp1991, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x400000U & __Vtemp1992[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_86 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1993[0U] = 1U;
-            __Vtemp1993[1U] = 0U;
-            __Vtemp1993[2U] = 0U;
-            __Vtemp1993[3U] = 0U;
-            __Vtemp1993[4U] = 0U;
-            __Vtemp1993[5U] = 0U;
-            __Vtemp1993[6U] = 0U;
-            __Vtemp1993[7U] = 0U;
-            __Vtemp1993[8U] = 0U;
-            __Vtemp1993[9U] = 0U;
-            __Vtemp1993[0xaU] = 0U;
-            __Vtemp1993[0xbU] = 0U;
-            __Vtemp1993[0xcU] = 0U;
-            __Vtemp1993[0xdU] = 0U;
-            __Vtemp1993[0xeU] = 0U;
-            __Vtemp1993[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1994, __Vtemp1993, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x800000U & __Vtemp1994[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_87 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1995[0U] = 1U;
-            __Vtemp1995[1U] = 0U;
-            __Vtemp1995[2U] = 0U;
-            __Vtemp1995[3U] = 0U;
-            __Vtemp1995[4U] = 0U;
-            __Vtemp1995[5U] = 0U;
-            __Vtemp1995[6U] = 0U;
-            __Vtemp1995[7U] = 0U;
-            __Vtemp1995[8U] = 0U;
-            __Vtemp1995[9U] = 0U;
-            __Vtemp1995[0xaU] = 0U;
-            __Vtemp1995[0xbU] = 0U;
-            __Vtemp1995[0xcU] = 0U;
-            __Vtemp1995[0xdU] = 0U;
-            __Vtemp1995[0xeU] = 0U;
-            __Vtemp1995[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1996, __Vtemp1995, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x1000000U & __Vtemp1996[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_88 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1997[0U] = 1U;
-            __Vtemp1997[1U] = 0U;
-            __Vtemp1997[2U] = 0U;
-            __Vtemp1997[3U] = 0U;
-            __Vtemp1997[4U] = 0U;
-            __Vtemp1997[5U] = 0U;
-            __Vtemp1997[6U] = 0U;
-            __Vtemp1997[7U] = 0U;
-            __Vtemp1997[8U] = 0U;
-            __Vtemp1997[9U] = 0U;
-            __Vtemp1997[0xaU] = 0U;
-            __Vtemp1997[0xbU] = 0U;
-            __Vtemp1997[0xcU] = 0U;
-            __Vtemp1997[0xdU] = 0U;
-            __Vtemp1997[0xeU] = 0U;
-            __Vtemp1997[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp1998, __Vtemp1997, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x2000000U & __Vtemp1998[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_89 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp1999[0U] = 1U;
-            __Vtemp1999[1U] = 0U;
-            __Vtemp1999[2U] = 0U;
-            __Vtemp1999[3U] = 0U;
-            __Vtemp1999[4U] = 0U;
-            __Vtemp1999[5U] = 0U;
-            __Vtemp1999[6U] = 0U;
-            __Vtemp1999[7U] = 0U;
-            __Vtemp1999[8U] = 0U;
-            __Vtemp1999[9U] = 0U;
-            __Vtemp1999[0xaU] = 0U;
-            __Vtemp1999[0xbU] = 0U;
-            __Vtemp1999[0xcU] = 0U;
-            __Vtemp1999[0xdU] = 0U;
-            __Vtemp1999[0xeU] = 0U;
-            __Vtemp1999[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp2000, __Vtemp1999, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x4000000U & __Vtemp2000[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_90 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp2001[0U] = 1U;
-            __Vtemp2001[1U] = 0U;
-            __Vtemp2001[2U] = 0U;
-            __Vtemp2001[3U] = 0U;
-            __Vtemp2001[4U] = 0U;
-            __Vtemp2001[5U] = 0U;
-            __Vtemp2001[6U] = 0U;
-            __Vtemp2001[7U] = 0U;
-            __Vtemp2001[8U] = 0U;
-            __Vtemp2001[9U] = 0U;
-            __Vtemp2001[0xaU] = 0U;
-            __Vtemp2001[0xbU] = 0U;
-            __Vtemp2001[0xcU] = 0U;
-            __Vtemp2001[0xdU] = 0U;
-            __Vtemp2001[0xeU] = 0U;
-            __Vtemp2001[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp2002, __Vtemp2001, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x8000000U & __Vtemp2002[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_91 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp2003[0U] = 1U;
-            __Vtemp2003[1U] = 0U;
-            __Vtemp2003[2U] = 0U;
-            __Vtemp2003[3U] = 0U;
-            __Vtemp2003[4U] = 0U;
-            __Vtemp2003[5U] = 0U;
-            __Vtemp2003[6U] = 0U;
-            __Vtemp2003[7U] = 0U;
-            __Vtemp2003[8U] = 0U;
-            __Vtemp2003[9U] = 0U;
-            __Vtemp2003[0xaU] = 0U;
-            __Vtemp2003[0xbU] = 0U;
-            __Vtemp2003[0xcU] = 0U;
-            __Vtemp2003[0xdU] = 0U;
-            __Vtemp2003[0xeU] = 0U;
-            __Vtemp2003[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp2004, __Vtemp2003, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x10000000U & __Vtemp2004[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_92 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp2005[0U] = 1U;
-            __Vtemp2005[1U] = 0U;
-            __Vtemp2005[2U] = 0U;
-            __Vtemp2005[3U] = 0U;
-            __Vtemp2005[4U] = 0U;
-            __Vtemp2005[5U] = 0U;
-            __Vtemp2005[6U] = 0U;
-            __Vtemp2005[7U] = 0U;
-            __Vtemp2005[8U] = 0U;
-            __Vtemp2005[9U] = 0U;
-            __Vtemp2005[0xaU] = 0U;
-            __Vtemp2005[0xbU] = 0U;
-            __Vtemp2005[0xcU] = 0U;
-            __Vtemp2005[0xdU] = 0U;
-            __Vtemp2005[0xeU] = 0U;
-            __Vtemp2005[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp2006, __Vtemp2005, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x20000000U & __Vtemp2006[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_93 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp2007[0U] = 1U;
-            __Vtemp2007[1U] = 0U;
-            __Vtemp2007[2U] = 0U;
-            __Vtemp2007[3U] = 0U;
-            __Vtemp2007[4U] = 0U;
-            __Vtemp2007[5U] = 0U;
-            __Vtemp2007[6U] = 0U;
-            __Vtemp2007[7U] = 0U;
-            __Vtemp2007[8U] = 0U;
-            __Vtemp2007[9U] = 0U;
-            __Vtemp2007[0xaU] = 0U;
-            __Vtemp2007[0xbU] = 0U;
-            __Vtemp2007[0xcU] = 0U;
-            __Vtemp2007[0xdU] = 0U;
-            __Vtemp2007[0xeU] = 0U;
-            __Vtemp2007[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp2008, __Vtemp2007, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x40000000U & __Vtemp2008[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_94 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp2009[0U] = 1U;
-            __Vtemp2009[1U] = 0U;
-            __Vtemp2009[2U] = 0U;
-            __Vtemp2009[3U] = 0U;
-            __Vtemp2009[4U] = 0U;
-            __Vtemp2009[5U] = 0U;
-            __Vtemp2009[6U] = 0U;
-            __Vtemp2009[7U] = 0U;
-            __Vtemp2009[8U] = 0U;
-            __Vtemp2009[9U] = 0U;
-            __Vtemp2009[0xaU] = 0U;
-            __Vtemp2009[0xbU] = 0U;
-            __Vtemp2009[0xcU] = 0U;
-            __Vtemp2009[0xdU] = 0U;
-            __Vtemp2009[0xeU] = 0U;
-            __Vtemp2009[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp2010, __Vtemp2009, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x80000000U & __Vtemp2010[2U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_95 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp2011[0U] = 1U;
-            __Vtemp2011[1U] = 0U;
-            __Vtemp2011[2U] = 0U;
-            __Vtemp2011[3U] = 0U;
-            __Vtemp2011[4U] = 0U;
-            __Vtemp2011[5U] = 0U;
-            __Vtemp2011[6U] = 0U;
-            __Vtemp2011[7U] = 0U;
-            __Vtemp2011[8U] = 0U;
-            __Vtemp2011[9U] = 0U;
-            __Vtemp2011[0xaU] = 0U;
-            __Vtemp2011[0xbU] = 0U;
-            __Vtemp2011[0xcU] = 0U;
-            __Vtemp2011[0xdU] = 0U;
-            __Vtemp2011[0xeU] = 0U;
-            __Vtemp2011[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp2012, __Vtemp2011, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((1U & __Vtemp2012[3U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_96 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp2013[0U] = 1U;
-            __Vtemp2013[1U] = 0U;
-            __Vtemp2013[2U] = 0U;
-            __Vtemp2013[3U] = 0U;
-            __Vtemp2013[4U] = 0U;
-            __Vtemp2013[5U] = 0U;
-            __Vtemp2013[6U] = 0U;
-            __Vtemp2013[7U] = 0U;
-            __Vtemp2013[8U] = 0U;
-            __Vtemp2013[9U] = 0U;
-            __Vtemp2013[0xaU] = 0U;
-            __Vtemp2013[0xbU] = 0U;
-            __Vtemp2013[0xcU] = 0U;
-            __Vtemp2013[0xdU] = 0U;
-            __Vtemp2013[0xeU] = 0U;
-            __Vtemp2013[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp2014, __Vtemp2013, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((2U & __Vtemp2014[3U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_97 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp2015[0U] = 1U;
-            __Vtemp2015[1U] = 0U;
-            __Vtemp2015[2U] = 0U;
-            __Vtemp2015[3U] = 0U;
-            __Vtemp2015[4U] = 0U;
-            __Vtemp2015[5U] = 0U;
-            __Vtemp2015[6U] = 0U;
-            __Vtemp2015[7U] = 0U;
-            __Vtemp2015[8U] = 0U;
-            __Vtemp2015[9U] = 0U;
-            __Vtemp2015[0xaU] = 0U;
-            __Vtemp2015[0xbU] = 0U;
-            __Vtemp2015[0xcU] = 0U;
-            __Vtemp2015[0xdU] = 0U;
-            __Vtemp2015[0xeU] = 0U;
-            __Vtemp2015[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp2016, __Vtemp2015, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x800U & __Vtemp2016[6U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_203 
-                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 1U));
-            }
-        }
-    }
-    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp2017[0U] = 1U;
-            __Vtemp2017[1U] = 0U;
-            __Vtemp2017[2U] = 0U;
-            __Vtemp2017[3U] = 0U;
-            __Vtemp2017[4U] = 0U;
-            __Vtemp2017[5U] = 0U;
-            __Vtemp2017[6U] = 0U;
-            __Vtemp2017[7U] = 0U;
-            __Vtemp2017[8U] = 0U;
-            __Vtemp2017[9U] = 0U;
-            __Vtemp2017[0xaU] = 0U;
-            __Vtemp2017[0xbU] = 0U;
-            __Vtemp2017[0xcU] = 0U;
-            __Vtemp2017[0xdU] = 0U;
-            __Vtemp2017[0xeU] = 0U;
-            __Vtemp2017[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp2018, __Vtemp2017, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x2000U & __Vtemp2018[4U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_141 
+            __Vtemp1768[0U] = 1U;
+            __Vtemp1768[1U] = 0U;
+            __Vtemp1768[2U] = 0U;
+            __Vtemp1768[3U] = 0U;
+            __Vtemp1768[4U] = 0U;
+            __Vtemp1768[5U] = 0U;
+            __Vtemp1768[6U] = 0U;
+            __Vtemp1768[7U] = 0U;
+            __Vtemp1768[8U] = 0U;
+            __Vtemp1768[9U] = 0U;
+            __Vtemp1768[0xaU] = 0U;
+            __Vtemp1768[0xbU] = 0U;
+            __Vtemp1768[0xcU] = 0U;
+            __Vtemp1768[0xdU] = 0U;
+            __Vtemp1768[0xeU] = 0U;
+            __Vtemp1768[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1769, __Vtemp1768, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x40000U & __Vtemp1769[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_18 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 2U));
             }
@@ -1349,25 +144,25 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__74(VConvCombTest__Syms* __restr
     }
     if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
         if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp2019[0U] = 1U;
-            __Vtemp2019[1U] = 0U;
-            __Vtemp2019[2U] = 0U;
-            __Vtemp2019[3U] = 0U;
-            __Vtemp2019[4U] = 0U;
-            __Vtemp2019[5U] = 0U;
-            __Vtemp2019[6U] = 0U;
-            __Vtemp2019[7U] = 0U;
-            __Vtemp2019[8U] = 0U;
-            __Vtemp2019[9U] = 0U;
-            __Vtemp2019[0xaU] = 0U;
-            __Vtemp2019[0xbU] = 0U;
-            __Vtemp2019[0xcU] = 0U;
-            __Vtemp2019[0xdU] = 0U;
-            __Vtemp2019[0xeU] = 0U;
-            __Vtemp2019[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp2020, __Vtemp2019, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x4000U & __Vtemp2020[6U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_206 
+            __Vtemp1770[0U] = 1U;
+            __Vtemp1770[1U] = 0U;
+            __Vtemp1770[2U] = 0U;
+            __Vtemp1770[3U] = 0U;
+            __Vtemp1770[4U] = 0U;
+            __Vtemp1770[5U] = 0U;
+            __Vtemp1770[6U] = 0U;
+            __Vtemp1770[7U] = 0U;
+            __Vtemp1770[8U] = 0U;
+            __Vtemp1770[9U] = 0U;
+            __Vtemp1770[0xaU] = 0U;
+            __Vtemp1770[0xbU] = 0U;
+            __Vtemp1770[0xcU] = 0U;
+            __Vtemp1770[0xdU] = 0U;
+            __Vtemp1770[0xeU] = 0U;
+            __Vtemp1770[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1771, __Vtemp1770, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x2000U & __Vtemp1771[3U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_109 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -1375,25 +170,25 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__74(VConvCombTest__Syms* __restr
     }
     if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
         if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp2021[0U] = 1U;
-            __Vtemp2021[1U] = 0U;
-            __Vtemp2021[2U] = 0U;
-            __Vtemp2021[3U] = 0U;
-            __Vtemp2021[4U] = 0U;
-            __Vtemp2021[5U] = 0U;
-            __Vtemp2021[6U] = 0U;
-            __Vtemp2021[7U] = 0U;
-            __Vtemp2021[8U] = 0U;
-            __Vtemp2021[9U] = 0U;
-            __Vtemp2021[0xaU] = 0U;
-            __Vtemp2021[0xbU] = 0U;
-            __Vtemp2021[0xcU] = 0U;
-            __Vtemp2021[0xdU] = 0U;
-            __Vtemp2021[0xeU] = 0U;
-            __Vtemp2021[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp2022, __Vtemp2021, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x8000U & __Vtemp2022[6U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_207 
+            __Vtemp1772[0U] = 1U;
+            __Vtemp1772[1U] = 0U;
+            __Vtemp1772[2U] = 0U;
+            __Vtemp1772[3U] = 0U;
+            __Vtemp1772[4U] = 0U;
+            __Vtemp1772[5U] = 0U;
+            __Vtemp1772[6U] = 0U;
+            __Vtemp1772[7U] = 0U;
+            __Vtemp1772[8U] = 0U;
+            __Vtemp1772[9U] = 0U;
+            __Vtemp1772[0xaU] = 0U;
+            __Vtemp1772[0xbU] = 0U;
+            __Vtemp1772[0xcU] = 0U;
+            __Vtemp1772[0xdU] = 0U;
+            __Vtemp1772[0xeU] = 0U;
+            __Vtemp1772[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1773, __Vtemp1772, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((2U & __Vtemp1773[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_1 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -1401,25 +196,25 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__74(VConvCombTest__Syms* __restr
     }
     if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
         if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp2023[0U] = 1U;
-            __Vtemp2023[1U] = 0U;
-            __Vtemp2023[2U] = 0U;
-            __Vtemp2023[3U] = 0U;
-            __Vtemp2023[4U] = 0U;
-            __Vtemp2023[5U] = 0U;
-            __Vtemp2023[6U] = 0U;
-            __Vtemp2023[7U] = 0U;
-            __Vtemp2023[8U] = 0U;
-            __Vtemp2023[9U] = 0U;
-            __Vtemp2023[0xaU] = 0U;
-            __Vtemp2023[0xbU] = 0U;
-            __Vtemp2023[0xcU] = 0U;
-            __Vtemp2023[0xdU] = 0U;
-            __Vtemp2023[0xeU] = 0U;
-            __Vtemp2023[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp2024, __Vtemp2023, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x10000U & __Vtemp2024[6U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_208 
+            __Vtemp1774[0U] = 1U;
+            __Vtemp1774[1U] = 0U;
+            __Vtemp1774[2U] = 0U;
+            __Vtemp1774[3U] = 0U;
+            __Vtemp1774[4U] = 0U;
+            __Vtemp1774[5U] = 0U;
+            __Vtemp1774[6U] = 0U;
+            __Vtemp1774[7U] = 0U;
+            __Vtemp1774[8U] = 0U;
+            __Vtemp1774[9U] = 0U;
+            __Vtemp1774[0xaU] = 0U;
+            __Vtemp1774[0xbU] = 0U;
+            __Vtemp1774[0xcU] = 0U;
+            __Vtemp1774[0xdU] = 0U;
+            __Vtemp1774[0xeU] = 0U;
+            __Vtemp1774[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1775, __Vtemp1774, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x2000000U & __Vtemp1775[4U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_153 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -1427,25 +222,25 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__74(VConvCombTest__Syms* __restr
     }
     if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
         if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp2025[0U] = 1U;
-            __Vtemp2025[1U] = 0U;
-            __Vtemp2025[2U] = 0U;
-            __Vtemp2025[3U] = 0U;
-            __Vtemp2025[4U] = 0U;
-            __Vtemp2025[5U] = 0U;
-            __Vtemp2025[6U] = 0U;
-            __Vtemp2025[7U] = 0U;
-            __Vtemp2025[8U] = 0U;
-            __Vtemp2025[9U] = 0U;
-            __Vtemp2025[0xaU] = 0U;
-            __Vtemp2025[0xbU] = 0U;
-            __Vtemp2025[0xcU] = 0U;
-            __Vtemp2025[0xdU] = 0U;
-            __Vtemp2025[0xeU] = 0U;
-            __Vtemp2025[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp2026, __Vtemp2025, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x20000U & __Vtemp2026[6U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_209 
+            __Vtemp1776[0U] = 1U;
+            __Vtemp1776[1U] = 0U;
+            __Vtemp1776[2U] = 0U;
+            __Vtemp1776[3U] = 0U;
+            __Vtemp1776[4U] = 0U;
+            __Vtemp1776[5U] = 0U;
+            __Vtemp1776[6U] = 0U;
+            __Vtemp1776[7U] = 0U;
+            __Vtemp1776[8U] = 0U;
+            __Vtemp1776[9U] = 0U;
+            __Vtemp1776[0xaU] = 0U;
+            __Vtemp1776[0xbU] = 0U;
+            __Vtemp1776[0xcU] = 0U;
+            __Vtemp1776[0xdU] = 0U;
+            __Vtemp1776[0xeU] = 0U;
+            __Vtemp1776[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1777, __Vtemp1776, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x20U & __Vtemp1777[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_37 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -1453,25 +248,25 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__74(VConvCombTest__Syms* __restr
     }
     if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
         if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp2027[0U] = 1U;
-            __Vtemp2027[1U] = 0U;
-            __Vtemp2027[2U] = 0U;
-            __Vtemp2027[3U] = 0U;
-            __Vtemp2027[4U] = 0U;
-            __Vtemp2027[5U] = 0U;
-            __Vtemp2027[6U] = 0U;
-            __Vtemp2027[7U] = 0U;
-            __Vtemp2027[8U] = 0U;
-            __Vtemp2027[9U] = 0U;
-            __Vtemp2027[0xaU] = 0U;
-            __Vtemp2027[0xbU] = 0U;
-            __Vtemp2027[0xcU] = 0U;
-            __Vtemp2027[0xdU] = 0U;
-            __Vtemp2027[0xeU] = 0U;
-            __Vtemp2027[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp2028, __Vtemp2027, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x40000U & __Vtemp2028[6U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_210 
+            __Vtemp1778[0U] = 1U;
+            __Vtemp1778[1U] = 0U;
+            __Vtemp1778[2U] = 0U;
+            __Vtemp1778[3U] = 0U;
+            __Vtemp1778[4U] = 0U;
+            __Vtemp1778[5U] = 0U;
+            __Vtemp1778[6U] = 0U;
+            __Vtemp1778[7U] = 0U;
+            __Vtemp1778[8U] = 0U;
+            __Vtemp1778[9U] = 0U;
+            __Vtemp1778[0xaU] = 0U;
+            __Vtemp1778[0xbU] = 0U;
+            __Vtemp1778[0xcU] = 0U;
+            __Vtemp1778[0xdU] = 0U;
+            __Vtemp1778[0xeU] = 0U;
+            __Vtemp1778[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1779, __Vtemp1778, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x20000000U & __Vtemp1779[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_189 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -1479,25 +274,51 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__74(VConvCombTest__Syms* __restr
     }
     if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
         if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp2029[0U] = 1U;
-            __Vtemp2029[1U] = 0U;
-            __Vtemp2029[2U] = 0U;
-            __Vtemp2029[3U] = 0U;
-            __Vtemp2029[4U] = 0U;
-            __Vtemp2029[5U] = 0U;
-            __Vtemp2029[6U] = 0U;
-            __Vtemp2029[7U] = 0U;
-            __Vtemp2029[8U] = 0U;
-            __Vtemp2029[9U] = 0U;
-            __Vtemp2029[0xaU] = 0U;
-            __Vtemp2029[0xbU] = 0U;
-            __Vtemp2029[0xcU] = 0U;
-            __Vtemp2029[0xdU] = 0U;
-            __Vtemp2029[0xeU] = 0U;
-            __Vtemp2029[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp2030, __Vtemp2029, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x80000U & __Vtemp2030[6U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_211 
+            __Vtemp1780[0U] = 1U;
+            __Vtemp1780[1U] = 0U;
+            __Vtemp1780[2U] = 0U;
+            __Vtemp1780[3U] = 0U;
+            __Vtemp1780[4U] = 0U;
+            __Vtemp1780[5U] = 0U;
+            __Vtemp1780[6U] = 0U;
+            __Vtemp1780[7U] = 0U;
+            __Vtemp1780[8U] = 0U;
+            __Vtemp1780[9U] = 0U;
+            __Vtemp1780[0xaU] = 0U;
+            __Vtemp1780[0xbU] = 0U;
+            __Vtemp1780[0xcU] = 0U;
+            __Vtemp1780[0xdU] = 0U;
+            __Vtemp1780[0xeU] = 0U;
+            __Vtemp1780[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1781, __Vtemp1780, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x1000000U & __Vtemp1781[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_24 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 2U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1782[0U] = 1U;
+            __Vtemp1782[1U] = 0U;
+            __Vtemp1782[2U] = 0U;
+            __Vtemp1782[3U] = 0U;
+            __Vtemp1782[4U] = 0U;
+            __Vtemp1782[5U] = 0U;
+            __Vtemp1782[6U] = 0U;
+            __Vtemp1782[7U] = 0U;
+            __Vtemp1782[8U] = 0U;
+            __Vtemp1782[9U] = 0U;
+            __Vtemp1782[0xaU] = 0U;
+            __Vtemp1782[0xbU] = 0U;
+            __Vtemp1782[0xcU] = 0U;
+            __Vtemp1782[0xdU] = 0U;
+            __Vtemp1782[0xeU] = 0U;
+            __Vtemp1782[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1783, __Vtemp1782, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x80000U & __Vtemp1783[3U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_115 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -1505,27 +326,1206 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__74(VConvCombTest__Syms* __restr
     }
     if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
         if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
-            __Vtemp2031[0U] = 1U;
-            __Vtemp2031[1U] = 0U;
-            __Vtemp2031[2U] = 0U;
-            __Vtemp2031[3U] = 0U;
-            __Vtemp2031[4U] = 0U;
-            __Vtemp2031[5U] = 0U;
-            __Vtemp2031[6U] = 0U;
-            __Vtemp2031[7U] = 0U;
-            __Vtemp2031[8U] = 0U;
-            __Vtemp2031[9U] = 0U;
-            __Vtemp2031[0xaU] = 0U;
-            __Vtemp2031[0xbU] = 0U;
-            __Vtemp2031[0xcU] = 0U;
-            __Vtemp2031[0xdU] = 0U;
-            __Vtemp2031[0xeU] = 0U;
-            __Vtemp2031[0xfU] = 0U;
-            VL_SHIFTL_WWI(512,512,9, __Vtemp2032, __Vtemp2031, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x100000U & __Vtemp2032[6U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_212 
+            __Vtemp1784[0U] = 1U;
+            __Vtemp1784[1U] = 0U;
+            __Vtemp1784[2U] = 0U;
+            __Vtemp1784[3U] = 0U;
+            __Vtemp1784[4U] = 0U;
+            __Vtemp1784[5U] = 0U;
+            __Vtemp1784[6U] = 0U;
+            __Vtemp1784[7U] = 0U;
+            __Vtemp1784[8U] = 0U;
+            __Vtemp1784[9U] = 0U;
+            __Vtemp1784[0xaU] = 0U;
+            __Vtemp1784[0xbU] = 0U;
+            __Vtemp1784[0xcU] = 0U;
+            __Vtemp1784[0xdU] = 0U;
+            __Vtemp1784[0xeU] = 0U;
+            __Vtemp1784[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1785, __Vtemp1784, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x10000000U & __Vtemp1785[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_28 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1786[0U] = 1U;
+            __Vtemp1786[1U] = 0U;
+            __Vtemp1786[2U] = 0U;
+            __Vtemp1786[3U] = 0U;
+            __Vtemp1786[4U] = 0U;
+            __Vtemp1786[5U] = 0U;
+            __Vtemp1786[6U] = 0U;
+            __Vtemp1786[7U] = 0U;
+            __Vtemp1786[8U] = 0U;
+            __Vtemp1786[9U] = 0U;
+            __Vtemp1786[0xaU] = 0U;
+            __Vtemp1786[0xbU] = 0U;
+            __Vtemp1786[0xcU] = 0U;
+            __Vtemp1786[0xdU] = 0U;
+            __Vtemp1786[0xeU] = 0U;
+            __Vtemp1786[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1787, __Vtemp1786, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x100000U & __Vtemp1787[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_180 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1788[0U] = 1U;
+            __Vtemp1788[1U] = 0U;
+            __Vtemp1788[2U] = 0U;
+            __Vtemp1788[3U] = 0U;
+            __Vtemp1788[4U] = 0U;
+            __Vtemp1788[5U] = 0U;
+            __Vtemp1788[6U] = 0U;
+            __Vtemp1788[7U] = 0U;
+            __Vtemp1788[8U] = 0U;
+            __Vtemp1788[9U] = 0U;
+            __Vtemp1788[0xaU] = 0U;
+            __Vtemp1788[0xbU] = 0U;
+            __Vtemp1788[0xcU] = 0U;
+            __Vtemp1788[0xdU] = 0U;
+            __Vtemp1788[0xeU] = 0U;
+            __Vtemp1788[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1789, __Vtemp1788, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x8000U & __Vtemp1789[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_15 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 2U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1790[0U] = 1U;
+            __Vtemp1790[1U] = 0U;
+            __Vtemp1790[2U] = 0U;
+            __Vtemp1790[3U] = 0U;
+            __Vtemp1790[4U] = 0U;
+            __Vtemp1790[5U] = 0U;
+            __Vtemp1790[6U] = 0U;
+            __Vtemp1790[7U] = 0U;
+            __Vtemp1790[8U] = 0U;
+            __Vtemp1790[9U] = 0U;
+            __Vtemp1790[0xaU] = 0U;
+            __Vtemp1790[0xbU] = 0U;
+            __Vtemp1790[0xcU] = 0U;
+            __Vtemp1790[0xdU] = 0U;
+            __Vtemp1790[0xeU] = 0U;
+            __Vtemp1790[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1791, __Vtemp1790, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x400U & __Vtemp1791[3U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_106 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1792[0U] = 1U;
+            __Vtemp1792[1U] = 0U;
+            __Vtemp1792[2U] = 0U;
+            __Vtemp1792[3U] = 0U;
+            __Vtemp1792[4U] = 0U;
+            __Vtemp1792[5U] = 0U;
+            __Vtemp1792[6U] = 0U;
+            __Vtemp1792[7U] = 0U;
+            __Vtemp1792[8U] = 0U;
+            __Vtemp1792[9U] = 0U;
+            __Vtemp1792[0xaU] = 0U;
+            __Vtemp1792[0xbU] = 0U;
+            __Vtemp1792[0xcU] = 0U;
+            __Vtemp1792[0xdU] = 0U;
+            __Vtemp1792[0xeU] = 0U;
+            __Vtemp1792[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1793, __Vtemp1792, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x800000U & __Vtemp1793[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_23 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1794[0U] = 1U;
+            __Vtemp1794[1U] = 0U;
+            __Vtemp1794[2U] = 0U;
+            __Vtemp1794[3U] = 0U;
+            __Vtemp1794[4U] = 0U;
+            __Vtemp1794[5U] = 0U;
+            __Vtemp1794[6U] = 0U;
+            __Vtemp1794[7U] = 0U;
+            __Vtemp1794[8U] = 0U;
+            __Vtemp1794[9U] = 0U;
+            __Vtemp1794[0xaU] = 0U;
+            __Vtemp1794[0xbU] = 0U;
+            __Vtemp1794[0xcU] = 0U;
+            __Vtemp1794[0xdU] = 0U;
+            __Vtemp1794[0xeU] = 0U;
+            __Vtemp1794[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1795, __Vtemp1794, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x8000U & __Vtemp1795[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_175 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1796[0U] = 1U;
+            __Vtemp1796[1U] = 0U;
+            __Vtemp1796[2U] = 0U;
+            __Vtemp1796[3U] = 0U;
+            __Vtemp1796[4U] = 0U;
+            __Vtemp1796[5U] = 0U;
+            __Vtemp1796[6U] = 0U;
+            __Vtemp1796[7U] = 0U;
+            __Vtemp1796[8U] = 0U;
+            __Vtemp1796[9U] = 0U;
+            __Vtemp1796[0xaU] = 0U;
+            __Vtemp1796[0xbU] = 0U;
+            __Vtemp1796[0xcU] = 0U;
+            __Vtemp1796[0xdU] = 0U;
+            __Vtemp1796[0xeU] = 0U;
+            __Vtemp1796[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1797, __Vtemp1796, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x400U & __Vtemp1797[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_10 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 2U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1798[0U] = 1U;
+            __Vtemp1798[1U] = 0U;
+            __Vtemp1798[2U] = 0U;
+            __Vtemp1798[3U] = 0U;
+            __Vtemp1798[4U] = 0U;
+            __Vtemp1798[5U] = 0U;
+            __Vtemp1798[6U] = 0U;
+            __Vtemp1798[7U] = 0U;
+            __Vtemp1798[8U] = 0U;
+            __Vtemp1798[9U] = 0U;
+            __Vtemp1798[0xaU] = 0U;
+            __Vtemp1798[0xbU] = 0U;
+            __Vtemp1798[0xcU] = 0U;
+            __Vtemp1798[0xdU] = 0U;
+            __Vtemp1798[0xeU] = 0U;
+            __Vtemp1798[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1799, __Vtemp1798, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x20U & __Vtemp1799[3U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_101 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1800[0U] = 1U;
+            __Vtemp1800[1U] = 0U;
+            __Vtemp1800[2U] = 0U;
+            __Vtemp1800[3U] = 0U;
+            __Vtemp1800[4U] = 0U;
+            __Vtemp1800[5U] = 0U;
+            __Vtemp1800[6U] = 0U;
+            __Vtemp1800[7U] = 0U;
+            __Vtemp1800[8U] = 0U;
+            __Vtemp1800[9U] = 0U;
+            __Vtemp1800[0xaU] = 0U;
+            __Vtemp1800[0xbU] = 0U;
+            __Vtemp1800[0xcU] = 0U;
+            __Vtemp1800[0xdU] = 0U;
+            __Vtemp1800[0xeU] = 0U;
+            __Vtemp1800[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1801, __Vtemp1800, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x4000000U & __Vtemp1801[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_26 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1802[0U] = 1U;
+            __Vtemp1802[1U] = 0U;
+            __Vtemp1802[2U] = 0U;
+            __Vtemp1802[3U] = 0U;
+            __Vtemp1802[4U] = 0U;
+            __Vtemp1802[5U] = 0U;
+            __Vtemp1802[6U] = 0U;
+            __Vtemp1802[7U] = 0U;
+            __Vtemp1802[8U] = 0U;
+            __Vtemp1802[9U] = 0U;
+            __Vtemp1802[0xaU] = 0U;
+            __Vtemp1802[0xbU] = 0U;
+            __Vtemp1802[0xcU] = 0U;
+            __Vtemp1802[0xdU] = 0U;
+            __Vtemp1802[0xeU] = 0U;
+            __Vtemp1802[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1803, __Vtemp1802, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x40000U & __Vtemp1803[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_178 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1804[0U] = 1U;
+            __Vtemp1804[1U] = 0U;
+            __Vtemp1804[2U] = 0U;
+            __Vtemp1804[3U] = 0U;
+            __Vtemp1804[4U] = 0U;
+            __Vtemp1804[5U] = 0U;
+            __Vtemp1804[6U] = 0U;
+            __Vtemp1804[7U] = 0U;
+            __Vtemp1804[8U] = 0U;
+            __Vtemp1804[9U] = 0U;
+            __Vtemp1804[0xaU] = 0U;
+            __Vtemp1804[0xbU] = 0U;
+            __Vtemp1804[0xcU] = 0U;
+            __Vtemp1804[0xdU] = 0U;
+            __Vtemp1804[0xeU] = 0U;
+            __Vtemp1804[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1805, __Vtemp1804, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x2000U & __Vtemp1805[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_13 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 2U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1806[0U] = 1U;
+            __Vtemp1806[1U] = 0U;
+            __Vtemp1806[2U] = 0U;
+            __Vtemp1806[3U] = 0U;
+            __Vtemp1806[4U] = 0U;
+            __Vtemp1806[5U] = 0U;
+            __Vtemp1806[6U] = 0U;
+            __Vtemp1806[7U] = 0U;
+            __Vtemp1806[8U] = 0U;
+            __Vtemp1806[9U] = 0U;
+            __Vtemp1806[0xaU] = 0U;
+            __Vtemp1806[0xbU] = 0U;
+            __Vtemp1806[0xcU] = 0U;
+            __Vtemp1806[0xdU] = 0U;
+            __Vtemp1806[0xeU] = 0U;
+            __Vtemp1806[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1807, __Vtemp1806, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x100U & __Vtemp1807[3U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_104 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1808[0U] = 1U;
+            __Vtemp1808[1U] = 0U;
+            __Vtemp1808[2U] = 0U;
+            __Vtemp1808[3U] = 0U;
+            __Vtemp1808[4U] = 0U;
+            __Vtemp1808[5U] = 0U;
+            __Vtemp1808[6U] = 0U;
+            __Vtemp1808[7U] = 0U;
+            __Vtemp1808[8U] = 0U;
+            __Vtemp1808[9U] = 0U;
+            __Vtemp1808[0xaU] = 0U;
+            __Vtemp1808[0xbU] = 0U;
+            __Vtemp1808[0xcU] = 0U;
+            __Vtemp1808[0xdU] = 0U;
+            __Vtemp1808[0xeU] = 0U;
+            __Vtemp1808[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1809, __Vtemp1808, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x8000000U & __Vtemp1809[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_27 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1810[0U] = 1U;
+            __Vtemp1810[1U] = 0U;
+            __Vtemp1810[2U] = 0U;
+            __Vtemp1810[3U] = 0U;
+            __Vtemp1810[4U] = 0U;
+            __Vtemp1810[5U] = 0U;
+            __Vtemp1810[6U] = 0U;
+            __Vtemp1810[7U] = 0U;
+            __Vtemp1810[8U] = 0U;
+            __Vtemp1810[9U] = 0U;
+            __Vtemp1810[0xaU] = 0U;
+            __Vtemp1810[0xbU] = 0U;
+            __Vtemp1810[0xcU] = 0U;
+            __Vtemp1810[0xdU] = 0U;
+            __Vtemp1810[0xeU] = 0U;
+            __Vtemp1810[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1811, __Vtemp1810, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x80000U & __Vtemp1811[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_179 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1812[0U] = 1U;
+            __Vtemp1812[1U] = 0U;
+            __Vtemp1812[2U] = 0U;
+            __Vtemp1812[3U] = 0U;
+            __Vtemp1812[4U] = 0U;
+            __Vtemp1812[5U] = 0U;
+            __Vtemp1812[6U] = 0U;
+            __Vtemp1812[7U] = 0U;
+            __Vtemp1812[8U] = 0U;
+            __Vtemp1812[9U] = 0U;
+            __Vtemp1812[0xaU] = 0U;
+            __Vtemp1812[0xbU] = 0U;
+            __Vtemp1812[0xcU] = 0U;
+            __Vtemp1812[0xdU] = 0U;
+            __Vtemp1812[0xeU] = 0U;
+            __Vtemp1812[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1813, __Vtemp1812, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x4000U & __Vtemp1813[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_14 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 2U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1814[0U] = 1U;
+            __Vtemp1814[1U] = 0U;
+            __Vtemp1814[2U] = 0U;
+            __Vtemp1814[3U] = 0U;
+            __Vtemp1814[4U] = 0U;
+            __Vtemp1814[5U] = 0U;
+            __Vtemp1814[6U] = 0U;
+            __Vtemp1814[7U] = 0U;
+            __Vtemp1814[8U] = 0U;
+            __Vtemp1814[9U] = 0U;
+            __Vtemp1814[0xaU] = 0U;
+            __Vtemp1814[0xbU] = 0U;
+            __Vtemp1814[0xcU] = 0U;
+            __Vtemp1814[0xdU] = 0U;
+            __Vtemp1814[0xeU] = 0U;
+            __Vtemp1814[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1815, __Vtemp1814, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x200U & __Vtemp1815[3U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_105 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1816[0U] = 1U;
+            __Vtemp1816[1U] = 0U;
+            __Vtemp1816[2U] = 0U;
+            __Vtemp1816[3U] = 0U;
+            __Vtemp1816[4U] = 0U;
+            __Vtemp1816[5U] = 0U;
+            __Vtemp1816[6U] = 0U;
+            __Vtemp1816[7U] = 0U;
+            __Vtemp1816[8U] = 0U;
+            __Vtemp1816[9U] = 0U;
+            __Vtemp1816[0xaU] = 0U;
+            __Vtemp1816[0xbU] = 0U;
+            __Vtemp1816[0xcU] = 0U;
+            __Vtemp1816[0xdU] = 0U;
+            __Vtemp1816[0xeU] = 0U;
+            __Vtemp1816[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1817, __Vtemp1816, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((2U & __Vtemp1817[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_33 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+}
+
+VL_INLINE_OPT void VConvCombTest::_sequent__TOP__79(VConvCombTest__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__79\n"); );
+    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Variables
+    WData/*511:0*/ __Vtemp1818[16];
+    WData/*511:0*/ __Vtemp1819[16];
+    WData/*511:0*/ __Vtemp1820[16];
+    WData/*511:0*/ __Vtemp1821[16];
+    WData/*511:0*/ __Vtemp1822[16];
+    WData/*511:0*/ __Vtemp1823[16];
+    WData/*511:0*/ __Vtemp1824[16];
+    WData/*511:0*/ __Vtemp1825[16];
+    WData/*511:0*/ __Vtemp1826[16];
+    WData/*511:0*/ __Vtemp1827[16];
+    WData/*511:0*/ __Vtemp1828[16];
+    WData/*511:0*/ __Vtemp1829[16];
+    WData/*511:0*/ __Vtemp1830[16];
+    WData/*511:0*/ __Vtemp1831[16];
+    WData/*511:0*/ __Vtemp1832[16];
+    WData/*511:0*/ __Vtemp1833[16];
+    WData/*511:0*/ __Vtemp1834[16];
+    WData/*511:0*/ __Vtemp1835[16];
+    WData/*511:0*/ __Vtemp1836[16];
+    WData/*511:0*/ __Vtemp1837[16];
+    WData/*511:0*/ __Vtemp1838[16];
+    WData/*511:0*/ __Vtemp1839[16];
+    WData/*511:0*/ __Vtemp1840[16];
+    WData/*511:0*/ __Vtemp1841[16];
+    WData/*511:0*/ __Vtemp1842[16];
+    WData/*511:0*/ __Vtemp1843[16];
+    WData/*511:0*/ __Vtemp1844[16];
+    WData/*511:0*/ __Vtemp1845[16];
+    WData/*511:0*/ __Vtemp1846[16];
+    WData/*511:0*/ __Vtemp1847[16];
+    WData/*511:0*/ __Vtemp1848[16];
+    WData/*511:0*/ __Vtemp1849[16];
+    WData/*511:0*/ __Vtemp1850[16];
+    WData/*511:0*/ __Vtemp1851[16];
+    WData/*511:0*/ __Vtemp1852[16];
+    WData/*511:0*/ __Vtemp1853[16];
+    WData/*511:0*/ __Vtemp1854[16];
+    WData/*511:0*/ __Vtemp1855[16];
+    WData/*511:0*/ __Vtemp1856[16];
+    WData/*511:0*/ __Vtemp1857[16];
+    WData/*511:0*/ __Vtemp1858[16];
+    WData/*511:0*/ __Vtemp1859[16];
+    WData/*511:0*/ __Vtemp1860[16];
+    WData/*511:0*/ __Vtemp1861[16];
+    WData/*511:0*/ __Vtemp1862[16];
+    WData/*511:0*/ __Vtemp1863[16];
+    WData/*511:0*/ __Vtemp1864[16];
+    WData/*511:0*/ __Vtemp1865[16];
+    WData/*511:0*/ __Vtemp1866[16];
+    WData/*511:0*/ __Vtemp1867[16];
+    WData/*511:0*/ __Vtemp1868[16];
+    WData/*511:0*/ __Vtemp1869[16];
+    WData/*511:0*/ __Vtemp1870[16];
+    WData/*511:0*/ __Vtemp1871[16];
+    // Body
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1818[0U] = 1U;
+            __Vtemp1818[1U] = 0U;
+            __Vtemp1818[2U] = 0U;
+            __Vtemp1818[3U] = 0U;
+            __Vtemp1818[4U] = 0U;
+            __Vtemp1818[5U] = 0U;
+            __Vtemp1818[6U] = 0U;
+            __Vtemp1818[7U] = 0U;
+            __Vtemp1818[8U] = 0U;
+            __Vtemp1818[9U] = 0U;
+            __Vtemp1818[0xaU] = 0U;
+            __Vtemp1818[0xbU] = 0U;
+            __Vtemp1818[0xcU] = 0U;
+            __Vtemp1818[0xdU] = 0U;
+            __Vtemp1818[0xeU] = 0U;
+            __Vtemp1818[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1819, __Vtemp1818, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x2000000U & __Vtemp1819[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_185 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1820[0U] = 1U;
+            __Vtemp1820[1U] = 0U;
+            __Vtemp1820[2U] = 0U;
+            __Vtemp1820[3U] = 0U;
+            __Vtemp1820[4U] = 0U;
+            __Vtemp1820[5U] = 0U;
+            __Vtemp1820[6U] = 0U;
+            __Vtemp1820[7U] = 0U;
+            __Vtemp1820[8U] = 0U;
+            __Vtemp1820[9U] = 0U;
+            __Vtemp1820[0xaU] = 0U;
+            __Vtemp1820[0xbU] = 0U;
+            __Vtemp1820[0xcU] = 0U;
+            __Vtemp1820[0xdU] = 0U;
+            __Vtemp1820[0xeU] = 0U;
+            __Vtemp1820[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1821, __Vtemp1820, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x100000U & __Vtemp1821[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_20 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 2U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1822[0U] = 1U;
+            __Vtemp1822[1U] = 0U;
+            __Vtemp1822[2U] = 0U;
+            __Vtemp1822[3U] = 0U;
+            __Vtemp1822[4U] = 0U;
+            __Vtemp1822[5U] = 0U;
+            __Vtemp1822[6U] = 0U;
+            __Vtemp1822[7U] = 0U;
+            __Vtemp1822[8U] = 0U;
+            __Vtemp1822[9U] = 0U;
+            __Vtemp1822[0xaU] = 0U;
+            __Vtemp1822[0xbU] = 0U;
+            __Vtemp1822[0xcU] = 0U;
+            __Vtemp1822[0xdU] = 0U;
+            __Vtemp1822[0xeU] = 0U;
+            __Vtemp1822[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1823, __Vtemp1822, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x8000U & __Vtemp1823[3U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_111 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1824[0U] = 1U;
+            __Vtemp1824[1U] = 0U;
+            __Vtemp1824[2U] = 0U;
+            __Vtemp1824[3U] = 0U;
+            __Vtemp1824[4U] = 0U;
+            __Vtemp1824[5U] = 0U;
+            __Vtemp1824[6U] = 0U;
+            __Vtemp1824[7U] = 0U;
+            __Vtemp1824[8U] = 0U;
+            __Vtemp1824[9U] = 0U;
+            __Vtemp1824[0xaU] = 0U;
+            __Vtemp1824[0xbU] = 0U;
+            __Vtemp1824[0xcU] = 0U;
+            __Vtemp1824[0xdU] = 0U;
+            __Vtemp1824[0xeU] = 0U;
+            __Vtemp1824[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1825, __Vtemp1824, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((8U & __Vtemp1825[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_3 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1826[0U] = 1U;
+            __Vtemp1826[1U] = 0U;
+            __Vtemp1826[2U] = 0U;
+            __Vtemp1826[3U] = 0U;
+            __Vtemp1826[4U] = 0U;
+            __Vtemp1826[5U] = 0U;
+            __Vtemp1826[6U] = 0U;
+            __Vtemp1826[7U] = 0U;
+            __Vtemp1826[8U] = 0U;
+            __Vtemp1826[9U] = 0U;
+            __Vtemp1826[0xaU] = 0U;
+            __Vtemp1826[0xbU] = 0U;
+            __Vtemp1826[0xcU] = 0U;
+            __Vtemp1826[0xdU] = 0U;
+            __Vtemp1826[0xeU] = 0U;
+            __Vtemp1826[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1827, __Vtemp1826, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x8000000U & __Vtemp1827[4U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_155 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1828[0U] = 1U;
+            __Vtemp1828[1U] = 0U;
+            __Vtemp1828[2U] = 0U;
+            __Vtemp1828[3U] = 0U;
+            __Vtemp1828[4U] = 0U;
+            __Vtemp1828[5U] = 0U;
+            __Vtemp1828[6U] = 0U;
+            __Vtemp1828[7U] = 0U;
+            __Vtemp1828[8U] = 0U;
+            __Vtemp1828[9U] = 0U;
+            __Vtemp1828[0xaU] = 0U;
+            __Vtemp1828[0xbU] = 0U;
+            __Vtemp1828[0xcU] = 0U;
+            __Vtemp1828[0xdU] = 0U;
+            __Vtemp1828[0xeU] = 0U;
+            __Vtemp1828[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1829, __Vtemp1828, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x80U & __Vtemp1829[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_39 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1830[0U] = 1U;
+            __Vtemp1830[1U] = 0U;
+            __Vtemp1830[2U] = 0U;
+            __Vtemp1830[3U] = 0U;
+            __Vtemp1830[4U] = 0U;
+            __Vtemp1830[5U] = 0U;
+            __Vtemp1830[6U] = 0U;
+            __Vtemp1830[7U] = 0U;
+            __Vtemp1830[8U] = 0U;
+            __Vtemp1830[9U] = 0U;
+            __Vtemp1830[0xaU] = 0U;
+            __Vtemp1830[0xbU] = 0U;
+            __Vtemp1830[0xcU] = 0U;
+            __Vtemp1830[0xdU] = 0U;
+            __Vtemp1830[0xeU] = 0U;
+            __Vtemp1830[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1831, __Vtemp1830, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x80000000U & __Vtemp1831[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_191 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1832[0U] = 1U;
+            __Vtemp1832[1U] = 0U;
+            __Vtemp1832[2U] = 0U;
+            __Vtemp1832[3U] = 0U;
+            __Vtemp1832[4U] = 0U;
+            __Vtemp1832[5U] = 0U;
+            __Vtemp1832[6U] = 0U;
+            __Vtemp1832[7U] = 0U;
+            __Vtemp1832[8U] = 0U;
+            __Vtemp1832[9U] = 0U;
+            __Vtemp1832[0xaU] = 0U;
+            __Vtemp1832[0xbU] = 0U;
+            __Vtemp1832[0xcU] = 0U;
+            __Vtemp1832[0xdU] = 0U;
+            __Vtemp1832[0xeU] = 0U;
+            __Vtemp1832[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1833, __Vtemp1832, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x4000000U & __Vtemp1833[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_26 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 2U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1834[0U] = 1U;
+            __Vtemp1834[1U] = 0U;
+            __Vtemp1834[2U] = 0U;
+            __Vtemp1834[3U] = 0U;
+            __Vtemp1834[4U] = 0U;
+            __Vtemp1834[5U] = 0U;
+            __Vtemp1834[6U] = 0U;
+            __Vtemp1834[7U] = 0U;
+            __Vtemp1834[8U] = 0U;
+            __Vtemp1834[9U] = 0U;
+            __Vtemp1834[0xaU] = 0U;
+            __Vtemp1834[0xbU] = 0U;
+            __Vtemp1834[0xcU] = 0U;
+            __Vtemp1834[0xdU] = 0U;
+            __Vtemp1834[0xeU] = 0U;
+            __Vtemp1834[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1835, __Vtemp1834, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x200000U & __Vtemp1835[3U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_117 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1836[0U] = 1U;
+            __Vtemp1836[1U] = 0U;
+            __Vtemp1836[2U] = 0U;
+            __Vtemp1836[3U] = 0U;
+            __Vtemp1836[4U] = 0U;
+            __Vtemp1836[5U] = 0U;
+            __Vtemp1836[6U] = 0U;
+            __Vtemp1836[7U] = 0U;
+            __Vtemp1836[8U] = 0U;
+            __Vtemp1836[9U] = 0U;
+            __Vtemp1836[0xaU] = 0U;
+            __Vtemp1836[0xbU] = 0U;
+            __Vtemp1836[0xcU] = 0U;
+            __Vtemp1836[0xdU] = 0U;
+            __Vtemp1836[0xeU] = 0U;
+            __Vtemp1836[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1837, __Vtemp1836, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((8U & __Vtemp1837[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_35 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1838[0U] = 1U;
+            __Vtemp1838[1U] = 0U;
+            __Vtemp1838[2U] = 0U;
+            __Vtemp1838[3U] = 0U;
+            __Vtemp1838[4U] = 0U;
+            __Vtemp1838[5U] = 0U;
+            __Vtemp1838[6U] = 0U;
+            __Vtemp1838[7U] = 0U;
+            __Vtemp1838[8U] = 0U;
+            __Vtemp1838[9U] = 0U;
+            __Vtemp1838[0xaU] = 0U;
+            __Vtemp1838[0xbU] = 0U;
+            __Vtemp1838[0xcU] = 0U;
+            __Vtemp1838[0xdU] = 0U;
+            __Vtemp1838[0xeU] = 0U;
+            __Vtemp1838[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1839, __Vtemp1838, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x8000000U & __Vtemp1839[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_187 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1840[0U] = 1U;
+            __Vtemp1840[1U] = 0U;
+            __Vtemp1840[2U] = 0U;
+            __Vtemp1840[3U] = 0U;
+            __Vtemp1840[4U] = 0U;
+            __Vtemp1840[5U] = 0U;
+            __Vtemp1840[6U] = 0U;
+            __Vtemp1840[7U] = 0U;
+            __Vtemp1840[8U] = 0U;
+            __Vtemp1840[9U] = 0U;
+            __Vtemp1840[0xaU] = 0U;
+            __Vtemp1840[0xbU] = 0U;
+            __Vtemp1840[0xcU] = 0U;
+            __Vtemp1840[0xdU] = 0U;
+            __Vtemp1840[0xeU] = 0U;
+            __Vtemp1840[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1841, __Vtemp1840, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x400000U & __Vtemp1841[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_22 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 2U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1842[0U] = 1U;
+            __Vtemp1842[1U] = 0U;
+            __Vtemp1842[2U] = 0U;
+            __Vtemp1842[3U] = 0U;
+            __Vtemp1842[4U] = 0U;
+            __Vtemp1842[5U] = 0U;
+            __Vtemp1842[6U] = 0U;
+            __Vtemp1842[7U] = 0U;
+            __Vtemp1842[8U] = 0U;
+            __Vtemp1842[9U] = 0U;
+            __Vtemp1842[0xaU] = 0U;
+            __Vtemp1842[0xbU] = 0U;
+            __Vtemp1842[0xcU] = 0U;
+            __Vtemp1842[0xdU] = 0U;
+            __Vtemp1842[0xeU] = 0U;
+            __Vtemp1842[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1843, __Vtemp1842, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x20000U & __Vtemp1843[3U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_113 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1844[0U] = 1U;
+            __Vtemp1844[1U] = 0U;
+            __Vtemp1844[2U] = 0U;
+            __Vtemp1844[3U] = 0U;
+            __Vtemp1844[4U] = 0U;
+            __Vtemp1844[5U] = 0U;
+            __Vtemp1844[6U] = 0U;
+            __Vtemp1844[7U] = 0U;
+            __Vtemp1844[8U] = 0U;
+            __Vtemp1844[9U] = 0U;
+            __Vtemp1844[0xaU] = 0U;
+            __Vtemp1844[0xbU] = 0U;
+            __Vtemp1844[0xcU] = 0U;
+            __Vtemp1844[0xdU] = 0U;
+            __Vtemp1844[0xeU] = 0U;
+            __Vtemp1844[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1845, __Vtemp1844, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x10U & __Vtemp1845[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_36 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1846[0U] = 1U;
+            __Vtemp1846[1U] = 0U;
+            __Vtemp1846[2U] = 0U;
+            __Vtemp1846[3U] = 0U;
+            __Vtemp1846[4U] = 0U;
+            __Vtemp1846[5U] = 0U;
+            __Vtemp1846[6U] = 0U;
+            __Vtemp1846[7U] = 0U;
+            __Vtemp1846[8U] = 0U;
+            __Vtemp1846[9U] = 0U;
+            __Vtemp1846[0xaU] = 0U;
+            __Vtemp1846[0xbU] = 0U;
+            __Vtemp1846[0xcU] = 0U;
+            __Vtemp1846[0xdU] = 0U;
+            __Vtemp1846[0xeU] = 0U;
+            __Vtemp1846[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1847, __Vtemp1846, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x10000000U & __Vtemp1847[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_188 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1848[0U] = 1U;
+            __Vtemp1848[1U] = 0U;
+            __Vtemp1848[2U] = 0U;
+            __Vtemp1848[3U] = 0U;
+            __Vtemp1848[4U] = 0U;
+            __Vtemp1848[5U] = 0U;
+            __Vtemp1848[6U] = 0U;
+            __Vtemp1848[7U] = 0U;
+            __Vtemp1848[8U] = 0U;
+            __Vtemp1848[9U] = 0U;
+            __Vtemp1848[0xaU] = 0U;
+            __Vtemp1848[0xbU] = 0U;
+            __Vtemp1848[0xcU] = 0U;
+            __Vtemp1848[0xdU] = 0U;
+            __Vtemp1848[0xeU] = 0U;
+            __Vtemp1848[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1849, __Vtemp1848, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x800000U & __Vtemp1849[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_23 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 2U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1850[0U] = 1U;
+            __Vtemp1850[1U] = 0U;
+            __Vtemp1850[2U] = 0U;
+            __Vtemp1850[3U] = 0U;
+            __Vtemp1850[4U] = 0U;
+            __Vtemp1850[5U] = 0U;
+            __Vtemp1850[6U] = 0U;
+            __Vtemp1850[7U] = 0U;
+            __Vtemp1850[8U] = 0U;
+            __Vtemp1850[9U] = 0U;
+            __Vtemp1850[0xaU] = 0U;
+            __Vtemp1850[0xbU] = 0U;
+            __Vtemp1850[0xcU] = 0U;
+            __Vtemp1850[0xdU] = 0U;
+            __Vtemp1850[0xeU] = 0U;
+            __Vtemp1850[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1851, __Vtemp1850, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x40000U & __Vtemp1851[3U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_114 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1852[0U] = 1U;
+            __Vtemp1852[1U] = 0U;
+            __Vtemp1852[2U] = 0U;
+            __Vtemp1852[3U] = 0U;
+            __Vtemp1852[4U] = 0U;
+            __Vtemp1852[5U] = 0U;
+            __Vtemp1852[6U] = 0U;
+            __Vtemp1852[7U] = 0U;
+            __Vtemp1852[8U] = 0U;
+            __Vtemp1852[9U] = 0U;
+            __Vtemp1852[0xaU] = 0U;
+            __Vtemp1852[0xbU] = 0U;
+            __Vtemp1852[0xcU] = 0U;
+            __Vtemp1852[0xdU] = 0U;
+            __Vtemp1852[0xeU] = 0U;
+            __Vtemp1852[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1853, __Vtemp1852, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x1000U & __Vtemp1853[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_12 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1854[0U] = 1U;
+            __Vtemp1854[1U] = 0U;
+            __Vtemp1854[2U] = 0U;
+            __Vtemp1854[3U] = 0U;
+            __Vtemp1854[4U] = 0U;
+            __Vtemp1854[5U] = 0U;
+            __Vtemp1854[6U] = 0U;
+            __Vtemp1854[7U] = 0U;
+            __Vtemp1854[8U] = 0U;
+            __Vtemp1854[9U] = 0U;
+            __Vtemp1854[0xaU] = 0U;
+            __Vtemp1854[0xbU] = 0U;
+            __Vtemp1854[0xcU] = 0U;
+            __Vtemp1854[0xdU] = 0U;
+            __Vtemp1854[0xeU] = 0U;
+            __Vtemp1854[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1855, __Vtemp1854, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x10U & __Vtemp1855[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_164 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1856[0U] = 1U;
+            __Vtemp1856[1U] = 0U;
+            __Vtemp1856[2U] = 0U;
+            __Vtemp1856[3U] = 0U;
+            __Vtemp1856[4U] = 0U;
+            __Vtemp1856[5U] = 0U;
+            __Vtemp1856[6U] = 0U;
+            __Vtemp1856[7U] = 0U;
+            __Vtemp1856[8U] = 0U;
+            __Vtemp1856[9U] = 0U;
+            __Vtemp1856[0xaU] = 0U;
+            __Vtemp1856[0xbU] = 0U;
+            __Vtemp1856[0xcU] = 0U;
+            __Vtemp1856[0xdU] = 0U;
+            __Vtemp1856[0xeU] = 0U;
+            __Vtemp1856[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1857, __Vtemp1856, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x2000U & __Vtemp1857[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_13 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1858[0U] = 1U;
+            __Vtemp1858[1U] = 0U;
+            __Vtemp1858[2U] = 0U;
+            __Vtemp1858[3U] = 0U;
+            __Vtemp1858[4U] = 0U;
+            __Vtemp1858[5U] = 0U;
+            __Vtemp1858[6U] = 0U;
+            __Vtemp1858[7U] = 0U;
+            __Vtemp1858[8U] = 0U;
+            __Vtemp1858[9U] = 0U;
+            __Vtemp1858[0xaU] = 0U;
+            __Vtemp1858[0xbU] = 0U;
+            __Vtemp1858[0xcU] = 0U;
+            __Vtemp1858[0xdU] = 0U;
+            __Vtemp1858[0xeU] = 0U;
+            __Vtemp1858[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1859, __Vtemp1858, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x20U & __Vtemp1859[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_165 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1860[0U] = 1U;
+            __Vtemp1860[1U] = 0U;
+            __Vtemp1860[2U] = 0U;
+            __Vtemp1860[3U] = 0U;
+            __Vtemp1860[4U] = 0U;
+            __Vtemp1860[5U] = 0U;
+            __Vtemp1860[6U] = 0U;
+            __Vtemp1860[7U] = 0U;
+            __Vtemp1860[8U] = 0U;
+            __Vtemp1860[9U] = 0U;
+            __Vtemp1860[0xaU] = 0U;
+            __Vtemp1860[0xbU] = 0U;
+            __Vtemp1860[0xcU] = 0U;
+            __Vtemp1860[0xdU] = 0U;
+            __Vtemp1860[0xeU] = 0U;
+            __Vtemp1860[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1861, __Vtemp1860, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x4000U & __Vtemp1861[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_14 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1862[0U] = 1U;
+            __Vtemp1862[1U] = 0U;
+            __Vtemp1862[2U] = 0U;
+            __Vtemp1862[3U] = 0U;
+            __Vtemp1862[4U] = 0U;
+            __Vtemp1862[5U] = 0U;
+            __Vtemp1862[6U] = 0U;
+            __Vtemp1862[7U] = 0U;
+            __Vtemp1862[8U] = 0U;
+            __Vtemp1862[9U] = 0U;
+            __Vtemp1862[0xaU] = 0U;
+            __Vtemp1862[0xbU] = 0U;
+            __Vtemp1862[0xcU] = 0U;
+            __Vtemp1862[0xdU] = 0U;
+            __Vtemp1862[0xeU] = 0U;
+            __Vtemp1862[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1863, __Vtemp1862, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x40U & __Vtemp1863[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_166 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1864[0U] = 1U;
+            __Vtemp1864[1U] = 0U;
+            __Vtemp1864[2U] = 0U;
+            __Vtemp1864[3U] = 0U;
+            __Vtemp1864[4U] = 0U;
+            __Vtemp1864[5U] = 0U;
+            __Vtemp1864[6U] = 0U;
+            __Vtemp1864[7U] = 0U;
+            __Vtemp1864[8U] = 0U;
+            __Vtemp1864[9U] = 0U;
+            __Vtemp1864[0xaU] = 0U;
+            __Vtemp1864[0xbU] = 0U;
+            __Vtemp1864[0xcU] = 0U;
+            __Vtemp1864[0xdU] = 0U;
+            __Vtemp1864[0xeU] = 0U;
+            __Vtemp1864[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1865, __Vtemp1864, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((2U & __Vtemp1865[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_1 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 2U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1866[0U] = 1U;
+            __Vtemp1866[1U] = 0U;
+            __Vtemp1866[2U] = 0U;
+            __Vtemp1866[3U] = 0U;
+            __Vtemp1866[4U] = 0U;
+            __Vtemp1866[5U] = 0U;
+            __Vtemp1866[6U] = 0U;
+            __Vtemp1866[7U] = 0U;
+            __Vtemp1866[8U] = 0U;
+            __Vtemp1866[9U] = 0U;
+            __Vtemp1866[0xaU] = 0U;
+            __Vtemp1866[0xbU] = 0U;
+            __Vtemp1866[0xcU] = 0U;
+            __Vtemp1866[0xdU] = 0U;
+            __Vtemp1866[0xeU] = 0U;
+            __Vtemp1866[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1867, __Vtemp1866, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x8000U & __Vtemp1867[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_15 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1868[0U] = 1U;
+            __Vtemp1868[1U] = 0U;
+            __Vtemp1868[2U] = 0U;
+            __Vtemp1868[3U] = 0U;
+            __Vtemp1868[4U] = 0U;
+            __Vtemp1868[5U] = 0U;
+            __Vtemp1868[6U] = 0U;
+            __Vtemp1868[7U] = 0U;
+            __Vtemp1868[8U] = 0U;
+            __Vtemp1868[9U] = 0U;
+            __Vtemp1868[0xaU] = 0U;
+            __Vtemp1868[0xbU] = 0U;
+            __Vtemp1868[0xcU] = 0U;
+            __Vtemp1868[0xdU] = 0U;
+            __Vtemp1868[0xeU] = 0U;
+            __Vtemp1868[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1869, __Vtemp1868, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x80U & __Vtemp1869[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_167 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp1870[0U] = 1U;
+            __Vtemp1870[1U] = 0U;
+            __Vtemp1870[2U] = 0U;
+            __Vtemp1870[3U] = 0U;
+            __Vtemp1870[4U] = 0U;
+            __Vtemp1870[5U] = 0U;
+            __Vtemp1870[6U] = 0U;
+            __Vtemp1870[7U] = 0U;
+            __Vtemp1870[8U] = 0U;
+            __Vtemp1870[9U] = 0U;
+            __Vtemp1870[0xaU] = 0U;
+            __Vtemp1870[0xbU] = 0U;
+            __Vtemp1870[0xcU] = 0U;
+            __Vtemp1870[0xdU] = 0U;
+            __Vtemp1870[0xeU] = 0U;
+            __Vtemp1870[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp1871, __Vtemp1870, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((4U & __Vtemp1871[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_2 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 2U));
             }
         }
     }

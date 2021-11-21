@@ -29,6 +29,7 @@ VL_MODULE(VConvCombTest) {
     VL_IN8(tail_bits_valid,0,0);
     VL_IN8(tail_bits_payload,6,0);
     VL_IN8(raw_data_valid,0,0);
+    VL_OUT8(raw_data_ready,0,0);
     VL_IN8(raw_data_payload_last,0,0);
     VL_IN8(raw_data_payload_fragment,0,0);
     VL_OUT8(decoded_data_valid,0,0);
@@ -43,13 +44,11 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder_raw_data_ready;
         CData/*0:0*/ ConvCombTest__DOT__decoded_fifo_io_pop_valid;
         CData/*7:0*/ ConvCombTest__DOT__encoder__DOT___zz_r_enc_0;
-        CData/*0:0*/ ConvCombTest__DOT__encoder__DOT__raw_data_payload;
-        CData/*0:0*/ ConvCombTest__DOT__encoder__DOT__raw_data_valid_1;
-        CData/*0:0*/ ConvCombTest__DOT__encoder__DOT__raw_data_last;
         CData/*2:0*/ ConvCombTest__DOT__encoder__DOT__coded_data;
         CData/*0:0*/ ConvCombTest__DOT__encoder__DOT__coded_data_valid_1;
         CData/*6:0*/ ConvCombTest__DOT__encoder__DOT__r_enc_buf;
-        CData/*0:0*/ ConvCombTest__DOT__encoder__DOT__raw_data_last_regNext;
+        CData/*0:0*/ ConvCombTest__DOT__encoder__DOT__raw_data_fire;
+        CData/*0:0*/ ConvCombTest__DOT__encoder__DOT__raw_data_payload_last_regNext;
         CData/*3:0*/ ConvCombTest__DOT__encoded_fifo__DOT___zz_logic_ram_port0;
         CData/*0:0*/ ConvCombTest__DOT__encoded_fifo__DOT___zz_1;
         CData/*0:0*/ ConvCombTest__DOT__encoded_fifo__DOT__logic_pushPtr_willIncrement;
@@ -103,10 +102,10 @@ VL_MODULE(VConvCombTest) {
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__node_weight_39;
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__node_weight_40;
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__node_weight_41;
-    };
-    struct {
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__node_weight_42;
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__node_weight_43;
+    };
+    struct {
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__node_weight_44;
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__node_weight_45;
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__node_weight_46;
@@ -169,10 +168,10 @@ VL_MODULE(VConvCombTest) {
         CData/*1:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_39;
         CData/*1:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_40;
         CData/*1:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_41;
-    };
-    struct {
         CData/*1:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_42;
         CData/*1:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_43;
+    };
+    struct {
         CData/*1:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_44;
         CData/*1:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_45;
         CData/*1:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_46;
@@ -235,10 +234,10 @@ VL_MODULE(VConvCombTest) {
         CData/*1:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_103;
         CData/*1:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_104;
         CData/*1:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_105;
-    };
-    struct {
         CData/*1:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_106;
         CData/*1:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_107;
+    };
+    struct {
         CData/*1:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_108;
         CData/*1:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_109;
         CData/*1:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_110;
@@ -301,10 +300,10 @@ VL_MODULE(VConvCombTest) {
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_75__DOT__branch_weight_1;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_75__DOT__when_AddCompareSelect_l17;
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_76__DOT__branch_weight_0;
-    };
-    struct {
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_76__DOT__branch_weight_1;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_76__DOT__when_AddCompareSelect_l17;
+    };
+    struct {
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_77__DOT__branch_weight_0;
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_77__DOT__branch_weight_1;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_77__DOT__when_AddCompareSelect_l17;
@@ -367,10 +366,10 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_96__DOT__when_AddCompareSelect_l17;
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_97__DOT__branch_weight_0;
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_97__DOT__branch_weight_1;
-    };
-    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_97__DOT__when_AddCompareSelect_l17;
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_98__DOT__branch_weight_0;
+    };
+    struct {
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_98__DOT__branch_weight_1;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_98__DOT__when_AddCompareSelect_l17;
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_99__DOT__branch_weight_0;
@@ -433,10 +432,10 @@ VL_MODULE(VConvCombTest) {
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_118__DOT__branch_weight_0;
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_118__DOT__branch_weight_1;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_118__DOT__when_AddCompareSelect_l17;
-    };
-    struct {
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_119__DOT__branch_weight_0;
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_119__DOT__branch_weight_1;
+    };
+    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_119__DOT__when_AddCompareSelect_l17;
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_120__DOT__branch_weight_0;
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_120__DOT__branch_weight_1;
@@ -499,10 +498,10 @@ VL_MODULE(VConvCombTest) {
         CData/*5:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_2;
         CData/*5:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_3;
         CData/*5:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_4;
-    };
-    struct {
         CData/*5:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_5;
         CData/*5:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_6;
+    };
+    struct {
         CData/*5:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_7;
         CData/*5:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_8;
         CData/*5:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_9;
@@ -565,10 +564,10 @@ VL_MODULE(VConvCombTest) {
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_50;
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_51;
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_52;
-    };
-    struct {
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_53;
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_54;
+    };
+    struct {
         CData/*7:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_55;
         CData/*5:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_48;
         CData/*5:0*/ ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_49;
@@ -631,10 +630,10 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__lifo_mux_io_output_payload_last_regNext;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__lifo_mux_io_output_payload_fragment_regNext;
         CData/*2:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0;
-    };
-    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_1;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_pushPtr_willIncrement;
+    };
+    struct {
         CData/*3:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_pushPtr_valueNext;
         CData/*3:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_pushPtr_value;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_popPtr_willIncrement;
@@ -697,10 +696,10 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_46;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_47;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_48;
-    };
-    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_49;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_50;
+    };
+    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_51;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_52;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_53;
@@ -763,10 +762,10 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_110;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_111;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_112;
-    };
-    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_113;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_114;
+    };
+    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_115;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_116;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_117;
@@ -829,10 +828,10 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_174;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_175;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_176;
-    };
-    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_177;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_178;
+    };
+    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_179;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_180;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_181;
@@ -895,10 +894,10 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_238;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_239;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_240;
-    };
-    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_241;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_242;
+    };
+    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_243;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_244;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_245;
@@ -961,10 +960,10 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_34;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_35;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_36;
-    };
-    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_37;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_38;
+    };
+    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_39;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_40;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_41;
@@ -1027,10 +1026,10 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_98;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_99;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_100;
-    };
-    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_101;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_102;
+    };
+    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_103;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_104;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_105;
@@ -1093,10 +1092,10 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_162;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_163;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_164;
-    };
-    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_165;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_166;
+    };
+    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_167;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_168;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_169;
@@ -1159,10 +1158,10 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_226;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_227;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_228;
-    };
-    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_229;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_230;
+    };
+    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_231;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_232;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_233;
@@ -1225,10 +1224,10 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_17;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_18;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_19;
-    };
-    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_20;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_21;
+    };
+    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_22;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_23;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_24;
@@ -1291,10 +1290,10 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_81;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_82;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_83;
-    };
-    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_84;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_85;
+    };
+    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_86;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_87;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_88;
@@ -1357,10 +1356,10 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_145;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_146;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_147;
-    };
-    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_148;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_149;
+    };
+    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_150;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_151;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_152;
@@ -1423,10 +1422,10 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_209;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_210;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_211;
-    };
-    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_212;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_213;
+    };
+    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_214;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_215;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_216;
@@ -1489,10 +1488,10 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_5;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_6;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_7;
-    };
-    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_8;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_9;
+    };
+    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_10;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_11;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_12;
@@ -1555,10 +1554,10 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_69;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_70;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_71;
-    };
-    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_72;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_73;
+    };
+    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_74;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_75;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_76;
@@ -1621,10 +1620,10 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_133;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_134;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_135;
-    };
-    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_136;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_137;
+    };
+    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_138;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_139;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_140;
@@ -1687,10 +1686,10 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_197;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_198;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_199;
-    };
-    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_200;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_201;
+    };
+    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_202;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_203;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_204;
@@ -1753,10 +1752,10 @@ VL_MODULE(VConvCombTest) {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_261;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_262;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_263;
-    };
-    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_264;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_265;
+    };
+    struct {
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_266;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_267;
         CData/*0:0*/ ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_last;
@@ -1798,6 +1797,13 @@ VL_MODULE(VConvCombTest) {
     // LOCAL VARIABLES
     // Internals; generally not touched by application code
     CData/*2:0*/ __Vtableidx2;
+    CData/*1:0*/ __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_select;
+    CData/*7:0*/ __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_addr_write;
+    CData/*7:0*/ __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_addr_read;
+    CData/*0:0*/ __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tail_repeat;
+    CData/*0:0*/ __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__goto_tail;
+    CData/*2:0*/ __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state;
+    CData/*0:0*/ __Vdly__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state;
     CData/*3:0*/ __Vdlyvval__ConvCombTest__DOT__encoded_fifo__DOT__logic_ram__v0;
     CData/*0:0*/ __Vdlyvset__ConvCombTest__DOT__encoded_fifo__DOT__logic_ram__v0;
     CData/*7:0*/ __Vdlyvdim0__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__survival_path_ram_0__v0;
@@ -1813,19 +1819,12 @@ VL_MODULE(VConvCombTest) {
     CData/*0:0*/ __Vdly__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_last;
     CData/*1:0*/ __Vdlyvval__ConvCombTest__DOT__decoded_fifo__DOT__logic_ram__v0;
     CData/*0:0*/ __Vdlyvset__ConvCombTest__DOT__decoded_fifo__DOT__logic_ram__v0;
-    CData/*1:0*/ __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_select;
-    CData/*7:0*/ __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_addr_write;
-    CData/*7:0*/ __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_addr_read;
-    CData/*0:0*/ __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tail_repeat;
-    CData/*0:0*/ __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__goto_tail;
-    CData/*2:0*/ __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state;
-    CData/*0:0*/ __Vdly__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state;
     CData/*0:0*/ __Vclklast__TOP__clk;
     CData/*0:0*/ __Vclklast__TOP__reset;
-    SData/*10:0*/ __Vdlyvdim0__ConvCombTest__DOT__encoded_fifo__DOT__logic_ram__v0;
-    SData/*10:0*/ __Vdlyvdim0__ConvCombTest__DOT__decoded_fifo__DOT__logic_ram__v0;
     SData/*8:0*/ __Vdly__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor;
     SData/*8:0*/ __Vdly__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_head_cursor;
+    SData/*10:0*/ __Vdlyvdim0__ConvCombTest__DOT__encoded_fifo__DOT__logic_ram__v0;
+    SData/*10:0*/ __Vdlyvdim0__ConvCombTest__DOT__decoded_fifo__DOT__logic_ram__v0;
     IData/*31:0*/ __Vm_traceActivity;
     QData/*63:0*/ ConvCombTest__DOT__decoder__DOT__tbu_core__DOT____Vxrand5;
     QData/*63:0*/ ConvCombTest__DOT__decoder__DOT__tbu_core__DOT____Vxrand4;
@@ -1873,6 +1872,10 @@ VL_MODULE(VConvCombTest) {
   private:
     static QData _change_request(VConvCombTest__Syms* __restrict vlSymsp);
     static QData _change_request_1(VConvCombTest__Syms* __restrict vlSymsp);
+  public:
+    static void _combo__TOP__1(VConvCombTest__Syms* __restrict vlSymsp);
+    static void _combo__TOP__110(VConvCombTest__Syms* __restrict vlSymsp);
+  private:
     void _ctor_var_reset() VL_ATTR_COLD;
     void _ctor_var_reset_1() VL_ATTR_COLD;
     void _ctor_var_reset_2() VL_ATTR_COLD;
@@ -1886,19 +1889,15 @@ VL_MODULE(VConvCombTest) {
   public:
     static void _eval_initial(VConvCombTest__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _eval_settle(VConvCombTest__Syms* __restrict vlSymsp) VL_ATTR_COLD;
-    static void _initial__TOP__101(VConvCombTest__Syms* __restrict vlSymsp) VL_ATTR_COLD;
+    static void _initial__TOP__109(VConvCombTest__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _sequent__TOP__100(VConvCombTest__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__109(VConvCombTest__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__110(VConvCombTest__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__21(VConvCombTest__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__28(VConvCombTest__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__101(VConvCombTest__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__103(VConvCombTest__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__104(VConvCombTest__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__108(VConvCombTest__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__111(VConvCombTest__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__112(VConvCombTest__Syms* __restrict vlSymsp);
     static void _sequent__TOP__29(VConvCombTest__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__30(VConvCombTest__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__31(VConvCombTest__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__32(VConvCombTest__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__33(VConvCombTest__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__34(VConvCombTest__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__35(VConvCombTest__Syms* __restrict vlSymsp);
     static void _sequent__TOP__36(VConvCombTest__Syms* __restrict vlSymsp);
     static void _sequent__TOP__37(VConvCombTest__Syms* __restrict vlSymsp);
     static void _sequent__TOP__38(VConvCombTest__Syms* __restrict vlSymsp);
@@ -1942,56 +1941,61 @@ VL_MODULE(VConvCombTest) {
     static void _sequent__TOP__76(VConvCombTest__Syms* __restrict vlSymsp);
     static void _sequent__TOP__77(VConvCombTest__Syms* __restrict vlSymsp);
     static void _sequent__TOP__78(VConvCombTest__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__79(VConvCombTest__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__80(VConvCombTest__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__81(VConvCombTest__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__82(VConvCombTest__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__83(VConvCombTest__Syms* __restrict vlSymsp);
     static void _sequent__TOP__84(VConvCombTest__Syms* __restrict vlSymsp);
     static void _sequent__TOP__85(VConvCombTest__Syms* __restrict vlSymsp);
     static void _sequent__TOP__86(VConvCombTest__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__87(VConvCombTest__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__88(VConvCombTest__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__89(VConvCombTest__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__90(VConvCombTest__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__91(VConvCombTest__Syms* __restrict vlSymsp);
     static void _sequent__TOP__92(VConvCombTest__Syms* __restrict vlSymsp);
     static void _sequent__TOP__93(VConvCombTest__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__94(VConvCombTest__Syms* __restrict vlSymsp);
     static void _sequent__TOP__95(VConvCombTest__Syms* __restrict vlSymsp);
     static void _sequent__TOP__96(VConvCombTest__Syms* __restrict vlSymsp);
     static void _sequent__TOP__97(VConvCombTest__Syms* __restrict vlSymsp);
     static void _sequent__TOP__98(VConvCombTest__Syms* __restrict vlSymsp);
     static void _sequent__TOP__99(VConvCombTest__Syms* __restrict vlSymsp);
-    static void _settle__TOP__102(VConvCombTest__Syms* __restrict vlSymsp) VL_ATTR_COLD;
-    static void _settle__TOP__106(VConvCombTest__Syms* __restrict vlSymsp) VL_ATTR_COLD;
-    static void _settle__TOP__107(VConvCombTest__Syms* __restrict vlSymsp) VL_ATTR_COLD;
-    static void _settle__TOP__108(VConvCombTest__Syms* __restrict vlSymsp) VL_ATTR_COLD;
+    static void _settle__TOP__2(VConvCombTest__Syms* __restrict vlSymsp) VL_ATTR_COLD;
+    static void _settle__TOP__3(VConvCombTest__Syms* __restrict vlSymsp);
+    static void _settle__TOP__4(VConvCombTest__Syms* __restrict vlSymsp);
+    static void _settle__TOP__5(VConvCombTest__Syms* __restrict vlSymsp);
+    static void _settle__TOP__6(VConvCombTest__Syms* __restrict vlSymsp) VL_ATTR_COLD;
+    static void _settle__TOP__7(VConvCombTest__Syms* __restrict vlSymsp) VL_ATTR_COLD;
+    static void _settle__TOP__8(VConvCombTest__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void traceChgThis(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__10(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void traceChgThis__12(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void traceChgThis__14(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void traceChgThis__16(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void traceChgThis__18(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__11(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__13(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__15(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__17(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__19(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__2(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void traceChgThis__20(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void traceChgThis__22(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__21(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__23(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__24(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__25(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void traceChgThis__27(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__26(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__28(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__29(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void traceChgThis__4(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__3(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__30(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__5(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void traceChgThis__7(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__6(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__8(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__9(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceFullThis(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
     static void traceFullThis__1(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
-    static void traceFullThis__11(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
-    static void traceFullThis__13(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
-    static void traceFullThis__15(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
-    static void traceFullThis__17(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
-    static void traceFullThis__19(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
-    static void traceFullThis__21(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
-    static void traceFullThis__26(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
-    static void traceFullThis__3(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
-    static void traceFullThis__6(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
+    static void traceFullThis__12(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
+    static void traceFullThis__14(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
+    static void traceFullThis__16(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
+    static void traceFullThis__18(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
+    static void traceFullThis__20(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
+    static void traceFullThis__22(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
+    static void traceFullThis__27(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
+    static void traceFullThis__4(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
+    static void traceFullThis__7(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
     static void traceInitThis(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
     static void traceInitThis__1(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
     static void traceInitThis__2(VConvCombTest__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;

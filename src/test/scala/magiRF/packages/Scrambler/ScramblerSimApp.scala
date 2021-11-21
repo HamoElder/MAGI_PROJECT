@@ -1,12 +1,11 @@
 package magiRF.packages.Scrambler
 
-import magiRF.packages.Scramble.{Scrambler, ScramblerConfig}
+import magiRF.packages.Scramble.Scrambler
 import spinal.core.sim._
 
 object ScramblerSimApp extends App{
 
-    val scram_config = ScramblerConfig(8, 7, 72)
-    SimConfig.withWave.doSim(new Scrambler(scram_config)) { dut =>
+    SimConfig.withWave.doSim(new Scrambler(8, 7, 72)) { dut =>
         dut.clockDomain.forkStimulus(5)
         dut.io.scram_data.ready #= false
         dut.io.init_state.payload #= 127
