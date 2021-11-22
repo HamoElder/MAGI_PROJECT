@@ -41,6 +41,9 @@ VM_CLASSES_FAST += \
 	VConvCombTest__21 \
 	VConvCombTest__22 \
 	VConvCombTest__23 \
+	VConvCombTest__24 \
+	VConvCombTest__25 \
+	VConvCombTest__26 \
 
 # Generated module classes, non-fast-path, compile with low/medium optimization
 VM_CLASSES_SLOW += \

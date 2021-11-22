@@ -159,7 +159,7 @@ public:
     uint32_t timeCheck;
     bool waveEnabled;
     VConvCombTest top;
-    ISignalAccess *signalAccess[11];
+    ISignalAccess *signalAccess[12];
     #ifdef TRACE
 	  VerilatedVcdC tfp;
 	  #endif
@@ -178,10 +178,11 @@ public:
       signalAccess[4] = new CDataSignalAccess( top.raw_data_payload_last );
       signalAccess[5] = new CDataSignalAccess( top.raw_data_payload_fragment );
       signalAccess[6] = new CDataSignalAccess( top.decoded_data_valid );
-      signalAccess[7] = new CDataSignalAccess( top.decoded_data_payload_last );
-      signalAccess[8] = new CDataSignalAccess( top.decoded_data_payload_fragment );
-      signalAccess[9] = new CDataSignalAccess( top.clk );
-      signalAccess[10] = new CDataSignalAccess( top.reset );
+      signalAccess[7] = new CDataSignalAccess( top.decoded_data_ready );
+      signalAccess[8] = new CDataSignalAccess( top.decoded_data_payload_last );
+      signalAccess[9] = new CDataSignalAccess( top.decoded_data_payload_fragment );
+      signalAccess[10] = new CDataSignalAccess( top.clk );
+      signalAccess[11] = new CDataSignalAccess( top.reset );
 
       #ifdef TRACE
       Verilated::traceEverOn(true);
@@ -192,7 +193,7 @@ public:
     }
 
     virtual ~Wrapper_1(){
-      for(int idx = 0;idx < 11;idx++){
+      for(int idx = 0;idx < 12;idx++){
           delete signalAccess[idx];
       }
 

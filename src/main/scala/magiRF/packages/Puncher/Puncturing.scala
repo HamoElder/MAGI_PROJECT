@@ -28,7 +28,7 @@ case class Puncturing(rawDataWidth: Int, mask: Seq[Int]) extends Component {
         if(cursor == (mask.length - 1)){
             raw_data(mask(cursor)).asBits
         }else{
-            raw_data(mask(cursor)) ## maskGen(raw_data, mask, cursor + 1)
+            maskGen(raw_data, mask, cursor + 1) ## raw_data(mask(cursor))
         }
     }
 }

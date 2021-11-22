@@ -5,10 +5,20 @@
 #include "VConvCombTest.h"
 #include "VConvCombTest__Syms.h"
 
-VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__84\n"); );
+VL_INLINE_OPT void VConvCombTest::_sequent__TOP__83(VConvCombTest__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__83\n"); );
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Variables
+    WData/*511:0*/ __Vtemp2078[16];
+    WData/*511:0*/ __Vtemp2079[16];
+    WData/*511:0*/ __Vtemp2080[16];
+    WData/*511:0*/ __Vtemp2081[16];
+    WData/*511:0*/ __Vtemp2082[16];
+    WData/*511:0*/ __Vtemp2083[16];
+    WData/*511:0*/ __Vtemp2084[16];
+    WData/*511:0*/ __Vtemp2085[16];
+    WData/*511:0*/ __Vtemp2086[16];
+    WData/*511:0*/ __Vtemp2087[16];
     WData/*511:0*/ __Vtemp2088[16];
     WData/*511:0*/ __Vtemp2089[16];
     WData/*511:0*/ __Vtemp2090[16];
@@ -53,17 +63,137 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
     WData/*511:0*/ __Vtemp2129[16];
     WData/*511:0*/ __Vtemp2130[16];
     WData/*511:0*/ __Vtemp2131[16];
-    WData/*511:0*/ __Vtemp2132[16];
-    WData/*511:0*/ __Vtemp2133[16];
-    WData/*511:0*/ __Vtemp2134[16];
-    WData/*511:0*/ __Vtemp2135[16];
-    WData/*511:0*/ __Vtemp2136[16];
-    WData/*511:0*/ __Vtemp2137[16];
-    WData/*511:0*/ __Vtemp2138[16];
-    WData/*511:0*/ __Vtemp2139[16];
-    WData/*511:0*/ __Vtemp2140[16];
-    WData/*511:0*/ __Vtemp2141[16];
     // Body
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2078[0U] = 1U;
+            __Vtemp2078[1U] = 0U;
+            __Vtemp2078[2U] = 0U;
+            __Vtemp2078[3U] = 0U;
+            __Vtemp2078[4U] = 0U;
+            __Vtemp2078[5U] = 0U;
+            __Vtemp2078[6U] = 0U;
+            __Vtemp2078[7U] = 0U;
+            __Vtemp2078[8U] = 0U;
+            __Vtemp2078[9U] = 0U;
+            __Vtemp2078[0xaU] = 0U;
+            __Vtemp2078[0xbU] = 0U;
+            __Vtemp2078[0xcU] = 0U;
+            __Vtemp2078[0xdU] = 0U;
+            __Vtemp2078[0xeU] = 0U;
+            __Vtemp2078[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2079, __Vtemp2078, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x20000U & __Vtemp2079[3U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_113 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2080[0U] = 1U;
+            __Vtemp2080[1U] = 0U;
+            __Vtemp2080[2U] = 0U;
+            __Vtemp2080[3U] = 0U;
+            __Vtemp2080[4U] = 0U;
+            __Vtemp2080[5U] = 0U;
+            __Vtemp2080[6U] = 0U;
+            __Vtemp2080[7U] = 0U;
+            __Vtemp2080[8U] = 0U;
+            __Vtemp2080[9U] = 0U;
+            __Vtemp2080[0xaU] = 0U;
+            __Vtemp2080[0xbU] = 0U;
+            __Vtemp2080[0xcU] = 0U;
+            __Vtemp2080[0xdU] = 0U;
+            __Vtemp2080[0xeU] = 0U;
+            __Vtemp2080[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2081, __Vtemp2080, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x10U & __Vtemp2081[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_36 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2082[0U] = 1U;
+            __Vtemp2082[1U] = 0U;
+            __Vtemp2082[2U] = 0U;
+            __Vtemp2082[3U] = 0U;
+            __Vtemp2082[4U] = 0U;
+            __Vtemp2082[5U] = 0U;
+            __Vtemp2082[6U] = 0U;
+            __Vtemp2082[7U] = 0U;
+            __Vtemp2082[8U] = 0U;
+            __Vtemp2082[9U] = 0U;
+            __Vtemp2082[0xaU] = 0U;
+            __Vtemp2082[0xbU] = 0U;
+            __Vtemp2082[0xcU] = 0U;
+            __Vtemp2082[0xdU] = 0U;
+            __Vtemp2082[0xeU] = 0U;
+            __Vtemp2082[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2083, __Vtemp2082, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x10000000U & __Vtemp2083[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_188 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2084[0U] = 1U;
+            __Vtemp2084[1U] = 0U;
+            __Vtemp2084[2U] = 0U;
+            __Vtemp2084[3U] = 0U;
+            __Vtemp2084[4U] = 0U;
+            __Vtemp2084[5U] = 0U;
+            __Vtemp2084[6U] = 0U;
+            __Vtemp2084[7U] = 0U;
+            __Vtemp2084[8U] = 0U;
+            __Vtemp2084[9U] = 0U;
+            __Vtemp2084[0xaU] = 0U;
+            __Vtemp2084[0xbU] = 0U;
+            __Vtemp2084[0xcU] = 0U;
+            __Vtemp2084[0xdU] = 0U;
+            __Vtemp2084[0xeU] = 0U;
+            __Vtemp2084[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2085, __Vtemp2084, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x40000U & __Vtemp2085[3U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_114 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2086[0U] = 1U;
+            __Vtemp2086[1U] = 0U;
+            __Vtemp2086[2U] = 0U;
+            __Vtemp2086[3U] = 0U;
+            __Vtemp2086[4U] = 0U;
+            __Vtemp2086[5U] = 0U;
+            __Vtemp2086[6U] = 0U;
+            __Vtemp2086[7U] = 0U;
+            __Vtemp2086[8U] = 0U;
+            __Vtemp2086[9U] = 0U;
+            __Vtemp2086[0xaU] = 0U;
+            __Vtemp2086[0xbU] = 0U;
+            __Vtemp2086[0xcU] = 0U;
+            __Vtemp2086[0xdU] = 0U;
+            __Vtemp2086[0xeU] = 0U;
+            __Vtemp2086[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2087, __Vtemp2086, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x1000U & __Vtemp2087[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_12 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
     if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
         if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
             __Vtemp2088[0U] = 1U;
@@ -83,8 +213,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2088[0xeU] = 0U;
             __Vtemp2088[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2089, __Vtemp2088, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x10000U & __Vtemp2089[7U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_240 
+            if ((0x10U & __Vtemp2089[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_164 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -109,8 +239,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2090[0xeU] = 0U;
             __Vtemp2090[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2091, __Vtemp2090, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x20000U & __Vtemp2091[7U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_241 
+            if ((0x2000U & __Vtemp2091[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_13 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -135,8 +265,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2092[0xeU] = 0U;
             __Vtemp2092[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2093, __Vtemp2092, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x40000U & __Vtemp2093[7U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_242 
+            if ((0x20U & __Vtemp2093[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_165 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -161,8 +291,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2094[0xeU] = 0U;
             __Vtemp2094[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2095, __Vtemp2094, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x80000U & __Vtemp2095[7U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_243 
+            if ((0x4000U & __Vtemp2095[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_14 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -187,8 +317,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2096[0xeU] = 0U;
             __Vtemp2096[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2097, __Vtemp2096, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x100000U & __Vtemp2097[7U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_244 
+            if ((0x40U & __Vtemp2097[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_166 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -213,8 +343,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2098[0xeU] = 0U;
             __Vtemp2098[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2099, __Vtemp2098, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x200000U & __Vtemp2099[7U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_245 
+            if ((0x8000U & __Vtemp2099[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_15 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -239,8 +369,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2100[0xeU] = 0U;
             __Vtemp2100[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2101, __Vtemp2100, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x400000U & __Vtemp2101[7U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_246 
+            if ((0x80U & __Vtemp2101[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_167 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -265,8 +395,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2102[0xeU] = 0U;
             __Vtemp2102[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2103, __Vtemp2102, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x800000U & __Vtemp2103[7U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_247 
+            if ((0x10000U & __Vtemp2103[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_16 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -291,8 +421,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2104[0xeU] = 0U;
             __Vtemp2104[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2105, __Vtemp2104, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x1000000U & __Vtemp2105[7U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_248 
+            if ((0x100U & __Vtemp2105[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_168 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -317,8 +447,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2106[0xeU] = 0U;
             __Vtemp2106[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2107, __Vtemp2106, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x2000000U & __Vtemp2107[7U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_249 
+            if ((0x20000U & __Vtemp2107[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_17 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -343,8 +473,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2108[0xeU] = 0U;
             __Vtemp2108[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2109, __Vtemp2108, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x4000000U & __Vtemp2109[7U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_250 
+            if ((0x200U & __Vtemp2109[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_169 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -369,8 +499,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2110[0xeU] = 0U;
             __Vtemp2110[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2111, __Vtemp2110, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x8000000U & __Vtemp2111[7U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_251 
+            if ((0x40000U & __Vtemp2111[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_18 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -395,8 +525,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2112[0xeU] = 0U;
             __Vtemp2112[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2113, __Vtemp2112, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x10000000U & __Vtemp2113[7U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_252 
+            if ((0x400U & __Vtemp2113[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_170 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -421,8 +551,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2114[0xeU] = 0U;
             __Vtemp2114[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2115, __Vtemp2114, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x20000000U & __Vtemp2115[7U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_253 
+            if ((0x80000U & __Vtemp2115[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_19 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -447,8 +577,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2116[0xeU] = 0U;
             __Vtemp2116[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2117, __Vtemp2116, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x40000000U & __Vtemp2117[7U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_254 
+            if ((0x800U & __Vtemp2117[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_171 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -473,8 +603,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2118[0xeU] = 0U;
             __Vtemp2118[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2119, __Vtemp2118, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x80000000U & __Vtemp2119[7U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_255 
+            if ((0x100000U & __Vtemp2119[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_20 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -499,8 +629,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2120[0xeU] = 0U;
             __Vtemp2120[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2121, __Vtemp2120, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((1U & __Vtemp2121[8U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_256 
+            if ((0x1000U & __Vtemp2121[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_172 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -525,8 +655,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2122[0xeU] = 0U;
             __Vtemp2122[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2123, __Vtemp2122, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((2U & __Vtemp2123[8U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_257 
+            if ((0x200000U & __Vtemp2123[0U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_21 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -551,8 +681,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2124[0xeU] = 0U;
             __Vtemp2124[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2125, __Vtemp2124, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((4U & __Vtemp2125[8U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_258 
+            if ((0x2000U & __Vtemp2125[5U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_173 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -577,8 +707,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2126[0xeU] = 0U;
             __Vtemp2126[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2127, __Vtemp2126, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((8U & __Vtemp2127[8U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_259 
+            if ((0x8000U & __Vtemp2127[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_47 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -603,8 +733,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2128[0xeU] = 0U;
             __Vtemp2128[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2129, __Vtemp2128, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x10U & __Vtemp2129[8U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_260 
+            if ((0x80U & __Vtemp2129[6U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_199 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -629,13 +759,74 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2130[0xeU] = 0U;
             __Vtemp2130[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2131, __Vtemp2130, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x20U & __Vtemp2131[8U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_261 
+            if ((0x400000U & __Vtemp2131[4U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_150 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
         }
     }
+}
+
+VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__84\n"); );
+    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Variables
+    WData/*511:0*/ __Vtemp2132[16];
+    WData/*511:0*/ __Vtemp2133[16];
+    WData/*511:0*/ __Vtemp2134[16];
+    WData/*511:0*/ __Vtemp2135[16];
+    WData/*511:0*/ __Vtemp2136[16];
+    WData/*511:0*/ __Vtemp2137[16];
+    WData/*511:0*/ __Vtemp2138[16];
+    WData/*511:0*/ __Vtemp2139[16];
+    WData/*511:0*/ __Vtemp2140[16];
+    WData/*511:0*/ __Vtemp2141[16];
+    WData/*511:0*/ __Vtemp2142[16];
+    WData/*511:0*/ __Vtemp2143[16];
+    WData/*511:0*/ __Vtemp2144[16];
+    WData/*511:0*/ __Vtemp2145[16];
+    WData/*511:0*/ __Vtemp2146[16];
+    WData/*511:0*/ __Vtemp2147[16];
+    WData/*511:0*/ __Vtemp2148[16];
+    WData/*511:0*/ __Vtemp2149[16];
+    WData/*511:0*/ __Vtemp2150[16];
+    WData/*511:0*/ __Vtemp2151[16];
+    WData/*511:0*/ __Vtemp2152[16];
+    WData/*511:0*/ __Vtemp2153[16];
+    WData/*511:0*/ __Vtemp2154[16];
+    WData/*511:0*/ __Vtemp2155[16];
+    WData/*511:0*/ __Vtemp2156[16];
+    WData/*511:0*/ __Vtemp2157[16];
+    WData/*511:0*/ __Vtemp2158[16];
+    WData/*511:0*/ __Vtemp2159[16];
+    WData/*511:0*/ __Vtemp2160[16];
+    WData/*511:0*/ __Vtemp2161[16];
+    WData/*511:0*/ __Vtemp2162[16];
+    WData/*511:0*/ __Vtemp2163[16];
+    WData/*511:0*/ __Vtemp2164[16];
+    WData/*511:0*/ __Vtemp2165[16];
+    WData/*511:0*/ __Vtemp2166[16];
+    WData/*511:0*/ __Vtemp2167[16];
+    WData/*511:0*/ __Vtemp2168[16];
+    WData/*511:0*/ __Vtemp2169[16];
+    WData/*511:0*/ __Vtemp2170[16];
+    WData/*511:0*/ __Vtemp2171[16];
+    WData/*511:0*/ __Vtemp2172[16];
+    WData/*511:0*/ __Vtemp2173[16];
+    WData/*511:0*/ __Vtemp2174[16];
+    WData/*511:0*/ __Vtemp2175[16];
+    WData/*511:0*/ __Vtemp2176[16];
+    WData/*511:0*/ __Vtemp2177[16];
+    WData/*511:0*/ __Vtemp2178[16];
+    WData/*511:0*/ __Vtemp2179[16];
+    WData/*511:0*/ __Vtemp2180[16];
+    WData/*511:0*/ __Vtemp2181[16];
+    WData/*511:0*/ __Vtemp2182[16];
+    WData/*511:0*/ __Vtemp2183[16];
+    WData/*511:0*/ __Vtemp2184[16];
+    WData/*511:0*/ __Vtemp2185[16];
+    // Body
     if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
         if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
             __Vtemp2132[0U] = 1U;
@@ -655,8 +846,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2132[0xeU] = 0U;
             __Vtemp2132[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2133, __Vtemp2132, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x40U & __Vtemp2133[8U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_262 
+            if ((0x800000U & __Vtemp2133[4U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_151 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -681,8 +872,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2134[0xeU] = 0U;
             __Vtemp2134[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2135, __Vtemp2134, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x80U & __Vtemp2135[8U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_263 
+            if ((0x1000000U & __Vtemp2135[4U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_152 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -707,8 +898,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2136[0xeU] = 0U;
             __Vtemp2136[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2137, __Vtemp2136, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x100U & __Vtemp2137[8U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_264 
+            if ((0x40000U & __Vtemp2137[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_50 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -733,8 +924,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2138[0xeU] = 0U;
             __Vtemp2138[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2139, __Vtemp2138, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x200U & __Vtemp2139[8U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_265 
+            if ((0x80000U & __Vtemp2139[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_51 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -759,24 +950,13 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__84(VConvCombTest__Syms* __restr
             __Vtemp2140[0xeU] = 0U;
             __Vtemp2140[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2141, __Vtemp2140, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x400U & __Vtemp2141[8U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_266 
+            if ((0x100000U & __Vtemp2141[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_52 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
         }
     }
-}
-
-VL_INLINE_OPT void VConvCombTest::_sequent__TOP__85(VConvCombTest__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__85\n"); );
-    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Variables
-    WData/*511:0*/ __Vtemp2142[16];
-    WData/*511:0*/ __Vtemp2143[16];
-    WData/*511:0*/ __Vtemp2144[16];
-    WData/*511:0*/ __Vtemp2145[16];
-    // Body
     if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
         if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
             __Vtemp2142[0U] = 1U;
@@ -796,8 +976,8 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__85(VConvCombTest__Syms* __restr
             __Vtemp2142[0xeU] = 0U;
             __Vtemp2142[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2143, __Vtemp2142, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((0x800U & __Vtemp2143[8U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_267 
+            if ((0x200000U & __Vtemp2143[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_53 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 1U));
             }
@@ -822,923 +1002,531 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__85(VConvCombTest__Syms* __restr
             __Vtemp2144[0xeU] = 0U;
             __Vtemp2144[0xfU] = 0U;
             VL_SHIFTL_WWI(512,512,9, __Vtemp2145, __Vtemp2144, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
-            if ((1U & __Vtemp2145[0U])) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_0 
+            if ((0x400000U & __Vtemp2145[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_54 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
-                             >> 2U));
+                             >> 1U));
             }
         }
     }
-    if (vlTOPp->ConvCombTest__DOT__decoded_fifo__DOT___zz_1) {
-        vlTOPp->__Vdlyvval__ConvCombTest__DOT__decoded_fifo__DOT__logic_ram__v0 
-            = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__lifo_mux_io_output_payload_fragment_regNext) 
-                << 1U) | (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__lifo_mux_io_output_payload_last_regNext));
-        vlTOPp->__Vdlyvset__ConvCombTest__DOT__decoded_fifo__DOT__logic_ram__v0 = 1U;
-        vlTOPp->__Vdlyvdim0__ConvCombTest__DOT__decoded_fifo__DOT__logic_ram__v0 
-            = vlTOPp->ConvCombTest__DOT__decoded_fifo__DOT__logic_pushPtr_value;
-    }
-    if ((4U & (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state))) {
-        if ((2U & (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state))) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__min_cursor 
-                = vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__states_shift_rom
-                [vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__cursor];
-        } else {
-            if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state)))) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__min_cursor 
-                    = vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__states_shift_rom
-                    [vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__cursor];
-            }
-        }
-    } else {
-        if ((2U & (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state))) {
-            if ((1U & (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state))) {
-                if ((7U == (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__halt_cnt))) {
-                    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__goto_tail) {
-                        vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__min_cursor 
-                            = vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_62;
-                    }
-                }
-            } else {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__min_cursor 
-                    = vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__states_shift_rom
-                    [vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__cursor];
-            }
-        } else {
-            if ((1U & (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state))) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__min_cursor 
-                    = vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__states_shift_rom
-                    [vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__cursor];
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2146[0U] = 1U;
+            __Vtemp2146[1U] = 0U;
+            __Vtemp2146[2U] = 0U;
+            __Vtemp2146[3U] = 0U;
+            __Vtemp2146[4U] = 0U;
+            __Vtemp2146[5U] = 0U;
+            __Vtemp2146[6U] = 0U;
+            __Vtemp2146[7U] = 0U;
+            __Vtemp2146[8U] = 0U;
+            __Vtemp2146[9U] = 0U;
+            __Vtemp2146[0xaU] = 0U;
+            __Vtemp2146[0xbU] = 0U;
+            __Vtemp2146[0xcU] = 0U;
+            __Vtemp2146[0xdU] = 0U;
+            __Vtemp2146[0xeU] = 0U;
+            __Vtemp2146[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2147, __Vtemp2146, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x800000U & __Vtemp2147[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_55 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
             }
         }
     }
-}
-
-VL_INLINE_OPT void VConvCombTest::_sequent__TOP__86(VConvCombTest__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__86\n"); );
-    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
-    if (vlTOPp->__Vdlyvset__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__survival_path_ram_1__v0) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__survival_path_ram_1[vlTOPp->__Vdlyvdim0__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__survival_path_ram_1__v0] 
-            = vlTOPp->__Vdlyvval__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__survival_path_ram_1__v0;
-    }
-    if (vlTOPp->__Vdlyvset__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__survival_path_ram_0__v0) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__survival_path_ram_0[vlTOPp->__Vdlyvdim0__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__survival_path_ram_0__v0] 
-            = vlTOPp->__Vdlyvval__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__survival_path_ram_0__v0;
-    }
-}
-
-VL_INLINE_OPT void VConvCombTest::_sequent__TOP__92(VConvCombTest__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__92\n"); );
-    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
-    if (vlTOPp->__Vdlyvset__ConvCombTest__DOT__decoded_fifo__DOT__logic_ram__v0) {
-        vlTOPp->ConvCombTest__DOT__decoded_fifo__DOT__logic_ram[vlTOPp->__Vdlyvdim0__ConvCombTest__DOT__decoded_fifo__DOT__logic_ram__v0] 
-            = vlTOPp->__Vdlyvval__ConvCombTest__DOT__decoded_fifo__DOT__logic_ram__v0;
-    }
-    vlTOPp->decoded_data_payload_last = (1U & (IData)(vlTOPp->ConvCombTest__DOT__decoded_fifo__DOT___zz_logic_ram_port0));
-    vlTOPp->decoded_data_payload_fragment = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoded_fifo__DOT___zz_logic_ram_port0) 
-                                                   >> 1U));
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffffffffffffe) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | (IData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_64__DOT__when_AddCompareSelect_l17))))));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffffffffffffd) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_65__DOT__when_AddCompareSelect_l17))))) 
-                      << 1U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffffffffffffb) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_66__DOT__when_AddCompareSelect_l17))))) 
-                      << 2U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffffffffffff7) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_67__DOT__when_AddCompareSelect_l17))))) 
-                      << 3U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffffffffffffef) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_68__DOT__when_AddCompareSelect_l17))))) 
-                      << 4U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffffffffffffdf) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_69__DOT__when_AddCompareSelect_l17))))) 
-                      << 5U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffffffffffffbf) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_70__DOT__when_AddCompareSelect_l17))))) 
-                      << 6U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffffffffffff7f) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_71__DOT__when_AddCompareSelect_l17))))) 
-                      << 7U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffffffffffeff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_72__DOT__when_AddCompareSelect_l17))))) 
-                      << 8U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffffffffffdff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_73__DOT__when_AddCompareSelect_l17))))) 
-                      << 9U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffffffffffbff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_74__DOT__when_AddCompareSelect_l17))))) 
-                      << 0xaU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffffffffff7ff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_75__DOT__when_AddCompareSelect_l17))))) 
-                      << 0xbU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffffffffffefff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_76__DOT__when_AddCompareSelect_l17))))) 
-                      << 0xcU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffffffffffdfff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_77__DOT__when_AddCompareSelect_l17))))) 
-                      << 0xdU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffffffffffbfff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_78__DOT__when_AddCompareSelect_l17))))) 
-                      << 0xeU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffffffffff7fff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_79__DOT__when_AddCompareSelect_l17))))) 
-                      << 0xfU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffffffffeffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_80__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x10U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffffffffdffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_81__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x11U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffffffffbffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_82__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x12U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffffffff7ffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_83__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x13U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffffffffefffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_84__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x14U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffffffffdfffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_85__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x15U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffffffffbfffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_86__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x16U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffffffff7fffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_87__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x17U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffffffeffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_88__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x18U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffffffdffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_89__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x19U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffffffbffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_90__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x1aU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffffff7ffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_91__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x1bU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffffffefffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_92__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x1cU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffffffdfffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_93__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x1dU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffffffbfffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_94__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x1eU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffffff7fffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_95__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x1fU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffffeffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_96__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x20U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffffdffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_97__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x21U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffffbffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_98__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x22U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffff7ffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_99__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x23U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffffefffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_100__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x24U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffffdfffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_101__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x25U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffffbfffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_102__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x26U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffff7fffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_103__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x27U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffeffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_104__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x28U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffdffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_105__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x29U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffffbffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_106__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x2aU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffff7ffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_107__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x2bU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffefffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_108__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x2cU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffdfffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_109__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x2dU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffffbfffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_110__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x2eU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffff7fffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_111__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x2fU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffeffffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_112__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x30U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffdffffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_113__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x31U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfffbffffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_114__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x32U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfff7ffffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_115__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x33U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffefffffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_116__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x34U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffdfffffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_117__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x35U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xffbfffffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_118__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x36U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xff7fffffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_119__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x37U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfeffffffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_120__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x38U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfdffffffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_121__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x39U));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xfbffffffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_122__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x3aU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xf7ffffffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_123__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x3bU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xefffffffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_124__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x3cU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xdfffffffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_125__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x3dU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0xbfffffffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_126__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x3eU));
-        }
-    }
-    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_finish) {
-        vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path = VL_ULL(0);
-    } else {
-        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__raw_data_next) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path 
-                = ((VL_ULL(0x7fffffffffffffff) & vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__survival_path) 
-                   | ((QData)((IData)((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__addCompareSelect_127__DOT__when_AddCompareSelect_l17))))) 
-                      << 0x3fU));
-        }
-    }
-}
-
-VL_INLINE_OPT void VConvCombTest::_sequent__TOP__93(VConvCombTest__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__93\n"); );
-    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
-    if ((1U & (~ (IData)(vlTOPp->tail_bits_valid)))) {
-        if (vlTOPp->ConvCombTest__DOT__encoder__DOT__raw_data_fire) {
-            vlTOPp->ConvCombTest__DOT__encoder__DOT__coded_data 
-                = ((4U & (((((0xfffffffcU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                             << 1U)) 
-                             ^ (0xfffffffcU & (IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0))) 
-                            ^ (0x3ffffffcU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                              >> 2U))) 
-                           ^ (0x1ffffffcU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                             >> 3U))) 
-                          ^ (0x7fffffcU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                           >> 5U)))) 
-                   | ((2U & (((((0xfffffffeU & (IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0)) 
-                                ^ (0x1ffffffeU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                                  >> 3U))) 
-                               ^ (0xffffffeU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                                >> 4U))) 
-                              ^ (0x7fffffeU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                               >> 5U))) 
-                             ^ (0x3fffffeU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                              >> 6U)))) 
-                      | (1U & ((((((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                   >> 1U) ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                             >> 3U)) 
-                                 ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                    >> 5U)) ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                               >> 6U)) 
-                               ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
-                                  >> 7U)))));
-        }
-    }
-    if ((4U & (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state))) {
-        if ((2U & (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state))) {
-            vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_node_data 
-                = vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__in_data_rom
-                [vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__cursor];
-        } else {
-            if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state)))) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_node_data 
-                    = vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__in_data_rom
-                    [vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__cursor];
-            }
-        }
-    } else {
-        if ((2U & (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state))) {
-            if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state)))) {
-                vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tb_node_data 
-                    = vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__in_data_rom
-                    [vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__cursor];
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2148[0U] = 1U;
+            __Vtemp2148[1U] = 0U;
+            __Vtemp2148[2U] = 0U;
+            __Vtemp2148[3U] = 0U;
+            __Vtemp2148[4U] = 0U;
+            __Vtemp2148[5U] = 0U;
+            __Vtemp2148[6U] = 0U;
+            __Vtemp2148[7U] = 0U;
+            __Vtemp2148[8U] = 0U;
+            __Vtemp2148[9U] = 0U;
+            __Vtemp2148[0xaU] = 0U;
+            __Vtemp2148[0xbU] = 0U;
+            __Vtemp2148[0xcU] = 0U;
+            __Vtemp2148[0xdU] = 0U;
+            __Vtemp2148[0xeU] = 0U;
+            __Vtemp2148[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2149, __Vtemp2148, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x1000000U & __Vtemp2149[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_56 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
             }
         }
     }
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__lifo_mux_io_output_payload_fragment_regNext 
-        = ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)
-            ? ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state) 
-               & (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT___zz_pop_payload_fragment))
-            : ((~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)) 
-               & (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT___zz_pop_payload_fragment)));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_62 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_60) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_61))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_60)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_61));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_62 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_60) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_61))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_60)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_61));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_60 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_56) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_57))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_56)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_57));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_60 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_56) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_57))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_56)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_57));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_61 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_58) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_59))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_58)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_59));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_61 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_58) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_59))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_58)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_59));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_56 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_48) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_49))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_48)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_49));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_56 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_48) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_49))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_48)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_49));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_57 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_50) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_51))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_50)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_51));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_57 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_50) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_51))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_50)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_51));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_58 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_52) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_53))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_52)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_53));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_58 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_52) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_53))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_52)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_53));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_59 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_54) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_55))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_54)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_55));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_59 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_54) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_55))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_54)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_55));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_48 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_32) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_33))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_32)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_33));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_48 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_32) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_33))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_32)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_33));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_49 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_34) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_35))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_34)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_35));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_49 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_34) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_35))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_34)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_35));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_50 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_36) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_37))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_36)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_37));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_50 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_36) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_37))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_36)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_37));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_51 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_38) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_39))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_38)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_39));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_51 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_38) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_39))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_38)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_39));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_52 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_40) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_41))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_40)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_41));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_52 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_40) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_41))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_40)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_41));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_53 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_42) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_43))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_42)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_43));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_53 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_42) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_43))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_42)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_43));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_54 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_44) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_45))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_44)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_45));
-    vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_54 
-        = (((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_44) 
-            <= (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_val_45))
-            ? (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_44)
-            : (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__minVal_1__DOT___zz_min_idx_45));
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2150[0U] = 1U;
+            __Vtemp2150[1U] = 0U;
+            __Vtemp2150[2U] = 0U;
+            __Vtemp2150[3U] = 0U;
+            __Vtemp2150[4U] = 0U;
+            __Vtemp2150[5U] = 0U;
+            __Vtemp2150[6U] = 0U;
+            __Vtemp2150[7U] = 0U;
+            __Vtemp2150[8U] = 0U;
+            __Vtemp2150[9U] = 0U;
+            __Vtemp2150[0xaU] = 0U;
+            __Vtemp2150[0xbU] = 0U;
+            __Vtemp2150[0xcU] = 0U;
+            __Vtemp2150[0xdU] = 0U;
+            __Vtemp2150[0xeU] = 0U;
+            __Vtemp2150[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2151, __Vtemp2150, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x2000000U & __Vtemp2151[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_57 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2152[0U] = 1U;
+            __Vtemp2152[1U] = 0U;
+            __Vtemp2152[2U] = 0U;
+            __Vtemp2152[3U] = 0U;
+            __Vtemp2152[4U] = 0U;
+            __Vtemp2152[5U] = 0U;
+            __Vtemp2152[6U] = 0U;
+            __Vtemp2152[7U] = 0U;
+            __Vtemp2152[8U] = 0U;
+            __Vtemp2152[9U] = 0U;
+            __Vtemp2152[0xaU] = 0U;
+            __Vtemp2152[0xbU] = 0U;
+            __Vtemp2152[0xcU] = 0U;
+            __Vtemp2152[0xdU] = 0U;
+            __Vtemp2152[0xeU] = 0U;
+            __Vtemp2152[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2153, __Vtemp2152, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x4000000U & __Vtemp2153[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_58 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2154[0U] = 1U;
+            __Vtemp2154[1U] = 0U;
+            __Vtemp2154[2U] = 0U;
+            __Vtemp2154[3U] = 0U;
+            __Vtemp2154[4U] = 0U;
+            __Vtemp2154[5U] = 0U;
+            __Vtemp2154[6U] = 0U;
+            __Vtemp2154[7U] = 0U;
+            __Vtemp2154[8U] = 0U;
+            __Vtemp2154[9U] = 0U;
+            __Vtemp2154[0xaU] = 0U;
+            __Vtemp2154[0xbU] = 0U;
+            __Vtemp2154[0xcU] = 0U;
+            __Vtemp2154[0xdU] = 0U;
+            __Vtemp2154[0xeU] = 0U;
+            __Vtemp2154[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2155, __Vtemp2154, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x8000000U & __Vtemp2155[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_59 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2156[0U] = 1U;
+            __Vtemp2156[1U] = 0U;
+            __Vtemp2156[2U] = 0U;
+            __Vtemp2156[3U] = 0U;
+            __Vtemp2156[4U] = 0U;
+            __Vtemp2156[5U] = 0U;
+            __Vtemp2156[6U] = 0U;
+            __Vtemp2156[7U] = 0U;
+            __Vtemp2156[8U] = 0U;
+            __Vtemp2156[9U] = 0U;
+            __Vtemp2156[0xaU] = 0U;
+            __Vtemp2156[0xbU] = 0U;
+            __Vtemp2156[0xcU] = 0U;
+            __Vtemp2156[0xdU] = 0U;
+            __Vtemp2156[0xeU] = 0U;
+            __Vtemp2156[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2157, __Vtemp2156, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x10000000U & __Vtemp2157[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_60 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2158[0U] = 1U;
+            __Vtemp2158[1U] = 0U;
+            __Vtemp2158[2U] = 0U;
+            __Vtemp2158[3U] = 0U;
+            __Vtemp2158[4U] = 0U;
+            __Vtemp2158[5U] = 0U;
+            __Vtemp2158[6U] = 0U;
+            __Vtemp2158[7U] = 0U;
+            __Vtemp2158[8U] = 0U;
+            __Vtemp2158[9U] = 0U;
+            __Vtemp2158[0xaU] = 0U;
+            __Vtemp2158[0xbU] = 0U;
+            __Vtemp2158[0xcU] = 0U;
+            __Vtemp2158[0xdU] = 0U;
+            __Vtemp2158[0xeU] = 0U;
+            __Vtemp2158[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2159, __Vtemp2158, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x20000000U & __Vtemp2159[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_61 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2160[0U] = 1U;
+            __Vtemp2160[1U] = 0U;
+            __Vtemp2160[2U] = 0U;
+            __Vtemp2160[3U] = 0U;
+            __Vtemp2160[4U] = 0U;
+            __Vtemp2160[5U] = 0U;
+            __Vtemp2160[6U] = 0U;
+            __Vtemp2160[7U] = 0U;
+            __Vtemp2160[8U] = 0U;
+            __Vtemp2160[9U] = 0U;
+            __Vtemp2160[0xaU] = 0U;
+            __Vtemp2160[0xbU] = 0U;
+            __Vtemp2160[0xcU] = 0U;
+            __Vtemp2160[0xdU] = 0U;
+            __Vtemp2160[0xeU] = 0U;
+            __Vtemp2160[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2161, __Vtemp2160, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x40000000U & __Vtemp2161[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_62 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2162[0U] = 1U;
+            __Vtemp2162[1U] = 0U;
+            __Vtemp2162[2U] = 0U;
+            __Vtemp2162[3U] = 0U;
+            __Vtemp2162[4U] = 0U;
+            __Vtemp2162[5U] = 0U;
+            __Vtemp2162[6U] = 0U;
+            __Vtemp2162[7U] = 0U;
+            __Vtemp2162[8U] = 0U;
+            __Vtemp2162[9U] = 0U;
+            __Vtemp2162[0xaU] = 0U;
+            __Vtemp2162[0xbU] = 0U;
+            __Vtemp2162[0xcU] = 0U;
+            __Vtemp2162[0xdU] = 0U;
+            __Vtemp2162[0xeU] = 0U;
+            __Vtemp2162[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2163, __Vtemp2162, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x80000000U & __Vtemp2163[1U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_63 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2164[0U] = 1U;
+            __Vtemp2164[1U] = 0U;
+            __Vtemp2164[2U] = 0U;
+            __Vtemp2164[3U] = 0U;
+            __Vtemp2164[4U] = 0U;
+            __Vtemp2164[5U] = 0U;
+            __Vtemp2164[6U] = 0U;
+            __Vtemp2164[7U] = 0U;
+            __Vtemp2164[8U] = 0U;
+            __Vtemp2164[9U] = 0U;
+            __Vtemp2164[0xaU] = 0U;
+            __Vtemp2164[0xbU] = 0U;
+            __Vtemp2164[0xcU] = 0U;
+            __Vtemp2164[0xdU] = 0U;
+            __Vtemp2164[0xeU] = 0U;
+            __Vtemp2164[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2165, __Vtemp2164, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((1U & __Vtemp2165[2U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_64 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2166[0U] = 1U;
+            __Vtemp2166[1U] = 0U;
+            __Vtemp2166[2U] = 0U;
+            __Vtemp2166[3U] = 0U;
+            __Vtemp2166[4U] = 0U;
+            __Vtemp2166[5U] = 0U;
+            __Vtemp2166[6U] = 0U;
+            __Vtemp2166[7U] = 0U;
+            __Vtemp2166[8U] = 0U;
+            __Vtemp2166[9U] = 0U;
+            __Vtemp2166[0xaU] = 0U;
+            __Vtemp2166[0xbU] = 0U;
+            __Vtemp2166[0xcU] = 0U;
+            __Vtemp2166[0xdU] = 0U;
+            __Vtemp2166[0xeU] = 0U;
+            __Vtemp2166[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2167, __Vtemp2166, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((2U & __Vtemp2167[2U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_65 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2168[0U] = 1U;
+            __Vtemp2168[1U] = 0U;
+            __Vtemp2168[2U] = 0U;
+            __Vtemp2168[3U] = 0U;
+            __Vtemp2168[4U] = 0U;
+            __Vtemp2168[5U] = 0U;
+            __Vtemp2168[6U] = 0U;
+            __Vtemp2168[7U] = 0U;
+            __Vtemp2168[8U] = 0U;
+            __Vtemp2168[9U] = 0U;
+            __Vtemp2168[0xaU] = 0U;
+            __Vtemp2168[0xbU] = 0U;
+            __Vtemp2168[0xcU] = 0U;
+            __Vtemp2168[0xdU] = 0U;
+            __Vtemp2168[0xeU] = 0U;
+            __Vtemp2168[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2169, __Vtemp2168, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((4U & __Vtemp2169[2U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_66 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2170[0U] = 1U;
+            __Vtemp2170[1U] = 0U;
+            __Vtemp2170[2U] = 0U;
+            __Vtemp2170[3U] = 0U;
+            __Vtemp2170[4U] = 0U;
+            __Vtemp2170[5U] = 0U;
+            __Vtemp2170[6U] = 0U;
+            __Vtemp2170[7U] = 0U;
+            __Vtemp2170[8U] = 0U;
+            __Vtemp2170[9U] = 0U;
+            __Vtemp2170[0xaU] = 0U;
+            __Vtemp2170[0xbU] = 0U;
+            __Vtemp2170[0xcU] = 0U;
+            __Vtemp2170[0xdU] = 0U;
+            __Vtemp2170[0xeU] = 0U;
+            __Vtemp2170[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2171, __Vtemp2170, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((8U & __Vtemp2171[2U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_67 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2172[0U] = 1U;
+            __Vtemp2172[1U] = 0U;
+            __Vtemp2172[2U] = 0U;
+            __Vtemp2172[3U] = 0U;
+            __Vtemp2172[4U] = 0U;
+            __Vtemp2172[5U] = 0U;
+            __Vtemp2172[6U] = 0U;
+            __Vtemp2172[7U] = 0U;
+            __Vtemp2172[8U] = 0U;
+            __Vtemp2172[9U] = 0U;
+            __Vtemp2172[0xaU] = 0U;
+            __Vtemp2172[0xbU] = 0U;
+            __Vtemp2172[0xcU] = 0U;
+            __Vtemp2172[0xdU] = 0U;
+            __Vtemp2172[0xeU] = 0U;
+            __Vtemp2172[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2173, __Vtemp2172, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x10U & __Vtemp2173[2U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_68 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2174[0U] = 1U;
+            __Vtemp2174[1U] = 0U;
+            __Vtemp2174[2U] = 0U;
+            __Vtemp2174[3U] = 0U;
+            __Vtemp2174[4U] = 0U;
+            __Vtemp2174[5U] = 0U;
+            __Vtemp2174[6U] = 0U;
+            __Vtemp2174[7U] = 0U;
+            __Vtemp2174[8U] = 0U;
+            __Vtemp2174[9U] = 0U;
+            __Vtemp2174[0xaU] = 0U;
+            __Vtemp2174[0xbU] = 0U;
+            __Vtemp2174[0xcU] = 0U;
+            __Vtemp2174[0xdU] = 0U;
+            __Vtemp2174[0xeU] = 0U;
+            __Vtemp2174[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2175, __Vtemp2174, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x20U & __Vtemp2175[2U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_69 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2176[0U] = 1U;
+            __Vtemp2176[1U] = 0U;
+            __Vtemp2176[2U] = 0U;
+            __Vtemp2176[3U] = 0U;
+            __Vtemp2176[4U] = 0U;
+            __Vtemp2176[5U] = 0U;
+            __Vtemp2176[6U] = 0U;
+            __Vtemp2176[7U] = 0U;
+            __Vtemp2176[8U] = 0U;
+            __Vtemp2176[9U] = 0U;
+            __Vtemp2176[0xaU] = 0U;
+            __Vtemp2176[0xbU] = 0U;
+            __Vtemp2176[0xcU] = 0U;
+            __Vtemp2176[0xdU] = 0U;
+            __Vtemp2176[0xeU] = 0U;
+            __Vtemp2176[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2177, __Vtemp2176, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x40U & __Vtemp2177[2U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_70 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2178[0U] = 1U;
+            __Vtemp2178[1U] = 0U;
+            __Vtemp2178[2U] = 0U;
+            __Vtemp2178[3U] = 0U;
+            __Vtemp2178[4U] = 0U;
+            __Vtemp2178[5U] = 0U;
+            __Vtemp2178[6U] = 0U;
+            __Vtemp2178[7U] = 0U;
+            __Vtemp2178[8U] = 0U;
+            __Vtemp2178[9U] = 0U;
+            __Vtemp2178[0xaU] = 0U;
+            __Vtemp2178[0xbU] = 0U;
+            __Vtemp2178[0xcU] = 0U;
+            __Vtemp2178[0xdU] = 0U;
+            __Vtemp2178[0xeU] = 0U;
+            __Vtemp2178[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2179, __Vtemp2178, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x80U & __Vtemp2179[2U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_71 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2180[0U] = 1U;
+            __Vtemp2180[1U] = 0U;
+            __Vtemp2180[2U] = 0U;
+            __Vtemp2180[3U] = 0U;
+            __Vtemp2180[4U] = 0U;
+            __Vtemp2180[5U] = 0U;
+            __Vtemp2180[6U] = 0U;
+            __Vtemp2180[7U] = 0U;
+            __Vtemp2180[8U] = 0U;
+            __Vtemp2180[9U] = 0U;
+            __Vtemp2180[0xaU] = 0U;
+            __Vtemp2180[0xbU] = 0U;
+            __Vtemp2180[0xcU] = 0U;
+            __Vtemp2180[0xdU] = 0U;
+            __Vtemp2180[0xeU] = 0U;
+            __Vtemp2180[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2181, __Vtemp2180, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x100U & __Vtemp2181[2U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_72 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2182[0U] = 1U;
+            __Vtemp2182[1U] = 0U;
+            __Vtemp2182[2U] = 0U;
+            __Vtemp2182[3U] = 0U;
+            __Vtemp2182[4U] = 0U;
+            __Vtemp2182[5U] = 0U;
+            __Vtemp2182[6U] = 0U;
+            __Vtemp2182[7U] = 0U;
+            __Vtemp2182[8U] = 0U;
+            __Vtemp2182[9U] = 0U;
+            __Vtemp2182[0xaU] = 0U;
+            __Vtemp2182[0xbU] = 0U;
+            __Vtemp2182[0xcU] = 0U;
+            __Vtemp2182[0xdU] = 0U;
+            __Vtemp2182[0xeU] = 0U;
+            __Vtemp2182[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2183, __Vtemp2182, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x200U & __Vtemp2183[2U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_73 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
+    if ((1U & (~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)))) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__when_SISOLifo_l25) {
+            __Vtemp2184[0U] = 1U;
+            __Vtemp2184[1U] = 0U;
+            __Vtemp2184[2U] = 0U;
+            __Vtemp2184[3U] = 0U;
+            __Vtemp2184[4U] = 0U;
+            __Vtemp2184[5U] = 0U;
+            __Vtemp2184[6U] = 0U;
+            __Vtemp2184[7U] = 0U;
+            __Vtemp2184[8U] = 0U;
+            __Vtemp2184[9U] = 0U;
+            __Vtemp2184[0xaU] = 0U;
+            __Vtemp2184[0xbU] = 0U;
+            __Vtemp2184[0xcU] = 0U;
+            __Vtemp2184[0xdU] = 0U;
+            __Vtemp2184[0xeU] = 0U;
+            __Vtemp2184[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp2185, __Vtemp2184, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor));
+            if ((0x400U & __Vtemp2185[2U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_74 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 1U));
+            }
+        }
+    }
 }

@@ -29,7 +29,7 @@ case class ViterbiDecoderConfig(
     def trellisDataType: Bits = Bits(trellisWidth bits)
     def trellisSize: Int = 2 * statesNum
 
-    def nodeWeightWidth: Int = 8
+    def nodeWeightWidth: Int = 16
     def nodeWeightType: UInt = UInt(nodeWeightWidth bits)
 
     def distWidth: Int = log2Up(rawDataWidth + 1)

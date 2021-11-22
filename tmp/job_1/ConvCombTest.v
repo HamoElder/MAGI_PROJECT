@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : ConvCombTest
-// Git hash  : 20f2bbecaafb9bca8a0b2f811067904083589e4b
+// Git hash  : 239a9622aabba6923ac19653594c433e3c5701f8
 
 
 `define TracebackStates_binary_sequential_type [2:0]
@@ -22,34 +22,69 @@ module ConvCombTest (
   input               raw_data_valid,
   output              raw_data_ready,
   input               raw_data_payload_last,
-  input      [0:0]    raw_data_payload_fragment,
+  input      [7:0]    raw_data_payload_fragment,
   output              decoded_data_valid,
+  input               decoded_data_ready,
   output              decoded_data_payload_last,
-  output     [0:0]    decoded_data_payload_fragment,
+  output     [7:0]    decoded_data_payload_fragment,
   input               clk,
   input               reset
 );
+  wire                streamFifo_7_io_pop_ready;
   wire                encoder_raw_data_ready;
   wire                encoder_coded_data_valid;
   wire                encoder_coded_data_payload_last;
-  wire       [2:0]    encoder_coded_data_payload_fragment;
-  wire                encoded_fifo_io_push_ready;
-  wire                encoded_fifo_io_pop_valid;
-  wire                encoded_fifo_io_pop_payload_last;
-  wire       [2:0]    encoded_fifo_io_pop_payload_fragment;
-  wire       [11:0]   encoded_fifo_io_occupancy;
-  wire       [11:0]   encoded_fifo_io_availability;
+  wire       [15:0]   encoder_coded_data_payload_fragment;
+  wire                puncture_core_raw_data_ready;
+  wire                puncture_core_punched_data_valid;
+  wire                puncture_core_punched_data_payload_last;
+  wire       [15:0]   puncture_core_punched_data_payload_fragment;
+  wire                streamFifo_5_io_push_ready;
+  wire                streamFifo_5_io_pop_valid;
+  wire                streamFifo_5_io_pop_payload_last;
+  wire       [15:0]   streamFifo_5_io_pop_payload_fragment;
+  wire       [4:0]    streamFifo_5_io_occupancy;
+  wire       [4:0]    streamFifo_5_io_availability;
+  wire                de_puncture_core_raw_data_ready;
+  wire                de_puncture_core_de_punched_data_valid;
+  wire                de_puncture_core_de_punched_data_payload_last;
+  wire       [1:0]    de_puncture_core_de_punched_data_payload_fragment;
+  wire                streamFifo_6_io_push_ready;
+  wire                streamFifo_6_io_pop_valid;
+  wire                streamFifo_6_io_pop_payload_last;
+  wire       [15:0]   streamFifo_6_io_pop_payload_fragment;
+  wire       [9:0]    streamFifo_6_io_occupancy;
+  wire       [9:0]    streamFifo_6_io_availability;
   wire                decoder_raw_data_ready;
   wire                decoder_decoded_data_valid;
   wire                decoder_decoded_data_payload_last;
   wire       [0:0]    decoder_decoded_data_payload_fragment;
-  wire                decoded_fifo_io_push_ready;
-  wire                decoded_fifo_io_pop_valid;
-  wire                decoded_fifo_io_pop_payload_last;
-  wire       [0:0]    decoded_fifo_io_pop_payload_fragment;
-  wire       [11:0]   decoded_fifo_io_occupancy;
-  wire       [11:0]   decoded_fifo_io_availability;
+  wire                de_puncture_core_de_punched_data_fifo_io_push_ready;
+  wire                de_puncture_core_de_punched_data_fifo_io_pop_valid;
+  wire                de_puncture_core_de_punched_data_fifo_io_pop_payload_last;
+  wire       [1:0]    de_puncture_core_de_punched_data_fifo_io_pop_payload_fragment;
+  wire       [9:0]    de_puncture_core_de_punched_data_fifo_io_occupancy;
+  wire       [9:0]    de_puncture_core_de_punched_data_fifo_io_availability;
+  wire                streamFifo_7_io_push_ready;
+  wire                streamFifo_7_io_pop_valid;
+  wire                streamFifo_7_io_pop_payload_last;
+  wire       [0:0]    streamFifo_7_io_pop_payload_fragment;
+  wire       [9:0]    streamFifo_7_io_occupancy;
+  wire       [9:0]    streamFifo_7_io_availability;
+  wire       [2:0]    _zz__zz_decoded_data_valid_1;
+  wire       [0:0]    _zz__zz_decoded_data_valid_1_1;
+  wire       [5:0]    _zz__zz_decoded_data_payload_fragment;
+  wire                streamFifo_7_io_pop_fire;
+  reg                 _zz_decoded_data_valid;
+  reg        [2:0]    _zz_decoded_data_valid_1;
+  reg        [2:0]    _zz_decoded_data_valid_2;
+  wire                _zz_decoded_data_valid_3;
+  reg        [6:0]    _zz_decoded_data_payload_fragment;
+  wire                streamFifo_7_io_pop_fire_1;
 
+  assign _zz__zz_decoded_data_valid_1_1 = _zz_decoded_data_valid;
+  assign _zz__zz_decoded_data_valid_1 = {2'd0, _zz__zz_decoded_data_valid_1_1};
+  assign _zz__zz_decoded_data_payload_fragment = (_zz_decoded_data_payload_fragment >>> 1);
   ConvEncoder encoder (
     .tail_bits_valid                (tail_bits_valid                      ), //i
     .tail_bits_payload              (tail_bits_payload                    ), //i
@@ -63,55 +98,141 @@ module ConvCombTest (
     .clk                            (clk                                  ), //i
     .reset                          (reset                                )  //i
   );
-  StreamFifo_1 encoded_fifo (
+  Puncturing puncture_core (
+    .raw_data_valid                   (streamFifo_5_io_pop_valid                    ), //i
+    .raw_data_ready                   (puncture_core_raw_data_ready                 ), //o
+    .raw_data_payload_last            (streamFifo_5_io_pop_payload_last             ), //i
+    .raw_data_payload_fragment        (streamFifo_5_io_pop_payload_fragment         ), //i
+    .punched_data_valid               (puncture_core_punched_data_valid             ), //o
+    .punched_data_payload_last        (puncture_core_punched_data_payload_last      ), //o
+    .punched_data_payload_fragment    (puncture_core_punched_data_payload_fragment  ), //o
+    .clk                              (clk                                          ), //i
+    .reset                            (reset                                        )  //i
+  );
+  StreamFifo_1 streamFifo_5 (
     .io_push_valid               (encoder_coded_data_valid              ), //i
-    .io_push_ready               (encoded_fifo_io_push_ready            ), //o
+    .io_push_ready               (streamFifo_5_io_push_ready            ), //o
     .io_push_payload_last        (encoder_coded_data_payload_last       ), //i
     .io_push_payload_fragment    (encoder_coded_data_payload_fragment   ), //i
-    .io_pop_valid                (encoded_fifo_io_pop_valid             ), //o
-    .io_pop_ready                (decoder_raw_data_ready                ), //i
-    .io_pop_payload_last         (encoded_fifo_io_pop_payload_last      ), //o
-    .io_pop_payload_fragment     (encoded_fifo_io_pop_payload_fragment  ), //o
+    .io_pop_valid                (streamFifo_5_io_pop_valid             ), //o
+    .io_pop_ready                (puncture_core_raw_data_ready          ), //i
+    .io_pop_payload_last         (streamFifo_5_io_pop_payload_last      ), //o
+    .io_pop_payload_fragment     (streamFifo_5_io_pop_payload_fragment  ), //o
     .io_flush                    (1'b0                                  ), //i
-    .io_occupancy                (encoded_fifo_io_occupancy             ), //o
-    .io_availability             (encoded_fifo_io_availability          ), //o
+    .io_occupancy                (streamFifo_5_io_occupancy             ), //o
+    .io_availability             (streamFifo_5_io_availability          ), //o
     .clk                         (clk                                   ), //i
     .reset                       (reset                                 )  //i
   );
-  ViterbiDecoder decoder (
-    .raw_data_valid                   (encoded_fifo_io_pop_valid              ), //i
-    .raw_data_ready                   (decoder_raw_data_ready                 ), //o
-    .raw_data_payload_last            (encoded_fifo_io_pop_payload_last       ), //i
-    ._zz_in_b                         (encoded_fifo_io_pop_payload_fragment   ), //i
-    .decoded_data_valid               (decoder_decoded_data_valid             ), //o
-    .decoded_data_payload_last        (decoder_decoded_data_payload_last      ), //o
-    .decoded_data_payload_fragment    (decoder_decoded_data_payload_fragment  ), //o
-    .clk                              (clk                                    ), //i
-    .reset                            (reset                                  )  //i
+  DePuncturing de_puncture_core (
+    .dummy_bits                          (1'b1                                                 ), //i
+    .raw_data_valid                      (streamFifo_6_io_pop_valid                            ), //i
+    .raw_data_ready                      (de_puncture_core_raw_data_ready                      ), //o
+    .raw_data_payload_last               (streamFifo_6_io_pop_payload_last                     ), //i
+    .raw_data_payload_fragment           (streamFifo_6_io_pop_payload_fragment                 ), //i
+    .de_punched_data_valid               (de_puncture_core_de_punched_data_valid               ), //o
+    .de_punched_data_ready               (de_puncture_core_de_punched_data_fifo_io_push_ready  ), //i
+    .de_punched_data_payload_last        (de_puncture_core_de_punched_data_payload_last        ), //o
+    .de_punched_data_payload_fragment    (de_puncture_core_de_punched_data_payload_fragment    ), //o
+    .clk                                 (clk                                                  ), //i
+    .reset                               (reset                                                )  //i
   );
-  StreamFifo_2 decoded_fifo (
+  StreamFifo_2 streamFifo_6 (
+    .io_push_valid               (puncture_core_punched_data_valid             ), //i
+    .io_push_ready               (streamFifo_6_io_push_ready                   ), //o
+    .io_push_payload_last        (puncture_core_punched_data_payload_last      ), //i
+    .io_push_payload_fragment    (puncture_core_punched_data_payload_fragment  ), //i
+    .io_pop_valid                (streamFifo_6_io_pop_valid                    ), //o
+    .io_pop_ready                (de_puncture_core_raw_data_ready              ), //i
+    .io_pop_payload_last         (streamFifo_6_io_pop_payload_last             ), //o
+    .io_pop_payload_fragment     (streamFifo_6_io_pop_payload_fragment         ), //o
+    .io_flush                    (1'b0                                         ), //i
+    .io_occupancy                (streamFifo_6_io_occupancy                    ), //o
+    .io_availability             (streamFifo_6_io_availability                 ), //o
+    .clk                         (clk                                          ), //i
+    .reset                       (reset                                        )  //i
+  );
+  ViterbiDecoder decoder (
+    .raw_data_valid                   (de_puncture_core_de_punched_data_fifo_io_pop_valid             ), //i
+    .raw_data_ready                   (decoder_raw_data_ready                                         ), //o
+    .raw_data_payload_last            (de_puncture_core_de_punched_data_fifo_io_pop_payload_last      ), //i
+    ._zz_in_b                         (de_puncture_core_de_punched_data_fifo_io_pop_payload_fragment  ), //i
+    .decoded_data_valid               (decoder_decoded_data_valid                                     ), //o
+    .decoded_data_payload_last        (decoder_decoded_data_payload_last                              ), //o
+    .decoded_data_payload_fragment    (decoder_decoded_data_payload_fragment                          ), //o
+    .clk                              (clk                                                            ), //i
+    .reset                            (reset                                                          )  //i
+  );
+  StreamFifo_3 de_puncture_core_de_punched_data_fifo (
+    .io_push_valid               (de_puncture_core_de_punched_data_valid                         ), //i
+    .io_push_ready               (de_puncture_core_de_punched_data_fifo_io_push_ready            ), //o
+    .io_push_payload_last        (de_puncture_core_de_punched_data_payload_last                  ), //i
+    .io_push_payload_fragment    (de_puncture_core_de_punched_data_payload_fragment              ), //i
+    .io_pop_valid                (de_puncture_core_de_punched_data_fifo_io_pop_valid             ), //o
+    .io_pop_ready                (decoder_raw_data_ready                                         ), //i
+    .io_pop_payload_last         (de_puncture_core_de_punched_data_fifo_io_pop_payload_last      ), //o
+    .io_pop_payload_fragment     (de_puncture_core_de_punched_data_fifo_io_pop_payload_fragment  ), //o
+    .io_flush                    (1'b0                                                           ), //i
+    .io_occupancy                (de_puncture_core_de_punched_data_fifo_io_occupancy             ), //o
+    .io_availability             (de_puncture_core_de_punched_data_fifo_io_availability          ), //o
+    .clk                         (clk                                                            ), //i
+    .reset                       (reset                                                          )  //i
+  );
+  StreamFifo_4 streamFifo_7 (
     .io_push_valid               (decoder_decoded_data_valid             ), //i
-    .io_push_ready               (decoded_fifo_io_push_ready             ), //o
+    .io_push_ready               (streamFifo_7_io_push_ready             ), //o
     .io_push_payload_last        (decoder_decoded_data_payload_last      ), //i
     .io_push_payload_fragment    (decoder_decoded_data_payload_fragment  ), //i
-    .io_pop_valid                (decoded_fifo_io_pop_valid              ), //o
-    .io_pop_ready                (1'b1                                   ), //i
-    .io_pop_payload_last         (decoded_fifo_io_pop_payload_last       ), //o
-    .io_pop_payload_fragment     (decoded_fifo_io_pop_payload_fragment   ), //o
+    .io_pop_valid                (streamFifo_7_io_pop_valid              ), //o
+    .io_pop_ready                (streamFifo_7_io_pop_ready              ), //i
+    .io_pop_payload_last         (streamFifo_7_io_pop_payload_last       ), //o
+    .io_pop_payload_fragment     (streamFifo_7_io_pop_payload_fragment   ), //o
     .io_flush                    (1'b0                                   ), //i
-    .io_occupancy                (decoded_fifo_io_occupancy              ), //o
-    .io_availability             (decoded_fifo_io_availability           ), //o
+    .io_occupancy                (streamFifo_7_io_occupancy              ), //o
+    .io_availability             (streamFifo_7_io_availability           ), //o
     .clk                         (clk                                    ), //i
     .reset                       (reset                                  )  //i
   );
   assign raw_data_ready = encoder_raw_data_ready;
-  assign decoded_data_valid = decoded_fifo_io_pop_valid;
-  assign decoded_data_payload_last = decoded_fifo_io_pop_payload_last;
-  assign decoded_data_payload_fragment = decoded_fifo_io_pop_payload_fragment;
+  assign streamFifo_7_io_pop_fire = (streamFifo_7_io_pop_valid && streamFifo_7_io_pop_ready);
+  always @(*) begin
+    _zz_decoded_data_valid = 1'b0;
+    if(streamFifo_7_io_pop_fire) begin
+      _zz_decoded_data_valid = 1'b1;
+    end
+  end
+
+  assign _zz_decoded_data_valid_3 = (_zz_decoded_data_valid_2 == 3'b111);
+  always @(*) begin
+    _zz_decoded_data_valid_1 = (_zz_decoded_data_valid_2 + _zz__zz_decoded_data_valid_1);
+    if(1'b0) begin
+      _zz_decoded_data_valid_1 = 3'b000;
+    end
+  end
+
+  assign streamFifo_7_io_pop_fire_1 = (streamFifo_7_io_pop_valid && streamFifo_7_io_pop_ready);
+  assign streamFifo_7_io_pop_ready = (! ((! decoded_data_ready) && _zz_decoded_data_valid_3));
+  assign decoded_data_valid = (streamFifo_7_io_pop_valid && _zz_decoded_data_valid_3);
+  assign decoded_data_payload_last = streamFifo_7_io_pop_payload_last;
+  assign decoded_data_payload_fragment = {streamFifo_7_io_pop_payload_fragment,_zz_decoded_data_payload_fragment};
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      _zz_decoded_data_valid_2 <= 3'b000;
+    end else begin
+      _zz_decoded_data_valid_2 <= _zz_decoded_data_valid_1;
+    end
+  end
+
+  always @(posedge clk) begin
+    if(streamFifo_7_io_pop_fire_1) begin
+      _zz_decoded_data_payload_fragment <= {streamFifo_7_io_pop_payload_fragment,_zz__zz_decoded_data_payload_fragment};
+    end
+  end
+
 
 endmodule
 
-module StreamFifo_2 (
+module StreamFifo_4 (
   input               io_push_valid,
   output              io_push_ready,
   input               io_push_payload_last,
@@ -121,31 +242,31 @@ module StreamFifo_2 (
   output              io_pop_payload_last,
   output     [0:0]    io_pop_payload_fragment,
   input               io_flush,
-  output     [11:0]   io_occupancy,
-  output     [11:0]   io_availability,
+  output     [9:0]    io_occupancy,
+  output     [9:0]    io_availability,
   input               clk,
   input               reset
 );
   reg        [1:0]    _zz_logic_ram_port0;
-  wire       [10:0]   _zz_logic_pushPtr_valueNext;
+  wire       [8:0]    _zz_logic_pushPtr_valueNext;
   wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
-  wire       [10:0]   _zz_logic_popPtr_valueNext;
+  wire       [8:0]    _zz_logic_popPtr_valueNext;
   wire       [0:0]    _zz_logic_popPtr_valueNext_1;
   wire                _zz_logic_ram_port;
   wire                _zz__zz_io_pop_payload_last;
   wire       [1:0]    _zz_logic_ram_port_1;
-  wire       [10:0]   _zz_io_availability;
+  wire       [8:0]    _zz_io_availability;
   reg                 _zz_1;
   reg                 logic_pushPtr_willIncrement;
   reg                 logic_pushPtr_willClear;
-  reg        [10:0]   logic_pushPtr_valueNext;
-  reg        [10:0]   logic_pushPtr_value;
+  reg        [8:0]    logic_pushPtr_valueNext;
+  reg        [8:0]    logic_pushPtr_value;
   wire                logic_pushPtr_willOverflowIfInc;
   wire                logic_pushPtr_willOverflow;
   reg                 logic_popPtr_willIncrement;
   reg                 logic_popPtr_willClear;
-  reg        [10:0]   logic_popPtr_valueNext;
-  reg        [10:0]   logic_popPtr_value;
+  reg        [8:0]    logic_popPtr_valueNext;
+  reg        [8:0]    logic_popPtr_value;
   wire                logic_popPtr_willOverflowIfInc;
   wire                logic_popPtr_willOverflow;
   wire                logic_ptrMatch;
@@ -157,13 +278,13 @@ module StreamFifo_2 (
   reg                 _zz_io_pop_valid;
   wire       [1:0]    _zz_io_pop_payload_last;
   wire                when_Stream_l933;
-  wire       [10:0]   logic_ptrDif;
-  reg [1:0] logic_ram [0:2047];
+  wire       [8:0]    logic_ptrDif;
+  reg [1:0] logic_ram [0:511];
 
   assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
-  assign _zz_logic_pushPtr_valueNext = {10'd0, _zz_logic_pushPtr_valueNext_1};
+  assign _zz_logic_pushPtr_valueNext = {8'd0, _zz_logic_pushPtr_valueNext_1};
   assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
-  assign _zz_logic_popPtr_valueNext = {10'd0, _zz_logic_popPtr_valueNext_1};
+  assign _zz_logic_popPtr_valueNext = {8'd0, _zz_logic_popPtr_valueNext_1};
   assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz__zz_io_pop_payload_last = 1'b1;
   assign _zz_logic_ram_port_1 = {io_push_payload_fragment,io_push_payload_last};
@@ -200,12 +321,12 @@ module StreamFifo_2 (
     end
   end
 
-  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 11'h7ff);
+  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 9'h1ff);
   assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
   always @(*) begin
     logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
     if(logic_pushPtr_willClear) begin
-      logic_pushPtr_valueNext = 11'h0;
+      logic_pushPtr_valueNext = 9'h0;
     end
   end
 
@@ -223,12 +344,12 @@ module StreamFifo_2 (
     end
   end
 
-  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 11'h7ff);
+  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 9'h1ff);
   assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
   always @(*) begin
     logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
     if(logic_popPtr_willClear) begin
-      logic_popPtr_valueNext = 11'h0;
+      logic_popPtr_valueNext = 9'h0;
     end
   end
 
@@ -248,8 +369,165 @@ module StreamFifo_2 (
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
   always @(posedge clk or posedge reset) begin
     if(reset) begin
-      logic_pushPtr_value <= 11'h0;
-      logic_popPtr_value <= 11'h0;
+      logic_pushPtr_value <= 9'h0;
+      logic_popPtr_value <= 9'h0;
+      logic_risingOccupancy <= 1'b0;
+      _zz_io_pop_valid <= 1'b0;
+    end else begin
+      logic_pushPtr_value <= logic_pushPtr_valueNext;
+      logic_popPtr_value <= logic_popPtr_valueNext;
+      _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
+      if(when_Stream_l933) begin
+        logic_risingOccupancy <= logic_pushing;
+      end
+      if(io_flush) begin
+        logic_risingOccupancy <= 1'b0;
+      end
+    end
+  end
+
+
+endmodule
+
+module StreamFifo_3 (
+  input               io_push_valid,
+  output              io_push_ready,
+  input               io_push_payload_last,
+  input      [1:0]    io_push_payload_fragment,
+  output              io_pop_valid,
+  input               io_pop_ready,
+  output              io_pop_payload_last,
+  output     [1:0]    io_pop_payload_fragment,
+  input               io_flush,
+  output     [9:0]    io_occupancy,
+  output     [9:0]    io_availability,
+  input               clk,
+  input               reset
+);
+  reg        [2:0]    _zz_logic_ram_port0;
+  wire       [8:0]    _zz_logic_pushPtr_valueNext;
+  wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
+  wire       [8:0]    _zz_logic_popPtr_valueNext;
+  wire       [0:0]    _zz_logic_popPtr_valueNext_1;
+  wire                _zz_logic_ram_port;
+  wire                _zz__zz_io_pop_payload_last;
+  wire       [2:0]    _zz_logic_ram_port_1;
+  wire       [8:0]    _zz_io_availability;
+  reg                 _zz_1;
+  reg                 logic_pushPtr_willIncrement;
+  reg                 logic_pushPtr_willClear;
+  reg        [8:0]    logic_pushPtr_valueNext;
+  reg        [8:0]    logic_pushPtr_value;
+  wire                logic_pushPtr_willOverflowIfInc;
+  wire                logic_pushPtr_willOverflow;
+  reg                 logic_popPtr_willIncrement;
+  reg                 logic_popPtr_willClear;
+  reg        [8:0]    logic_popPtr_valueNext;
+  reg        [8:0]    logic_popPtr_value;
+  wire                logic_popPtr_willOverflowIfInc;
+  wire                logic_popPtr_willOverflow;
+  wire                logic_ptrMatch;
+  reg                 logic_risingOccupancy;
+  wire                logic_pushing;
+  wire                logic_popping;
+  wire                logic_empty;
+  wire                logic_full;
+  reg                 _zz_io_pop_valid;
+  wire       [2:0]    _zz_io_pop_payload_last;
+  wire                when_Stream_l933;
+  wire       [8:0]    logic_ptrDif;
+  reg [2:0] logic_ram [0:511];
+
+  assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
+  assign _zz_logic_pushPtr_valueNext = {8'd0, _zz_logic_pushPtr_valueNext_1};
+  assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
+  assign _zz_logic_popPtr_valueNext = {8'd0, _zz_logic_popPtr_valueNext_1};
+  assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
+  assign _zz__zz_io_pop_payload_last = 1'b1;
+  assign _zz_logic_ram_port_1 = {io_push_payload_fragment,io_push_payload_last};
+  always @(posedge clk) begin
+    if(_zz__zz_io_pop_payload_last) begin
+      _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
+    end
+  end
+
+  always @(posedge clk) begin
+    if(_zz_1) begin
+      logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
+    end
+  end
+
+  always @(*) begin
+    _zz_1 = 1'b0;
+    if(logic_pushing) begin
+      _zz_1 = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_pushPtr_willIncrement = 1'b0;
+    if(logic_pushing) begin
+      logic_pushPtr_willIncrement = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_pushPtr_willClear = 1'b0;
+    if(io_flush) begin
+      logic_pushPtr_willClear = 1'b1;
+    end
+  end
+
+  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 9'h1ff);
+  assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
+  always @(*) begin
+    logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
+    if(logic_pushPtr_willClear) begin
+      logic_pushPtr_valueNext = 9'h0;
+    end
+  end
+
+  always @(*) begin
+    logic_popPtr_willIncrement = 1'b0;
+    if(logic_popping) begin
+      logic_popPtr_willIncrement = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_popPtr_willClear = 1'b0;
+    if(io_flush) begin
+      logic_popPtr_willClear = 1'b1;
+    end
+  end
+
+  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 9'h1ff);
+  assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
+  always @(*) begin
+    logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
+    if(logic_popPtr_willClear) begin
+      logic_popPtr_valueNext = 9'h0;
+    end
+  end
+
+  assign logic_ptrMatch = (logic_pushPtr_value == logic_popPtr_value);
+  assign logic_pushing = (io_push_valid && io_push_ready);
+  assign logic_popping = (io_pop_valid && io_pop_ready);
+  assign logic_empty = (logic_ptrMatch && (! logic_risingOccupancy));
+  assign logic_full = (logic_ptrMatch && logic_risingOccupancy);
+  assign io_push_ready = (! logic_full);
+  assign io_pop_valid = ((! logic_empty) && (! (_zz_io_pop_valid && (! logic_full))));
+  assign _zz_io_pop_payload_last = _zz_logic_ram_port0;
+  assign io_pop_payload_last = _zz_io_pop_payload_last[0];
+  assign io_pop_payload_fragment = _zz_io_pop_payload_last[2 : 1];
+  assign when_Stream_l933 = (logic_pushing != logic_popping);
+  assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
+  assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
+  assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      logic_pushPtr_value <= 9'h0;
+      logic_popPtr_value <= 9'h0;
       logic_risingOccupancy <= 1'b0;
       _zz_io_pop_valid <= 1'b0;
     end else begin
@@ -272,7 +550,7 @@ module ViterbiDecoder (
   input               raw_data_valid,
   output              raw_data_ready,
   input               raw_data_payload_last,
-  input      [2:0]    _zz_in_b,
+  input      [1:0]    _zz_in_b,
   output              decoded_data_valid,
   output              decoded_data_payload_last,
   output     [0:0]    decoded_data_payload_fragment,
@@ -338,41 +616,41 @@ module ViterbiDecoder (
 
 endmodule
 
-module StreamFifo_1 (
+module StreamFifo_2 (
   input               io_push_valid,
   output              io_push_ready,
   input               io_push_payload_last,
-  input      [2:0]    io_push_payload_fragment,
+  input      [15:0]   io_push_payload_fragment,
   output              io_pop_valid,
   input               io_pop_ready,
   output              io_pop_payload_last,
-  output     [2:0]    io_pop_payload_fragment,
+  output     [15:0]   io_pop_payload_fragment,
   input               io_flush,
-  output     [11:0]   io_occupancy,
-  output     [11:0]   io_availability,
+  output     [9:0]    io_occupancy,
+  output     [9:0]    io_availability,
   input               clk,
   input               reset
 );
-  reg        [3:0]    _zz_logic_ram_port0;
-  wire       [10:0]   _zz_logic_pushPtr_valueNext;
+  reg        [16:0]   _zz_logic_ram_port0;
+  wire       [8:0]    _zz_logic_pushPtr_valueNext;
   wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
-  wire       [10:0]   _zz_logic_popPtr_valueNext;
+  wire       [8:0]    _zz_logic_popPtr_valueNext;
   wire       [0:0]    _zz_logic_popPtr_valueNext_1;
   wire                _zz_logic_ram_port;
   wire                _zz__zz_io_pop_payload_last;
-  wire       [3:0]    _zz_logic_ram_port_1;
-  wire       [10:0]   _zz_io_availability;
+  wire       [16:0]   _zz_logic_ram_port_1;
+  wire       [8:0]    _zz_io_availability;
   reg                 _zz_1;
   reg                 logic_pushPtr_willIncrement;
   reg                 logic_pushPtr_willClear;
-  reg        [10:0]   logic_pushPtr_valueNext;
-  reg        [10:0]   logic_pushPtr_value;
+  reg        [8:0]    logic_pushPtr_valueNext;
+  reg        [8:0]    logic_pushPtr_value;
   wire                logic_pushPtr_willOverflowIfInc;
   wire                logic_pushPtr_willOverflow;
   reg                 logic_popPtr_willIncrement;
   reg                 logic_popPtr_willClear;
-  reg        [10:0]   logic_popPtr_valueNext;
-  reg        [10:0]   logic_popPtr_value;
+  reg        [8:0]    logic_popPtr_valueNext;
+  reg        [8:0]    logic_popPtr_value;
   wire                logic_popPtr_willOverflowIfInc;
   wire                logic_popPtr_willOverflow;
   wire                logic_ptrMatch;
@@ -382,15 +660,15 @@ module StreamFifo_1 (
   wire                logic_empty;
   wire                logic_full;
   reg                 _zz_io_pop_valid;
-  wire       [3:0]    _zz_io_pop_payload_last;
+  wire       [16:0]   _zz_io_pop_payload_last;
   wire                when_Stream_l933;
-  wire       [10:0]   logic_ptrDif;
-  reg [3:0] logic_ram [0:2047];
+  wire       [8:0]    logic_ptrDif;
+  reg [16:0] logic_ram [0:511];
 
   assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
-  assign _zz_logic_pushPtr_valueNext = {10'd0, _zz_logic_pushPtr_valueNext_1};
+  assign _zz_logic_pushPtr_valueNext = {8'd0, _zz_logic_pushPtr_valueNext_1};
   assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
-  assign _zz_logic_popPtr_valueNext = {10'd0, _zz_logic_popPtr_valueNext_1};
+  assign _zz_logic_popPtr_valueNext = {8'd0, _zz_logic_popPtr_valueNext_1};
   assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz__zz_io_pop_payload_last = 1'b1;
   assign _zz_logic_ram_port_1 = {io_push_payload_fragment,io_push_payload_last};
@@ -427,12 +705,12 @@ module StreamFifo_1 (
     end
   end
 
-  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 11'h7ff);
+  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 9'h1ff);
   assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
   always @(*) begin
     logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
     if(logic_pushPtr_willClear) begin
-      logic_pushPtr_valueNext = 11'h0;
+      logic_pushPtr_valueNext = 9'h0;
     end
   end
 
@@ -450,12 +728,12 @@ module StreamFifo_1 (
     end
   end
 
-  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 11'h7ff);
+  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 9'h1ff);
   assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
   always @(*) begin
     logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
     if(logic_popPtr_willClear) begin
-      logic_popPtr_valueNext = 11'h0;
+      logic_popPtr_valueNext = 9'h0;
     end
   end
 
@@ -468,15 +746,15 @@ module StreamFifo_1 (
   assign io_pop_valid = ((! logic_empty) && (! (_zz_io_pop_valid && (! logic_full))));
   assign _zz_io_pop_payload_last = _zz_logic_ram_port0;
   assign io_pop_payload_last = _zz_io_pop_payload_last[0];
-  assign io_pop_payload_fragment = _zz_io_pop_payload_last[3 : 1];
+  assign io_pop_payload_fragment = _zz_io_pop_payload_last[16 : 1];
   assign when_Stream_l933 = (logic_pushing != logic_popping);
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
   always @(posedge clk or posedge reset) begin
     if(reset) begin
-      logic_pushPtr_value <= 11'h0;
-      logic_popPtr_value <= 11'h0;
+      logic_pushPtr_value <= 9'h0;
+      logic_popPtr_value <= 9'h0;
       logic_risingOccupancy <= 1'b0;
       _zz_io_pop_valid <= 1'b0;
     end else begin
@@ -495,37 +773,459 @@ module StreamFifo_1 (
 
 endmodule
 
+module DePuncturing (
+  input      [0:0]    dummy_bits,
+  input               raw_data_valid,
+  output              raw_data_ready,
+  input               raw_data_payload_last,
+  input      [15:0]   raw_data_payload_fragment,
+  output              de_punched_data_valid,
+  input               de_punched_data_ready,
+  output              de_punched_data_payload_last,
+  output     [1:0]    de_punched_data_payload_fragment,
+  input               clk,
+  input               reset
+);
+  reg        [1:0]    _zz_switch_Misc_l200;
+  wire       [2:0]    _zz_switch_Misc_l200_1;
+  wire       [3:0]    _zz_mask_cnt;
+  reg        [1:0]    _zz_switch_Misc_l200_1_1;
+  wire       [2:0]    _zz_switch_Misc_l200_1_2;
+  wire       [1:0]    mask_rom_0;
+  wire       [1:0]    mask_rom_1;
+  wire       [1:0]    mask_rom_2;
+  wire       [1:0]    mask_rom_3;
+  wire       [1:0]    mask_rom_4;
+  wire       [1:0]    mask_rom_5;
+  wire       [1:0]    mask_rom_6;
+  wire       [1:0]    mask_rom_7;
+  reg        [3:0]    mask_cnt;
+  reg        [3:0]    cnt;
+  reg        [15:0]   raw_data_fragment;
+  reg                 raw_data_last;
+  wire                when_DePuncturing_l42;
+  wire       [1:0]    switch_Misc_l200;
+  reg        [15:0]   _zz_raw_data_fragment;
+  wire                raw_data_fire;
+  wire                de_punched_data_fire;
+  wire       [1:0]    switch_Misc_l200_1;
+  reg        [1:0]    _zz_de_punched_data_payload_fragment;
+
+  assign _zz_switch_Misc_l200_1 = mask_cnt[2:0];
+  assign _zz_mask_cnt = (mask_cnt + 4'b0001);
+  assign _zz_switch_Misc_l200_1_2 = mask_cnt[2:0];
+  always @(*) begin
+    case(_zz_switch_Misc_l200_1)
+      3'b000 : begin
+        _zz_switch_Misc_l200 = mask_rom_0;
+      end
+      3'b001 : begin
+        _zz_switch_Misc_l200 = mask_rom_1;
+      end
+      3'b010 : begin
+        _zz_switch_Misc_l200 = mask_rom_2;
+      end
+      3'b011 : begin
+        _zz_switch_Misc_l200 = mask_rom_3;
+      end
+      3'b100 : begin
+        _zz_switch_Misc_l200 = mask_rom_4;
+      end
+      3'b101 : begin
+        _zz_switch_Misc_l200 = mask_rom_5;
+      end
+      3'b110 : begin
+        _zz_switch_Misc_l200 = mask_rom_6;
+      end
+      default : begin
+        _zz_switch_Misc_l200 = mask_rom_7;
+      end
+    endcase
+  end
+
+  always @(*) begin
+    case(_zz_switch_Misc_l200_1_2)
+      3'b000 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_0;
+      end
+      3'b001 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_1;
+      end
+      3'b010 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_2;
+      end
+      3'b011 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_3;
+      end
+      3'b100 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_4;
+      end
+      3'b101 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_5;
+      end
+      3'b110 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_6;
+      end
+      default : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_7;
+      end
+    endcase
+  end
+
+  assign mask_rom_0 = 2'b11;
+  assign mask_rom_1 = 2'b11;
+  assign mask_rom_2 = 2'b11;
+  assign mask_rom_3 = 2'b11;
+  assign mask_rom_4 = 2'b11;
+  assign mask_rom_5 = 2'b11;
+  assign mask_rom_6 = 2'b11;
+  assign mask_rom_7 = 2'b11;
+  assign when_DePuncturing_l42 = (raw_data_last && (cnt == 4'b0000));
+  assign switch_Misc_l200 = _zz_switch_Misc_l200;
+  always @(*) begin
+    case(switch_Misc_l200)
+      2'b11 : begin
+        _zz_raw_data_fragment = (raw_data_fragment >>> 2);
+      end
+      default : begin
+        _zz_raw_data_fragment = raw_data_fragment;
+      end
+    endcase
+  end
+
+  assign raw_data_fire = (raw_data_valid && raw_data_ready);
+  assign de_punched_data_fire = (de_punched_data_valid && de_punched_data_ready);
+  assign switch_Misc_l200_1 = _zz_switch_Misc_l200_1_1;
+  always @(*) begin
+    case(switch_Misc_l200_1)
+      2'b11 : begin
+        _zz_de_punched_data_payload_fragment = {raw_data_fragment[1 : 1],raw_data_fragment[0 : 0]};
+      end
+      default : begin
+        _zz_de_punched_data_payload_fragment = 2'b00;
+      end
+    endcase
+  end
+
+  assign de_punched_data_payload_fragment = _zz_de_punched_data_payload_fragment;
+  assign de_punched_data_valid = (cnt != 4'b0000);
+  assign de_punched_data_payload_last = ((cnt == 4'b0001) && raw_data_last);
+  assign raw_data_ready = ((cnt == 4'b0000) && (! raw_data_last));
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      mask_cnt <= 4'b0000;
+      cnt <= 4'b0000;
+      raw_data_last <= 1'b0;
+    end else begin
+      if(when_DePuncturing_l42) begin
+        mask_cnt <= 4'b0000;
+        cnt <= 4'b0000;
+        raw_data_last <= 1'b0;
+      end else begin
+        if(raw_data_fire) begin
+          raw_data_last <= raw_data_payload_last;
+          cnt <= 4'b1000;
+        end else begin
+          if(de_punched_data_fire) begin
+            cnt <= (cnt - 4'b0001);
+            mask_cnt <= ((mask_cnt == 4'b0111) ? 4'b0000 : _zz_mask_cnt);
+          end
+        end
+      end
+    end
+  end
+
+  always @(posedge clk) begin
+    if(!when_DePuncturing_l42) begin
+      if(raw_data_fire) begin
+        raw_data_fragment <= raw_data_payload_fragment;
+      end else begin
+        if(de_punched_data_fire) begin
+          raw_data_fragment <= _zz_raw_data_fragment;
+        end
+      end
+    end
+  end
+
+
+endmodule
+
+module StreamFifo_1 (
+  input               io_push_valid,
+  output              io_push_ready,
+  input               io_push_payload_last,
+  input      [15:0]   io_push_payload_fragment,
+  output              io_pop_valid,
+  input               io_pop_ready,
+  output              io_pop_payload_last,
+  output     [15:0]   io_pop_payload_fragment,
+  input               io_flush,
+  output     [4:0]    io_occupancy,
+  output     [4:0]    io_availability,
+  input               clk,
+  input               reset
+);
+  reg        [16:0]   _zz_logic_ram_port0;
+  wire       [3:0]    _zz_logic_pushPtr_valueNext;
+  wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
+  wire       [3:0]    _zz_logic_popPtr_valueNext;
+  wire       [0:0]    _zz_logic_popPtr_valueNext_1;
+  wire                _zz_logic_ram_port;
+  wire                _zz__zz_io_pop_payload_last;
+  wire       [16:0]   _zz_logic_ram_port_1;
+  wire       [3:0]    _zz_io_availability;
+  reg                 _zz_1;
+  reg                 logic_pushPtr_willIncrement;
+  reg                 logic_pushPtr_willClear;
+  reg        [3:0]    logic_pushPtr_valueNext;
+  reg        [3:0]    logic_pushPtr_value;
+  wire                logic_pushPtr_willOverflowIfInc;
+  wire                logic_pushPtr_willOverflow;
+  reg                 logic_popPtr_willIncrement;
+  reg                 logic_popPtr_willClear;
+  reg        [3:0]    logic_popPtr_valueNext;
+  reg        [3:0]    logic_popPtr_value;
+  wire                logic_popPtr_willOverflowIfInc;
+  wire                logic_popPtr_willOverflow;
+  wire                logic_ptrMatch;
+  reg                 logic_risingOccupancy;
+  wire                logic_pushing;
+  wire                logic_popping;
+  wire                logic_empty;
+  wire                logic_full;
+  reg                 _zz_io_pop_valid;
+  wire       [16:0]   _zz_io_pop_payload_last;
+  wire                when_Stream_l933;
+  wire       [3:0]    logic_ptrDif;
+  reg [16:0] logic_ram [0:15];
+
+  assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
+  assign _zz_logic_pushPtr_valueNext = {3'd0, _zz_logic_pushPtr_valueNext_1};
+  assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
+  assign _zz_logic_popPtr_valueNext = {3'd0, _zz_logic_popPtr_valueNext_1};
+  assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
+  assign _zz__zz_io_pop_payload_last = 1'b1;
+  assign _zz_logic_ram_port_1 = {io_push_payload_fragment,io_push_payload_last};
+  always @(posedge clk) begin
+    if(_zz__zz_io_pop_payload_last) begin
+      _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
+    end
+  end
+
+  always @(posedge clk) begin
+    if(_zz_1) begin
+      logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
+    end
+  end
+
+  always @(*) begin
+    _zz_1 = 1'b0;
+    if(logic_pushing) begin
+      _zz_1 = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_pushPtr_willIncrement = 1'b0;
+    if(logic_pushing) begin
+      logic_pushPtr_willIncrement = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_pushPtr_willClear = 1'b0;
+    if(io_flush) begin
+      logic_pushPtr_willClear = 1'b1;
+    end
+  end
+
+  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 4'b1111);
+  assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
+  always @(*) begin
+    logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
+    if(logic_pushPtr_willClear) begin
+      logic_pushPtr_valueNext = 4'b0000;
+    end
+  end
+
+  always @(*) begin
+    logic_popPtr_willIncrement = 1'b0;
+    if(logic_popping) begin
+      logic_popPtr_willIncrement = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_popPtr_willClear = 1'b0;
+    if(io_flush) begin
+      logic_popPtr_willClear = 1'b1;
+    end
+  end
+
+  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 4'b1111);
+  assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
+  always @(*) begin
+    logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
+    if(logic_popPtr_willClear) begin
+      logic_popPtr_valueNext = 4'b0000;
+    end
+  end
+
+  assign logic_ptrMatch = (logic_pushPtr_value == logic_popPtr_value);
+  assign logic_pushing = (io_push_valid && io_push_ready);
+  assign logic_popping = (io_pop_valid && io_pop_ready);
+  assign logic_empty = (logic_ptrMatch && (! logic_risingOccupancy));
+  assign logic_full = (logic_ptrMatch && logic_risingOccupancy);
+  assign io_push_ready = (! logic_full);
+  assign io_pop_valid = ((! logic_empty) && (! (_zz_io_pop_valid && (! logic_full))));
+  assign _zz_io_pop_payload_last = _zz_logic_ram_port0;
+  assign io_pop_payload_last = _zz_io_pop_payload_last[0];
+  assign io_pop_payload_fragment = _zz_io_pop_payload_last[16 : 1];
+  assign when_Stream_l933 = (logic_pushing != logic_popping);
+  assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
+  assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
+  assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      logic_pushPtr_value <= 4'b0000;
+      logic_popPtr_value <= 4'b0000;
+      logic_risingOccupancy <= 1'b0;
+      _zz_io_pop_valid <= 1'b0;
+    end else begin
+      logic_pushPtr_value <= logic_pushPtr_valueNext;
+      logic_popPtr_value <= logic_popPtr_valueNext;
+      _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
+      if(when_Stream_l933) begin
+        logic_risingOccupancy <= logic_pushing;
+      end
+      if(io_flush) begin
+        logic_risingOccupancy <= 1'b0;
+      end
+    end
+  end
+
+
+endmodule
+
+module Puncturing (
+  input               raw_data_valid,
+  output              raw_data_ready,
+  input               raw_data_payload_last,
+  input      [15:0]   raw_data_payload_fragment,
+  output              punched_data_valid,
+  output              punched_data_payload_last,
+  output     [15:0]   punched_data_payload_fragment,
+  input               clk,
+  input               reset
+);
+  wire       [4:0]    _zz_punched_data_payload_fragment;
+  wire       [0:0]    _zz_punched_data_payload_fragment_1;
+  wire                _zz_punched_data_payload_fragment_2;
+  reg        [15:0]   raw_data_fragment;
+  reg                 raw_data_valid_1;
+  reg                 raw_data_last;
+
+  assign _zz_punched_data_payload_fragment = {{{{raw_data_fragment[15],raw_data_fragment[7]},raw_data_fragment[14]},raw_data_fragment[6]},raw_data_fragment[13]};
+  assign _zz_punched_data_payload_fragment_1 = raw_data_fragment[5];
+  assign _zz_punched_data_payload_fragment_2 = raw_data_fragment[12];
+  assign raw_data_ready = 1'b1;
+  assign punched_data_valid = raw_data_valid_1;
+  assign punched_data_payload_last = raw_data_last;
+  assign punched_data_payload_fragment = {{{{{{{{{{{_zz_punched_data_payload_fragment,_zz_punched_data_payload_fragment_1},_zz_punched_data_payload_fragment_2},raw_data_fragment[4]},raw_data_fragment[11]},raw_data_fragment[3]},raw_data_fragment[10]},raw_data_fragment[2]},raw_data_fragment[9]},raw_data_fragment[1]},raw_data_fragment[8]},raw_data_fragment[0]};
+  always @(posedge clk) begin
+    raw_data_fragment <= raw_data_payload_fragment;
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      raw_data_valid_1 <= 1'b0;
+      raw_data_last <= 1'b0;
+    end else begin
+      raw_data_valid_1 <= raw_data_valid;
+      raw_data_last <= raw_data_payload_last;
+    end
+  end
+
+
+endmodule
+
 module ConvEncoder (
   input               tail_bits_valid,
   input      [6:0]    tail_bits_payload,
   input               raw_data_valid,
   output              raw_data_ready,
   input               raw_data_payload_last,
-  input      [0:0]    raw_data_payload_fragment,
+  input      [7:0]    raw_data_payload_fragment,
   output              coded_data_valid,
   output              coded_data_payload_last,
-  output     [2:0]    coded_data_payload_fragment,
+  output     [15:0]   coded_data_payload_fragment,
   input               clk,
   input               reset
 );
   wire       [7:0]    _zz_r_enc_0;
-  reg        [2:0]    coded_data;
+  wire       [7:0]    _zz_r_enc_1;
+  wire       [7:0]    _zz_r_enc_2;
+  wire       [7:0]    _zz_r_enc_3;
+  wire       [7:0]    _zz_r_enc_4;
+  wire       [7:0]    _zz_r_enc_5;
+  wire       [7:0]    _zz_r_enc_6;
+  wire       [7:0]    _zz_r_enc_7;
+  reg        [15:0]   coded_data;
   reg                 coded_data_valid_1;
   reg        [6:0]    r_enc_buf;
   wire       [6:0]    r_enc_0;
-  wire       [0:0]    code_vec_0;
-  wire       [0:0]    code_vec_1;
-  wire       [0:0]    code_vec_2;
+  wire       [6:0]    r_enc_1;
+  wire       [6:0]    r_enc_2;
+  wire       [6:0]    r_enc_3;
+  wire       [6:0]    r_enc_4;
+  wire       [6:0]    r_enc_5;
+  wire       [6:0]    r_enc_6;
+  wire       [6:0]    r_enc_7;
+  reg        [7:0]    code_vec_0;
+  reg        [7:0]    code_vec_1;
   wire                raw_data_fire;
   reg                 raw_data_payload_last_regNext;
 
   assign _zz_r_enc_0 = {raw_data_payload_fragment[0],r_enc_buf};
+  assign _zz_r_enc_1 = {raw_data_payload_fragment[1],r_enc_0};
+  assign _zz_r_enc_2 = {raw_data_payload_fragment[2],r_enc_1};
+  assign _zz_r_enc_3 = {raw_data_payload_fragment[3],r_enc_2};
+  assign _zz_r_enc_4 = {raw_data_payload_fragment[4],r_enc_3};
+  assign _zz_r_enc_5 = {raw_data_payload_fragment[5],r_enc_4};
+  assign _zz_r_enc_6 = {raw_data_payload_fragment[6],r_enc_5};
+  assign _zz_r_enc_7 = {raw_data_payload_fragment[7],r_enc_6};
   assign r_enc_0 = _zz_r_enc_0[7 : 1];
+  assign r_enc_1 = _zz_r_enc_1[7 : 1];
+  assign r_enc_2 = _zz_r_enc_2[7 : 1];
+  assign r_enc_3 = _zz_r_enc_3[7 : 1];
+  assign r_enc_4 = _zz_r_enc_4[7 : 1];
+  assign r_enc_5 = _zz_r_enc_5[7 : 1];
+  assign r_enc_6 = _zz_r_enc_6[7 : 1];
+  assign r_enc_7 = _zz_r_enc_7[7 : 1];
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
   assign raw_data_ready = (! tail_bits_valid);
-  assign code_vec_0[0] = ((((r_enc_0[0] ^ r_enc_0[1]) ^ r_enc_0[3]) ^ r_enc_0[4]) ^ r_enc_0[6]);
-  assign code_vec_1[0] = ((((r_enc_0[0] ^ r_enc_0[3]) ^ r_enc_0[4]) ^ r_enc_0[5]) ^ r_enc_0[6]);
-  assign code_vec_2[0] = ((((r_enc_0[0] ^ r_enc_0[2]) ^ r_enc_0[4]) ^ r_enc_0[5]) ^ r_enc_0[6]);
+  always @(*) begin
+    code_vec_0[0] = ((((r_enc_0[0] ^ r_enc_0[1]) ^ r_enc_0[3]) ^ r_enc_0[4]) ^ r_enc_0[6]);
+    code_vec_0[1] = ((((r_enc_1[0] ^ r_enc_1[1]) ^ r_enc_1[3]) ^ r_enc_1[4]) ^ r_enc_1[6]);
+    code_vec_0[2] = ((((r_enc_2[0] ^ r_enc_2[1]) ^ r_enc_2[3]) ^ r_enc_2[4]) ^ r_enc_2[6]);
+    code_vec_0[3] = ((((r_enc_3[0] ^ r_enc_3[1]) ^ r_enc_3[3]) ^ r_enc_3[4]) ^ r_enc_3[6]);
+    code_vec_0[4] = ((((r_enc_4[0] ^ r_enc_4[1]) ^ r_enc_4[3]) ^ r_enc_4[4]) ^ r_enc_4[6]);
+    code_vec_0[5] = ((((r_enc_5[0] ^ r_enc_5[1]) ^ r_enc_5[3]) ^ r_enc_5[4]) ^ r_enc_5[6]);
+    code_vec_0[6] = ((((r_enc_6[0] ^ r_enc_6[1]) ^ r_enc_6[3]) ^ r_enc_6[4]) ^ r_enc_6[6]);
+    code_vec_0[7] = ((((r_enc_7[0] ^ r_enc_7[1]) ^ r_enc_7[3]) ^ r_enc_7[4]) ^ r_enc_7[6]);
+  end
+
+  always @(*) begin
+    code_vec_1[0] = ((((r_enc_0[0] ^ r_enc_0[3]) ^ r_enc_0[4]) ^ r_enc_0[5]) ^ r_enc_0[6]);
+    code_vec_1[1] = ((((r_enc_1[0] ^ r_enc_1[3]) ^ r_enc_1[4]) ^ r_enc_1[5]) ^ r_enc_1[6]);
+    code_vec_1[2] = ((((r_enc_2[0] ^ r_enc_2[3]) ^ r_enc_2[4]) ^ r_enc_2[5]) ^ r_enc_2[6]);
+    code_vec_1[3] = ((((r_enc_3[0] ^ r_enc_3[3]) ^ r_enc_3[4]) ^ r_enc_3[5]) ^ r_enc_3[6]);
+    code_vec_1[4] = ((((r_enc_4[0] ^ r_enc_4[3]) ^ r_enc_4[4]) ^ r_enc_4[5]) ^ r_enc_4[6]);
+    code_vec_1[5] = ((((r_enc_5[0] ^ r_enc_5[3]) ^ r_enc_5[4]) ^ r_enc_5[5]) ^ r_enc_5[6]);
+    code_vec_1[6] = ((((r_enc_6[0] ^ r_enc_6[3]) ^ r_enc_6[4]) ^ r_enc_6[5]) ^ r_enc_6[6]);
+    code_vec_1[7] = ((((r_enc_7[0] ^ r_enc_7[3]) ^ r_enc_7[4]) ^ r_enc_7[5]) ^ r_enc_7[6]);
+  end
+
   assign coded_data_payload_fragment = coded_data;
   assign coded_data_valid = coded_data_valid_1;
   assign coded_data_payload_last = raw_data_payload_last_regNext;
@@ -550,8 +1250,8 @@ module ConvEncoder (
       r_enc_buf <= tail_bits_payload;
     end else begin
       if(raw_data_fire) begin
-        r_enc_buf <= r_enc_0;
-        coded_data <= {code_vec_0,{code_vec_1,code_vec_2}};
+        r_enc_buf <= r_enc_7;
+        coded_data <= {code_vec_0,code_vec_1};
       end
     end
   end
@@ -787,7 +1487,7 @@ module Traceback (
   wire       [0:0]    _zz_in_data_rom_port0;
   reg        [63:0]   _zz_survival_path_ram_0_port1;
   reg        [63:0]   _zz_survival_path_ram_1_port1;
-  reg        [63:0]   _zz_survival_path_ram_1_port2;
+  reg        [63:0]   _zz_survival_path_ram_2_port1;
   wire       [63:0]   _zz_survival_path_ram_0_port;
   wire                _zz_survival_path_ram_0_port_1;
   wire       [63:0]   _zz_survival_path_ram_1_port;
@@ -799,7 +1499,7 @@ module Traceback (
   wire                _zz_ram_0_value;
   wire                _zz_survival_path_ram_1_port_2;
   wire                _zz_ram_1_value;
-  wire                _zz_survival_path_ram_1_port_3;
+  wire                _zz_survival_path_ram_2_port_2;
   wire                _zz_ram_2_value;
   wire       [6:0]    _zz_cursor;
   wire       [6:0]    _zz_cursor_1;
@@ -849,9 +1549,9 @@ module Traceback (
 
   (* ram_style = "distributed" *) reg [5:0] states_shift_rom [0:127];
   (* ram_style = "distributed" *) reg [0:0] in_data_rom [0:127];
-  reg [63:0] survival_path_ram_0 [0:167];
-  reg [63:0] survival_path_ram_1 [0:167];
-  reg [63:0] survival_path_ram_2 [0:167];
+  reg [63:0] survival_path_ram_0 [0:191];
+  reg [63:0] survival_path_ram_1 [0:191];
+  reg [63:0] survival_path_ram_2 [0:191];
 
   assign _zz_ram_select = (ram_select + 2'b01);
   assign _zz_cursor = ({1'd0,min_cursor} <<< 1);
@@ -875,9 +1575,9 @@ module Traceback (
   assign _zz_survival_path_ram_1_port = s_path_payload_fragment;
   assign _zz_survival_path_ram_1_port_1 = ((ram_select == 2'b01) && s_path_valid);
   assign _zz_ram_1_value = 1'b1;
-  assign _zz_ram_2_value = 1'b1;
   assign _zz_survival_path_ram_2_port = s_path_payload_fragment;
   assign _zz_survival_path_ram_2_port_1 = ((ram_select == 2'b10) && s_path_valid);
+  assign _zz_ram_2_value = 1'b1;
   initial begin
     $readmemb("ConvCombTest.v_toplevel_decoder_tbu_core_states_shift_rom.bin",states_shift_rom);
   end
@@ -911,14 +1611,14 @@ module Traceback (
   end
 
   always @(posedge clk) begin
-    if(_zz_ram_2_value) begin
-      _zz_survival_path_ram_1_port2 <= survival_path_ram_1[ram_addr_read];
+    if(_zz_survival_path_ram_2_port_1) begin
+      survival_path_ram_2[ram_addr_write] <= _zz_survival_path_ram_2_port;
     end
   end
 
   always @(posedge clk) begin
-    if(_zz_survival_path_ram_2_port_1) begin
-      survival_path_ram_2[ram_addr_write] <= _zz_survival_path_ram_2_port;
+    if(_zz_ram_2_value) begin
+      _zz_survival_path_ram_2_port1 <= survival_path_ram_2[ram_addr_read];
     end
   end
 
@@ -936,10 +1636,10 @@ module Traceback (
   end
   `endif
 
-  assign when_Traceback_l48 = (8'ha7 <= ram_addr_write);
+  assign when_Traceback_l48 = (8'hbf <= ram_addr_write);
   assign ram_0_value = _zz_survival_path_ram_0_port1;
   assign ram_1_value = _zz_survival_path_ram_1_port1;
-  assign ram_2_value = _zz_survival_path_ram_1_port2;
+  assign ram_2_value = _zz_survival_path_ram_2_port1;
   always @(*) begin
     case(decoded_ram_select)
       2'b00 : begin
@@ -959,11 +1659,11 @@ module Traceback (
 
   assign min_cursor_next = _zz_states_shift_rom_port0;
   assign tb_node_data_next = _zz_in_data_rom_port0;
-  assign when_Traceback_l104 = (((ram_addr_write == 8'h53) && (decoded_ram_select == ram_select)) || pkg_tail);
+  assign when_Traceback_l104 = (((ram_addr_write == 8'h5f) && (decoded_ram_select == ram_select)) || pkg_tail);
   assign when_Traceback_l113 = (halt_cnt == 3'b111);
-  assign when_Traceback_l126 = (ram_addr_read == 8'ha7);
-  assign when_Traceback_l144 = (ram_addr_read == 8'ha7);
-  assign when_Traceback_l153 = (ram_addr_read == 8'ha7);
+  assign when_Traceback_l126 = (ram_addr_read == 8'hbf);
+  assign when_Traceback_l144 = (ram_addr_read == 8'hbf);
+  assign when_Traceback_l153 = (ram_addr_read == 8'hbf);
   assign finished = tb_finish;
   assign halt = pipe_halt;
   assign tb_node_valid = tb_node_valid_1;
@@ -1017,7 +1717,7 @@ module Traceback (
           if(when_Traceback_l113) begin
             ram_addr_read <= (ram_addr_read - 8'h01);
             if(goto_tail) begin
-              tail_repeat <= ((ram_addr_write < 8'h54) && (decoded_ram_select == ram_select));
+              tail_repeat <= ((ram_addr_write < 8'h60) && (decoded_ram_select == ram_select));
               traceback_state <= `TracebackStates_binary_sequential_TAIL_DECODE;
             end else begin
               traceback_state <= `TracebackStates_binary_sequential_TB;
@@ -1035,21 +1735,21 @@ module Traceback (
               tb_node_last <= 1'b1;
             end
           end
-          ram_addr_read <= ((ram_addr_read == 8'h0) ? 8'ha7 : _zz_ram_addr_read);
+          ram_addr_read <= ((ram_addr_read == 8'h0) ? 8'hbf : _zz_ram_addr_read);
           tb_node_valid_1 <= 1'b1;
         end
         `TracebackStates_binary_sequential_TB : begin
           if(when_Traceback_l144) begin
             traceback_state <= `TracebackStates_binary_sequential_DECODE;
           end
-          ram_addr_read <= ((ram_addr_read == 8'h0) ? 8'ha7 : _zz_ram_addr_read_1);
+          ram_addr_read <= ((ram_addr_read == 8'h0) ? 8'hbf : _zz_ram_addr_read_1);
         end
         default : begin
           if(when_Traceback_l153) begin
             traceback_state <= `TracebackStates_binary_sequential_IDLE;
             tb_node_last <= 1'b1;
           end
-          ram_addr_read <= ((ram_addr_read == 8'h0) ? 8'ha7 : _zz_ram_addr_read_2);
+          ram_addr_read <= ((ram_addr_read == 8'h0) ? 8'hbf : _zz_ram_addr_read_2);
           tb_node_valid_1 <= 1'b1;
         end
       endcase
@@ -1115,7 +1815,7 @@ module PathMetric (
   input               raw_data_valid,
   output              raw_data_ready,
   input               raw_data_payload_last,
-  input      [2:0]    _zz_in_b,
+  input      [1:0]    _zz_in_b,
   input               tbu_finished,
   output     [5:0]    min_idx,
   output              s_path_valid,
@@ -1124,456 +1824,456 @@ module PathMetric (
   input               clk,
   input               reset
 );
-  wire       [7:0]    addCompareSelect_64_dist_0;
-  wire       [7:0]    addCompareSelect_64_dist_1;
-  wire       [7:0]    addCompareSelect_65_dist_0;
-  wire       [7:0]    addCompareSelect_65_dist_1;
-  wire       [7:0]    addCompareSelect_66_dist_0;
-  wire       [7:0]    addCompareSelect_66_dist_1;
-  wire       [7:0]    addCompareSelect_67_dist_0;
-  wire       [7:0]    addCompareSelect_67_dist_1;
-  wire       [7:0]    addCompareSelect_68_dist_0;
-  wire       [7:0]    addCompareSelect_68_dist_1;
-  wire       [7:0]    addCompareSelect_69_dist_0;
-  wire       [7:0]    addCompareSelect_69_dist_1;
-  wire       [7:0]    addCompareSelect_70_dist_0;
-  wire       [7:0]    addCompareSelect_70_dist_1;
-  wire       [7:0]    addCompareSelect_71_dist_0;
-  wire       [7:0]    addCompareSelect_71_dist_1;
-  wire       [7:0]    addCompareSelect_72_dist_0;
-  wire       [7:0]    addCompareSelect_72_dist_1;
-  wire       [7:0]    addCompareSelect_73_dist_0;
-  wire       [7:0]    addCompareSelect_73_dist_1;
-  wire       [7:0]    addCompareSelect_74_dist_0;
-  wire       [7:0]    addCompareSelect_74_dist_1;
-  wire       [7:0]    addCompareSelect_75_dist_0;
-  wire       [7:0]    addCompareSelect_75_dist_1;
-  wire       [7:0]    addCompareSelect_76_dist_0;
-  wire       [7:0]    addCompareSelect_76_dist_1;
-  wire       [7:0]    addCompareSelect_77_dist_0;
-  wire       [7:0]    addCompareSelect_77_dist_1;
-  wire       [7:0]    addCompareSelect_78_dist_0;
-  wire       [7:0]    addCompareSelect_78_dist_1;
-  wire       [7:0]    addCompareSelect_79_dist_0;
-  wire       [7:0]    addCompareSelect_79_dist_1;
-  wire       [7:0]    addCompareSelect_80_dist_0;
-  wire       [7:0]    addCompareSelect_80_dist_1;
-  wire       [7:0]    addCompareSelect_81_dist_0;
-  wire       [7:0]    addCompareSelect_81_dist_1;
-  wire       [7:0]    addCompareSelect_82_dist_0;
-  wire       [7:0]    addCompareSelect_82_dist_1;
-  wire       [7:0]    addCompareSelect_83_dist_0;
-  wire       [7:0]    addCompareSelect_83_dist_1;
-  wire       [7:0]    addCompareSelect_84_dist_0;
-  wire       [7:0]    addCompareSelect_84_dist_1;
-  wire       [7:0]    addCompareSelect_85_dist_0;
-  wire       [7:0]    addCompareSelect_85_dist_1;
-  wire       [7:0]    addCompareSelect_86_dist_0;
-  wire       [7:0]    addCompareSelect_86_dist_1;
-  wire       [7:0]    addCompareSelect_87_dist_0;
-  wire       [7:0]    addCompareSelect_87_dist_1;
-  wire       [7:0]    addCompareSelect_88_dist_0;
-  wire       [7:0]    addCompareSelect_88_dist_1;
-  wire       [7:0]    addCompareSelect_89_dist_0;
-  wire       [7:0]    addCompareSelect_89_dist_1;
-  wire       [7:0]    addCompareSelect_90_dist_0;
-  wire       [7:0]    addCompareSelect_90_dist_1;
-  wire       [7:0]    addCompareSelect_91_dist_0;
-  wire       [7:0]    addCompareSelect_91_dist_1;
-  wire       [7:0]    addCompareSelect_92_dist_0;
-  wire       [7:0]    addCompareSelect_92_dist_1;
-  wire       [7:0]    addCompareSelect_93_dist_0;
-  wire       [7:0]    addCompareSelect_93_dist_1;
-  wire       [7:0]    addCompareSelect_94_dist_0;
-  wire       [7:0]    addCompareSelect_94_dist_1;
-  wire       [7:0]    addCompareSelect_95_dist_0;
-  wire       [7:0]    addCompareSelect_95_dist_1;
-  wire       [7:0]    addCompareSelect_96_dist_0;
-  wire       [7:0]    addCompareSelect_96_dist_1;
-  wire       [7:0]    addCompareSelect_97_dist_0;
-  wire       [7:0]    addCompareSelect_97_dist_1;
-  wire       [7:0]    addCompareSelect_98_dist_0;
-  wire       [7:0]    addCompareSelect_98_dist_1;
-  wire       [7:0]    addCompareSelect_99_dist_0;
-  wire       [7:0]    addCompareSelect_99_dist_1;
-  wire       [7:0]    addCompareSelect_100_dist_0;
-  wire       [7:0]    addCompareSelect_100_dist_1;
-  wire       [7:0]    addCompareSelect_101_dist_0;
-  wire       [7:0]    addCompareSelect_101_dist_1;
-  wire       [7:0]    addCompareSelect_102_dist_0;
-  wire       [7:0]    addCompareSelect_102_dist_1;
-  wire       [7:0]    addCompareSelect_103_dist_0;
-  wire       [7:0]    addCompareSelect_103_dist_1;
-  wire       [7:0]    addCompareSelect_104_dist_0;
-  wire       [7:0]    addCompareSelect_104_dist_1;
-  wire       [7:0]    addCompareSelect_105_dist_0;
-  wire       [7:0]    addCompareSelect_105_dist_1;
-  wire       [7:0]    addCompareSelect_106_dist_0;
-  wire       [7:0]    addCompareSelect_106_dist_1;
-  wire       [7:0]    addCompareSelect_107_dist_0;
-  wire       [7:0]    addCompareSelect_107_dist_1;
-  wire       [7:0]    addCompareSelect_108_dist_0;
-  wire       [7:0]    addCompareSelect_108_dist_1;
-  wire       [7:0]    addCompareSelect_109_dist_0;
-  wire       [7:0]    addCompareSelect_109_dist_1;
-  wire       [7:0]    addCompareSelect_110_dist_0;
-  wire       [7:0]    addCompareSelect_110_dist_1;
-  wire       [7:0]    addCompareSelect_111_dist_0;
-  wire       [7:0]    addCompareSelect_111_dist_1;
-  wire       [7:0]    addCompareSelect_112_dist_0;
-  wire       [7:0]    addCompareSelect_112_dist_1;
-  wire       [7:0]    addCompareSelect_113_dist_0;
-  wire       [7:0]    addCompareSelect_113_dist_1;
-  wire       [7:0]    addCompareSelect_114_dist_0;
-  wire       [7:0]    addCompareSelect_114_dist_1;
-  wire       [7:0]    addCompareSelect_115_dist_0;
-  wire       [7:0]    addCompareSelect_115_dist_1;
-  wire       [7:0]    addCompareSelect_116_dist_0;
-  wire       [7:0]    addCompareSelect_116_dist_1;
-  wire       [7:0]    addCompareSelect_117_dist_0;
-  wire       [7:0]    addCompareSelect_117_dist_1;
-  wire       [7:0]    addCompareSelect_118_dist_0;
-  wire       [7:0]    addCompareSelect_118_dist_1;
-  wire       [7:0]    addCompareSelect_119_dist_0;
-  wire       [7:0]    addCompareSelect_119_dist_1;
-  wire       [7:0]    addCompareSelect_120_dist_0;
-  wire       [7:0]    addCompareSelect_120_dist_1;
-  wire       [7:0]    addCompareSelect_121_dist_0;
-  wire       [7:0]    addCompareSelect_121_dist_1;
-  wire       [7:0]    addCompareSelect_122_dist_0;
-  wire       [7:0]    addCompareSelect_122_dist_1;
-  wire       [7:0]    addCompareSelect_123_dist_0;
-  wire       [7:0]    addCompareSelect_123_dist_1;
-  wire       [7:0]    addCompareSelect_124_dist_0;
-  wire       [7:0]    addCompareSelect_124_dist_1;
-  wire       [7:0]    addCompareSelect_125_dist_0;
-  wire       [7:0]    addCompareSelect_125_dist_1;
-  wire       [7:0]    addCompareSelect_126_dist_0;
-  wire       [7:0]    addCompareSelect_126_dist_1;
-  wire       [7:0]    addCompareSelect_127_dist_0;
-  wire       [7:0]    addCompareSelect_127_dist_1;
+  wire       [15:0]   addCompareSelect_64_dist_0;
+  wire       [15:0]   addCompareSelect_64_dist_1;
+  wire       [15:0]   addCompareSelect_65_dist_0;
+  wire       [15:0]   addCompareSelect_65_dist_1;
+  wire       [15:0]   addCompareSelect_66_dist_0;
+  wire       [15:0]   addCompareSelect_66_dist_1;
+  wire       [15:0]   addCompareSelect_67_dist_0;
+  wire       [15:0]   addCompareSelect_67_dist_1;
+  wire       [15:0]   addCompareSelect_68_dist_0;
+  wire       [15:0]   addCompareSelect_68_dist_1;
+  wire       [15:0]   addCompareSelect_69_dist_0;
+  wire       [15:0]   addCompareSelect_69_dist_1;
+  wire       [15:0]   addCompareSelect_70_dist_0;
+  wire       [15:0]   addCompareSelect_70_dist_1;
+  wire       [15:0]   addCompareSelect_71_dist_0;
+  wire       [15:0]   addCompareSelect_71_dist_1;
+  wire       [15:0]   addCompareSelect_72_dist_0;
+  wire       [15:0]   addCompareSelect_72_dist_1;
+  wire       [15:0]   addCompareSelect_73_dist_0;
+  wire       [15:0]   addCompareSelect_73_dist_1;
+  wire       [15:0]   addCompareSelect_74_dist_0;
+  wire       [15:0]   addCompareSelect_74_dist_1;
+  wire       [15:0]   addCompareSelect_75_dist_0;
+  wire       [15:0]   addCompareSelect_75_dist_1;
+  wire       [15:0]   addCompareSelect_76_dist_0;
+  wire       [15:0]   addCompareSelect_76_dist_1;
+  wire       [15:0]   addCompareSelect_77_dist_0;
+  wire       [15:0]   addCompareSelect_77_dist_1;
+  wire       [15:0]   addCompareSelect_78_dist_0;
+  wire       [15:0]   addCompareSelect_78_dist_1;
+  wire       [15:0]   addCompareSelect_79_dist_0;
+  wire       [15:0]   addCompareSelect_79_dist_1;
+  wire       [15:0]   addCompareSelect_80_dist_0;
+  wire       [15:0]   addCompareSelect_80_dist_1;
+  wire       [15:0]   addCompareSelect_81_dist_0;
+  wire       [15:0]   addCompareSelect_81_dist_1;
+  wire       [15:0]   addCompareSelect_82_dist_0;
+  wire       [15:0]   addCompareSelect_82_dist_1;
+  wire       [15:0]   addCompareSelect_83_dist_0;
+  wire       [15:0]   addCompareSelect_83_dist_1;
+  wire       [15:0]   addCompareSelect_84_dist_0;
+  wire       [15:0]   addCompareSelect_84_dist_1;
+  wire       [15:0]   addCompareSelect_85_dist_0;
+  wire       [15:0]   addCompareSelect_85_dist_1;
+  wire       [15:0]   addCompareSelect_86_dist_0;
+  wire       [15:0]   addCompareSelect_86_dist_1;
+  wire       [15:0]   addCompareSelect_87_dist_0;
+  wire       [15:0]   addCompareSelect_87_dist_1;
+  wire       [15:0]   addCompareSelect_88_dist_0;
+  wire       [15:0]   addCompareSelect_88_dist_1;
+  wire       [15:0]   addCompareSelect_89_dist_0;
+  wire       [15:0]   addCompareSelect_89_dist_1;
+  wire       [15:0]   addCompareSelect_90_dist_0;
+  wire       [15:0]   addCompareSelect_90_dist_1;
+  wire       [15:0]   addCompareSelect_91_dist_0;
+  wire       [15:0]   addCompareSelect_91_dist_1;
+  wire       [15:0]   addCompareSelect_92_dist_0;
+  wire       [15:0]   addCompareSelect_92_dist_1;
+  wire       [15:0]   addCompareSelect_93_dist_0;
+  wire       [15:0]   addCompareSelect_93_dist_1;
+  wire       [15:0]   addCompareSelect_94_dist_0;
+  wire       [15:0]   addCompareSelect_94_dist_1;
+  wire       [15:0]   addCompareSelect_95_dist_0;
+  wire       [15:0]   addCompareSelect_95_dist_1;
+  wire       [15:0]   addCompareSelect_96_dist_0;
+  wire       [15:0]   addCompareSelect_96_dist_1;
+  wire       [15:0]   addCompareSelect_97_dist_0;
+  wire       [15:0]   addCompareSelect_97_dist_1;
+  wire       [15:0]   addCompareSelect_98_dist_0;
+  wire       [15:0]   addCompareSelect_98_dist_1;
+  wire       [15:0]   addCompareSelect_99_dist_0;
+  wire       [15:0]   addCompareSelect_99_dist_1;
+  wire       [15:0]   addCompareSelect_100_dist_0;
+  wire       [15:0]   addCompareSelect_100_dist_1;
+  wire       [15:0]   addCompareSelect_101_dist_0;
+  wire       [15:0]   addCompareSelect_101_dist_1;
+  wire       [15:0]   addCompareSelect_102_dist_0;
+  wire       [15:0]   addCompareSelect_102_dist_1;
+  wire       [15:0]   addCompareSelect_103_dist_0;
+  wire       [15:0]   addCompareSelect_103_dist_1;
+  wire       [15:0]   addCompareSelect_104_dist_0;
+  wire       [15:0]   addCompareSelect_104_dist_1;
+  wire       [15:0]   addCompareSelect_105_dist_0;
+  wire       [15:0]   addCompareSelect_105_dist_1;
+  wire       [15:0]   addCompareSelect_106_dist_0;
+  wire       [15:0]   addCompareSelect_106_dist_1;
+  wire       [15:0]   addCompareSelect_107_dist_0;
+  wire       [15:0]   addCompareSelect_107_dist_1;
+  wire       [15:0]   addCompareSelect_108_dist_0;
+  wire       [15:0]   addCompareSelect_108_dist_1;
+  wire       [15:0]   addCompareSelect_109_dist_0;
+  wire       [15:0]   addCompareSelect_109_dist_1;
+  wire       [15:0]   addCompareSelect_110_dist_0;
+  wire       [15:0]   addCompareSelect_110_dist_1;
+  wire       [15:0]   addCompareSelect_111_dist_0;
+  wire       [15:0]   addCompareSelect_111_dist_1;
+  wire       [15:0]   addCompareSelect_112_dist_0;
+  wire       [15:0]   addCompareSelect_112_dist_1;
+  wire       [15:0]   addCompareSelect_113_dist_0;
+  wire       [15:0]   addCompareSelect_113_dist_1;
+  wire       [15:0]   addCompareSelect_114_dist_0;
+  wire       [15:0]   addCompareSelect_114_dist_1;
+  wire       [15:0]   addCompareSelect_115_dist_0;
+  wire       [15:0]   addCompareSelect_115_dist_1;
+  wire       [15:0]   addCompareSelect_116_dist_0;
+  wire       [15:0]   addCompareSelect_116_dist_1;
+  wire       [15:0]   addCompareSelect_117_dist_0;
+  wire       [15:0]   addCompareSelect_117_dist_1;
+  wire       [15:0]   addCompareSelect_118_dist_0;
+  wire       [15:0]   addCompareSelect_118_dist_1;
+  wire       [15:0]   addCompareSelect_119_dist_0;
+  wire       [15:0]   addCompareSelect_119_dist_1;
+  wire       [15:0]   addCompareSelect_120_dist_0;
+  wire       [15:0]   addCompareSelect_120_dist_1;
+  wire       [15:0]   addCompareSelect_121_dist_0;
+  wire       [15:0]   addCompareSelect_121_dist_1;
+  wire       [15:0]   addCompareSelect_122_dist_0;
+  wire       [15:0]   addCompareSelect_122_dist_1;
+  wire       [15:0]   addCompareSelect_123_dist_0;
+  wire       [15:0]   addCompareSelect_123_dist_1;
+  wire       [15:0]   addCompareSelect_124_dist_0;
+  wire       [15:0]   addCompareSelect_124_dist_1;
+  wire       [15:0]   addCompareSelect_125_dist_0;
+  wire       [15:0]   addCompareSelect_125_dist_1;
+  wire       [15:0]   addCompareSelect_126_dist_0;
+  wire       [15:0]   addCompareSelect_126_dist_1;
+  wire       [15:0]   addCompareSelect_127_dist_0;
+  wire       [15:0]   addCompareSelect_127_dist_1;
   wire       [1:0]    branchMetric_64_dist_0;
   wire       [1:0]    branchMetric_64_dist_1;
-  wire       [7:0]    addCompareSelect_64_state_weight;
+  wire       [15:0]   addCompareSelect_64_state_weight;
   wire                addCompareSelect_64_decision;
   wire       [1:0]    branchMetric_65_dist_0;
   wire       [1:0]    branchMetric_65_dist_1;
-  wire       [7:0]    addCompareSelect_65_state_weight;
+  wire       [15:0]   addCompareSelect_65_state_weight;
   wire                addCompareSelect_65_decision;
   wire       [1:0]    branchMetric_66_dist_0;
   wire       [1:0]    branchMetric_66_dist_1;
-  wire       [7:0]    addCompareSelect_66_state_weight;
+  wire       [15:0]   addCompareSelect_66_state_weight;
   wire                addCompareSelect_66_decision;
   wire       [1:0]    branchMetric_67_dist_0;
   wire       [1:0]    branchMetric_67_dist_1;
-  wire       [7:0]    addCompareSelect_67_state_weight;
+  wire       [15:0]   addCompareSelect_67_state_weight;
   wire                addCompareSelect_67_decision;
   wire       [1:0]    branchMetric_68_dist_0;
   wire       [1:0]    branchMetric_68_dist_1;
-  wire       [7:0]    addCompareSelect_68_state_weight;
+  wire       [15:0]   addCompareSelect_68_state_weight;
   wire                addCompareSelect_68_decision;
   wire       [1:0]    branchMetric_69_dist_0;
   wire       [1:0]    branchMetric_69_dist_1;
-  wire       [7:0]    addCompareSelect_69_state_weight;
+  wire       [15:0]   addCompareSelect_69_state_weight;
   wire                addCompareSelect_69_decision;
   wire       [1:0]    branchMetric_70_dist_0;
   wire       [1:0]    branchMetric_70_dist_1;
-  wire       [7:0]    addCompareSelect_70_state_weight;
+  wire       [15:0]   addCompareSelect_70_state_weight;
   wire                addCompareSelect_70_decision;
   wire       [1:0]    branchMetric_71_dist_0;
   wire       [1:0]    branchMetric_71_dist_1;
-  wire       [7:0]    addCompareSelect_71_state_weight;
+  wire       [15:0]   addCompareSelect_71_state_weight;
   wire                addCompareSelect_71_decision;
   wire       [1:0]    branchMetric_72_dist_0;
   wire       [1:0]    branchMetric_72_dist_1;
-  wire       [7:0]    addCompareSelect_72_state_weight;
+  wire       [15:0]   addCompareSelect_72_state_weight;
   wire                addCompareSelect_72_decision;
   wire       [1:0]    branchMetric_73_dist_0;
   wire       [1:0]    branchMetric_73_dist_1;
-  wire       [7:0]    addCompareSelect_73_state_weight;
+  wire       [15:0]   addCompareSelect_73_state_weight;
   wire                addCompareSelect_73_decision;
   wire       [1:0]    branchMetric_74_dist_0;
   wire       [1:0]    branchMetric_74_dist_1;
-  wire       [7:0]    addCompareSelect_74_state_weight;
+  wire       [15:0]   addCompareSelect_74_state_weight;
   wire                addCompareSelect_74_decision;
   wire       [1:0]    branchMetric_75_dist_0;
   wire       [1:0]    branchMetric_75_dist_1;
-  wire       [7:0]    addCompareSelect_75_state_weight;
+  wire       [15:0]   addCompareSelect_75_state_weight;
   wire                addCompareSelect_75_decision;
   wire       [1:0]    branchMetric_76_dist_0;
   wire       [1:0]    branchMetric_76_dist_1;
-  wire       [7:0]    addCompareSelect_76_state_weight;
+  wire       [15:0]   addCompareSelect_76_state_weight;
   wire                addCompareSelect_76_decision;
   wire       [1:0]    branchMetric_77_dist_0;
   wire       [1:0]    branchMetric_77_dist_1;
-  wire       [7:0]    addCompareSelect_77_state_weight;
+  wire       [15:0]   addCompareSelect_77_state_weight;
   wire                addCompareSelect_77_decision;
   wire       [1:0]    branchMetric_78_dist_0;
   wire       [1:0]    branchMetric_78_dist_1;
-  wire       [7:0]    addCompareSelect_78_state_weight;
+  wire       [15:0]   addCompareSelect_78_state_weight;
   wire                addCompareSelect_78_decision;
   wire       [1:0]    branchMetric_79_dist_0;
   wire       [1:0]    branchMetric_79_dist_1;
-  wire       [7:0]    addCompareSelect_79_state_weight;
+  wire       [15:0]   addCompareSelect_79_state_weight;
   wire                addCompareSelect_79_decision;
   wire       [1:0]    branchMetric_80_dist_0;
   wire       [1:0]    branchMetric_80_dist_1;
-  wire       [7:0]    addCompareSelect_80_state_weight;
+  wire       [15:0]   addCompareSelect_80_state_weight;
   wire                addCompareSelect_80_decision;
   wire       [1:0]    branchMetric_81_dist_0;
   wire       [1:0]    branchMetric_81_dist_1;
-  wire       [7:0]    addCompareSelect_81_state_weight;
+  wire       [15:0]   addCompareSelect_81_state_weight;
   wire                addCompareSelect_81_decision;
   wire       [1:0]    branchMetric_82_dist_0;
   wire       [1:0]    branchMetric_82_dist_1;
-  wire       [7:0]    addCompareSelect_82_state_weight;
+  wire       [15:0]   addCompareSelect_82_state_weight;
   wire                addCompareSelect_82_decision;
   wire       [1:0]    branchMetric_83_dist_0;
   wire       [1:0]    branchMetric_83_dist_1;
-  wire       [7:0]    addCompareSelect_83_state_weight;
+  wire       [15:0]   addCompareSelect_83_state_weight;
   wire                addCompareSelect_83_decision;
   wire       [1:0]    branchMetric_84_dist_0;
   wire       [1:0]    branchMetric_84_dist_1;
-  wire       [7:0]    addCompareSelect_84_state_weight;
+  wire       [15:0]   addCompareSelect_84_state_weight;
   wire                addCompareSelect_84_decision;
   wire       [1:0]    branchMetric_85_dist_0;
   wire       [1:0]    branchMetric_85_dist_1;
-  wire       [7:0]    addCompareSelect_85_state_weight;
+  wire       [15:0]   addCompareSelect_85_state_weight;
   wire                addCompareSelect_85_decision;
   wire       [1:0]    branchMetric_86_dist_0;
   wire       [1:0]    branchMetric_86_dist_1;
-  wire       [7:0]    addCompareSelect_86_state_weight;
+  wire       [15:0]   addCompareSelect_86_state_weight;
   wire                addCompareSelect_86_decision;
   wire       [1:0]    branchMetric_87_dist_0;
   wire       [1:0]    branchMetric_87_dist_1;
-  wire       [7:0]    addCompareSelect_87_state_weight;
+  wire       [15:0]   addCompareSelect_87_state_weight;
   wire                addCompareSelect_87_decision;
   wire       [1:0]    branchMetric_88_dist_0;
   wire       [1:0]    branchMetric_88_dist_1;
-  wire       [7:0]    addCompareSelect_88_state_weight;
+  wire       [15:0]   addCompareSelect_88_state_weight;
   wire                addCompareSelect_88_decision;
   wire       [1:0]    branchMetric_89_dist_0;
   wire       [1:0]    branchMetric_89_dist_1;
-  wire       [7:0]    addCompareSelect_89_state_weight;
+  wire       [15:0]   addCompareSelect_89_state_weight;
   wire                addCompareSelect_89_decision;
   wire       [1:0]    branchMetric_90_dist_0;
   wire       [1:0]    branchMetric_90_dist_1;
-  wire       [7:0]    addCompareSelect_90_state_weight;
+  wire       [15:0]   addCompareSelect_90_state_weight;
   wire                addCompareSelect_90_decision;
   wire       [1:0]    branchMetric_91_dist_0;
   wire       [1:0]    branchMetric_91_dist_1;
-  wire       [7:0]    addCompareSelect_91_state_weight;
+  wire       [15:0]   addCompareSelect_91_state_weight;
   wire                addCompareSelect_91_decision;
   wire       [1:0]    branchMetric_92_dist_0;
   wire       [1:0]    branchMetric_92_dist_1;
-  wire       [7:0]    addCompareSelect_92_state_weight;
+  wire       [15:0]   addCompareSelect_92_state_weight;
   wire                addCompareSelect_92_decision;
   wire       [1:0]    branchMetric_93_dist_0;
   wire       [1:0]    branchMetric_93_dist_1;
-  wire       [7:0]    addCompareSelect_93_state_weight;
+  wire       [15:0]   addCompareSelect_93_state_weight;
   wire                addCompareSelect_93_decision;
   wire       [1:0]    branchMetric_94_dist_0;
   wire       [1:0]    branchMetric_94_dist_1;
-  wire       [7:0]    addCompareSelect_94_state_weight;
+  wire       [15:0]   addCompareSelect_94_state_weight;
   wire                addCompareSelect_94_decision;
   wire       [1:0]    branchMetric_95_dist_0;
   wire       [1:0]    branchMetric_95_dist_1;
-  wire       [7:0]    addCompareSelect_95_state_weight;
+  wire       [15:0]   addCompareSelect_95_state_weight;
   wire                addCompareSelect_95_decision;
   wire       [1:0]    branchMetric_96_dist_0;
   wire       [1:0]    branchMetric_96_dist_1;
-  wire       [7:0]    addCompareSelect_96_state_weight;
+  wire       [15:0]   addCompareSelect_96_state_weight;
   wire                addCompareSelect_96_decision;
   wire       [1:0]    branchMetric_97_dist_0;
   wire       [1:0]    branchMetric_97_dist_1;
-  wire       [7:0]    addCompareSelect_97_state_weight;
+  wire       [15:0]   addCompareSelect_97_state_weight;
   wire                addCompareSelect_97_decision;
   wire       [1:0]    branchMetric_98_dist_0;
   wire       [1:0]    branchMetric_98_dist_1;
-  wire       [7:0]    addCompareSelect_98_state_weight;
+  wire       [15:0]   addCompareSelect_98_state_weight;
   wire                addCompareSelect_98_decision;
   wire       [1:0]    branchMetric_99_dist_0;
   wire       [1:0]    branchMetric_99_dist_1;
-  wire       [7:0]    addCompareSelect_99_state_weight;
+  wire       [15:0]   addCompareSelect_99_state_weight;
   wire                addCompareSelect_99_decision;
   wire       [1:0]    branchMetric_100_dist_0;
   wire       [1:0]    branchMetric_100_dist_1;
-  wire       [7:0]    addCompareSelect_100_state_weight;
+  wire       [15:0]   addCompareSelect_100_state_weight;
   wire                addCompareSelect_100_decision;
   wire       [1:0]    branchMetric_101_dist_0;
   wire       [1:0]    branchMetric_101_dist_1;
-  wire       [7:0]    addCompareSelect_101_state_weight;
+  wire       [15:0]   addCompareSelect_101_state_weight;
   wire                addCompareSelect_101_decision;
   wire       [1:0]    branchMetric_102_dist_0;
   wire       [1:0]    branchMetric_102_dist_1;
-  wire       [7:0]    addCompareSelect_102_state_weight;
+  wire       [15:0]   addCompareSelect_102_state_weight;
   wire                addCompareSelect_102_decision;
   wire       [1:0]    branchMetric_103_dist_0;
   wire       [1:0]    branchMetric_103_dist_1;
-  wire       [7:0]    addCompareSelect_103_state_weight;
+  wire       [15:0]   addCompareSelect_103_state_weight;
   wire                addCompareSelect_103_decision;
   wire       [1:0]    branchMetric_104_dist_0;
   wire       [1:0]    branchMetric_104_dist_1;
-  wire       [7:0]    addCompareSelect_104_state_weight;
+  wire       [15:0]   addCompareSelect_104_state_weight;
   wire                addCompareSelect_104_decision;
   wire       [1:0]    branchMetric_105_dist_0;
   wire       [1:0]    branchMetric_105_dist_1;
-  wire       [7:0]    addCompareSelect_105_state_weight;
+  wire       [15:0]   addCompareSelect_105_state_weight;
   wire                addCompareSelect_105_decision;
   wire       [1:0]    branchMetric_106_dist_0;
   wire       [1:0]    branchMetric_106_dist_1;
-  wire       [7:0]    addCompareSelect_106_state_weight;
+  wire       [15:0]   addCompareSelect_106_state_weight;
   wire                addCompareSelect_106_decision;
   wire       [1:0]    branchMetric_107_dist_0;
   wire       [1:0]    branchMetric_107_dist_1;
-  wire       [7:0]    addCompareSelect_107_state_weight;
+  wire       [15:0]   addCompareSelect_107_state_weight;
   wire                addCompareSelect_107_decision;
   wire       [1:0]    branchMetric_108_dist_0;
   wire       [1:0]    branchMetric_108_dist_1;
-  wire       [7:0]    addCompareSelect_108_state_weight;
+  wire       [15:0]   addCompareSelect_108_state_weight;
   wire                addCompareSelect_108_decision;
   wire       [1:0]    branchMetric_109_dist_0;
   wire       [1:0]    branchMetric_109_dist_1;
-  wire       [7:0]    addCompareSelect_109_state_weight;
+  wire       [15:0]   addCompareSelect_109_state_weight;
   wire                addCompareSelect_109_decision;
   wire       [1:0]    branchMetric_110_dist_0;
   wire       [1:0]    branchMetric_110_dist_1;
-  wire       [7:0]    addCompareSelect_110_state_weight;
+  wire       [15:0]   addCompareSelect_110_state_weight;
   wire                addCompareSelect_110_decision;
   wire       [1:0]    branchMetric_111_dist_0;
   wire       [1:0]    branchMetric_111_dist_1;
-  wire       [7:0]    addCompareSelect_111_state_weight;
+  wire       [15:0]   addCompareSelect_111_state_weight;
   wire                addCompareSelect_111_decision;
   wire       [1:0]    branchMetric_112_dist_0;
   wire       [1:0]    branchMetric_112_dist_1;
-  wire       [7:0]    addCompareSelect_112_state_weight;
+  wire       [15:0]   addCompareSelect_112_state_weight;
   wire                addCompareSelect_112_decision;
   wire       [1:0]    branchMetric_113_dist_0;
   wire       [1:0]    branchMetric_113_dist_1;
-  wire       [7:0]    addCompareSelect_113_state_weight;
+  wire       [15:0]   addCompareSelect_113_state_weight;
   wire                addCompareSelect_113_decision;
   wire       [1:0]    branchMetric_114_dist_0;
   wire       [1:0]    branchMetric_114_dist_1;
-  wire       [7:0]    addCompareSelect_114_state_weight;
+  wire       [15:0]   addCompareSelect_114_state_weight;
   wire                addCompareSelect_114_decision;
   wire       [1:0]    branchMetric_115_dist_0;
   wire       [1:0]    branchMetric_115_dist_1;
-  wire       [7:0]    addCompareSelect_115_state_weight;
+  wire       [15:0]   addCompareSelect_115_state_weight;
   wire                addCompareSelect_115_decision;
   wire       [1:0]    branchMetric_116_dist_0;
   wire       [1:0]    branchMetric_116_dist_1;
-  wire       [7:0]    addCompareSelect_116_state_weight;
+  wire       [15:0]   addCompareSelect_116_state_weight;
   wire                addCompareSelect_116_decision;
   wire       [1:0]    branchMetric_117_dist_0;
   wire       [1:0]    branchMetric_117_dist_1;
-  wire       [7:0]    addCompareSelect_117_state_weight;
+  wire       [15:0]   addCompareSelect_117_state_weight;
   wire                addCompareSelect_117_decision;
   wire       [1:0]    branchMetric_118_dist_0;
   wire       [1:0]    branchMetric_118_dist_1;
-  wire       [7:0]    addCompareSelect_118_state_weight;
+  wire       [15:0]   addCompareSelect_118_state_weight;
   wire                addCompareSelect_118_decision;
   wire       [1:0]    branchMetric_119_dist_0;
   wire       [1:0]    branchMetric_119_dist_1;
-  wire       [7:0]    addCompareSelect_119_state_weight;
+  wire       [15:0]   addCompareSelect_119_state_weight;
   wire                addCompareSelect_119_decision;
   wire       [1:0]    branchMetric_120_dist_0;
   wire       [1:0]    branchMetric_120_dist_1;
-  wire       [7:0]    addCompareSelect_120_state_weight;
+  wire       [15:0]   addCompareSelect_120_state_weight;
   wire                addCompareSelect_120_decision;
   wire       [1:0]    branchMetric_121_dist_0;
   wire       [1:0]    branchMetric_121_dist_1;
-  wire       [7:0]    addCompareSelect_121_state_weight;
+  wire       [15:0]   addCompareSelect_121_state_weight;
   wire                addCompareSelect_121_decision;
   wire       [1:0]    branchMetric_122_dist_0;
   wire       [1:0]    branchMetric_122_dist_1;
-  wire       [7:0]    addCompareSelect_122_state_weight;
+  wire       [15:0]   addCompareSelect_122_state_weight;
   wire                addCompareSelect_122_decision;
   wire       [1:0]    branchMetric_123_dist_0;
   wire       [1:0]    branchMetric_123_dist_1;
-  wire       [7:0]    addCompareSelect_123_state_weight;
+  wire       [15:0]   addCompareSelect_123_state_weight;
   wire                addCompareSelect_123_decision;
   wire       [1:0]    branchMetric_124_dist_0;
   wire       [1:0]    branchMetric_124_dist_1;
-  wire       [7:0]    addCompareSelect_124_state_weight;
+  wire       [15:0]   addCompareSelect_124_state_weight;
   wire                addCompareSelect_124_decision;
   wire       [1:0]    branchMetric_125_dist_0;
   wire       [1:0]    branchMetric_125_dist_1;
-  wire       [7:0]    addCompareSelect_125_state_weight;
+  wire       [15:0]   addCompareSelect_125_state_weight;
   wire                addCompareSelect_125_decision;
   wire       [1:0]    branchMetric_126_dist_0;
   wire       [1:0]    branchMetric_126_dist_1;
-  wire       [7:0]    addCompareSelect_126_state_weight;
+  wire       [15:0]   addCompareSelect_126_state_weight;
   wire                addCompareSelect_126_decision;
   wire       [1:0]    branchMetric_127_dist_0;
   wire       [1:0]    branchMetric_127_dist_1;
-  wire       [7:0]    addCompareSelect_127_state_weight;
+  wire       [15:0]   addCompareSelect_127_state_weight;
   wire                addCompareSelect_127_decision;
-  wire       [7:0]    minVal_1_min_val;
+  wire       [15:0]   minVal_1_min_val;
   wire       [5:0]    minVal_1_min_idx;
-  reg        [7:0]    node_weight_0;
-  reg        [7:0]    node_weight_1;
-  reg        [7:0]    node_weight_2;
-  reg        [7:0]    node_weight_3;
-  reg        [7:0]    node_weight_4;
-  reg        [7:0]    node_weight_5;
-  reg        [7:0]    node_weight_6;
-  reg        [7:0]    node_weight_7;
-  reg        [7:0]    node_weight_8;
-  reg        [7:0]    node_weight_9;
-  reg        [7:0]    node_weight_10;
-  reg        [7:0]    node_weight_11;
-  reg        [7:0]    node_weight_12;
-  reg        [7:0]    node_weight_13;
-  reg        [7:0]    node_weight_14;
-  reg        [7:0]    node_weight_15;
-  reg        [7:0]    node_weight_16;
-  reg        [7:0]    node_weight_17;
-  reg        [7:0]    node_weight_18;
-  reg        [7:0]    node_weight_19;
-  reg        [7:0]    node_weight_20;
-  reg        [7:0]    node_weight_21;
-  reg        [7:0]    node_weight_22;
-  reg        [7:0]    node_weight_23;
-  reg        [7:0]    node_weight_24;
-  reg        [7:0]    node_weight_25;
-  reg        [7:0]    node_weight_26;
-  reg        [7:0]    node_weight_27;
-  reg        [7:0]    node_weight_28;
-  reg        [7:0]    node_weight_29;
-  reg        [7:0]    node_weight_30;
-  reg        [7:0]    node_weight_31;
-  reg        [7:0]    node_weight_32;
-  reg        [7:0]    node_weight_33;
-  reg        [7:0]    node_weight_34;
-  reg        [7:0]    node_weight_35;
-  reg        [7:0]    node_weight_36;
-  reg        [7:0]    node_weight_37;
-  reg        [7:0]    node_weight_38;
-  reg        [7:0]    node_weight_39;
-  reg        [7:0]    node_weight_40;
-  reg        [7:0]    node_weight_41;
-  reg        [7:0]    node_weight_42;
-  reg        [7:0]    node_weight_43;
-  reg        [7:0]    node_weight_44;
-  reg        [7:0]    node_weight_45;
-  reg        [7:0]    node_weight_46;
-  reg        [7:0]    node_weight_47;
-  reg        [7:0]    node_weight_48;
-  reg        [7:0]    node_weight_49;
-  reg        [7:0]    node_weight_50;
-  reg        [7:0]    node_weight_51;
-  reg        [7:0]    node_weight_52;
-  reg        [7:0]    node_weight_53;
-  reg        [7:0]    node_weight_54;
-  reg        [7:0]    node_weight_55;
-  reg        [7:0]    node_weight_56;
-  reg        [7:0]    node_weight_57;
-  reg        [7:0]    node_weight_58;
-  reg        [7:0]    node_weight_59;
-  reg        [7:0]    node_weight_60;
-  reg        [7:0]    node_weight_61;
-  reg        [7:0]    node_weight_62;
-  reg        [7:0]    node_weight_63;
+  reg        [15:0]   node_weight_0;
+  reg        [15:0]   node_weight_1;
+  reg        [15:0]   node_weight_2;
+  reg        [15:0]   node_weight_3;
+  reg        [15:0]   node_weight_4;
+  reg        [15:0]   node_weight_5;
+  reg        [15:0]   node_weight_6;
+  reg        [15:0]   node_weight_7;
+  reg        [15:0]   node_weight_8;
+  reg        [15:0]   node_weight_9;
+  reg        [15:0]   node_weight_10;
+  reg        [15:0]   node_weight_11;
+  reg        [15:0]   node_weight_12;
+  reg        [15:0]   node_weight_13;
+  reg        [15:0]   node_weight_14;
+  reg        [15:0]   node_weight_15;
+  reg        [15:0]   node_weight_16;
+  reg        [15:0]   node_weight_17;
+  reg        [15:0]   node_weight_18;
+  reg        [15:0]   node_weight_19;
+  reg        [15:0]   node_weight_20;
+  reg        [15:0]   node_weight_21;
+  reg        [15:0]   node_weight_22;
+  reg        [15:0]   node_weight_23;
+  reg        [15:0]   node_weight_24;
+  reg        [15:0]   node_weight_25;
+  reg        [15:0]   node_weight_26;
+  reg        [15:0]   node_weight_27;
+  reg        [15:0]   node_weight_28;
+  reg        [15:0]   node_weight_29;
+  reg        [15:0]   node_weight_30;
+  reg        [15:0]   node_weight_31;
+  reg        [15:0]   node_weight_32;
+  reg        [15:0]   node_weight_33;
+  reg        [15:0]   node_weight_34;
+  reg        [15:0]   node_weight_35;
+  reg        [15:0]   node_weight_36;
+  reg        [15:0]   node_weight_37;
+  reg        [15:0]   node_weight_38;
+  reg        [15:0]   node_weight_39;
+  reg        [15:0]   node_weight_40;
+  reg        [15:0]   node_weight_41;
+  reg        [15:0]   node_weight_42;
+  reg        [15:0]   node_weight_43;
+  reg        [15:0]   node_weight_44;
+  reg        [15:0]   node_weight_45;
+  reg        [15:0]   node_weight_46;
+  reg        [15:0]   node_weight_47;
+  reg        [15:0]   node_weight_48;
+  reg        [15:0]   node_weight_49;
+  reg        [15:0]   node_weight_50;
+  reg        [15:0]   node_weight_51;
+  reg        [15:0]   node_weight_52;
+  reg        [15:0]   node_weight_53;
+  reg        [15:0]   node_weight_54;
+  reg        [15:0]   node_weight_55;
+  reg        [15:0]   node_weight_56;
+  reg        [15:0]   node_weight_57;
+  reg        [15:0]   node_weight_58;
+  reg        [15:0]   node_weight_59;
+  reg        [15:0]   node_weight_60;
+  reg        [15:0]   node_weight_61;
+  reg        [15:0]   node_weight_62;
+  reg        [15:0]   node_weight_63;
   reg        [1:0]    candidate_branches_0;
   reg        [1:0]    candidate_branches_1;
   reg        [1:0]    candidate_branches_2;
@@ -1711,8 +2411,8 @@ module PathMetric (
   wire                when_PathMetric_l29;
 
   BranchMetric branchMetric_64 (
-    ._zz_in_a      (3'b000                  ), //i
-    ._zz_in_a_1    (3'b111                  ), //i
+    ._zz_in_a      (2'b00                   ), //i
+    ._zz_in_a_1    (2'b11                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_64_dist_0  ), //o
     .dist_1        (branchMetric_64_dist_1  )  //o
@@ -1726,8 +2426,8 @@ module PathMetric (
     .decision               (addCompareSelect_64_decision      )  //o
   );
   BranchMetric branchMetric_65 (
-    ._zz_in_a      (3'b100                  ), //i
-    ._zz_in_a_1    (3'b011                  ), //i
+    ._zz_in_a      (2'b10                   ), //i
+    ._zz_in_a_1    (2'b01                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_65_dist_0  ), //o
     .dist_1        (branchMetric_65_dist_1  )  //o
@@ -1741,8 +2441,8 @@ module PathMetric (
     .decision               (addCompareSelect_65_decision      )  //o
   );
   BranchMetric branchMetric_66 (
-    ._zz_in_a      (3'b001                  ), //i
-    ._zz_in_a_1    (3'b110                  ), //i
+    ._zz_in_a      (2'b00                   ), //i
+    ._zz_in_a_1    (2'b11                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_66_dist_0  ), //o
     .dist_1        (branchMetric_66_dist_1  )  //o
@@ -1756,8 +2456,8 @@ module PathMetric (
     .decision               (addCompareSelect_66_decision      )  //o
   );
   BranchMetric branchMetric_67 (
-    ._zz_in_a      (3'b101                  ), //i
-    ._zz_in_a_1    (3'b010                  ), //i
+    ._zz_in_a      (2'b10                   ), //i
+    ._zz_in_a_1    (2'b01                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_67_dist_0  ), //o
     .dist_1        (branchMetric_67_dist_1  )  //o
@@ -1771,8 +2471,8 @@ module PathMetric (
     .decision               (addCompareSelect_67_decision      )  //o
   );
   BranchMetric branchMetric_68 (
-    ._zz_in_a      (3'b110                  ), //i
-    ._zz_in_a_1    (3'b001                  ), //i
+    ._zz_in_a      (2'b11                   ), //i
+    ._zz_in_a_1    (2'b00                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_68_dist_0  ), //o
     .dist_1        (branchMetric_68_dist_1  )  //o
@@ -1786,8 +2486,8 @@ module PathMetric (
     .decision               (addCompareSelect_68_decision      )  //o
   );
   BranchMetric branchMetric_69 (
-    ._zz_in_a      (3'b010                  ), //i
-    ._zz_in_a_1    (3'b101                  ), //i
+    ._zz_in_a      (2'b01                   ), //i
+    ._zz_in_a_1    (2'b10                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_69_dist_0  ), //o
     .dist_1        (branchMetric_69_dist_1  )  //o
@@ -1801,8 +2501,8 @@ module PathMetric (
     .decision               (addCompareSelect_69_decision      )  //o
   );
   BranchMetric branchMetric_70 (
-    ._zz_in_a      (3'b111                  ), //i
-    ._zz_in_a_1    (3'b000                  ), //i
+    ._zz_in_a      (2'b11                   ), //i
+    ._zz_in_a_1    (2'b00                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_70_dist_0  ), //o
     .dist_1        (branchMetric_70_dist_1  )  //o
@@ -1816,8 +2516,8 @@ module PathMetric (
     .decision               (addCompareSelect_70_decision      )  //o
   );
   BranchMetric branchMetric_71 (
-    ._zz_in_a      (3'b011                  ), //i
-    ._zz_in_a_1    (3'b100                  ), //i
+    ._zz_in_a      (2'b01                   ), //i
+    ._zz_in_a_1    (2'b10                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_71_dist_0  ), //o
     .dist_1        (branchMetric_71_dist_1  )  //o
@@ -1831,8 +2531,8 @@ module PathMetric (
     .decision               (addCompareSelect_71_decision      )  //o
   );
   BranchMetric branchMetric_72 (
-    ._zz_in_a      (3'b111                  ), //i
-    ._zz_in_a_1    (3'b000                  ), //i
+    ._zz_in_a      (2'b11                   ), //i
+    ._zz_in_a_1    (2'b00                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_72_dist_0  ), //o
     .dist_1        (branchMetric_72_dist_1  )  //o
@@ -1846,8 +2546,8 @@ module PathMetric (
     .decision               (addCompareSelect_72_decision      )  //o
   );
   BranchMetric branchMetric_73 (
-    ._zz_in_a      (3'b011                  ), //i
-    ._zz_in_a_1    (3'b100                  ), //i
+    ._zz_in_a      (2'b01                   ), //i
+    ._zz_in_a_1    (2'b10                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_73_dist_0  ), //o
     .dist_1        (branchMetric_73_dist_1  )  //o
@@ -1861,8 +2561,8 @@ module PathMetric (
     .decision               (addCompareSelect_73_decision      )  //o
   );
   BranchMetric branchMetric_74 (
-    ._zz_in_a      (3'b110                  ), //i
-    ._zz_in_a_1    (3'b001                  ), //i
+    ._zz_in_a      (2'b11                   ), //i
+    ._zz_in_a_1    (2'b00                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_74_dist_0  ), //o
     .dist_1        (branchMetric_74_dist_1  )  //o
@@ -1876,8 +2576,8 @@ module PathMetric (
     .decision               (addCompareSelect_74_decision      )  //o
   );
   BranchMetric branchMetric_75 (
-    ._zz_in_a      (3'b010                  ), //i
-    ._zz_in_a_1    (3'b101                  ), //i
+    ._zz_in_a      (2'b01                   ), //i
+    ._zz_in_a_1    (2'b10                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_75_dist_0  ), //o
     .dist_1        (branchMetric_75_dist_1  )  //o
@@ -1891,8 +2591,8 @@ module PathMetric (
     .decision               (addCompareSelect_75_decision      )  //o
   );
   BranchMetric branchMetric_76 (
-    ._zz_in_a      (3'b001                  ), //i
-    ._zz_in_a_1    (3'b110                  ), //i
+    ._zz_in_a      (2'b00                   ), //i
+    ._zz_in_a_1    (2'b11                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_76_dist_0  ), //o
     .dist_1        (branchMetric_76_dist_1  )  //o
@@ -1906,8 +2606,8 @@ module PathMetric (
     .decision               (addCompareSelect_76_decision      )  //o
   );
   BranchMetric branchMetric_77 (
-    ._zz_in_a      (3'b101                  ), //i
-    ._zz_in_a_1    (3'b010                  ), //i
+    ._zz_in_a      (2'b10                   ), //i
+    ._zz_in_a_1    (2'b01                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_77_dist_0  ), //o
     .dist_1        (branchMetric_77_dist_1  )  //o
@@ -1921,8 +2621,8 @@ module PathMetric (
     .decision               (addCompareSelect_77_decision      )  //o
   );
   BranchMetric branchMetric_78 (
-    ._zz_in_a      (3'b000                  ), //i
-    ._zz_in_a_1    (3'b111                  ), //i
+    ._zz_in_a      (2'b00                   ), //i
+    ._zz_in_a_1    (2'b11                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_78_dist_0  ), //o
     .dist_1        (branchMetric_78_dist_1  )  //o
@@ -1936,8 +2636,8 @@ module PathMetric (
     .decision               (addCompareSelect_78_decision      )  //o
   );
   BranchMetric branchMetric_79 (
-    ._zz_in_a      (3'b100                  ), //i
-    ._zz_in_a_1    (3'b011                  ), //i
+    ._zz_in_a      (2'b10                   ), //i
+    ._zz_in_a_1    (2'b01                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_79_dist_0  ), //o
     .dist_1        (branchMetric_79_dist_1  )  //o
@@ -1951,8 +2651,8 @@ module PathMetric (
     .decision               (addCompareSelect_79_decision      )  //o
   );
   BranchMetric branchMetric_80 (
-    ._zz_in_a      (3'b011                  ), //i
-    ._zz_in_a_1    (3'b100                  ), //i
+    ._zz_in_a      (2'b01                   ), //i
+    ._zz_in_a_1    (2'b10                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_80_dist_0  ), //o
     .dist_1        (branchMetric_80_dist_1  )  //o
@@ -1966,8 +2666,8 @@ module PathMetric (
     .decision               (addCompareSelect_80_decision      )  //o
   );
   BranchMetric branchMetric_81 (
-    ._zz_in_a      (3'b111                  ), //i
-    ._zz_in_a_1    (3'b000                  ), //i
+    ._zz_in_a      (2'b11                   ), //i
+    ._zz_in_a_1    (2'b00                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_81_dist_0  ), //o
     .dist_1        (branchMetric_81_dist_1  )  //o
@@ -1981,8 +2681,8 @@ module PathMetric (
     .decision               (addCompareSelect_81_decision      )  //o
   );
   BranchMetric branchMetric_82 (
-    ._zz_in_a      (3'b010                  ), //i
-    ._zz_in_a_1    (3'b101                  ), //i
+    ._zz_in_a      (2'b01                   ), //i
+    ._zz_in_a_1    (2'b10                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_82_dist_0  ), //o
     .dist_1        (branchMetric_82_dist_1  )  //o
@@ -1996,8 +2696,8 @@ module PathMetric (
     .decision               (addCompareSelect_82_decision      )  //o
   );
   BranchMetric branchMetric_83 (
-    ._zz_in_a      (3'b110                  ), //i
-    ._zz_in_a_1    (3'b001                  ), //i
+    ._zz_in_a      (2'b11                   ), //i
+    ._zz_in_a_1    (2'b00                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_83_dist_0  ), //o
     .dist_1        (branchMetric_83_dist_1  )  //o
@@ -2011,8 +2711,8 @@ module PathMetric (
     .decision               (addCompareSelect_83_decision      )  //o
   );
   BranchMetric branchMetric_84 (
-    ._zz_in_a      (3'b101                  ), //i
-    ._zz_in_a_1    (3'b010                  ), //i
+    ._zz_in_a      (2'b10                   ), //i
+    ._zz_in_a_1    (2'b01                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_84_dist_0  ), //o
     .dist_1        (branchMetric_84_dist_1  )  //o
@@ -2026,8 +2726,8 @@ module PathMetric (
     .decision               (addCompareSelect_84_decision      )  //o
   );
   BranchMetric branchMetric_85 (
-    ._zz_in_a      (3'b001                  ), //i
-    ._zz_in_a_1    (3'b110                  ), //i
+    ._zz_in_a      (2'b00                   ), //i
+    ._zz_in_a_1    (2'b11                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_85_dist_0  ), //o
     .dist_1        (branchMetric_85_dist_1  )  //o
@@ -2041,8 +2741,8 @@ module PathMetric (
     .decision               (addCompareSelect_85_decision      )  //o
   );
   BranchMetric branchMetric_86 (
-    ._zz_in_a      (3'b100                  ), //i
-    ._zz_in_a_1    (3'b011                  ), //i
+    ._zz_in_a      (2'b10                   ), //i
+    ._zz_in_a_1    (2'b01                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_86_dist_0  ), //o
     .dist_1        (branchMetric_86_dist_1  )  //o
@@ -2056,8 +2756,8 @@ module PathMetric (
     .decision               (addCompareSelect_86_decision      )  //o
   );
   BranchMetric branchMetric_87 (
-    ._zz_in_a      (3'b000                  ), //i
-    ._zz_in_a_1    (3'b111                  ), //i
+    ._zz_in_a      (2'b00                   ), //i
+    ._zz_in_a_1    (2'b11                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_87_dist_0  ), //o
     .dist_1        (branchMetric_87_dist_1  )  //o
@@ -2071,8 +2771,8 @@ module PathMetric (
     .decision               (addCompareSelect_87_decision      )  //o
   );
   BranchMetric branchMetric_88 (
-    ._zz_in_a      (3'b100                  ), //i
-    ._zz_in_a_1    (3'b011                  ), //i
+    ._zz_in_a      (2'b10                   ), //i
+    ._zz_in_a_1    (2'b01                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_88_dist_0  ), //o
     .dist_1        (branchMetric_88_dist_1  )  //o
@@ -2086,8 +2786,8 @@ module PathMetric (
     .decision               (addCompareSelect_88_decision      )  //o
   );
   BranchMetric branchMetric_89 (
-    ._zz_in_a      (3'b000                  ), //i
-    ._zz_in_a_1    (3'b111                  ), //i
+    ._zz_in_a      (2'b00                   ), //i
+    ._zz_in_a_1    (2'b11                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_89_dist_0  ), //o
     .dist_1        (branchMetric_89_dist_1  )  //o
@@ -2101,8 +2801,8 @@ module PathMetric (
     .decision               (addCompareSelect_89_decision      )  //o
   );
   BranchMetric branchMetric_90 (
-    ._zz_in_a      (3'b101                  ), //i
-    ._zz_in_a_1    (3'b010                  ), //i
+    ._zz_in_a      (2'b10                   ), //i
+    ._zz_in_a_1    (2'b01                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_90_dist_0  ), //o
     .dist_1        (branchMetric_90_dist_1  )  //o
@@ -2116,8 +2816,8 @@ module PathMetric (
     .decision               (addCompareSelect_90_decision      )  //o
   );
   BranchMetric branchMetric_91 (
-    ._zz_in_a      (3'b001                  ), //i
-    ._zz_in_a_1    (3'b110                  ), //i
+    ._zz_in_a      (2'b00                   ), //i
+    ._zz_in_a_1    (2'b11                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_91_dist_0  ), //o
     .dist_1        (branchMetric_91_dist_1  )  //o
@@ -2131,8 +2831,8 @@ module PathMetric (
     .decision               (addCompareSelect_91_decision      )  //o
   );
   BranchMetric branchMetric_92 (
-    ._zz_in_a      (3'b010                  ), //i
-    ._zz_in_a_1    (3'b101                  ), //i
+    ._zz_in_a      (2'b01                   ), //i
+    ._zz_in_a_1    (2'b10                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_92_dist_0  ), //o
     .dist_1        (branchMetric_92_dist_1  )  //o
@@ -2146,8 +2846,8 @@ module PathMetric (
     .decision               (addCompareSelect_92_decision      )  //o
   );
   BranchMetric branchMetric_93 (
-    ._zz_in_a      (3'b110                  ), //i
-    ._zz_in_a_1    (3'b001                  ), //i
+    ._zz_in_a      (2'b11                   ), //i
+    ._zz_in_a_1    (2'b00                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_93_dist_0  ), //o
     .dist_1        (branchMetric_93_dist_1  )  //o
@@ -2161,8 +2861,8 @@ module PathMetric (
     .decision               (addCompareSelect_93_decision      )  //o
   );
   BranchMetric branchMetric_94 (
-    ._zz_in_a      (3'b011                  ), //i
-    ._zz_in_a_1    (3'b100                  ), //i
+    ._zz_in_a      (2'b01                   ), //i
+    ._zz_in_a_1    (2'b10                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_94_dist_0  ), //o
     .dist_1        (branchMetric_94_dist_1  )  //o
@@ -2176,8 +2876,8 @@ module PathMetric (
     .decision               (addCompareSelect_94_decision      )  //o
   );
   BranchMetric branchMetric_95 (
-    ._zz_in_a      (3'b111                  ), //i
-    ._zz_in_a_1    (3'b000                  ), //i
+    ._zz_in_a      (2'b11                   ), //i
+    ._zz_in_a_1    (2'b00                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_95_dist_0  ), //o
     .dist_1        (branchMetric_95_dist_1  )  //o
@@ -2191,8 +2891,8 @@ module PathMetric (
     .decision               (addCompareSelect_95_decision      )  //o
   );
   BranchMetric branchMetric_96 (
-    ._zz_in_a      (3'b111                  ), //i
-    ._zz_in_a_1    (3'b000                  ), //i
+    ._zz_in_a      (2'b11                   ), //i
+    ._zz_in_a_1    (2'b00                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_96_dist_0  ), //o
     .dist_1        (branchMetric_96_dist_1  )  //o
@@ -2206,8 +2906,8 @@ module PathMetric (
     .decision               (addCompareSelect_96_decision      )  //o
   );
   BranchMetric branchMetric_97 (
-    ._zz_in_a      (3'b011                  ), //i
-    ._zz_in_a_1    (3'b100                  ), //i
+    ._zz_in_a      (2'b01                   ), //i
+    ._zz_in_a_1    (2'b10                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_97_dist_0  ), //o
     .dist_1        (branchMetric_97_dist_1  )  //o
@@ -2221,8 +2921,8 @@ module PathMetric (
     .decision               (addCompareSelect_97_decision      )  //o
   );
   BranchMetric branchMetric_98 (
-    ._zz_in_a      (3'b110                  ), //i
-    ._zz_in_a_1    (3'b001                  ), //i
+    ._zz_in_a      (2'b11                   ), //i
+    ._zz_in_a_1    (2'b00                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_98_dist_0  ), //o
     .dist_1        (branchMetric_98_dist_1  )  //o
@@ -2236,8 +2936,8 @@ module PathMetric (
     .decision               (addCompareSelect_98_decision      )  //o
   );
   BranchMetric branchMetric_99 (
-    ._zz_in_a      (3'b010                  ), //i
-    ._zz_in_a_1    (3'b101                  ), //i
+    ._zz_in_a      (2'b01                   ), //i
+    ._zz_in_a_1    (2'b10                   ), //i
     ._zz_in_b      (_zz_in_b                ), //i
     .dist_0        (branchMetric_99_dist_0  ), //o
     .dist_1        (branchMetric_99_dist_1  )  //o
@@ -2251,8 +2951,8 @@ module PathMetric (
     .decision               (addCompareSelect_99_decision      )  //o
   );
   BranchMetric branchMetric_100 (
-    ._zz_in_a      (3'b001                   ), //i
-    ._zz_in_a_1    (3'b110                   ), //i
+    ._zz_in_a      (2'b00                    ), //i
+    ._zz_in_a_1    (2'b11                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_100_dist_0  ), //o
     .dist_1        (branchMetric_100_dist_1  )  //o
@@ -2266,8 +2966,8 @@ module PathMetric (
     .decision               (addCompareSelect_100_decision      )  //o
   );
   BranchMetric branchMetric_101 (
-    ._zz_in_a      (3'b101                   ), //i
-    ._zz_in_a_1    (3'b010                   ), //i
+    ._zz_in_a      (2'b10                    ), //i
+    ._zz_in_a_1    (2'b01                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_101_dist_0  ), //o
     .dist_1        (branchMetric_101_dist_1  )  //o
@@ -2281,8 +2981,8 @@ module PathMetric (
     .decision               (addCompareSelect_101_decision      )  //o
   );
   BranchMetric branchMetric_102 (
-    ._zz_in_a      (3'b000                   ), //i
-    ._zz_in_a_1    (3'b111                   ), //i
+    ._zz_in_a      (2'b00                    ), //i
+    ._zz_in_a_1    (2'b11                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_102_dist_0  ), //o
     .dist_1        (branchMetric_102_dist_1  )  //o
@@ -2296,8 +2996,8 @@ module PathMetric (
     .decision               (addCompareSelect_102_decision      )  //o
   );
   BranchMetric branchMetric_103 (
-    ._zz_in_a      (3'b100                   ), //i
-    ._zz_in_a_1    (3'b011                   ), //i
+    ._zz_in_a      (2'b10                    ), //i
+    ._zz_in_a_1    (2'b01                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_103_dist_0  ), //o
     .dist_1        (branchMetric_103_dist_1  )  //o
@@ -2311,8 +3011,8 @@ module PathMetric (
     .decision               (addCompareSelect_103_decision      )  //o
   );
   BranchMetric branchMetric_104 (
-    ._zz_in_a      (3'b000                   ), //i
-    ._zz_in_a_1    (3'b111                   ), //i
+    ._zz_in_a      (2'b00                    ), //i
+    ._zz_in_a_1    (2'b11                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_104_dist_0  ), //o
     .dist_1        (branchMetric_104_dist_1  )  //o
@@ -2326,8 +3026,8 @@ module PathMetric (
     .decision               (addCompareSelect_104_decision      )  //o
   );
   BranchMetric branchMetric_105 (
-    ._zz_in_a      (3'b100                   ), //i
-    ._zz_in_a_1    (3'b011                   ), //i
+    ._zz_in_a      (2'b10                    ), //i
+    ._zz_in_a_1    (2'b01                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_105_dist_0  ), //o
     .dist_1        (branchMetric_105_dist_1  )  //o
@@ -2341,8 +3041,8 @@ module PathMetric (
     .decision               (addCompareSelect_105_decision      )  //o
   );
   BranchMetric branchMetric_106 (
-    ._zz_in_a      (3'b001                   ), //i
-    ._zz_in_a_1    (3'b110                   ), //i
+    ._zz_in_a      (2'b00                    ), //i
+    ._zz_in_a_1    (2'b11                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_106_dist_0  ), //o
     .dist_1        (branchMetric_106_dist_1  )  //o
@@ -2356,8 +3056,8 @@ module PathMetric (
     .decision               (addCompareSelect_106_decision      )  //o
   );
   BranchMetric branchMetric_107 (
-    ._zz_in_a      (3'b101                   ), //i
-    ._zz_in_a_1    (3'b010                   ), //i
+    ._zz_in_a      (2'b10                    ), //i
+    ._zz_in_a_1    (2'b01                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_107_dist_0  ), //o
     .dist_1        (branchMetric_107_dist_1  )  //o
@@ -2371,8 +3071,8 @@ module PathMetric (
     .decision               (addCompareSelect_107_decision      )  //o
   );
   BranchMetric branchMetric_108 (
-    ._zz_in_a      (3'b110                   ), //i
-    ._zz_in_a_1    (3'b001                   ), //i
+    ._zz_in_a      (2'b11                    ), //i
+    ._zz_in_a_1    (2'b00                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_108_dist_0  ), //o
     .dist_1        (branchMetric_108_dist_1  )  //o
@@ -2386,8 +3086,8 @@ module PathMetric (
     .decision               (addCompareSelect_108_decision      )  //o
   );
   BranchMetric branchMetric_109 (
-    ._zz_in_a      (3'b010                   ), //i
-    ._zz_in_a_1    (3'b101                   ), //i
+    ._zz_in_a      (2'b01                    ), //i
+    ._zz_in_a_1    (2'b10                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_109_dist_0  ), //o
     .dist_1        (branchMetric_109_dist_1  )  //o
@@ -2401,8 +3101,8 @@ module PathMetric (
     .decision               (addCompareSelect_109_decision      )  //o
   );
   BranchMetric branchMetric_110 (
-    ._zz_in_a      (3'b111                   ), //i
-    ._zz_in_a_1    (3'b000                   ), //i
+    ._zz_in_a      (2'b11                    ), //i
+    ._zz_in_a_1    (2'b00                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_110_dist_0  ), //o
     .dist_1        (branchMetric_110_dist_1  )  //o
@@ -2416,8 +3116,8 @@ module PathMetric (
     .decision               (addCompareSelect_110_decision      )  //o
   );
   BranchMetric branchMetric_111 (
-    ._zz_in_a      (3'b011                   ), //i
-    ._zz_in_a_1    (3'b100                   ), //i
+    ._zz_in_a      (2'b01                    ), //i
+    ._zz_in_a_1    (2'b10                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_111_dist_0  ), //o
     .dist_1        (branchMetric_111_dist_1  )  //o
@@ -2431,8 +3131,8 @@ module PathMetric (
     .decision               (addCompareSelect_111_decision      )  //o
   );
   BranchMetric branchMetric_112 (
-    ._zz_in_a      (3'b100                   ), //i
-    ._zz_in_a_1    (3'b011                   ), //i
+    ._zz_in_a      (2'b10                    ), //i
+    ._zz_in_a_1    (2'b01                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_112_dist_0  ), //o
     .dist_1        (branchMetric_112_dist_1  )  //o
@@ -2446,8 +3146,8 @@ module PathMetric (
     .decision               (addCompareSelect_112_decision      )  //o
   );
   BranchMetric branchMetric_113 (
-    ._zz_in_a      (3'b000                   ), //i
-    ._zz_in_a_1    (3'b111                   ), //i
+    ._zz_in_a      (2'b00                    ), //i
+    ._zz_in_a_1    (2'b11                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_113_dist_0  ), //o
     .dist_1        (branchMetric_113_dist_1  )  //o
@@ -2461,8 +3161,8 @@ module PathMetric (
     .decision               (addCompareSelect_113_decision      )  //o
   );
   BranchMetric branchMetric_114 (
-    ._zz_in_a      (3'b101                   ), //i
-    ._zz_in_a_1    (3'b010                   ), //i
+    ._zz_in_a      (2'b10                    ), //i
+    ._zz_in_a_1    (2'b01                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_114_dist_0  ), //o
     .dist_1        (branchMetric_114_dist_1  )  //o
@@ -2476,8 +3176,8 @@ module PathMetric (
     .decision               (addCompareSelect_114_decision      )  //o
   );
   BranchMetric branchMetric_115 (
-    ._zz_in_a      (3'b001                   ), //i
-    ._zz_in_a_1    (3'b110                   ), //i
+    ._zz_in_a      (2'b00                    ), //i
+    ._zz_in_a_1    (2'b11                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_115_dist_0  ), //o
     .dist_1        (branchMetric_115_dist_1  )  //o
@@ -2491,8 +3191,8 @@ module PathMetric (
     .decision               (addCompareSelect_115_decision      )  //o
   );
   BranchMetric branchMetric_116 (
-    ._zz_in_a      (3'b010                   ), //i
-    ._zz_in_a_1    (3'b101                   ), //i
+    ._zz_in_a      (2'b01                    ), //i
+    ._zz_in_a_1    (2'b10                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_116_dist_0  ), //o
     .dist_1        (branchMetric_116_dist_1  )  //o
@@ -2506,8 +3206,8 @@ module PathMetric (
     .decision               (addCompareSelect_116_decision      )  //o
   );
   BranchMetric branchMetric_117 (
-    ._zz_in_a      (3'b110                   ), //i
-    ._zz_in_a_1    (3'b001                   ), //i
+    ._zz_in_a      (2'b11                    ), //i
+    ._zz_in_a_1    (2'b00                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_117_dist_0  ), //o
     .dist_1        (branchMetric_117_dist_1  )  //o
@@ -2521,8 +3221,8 @@ module PathMetric (
     .decision               (addCompareSelect_117_decision      )  //o
   );
   BranchMetric branchMetric_118 (
-    ._zz_in_a      (3'b011                   ), //i
-    ._zz_in_a_1    (3'b100                   ), //i
+    ._zz_in_a      (2'b01                    ), //i
+    ._zz_in_a_1    (2'b10                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_118_dist_0  ), //o
     .dist_1        (branchMetric_118_dist_1  )  //o
@@ -2536,8 +3236,8 @@ module PathMetric (
     .decision               (addCompareSelect_118_decision      )  //o
   );
   BranchMetric branchMetric_119 (
-    ._zz_in_a      (3'b111                   ), //i
-    ._zz_in_a_1    (3'b000                   ), //i
+    ._zz_in_a      (2'b11                    ), //i
+    ._zz_in_a_1    (2'b00                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_119_dist_0  ), //o
     .dist_1        (branchMetric_119_dist_1  )  //o
@@ -2551,8 +3251,8 @@ module PathMetric (
     .decision               (addCompareSelect_119_decision      )  //o
   );
   BranchMetric branchMetric_120 (
-    ._zz_in_a      (3'b011                   ), //i
-    ._zz_in_a_1    (3'b100                   ), //i
+    ._zz_in_a      (2'b01                    ), //i
+    ._zz_in_a_1    (2'b10                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_120_dist_0  ), //o
     .dist_1        (branchMetric_120_dist_1  )  //o
@@ -2566,8 +3266,8 @@ module PathMetric (
     .decision               (addCompareSelect_120_decision      )  //o
   );
   BranchMetric branchMetric_121 (
-    ._zz_in_a      (3'b111                   ), //i
-    ._zz_in_a_1    (3'b000                   ), //i
+    ._zz_in_a      (2'b11                    ), //i
+    ._zz_in_a_1    (2'b00                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_121_dist_0  ), //o
     .dist_1        (branchMetric_121_dist_1  )  //o
@@ -2581,8 +3281,8 @@ module PathMetric (
     .decision               (addCompareSelect_121_decision      )  //o
   );
   BranchMetric branchMetric_122 (
-    ._zz_in_a      (3'b010                   ), //i
-    ._zz_in_a_1    (3'b101                   ), //i
+    ._zz_in_a      (2'b01                    ), //i
+    ._zz_in_a_1    (2'b10                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_122_dist_0  ), //o
     .dist_1        (branchMetric_122_dist_1  )  //o
@@ -2596,8 +3296,8 @@ module PathMetric (
     .decision               (addCompareSelect_122_decision      )  //o
   );
   BranchMetric branchMetric_123 (
-    ._zz_in_a      (3'b110                   ), //i
-    ._zz_in_a_1    (3'b001                   ), //i
+    ._zz_in_a      (2'b11                    ), //i
+    ._zz_in_a_1    (2'b00                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_123_dist_0  ), //o
     .dist_1        (branchMetric_123_dist_1  )  //o
@@ -2611,8 +3311,8 @@ module PathMetric (
     .decision               (addCompareSelect_123_decision      )  //o
   );
   BranchMetric branchMetric_124 (
-    ._zz_in_a      (3'b101                   ), //i
-    ._zz_in_a_1    (3'b010                   ), //i
+    ._zz_in_a      (2'b10                    ), //i
+    ._zz_in_a_1    (2'b01                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_124_dist_0  ), //o
     .dist_1        (branchMetric_124_dist_1  )  //o
@@ -2626,8 +3326,8 @@ module PathMetric (
     .decision               (addCompareSelect_124_decision      )  //o
   );
   BranchMetric branchMetric_125 (
-    ._zz_in_a      (3'b001                   ), //i
-    ._zz_in_a_1    (3'b110                   ), //i
+    ._zz_in_a      (2'b00                    ), //i
+    ._zz_in_a_1    (2'b11                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_125_dist_0  ), //o
     .dist_1        (branchMetric_125_dist_1  )  //o
@@ -2641,8 +3341,8 @@ module PathMetric (
     .decision               (addCompareSelect_125_decision      )  //o
   );
   BranchMetric branchMetric_126 (
-    ._zz_in_a      (3'b100                   ), //i
-    ._zz_in_a_1    (3'b011                   ), //i
+    ._zz_in_a      (2'b10                    ), //i
+    ._zz_in_a_1    (2'b01                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_126_dist_0  ), //o
     .dist_1        (branchMetric_126_dist_1  )  //o
@@ -2656,8 +3356,8 @@ module PathMetric (
     .decision               (addCompareSelect_126_decision      )  //o
   );
   BranchMetric branchMetric_127 (
-    ._zz_in_a      (3'b000                   ), //i
-    ._zz_in_a_1    (3'b111                   ), //i
+    ._zz_in_a      (2'b00                    ), //i
+    ._zz_in_a_1    (2'b11                    ), //i
     ._zz_in_b      (_zz_in_b                 ), //i
     .dist_0        (branchMetric_127_dist_0  ), //o
     .dist_1        (branchMetric_127_dist_1  )  //o
@@ -2741,134 +3441,134 @@ module PathMetric (
     .reset      (reset             )  //i
   );
   assign when_PathMetric_l29 = (raw_data_payload_last && raw_data_valid);
-  assign addCompareSelect_64_dist_0 = {6'd0, candidate_branches_0};
-  assign addCompareSelect_64_dist_1 = {6'd0, candidate_branches_1};
-  assign addCompareSelect_65_dist_0 = {6'd0, candidate_branches_2};
-  assign addCompareSelect_65_dist_1 = {6'd0, candidate_branches_3};
-  assign addCompareSelect_66_dist_0 = {6'd0, candidate_branches_4};
-  assign addCompareSelect_66_dist_1 = {6'd0, candidate_branches_5};
-  assign addCompareSelect_67_dist_0 = {6'd0, candidate_branches_6};
-  assign addCompareSelect_67_dist_1 = {6'd0, candidate_branches_7};
-  assign addCompareSelect_68_dist_0 = {6'd0, candidate_branches_8};
-  assign addCompareSelect_68_dist_1 = {6'd0, candidate_branches_9};
-  assign addCompareSelect_69_dist_0 = {6'd0, candidate_branches_10};
-  assign addCompareSelect_69_dist_1 = {6'd0, candidate_branches_11};
-  assign addCompareSelect_70_dist_0 = {6'd0, candidate_branches_12};
-  assign addCompareSelect_70_dist_1 = {6'd0, candidate_branches_13};
-  assign addCompareSelect_71_dist_0 = {6'd0, candidate_branches_14};
-  assign addCompareSelect_71_dist_1 = {6'd0, candidate_branches_15};
-  assign addCompareSelect_72_dist_0 = {6'd0, candidate_branches_16};
-  assign addCompareSelect_72_dist_1 = {6'd0, candidate_branches_17};
-  assign addCompareSelect_73_dist_0 = {6'd0, candidate_branches_18};
-  assign addCompareSelect_73_dist_1 = {6'd0, candidate_branches_19};
-  assign addCompareSelect_74_dist_0 = {6'd0, candidate_branches_20};
-  assign addCompareSelect_74_dist_1 = {6'd0, candidate_branches_21};
-  assign addCompareSelect_75_dist_0 = {6'd0, candidate_branches_22};
-  assign addCompareSelect_75_dist_1 = {6'd0, candidate_branches_23};
-  assign addCompareSelect_76_dist_0 = {6'd0, candidate_branches_24};
-  assign addCompareSelect_76_dist_1 = {6'd0, candidate_branches_25};
-  assign addCompareSelect_77_dist_0 = {6'd0, candidate_branches_26};
-  assign addCompareSelect_77_dist_1 = {6'd0, candidate_branches_27};
-  assign addCompareSelect_78_dist_0 = {6'd0, candidate_branches_28};
-  assign addCompareSelect_78_dist_1 = {6'd0, candidate_branches_29};
-  assign addCompareSelect_79_dist_0 = {6'd0, candidate_branches_30};
-  assign addCompareSelect_79_dist_1 = {6'd0, candidate_branches_31};
-  assign addCompareSelect_80_dist_0 = {6'd0, candidate_branches_32};
-  assign addCompareSelect_80_dist_1 = {6'd0, candidate_branches_33};
-  assign addCompareSelect_81_dist_0 = {6'd0, candidate_branches_34};
-  assign addCompareSelect_81_dist_1 = {6'd0, candidate_branches_35};
-  assign addCompareSelect_82_dist_0 = {6'd0, candidate_branches_36};
-  assign addCompareSelect_82_dist_1 = {6'd0, candidate_branches_37};
-  assign addCompareSelect_83_dist_0 = {6'd0, candidate_branches_38};
-  assign addCompareSelect_83_dist_1 = {6'd0, candidate_branches_39};
-  assign addCompareSelect_84_dist_0 = {6'd0, candidate_branches_40};
-  assign addCompareSelect_84_dist_1 = {6'd0, candidate_branches_41};
-  assign addCompareSelect_85_dist_0 = {6'd0, candidate_branches_42};
-  assign addCompareSelect_85_dist_1 = {6'd0, candidate_branches_43};
-  assign addCompareSelect_86_dist_0 = {6'd0, candidate_branches_44};
-  assign addCompareSelect_86_dist_1 = {6'd0, candidate_branches_45};
-  assign addCompareSelect_87_dist_0 = {6'd0, candidate_branches_46};
-  assign addCompareSelect_87_dist_1 = {6'd0, candidate_branches_47};
-  assign addCompareSelect_88_dist_0 = {6'd0, candidate_branches_48};
-  assign addCompareSelect_88_dist_1 = {6'd0, candidate_branches_49};
-  assign addCompareSelect_89_dist_0 = {6'd0, candidate_branches_50};
-  assign addCompareSelect_89_dist_1 = {6'd0, candidate_branches_51};
-  assign addCompareSelect_90_dist_0 = {6'd0, candidate_branches_52};
-  assign addCompareSelect_90_dist_1 = {6'd0, candidate_branches_53};
-  assign addCompareSelect_91_dist_0 = {6'd0, candidate_branches_54};
-  assign addCompareSelect_91_dist_1 = {6'd0, candidate_branches_55};
-  assign addCompareSelect_92_dist_0 = {6'd0, candidate_branches_56};
-  assign addCompareSelect_92_dist_1 = {6'd0, candidate_branches_57};
-  assign addCompareSelect_93_dist_0 = {6'd0, candidate_branches_58};
-  assign addCompareSelect_93_dist_1 = {6'd0, candidate_branches_59};
-  assign addCompareSelect_94_dist_0 = {6'd0, candidate_branches_60};
-  assign addCompareSelect_94_dist_1 = {6'd0, candidate_branches_61};
-  assign addCompareSelect_95_dist_0 = {6'd0, candidate_branches_62};
-  assign addCompareSelect_95_dist_1 = {6'd0, candidate_branches_63};
-  assign addCompareSelect_96_dist_0 = {6'd0, candidate_branches_64};
-  assign addCompareSelect_96_dist_1 = {6'd0, candidate_branches_65};
-  assign addCompareSelect_97_dist_0 = {6'd0, candidate_branches_66};
-  assign addCompareSelect_97_dist_1 = {6'd0, candidate_branches_67};
-  assign addCompareSelect_98_dist_0 = {6'd0, candidate_branches_68};
-  assign addCompareSelect_98_dist_1 = {6'd0, candidate_branches_69};
-  assign addCompareSelect_99_dist_0 = {6'd0, candidate_branches_70};
-  assign addCompareSelect_99_dist_1 = {6'd0, candidate_branches_71};
-  assign addCompareSelect_100_dist_0 = {6'd0, candidate_branches_72};
-  assign addCompareSelect_100_dist_1 = {6'd0, candidate_branches_73};
-  assign addCompareSelect_101_dist_0 = {6'd0, candidate_branches_74};
-  assign addCompareSelect_101_dist_1 = {6'd0, candidate_branches_75};
-  assign addCompareSelect_102_dist_0 = {6'd0, candidate_branches_76};
-  assign addCompareSelect_102_dist_1 = {6'd0, candidate_branches_77};
-  assign addCompareSelect_103_dist_0 = {6'd0, candidate_branches_78};
-  assign addCompareSelect_103_dist_1 = {6'd0, candidate_branches_79};
-  assign addCompareSelect_104_dist_0 = {6'd0, candidate_branches_80};
-  assign addCompareSelect_104_dist_1 = {6'd0, candidate_branches_81};
-  assign addCompareSelect_105_dist_0 = {6'd0, candidate_branches_82};
-  assign addCompareSelect_105_dist_1 = {6'd0, candidate_branches_83};
-  assign addCompareSelect_106_dist_0 = {6'd0, candidate_branches_84};
-  assign addCompareSelect_106_dist_1 = {6'd0, candidate_branches_85};
-  assign addCompareSelect_107_dist_0 = {6'd0, candidate_branches_86};
-  assign addCompareSelect_107_dist_1 = {6'd0, candidate_branches_87};
-  assign addCompareSelect_108_dist_0 = {6'd0, candidate_branches_88};
-  assign addCompareSelect_108_dist_1 = {6'd0, candidate_branches_89};
-  assign addCompareSelect_109_dist_0 = {6'd0, candidate_branches_90};
-  assign addCompareSelect_109_dist_1 = {6'd0, candidate_branches_91};
-  assign addCompareSelect_110_dist_0 = {6'd0, candidate_branches_92};
-  assign addCompareSelect_110_dist_1 = {6'd0, candidate_branches_93};
-  assign addCompareSelect_111_dist_0 = {6'd0, candidate_branches_94};
-  assign addCompareSelect_111_dist_1 = {6'd0, candidate_branches_95};
-  assign addCompareSelect_112_dist_0 = {6'd0, candidate_branches_96};
-  assign addCompareSelect_112_dist_1 = {6'd0, candidate_branches_97};
-  assign addCompareSelect_113_dist_0 = {6'd0, candidate_branches_98};
-  assign addCompareSelect_113_dist_1 = {6'd0, candidate_branches_99};
-  assign addCompareSelect_114_dist_0 = {6'd0, candidate_branches_100};
-  assign addCompareSelect_114_dist_1 = {6'd0, candidate_branches_101};
-  assign addCompareSelect_115_dist_0 = {6'd0, candidate_branches_102};
-  assign addCompareSelect_115_dist_1 = {6'd0, candidate_branches_103};
-  assign addCompareSelect_116_dist_0 = {6'd0, candidate_branches_104};
-  assign addCompareSelect_116_dist_1 = {6'd0, candidate_branches_105};
-  assign addCompareSelect_117_dist_0 = {6'd0, candidate_branches_106};
-  assign addCompareSelect_117_dist_1 = {6'd0, candidate_branches_107};
-  assign addCompareSelect_118_dist_0 = {6'd0, candidate_branches_108};
-  assign addCompareSelect_118_dist_1 = {6'd0, candidate_branches_109};
-  assign addCompareSelect_119_dist_0 = {6'd0, candidate_branches_110};
-  assign addCompareSelect_119_dist_1 = {6'd0, candidate_branches_111};
-  assign addCompareSelect_120_dist_0 = {6'd0, candidate_branches_112};
-  assign addCompareSelect_120_dist_1 = {6'd0, candidate_branches_113};
-  assign addCompareSelect_121_dist_0 = {6'd0, candidate_branches_114};
-  assign addCompareSelect_121_dist_1 = {6'd0, candidate_branches_115};
-  assign addCompareSelect_122_dist_0 = {6'd0, candidate_branches_116};
-  assign addCompareSelect_122_dist_1 = {6'd0, candidate_branches_117};
-  assign addCompareSelect_123_dist_0 = {6'd0, candidate_branches_118};
-  assign addCompareSelect_123_dist_1 = {6'd0, candidate_branches_119};
-  assign addCompareSelect_124_dist_0 = {6'd0, candidate_branches_120};
-  assign addCompareSelect_124_dist_1 = {6'd0, candidate_branches_121};
-  assign addCompareSelect_125_dist_0 = {6'd0, candidate_branches_122};
-  assign addCompareSelect_125_dist_1 = {6'd0, candidate_branches_123};
-  assign addCompareSelect_126_dist_0 = {6'd0, candidate_branches_124};
-  assign addCompareSelect_126_dist_1 = {6'd0, candidate_branches_125};
-  assign addCompareSelect_127_dist_0 = {6'd0, candidate_branches_126};
-  assign addCompareSelect_127_dist_1 = {6'd0, candidate_branches_127};
+  assign addCompareSelect_64_dist_0 = {14'd0, candidate_branches_0};
+  assign addCompareSelect_64_dist_1 = {14'd0, candidate_branches_1};
+  assign addCompareSelect_65_dist_0 = {14'd0, candidate_branches_2};
+  assign addCompareSelect_65_dist_1 = {14'd0, candidate_branches_3};
+  assign addCompareSelect_66_dist_0 = {14'd0, candidate_branches_4};
+  assign addCompareSelect_66_dist_1 = {14'd0, candidate_branches_5};
+  assign addCompareSelect_67_dist_0 = {14'd0, candidate_branches_6};
+  assign addCompareSelect_67_dist_1 = {14'd0, candidate_branches_7};
+  assign addCompareSelect_68_dist_0 = {14'd0, candidate_branches_8};
+  assign addCompareSelect_68_dist_1 = {14'd0, candidate_branches_9};
+  assign addCompareSelect_69_dist_0 = {14'd0, candidate_branches_10};
+  assign addCompareSelect_69_dist_1 = {14'd0, candidate_branches_11};
+  assign addCompareSelect_70_dist_0 = {14'd0, candidate_branches_12};
+  assign addCompareSelect_70_dist_1 = {14'd0, candidate_branches_13};
+  assign addCompareSelect_71_dist_0 = {14'd0, candidate_branches_14};
+  assign addCompareSelect_71_dist_1 = {14'd0, candidate_branches_15};
+  assign addCompareSelect_72_dist_0 = {14'd0, candidate_branches_16};
+  assign addCompareSelect_72_dist_1 = {14'd0, candidate_branches_17};
+  assign addCompareSelect_73_dist_0 = {14'd0, candidate_branches_18};
+  assign addCompareSelect_73_dist_1 = {14'd0, candidate_branches_19};
+  assign addCompareSelect_74_dist_0 = {14'd0, candidate_branches_20};
+  assign addCompareSelect_74_dist_1 = {14'd0, candidate_branches_21};
+  assign addCompareSelect_75_dist_0 = {14'd0, candidate_branches_22};
+  assign addCompareSelect_75_dist_1 = {14'd0, candidate_branches_23};
+  assign addCompareSelect_76_dist_0 = {14'd0, candidate_branches_24};
+  assign addCompareSelect_76_dist_1 = {14'd0, candidate_branches_25};
+  assign addCompareSelect_77_dist_0 = {14'd0, candidate_branches_26};
+  assign addCompareSelect_77_dist_1 = {14'd0, candidate_branches_27};
+  assign addCompareSelect_78_dist_0 = {14'd0, candidate_branches_28};
+  assign addCompareSelect_78_dist_1 = {14'd0, candidate_branches_29};
+  assign addCompareSelect_79_dist_0 = {14'd0, candidate_branches_30};
+  assign addCompareSelect_79_dist_1 = {14'd0, candidate_branches_31};
+  assign addCompareSelect_80_dist_0 = {14'd0, candidate_branches_32};
+  assign addCompareSelect_80_dist_1 = {14'd0, candidate_branches_33};
+  assign addCompareSelect_81_dist_0 = {14'd0, candidate_branches_34};
+  assign addCompareSelect_81_dist_1 = {14'd0, candidate_branches_35};
+  assign addCompareSelect_82_dist_0 = {14'd0, candidate_branches_36};
+  assign addCompareSelect_82_dist_1 = {14'd0, candidate_branches_37};
+  assign addCompareSelect_83_dist_0 = {14'd0, candidate_branches_38};
+  assign addCompareSelect_83_dist_1 = {14'd0, candidate_branches_39};
+  assign addCompareSelect_84_dist_0 = {14'd0, candidate_branches_40};
+  assign addCompareSelect_84_dist_1 = {14'd0, candidate_branches_41};
+  assign addCompareSelect_85_dist_0 = {14'd0, candidate_branches_42};
+  assign addCompareSelect_85_dist_1 = {14'd0, candidate_branches_43};
+  assign addCompareSelect_86_dist_0 = {14'd0, candidate_branches_44};
+  assign addCompareSelect_86_dist_1 = {14'd0, candidate_branches_45};
+  assign addCompareSelect_87_dist_0 = {14'd0, candidate_branches_46};
+  assign addCompareSelect_87_dist_1 = {14'd0, candidate_branches_47};
+  assign addCompareSelect_88_dist_0 = {14'd0, candidate_branches_48};
+  assign addCompareSelect_88_dist_1 = {14'd0, candidate_branches_49};
+  assign addCompareSelect_89_dist_0 = {14'd0, candidate_branches_50};
+  assign addCompareSelect_89_dist_1 = {14'd0, candidate_branches_51};
+  assign addCompareSelect_90_dist_0 = {14'd0, candidate_branches_52};
+  assign addCompareSelect_90_dist_1 = {14'd0, candidate_branches_53};
+  assign addCompareSelect_91_dist_0 = {14'd0, candidate_branches_54};
+  assign addCompareSelect_91_dist_1 = {14'd0, candidate_branches_55};
+  assign addCompareSelect_92_dist_0 = {14'd0, candidate_branches_56};
+  assign addCompareSelect_92_dist_1 = {14'd0, candidate_branches_57};
+  assign addCompareSelect_93_dist_0 = {14'd0, candidate_branches_58};
+  assign addCompareSelect_93_dist_1 = {14'd0, candidate_branches_59};
+  assign addCompareSelect_94_dist_0 = {14'd0, candidate_branches_60};
+  assign addCompareSelect_94_dist_1 = {14'd0, candidate_branches_61};
+  assign addCompareSelect_95_dist_0 = {14'd0, candidate_branches_62};
+  assign addCompareSelect_95_dist_1 = {14'd0, candidate_branches_63};
+  assign addCompareSelect_96_dist_0 = {14'd0, candidate_branches_64};
+  assign addCompareSelect_96_dist_1 = {14'd0, candidate_branches_65};
+  assign addCompareSelect_97_dist_0 = {14'd0, candidate_branches_66};
+  assign addCompareSelect_97_dist_1 = {14'd0, candidate_branches_67};
+  assign addCompareSelect_98_dist_0 = {14'd0, candidate_branches_68};
+  assign addCompareSelect_98_dist_1 = {14'd0, candidate_branches_69};
+  assign addCompareSelect_99_dist_0 = {14'd0, candidate_branches_70};
+  assign addCompareSelect_99_dist_1 = {14'd0, candidate_branches_71};
+  assign addCompareSelect_100_dist_0 = {14'd0, candidate_branches_72};
+  assign addCompareSelect_100_dist_1 = {14'd0, candidate_branches_73};
+  assign addCompareSelect_101_dist_0 = {14'd0, candidate_branches_74};
+  assign addCompareSelect_101_dist_1 = {14'd0, candidate_branches_75};
+  assign addCompareSelect_102_dist_0 = {14'd0, candidate_branches_76};
+  assign addCompareSelect_102_dist_1 = {14'd0, candidate_branches_77};
+  assign addCompareSelect_103_dist_0 = {14'd0, candidate_branches_78};
+  assign addCompareSelect_103_dist_1 = {14'd0, candidate_branches_79};
+  assign addCompareSelect_104_dist_0 = {14'd0, candidate_branches_80};
+  assign addCompareSelect_104_dist_1 = {14'd0, candidate_branches_81};
+  assign addCompareSelect_105_dist_0 = {14'd0, candidate_branches_82};
+  assign addCompareSelect_105_dist_1 = {14'd0, candidate_branches_83};
+  assign addCompareSelect_106_dist_0 = {14'd0, candidate_branches_84};
+  assign addCompareSelect_106_dist_1 = {14'd0, candidate_branches_85};
+  assign addCompareSelect_107_dist_0 = {14'd0, candidate_branches_86};
+  assign addCompareSelect_107_dist_1 = {14'd0, candidate_branches_87};
+  assign addCompareSelect_108_dist_0 = {14'd0, candidate_branches_88};
+  assign addCompareSelect_108_dist_1 = {14'd0, candidate_branches_89};
+  assign addCompareSelect_109_dist_0 = {14'd0, candidate_branches_90};
+  assign addCompareSelect_109_dist_1 = {14'd0, candidate_branches_91};
+  assign addCompareSelect_110_dist_0 = {14'd0, candidate_branches_92};
+  assign addCompareSelect_110_dist_1 = {14'd0, candidate_branches_93};
+  assign addCompareSelect_111_dist_0 = {14'd0, candidate_branches_94};
+  assign addCompareSelect_111_dist_1 = {14'd0, candidate_branches_95};
+  assign addCompareSelect_112_dist_0 = {14'd0, candidate_branches_96};
+  assign addCompareSelect_112_dist_1 = {14'd0, candidate_branches_97};
+  assign addCompareSelect_113_dist_0 = {14'd0, candidate_branches_98};
+  assign addCompareSelect_113_dist_1 = {14'd0, candidate_branches_99};
+  assign addCompareSelect_114_dist_0 = {14'd0, candidate_branches_100};
+  assign addCompareSelect_114_dist_1 = {14'd0, candidate_branches_101};
+  assign addCompareSelect_115_dist_0 = {14'd0, candidate_branches_102};
+  assign addCompareSelect_115_dist_1 = {14'd0, candidate_branches_103};
+  assign addCompareSelect_116_dist_0 = {14'd0, candidate_branches_104};
+  assign addCompareSelect_116_dist_1 = {14'd0, candidate_branches_105};
+  assign addCompareSelect_117_dist_0 = {14'd0, candidate_branches_106};
+  assign addCompareSelect_117_dist_1 = {14'd0, candidate_branches_107};
+  assign addCompareSelect_118_dist_0 = {14'd0, candidate_branches_108};
+  assign addCompareSelect_118_dist_1 = {14'd0, candidate_branches_109};
+  assign addCompareSelect_119_dist_0 = {14'd0, candidate_branches_110};
+  assign addCompareSelect_119_dist_1 = {14'd0, candidate_branches_111};
+  assign addCompareSelect_120_dist_0 = {14'd0, candidate_branches_112};
+  assign addCompareSelect_120_dist_1 = {14'd0, candidate_branches_113};
+  assign addCompareSelect_121_dist_0 = {14'd0, candidate_branches_114};
+  assign addCompareSelect_121_dist_1 = {14'd0, candidate_branches_115};
+  assign addCompareSelect_122_dist_0 = {14'd0, candidate_branches_116};
+  assign addCompareSelect_122_dist_1 = {14'd0, candidate_branches_117};
+  assign addCompareSelect_123_dist_0 = {14'd0, candidate_branches_118};
+  assign addCompareSelect_123_dist_1 = {14'd0, candidate_branches_119};
+  assign addCompareSelect_124_dist_0 = {14'd0, candidate_branches_120};
+  assign addCompareSelect_124_dist_1 = {14'd0, candidate_branches_121};
+  assign addCompareSelect_125_dist_0 = {14'd0, candidate_branches_122};
+  assign addCompareSelect_125_dist_1 = {14'd0, candidate_branches_123};
+  assign addCompareSelect_126_dist_0 = {14'd0, candidate_branches_124};
+  assign addCompareSelect_126_dist_1 = {14'd0, candidate_branches_125};
+  assign addCompareSelect_127_dist_0 = {14'd0, candidate_branches_126};
+  assign addCompareSelect_127_dist_1 = {14'd0, candidate_branches_127};
   assign raw_data_ready = raw_data_ready_1;
   assign s_path_payload_fragment = survival_path;
   assign s_path_valid = survival_path_valid;
@@ -3666,7 +4366,7 @@ module PathMetric (
     candidate_branches_0 <= branchMetric_64_dist_0;
     candidate_branches_1 <= branchMetric_64_dist_1;
     if(tbu_finished) begin
-      node_weight_0 <= 8'h0;
+      node_weight_0 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3677,7 +4377,7 @@ module PathMetric (
     candidate_branches_2 <= branchMetric_65_dist_0;
     candidate_branches_3 <= branchMetric_65_dist_1;
     if(tbu_finished) begin
-      node_weight_1 <= 8'h0;
+      node_weight_1 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3688,7 +4388,7 @@ module PathMetric (
     candidate_branches_4 <= branchMetric_66_dist_0;
     candidate_branches_5 <= branchMetric_66_dist_1;
     if(tbu_finished) begin
-      node_weight_2 <= 8'h0;
+      node_weight_2 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3699,7 +4399,7 @@ module PathMetric (
     candidate_branches_6 <= branchMetric_67_dist_0;
     candidate_branches_7 <= branchMetric_67_dist_1;
     if(tbu_finished) begin
-      node_weight_3 <= 8'h0;
+      node_weight_3 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3710,7 +4410,7 @@ module PathMetric (
     candidate_branches_8 <= branchMetric_68_dist_0;
     candidate_branches_9 <= branchMetric_68_dist_1;
     if(tbu_finished) begin
-      node_weight_4 <= 8'h0;
+      node_weight_4 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3721,7 +4421,7 @@ module PathMetric (
     candidate_branches_10 <= branchMetric_69_dist_0;
     candidate_branches_11 <= branchMetric_69_dist_1;
     if(tbu_finished) begin
-      node_weight_5 <= 8'h0;
+      node_weight_5 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3732,7 +4432,7 @@ module PathMetric (
     candidate_branches_12 <= branchMetric_70_dist_0;
     candidate_branches_13 <= branchMetric_70_dist_1;
     if(tbu_finished) begin
-      node_weight_6 <= 8'h0;
+      node_weight_6 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3743,7 +4443,7 @@ module PathMetric (
     candidate_branches_14 <= branchMetric_71_dist_0;
     candidate_branches_15 <= branchMetric_71_dist_1;
     if(tbu_finished) begin
-      node_weight_7 <= 8'h0;
+      node_weight_7 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3754,7 +4454,7 @@ module PathMetric (
     candidate_branches_16 <= branchMetric_72_dist_0;
     candidate_branches_17 <= branchMetric_72_dist_1;
     if(tbu_finished) begin
-      node_weight_8 <= 8'h0;
+      node_weight_8 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3765,7 +4465,7 @@ module PathMetric (
     candidate_branches_18 <= branchMetric_73_dist_0;
     candidate_branches_19 <= branchMetric_73_dist_1;
     if(tbu_finished) begin
-      node_weight_9 <= 8'h0;
+      node_weight_9 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3776,7 +4476,7 @@ module PathMetric (
     candidate_branches_20 <= branchMetric_74_dist_0;
     candidate_branches_21 <= branchMetric_74_dist_1;
     if(tbu_finished) begin
-      node_weight_10 <= 8'h0;
+      node_weight_10 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3787,7 +4487,7 @@ module PathMetric (
     candidate_branches_22 <= branchMetric_75_dist_0;
     candidate_branches_23 <= branchMetric_75_dist_1;
     if(tbu_finished) begin
-      node_weight_11 <= 8'h0;
+      node_weight_11 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3798,7 +4498,7 @@ module PathMetric (
     candidate_branches_24 <= branchMetric_76_dist_0;
     candidate_branches_25 <= branchMetric_76_dist_1;
     if(tbu_finished) begin
-      node_weight_12 <= 8'h0;
+      node_weight_12 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3809,7 +4509,7 @@ module PathMetric (
     candidate_branches_26 <= branchMetric_77_dist_0;
     candidate_branches_27 <= branchMetric_77_dist_1;
     if(tbu_finished) begin
-      node_weight_13 <= 8'h0;
+      node_weight_13 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3820,7 +4520,7 @@ module PathMetric (
     candidate_branches_28 <= branchMetric_78_dist_0;
     candidate_branches_29 <= branchMetric_78_dist_1;
     if(tbu_finished) begin
-      node_weight_14 <= 8'h0;
+      node_weight_14 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3831,7 +4531,7 @@ module PathMetric (
     candidate_branches_30 <= branchMetric_79_dist_0;
     candidate_branches_31 <= branchMetric_79_dist_1;
     if(tbu_finished) begin
-      node_weight_15 <= 8'h0;
+      node_weight_15 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3842,7 +4542,7 @@ module PathMetric (
     candidate_branches_32 <= branchMetric_80_dist_0;
     candidate_branches_33 <= branchMetric_80_dist_1;
     if(tbu_finished) begin
-      node_weight_16 <= 8'h0;
+      node_weight_16 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3853,7 +4553,7 @@ module PathMetric (
     candidate_branches_34 <= branchMetric_81_dist_0;
     candidate_branches_35 <= branchMetric_81_dist_1;
     if(tbu_finished) begin
-      node_weight_17 <= 8'h0;
+      node_weight_17 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3864,7 +4564,7 @@ module PathMetric (
     candidate_branches_36 <= branchMetric_82_dist_0;
     candidate_branches_37 <= branchMetric_82_dist_1;
     if(tbu_finished) begin
-      node_weight_18 <= 8'h0;
+      node_weight_18 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3875,7 +4575,7 @@ module PathMetric (
     candidate_branches_38 <= branchMetric_83_dist_0;
     candidate_branches_39 <= branchMetric_83_dist_1;
     if(tbu_finished) begin
-      node_weight_19 <= 8'h0;
+      node_weight_19 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3886,7 +4586,7 @@ module PathMetric (
     candidate_branches_40 <= branchMetric_84_dist_0;
     candidate_branches_41 <= branchMetric_84_dist_1;
     if(tbu_finished) begin
-      node_weight_20 <= 8'h0;
+      node_weight_20 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3897,7 +4597,7 @@ module PathMetric (
     candidate_branches_42 <= branchMetric_85_dist_0;
     candidate_branches_43 <= branchMetric_85_dist_1;
     if(tbu_finished) begin
-      node_weight_21 <= 8'h0;
+      node_weight_21 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3908,7 +4608,7 @@ module PathMetric (
     candidate_branches_44 <= branchMetric_86_dist_0;
     candidate_branches_45 <= branchMetric_86_dist_1;
     if(tbu_finished) begin
-      node_weight_22 <= 8'h0;
+      node_weight_22 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3919,7 +4619,7 @@ module PathMetric (
     candidate_branches_46 <= branchMetric_87_dist_0;
     candidate_branches_47 <= branchMetric_87_dist_1;
     if(tbu_finished) begin
-      node_weight_23 <= 8'h0;
+      node_weight_23 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3930,7 +4630,7 @@ module PathMetric (
     candidate_branches_48 <= branchMetric_88_dist_0;
     candidate_branches_49 <= branchMetric_88_dist_1;
     if(tbu_finished) begin
-      node_weight_24 <= 8'h0;
+      node_weight_24 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3941,7 +4641,7 @@ module PathMetric (
     candidate_branches_50 <= branchMetric_89_dist_0;
     candidate_branches_51 <= branchMetric_89_dist_1;
     if(tbu_finished) begin
-      node_weight_25 <= 8'h0;
+      node_weight_25 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3952,7 +4652,7 @@ module PathMetric (
     candidate_branches_52 <= branchMetric_90_dist_0;
     candidate_branches_53 <= branchMetric_90_dist_1;
     if(tbu_finished) begin
-      node_weight_26 <= 8'h0;
+      node_weight_26 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3963,7 +4663,7 @@ module PathMetric (
     candidate_branches_54 <= branchMetric_91_dist_0;
     candidate_branches_55 <= branchMetric_91_dist_1;
     if(tbu_finished) begin
-      node_weight_27 <= 8'h0;
+      node_weight_27 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3974,7 +4674,7 @@ module PathMetric (
     candidate_branches_56 <= branchMetric_92_dist_0;
     candidate_branches_57 <= branchMetric_92_dist_1;
     if(tbu_finished) begin
-      node_weight_28 <= 8'h0;
+      node_weight_28 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3985,7 +4685,7 @@ module PathMetric (
     candidate_branches_58 <= branchMetric_93_dist_0;
     candidate_branches_59 <= branchMetric_93_dist_1;
     if(tbu_finished) begin
-      node_weight_29 <= 8'h0;
+      node_weight_29 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -3996,7 +4696,7 @@ module PathMetric (
     candidate_branches_60 <= branchMetric_94_dist_0;
     candidate_branches_61 <= branchMetric_94_dist_1;
     if(tbu_finished) begin
-      node_weight_30 <= 8'h0;
+      node_weight_30 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4007,7 +4707,7 @@ module PathMetric (
     candidate_branches_62 <= branchMetric_95_dist_0;
     candidate_branches_63 <= branchMetric_95_dist_1;
     if(tbu_finished) begin
-      node_weight_31 <= 8'h0;
+      node_weight_31 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4018,7 +4718,7 @@ module PathMetric (
     candidate_branches_64 <= branchMetric_96_dist_0;
     candidate_branches_65 <= branchMetric_96_dist_1;
     if(tbu_finished) begin
-      node_weight_32 <= 8'h0;
+      node_weight_32 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4029,7 +4729,7 @@ module PathMetric (
     candidate_branches_66 <= branchMetric_97_dist_0;
     candidate_branches_67 <= branchMetric_97_dist_1;
     if(tbu_finished) begin
-      node_weight_33 <= 8'h0;
+      node_weight_33 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4040,7 +4740,7 @@ module PathMetric (
     candidate_branches_68 <= branchMetric_98_dist_0;
     candidate_branches_69 <= branchMetric_98_dist_1;
     if(tbu_finished) begin
-      node_weight_34 <= 8'h0;
+      node_weight_34 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4051,7 +4751,7 @@ module PathMetric (
     candidate_branches_70 <= branchMetric_99_dist_0;
     candidate_branches_71 <= branchMetric_99_dist_1;
     if(tbu_finished) begin
-      node_weight_35 <= 8'h0;
+      node_weight_35 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4062,7 +4762,7 @@ module PathMetric (
     candidate_branches_72 <= branchMetric_100_dist_0;
     candidate_branches_73 <= branchMetric_100_dist_1;
     if(tbu_finished) begin
-      node_weight_36 <= 8'h0;
+      node_weight_36 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4073,7 +4773,7 @@ module PathMetric (
     candidate_branches_74 <= branchMetric_101_dist_0;
     candidate_branches_75 <= branchMetric_101_dist_1;
     if(tbu_finished) begin
-      node_weight_37 <= 8'h0;
+      node_weight_37 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4084,7 +4784,7 @@ module PathMetric (
     candidate_branches_76 <= branchMetric_102_dist_0;
     candidate_branches_77 <= branchMetric_102_dist_1;
     if(tbu_finished) begin
-      node_weight_38 <= 8'h0;
+      node_weight_38 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4095,7 +4795,7 @@ module PathMetric (
     candidate_branches_78 <= branchMetric_103_dist_0;
     candidate_branches_79 <= branchMetric_103_dist_1;
     if(tbu_finished) begin
-      node_weight_39 <= 8'h0;
+      node_weight_39 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4106,7 +4806,7 @@ module PathMetric (
     candidate_branches_80 <= branchMetric_104_dist_0;
     candidate_branches_81 <= branchMetric_104_dist_1;
     if(tbu_finished) begin
-      node_weight_40 <= 8'h0;
+      node_weight_40 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4117,7 +4817,7 @@ module PathMetric (
     candidate_branches_82 <= branchMetric_105_dist_0;
     candidate_branches_83 <= branchMetric_105_dist_1;
     if(tbu_finished) begin
-      node_weight_41 <= 8'h0;
+      node_weight_41 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4128,7 +4828,7 @@ module PathMetric (
     candidate_branches_84 <= branchMetric_106_dist_0;
     candidate_branches_85 <= branchMetric_106_dist_1;
     if(tbu_finished) begin
-      node_weight_42 <= 8'h0;
+      node_weight_42 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4139,7 +4839,7 @@ module PathMetric (
     candidate_branches_86 <= branchMetric_107_dist_0;
     candidate_branches_87 <= branchMetric_107_dist_1;
     if(tbu_finished) begin
-      node_weight_43 <= 8'h0;
+      node_weight_43 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4150,7 +4850,7 @@ module PathMetric (
     candidate_branches_88 <= branchMetric_108_dist_0;
     candidate_branches_89 <= branchMetric_108_dist_1;
     if(tbu_finished) begin
-      node_weight_44 <= 8'h0;
+      node_weight_44 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4161,7 +4861,7 @@ module PathMetric (
     candidate_branches_90 <= branchMetric_109_dist_0;
     candidate_branches_91 <= branchMetric_109_dist_1;
     if(tbu_finished) begin
-      node_weight_45 <= 8'h0;
+      node_weight_45 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4172,7 +4872,7 @@ module PathMetric (
     candidate_branches_92 <= branchMetric_110_dist_0;
     candidate_branches_93 <= branchMetric_110_dist_1;
     if(tbu_finished) begin
-      node_weight_46 <= 8'h0;
+      node_weight_46 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4183,7 +4883,7 @@ module PathMetric (
     candidate_branches_94 <= branchMetric_111_dist_0;
     candidate_branches_95 <= branchMetric_111_dist_1;
     if(tbu_finished) begin
-      node_weight_47 <= 8'h0;
+      node_weight_47 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4194,7 +4894,7 @@ module PathMetric (
     candidate_branches_96 <= branchMetric_112_dist_0;
     candidate_branches_97 <= branchMetric_112_dist_1;
     if(tbu_finished) begin
-      node_weight_48 <= 8'h0;
+      node_weight_48 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4205,7 +4905,7 @@ module PathMetric (
     candidate_branches_98 <= branchMetric_113_dist_0;
     candidate_branches_99 <= branchMetric_113_dist_1;
     if(tbu_finished) begin
-      node_weight_49 <= 8'h0;
+      node_weight_49 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4216,7 +4916,7 @@ module PathMetric (
     candidate_branches_100 <= branchMetric_114_dist_0;
     candidate_branches_101 <= branchMetric_114_dist_1;
     if(tbu_finished) begin
-      node_weight_50 <= 8'h0;
+      node_weight_50 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4227,7 +4927,7 @@ module PathMetric (
     candidate_branches_102 <= branchMetric_115_dist_0;
     candidate_branches_103 <= branchMetric_115_dist_1;
     if(tbu_finished) begin
-      node_weight_51 <= 8'h0;
+      node_weight_51 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4238,7 +4938,7 @@ module PathMetric (
     candidate_branches_104 <= branchMetric_116_dist_0;
     candidate_branches_105 <= branchMetric_116_dist_1;
     if(tbu_finished) begin
-      node_weight_52 <= 8'h0;
+      node_weight_52 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4249,7 +4949,7 @@ module PathMetric (
     candidate_branches_106 <= branchMetric_117_dist_0;
     candidate_branches_107 <= branchMetric_117_dist_1;
     if(tbu_finished) begin
-      node_weight_53 <= 8'h0;
+      node_weight_53 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4260,7 +4960,7 @@ module PathMetric (
     candidate_branches_108 <= branchMetric_118_dist_0;
     candidate_branches_109 <= branchMetric_118_dist_1;
     if(tbu_finished) begin
-      node_weight_54 <= 8'h0;
+      node_weight_54 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4271,7 +4971,7 @@ module PathMetric (
     candidate_branches_110 <= branchMetric_119_dist_0;
     candidate_branches_111 <= branchMetric_119_dist_1;
     if(tbu_finished) begin
-      node_weight_55 <= 8'h0;
+      node_weight_55 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4282,7 +4982,7 @@ module PathMetric (
     candidate_branches_112 <= branchMetric_120_dist_0;
     candidate_branches_113 <= branchMetric_120_dist_1;
     if(tbu_finished) begin
-      node_weight_56 <= 8'h0;
+      node_weight_56 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4293,7 +4993,7 @@ module PathMetric (
     candidate_branches_114 <= branchMetric_121_dist_0;
     candidate_branches_115 <= branchMetric_121_dist_1;
     if(tbu_finished) begin
-      node_weight_57 <= 8'h0;
+      node_weight_57 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4304,7 +5004,7 @@ module PathMetric (
     candidate_branches_116 <= branchMetric_122_dist_0;
     candidate_branches_117 <= branchMetric_122_dist_1;
     if(tbu_finished) begin
-      node_weight_58 <= 8'h0;
+      node_weight_58 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4315,7 +5015,7 @@ module PathMetric (
     candidate_branches_118 <= branchMetric_123_dist_0;
     candidate_branches_119 <= branchMetric_123_dist_1;
     if(tbu_finished) begin
-      node_weight_59 <= 8'h0;
+      node_weight_59 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4326,7 +5026,7 @@ module PathMetric (
     candidate_branches_120 <= branchMetric_124_dist_0;
     candidate_branches_121 <= branchMetric_124_dist_1;
     if(tbu_finished) begin
-      node_weight_60 <= 8'h0;
+      node_weight_60 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4337,7 +5037,7 @@ module PathMetric (
     candidate_branches_122 <= branchMetric_125_dist_0;
     candidate_branches_123 <= branchMetric_125_dist_1;
     if(tbu_finished) begin
-      node_weight_61 <= 8'h0;
+      node_weight_61 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4348,7 +5048,7 @@ module PathMetric (
     candidate_branches_124 <= branchMetric_126_dist_0;
     candidate_branches_125 <= branchMetric_126_dist_1;
     if(tbu_finished) begin
-      node_weight_62 <= 8'h0;
+      node_weight_62 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4359,7 +5059,7 @@ module PathMetric (
     candidate_branches_126 <= branchMetric_127_dist_0;
     candidate_branches_127 <= branchMetric_127_dist_1;
     if(tbu_finished) begin
-      node_weight_63 <= 8'h0;
+      node_weight_63 <= 16'h0;
       survival_path <= 64'h0;
     end else begin
       if(raw_data_next) begin
@@ -4756,6 +5456,42 @@ module SISOLifo (
   reg        [0:0]    lifo_data_265;
   reg        [0:0]    lifo_data_266;
   reg        [0:0]    lifo_data_267;
+  reg        [0:0]    lifo_data_268;
+  reg        [0:0]    lifo_data_269;
+  reg        [0:0]    lifo_data_270;
+  reg        [0:0]    lifo_data_271;
+  reg        [0:0]    lifo_data_272;
+  reg        [0:0]    lifo_data_273;
+  reg        [0:0]    lifo_data_274;
+  reg        [0:0]    lifo_data_275;
+  reg        [0:0]    lifo_data_276;
+  reg        [0:0]    lifo_data_277;
+  reg        [0:0]    lifo_data_278;
+  reg        [0:0]    lifo_data_279;
+  reg        [0:0]    lifo_data_280;
+  reg        [0:0]    lifo_data_281;
+  reg        [0:0]    lifo_data_282;
+  reg        [0:0]    lifo_data_283;
+  reg        [0:0]    lifo_data_284;
+  reg        [0:0]    lifo_data_285;
+  reg        [0:0]    lifo_data_286;
+  reg        [0:0]    lifo_data_287;
+  reg        [0:0]    lifo_data_288;
+  reg        [0:0]    lifo_data_289;
+  reg        [0:0]    lifo_data_290;
+  reg        [0:0]    lifo_data_291;
+  reg        [0:0]    lifo_data_292;
+  reg        [0:0]    lifo_data_293;
+  reg        [0:0]    lifo_data_294;
+  reg        [0:0]    lifo_data_295;
+  reg        [0:0]    lifo_data_296;
+  reg        [0:0]    lifo_data_297;
+  reg        [0:0]    lifo_data_298;
+  reg        [0:0]    lifo_data_299;
+  reg        [0:0]    lifo_data_300;
+  reg        [0:0]    lifo_data_301;
+  reg        [0:0]    lifo_data_302;
+  reg        [0:0]    lifo_data_303;
   reg                 lifo_data_last_0;
   reg                 lifo_data_last_1;
   reg                 lifo_data_last_2;
@@ -5024,6 +5760,42 @@ module SISOLifo (
   reg                 lifo_data_last_265;
   reg                 lifo_data_last_266;
   reg                 lifo_data_last_267;
+  reg                 lifo_data_last_268;
+  reg                 lifo_data_last_269;
+  reg                 lifo_data_last_270;
+  reg                 lifo_data_last_271;
+  reg                 lifo_data_last_272;
+  reg                 lifo_data_last_273;
+  reg                 lifo_data_last_274;
+  reg                 lifo_data_last_275;
+  reg                 lifo_data_last_276;
+  reg                 lifo_data_last_277;
+  reg                 lifo_data_last_278;
+  reg                 lifo_data_last_279;
+  reg                 lifo_data_last_280;
+  reg                 lifo_data_last_281;
+  reg                 lifo_data_last_282;
+  reg                 lifo_data_last_283;
+  reg                 lifo_data_last_284;
+  reg                 lifo_data_last_285;
+  reg                 lifo_data_last_286;
+  reg                 lifo_data_last_287;
+  reg                 lifo_data_last_288;
+  reg                 lifo_data_last_289;
+  reg                 lifo_data_last_290;
+  reg                 lifo_data_last_291;
+  reg                 lifo_data_last_292;
+  reg                 lifo_data_last_293;
+  reg                 lifo_data_last_294;
+  reg                 lifo_data_last_295;
+  reg                 lifo_data_last_296;
+  reg                 lifo_data_last_297;
+  reg                 lifo_data_last_298;
+  reg                 lifo_data_last_299;
+  reg                 lifo_data_last_300;
+  reg                 lifo_data_last_301;
+  reg                 lifo_data_last_302;
+  reg                 lifo_data_last_303;
   reg        [8:0]    lifo_head_cursor;
   reg                 lifo_last;
   wire                push_fire;
@@ -5838,8 +6610,116 @@ module SISOLifo (
       9'b100001010 : begin
         _zz_lifo_last = lifo_data_last_266;
       end
-      default : begin
+      9'b100001011 : begin
         _zz_lifo_last = lifo_data_last_267;
+      end
+      9'b100001100 : begin
+        _zz_lifo_last = lifo_data_last_268;
+      end
+      9'b100001101 : begin
+        _zz_lifo_last = lifo_data_last_269;
+      end
+      9'b100001110 : begin
+        _zz_lifo_last = lifo_data_last_270;
+      end
+      9'b100001111 : begin
+        _zz_lifo_last = lifo_data_last_271;
+      end
+      9'b100010000 : begin
+        _zz_lifo_last = lifo_data_last_272;
+      end
+      9'b100010001 : begin
+        _zz_lifo_last = lifo_data_last_273;
+      end
+      9'b100010010 : begin
+        _zz_lifo_last = lifo_data_last_274;
+      end
+      9'b100010011 : begin
+        _zz_lifo_last = lifo_data_last_275;
+      end
+      9'b100010100 : begin
+        _zz_lifo_last = lifo_data_last_276;
+      end
+      9'b100010101 : begin
+        _zz_lifo_last = lifo_data_last_277;
+      end
+      9'b100010110 : begin
+        _zz_lifo_last = lifo_data_last_278;
+      end
+      9'b100010111 : begin
+        _zz_lifo_last = lifo_data_last_279;
+      end
+      9'b100011000 : begin
+        _zz_lifo_last = lifo_data_last_280;
+      end
+      9'b100011001 : begin
+        _zz_lifo_last = lifo_data_last_281;
+      end
+      9'b100011010 : begin
+        _zz_lifo_last = lifo_data_last_282;
+      end
+      9'b100011011 : begin
+        _zz_lifo_last = lifo_data_last_283;
+      end
+      9'b100011100 : begin
+        _zz_lifo_last = lifo_data_last_284;
+      end
+      9'b100011101 : begin
+        _zz_lifo_last = lifo_data_last_285;
+      end
+      9'b100011110 : begin
+        _zz_lifo_last = lifo_data_last_286;
+      end
+      9'b100011111 : begin
+        _zz_lifo_last = lifo_data_last_287;
+      end
+      9'b100100000 : begin
+        _zz_lifo_last = lifo_data_last_288;
+      end
+      9'b100100001 : begin
+        _zz_lifo_last = lifo_data_last_289;
+      end
+      9'b100100010 : begin
+        _zz_lifo_last = lifo_data_last_290;
+      end
+      9'b100100011 : begin
+        _zz_lifo_last = lifo_data_last_291;
+      end
+      9'b100100100 : begin
+        _zz_lifo_last = lifo_data_last_292;
+      end
+      9'b100100101 : begin
+        _zz_lifo_last = lifo_data_last_293;
+      end
+      9'b100100110 : begin
+        _zz_lifo_last = lifo_data_last_294;
+      end
+      9'b100100111 : begin
+        _zz_lifo_last = lifo_data_last_295;
+      end
+      9'b100101000 : begin
+        _zz_lifo_last = lifo_data_last_296;
+      end
+      9'b100101001 : begin
+        _zz_lifo_last = lifo_data_last_297;
+      end
+      9'b100101010 : begin
+        _zz_lifo_last = lifo_data_last_298;
+      end
+      9'b100101011 : begin
+        _zz_lifo_last = lifo_data_last_299;
+      end
+      9'b100101100 : begin
+        _zz_lifo_last = lifo_data_last_300;
+      end
+      9'b100101101 : begin
+        _zz_lifo_last = lifo_data_last_301;
+      end
+      9'b100101110 : begin
+        _zz_lifo_last = lifo_data_last_302;
+      end
+      default : begin
+        _zz_lifo_last = lifo_data_last_303;
       end
     endcase
   end
@@ -6647,8 +7527,116 @@ module SISOLifo (
       9'b100001010 : begin
         _zz_pop_payload_fragment = lifo_data_266;
       end
-      default : begin
+      9'b100001011 : begin
         _zz_pop_payload_fragment = lifo_data_267;
+      end
+      9'b100001100 : begin
+        _zz_pop_payload_fragment = lifo_data_268;
+      end
+      9'b100001101 : begin
+        _zz_pop_payload_fragment = lifo_data_269;
+      end
+      9'b100001110 : begin
+        _zz_pop_payload_fragment = lifo_data_270;
+      end
+      9'b100001111 : begin
+        _zz_pop_payload_fragment = lifo_data_271;
+      end
+      9'b100010000 : begin
+        _zz_pop_payload_fragment = lifo_data_272;
+      end
+      9'b100010001 : begin
+        _zz_pop_payload_fragment = lifo_data_273;
+      end
+      9'b100010010 : begin
+        _zz_pop_payload_fragment = lifo_data_274;
+      end
+      9'b100010011 : begin
+        _zz_pop_payload_fragment = lifo_data_275;
+      end
+      9'b100010100 : begin
+        _zz_pop_payload_fragment = lifo_data_276;
+      end
+      9'b100010101 : begin
+        _zz_pop_payload_fragment = lifo_data_277;
+      end
+      9'b100010110 : begin
+        _zz_pop_payload_fragment = lifo_data_278;
+      end
+      9'b100010111 : begin
+        _zz_pop_payload_fragment = lifo_data_279;
+      end
+      9'b100011000 : begin
+        _zz_pop_payload_fragment = lifo_data_280;
+      end
+      9'b100011001 : begin
+        _zz_pop_payload_fragment = lifo_data_281;
+      end
+      9'b100011010 : begin
+        _zz_pop_payload_fragment = lifo_data_282;
+      end
+      9'b100011011 : begin
+        _zz_pop_payload_fragment = lifo_data_283;
+      end
+      9'b100011100 : begin
+        _zz_pop_payload_fragment = lifo_data_284;
+      end
+      9'b100011101 : begin
+        _zz_pop_payload_fragment = lifo_data_285;
+      end
+      9'b100011110 : begin
+        _zz_pop_payload_fragment = lifo_data_286;
+      end
+      9'b100011111 : begin
+        _zz_pop_payload_fragment = lifo_data_287;
+      end
+      9'b100100000 : begin
+        _zz_pop_payload_fragment = lifo_data_288;
+      end
+      9'b100100001 : begin
+        _zz_pop_payload_fragment = lifo_data_289;
+      end
+      9'b100100010 : begin
+        _zz_pop_payload_fragment = lifo_data_290;
+      end
+      9'b100100011 : begin
+        _zz_pop_payload_fragment = lifo_data_291;
+      end
+      9'b100100100 : begin
+        _zz_pop_payload_fragment = lifo_data_292;
+      end
+      9'b100100101 : begin
+        _zz_pop_payload_fragment = lifo_data_293;
+      end
+      9'b100100110 : begin
+        _zz_pop_payload_fragment = lifo_data_294;
+      end
+      9'b100100111 : begin
+        _zz_pop_payload_fragment = lifo_data_295;
+      end
+      9'b100101000 : begin
+        _zz_pop_payload_fragment = lifo_data_296;
+      end
+      9'b100101001 : begin
+        _zz_pop_payload_fragment = lifo_data_297;
+      end
+      9'b100101010 : begin
+        _zz_pop_payload_fragment = lifo_data_298;
+      end
+      9'b100101011 : begin
+        _zz_pop_payload_fragment = lifo_data_299;
+      end
+      9'b100101100 : begin
+        _zz_pop_payload_fragment = lifo_data_300;
+      end
+      9'b100101101 : begin
+        _zz_pop_payload_fragment = lifo_data_301;
+      end
+      9'b100101110 : begin
+        _zz_pop_payload_fragment = lifo_data_302;
+      end
+      default : begin
+        _zz_pop_payload_fragment = lifo_data_303;
       end
     endcase
   end
@@ -6663,7 +7651,7 @@ module SISOLifo (
   assign pop_valid = (! (push_method || empty));
   assign pop_payload_fragment = (push_method ? 1'b0 : _zz_pop_payload_fragment);
   assign pop_payload_last = (lifo_last && (lifo_head_cursor == 9'h001));
-  assign full = (lifo_head_cursor == 9'h10b);
+  assign full = (lifo_head_cursor == 9'h12f);
   assign empty = (lifo_head_cursor == 9'h0);
   always @(posedge clk or posedge reset) begin
     if(reset) begin
@@ -7488,6 +8476,114 @@ module SISOLifo (
         if(_zz_1[267]) begin
           lifo_data_267 <= push_payload_fragment;
         end
+        if(_zz_1[268]) begin
+          lifo_data_268 <= push_payload_fragment;
+        end
+        if(_zz_1[269]) begin
+          lifo_data_269 <= push_payload_fragment;
+        end
+        if(_zz_1[270]) begin
+          lifo_data_270 <= push_payload_fragment;
+        end
+        if(_zz_1[271]) begin
+          lifo_data_271 <= push_payload_fragment;
+        end
+        if(_zz_1[272]) begin
+          lifo_data_272 <= push_payload_fragment;
+        end
+        if(_zz_1[273]) begin
+          lifo_data_273 <= push_payload_fragment;
+        end
+        if(_zz_1[274]) begin
+          lifo_data_274 <= push_payload_fragment;
+        end
+        if(_zz_1[275]) begin
+          lifo_data_275 <= push_payload_fragment;
+        end
+        if(_zz_1[276]) begin
+          lifo_data_276 <= push_payload_fragment;
+        end
+        if(_zz_1[277]) begin
+          lifo_data_277 <= push_payload_fragment;
+        end
+        if(_zz_1[278]) begin
+          lifo_data_278 <= push_payload_fragment;
+        end
+        if(_zz_1[279]) begin
+          lifo_data_279 <= push_payload_fragment;
+        end
+        if(_zz_1[280]) begin
+          lifo_data_280 <= push_payload_fragment;
+        end
+        if(_zz_1[281]) begin
+          lifo_data_281 <= push_payload_fragment;
+        end
+        if(_zz_1[282]) begin
+          lifo_data_282 <= push_payload_fragment;
+        end
+        if(_zz_1[283]) begin
+          lifo_data_283 <= push_payload_fragment;
+        end
+        if(_zz_1[284]) begin
+          lifo_data_284 <= push_payload_fragment;
+        end
+        if(_zz_1[285]) begin
+          lifo_data_285 <= push_payload_fragment;
+        end
+        if(_zz_1[286]) begin
+          lifo_data_286 <= push_payload_fragment;
+        end
+        if(_zz_1[287]) begin
+          lifo_data_287 <= push_payload_fragment;
+        end
+        if(_zz_1[288]) begin
+          lifo_data_288 <= push_payload_fragment;
+        end
+        if(_zz_1[289]) begin
+          lifo_data_289 <= push_payload_fragment;
+        end
+        if(_zz_1[290]) begin
+          lifo_data_290 <= push_payload_fragment;
+        end
+        if(_zz_1[291]) begin
+          lifo_data_291 <= push_payload_fragment;
+        end
+        if(_zz_1[292]) begin
+          lifo_data_292 <= push_payload_fragment;
+        end
+        if(_zz_1[293]) begin
+          lifo_data_293 <= push_payload_fragment;
+        end
+        if(_zz_1[294]) begin
+          lifo_data_294 <= push_payload_fragment;
+        end
+        if(_zz_1[295]) begin
+          lifo_data_295 <= push_payload_fragment;
+        end
+        if(_zz_1[296]) begin
+          lifo_data_296 <= push_payload_fragment;
+        end
+        if(_zz_1[297]) begin
+          lifo_data_297 <= push_payload_fragment;
+        end
+        if(_zz_1[298]) begin
+          lifo_data_298 <= push_payload_fragment;
+        end
+        if(_zz_1[299]) begin
+          lifo_data_299 <= push_payload_fragment;
+        end
+        if(_zz_1[300]) begin
+          lifo_data_300 <= push_payload_fragment;
+        end
+        if(_zz_1[301]) begin
+          lifo_data_301 <= push_payload_fragment;
+        end
+        if(_zz_1[302]) begin
+          lifo_data_302 <= push_payload_fragment;
+        end
+        if(_zz_1[303]) begin
+          lifo_data_303 <= push_payload_fragment;
+        end
         if(_zz_2[0]) begin
           lifo_data_last_0 <= push_payload_last;
         end
@@ -8292,6 +9388,114 @@ module SISOLifo (
         if(_zz_2[267]) begin
           lifo_data_last_267 <= push_payload_last;
         end
+        if(_zz_2[268]) begin
+          lifo_data_last_268 <= push_payload_last;
+        end
+        if(_zz_2[269]) begin
+          lifo_data_last_269 <= push_payload_last;
+        end
+        if(_zz_2[270]) begin
+          lifo_data_last_270 <= push_payload_last;
+        end
+        if(_zz_2[271]) begin
+          lifo_data_last_271 <= push_payload_last;
+        end
+        if(_zz_2[272]) begin
+          lifo_data_last_272 <= push_payload_last;
+        end
+        if(_zz_2[273]) begin
+          lifo_data_last_273 <= push_payload_last;
+        end
+        if(_zz_2[274]) begin
+          lifo_data_last_274 <= push_payload_last;
+        end
+        if(_zz_2[275]) begin
+          lifo_data_last_275 <= push_payload_last;
+        end
+        if(_zz_2[276]) begin
+          lifo_data_last_276 <= push_payload_last;
+        end
+        if(_zz_2[277]) begin
+          lifo_data_last_277 <= push_payload_last;
+        end
+        if(_zz_2[278]) begin
+          lifo_data_last_278 <= push_payload_last;
+        end
+        if(_zz_2[279]) begin
+          lifo_data_last_279 <= push_payload_last;
+        end
+        if(_zz_2[280]) begin
+          lifo_data_last_280 <= push_payload_last;
+        end
+        if(_zz_2[281]) begin
+          lifo_data_last_281 <= push_payload_last;
+        end
+        if(_zz_2[282]) begin
+          lifo_data_last_282 <= push_payload_last;
+        end
+        if(_zz_2[283]) begin
+          lifo_data_last_283 <= push_payload_last;
+        end
+        if(_zz_2[284]) begin
+          lifo_data_last_284 <= push_payload_last;
+        end
+        if(_zz_2[285]) begin
+          lifo_data_last_285 <= push_payload_last;
+        end
+        if(_zz_2[286]) begin
+          lifo_data_last_286 <= push_payload_last;
+        end
+        if(_zz_2[287]) begin
+          lifo_data_last_287 <= push_payload_last;
+        end
+        if(_zz_2[288]) begin
+          lifo_data_last_288 <= push_payload_last;
+        end
+        if(_zz_2[289]) begin
+          lifo_data_last_289 <= push_payload_last;
+        end
+        if(_zz_2[290]) begin
+          lifo_data_last_290 <= push_payload_last;
+        end
+        if(_zz_2[291]) begin
+          lifo_data_last_291 <= push_payload_last;
+        end
+        if(_zz_2[292]) begin
+          lifo_data_last_292 <= push_payload_last;
+        end
+        if(_zz_2[293]) begin
+          lifo_data_last_293 <= push_payload_last;
+        end
+        if(_zz_2[294]) begin
+          lifo_data_last_294 <= push_payload_last;
+        end
+        if(_zz_2[295]) begin
+          lifo_data_last_295 <= push_payload_last;
+        end
+        if(_zz_2[296]) begin
+          lifo_data_last_296 <= push_payload_last;
+        end
+        if(_zz_2[297]) begin
+          lifo_data_last_297 <= push_payload_last;
+        end
+        if(_zz_2[298]) begin
+          lifo_data_last_298 <= push_payload_last;
+        end
+        if(_zz_2[299]) begin
+          lifo_data_last_299 <= push_payload_last;
+        end
+        if(_zz_2[300]) begin
+          lifo_data_last_300 <= push_payload_last;
+        end
+        if(_zz_2[301]) begin
+          lifo_data_last_301 <= push_payload_last;
+        end
+        if(_zz_2[302]) begin
+          lifo_data_last_302 <= push_payload_last;
+        end
+        if(_zz_2[303]) begin
+          lifo_data_last_303 <= push_payload_last;
+        end
       end
       lifo_last <= 1'b0;
     end else begin
@@ -8460,107 +9664,107 @@ module StreamFifo (
 endmodule
 
 module MinVal (
-  input      [7:0]    data_0,
-  input      [7:0]    data_1,
-  input      [7:0]    data_2,
-  input      [7:0]    data_3,
-  input      [7:0]    data_4,
-  input      [7:0]    data_5,
-  input      [7:0]    data_6,
-  input      [7:0]    data_7,
-  input      [7:0]    data_8,
-  input      [7:0]    data_9,
-  input      [7:0]    data_10,
-  input      [7:0]    data_11,
-  input      [7:0]    data_12,
-  input      [7:0]    data_13,
-  input      [7:0]    data_14,
-  input      [7:0]    data_15,
-  input      [7:0]    data_16,
-  input      [7:0]    data_17,
-  input      [7:0]    data_18,
-  input      [7:0]    data_19,
-  input      [7:0]    data_20,
-  input      [7:0]    data_21,
-  input      [7:0]    data_22,
-  input      [7:0]    data_23,
-  input      [7:0]    data_24,
-  input      [7:0]    data_25,
-  input      [7:0]    data_26,
-  input      [7:0]    data_27,
-  input      [7:0]    data_28,
-  input      [7:0]    data_29,
-  input      [7:0]    data_30,
-  input      [7:0]    data_31,
-  input      [7:0]    data_32,
-  input      [7:0]    data_33,
-  input      [7:0]    data_34,
-  input      [7:0]    data_35,
-  input      [7:0]    data_36,
-  input      [7:0]    data_37,
-  input      [7:0]    data_38,
-  input      [7:0]    data_39,
-  input      [7:0]    data_40,
-  input      [7:0]    data_41,
-  input      [7:0]    data_42,
-  input      [7:0]    data_43,
-  input      [7:0]    data_44,
-  input      [7:0]    data_45,
-  input      [7:0]    data_46,
-  input      [7:0]    data_47,
-  input      [7:0]    data_48,
-  input      [7:0]    data_49,
-  input      [7:0]    data_50,
-  input      [7:0]    data_51,
-  input      [7:0]    data_52,
-  input      [7:0]    data_53,
-  input      [7:0]    data_54,
-  input      [7:0]    data_55,
-  input      [7:0]    data_56,
-  input      [7:0]    data_57,
-  input      [7:0]    data_58,
-  input      [7:0]    data_59,
-  input      [7:0]    data_60,
-  input      [7:0]    data_61,
-  input      [7:0]    data_62,
-  input      [7:0]    data_63,
-  output     [7:0]    min_val,
+  input      [15:0]   data_0,
+  input      [15:0]   data_1,
+  input      [15:0]   data_2,
+  input      [15:0]   data_3,
+  input      [15:0]   data_4,
+  input      [15:0]   data_5,
+  input      [15:0]   data_6,
+  input      [15:0]   data_7,
+  input      [15:0]   data_8,
+  input      [15:0]   data_9,
+  input      [15:0]   data_10,
+  input      [15:0]   data_11,
+  input      [15:0]   data_12,
+  input      [15:0]   data_13,
+  input      [15:0]   data_14,
+  input      [15:0]   data_15,
+  input      [15:0]   data_16,
+  input      [15:0]   data_17,
+  input      [15:0]   data_18,
+  input      [15:0]   data_19,
+  input      [15:0]   data_20,
+  input      [15:0]   data_21,
+  input      [15:0]   data_22,
+  input      [15:0]   data_23,
+  input      [15:0]   data_24,
+  input      [15:0]   data_25,
+  input      [15:0]   data_26,
+  input      [15:0]   data_27,
+  input      [15:0]   data_28,
+  input      [15:0]   data_29,
+  input      [15:0]   data_30,
+  input      [15:0]   data_31,
+  input      [15:0]   data_32,
+  input      [15:0]   data_33,
+  input      [15:0]   data_34,
+  input      [15:0]   data_35,
+  input      [15:0]   data_36,
+  input      [15:0]   data_37,
+  input      [15:0]   data_38,
+  input      [15:0]   data_39,
+  input      [15:0]   data_40,
+  input      [15:0]   data_41,
+  input      [15:0]   data_42,
+  input      [15:0]   data_43,
+  input      [15:0]   data_44,
+  input      [15:0]   data_45,
+  input      [15:0]   data_46,
+  input      [15:0]   data_47,
+  input      [15:0]   data_48,
+  input      [15:0]   data_49,
+  input      [15:0]   data_50,
+  input      [15:0]   data_51,
+  input      [15:0]   data_52,
+  input      [15:0]   data_53,
+  input      [15:0]   data_54,
+  input      [15:0]   data_55,
+  input      [15:0]   data_56,
+  input      [15:0]   data_57,
+  input      [15:0]   data_58,
+  input      [15:0]   data_59,
+  input      [15:0]   data_60,
+  input      [15:0]   data_61,
+  input      [15:0]   data_62,
+  input      [15:0]   data_63,
+  output     [15:0]   min_val,
   output     [5:0]    min_idx,
   input               clk,
   input               reset
 );
-  reg        [7:0]    _zz_min_val;
-  reg        [7:0]    _zz_min_val_1;
-  reg        [7:0]    _zz_min_val_2;
-  reg        [7:0]    _zz_min_val_3;
-  reg        [7:0]    _zz_min_val_4;
-  reg        [7:0]    _zz_min_val_5;
-  reg        [7:0]    _zz_min_val_6;
-  reg        [7:0]    _zz_min_val_7;
-  reg        [7:0]    _zz_min_val_8;
-  reg        [7:0]    _zz_min_val_9;
-  reg        [7:0]    _zz_min_val_10;
-  reg        [7:0]    _zz_min_val_11;
-  reg        [7:0]    _zz_min_val_12;
-  reg        [7:0]    _zz_min_val_13;
-  reg        [7:0]    _zz_min_val_14;
-  reg        [7:0]    _zz_min_val_15;
-  reg        [7:0]    _zz_min_val_16;
-  reg        [7:0]    _zz_min_val_17;
-  reg        [7:0]    _zz_min_val_18;
-  reg        [7:0]    _zz_min_val_19;
-  reg        [7:0]    _zz_min_val_20;
-  reg        [7:0]    _zz_min_val_21;
-  reg        [7:0]    _zz_min_val_22;
-  reg        [7:0]    _zz_min_val_23;
-  reg        [7:0]    _zz_min_val_24;
-  reg        [7:0]    _zz_min_val_25;
-  reg        [7:0]    _zz_min_val_26;
-  reg        [7:0]    _zz_min_val_27;
-  reg        [7:0]    _zz_min_val_28;
-  reg        [7:0]    _zz_min_val_29;
-  reg        [7:0]    _zz_min_val_30;
-  reg        [7:0]    _zz_min_val_31;
+  reg        [15:0]   _zz_min_val;
+  reg        [15:0]   _zz_min_val_1;
+  reg        [15:0]   _zz_min_val_2;
+  reg        [15:0]   _zz_min_val_3;
+  reg        [15:0]   _zz_min_val_4;
+  reg        [15:0]   _zz_min_val_5;
+  reg        [15:0]   _zz_min_val_6;
+  reg        [15:0]   _zz_min_val_7;
+  reg        [15:0]   _zz_min_val_8;
+  reg        [15:0]   _zz_min_val_9;
+  reg        [15:0]   _zz_min_val_10;
+  reg        [15:0]   _zz_min_val_11;
+  reg        [15:0]   _zz_min_val_12;
+  reg        [15:0]   _zz_min_val_13;
+  reg        [15:0]   _zz_min_val_14;
+  reg        [15:0]   _zz_min_val_15;
+  reg        [15:0]   _zz_min_val_16;
+  reg        [15:0]   _zz_min_val_17;
+  reg        [15:0]   _zz_min_val_18;
+  reg        [15:0]   _zz_min_val_19;
+  reg        [15:0]   _zz_min_val_20;
+  reg        [15:0]   _zz_min_val_21;
+  reg        [15:0]   _zz_min_val_22;
+  reg        [15:0]   _zz_min_val_23;
+  reg        [15:0]   _zz_min_val_24;
+  reg        [15:0]   _zz_min_val_25;
+  reg        [15:0]   _zz_min_val_26;
+  reg        [15:0]   _zz_min_val_27;
+  reg        [15:0]   _zz_min_val_28;
+  reg        [15:0]   _zz_min_val_29;
+  reg        [15:0]   _zz_min_val_30;
+  reg        [15:0]   _zz_min_val_31;
   reg        [5:0]    _zz_min_idx;
   reg        [5:0]    _zz_min_idx_1;
   reg        [5:0]    _zz_min_idx_2;
@@ -8593,22 +9797,22 @@ module MinVal (
   reg        [5:0]    _zz_min_idx_29;
   reg        [5:0]    _zz_min_idx_30;
   reg        [5:0]    _zz_min_idx_31;
-  reg        [7:0]    _zz_min_val_32;
-  reg        [7:0]    _zz_min_val_33;
-  reg        [7:0]    _zz_min_val_34;
-  reg        [7:0]    _zz_min_val_35;
-  reg        [7:0]    _zz_min_val_36;
-  reg        [7:0]    _zz_min_val_37;
-  reg        [7:0]    _zz_min_val_38;
-  reg        [7:0]    _zz_min_val_39;
-  reg        [7:0]    _zz_min_val_40;
-  reg        [7:0]    _zz_min_val_41;
-  reg        [7:0]    _zz_min_val_42;
-  reg        [7:0]    _zz_min_val_43;
-  reg        [7:0]    _zz_min_val_44;
-  reg        [7:0]    _zz_min_val_45;
-  reg        [7:0]    _zz_min_val_46;
-  reg        [7:0]    _zz_min_val_47;
+  reg        [15:0]   _zz_min_val_32;
+  reg        [15:0]   _zz_min_val_33;
+  reg        [15:0]   _zz_min_val_34;
+  reg        [15:0]   _zz_min_val_35;
+  reg        [15:0]   _zz_min_val_36;
+  reg        [15:0]   _zz_min_val_37;
+  reg        [15:0]   _zz_min_val_38;
+  reg        [15:0]   _zz_min_val_39;
+  reg        [15:0]   _zz_min_val_40;
+  reg        [15:0]   _zz_min_val_41;
+  reg        [15:0]   _zz_min_val_42;
+  reg        [15:0]   _zz_min_val_43;
+  reg        [15:0]   _zz_min_val_44;
+  reg        [15:0]   _zz_min_val_45;
+  reg        [15:0]   _zz_min_val_46;
+  reg        [15:0]   _zz_min_val_47;
   reg        [5:0]    _zz_min_idx_32;
   reg        [5:0]    _zz_min_idx_33;
   reg        [5:0]    _zz_min_idx_34;
@@ -8625,14 +9829,14 @@ module MinVal (
   reg        [5:0]    _zz_min_idx_45;
   reg        [5:0]    _zz_min_idx_46;
   reg        [5:0]    _zz_min_idx_47;
-  reg        [7:0]    _zz_min_val_48;
-  reg        [7:0]    _zz_min_val_49;
-  reg        [7:0]    _zz_min_val_50;
-  reg        [7:0]    _zz_min_val_51;
-  reg        [7:0]    _zz_min_val_52;
-  reg        [7:0]    _zz_min_val_53;
-  reg        [7:0]    _zz_min_val_54;
-  reg        [7:0]    _zz_min_val_55;
+  reg        [15:0]   _zz_min_val_48;
+  reg        [15:0]   _zz_min_val_49;
+  reg        [15:0]   _zz_min_val_50;
+  reg        [15:0]   _zz_min_val_51;
+  reg        [15:0]   _zz_min_val_52;
+  reg        [15:0]   _zz_min_val_53;
+  reg        [15:0]   _zz_min_val_54;
+  reg        [15:0]   _zz_min_val_55;
   reg        [5:0]    _zz_min_idx_48;
   reg        [5:0]    _zz_min_idx_49;
   reg        [5:0]    _zz_min_idx_50;
@@ -8641,19 +9845,19 @@ module MinVal (
   reg        [5:0]    _zz_min_idx_53;
   reg        [5:0]    _zz_min_idx_54;
   reg        [5:0]    _zz_min_idx_55;
-  reg        [7:0]    _zz_min_val_56;
-  reg        [7:0]    _zz_min_val_57;
-  reg        [7:0]    _zz_min_val_58;
-  reg        [7:0]    _zz_min_val_59;
+  reg        [15:0]   _zz_min_val_56;
+  reg        [15:0]   _zz_min_val_57;
+  reg        [15:0]   _zz_min_val_58;
+  reg        [15:0]   _zz_min_val_59;
   reg        [5:0]    _zz_min_idx_56;
   reg        [5:0]    _zz_min_idx_57;
   reg        [5:0]    _zz_min_idx_58;
   reg        [5:0]    _zz_min_idx_59;
-  reg        [7:0]    _zz_min_val_60;
-  reg        [7:0]    _zz_min_val_61;
+  reg        [15:0]   _zz_min_val_60;
+  reg        [15:0]   _zz_min_val_61;
   reg        [5:0]    _zz_min_idx_60;
   reg        [5:0]    _zz_min_idx_61;
-  reg        [7:0]    _zz_min_val_62;
+  reg        [15:0]   _zz_min_val_62;
   reg        [5:0]    _zz_min_idx_62;
 
   assign min_idx = _zz_min_idx_62;
@@ -9043,15 +10247,15 @@ endmodule
 //BranchMetric replaced by BranchMetric
 
 module AddCompareSelect (
-  input      [7:0]    last_state_weight_0,
-  input      [7:0]    last_state_weight_1,
-  input      [7:0]    dist_0,
-  input      [7:0]    dist_1,
-  output reg [7:0]    state_weight,
+  input      [15:0]   last_state_weight_0,
+  input      [15:0]   last_state_weight_1,
+  input      [15:0]   dist_0,
+  input      [15:0]   dist_1,
+  output reg [15:0]   state_weight,
   output reg          decision
 );
-  wire       [7:0]    branch_weight_0;
-  wire       [7:0]    branch_weight_1;
+  wire       [15:0]   branch_weight_0;
+  wire       [15:0]   branch_weight_1;
   wire                when_AddCompareSelect_l17;
 
   assign branch_weight_0 = (last_state_weight_0 + dist_0);
@@ -9077,19 +10281,19 @@ module AddCompareSelect (
 endmodule
 
 module BranchMetric (
-  input      [2:0]    _zz_in_a,
-  input      [2:0]    _zz_in_a_1,
-  input      [2:0]    _zz_in_b,
+  input      [1:0]    _zz_in_a,
+  input      [1:0]    _zz_in_a_1,
+  input      [1:0]    _zz_in_b,
   output     [1:0]    dist_0,
   output     [1:0]    dist_1
 );
-  wire       [2:0]    hammingDistance_128_distance;
-  wire       [2:0]    hammingDistance_129_distance;
+  wire       [1:0]    hammingDistance_128_distance;
+  wire       [1:0]    hammingDistance_129_distance;
   wire       [1:0]    _zz_dist_0;
   wire       [1:0]    _zz_dist_1;
 
-  assign _zz_dist_0 = hammingDistance_128_distance[1:0];
-  assign _zz_dist_1 = hammingDistance_129_distance[1:0];
+  assign _zz_dist_0 = hammingDistance_128_distance;
+  assign _zz_dist_1 = hammingDistance_129_distance;
   HammingDistance hammingDistance_128 (
     .in_a        (_zz_in_a                      ), //i
     .in_b        (_zz_in_b                      ), //i
@@ -9360,30 +10564,22 @@ endmodule
 //HammingDistance replaced by HammingDistance
 
 module HammingDistance (
-  input      [2:0]    in_a,
-  input      [2:0]    in_b,
-  output     [2:0]    distance
+  input      [1:0]    in_a,
+  input      [1:0]    in_b,
+  output     [1:0]    distance
 );
-  wire       [2:0]    _zz_distance;
-  wire       [2:0]    _zz_distance_1;
+  wire       [1:0]    _zz_distance;
+  wire       [1:0]    _zz_distance_1;
   wire       [0:0]    _zz_distance_2;
-  wire       [2:0]    _zz_distance_3;
-  wire       [2:0]    _zz_distance_4;
-  wire       [2:0]    _zz_distance_5;
-  wire       [0:0]    _zz_distance_6;
-  wire       [2:0]    _zz_distance_7;
-  wire       [0:0]    _zz_distance_8;
-  wire       [2:0]    xorResult;
+  wire       [1:0]    _zz_distance_3;
+  wire       [0:0]    _zz_distance_4;
+  wire       [1:0]    xorResult;
 
   assign _zz_distance = (_zz_distance_1 + _zz_distance_3);
-  assign _zz_distance_2 = xorResult[2];
-  assign _zz_distance_1 = {2'd0, _zz_distance_2};
-  assign _zz_distance_4 = (_zz_distance_5 + _zz_distance_7);
-  assign _zz_distance_3 = _zz_distance_4;
-  assign _zz_distance_6 = xorResult[1];
-  assign _zz_distance_5 = {2'd0, _zz_distance_6};
-  assign _zz_distance_8 = xorResult[0];
-  assign _zz_distance_7 = {2'd0, _zz_distance_8};
+  assign _zz_distance_2 = xorResult[1];
+  assign _zz_distance_1 = {1'd0, _zz_distance_2};
+  assign _zz_distance_4 = xorResult[0];
+  assign _zz_distance_3 = {1'd0, _zz_distance_4};
   assign xorResult = (in_a ^ in_b);
   assign distance = _zz_distance;
 

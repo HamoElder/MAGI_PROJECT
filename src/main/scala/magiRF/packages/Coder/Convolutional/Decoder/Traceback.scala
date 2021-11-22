@@ -63,7 +63,7 @@ case class Traceback(config: ViterbiDecoderConfig) extends Component {
 
     val ram_0_value = survival_path_ram_0.readSync(ram_addr_read)
     val ram_1_value = survival_path_ram_1.readSync(ram_addr_read)
-    val ram_2_value = survival_path_ram_1.readSync(ram_addr_read)
+    val ram_2_value = survival_path_ram_2.readSync(ram_addr_read)
 
 
     val min_cursor = Reg(config.statesType)
