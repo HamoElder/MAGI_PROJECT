@@ -3,6 +3,17 @@ package magiRF.packages.Puncher
 import spinal.lib._
 import spinal.core._
 
+case class DePunchedBundle(dePunchedDataWidth: Int, codeRate: Int) extends Bundle with IMasterSlave {
+    val data: Bits = Bits(dePunchedDataWidth bits)
+    val indicate: Bits = Bits(codeRate bits)
+
+    override def asMaster(): Unit = {
+        out(data, indicate)
+    }
+
+    override type RefOwnerType = this.type
+}
+
 case class DePuncturing(rawDataWidth: Int, softWidth: Int, codeRate: Int, mask: Seq[Int]) extends Component {
     require(softWidth > 0, "raw data width must larger than zero.")
 //    require((rawDataWidth % codeRate) == 0, "The data width must be an integral multiple of the code rate.")
@@ -22,19 +33,20 @@ case class DePuncturing(rawDataWidth: Int, softWidth: Int, codeRate: Int, mask: 
     def cntDataType: UInt = UInt(cntDataWidth bits)
 
     val io = new Bundle{
-        val dummy_bits = in(Bits(softWidth bits))
         val raw_data = slave(Stream(Fragment(rawDataType)))
-        val de_punched_data = master(Stream(Fragment(dePunchedDataType)))
+        val de_punched_data = master(Stream(Fragment(DePunchedBundle(dePunchedDataWidth, codeRate))))
     }
 
     noIoPrefix()
+
+    val dummy_bits: Bits = B(0, softWidth bits)
 
     val mask_rom: Vec[UInt] = Vec(maskDataType, maskDataSize)
     for (idx <- 0 until maskDataSize){
         mask_rom(idx) := mask(idx)
     }
-    val mask_cnt = Reg(maskCntDataType) init(0)
-    val cnt = Reg(cntDataType) init(0)
+    val mask_cnt: UInt = Reg(maskCntDataType) init(0)
+    val cnt: UInt = Reg(cntDataType) init(0)
 
     val raw_data_fragment: Bits = Reg(rawDataType)
     val raw_data_last: Bool = Reg(Bool()) init(False)
@@ -54,9 +66,10 @@ case class DePuncturing(rawDataWidth: Int, softWidth: Int, codeRate: Int, mask: 
         mask_cnt := (mask_cnt === maskCntLimit) ? U(0).resized | (mask_cnt + 1).resized
     }
 
-    io.de_punched_data.fragment := mask_rom(mask_cnt.resized).muxList(B(0),
-        genMaskDePuncturing(raw_data_fragment.subdivideIn(softWidth bits), io.dummy_bits, codeRate, mask.distinct)
+    io.de_punched_data.data := mask_rom(mask_cnt.resized).muxList(B(0),
+        genMaskDePuncturing(raw_data_fragment.subdivideIn(softWidth bits), dummy_bits, codeRate, mask.distinct)
     )
+    io.de_punched_data.indicate := mask_rom(mask_cnt.resized).asBits
     io.de_punched_data.valid := (cnt =/= 0)
     io.de_punched_data.last := (cnt === 1) && raw_data_last
     io.raw_data.ready := (cnt === 0) && (!raw_data_last)

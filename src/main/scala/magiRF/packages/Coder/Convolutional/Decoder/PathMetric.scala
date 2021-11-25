@@ -6,7 +6,7 @@ import utils.common.ValOP.MinVal
 
 case class PathMetric(config: ViterbiDecoderConfig) extends Component {
     val io = new Bundle{
-        val raw_data = slave(Stream(Fragment(config.rawDataType)))
+        val raw_data = slave(Stream(Fragment(config.rawDataIndicateType)))
         val tbu_finished = in(Bool())
 
         val min_idx = out(config.statesType)

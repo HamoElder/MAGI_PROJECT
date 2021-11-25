@@ -42,8 +42,6 @@ VM_CLASSES_FAST += \
 	VConvCombTest__22 \
 	VConvCombTest__23 \
 	VConvCombTest__24 \
-	VConvCombTest__25 \
-	VConvCombTest__26 \
 
 # Generated module classes, non-fast-path, compile with low/medium optimization
 VM_CLASSES_SLOW += \
@@ -61,6 +59,7 @@ VM_SUPPORT_SLOW += \
 	VConvCombTest__Syms \
 	VConvCombTest__Trace__Slow \
 	VConvCombTest__Trace__1__Slow \
+	VConvCombTest__Trace__2__Slow \
 
 # Global classes, need linked once per executable, fast-path, compile with highest optimization
 VM_GLOBAL_FAST += \

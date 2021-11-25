@@ -8,7 +8,6 @@ object DePuncturingSimApp extends App{
         dut.io.raw_data.valid #= false
         dut.io.raw_data.last #= false
         dut.io.de_punched_data.ready #= true
-        dut.io.dummy_bits #= 1
         dut.clockDomain.waitSampling(10)
         dut.io.raw_data.valid #= true
         for(idx <- 0 until 126){

@@ -21,23 +21,23 @@ object ViterbiDecoderSimApp extends App{
         dut.io.raw_data.last #= false
         dut.clockDomain.waitSampling(10)
         dut.io.raw_data.valid #= true
-        dut.io.raw_data.payload.fragment #= 3
+        dut.io.raw_data.payload.data #= 3
         dut.clockDomain.waitSampling(1)
-        dut.io.raw_data.payload.fragment #= 2
+        dut.io.raw_data.payload.data #= 2
         dut.clockDomain.waitSampling(1)
-        dut.io.raw_data.payload.fragment #= 3
+        dut.io.raw_data.payload.data #= 3
         dut.clockDomain.waitSampling(1)
-        dut.io.raw_data.payload.fragment #= 3
+        dut.io.raw_data.payload.data #= 3
         dut.clockDomain.waitSampling(1)
-        dut.io.raw_data.payload.fragment #= 1
+        dut.io.raw_data.payload.data #= 1
         dut.clockDomain.waitSampling(1)
-        dut.io.raw_data.payload.fragment #= 1
+        dut.io.raw_data.payload.data #= 1
         dut.clockDomain.waitSampling(1)
         //        for(idx <- 0 until 1000){
-        //            dut.io.raw_data.payload.fragment #= 3
+        //            dut.io.raw_data.payload.data #= 3
         //            dut.clockDomain.waitSampling(1)
         //        }
-        dut.io.raw_data.payload.fragment #= 3
+        dut.io.raw_data.payload.data #= 3
         dut.io.raw_data.last #= true
         dut.clockDomain.waitSampling(1)
         dut.io.raw_data.valid #= false

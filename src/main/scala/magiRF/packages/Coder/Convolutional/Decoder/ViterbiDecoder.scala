@@ -1,5 +1,6 @@
 package magiRF.packages.Coder.Convolutional.Decoder
 
+import magiRF.packages.Puncher.DePunchedBundle
 import spinal.core._
 import spinal.lib._
 
@@ -8,15 +9,18 @@ case class ViterbiDecoderConfig(
                                    tracebackWinSize: Int,
                                    softWidth       : Int        = 1,
                                    genPoly         : List[Int]  = null,
-                                   useCombLogic    :Boolean     = false
+                                   punctureMask    : Seq[Int]   = null,
+                                   useCombLogic    : Boolean    = false
                                ) {
     require(softWidth > 0, "raw data width must larger than zero.")
     require(tracebackWinSize > 5 * constraintLength, "trace back slide windows size must larger than 5 times constrain length.")
+    def codeRate: Int = genPoly.size
 
     def rawDataWidth: Int = codeRate * softWidth
-    def rawDataType: Bits = Fragment(Bits(rawDataWidth bits))
+    def rawDataType: Bits = Bits(rawDataWidth bits)
+    def rawDataIndicateType: DePunchedBundle = DePunchedBundle(rawDataWidth, codeRate)
 
-    def codeRate: Int = genPoly.size
+    def usePuncturing: Boolean = (punctureMask != null)
 
     def regNum: Int = constraintLength - 1
     def statesNum: Int = Math.pow(2, regNum).toInt
@@ -32,7 +36,7 @@ case class ViterbiDecoderConfig(
     def nodeWeightWidth: Int = 16
     def nodeWeightType: UInt = UInt(nodeWeightWidth bits)
 
-    def distWidth: Int = log2Up(rawDataWidth + 1)
+    def distWidth: Int = log2Up(rawDataWidth + 1) + 1
     def distType: UInt = UInt(distWidth bits)
 
     def combLogicDelay: Int = if(useCombLogic) 0 else constraintLength
@@ -50,7 +54,7 @@ case class ViterbiDecoderConfig(
 
 case class ViterbiDecoder(config: ViterbiDecoderConfig) extends Component {
     val io = new Bundle {
-        val raw_data = slave(Stream(Fragment(config.rawDataType)))
+        val raw_data = slave(Stream(Fragment(config.rawDataIndicateType)))
         val decoded_data = master(Flow(Fragment(config.decodedDataType)))
     }
     noIoPrefix()
@@ -70,10 +74,10 @@ case class ViterbiDecoder(config: ViterbiDecoderConfig) extends Component {
     io.decoded_data << lifo_core.io.decoded_data
 }
 
-object ViterbiDecoderBench {
+object ViterbiDecoderModuleBench {
     def main(args: Array[String]): Unit = {
 //        val viterbi_decoder = ViterbiDecoderConfig(1, 3, 84, 3, List(7, 5))
-        val viterbi_decoder = ViterbiDecoderConfig(7, 84, 1, List(91, 121))
+        val viterbi_decoder = ViterbiDecoderConfig(7, 84, 1, List(91, 121), Seq(3, 1, 3, 1, 3, 1, 3, 1))
         ViterbiGen.TrellisGen(viterbi_decoder)
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
             targetDirectory = "rtl/ViterbiDecoder").generateSystemVerilog(new ViterbiDecoder(viterbi_decoder)).printPruned()

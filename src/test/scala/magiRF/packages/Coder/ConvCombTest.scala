@@ -25,10 +25,10 @@ case class ConvCombTest(encoder_config: ConvEncoderConfig, decoder_config: Viter
     encoder.io.raw_data << io.raw_data
 
     val puncture_core = Puncturing(encoder_config.dataWidth * encoder_config.codeRate, puncture_mask_seq)
-    puncture_core.io.raw_data << encoder.io.coded_data.toStream.queue(16)
+    puncture_core.io.raw_data << encoder.io.coded_data.toStream.queue(fifoDepth)
 
     val de_puncture_core = DePuncturing(puncture_core.punchedDataWidth, decoder_config.softWidth, decoder_config.codeRate, de_puncture_mask_seq)
-    de_puncture_core.io.dummy_bits := 1
+
     de_puncture_core.io.raw_data << puncture_core.io.punched_data.toStream.queue(fifoDepth)
 
     val decoder = ViterbiDecoder(decoder_config)
@@ -38,21 +38,24 @@ case class ConvCombTest(encoder_config: ConvEncoderConfig, decoder_config: Viter
 }
 
 object ConvCombTestSimApp extends App{
+
+    //    val puncture_mask_seq = Seq(0, 8, 1, 9, 2, 10, 3, 11, 4, 12, 5, 13, 6, 14, 7, 15)   // 1 / 2
+    //    val de_puncture_mask_seq = Seq(3, 3, 3, 3, 3, 3, 3, 3)                              // 1 / 2
+    val puncture_mask_seq = Seq(0, 8, 1, 2, 10, 3, 4, 12, 5, 6, 14, 7)                    // 2 / 3
+    val de_puncture_mask_seq = Seq(3, 1, 3, 1, 3, 1, 3, 1)                                // 2 / 3
+    //    val puncture_mask_seq = Seq(0, 8, 1, 2, 10, 3, 11, 4, 5, 13, 6, 14, 7)
+    //    val de_puncture_mask_seq = Seq(3, 1, 3, 3, 1, 3, 3, 1)
+
+
 //    val viterbi_decoder = ViterbiDecoderConfig(3, 16, 1, List(7, 5), false)
 //    val conv_coder_config = ConvEncoderConfig(1, 3, List(7, 5))
-    val viterbi_decoder = ViterbiDecoderConfig(7, 96, 1, List(91, 121))
+    val viterbi_decoder = ViterbiDecoderConfig(7, 84, 1, List(91, 121), de_puncture_mask_seq)
     val conv_coder_config = ConvEncoderConfig(8, 7, List(91, 121))
 //    val viterbi_decoder = ViterbiDecoderConfig(7, 84, 1, List(91, 121, 117))
 //    val conv_coder_config = ConvEncoderConfig(8, 7, List(91, 121, 117))
 
-    val puncture_mask_seq = Seq(0, 8, 1, 9, 2, 10, 3, 11, 4, 12, 5, 13, 6, 14, 7, 15)   // 1 / 2
-    val de_puncture_mask_seq = Seq(3, 3, 3, 3, 3, 3, 3, 3)                              // 1 / 2
-//    val puncture_mask_seq = Seq(0, 8, 1, 2, 10, 3, 4, 12, 5, 6, 14, 7)                    // 2 / 3
-//    val de_puncture_mask_seq = Seq(3, 1, 3, 1, 3, 1, 3, 1)                                // 2 / 3
-//    val puncture_mask_seq = Seq(0, 8, 1, 9, 2, 10, 3, 11, 4, 12, 5, 13, 6, 14, 7)
-//    val de_puncture_mask_seq = Seq(3, 3, 3, 3, 3, 3, 3, 1)
     SimConfig.withWave.allOptimisation.doSim(new ConvCombTest(conv_coder_config, viterbi_decoder, puncture_mask_seq,
-        de_puncture_mask_seq, 512)) { dut =>
+        de_puncture_mask_seq, 2048)) { dut =>
 
         dut.clockDomain.forkStimulus(5)
         dut.io.raw_data.valid #= false
@@ -67,9 +70,9 @@ object ConvCombTestSimApp extends App{
         dut.io.tail_bits.valid #= false
         dut.clockDomain.waitSampling(1)
         dut.io.raw_data.valid #= true
-        for(idx <- 0 until 47){
+        for(idx <- 100 until 300){
 //            dut.io.raw_data.fragment.randomize() // 85
-            dut.io.raw_data.fragment #= idx
+            dut.io.raw_data.fragment #= idx % 256
             dut.clockDomain.waitSampling(1)
         }
         dut.io.raw_data.fragment #= 255
