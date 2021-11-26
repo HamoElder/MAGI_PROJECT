@@ -39,8 +39,6 @@ case class DePuncturing(rawDataWidth: Int, softWidth: Int, codeRate: Int, mask: 
 
     noIoPrefix()
 
-    val dummy_bits: Bits = B(0, softWidth bits)
-
     val mask_rom: Vec[UInt] = Vec(maskDataType, maskDataSize)
     for (idx <- 0 until maskDataSize){
         mask_rom(idx) := mask(idx)
@@ -67,7 +65,7 @@ case class DePuncturing(rawDataWidth: Int, softWidth: Int, codeRate: Int, mask: 
     }
 
     io.de_punched_data.data := mask_rom(mask_cnt.resized).muxList(B(0),
-        genMaskDePuncturing(raw_data_fragment.subdivideIn(softWidth bits), dummy_bits, codeRate, mask.distinct)
+        genMaskDePuncturing(raw_data_fragment.subdivideIn(softWidth bits), B(0, softWidth bits), codeRate, mask.distinct)
     )
     io.de_punched_data.indicate := mask_rom(mask_cnt.resized).asBits
     io.de_punched_data.valid := (cnt =/= 0)

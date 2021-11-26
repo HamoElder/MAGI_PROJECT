@@ -20,7 +20,7 @@ case class ViterbiDecoderConfig(
     def rawDataType: Bits = Bits(rawDataWidth bits)
     def rawDataIndicateType: DePunchedBundle = DePunchedBundle(rawDataWidth, codeRate)
 
-    def usePuncturing: Boolean = (punctureMask != null)
+    def usePuncturing: Boolean = (punctureMask != null) && (punctureMask.distinct.size > 1)
 
     def regNum: Int = constraintLength - 1
     def statesNum: Int = Math.pow(2, regNum).toInt
