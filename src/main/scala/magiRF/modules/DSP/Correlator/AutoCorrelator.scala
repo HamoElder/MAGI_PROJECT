@@ -6,11 +6,13 @@ import utils.bus.IQBundle.IQBundle
 import utils.common.ShiftReg.{ShiftRegister}
 
 case class AutoCorrelatorConfig(
-                                iqWidth       : Int,
-                                delayT        : Int,
-                                slideWinSize  : Int
+                                iqWidth        : Int,
+                                delayT         : Int,
+                                slideWinSize   : Int,
+                                resultDataWidth: Int,
+                                useValidClc    : Boolean = false
                                 ){
-    def correlatorConfig: CorrelatorConfig = CorrelatorConfig(iqWidth, slideWinSize)
+    def correlatorConfig: CorrelatorConfig = CorrelatorConfig(iqWidth, slideWinSize, resultDataWidth, useValidClc)
 }
 
 case class AutoCorrelator(config: AutoCorrelatorConfig) extends Component {
@@ -20,7 +22,10 @@ case class AutoCorrelator(config: AutoCorrelatorConfig) extends Component {
     }
     noIoPrefix()
 
-    val delay_shift_reg = ShiftRegister(io.raw_data, config.delayT, io.raw_data.valid)
+    val delay_shift_reg = if(config.useValidClc)
+        ShiftRegister(io.raw_data, config.delayT, io.raw_data.valid, ~io.raw_data.valid)
+    else
+        ShiftRegister(io.raw_data, config.delayT, io.raw_data.valid)
 
     val corr_core = Correlator(config.correlatorConfig)
     corr_core.io.raw_data_0 << io.raw_data

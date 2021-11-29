@@ -11,22 +11,20 @@ import scala.util.Random
 case class CFOEstimatorConfig(
                               iqWidth               : Int,
                               delayT                : Int,
-                              slideWinSize          : Int,
+                              calcWinSize           : Int,
                               iterations            : Int,
-                              dataTypePeak          : ExpNumber = 10 exp,
-                              dataTypeResolution    : ExpNumber = -5 exp
+                              dataResolutionWidth   : Int = 0
                               ){
     def dataType: SInt = SInt(iqWidth bits)
-    def phiDataType: SFix = SFix(dataTypePeak, dataTypeResolution)
-    def shearWidth: Int = 2 * iqWidth
+    def phiDataType: SFix = SFix(iqWidth - 1 exp, -dataResolutionWidth exp)
 
     def linearRam(n: Int):Seq[Double] = for (i <- 0 until n) yield Math.pow(2.0, -i)
     def arctanRam(n: Int):Seq[Double] = linearRam(n).map(Math.atan)
 
-    def autoCorrelatorConfig: AutoCorrelatorConfig = AutoCorrelatorConfig(iqWidth, 64, 64)
-    def cordicConfig: CordicConfig = CordicConfig(15 exp, -16 exp, iterations = iterations, arctanRam, usePipeline = true)
+    def autoCorrelatorConfig: AutoCorrelatorConfig = AutoCorrelatorConfig(iqWidth, delayT, calcWinSize, iqWidth + calcWinSize, useValidClc = true)
+    def cordicConfig: CordicConfig = CordicConfig(iqWidth - 1 exp, -dataResolutionWidth exp, iterations = iterations, arctanRam, usePipeline = true)
 
-    def cntLimit: Int = 80
+    def cntLimit: Int = calcWinSize + 2 * iqWidth + 2
     def cntWidth: Int = log2Up(cntLimit + 1)
     def cntDataType: UInt = UInt(cntWidth bits)
 }
@@ -35,14 +33,14 @@ case class CFOEstimatorConfig(
 case class CFOEstimator(config : CFOEstimatorConfig) extends Component {
     val io = new Bundle{
         val rotated_data = slave(Flow(IQBundle(config.dataType)))
-        val delta_phi = master(Flow(config.dataType))
+        val delta_phi = master(Flow(config.phiDataType))
     }
     noIoPrefix()
 
-    val scale: SFix = SFix(15 exp, -16 exp)
-    scale := 1.0 / 16.0
+    val phi_scale: SFix = config.phiDataType
+    phi_scale := 1.0 / config.delayT
 
-    val impluse_cnt = Reg(config.cntDataType) init(0)
+    val impulse_cnt = Reg(config.cntDataType) init(0)
     val auto_corr_core = AutoCorrelator(config.autoCorrelatorConfig)
     auto_corr_core.io.raw_data << io.rotated_data
 
@@ -50,20 +48,19 @@ case class CFOEstimator(config : CFOEstimatorConfig) extends Component {
     cordic_core.io.rotate_mode := False
     cordic_core.io.x_u := 0
 
-    cordic_core.io.raw_data.x.raw := auto_corr_core.io.corr_result.cha_i
-    cordic_core.io.raw_data.y.raw := -auto_corr_core.io.corr_result.cha_q
+    cordic_core.io.raw_data.x.raw := auto_corr_core.io.corr_result.cha_i.round((config.autoCorrelatorConfig.resultDataWidth - config.phiDataType.getBitsWidth))
+    cordic_core.io.raw_data.y.raw := -auto_corr_core.io.corr_result.cha_q.round((config.autoCorrelatorConfig.resultDataWidth - config.phiDataType.getBitsWidth))
     cordic_core.io.raw_data.z.raw := 0
     cordic_core.io.raw_data.valid := auto_corr_core.io.corr_result.valid
 
-    io.delta_phi.valid := cordic_core.io.result.valid && (impluse_cnt === config.cntLimit)
+    io.delta_phi.valid := cordic_core.io.result.valid && (impulse_cnt === (config.cntLimit - 1))
 
-    val probe_val = cordic_core.io.result.z * scale
-    io.delta_phi.payload := (probe_val).raw.round(22).sat(26)
-//    io.delta_phi.payload := cordic_core.io.result.z.raw.round(11).sat(5)
+    val scale_val: SFix = cordic_core.io.result.z * phi_scale
+    io.delta_phi.payload.raw := scale_val.raw.round(config.dataResolutionWidth).sat(config.iqWidth)
     when(io.rotated_data.valid){
-        impluse_cnt := (impluse_cnt === config.cntLimit)? U(0) | impluse_cnt + 1
+        impulse_cnt := (impulse_cnt >= (config.cntLimit - 1))? U(0) | impulse_cnt + 1
     }.otherwise{
-        impluse_cnt := 0
+        impulse_cnt := 0
     }
 }
 

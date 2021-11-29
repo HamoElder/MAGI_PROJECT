@@ -123,7 +123,7 @@ case class CordicRotator(config: CordicConfig) extends Component {
 		}
 
 		for (idx <- 1 until config.iterations){
-			val d_n = io.rotate_mode ? (z_n(idx - 1) >= 0) | (y_n(idx - 1) < 0)
+			val d_n = io.rotate_mode ? (!z_n(idx - 1).raw.sign) | (y_n(idx - 1).raw.sign)
 			//	val d_n = io.rotate_mode ? (z_n >= 0) | ((y_n(idx - 1) < 0) ^ (x_n(idx - 1) < 0))
 			val sx = config.dataType
 			sx.raw := (x_n(idx - 1).raw |>> (idx - 1))
@@ -179,7 +179,7 @@ case class CordicRotator(config: CordicConfig) extends Component {
 
 		val at = rot_mem.readSync(address = iterCnt.resized)
 
-		val d_n = io.rotate_mode ? (z_n >= 0) | (y_n < 0)
+		val d_n = io.rotate_mode ? (!z_n.raw.sign) | (y_n.raw.sign)
 		//	val d_n = io.rotate_mode ? (z_n >= 0) | ((y_n < 0) ^ (x_n < 0))
 		val busy = iterCnt =/= 0
 		val raw_data_ready = Reg(Bool()) init(True)

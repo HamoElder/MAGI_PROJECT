@@ -6,11 +6,12 @@ import utils.bus.IQBundle.IQBundle
 import utils.common.ShiftReg.ShiftRegister
 
 case class CorrelatorConfig(
-                                   iqWidth       : Int,
-                                   slideWinSize  : Int
+                                   iqWidth               : Int,
+                                   slideWinSize          : Int,
+                                   intermediateDataWidth : Int,
+                                   useValidClc           : Boolean = false
                                ){
     def dataType: SInt = SInt(iqWidth bits)
-    def intermediateDataWidth: Int = 2 * iqWidth
     def resultDataType: SInt = SInt(intermediateDataWidth bits)
 }
 
@@ -31,8 +32,10 @@ case class Correlator(config: CorrelatorConfig) extends Component{
     val mul_q = RegNext(k1 - k2) init(0)
     val mul_data_valid = RegNext(io.raw_data_0.valid && io.raw_data_1.valid) init(False)
 
-    val slide_win_i = ShiftRegister(mul_i, config.slideWinSize, mul_data_valid)
-    val slide_win_q = ShiftRegister(mul_q, config.slideWinSize, mul_data_valid)
+    val slide_win_i = if(config.useValidClc) ShiftRegister(mul_i, config.slideWinSize, mul_data_valid, ~mul_data_valid)
+    else ShiftRegister(mul_i, config.slideWinSize, mul_data_valid)
+    val slide_win_q = if(config.useValidClc) ShiftRegister(mul_q, config.slideWinSize, mul_data_valid, ~mul_data_valid)
+    else ShiftRegister(mul_q, config.slideWinSize, mul_data_valid)
 
     val corr_result_valid = Reg(Bool()) init(False)
     when(mul_data_valid){
@@ -41,6 +44,10 @@ case class Correlator(config: CorrelatorConfig) extends Component{
         corr_val_q := (corr_val_q - slide_win_q) + mul_q
     }.otherwise{
         corr_result_valid := False
+        if(config.useValidClc){
+            corr_val_i := 0
+            corr_val_q := 0
+        }
     }
     io.corr_result.cha_i := corr_val_i
     io.corr_result.cha_q := corr_val_q
@@ -51,7 +58,7 @@ case class Correlator(config: CorrelatorConfig) extends Component{
 object CorrelatorSimApp extends App{
     import spinal.core.sim._
 
-    val corrlator_config = CorrelatorConfig(16, 4)
+    val corrlator_config = CorrelatorConfig(16, 4, 32)
     SimConfig.withWave.doSim(new Correlator(corrlator_config)){ dut =>
         dut.clockDomain.forkStimulus(5)
         dut.io.raw_data_0.valid #= false

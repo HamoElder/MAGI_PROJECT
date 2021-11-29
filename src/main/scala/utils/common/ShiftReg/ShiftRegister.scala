@@ -15,13 +15,13 @@ case class ShiftRegister[T <: Data](dataType: T, depth: Int, initZero: Boolean, 
     val shift_reg: Vec[T] = if(initZero) Vec(RegInit(dataType.getZero), depth) else Vec(Reg(dataType), depth)
     if(useClear){
         when(io.clc){
+            for(idx <- 0 until depth){
+                shift_reg(idx) := dataType.getZero
+            }
+        }.otherwise{
             shift_reg(0) := io.input
             for(idx <- 1 until depth){
                 shift_reg(idx) := shift_reg(idx - 1)
-            }
-        }.otherwise{
-            for(idx <- 0 until depth){
-                shift_reg(idx) := dataType.getZero
             }
         }
     }

@@ -175,7 +175,7 @@ public:
       signalAccess[1] = new SDataSignalAccess( top.rotated_data_payload_cha_i );
       signalAccess[2] = new SDataSignalAccess( top.rotated_data_payload_cha_q );
       signalAccess[3] = new CDataSignalAccess( top.delta_phi_valid );
-      signalAccess[4] = new SDataSignalAccess( top.delta_phi_payload );
+      signalAccess[4] = new IDataSignalAccess( top.delta_phi_payload );
       signalAccess[5] = new CDataSignalAccess( top.clk );
       signalAccess[6] = new CDataSignalAccess( top.reset );
 

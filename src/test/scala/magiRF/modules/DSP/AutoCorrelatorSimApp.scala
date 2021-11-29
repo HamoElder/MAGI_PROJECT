@@ -7,7 +7,7 @@ import spinal.lib._
 object AutoCorrelatorSimApp extends App{
     import spinal.core.sim._
 
-    val auto_correlation_config = AutoCorrelatorConfig(16, 16, 32)
+    val auto_correlation_config = AutoCorrelatorConfig(16, 16, 32, 32)
     SimConfig.withWave.doSim(new AutoCorrelator(auto_correlation_config)){ dut =>
         dut.clockDomain.forkStimulus(5)
         dut.io.raw_data.valid #= false

@@ -6,11 +6,12 @@ import spinal.core._
 import utils.bus.IQBundle.IQBundle
 
 case class CrossCorrelatorConfig(
-                                    iqWidth       : Int,
-                                    refData       : Array[Complex]
+                                    iqWidth         : Int,
+                                    refData         : Array[Complex],
+                                    resultDataWidth : Int
                                 ){
     def slideWinSize: Int = refData.length + 1
-    def correlatorConfig: CorrelatorConfig = CorrelatorConfig(iqWidth, slideWinSize)
+    def correlatorConfig: CorrelatorConfig = CorrelatorConfig(iqWidth, slideWinSize, resultDataWidth)
     def dataLength: Int = refData.length
     def cntType: UInt = UInt(log2Up(dataLength + 1) bits)
     def preambleI_payload: Seq[SInt] = for(idx <- 0 until dataLength) yield {
@@ -56,7 +57,7 @@ case class CrossCorrelator(config: CrossCorrelatorConfig) extends Component {
 object CrossCorrelatorSimApp extends App{
     import spinal.core.sim._
     import magiRF.top.IEEE802_11.IEEE802_11
-    val cross_correlation_config = CrossCorrelatorConfig(16, IEEE802_11.ltf64.map(_*1000))
+    val cross_correlation_config = CrossCorrelatorConfig(16, IEEE802_11.ltf64.map(_*1000), 32)
     SimConfig.withWave.doSim(new CrossCorrelator(cross_correlation_config)){ dut =>
         dut.clockDomain.forkStimulus(5)
         dut.io.raw_data.valid #= false

@@ -20,8 +20,8 @@ case class PreambleDetectorConfig(
     def gateThresholdDataType: SInt = SInt(gateThresholdWidth bits)
     def corrResultDataType: SInt = gateThresholdDataType
     def useAutoCorr: Boolean = (refData == null)
-    def autoCorrelatorConfig: AutoCorrelatorConfig = AutoCorrelatorConfig(iqWidth, delayT, slideWinSize)
-    def crossCorrelatorConfig: CrossCorrelatorConfig = CrossCorrelatorConfig(iqWidth, refData)
+    def autoCorrelatorConfig: AutoCorrelatorConfig = AutoCorrelatorConfig(iqWidth, delayT, slideWinSize, 2 * iqWidth)
+    def crossCorrelatorConfig: CrossCorrelatorConfig = CrossCorrelatorConfig(iqWidth, refData, 2 * iqWidth)
     def powerMeterConfig: PowerMeterConfig = PowerMeterConfig(iqWidth, slideWinSize)
 }
 
