@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : CFOCorrector
-// Git hash  : 091c6d7bc62eb6f554a6976e328986567b758dcb
+// Git hash  : 3af1add6119f78f1368f916d771a3e67b4945d16
 
 
 
