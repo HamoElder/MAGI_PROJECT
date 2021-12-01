@@ -16,7 +16,7 @@ case class JtagAxi4Debugger(c: SystemDebuggerConfig) extends Component {
 
     val debugger = new SystemDebugger(c)
     debugger.io.remote <> jtagBridge.io.remote
-    debugger.io.mem.toAxi4() <> io.axi
+    debugger.io.mem.toAxi4 <> io.axi
 }
 
 object JtagAxi4DebuggerBench {

@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : ViterbiDecoder
-// Git hash  : 616fad15fe5ffca6ff3029d1c4ff1ae83e7f5242
+// Git hash  : 8f3c532b10de88268de60b069cff9cfa96273852
 
 
 `define TracebackStates_binary_sequential_type [2:0]

@@ -11,7 +11,7 @@ case class SystemDebuggerConfig(memAddressWidth : Int = 32,
                                 memDataWidth : Int = 32,
                                 remoteCmdWidth : Int = 1){
 
-    def getMemAxi4Config = Axi4Config(
+    def getMemAxi4Config: Axi4Config = Axi4Config(
         addressWidth = memAddressWidth,
         dataWidth = memDataWidth,
         useId      = false,

@@ -74,7 +74,7 @@ case class SystemDebuggerMemBus(c: SystemDebuggerConfig) extends Bundle with IMa
         mm
     }
 
-    def toAxi4(): Axi4 = {
+    def toAxi4: Axi4 = {
         assert(c.memDataWidth == 32)
         val busConfig = c.getMemAxi4Config
         val mm = Axi4Shared(busConfig)

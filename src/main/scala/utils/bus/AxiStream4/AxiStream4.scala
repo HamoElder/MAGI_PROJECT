@@ -161,7 +161,7 @@ case class AxiStream4T(config: AxiStream4Config) extends Bundle with IMasterSlav
 case class AxiStream4(config : AxiStream4Config) extends Bundle with IMasterSlave{
     val t = Stream(AxiStream4T(config))
 
-    def transmitData = t
+    def transmitData: Stream[AxiStream4T] = t
 
     def >>(that : AxiStream4): Unit = {
         assert(that.config == this.config)

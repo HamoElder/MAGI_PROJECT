@@ -55,6 +55,6 @@ object MultiDePuncturingBench {
         mask_seq = mask_seq :+ Seq(3, 1, 3, 1, 3, 1, 3, 1)    // 2/3
         val multi_de_puncturing_config = MultiDePuncturingConfig(1, 2, mask_seq)
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
-            targetDirectory = "rtl/DePuncturing").generateSystemVerilog(new MultiDePuncturing(multi_de_puncturing_config)).printPruned().printUnused()
+            targetDirectory = "rtl/MultiDePuncturing").generateSystemVerilog(new MultiDePuncturing(multi_de_puncturing_config)).printPruned().printUnused()
     }
 }

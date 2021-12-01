@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : ConvEncoder
-// Git hash  : 20f2bbecaafb9bca8a0b2f811067904083589e4b
+// Git hash  : 8f3c532b10de88268de60b069cff9cfa96273852
 
 
 

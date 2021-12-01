@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : JtagAxi4Debugger
-// Git hash  : b658d5d080278a1a9ea1a63213ef86ceb6d701be
+// Git hash  : 8f3c532b10de88268de60b069cff9cfa96273852
 
 
 `define JtagState_binary_sequential_type [3:0]
