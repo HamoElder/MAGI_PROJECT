@@ -20,7 +20,6 @@ case class R2MDC(config: FFTConfig) extends Component {
 	when(io.raw_data.fire || cnt >= config.FFTLength){
 		cnt := Mux(cnt === (config.FFTLength * 3 / 2 - 1), U(0), cnt + 1)
 	}
-//	val raw_data_free_run = io.raw_data.fire || (cnt >= dataSize)
 	io.raw_data.ready := cnt < config.FFTLength
 
 	val out0_buf = Vec(Complex(config.dataType), stages + 1)

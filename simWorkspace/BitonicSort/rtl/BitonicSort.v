@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : BitonicSort
-// Git hash  : f551716d88446d93e1dd170a856757e67c11b4e4
+// Git hash  : e86c2de0f4bf47259102e700592686340712fdf0
 
 
 

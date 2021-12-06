@@ -13,11 +13,27 @@ case class BitonicMerge[T <: Data](dataType: HardType[T], dataSize: Int, useSign
     def resultDataType: IdxWithData = IdxWithData(payloadDataType, idxDataType, useSigned)
     val io = new Bundle{
         val raw_data = slave(Stream(dataType))
-        val result_data = master(Stream(resultDataType))
+//        val result_data = master(Stream(resultDataType))
     }
     noIoPrefix()
 
-
-
+    for(stage <- 0 until stages){
+        val cnt: UInt = Reg(UInt(stages + 1 bits)) init(0)
+        when(io.raw_data.fire){
+            cnt := cnt + 1
+        }
+        for(idx <- 0 until stage + 1){
+            println(stage, idx)
+            println(stages, idx)
+        }
+    }
+    io.raw_data.ready := True
 }
 
+
+object BitonicMergeBench{
+    def main(args: Array[String]): Unit ={
+        SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
+            targetDirectory = "rtl").generateSystemVerilog(new BitonicMerge(Bits(16 bits), 16, true)).printPruned().printUnused()
+    }
+}
