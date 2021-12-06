@@ -5,6 +5,100 @@
 #include "VConvCombTest.h"
 #include "VConvCombTest__Syms.h"
 
+VL_INLINE_OPT void VConvCombTest::_combo__TOP__112(VConvCombTest__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_combo__TOP__112\n"); );
+    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
+    vlTOPp->ConvCombTest__DOT__encoder__DOT__code_vec_1 
+        = ((0xfeU & (IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT__code_vec_1)) 
+           | (1U & ((((((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                        >> 1U) ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                  >> 4U)) ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                             >> 5U)) 
+                     ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                        >> 6U)) ^ ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_0) 
+                                   >> 7U))));
+    vlTOPp->ConvCombTest__DOT__encoder__DOT__code_vec_1 
+        = ((0xfdU & (IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT__code_vec_1)) 
+           | (2U & (((((0xfffffffeU & (IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_1)) 
+                       ^ (0x1ffffffeU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_1) 
+                                         >> 3U))) ^ 
+                      (0xffffffeU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_1) 
+                                     >> 4U))) ^ (0x7fffffeU 
+                                                 & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_1) 
+                                                    >> 5U))) 
+                    ^ (0x3fffffeU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_1) 
+                                     >> 6U)))));
+    vlTOPp->ConvCombTest__DOT__encoder__DOT__code_vec_1 
+        = ((0xfbU & (IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT__code_vec_1)) 
+           | (4U & (((((0xfffffffcU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_2) 
+                                       << 1U)) ^ (0x3ffffffcU 
+                                                  & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_2) 
+                                                     >> 2U))) 
+                      ^ (0x1ffffffcU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_2) 
+                                        >> 3U))) ^ 
+                     (0xffffffcU & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_2) 
+                                    >> 4U))) ^ (0x7fffffcU 
+                                                & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_2) 
+                                                   >> 5U)))));
+    vlTOPp->ConvCombTest__DOT__encoder__DOT__code_vec_1 
+        = ((0xf7U & (IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT__code_vec_1)) 
+           | (8U & (((((0xfffffff8U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_3) 
+                                       << 2U)) ^ (0x7ffffff8U 
+                                                  & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_3) 
+                                                     >> 1U))) 
+                      ^ (0x3ffffff8U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_3) 
+                                        >> 2U))) ^ 
+                     (0x1ffffff8U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_3) 
+                                     >> 3U))) ^ (0xffffff8U 
+                                                 & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_3) 
+                                                    >> 4U)))));
+    vlTOPp->ConvCombTest__DOT__encoder__DOT__code_vec_1 
+        = ((0xefU & (IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT__code_vec_1)) 
+           | (0x10U & (((((0xfffffff0U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_4) 
+                                          << 3U)) ^ 
+                          (0xfffffff0U & (IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_4))) 
+                         ^ (0x7ffffff0U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_4) 
+                                           >> 1U))) 
+                        ^ (0x3ffffff0U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_4) 
+                                          >> 2U))) 
+                       ^ (0x1ffffff0U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_4) 
+                                         >> 3U)))));
+    vlTOPp->ConvCombTest__DOT__encoder__DOT__code_vec_1 
+        = ((0xdfU & (IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT__code_vec_1)) 
+           | (0x20U & (((((0xffffffe0U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_5) 
+                                          << 4U)) ^ 
+                          (0xffffffe0U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_5) 
+                                          << 1U))) 
+                         ^ (0xffffffe0U & (IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_5))) 
+                        ^ (0x7fffffe0U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_5) 
+                                          >> 1U))) 
+                       ^ (0x3fffffe0U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_5) 
+                                         >> 2U)))));
+    vlTOPp->ConvCombTest__DOT__encoder__DOT__code_vec_1 
+        = ((0xbfU & (IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT__code_vec_1)) 
+           | (0x40U & (((((0xffffffc0U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_6) 
+                                          << 5U)) ^ 
+                          (0xffffffc0U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_6) 
+                                          << 2U))) 
+                         ^ (0xffffffc0U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_6) 
+                                           << 1U))) 
+                        ^ (0xffffffc0U & (IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_6))) 
+                       ^ (0x7fffffc0U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_6) 
+                                         >> 1U)))));
+    vlTOPp->ConvCombTest__DOT__encoder__DOT__code_vec_1 
+        = ((0x7fU & (IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT__code_vec_1)) 
+           | (0x80U & (((((0xffffff80U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_7) 
+                                          << 6U)) ^ 
+                          (0xffffff80U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_7) 
+                                          << 3U))) 
+                         ^ (0xffffff80U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_7) 
+                                           << 2U))) 
+                        ^ (0xffffff80U & ((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_7) 
+                                          << 1U))) 
+                       ^ (0xffffff80U & (IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT___zz_r_enc_7)))));
+}
+
 VL_INLINE_OPT void VConvCombTest::_sequent__TOP__113(VConvCombTest__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__113\n"); );
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
@@ -17,12 +111,9 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__113(VConvCombTest__Syms* __rest
         = vlTOPp->__Vdly__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_last;
     vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_last 
         = vlTOPp->__Vdly__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_last;
-    vlTOPp->ConvCombTest__DOT__streamFifo_5__DOT___zz_logic_ram_port0 
-        = vlTOPp->ConvCombTest__DOT__streamFifo_5__DOT__logic_ram
-        [vlTOPp->ConvCombTest__DOT__streamFifo_5__DOT__logic_popPtr_valueNext];
-    vlTOPp->ConvCombTest__DOT__streamFifo_6__DOT___zz_logic_ram_port0 
-        = vlTOPp->ConvCombTest__DOT__streamFifo_6__DOT__logic_ram
-        [vlTOPp->ConvCombTest__DOT__streamFifo_6__DOT__logic_popPtr_valueNext];
+    vlTOPp->ConvCombTest__DOT__streamFifo_4__DOT___zz_logic_ram_port0 
+        = vlTOPp->ConvCombTest__DOT__streamFifo_4__DOT__logic_ram
+        [vlTOPp->ConvCombTest__DOT__streamFifo_4__DOT__logic_popPtr_valueNext];
     vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT___zz_decoded_ram_select 
         = (3U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__decoded_ram_select) 
                  - (IData)(1U)));
@@ -75,13 +166,9 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__113(VConvCombTest__Syms* __rest
             }
         }
     }
-    if (vlTOPp->__Vdlyvset__ConvCombTest__DOT__streamFifo_5__DOT__logic_ram__v0) {
-        vlTOPp->ConvCombTest__DOT__streamFifo_5__DOT__logic_ram[vlTOPp->__Vdlyvdim0__ConvCombTest__DOT__streamFifo_5__DOT__logic_ram__v0] 
-            = vlTOPp->__Vdlyvval__ConvCombTest__DOT__streamFifo_5__DOT__logic_ram__v0;
-    }
-    if (vlTOPp->__Vdlyvset__ConvCombTest__DOT__streamFifo_6__DOT__logic_ram__v0) {
-        vlTOPp->ConvCombTest__DOT__streamFifo_6__DOT__logic_ram[vlTOPp->__Vdlyvdim0__ConvCombTest__DOT__streamFifo_6__DOT__logic_ram__v0] 
-            = vlTOPp->__Vdlyvval__ConvCombTest__DOT__streamFifo_6__DOT__logic_ram__v0;
+    if (vlTOPp->__Vdlyvset__ConvCombTest__DOT__streamFifo_4__DOT__logic_ram__v0) {
+        vlTOPp->ConvCombTest__DOT__streamFifo_4__DOT__logic_ram[vlTOPp->__Vdlyvdim0__ConvCombTest__DOT__streamFifo_4__DOT__logic_ram__v0] 
+            = vlTOPp->__Vdlyvval__ConvCombTest__DOT__streamFifo_4__DOT__logic_ram__v0;
     }
     if (vlTOPp->__Vdlyvset__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram__v0) {
         vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram[vlTOPp->__Vdlyvdim0__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram__v0] 
@@ -102,18 +189,12 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__114(VConvCombTest__Syms* __rest
             & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__decoded_ram_select) 
                == (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_select))) 
            | (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__pkg_tail));
-    vlTOPp->ConvCombTest__DOT__streamFifo_5__DOT__logic_popPtr_valueNext 
-        = (0x7ffU & ((IData)(vlTOPp->ConvCombTest__DOT__streamFifo_5__DOT__logic_popPtr_value) 
-                     + (IData)(vlTOPp->ConvCombTest__DOT__streamFifo_5__DOT__logic_popPtr_willIncrement)));
-    vlTOPp->ConvCombTest__DOT__streamFifo_6__DOT__logic_popPtr_valueNext 
-        = (0x7ffU & ((IData)(vlTOPp->ConvCombTest__DOT__streamFifo_6__DOT__logic_popPtr_value) 
-                     + (IData)(vlTOPp->ConvCombTest__DOT__streamFifo_6__DOT__logic_popPtr_willIncrement)));
     vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_popPtr_valueNext 
         = (0xfU & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_popPtr_value) 
                    + (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_popPtr_willIncrement)));
     vlTOPp->ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_popPtr_valueNext 
-        = (0x7ffU & ((IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_popPtr_value) 
-                     + (IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_popPtr_willIncrement)));
+        = (7U & ((IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_popPtr_value) 
+                 + (IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_popPtr_willIncrement)));
     vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tail_repeat 
         = vlTOPp->__Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__tail_repeat;
     vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_addr_read 
@@ -135,6 +216,15 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__114(VConvCombTest__Syms* __rest
     vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state_string[2U] 
         = vlTOPp->__Vtable5_ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state_string
         [vlTOPp->__Vtableidx5][2U];
+}
+
+VL_INLINE_OPT void VConvCombTest::_combo__TOP__115(VConvCombTest__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_combo__TOP__115\n"); );
+    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
+    vlTOPp->ConvCombTest__DOT__streamFifo_4__DOT__logic_popPtr_valueNext 
+        = (0x7ffU & ((IData)(vlTOPp->ConvCombTest__DOT__streamFifo_4__DOT__logic_popPtr_value) 
+                     + (IData)(vlTOPp->ConvCombTest__DOT__streamFifo_4__DOT__logic_popPtr_willIncrement)));
 }
 
 void VConvCombTest::_eval(VConvCombTest__Syms* __restrict vlSymsp) {
@@ -216,8 +306,8 @@ void VConvCombTest::_eval(VConvCombTest__Syms* __restrict vlSymsp) {
         vlTOPp->_settle__TOP__4(vlSymsp);
         vlTOPp->_settle__TOP__5(vlSymsp);
         vlTOPp->_sequent__TOP__109(vlSymsp);
-        vlTOPp->_sequent__TOP__110(vlSymsp);
     }
+    vlTOPp->_combo__TOP__111(vlSymsp);
     vlTOPp->_combo__TOP__112(vlSymsp);
     if (((IData)(vlTOPp->clk) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk)))) {
         vlTOPp->_sequent__TOP__113(vlSymsp);
@@ -228,6 +318,7 @@ void VConvCombTest::_eval(VConvCombTest__Syms* __restrict vlSymsp) {
         vlTOPp->_sequent__TOP__114(vlSymsp);
         vlTOPp->__Vm_traceActivity = (0x20U | vlTOPp->__Vm_traceActivity);
     }
+    vlTOPp->_combo__TOP__115(vlSymsp);
     // Final
     vlTOPp->__Vclklast__TOP__clk = vlTOPp->clk;
     vlTOPp->__Vclklast__TOP__reset = vlTOPp->reset;
@@ -263,6 +354,8 @@ void VConvCombTest::_eval_debug_assertions() {
         Verilated::overWidthError("raw_data_payload_last");}
     if (VL_UNLIKELY((decoded_data_ready & 0xfeU))) {
         Verilated::overWidthError("decoded_data_ready");}
+    if (VL_UNLIKELY((sel & 0xfeU))) {
+        Verilated::overWidthError("sel");}
     if (VL_UNLIKELY((clk & 0xfeU))) {
         Verilated::overWidthError("clk");}
     if (VL_UNLIKELY((reset & 0xfeU))) {

@@ -96,11 +96,11 @@ case class Complex(dataType: SFix) extends Bundle with IMasterSlave with complex
 }
 
 case class R2ButterflyIO(dataType: SFix) extends Bundle with IMasterSlave{
-  val in1 = Complex(dataType)
-  val in2 = Complex(dataType)
-  val wn = Complex(dataType)
-  val out1 = Complex(dataType)
-  val out2 = Complex(dataType)
+  val in1: Complex = Complex(dataType)
+  val in2: Complex = Complex(dataType)
+  val wn: Complex = Complex(dataType)
+  val out1: Complex = Complex(dataType)
+  val out2: Complex = Complex(dataType)
 
   override def asMaster(): Unit = {
     master(out1, out2)
@@ -114,9 +114,9 @@ case class R2Butterfly(dataType: SFix) extends Component {
   val io = master(R2ButterflyIO(dataType))
   noIoPrefix()
 
-  val add_result = io.in1 + io.in2
-  val sub_result = io.in1 - io.in2
-  val mul_result = sub_result * io.wn
+  val add_result: Complex = io.in1 + io.in2
+  val sub_result: Complex = io.in1 - io.in2
+  val mul_result: Complex = sub_result * io.wn
 
   io.out1 := add_result
   io.out2 := mul_result

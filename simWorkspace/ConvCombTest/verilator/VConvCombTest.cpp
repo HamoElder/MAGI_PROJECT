@@ -71,6 +71,13 @@ VL_INLINE_OPT void VConvCombTest::_combo__TOP__1(VConvCombTest__Syms* __restrict
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->raw_data_ready = (1U & (~ (IData)(vlTOPp->tail_bits_valid)));
+    vlTOPp->ConvCombTest__DOT__puncture_core__DOT__streamDemux_2_io_input_ready = 0U;
+    if ((1U & (~ (IData)(vlTOPp->sel)))) {
+        vlTOPp->ConvCombTest__DOT__puncture_core__DOT__streamDemux_2_io_input_ready = 1U;
+    }
+    if (vlTOPp->sel) {
+        vlTOPp->ConvCombTest__DOT__puncture_core__DOT__streamDemux_2_io_input_ready = 1U;
+    }
 }
 
 VL_INLINE_OPT void VConvCombTest::_settle__TOP__3(VConvCombTest__Syms* __restrict vlSymsp) {

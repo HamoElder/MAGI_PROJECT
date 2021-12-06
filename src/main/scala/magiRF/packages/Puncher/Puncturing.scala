@@ -36,8 +36,8 @@ case class Puncturing(rawDataWidth: Int, mask: Seq[Int]) extends Component {
 
 object PuncturingBench {
     def main(args: Array[String]): Unit = {
-        val mask_seq_1_2 = Seq(15, 7, 14, 6, 13, 5, 12, 4, 11, 3, 10, 2, 9, 1, 8, 0)   // 1/2
-        val mask_seq_2_3 = Seq(15, 7, 14, 13, 5, 12, 11, 3, 10, 9, 1, 8)               // 2/3
+        val mask_seq_1_2 = Seq(0, 8, 1, 9, 2, 10, 3, 11, 4, 12, 5, 13, 6, 14, 7, 15)   // 1 / 2
+        val mask_seq_2_3 = Seq(0, 8, 1, 2, 10, 3, 4, 12, 5, 6, 14, 7)                    // 2 / 3
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
             targetDirectory = "rtl/Puncturing").generateSystemVerilog(new Puncturing(16, mask_seq_2_3))
             .printPruned().printUnused()

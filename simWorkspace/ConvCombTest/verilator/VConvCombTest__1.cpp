@@ -1254,12 +1254,11 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__30(VConvCombTest__Syms* __restr
     vlTOPp->__Vdlyvset__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__survival_path_ram_2__v0 = 0U;
     vlTOPp->__Vdlyvset__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__survival_path_ram_1__v0 = 0U;
     vlTOPp->__Vdlyvset__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__survival_path_ram_0__v0 = 0U;
-    vlTOPp->__Vdlyvset__ConvCombTest__DOT__streamFifo_5__DOT__logic_ram__v0 = 0U;
     vlTOPp->__Vdly__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_last 
         = vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_last;
     vlTOPp->__Vdly__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_last 
         = vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_last;
-    vlTOPp->__Vdlyvset__ConvCombTest__DOT__streamFifo_6__DOT__logic_ram__v0 = 0U;
+    vlTOPp->__Vdlyvset__ConvCombTest__DOT__streamFifo_4__DOT__logic_ram__v0 = 0U;
     vlTOPp->__Vdlyvset__ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_ram__v0 = 0U;
     vlTOPp->__Vdlyvset__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT__logic_ram__v0 = 0U;
 }
@@ -1268,7 +1267,7 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__37(VConvCombTest__Syms* __restr
     VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__37\n"); );
     VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->__Vdlyvset__ConvCombTest__DOT__streamFifo_7__DOT__logic_ram__v0 = 0U;
+    vlTOPp->__Vdlyvset__ConvCombTest__DOT__streamFifo_5__DOT__logic_ram__v0 = 0U;
     if ((1U & (~ ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state) 
                   >> 2U)))) {
         if ((2U & (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state))) {
@@ -1297,6 +1296,10 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__37(VConvCombTest__Syms* __restr
             ? vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__survival_path_ram_0
            [vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_addr_read]
             : vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT____Vxrand2);
+    vlTOPp->ConvCombTest__DOT__puncture_core__DOT__puncturing_3__DOT__raw_data_fragment 
+        = vlTOPp->ConvCombTest__DOT__encoder__DOT__coded_data;
+    vlTOPp->ConvCombTest__DOT__puncture_core__DOT__puncturing_2__DOT__raw_data_fragment 
+        = vlTOPp->ConvCombTest__DOT__encoder__DOT__coded_data;
     if ((4U & (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state))) {
         if ((2U & (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state))) {
             if ((0xa7U == (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_addr_read))) {

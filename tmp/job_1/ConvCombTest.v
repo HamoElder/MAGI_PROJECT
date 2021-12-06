@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : ConvCombTest
-// Git hash  : bab96f7394a94536912c9e659c120f47ad131a57
+// Git hash  : f551716d88446d93e1dd170a856757e67c11b4e4
 
 
 `define TracebackStates_binary_sequential_type [2:0]
@@ -27,10 +27,11 @@ module ConvCombTest (
   input               decoded_data_ready,
   output              decoded_data_payload_last,
   output     [7:0]    decoded_data_payload_fragment,
+  input      [0:0]    sel,
   input               clk,
   input               reset
 );
-  wire                streamFifo_7_io_pop_ready;
+  wire                streamFifo_5_io_pop_ready;
   wire                encoder_raw_data_ready;
   wire                encoder_coded_data_valid;
   wire                encoder_coded_data_payload_last;
@@ -38,24 +39,18 @@ module ConvCombTest (
   wire                puncture_core_raw_data_ready;
   wire                puncture_core_punched_data_valid;
   wire                puncture_core_punched_data_payload_last;
-  wire       [11:0]   puncture_core_punched_data_payload_fragment;
-  wire                streamFifo_5_io_push_ready;
-  wire                streamFifo_5_io_pop_valid;
-  wire                streamFifo_5_io_pop_payload_last;
-  wire       [15:0]   streamFifo_5_io_pop_payload_fragment;
-  wire       [11:0]   streamFifo_5_io_occupancy;
-  wire       [11:0]   streamFifo_5_io_availability;
+  wire       [15:0]   puncture_core_punched_data_payload_fragment;
   wire                de_puncture_core_raw_data_ready;
   wire                de_puncture_core_de_punched_data_valid;
   wire                de_puncture_core_de_punched_data_payload_last;
   wire       [1:0]    de_puncture_core_de_punched_data_payload_fragment_data;
   wire       [1:0]    de_puncture_core_de_punched_data_payload_fragment_indicate;
-  wire                streamFifo_6_io_push_ready;
-  wire                streamFifo_6_io_pop_valid;
-  wire                streamFifo_6_io_pop_payload_last;
-  wire       [11:0]   streamFifo_6_io_pop_payload_fragment;
-  wire       [11:0]   streamFifo_6_io_occupancy;
-  wire       [11:0]   streamFifo_6_io_availability;
+  wire                streamFifo_4_io_push_ready;
+  wire                streamFifo_4_io_pop_valid;
+  wire                streamFifo_4_io_pop_payload_last;
+  wire       [15:0]   streamFifo_4_io_pop_payload_fragment;
+  wire       [11:0]   streamFifo_4_io_occupancy;
+  wire       [11:0]   streamFifo_4_io_availability;
   wire                decoder_raw_data_ready;
   wire                decoder_decoded_data_valid;
   wire                decoder_decoded_data_payload_last;
@@ -65,24 +60,24 @@ module ConvCombTest (
   wire                de_puncture_core_de_punched_data_fifo_io_pop_payload_last;
   wire       [1:0]    de_puncture_core_de_punched_data_fifo_io_pop_payload_fragment_data;
   wire       [1:0]    de_puncture_core_de_punched_data_fifo_io_pop_payload_fragment_indicate;
-  wire       [11:0]   de_puncture_core_de_punched_data_fifo_io_occupancy;
-  wire       [11:0]   de_puncture_core_de_punched_data_fifo_io_availability;
-  wire                streamFifo_7_io_push_ready;
-  wire                streamFifo_7_io_pop_valid;
-  wire                streamFifo_7_io_pop_payload_last;
-  wire       [0:0]    streamFifo_7_io_pop_payload_fragment;
-  wire       [11:0]   streamFifo_7_io_occupancy;
-  wire       [11:0]   streamFifo_7_io_availability;
+  wire       [3:0]    de_puncture_core_de_punched_data_fifo_io_occupancy;
+  wire       [3:0]    de_puncture_core_de_punched_data_fifo_io_availability;
+  wire                streamFifo_5_io_push_ready;
+  wire                streamFifo_5_io_pop_valid;
+  wire                streamFifo_5_io_pop_payload_last;
+  wire       [0:0]    streamFifo_5_io_pop_payload_fragment;
+  wire       [11:0]   streamFifo_5_io_occupancy;
+  wire       [11:0]   streamFifo_5_io_availability;
   wire       [2:0]    _zz__zz_decoded_data_valid_1;
   wire       [0:0]    _zz__zz_decoded_data_valid_1_1;
   wire       [5:0]    _zz__zz_decoded_data_payload_fragment;
-  wire                streamFifo_7_io_pop_fire;
+  wire                streamFifo_5_io_pop_fire;
   reg                 _zz_decoded_data_valid;
   reg        [2:0]    _zz_decoded_data_valid_1;
   reg        [2:0]    _zz_decoded_data_valid_2;
   wire                _zz_decoded_data_valid_3;
   reg        [6:0]    _zz_decoded_data_payload_fragment;
-  wire                streamFifo_7_io_pop_fire_1;
+  wire                streamFifo_5_io_pop_fire_1;
 
   assign _zz__zz_decoded_data_valid_1_1 = _zz_decoded_data_valid;
   assign _zz__zz_decoded_data_valid_1 = {2'd0, _zz__zz_decoded_data_valid_1_1};
@@ -100,57 +95,44 @@ module ConvCombTest (
     .clk                            (clk                                  ), //i
     .reset                          (reset                                )  //i
   );
-  Puncturing puncture_core (
-    .raw_data_valid                   (streamFifo_5_io_pop_valid                    ), //i
+  MultiPuncturing puncture_core (
+    .raw_data_valid                   (encoder_coded_data_valid                     ), //i
     .raw_data_ready                   (puncture_core_raw_data_ready                 ), //o
-    .raw_data_payload_last            (streamFifo_5_io_pop_payload_last             ), //i
-    .raw_data_payload_fragment        (streamFifo_5_io_pop_payload_fragment         ), //i
+    .raw_data_payload_last            (encoder_coded_data_payload_last              ), //i
+    .raw_data_payload_fragment        (encoder_coded_data_payload_fragment          ), //i
     .punched_data_valid               (puncture_core_punched_data_valid             ), //o
     .punched_data_payload_last        (puncture_core_punched_data_payload_last      ), //o
     .punched_data_payload_fragment    (puncture_core_punched_data_payload_fragment  ), //o
+    .sel                              (sel                                          ), //i
     .clk                              (clk                                          ), //i
     .reset                            (reset                                        )  //i
   );
-  StreamFifo_1 streamFifo_5 (
-    .io_push_valid               (encoder_coded_data_valid              ), //i
-    .io_push_ready               (streamFifo_5_io_push_ready            ), //o
-    .io_push_payload_last        (encoder_coded_data_payload_last       ), //i
-    .io_push_payload_fragment    (encoder_coded_data_payload_fragment   ), //i
-    .io_pop_valid                (streamFifo_5_io_pop_valid             ), //o
-    .io_pop_ready                (puncture_core_raw_data_ready          ), //i
-    .io_pop_payload_last         (streamFifo_5_io_pop_payload_last      ), //o
-    .io_pop_payload_fragment     (streamFifo_5_io_pop_payload_fragment  ), //o
-    .io_flush                    (1'b0                                  ), //i
-    .io_occupancy                (streamFifo_5_io_occupancy             ), //o
-    .io_availability             (streamFifo_5_io_availability          ), //o
-    .clk                         (clk                                   ), //i
-    .reset                       (reset                                 )  //i
-  );
-  DePuncturing de_puncture_core (
-    .raw_data_valid                               (streamFifo_6_io_pop_valid                                   ), //i
+  MultiDePuncturing de_puncture_core (
+    .raw_data_valid                               (streamFifo_4_io_pop_valid                                   ), //i
     .raw_data_ready                               (de_puncture_core_raw_data_ready                             ), //o
-    .raw_data_payload_last                        (streamFifo_6_io_pop_payload_last                            ), //i
-    .raw_data_payload_fragment                    (streamFifo_6_io_pop_payload_fragment                        ), //i
+    .raw_data_payload_last                        (streamFifo_4_io_pop_payload_last                            ), //i
+    .raw_data_payload_fragment                    (streamFifo_4_io_pop_payload_fragment                        ), //i
     .de_punched_data_valid                        (de_puncture_core_de_punched_data_valid                      ), //o
     .de_punched_data_ready                        (de_puncture_core_de_punched_data_fifo_io_push_ready         ), //i
     .de_punched_data_payload_last                 (de_puncture_core_de_punched_data_payload_last               ), //o
     .de_punched_data_payload_fragment_data        (de_puncture_core_de_punched_data_payload_fragment_data      ), //o
     .de_punched_data_payload_fragment_indicate    (de_puncture_core_de_punched_data_payload_fragment_indicate  ), //o
+    .sel                                          (sel                                                         ), //i
     .clk                                          (clk                                                         ), //i
     .reset                                        (reset                                                       )  //i
   );
-  StreamFifo_2 streamFifo_6 (
+  StreamFifo_1 streamFifo_4 (
     .io_push_valid               (puncture_core_punched_data_valid             ), //i
-    .io_push_ready               (streamFifo_6_io_push_ready                   ), //o
+    .io_push_ready               (streamFifo_4_io_push_ready                   ), //o
     .io_push_payload_last        (puncture_core_punched_data_payload_last      ), //i
     .io_push_payload_fragment    (puncture_core_punched_data_payload_fragment  ), //i
-    .io_pop_valid                (streamFifo_6_io_pop_valid                    ), //o
+    .io_pop_valid                (streamFifo_4_io_pop_valid                    ), //o
     .io_pop_ready                (de_puncture_core_raw_data_ready              ), //i
-    .io_pop_payload_last         (streamFifo_6_io_pop_payload_last             ), //o
-    .io_pop_payload_fragment     (streamFifo_6_io_pop_payload_fragment         ), //o
+    .io_pop_payload_last         (streamFifo_4_io_pop_payload_last             ), //o
+    .io_pop_payload_fragment     (streamFifo_4_io_pop_payload_fragment         ), //o
     .io_flush                    (1'b0                                         ), //i
-    .io_occupancy                (streamFifo_6_io_occupancy                    ), //o
-    .io_availability             (streamFifo_6_io_availability                 ), //o
+    .io_occupancy                (streamFifo_4_io_occupancy                    ), //o
+    .io_availability             (streamFifo_4_io_availability                 ), //o
     .clk                         (clk                                          ), //i
     .reset                       (reset                                        )  //i
   );
@@ -166,7 +148,7 @@ module ConvCombTest (
     .clk                                   (clk                                                                     ), //i
     .reset                                 (reset                                                                   )  //i
   );
-  StreamFifo_3 de_puncture_core_de_punched_data_fifo (
+  StreamFifo_2 de_puncture_core_de_punched_data_fifo (
     .io_push_valid                        (de_puncture_core_de_punched_data_valid                                  ), //i
     .io_push_ready                        (de_puncture_core_de_punched_data_fifo_io_push_ready                     ), //o
     .io_push_payload_last                 (de_puncture_core_de_punched_data_payload_last                           ), //i
@@ -183,26 +165,26 @@ module ConvCombTest (
     .clk                                  (clk                                                                     ), //i
     .reset                                (reset                                                                   )  //i
   );
-  StreamFifo_4 streamFifo_7 (
+  StreamFifo_3 streamFifo_5 (
     .io_push_valid               (decoder_decoded_data_valid             ), //i
-    .io_push_ready               (streamFifo_7_io_push_ready             ), //o
+    .io_push_ready               (streamFifo_5_io_push_ready             ), //o
     .io_push_payload_last        (decoder_decoded_data_payload_last      ), //i
     .io_push_payload_fragment    (decoder_decoded_data_payload_fragment  ), //i
-    .io_pop_valid                (streamFifo_7_io_pop_valid              ), //o
-    .io_pop_ready                (streamFifo_7_io_pop_ready              ), //i
-    .io_pop_payload_last         (streamFifo_7_io_pop_payload_last       ), //o
-    .io_pop_payload_fragment     (streamFifo_7_io_pop_payload_fragment   ), //o
+    .io_pop_valid                (streamFifo_5_io_pop_valid              ), //o
+    .io_pop_ready                (streamFifo_5_io_pop_ready              ), //i
+    .io_pop_payload_last         (streamFifo_5_io_pop_payload_last       ), //o
+    .io_pop_payload_fragment     (streamFifo_5_io_pop_payload_fragment   ), //o
     .io_flush                    (1'b0                                   ), //i
-    .io_occupancy                (streamFifo_7_io_occupancy              ), //o
-    .io_availability             (streamFifo_7_io_availability           ), //o
+    .io_occupancy                (streamFifo_5_io_occupancy              ), //o
+    .io_availability             (streamFifo_5_io_availability           ), //o
     .clk                         (clk                                    ), //i
     .reset                       (reset                                  )  //i
   );
   assign raw_data_ready = encoder_raw_data_ready;
-  assign streamFifo_7_io_pop_fire = (streamFifo_7_io_pop_valid && streamFifo_7_io_pop_ready);
+  assign streamFifo_5_io_pop_fire = (streamFifo_5_io_pop_valid && streamFifo_5_io_pop_ready);
   always @(*) begin
     _zz_decoded_data_valid = 1'b0;
-    if(streamFifo_7_io_pop_fire) begin
+    if(streamFifo_5_io_pop_fire) begin
       _zz_decoded_data_valid = 1'b1;
     end
   end
@@ -215,11 +197,11 @@ module ConvCombTest (
     end
   end
 
-  assign streamFifo_7_io_pop_fire_1 = (streamFifo_7_io_pop_valid && streamFifo_7_io_pop_ready);
-  assign streamFifo_7_io_pop_ready = (! ((! decoded_data_ready) && _zz_decoded_data_valid_3));
-  assign decoded_data_valid = (streamFifo_7_io_pop_valid && _zz_decoded_data_valid_3);
-  assign decoded_data_payload_last = streamFifo_7_io_pop_payload_last;
-  assign decoded_data_payload_fragment = {streamFifo_7_io_pop_payload_fragment,_zz_decoded_data_payload_fragment};
+  assign streamFifo_5_io_pop_fire_1 = (streamFifo_5_io_pop_valid && streamFifo_5_io_pop_ready);
+  assign streamFifo_5_io_pop_ready = (! ((! decoded_data_ready) && _zz_decoded_data_valid_3));
+  assign decoded_data_valid = (streamFifo_5_io_pop_valid && _zz_decoded_data_valid_3);
+  assign decoded_data_payload_last = streamFifo_5_io_pop_payload_last;
+  assign decoded_data_payload_fragment = {streamFifo_5_io_pop_payload_fragment,_zz_decoded_data_payload_fragment};
   always @(posedge clk or posedge reset) begin
     if(reset) begin
       _zz_decoded_data_valid_2 <= 3'b000;
@@ -229,15 +211,15 @@ module ConvCombTest (
   end
 
   always @(posedge clk) begin
-    if(streamFifo_7_io_pop_fire_1) begin
-      _zz_decoded_data_payload_fragment <= {streamFifo_7_io_pop_payload_fragment,_zz__zz_decoded_data_payload_fragment};
+    if(streamFifo_5_io_pop_fire_1) begin
+      _zz_decoded_data_payload_fragment <= {streamFifo_5_io_pop_payload_fragment,_zz__zz_decoded_data_payload_fragment};
     end
   end
 
 
 endmodule
 
-module StreamFifo_4 (
+module StreamFifo_3 (
   input               io_push_valid,
   output              io_push_ready,
   input               io_push_payload_last,
@@ -394,7 +376,7 @@ module StreamFifo_4 (
 
 endmodule
 
-module StreamFifo_3 (
+module StreamFifo_2 (
   input               io_push_valid,
   output              io_push_ready,
   input               io_push_payload_last,
@@ -406,31 +388,31 @@ module StreamFifo_3 (
   output     [1:0]    io_pop_payload_fragment_data,
   output     [1:0]    io_pop_payload_fragment_indicate,
   input               io_flush,
-  output     [11:0]   io_occupancy,
-  output     [11:0]   io_availability,
+  output     [3:0]    io_occupancy,
+  output     [3:0]    io_availability,
   input               clk,
   input               reset
 );
   reg        [4:0]    _zz_logic_ram_port0;
-  wire       [10:0]   _zz_logic_pushPtr_valueNext;
+  wire       [2:0]    _zz_logic_pushPtr_valueNext;
   wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
-  wire       [10:0]   _zz_logic_popPtr_valueNext;
+  wire       [2:0]    _zz_logic_popPtr_valueNext;
   wire       [0:0]    _zz_logic_popPtr_valueNext_1;
   wire                _zz_logic_ram_port;
   wire                _zz__zz_io_pop_payload_last;
   wire       [4:0]    _zz_logic_ram_port_1;
-  wire       [10:0]   _zz_io_availability;
+  wire       [2:0]    _zz_io_availability;
   reg                 _zz_1;
   reg                 logic_pushPtr_willIncrement;
   reg                 logic_pushPtr_willClear;
-  reg        [10:0]   logic_pushPtr_valueNext;
-  reg        [10:0]   logic_pushPtr_value;
+  reg        [2:0]    logic_pushPtr_valueNext;
+  reg        [2:0]    logic_pushPtr_value;
   wire                logic_pushPtr_willOverflowIfInc;
   wire                logic_pushPtr_willOverflow;
   reg                 logic_popPtr_willIncrement;
   reg                 logic_popPtr_willClear;
-  reg        [10:0]   logic_popPtr_valueNext;
-  reg        [10:0]   logic_popPtr_value;
+  reg        [2:0]    logic_popPtr_valueNext;
+  reg        [2:0]    logic_popPtr_value;
   wire                logic_popPtr_willOverflowIfInc;
   wire                logic_popPtr_willOverflow;
   wire                logic_ptrMatch;
@@ -443,13 +425,13 @@ module StreamFifo_3 (
   wire       [4:0]    _zz_io_pop_payload_last;
   wire       [3:0]    _zz_io_pop_payload_fragment_data;
   wire                when_Stream_l933;
-  wire       [10:0]   logic_ptrDif;
-  reg [4:0] logic_ram [0:2047];
+  wire       [2:0]    logic_ptrDif;
+  reg [4:0] logic_ram [0:7];
 
   assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
-  assign _zz_logic_pushPtr_valueNext = {10'd0, _zz_logic_pushPtr_valueNext_1};
+  assign _zz_logic_pushPtr_valueNext = {2'd0, _zz_logic_pushPtr_valueNext_1};
   assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
-  assign _zz_logic_popPtr_valueNext = {10'd0, _zz_logic_popPtr_valueNext_1};
+  assign _zz_logic_popPtr_valueNext = {2'd0, _zz_logic_popPtr_valueNext_1};
   assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz__zz_io_pop_payload_last = 1'b1;
   assign _zz_logic_ram_port_1 = {{io_push_payload_fragment_indicate,io_push_payload_fragment_data},io_push_payload_last};
@@ -486,12 +468,12 @@ module StreamFifo_3 (
     end
   end
 
-  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 11'h7ff);
+  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 3'b111);
   assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
   always @(*) begin
     logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
     if(logic_pushPtr_willClear) begin
-      logic_pushPtr_valueNext = 11'h0;
+      logic_pushPtr_valueNext = 3'b000;
     end
   end
 
@@ -509,12 +491,12 @@ module StreamFifo_3 (
     end
   end
 
-  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 11'h7ff);
+  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 3'b111);
   assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
   always @(*) begin
     logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
     if(logic_popPtr_willClear) begin
-      logic_popPtr_valueNext = 11'h0;
+      logic_popPtr_valueNext = 3'b000;
     end
   end
 
@@ -536,8 +518,8 @@ module StreamFifo_3 (
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
   always @(posedge clk or posedge reset) begin
     if(reset) begin
-      logic_pushPtr_value <= 11'h0;
-      logic_popPtr_value <= 11'h0;
+      logic_pushPtr_value <= 3'b000;
+      logic_popPtr_value <= 3'b000;
       logic_risingOccupancy <= 1'b0;
       _zz_io_pop_valid <= 1'b0;
     end else begin
@@ -625,383 +607,6 @@ module ViterbiDecoder (
   assign decoded_data_valid = lifo_core_decoded_data_valid;
   assign decoded_data_payload_last = lifo_core_decoded_data_payload_last;
   assign decoded_data_payload_fragment = lifo_core_decoded_data_payload_fragment;
-
-endmodule
-
-module StreamFifo_2 (
-  input               io_push_valid,
-  output              io_push_ready,
-  input               io_push_payload_last,
-  input      [11:0]   io_push_payload_fragment,
-  output              io_pop_valid,
-  input               io_pop_ready,
-  output              io_pop_payload_last,
-  output     [11:0]   io_pop_payload_fragment,
-  input               io_flush,
-  output     [11:0]   io_occupancy,
-  output     [11:0]   io_availability,
-  input               clk,
-  input               reset
-);
-  reg        [12:0]   _zz_logic_ram_port0;
-  wire       [10:0]   _zz_logic_pushPtr_valueNext;
-  wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
-  wire       [10:0]   _zz_logic_popPtr_valueNext;
-  wire       [0:0]    _zz_logic_popPtr_valueNext_1;
-  wire                _zz_logic_ram_port;
-  wire                _zz__zz_io_pop_payload_last;
-  wire       [12:0]   _zz_logic_ram_port_1;
-  wire       [10:0]   _zz_io_availability;
-  reg                 _zz_1;
-  reg                 logic_pushPtr_willIncrement;
-  reg                 logic_pushPtr_willClear;
-  reg        [10:0]   logic_pushPtr_valueNext;
-  reg        [10:0]   logic_pushPtr_value;
-  wire                logic_pushPtr_willOverflowIfInc;
-  wire                logic_pushPtr_willOverflow;
-  reg                 logic_popPtr_willIncrement;
-  reg                 logic_popPtr_willClear;
-  reg        [10:0]   logic_popPtr_valueNext;
-  reg        [10:0]   logic_popPtr_value;
-  wire                logic_popPtr_willOverflowIfInc;
-  wire                logic_popPtr_willOverflow;
-  wire                logic_ptrMatch;
-  reg                 logic_risingOccupancy;
-  wire                logic_pushing;
-  wire                logic_popping;
-  wire                logic_empty;
-  wire                logic_full;
-  reg                 _zz_io_pop_valid;
-  wire       [12:0]   _zz_io_pop_payload_last;
-  wire                when_Stream_l933;
-  wire       [10:0]   logic_ptrDif;
-  reg [12:0] logic_ram [0:2047];
-
-  assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
-  assign _zz_logic_pushPtr_valueNext = {10'd0, _zz_logic_pushPtr_valueNext_1};
-  assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
-  assign _zz_logic_popPtr_valueNext = {10'd0, _zz_logic_popPtr_valueNext_1};
-  assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
-  assign _zz__zz_io_pop_payload_last = 1'b1;
-  assign _zz_logic_ram_port_1 = {io_push_payload_fragment,io_push_payload_last};
-  always @(posedge clk) begin
-    if(_zz__zz_io_pop_payload_last) begin
-      _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
-    end
-  end
-
-  always @(posedge clk) begin
-    if(_zz_1) begin
-      logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
-    end
-  end
-
-  always @(*) begin
-    _zz_1 = 1'b0;
-    if(logic_pushing) begin
-      _zz_1 = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_pushPtr_willIncrement = 1'b0;
-    if(logic_pushing) begin
-      logic_pushPtr_willIncrement = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_pushPtr_willClear = 1'b0;
-    if(io_flush) begin
-      logic_pushPtr_willClear = 1'b1;
-    end
-  end
-
-  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 11'h7ff);
-  assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
-  always @(*) begin
-    logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
-    if(logic_pushPtr_willClear) begin
-      logic_pushPtr_valueNext = 11'h0;
-    end
-  end
-
-  always @(*) begin
-    logic_popPtr_willIncrement = 1'b0;
-    if(logic_popping) begin
-      logic_popPtr_willIncrement = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_popPtr_willClear = 1'b0;
-    if(io_flush) begin
-      logic_popPtr_willClear = 1'b1;
-    end
-  end
-
-  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 11'h7ff);
-  assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
-  always @(*) begin
-    logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
-    if(logic_popPtr_willClear) begin
-      logic_popPtr_valueNext = 11'h0;
-    end
-  end
-
-  assign logic_ptrMatch = (logic_pushPtr_value == logic_popPtr_value);
-  assign logic_pushing = (io_push_valid && io_push_ready);
-  assign logic_popping = (io_pop_valid && io_pop_ready);
-  assign logic_empty = (logic_ptrMatch && (! logic_risingOccupancy));
-  assign logic_full = (logic_ptrMatch && logic_risingOccupancy);
-  assign io_push_ready = (! logic_full);
-  assign io_pop_valid = ((! logic_empty) && (! (_zz_io_pop_valid && (! logic_full))));
-  assign _zz_io_pop_payload_last = _zz_logic_ram_port0;
-  assign io_pop_payload_last = _zz_io_pop_payload_last[0];
-  assign io_pop_payload_fragment = _zz_io_pop_payload_last[12 : 1];
-  assign when_Stream_l933 = (logic_pushing != logic_popping);
-  assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
-  assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
-  assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
-  always @(posedge clk or posedge reset) begin
-    if(reset) begin
-      logic_pushPtr_value <= 11'h0;
-      logic_popPtr_value <= 11'h0;
-      logic_risingOccupancy <= 1'b0;
-      _zz_io_pop_valid <= 1'b0;
-    end else begin
-      logic_pushPtr_value <= logic_pushPtr_valueNext;
-      logic_popPtr_value <= logic_popPtr_valueNext;
-      _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
-      if(when_Stream_l933) begin
-        logic_risingOccupancy <= logic_pushing;
-      end
-      if(io_flush) begin
-        logic_risingOccupancy <= 1'b0;
-      end
-    end
-  end
-
-
-endmodule
-
-module DePuncturing (
-  input               raw_data_valid,
-  output              raw_data_ready,
-  input               raw_data_payload_last,
-  input      [11:0]   raw_data_payload_fragment,
-  output              de_punched_data_valid,
-  input               de_punched_data_ready,
-  output              de_punched_data_payload_last,
-  output     [1:0]    de_punched_data_payload_fragment_data,
-  output     [1:0]    de_punched_data_payload_fragment_indicate,
-  input               clk,
-  input               reset
-);
-  reg        [1:0]    _zz_switch_Misc_l200;
-  wire       [2:0]    _zz_switch_Misc_l200_1;
-  wire       [3:0]    _zz_mask_cnt;
-  reg        [1:0]    _zz_switch_Misc_l200_1_1;
-  wire       [2:0]    _zz_switch_Misc_l200_1_2;
-  reg        [1:0]    _zz_de_punched_data_payload_fragment_indicate;
-  wire       [2:0]    _zz_de_punched_data_payload_fragment_indicate_1;
-  wire       [0:0]    dummy_bits;
-  wire       [1:0]    mask_rom_0;
-  wire       [1:0]    mask_rom_1;
-  wire       [1:0]    mask_rom_2;
-  wire       [1:0]    mask_rom_3;
-  wire       [1:0]    mask_rom_4;
-  wire       [1:0]    mask_rom_5;
-  wire       [1:0]    mask_rom_6;
-  wire       [1:0]    mask_rom_7;
-  reg        [3:0]    mask_cnt;
-  reg        [3:0]    cnt;
-  reg        [11:0]   raw_data_fragment;
-  reg                 raw_data_last;
-  wire                when_DePuncturing_l54;
-  wire       [1:0]    switch_Misc_l200;
-  reg        [11:0]   _zz_raw_data_fragment;
-  wire                raw_data_fire;
-  wire                de_punched_data_fire;
-  wire       [1:0]    switch_Misc_l200_1;
-  wire       [0:0]    _zz_de_punched_data_payload_fragment_data;
-  reg        [1:0]    _zz_de_punched_data_payload_fragment_data_1;
-
-  assign _zz_switch_Misc_l200_1 = mask_cnt[2:0];
-  assign _zz_mask_cnt = (mask_cnt + 4'b0001);
-  assign _zz_switch_Misc_l200_1_2 = mask_cnt[2:0];
-  assign _zz_de_punched_data_payload_fragment_indicate_1 = mask_cnt[2:0];
-  always @(*) begin
-    case(_zz_switch_Misc_l200_1)
-      3'b000 : begin
-        _zz_switch_Misc_l200 = mask_rom_0;
-      end
-      3'b001 : begin
-        _zz_switch_Misc_l200 = mask_rom_1;
-      end
-      3'b010 : begin
-        _zz_switch_Misc_l200 = mask_rom_2;
-      end
-      3'b011 : begin
-        _zz_switch_Misc_l200 = mask_rom_3;
-      end
-      3'b100 : begin
-        _zz_switch_Misc_l200 = mask_rom_4;
-      end
-      3'b101 : begin
-        _zz_switch_Misc_l200 = mask_rom_5;
-      end
-      3'b110 : begin
-        _zz_switch_Misc_l200 = mask_rom_6;
-      end
-      default : begin
-        _zz_switch_Misc_l200 = mask_rom_7;
-      end
-    endcase
-  end
-
-  always @(*) begin
-    case(_zz_switch_Misc_l200_1_2)
-      3'b000 : begin
-        _zz_switch_Misc_l200_1_1 = mask_rom_0;
-      end
-      3'b001 : begin
-        _zz_switch_Misc_l200_1_1 = mask_rom_1;
-      end
-      3'b010 : begin
-        _zz_switch_Misc_l200_1_1 = mask_rom_2;
-      end
-      3'b011 : begin
-        _zz_switch_Misc_l200_1_1 = mask_rom_3;
-      end
-      3'b100 : begin
-        _zz_switch_Misc_l200_1_1 = mask_rom_4;
-      end
-      3'b101 : begin
-        _zz_switch_Misc_l200_1_1 = mask_rom_5;
-      end
-      3'b110 : begin
-        _zz_switch_Misc_l200_1_1 = mask_rom_6;
-      end
-      default : begin
-        _zz_switch_Misc_l200_1_1 = mask_rom_7;
-      end
-    endcase
-  end
-
-  always @(*) begin
-    case(_zz_de_punched_data_payload_fragment_indicate_1)
-      3'b000 : begin
-        _zz_de_punched_data_payload_fragment_indicate = mask_rom_0;
-      end
-      3'b001 : begin
-        _zz_de_punched_data_payload_fragment_indicate = mask_rom_1;
-      end
-      3'b010 : begin
-        _zz_de_punched_data_payload_fragment_indicate = mask_rom_2;
-      end
-      3'b011 : begin
-        _zz_de_punched_data_payload_fragment_indicate = mask_rom_3;
-      end
-      3'b100 : begin
-        _zz_de_punched_data_payload_fragment_indicate = mask_rom_4;
-      end
-      3'b101 : begin
-        _zz_de_punched_data_payload_fragment_indicate = mask_rom_5;
-      end
-      3'b110 : begin
-        _zz_de_punched_data_payload_fragment_indicate = mask_rom_6;
-      end
-      default : begin
-        _zz_de_punched_data_payload_fragment_indicate = mask_rom_7;
-      end
-    endcase
-  end
-
-  assign dummy_bits = 1'b0;
-  assign mask_rom_0 = 2'b11;
-  assign mask_rom_1 = 2'b01;
-  assign mask_rom_2 = 2'b11;
-  assign mask_rom_3 = 2'b01;
-  assign mask_rom_4 = 2'b11;
-  assign mask_rom_5 = 2'b01;
-  assign mask_rom_6 = 2'b11;
-  assign mask_rom_7 = 2'b01;
-  assign when_DePuncturing_l54 = (raw_data_last && (cnt == 4'b0000));
-  assign switch_Misc_l200 = _zz_switch_Misc_l200;
-  always @(*) begin
-    case(switch_Misc_l200)
-      2'b11 : begin
-        _zz_raw_data_fragment = (raw_data_fragment >>> 2);
-      end
-      2'b01 : begin
-        _zz_raw_data_fragment = (raw_data_fragment >>> 1);
-      end
-      default : begin
-        _zz_raw_data_fragment = raw_data_fragment;
-      end
-    endcase
-  end
-
-  assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign de_punched_data_fire = (de_punched_data_valid && de_punched_data_ready);
-  assign switch_Misc_l200_1 = _zz_switch_Misc_l200_1_1;
-  assign _zz_de_punched_data_payload_fragment_data = raw_data_fragment[0 : 0];
-  always @(*) begin
-    case(switch_Misc_l200_1)
-      2'b11 : begin
-        _zz_de_punched_data_payload_fragment_data_1 = {raw_data_fragment[1 : 1],_zz_de_punched_data_payload_fragment_data};
-      end
-      2'b01 : begin
-        _zz_de_punched_data_payload_fragment_data_1 = {dummy_bits,_zz_de_punched_data_payload_fragment_data};
-      end
-      default : begin
-        _zz_de_punched_data_payload_fragment_data_1 = 2'b00;
-      end
-    endcase
-  end
-
-  assign de_punched_data_payload_fragment_data = _zz_de_punched_data_payload_fragment_data_1;
-  assign de_punched_data_payload_fragment_indicate = _zz_de_punched_data_payload_fragment_indicate;
-  assign de_punched_data_valid = (cnt != 4'b0000);
-  assign de_punched_data_payload_last = ((cnt == 4'b0001) && raw_data_last);
-  assign raw_data_ready = ((cnt == 4'b0000) && (! raw_data_last));
-  always @(posedge clk or posedge reset) begin
-    if(reset) begin
-      mask_cnt <= 4'b0000;
-      cnt <= 4'b0000;
-      raw_data_last <= 1'b0;
-    end else begin
-      if(when_DePuncturing_l54) begin
-        mask_cnt <= 4'b0000;
-        cnt <= 4'b0000;
-        raw_data_last <= 1'b0;
-      end else begin
-        if(raw_data_fire) begin
-          raw_data_last <= raw_data_payload_last;
-          cnt <= 4'b1000;
-        end else begin
-          if(de_punched_data_fire) begin
-            cnt <= (cnt - 4'b0001);
-            mask_cnt <= ((mask_cnt == 4'b0111) ? 4'b0000 : _zz_mask_cnt);
-          end
-        end
-      end
-    end
-  end
-
-  always @(posedge clk) begin
-    if(!when_DePuncturing_l54) begin
-      if(raw_data_fire) begin
-        raw_data_fragment <= raw_data_payload_fragment;
-      end else begin
-        if(de_punched_data_fire) begin
-          raw_data_fragment <= _zz_raw_data_fragment;
-        end
-      end
-    end
-  end
-
 
 endmodule
 
@@ -1162,45 +767,207 @@ module StreamFifo_1 (
 
 endmodule
 
-module Puncturing (
+module MultiDePuncturing (
+  input               raw_data_valid,
+  output              raw_data_ready,
+  input               raw_data_payload_last,
+  input      [15:0]   raw_data_payload_fragment,
+  output              de_punched_data_valid,
+  input               de_punched_data_ready,
+  output              de_punched_data_payload_last,
+  output     [1:0]    de_punched_data_payload_fragment_data,
+  output     [1:0]    de_punched_data_payload_fragment_indicate,
+  input      [0:0]    sel,
+  input               clk,
+  input               reset
+);
+  wire       [11:0]   dePuncturing_3_raw_data_payload_fragment;
+  wire                streamDemux_2_io_input_ready;
+  wire                streamDemux_2_io_outputs_0_valid;
+  wire                streamDemux_2_io_outputs_0_payload_last;
+  wire       [15:0]   streamDemux_2_io_outputs_0_payload_fragment;
+  wire                streamDemux_2_io_outputs_1_valid;
+  wire                streamDemux_2_io_outputs_1_payload_last;
+  wire       [15:0]   streamDemux_2_io_outputs_1_payload_fragment;
+  wire                dePuncturing_2_raw_data_ready;
+  wire                dePuncturing_2_de_punched_data_valid;
+  wire                dePuncturing_2_de_punched_data_payload_last;
+  wire       [1:0]    dePuncturing_2_de_punched_data_payload_fragment_data;
+  wire       [1:0]    dePuncturing_2_de_punched_data_payload_fragment_indicate;
+  wire                dePuncturing_3_raw_data_ready;
+  wire                dePuncturing_3_de_punched_data_valid;
+  wire                dePuncturing_3_de_punched_data_payload_last;
+  wire       [1:0]    dePuncturing_3_de_punched_data_payload_fragment_data;
+  wire       [1:0]    dePuncturing_3_de_punched_data_payload_fragment_indicate;
+  wire                streamMux_1_io_inputs_0_ready;
+  wire                streamMux_1_io_inputs_1_ready;
+  wire                streamMux_1_io_output_valid;
+  wire                streamMux_1_io_output_payload_last;
+  wire       [1:0]    streamMux_1_io_output_payload_fragment_data;
+  wire       [1:0]    streamMux_1_io_output_payload_fragment_indicate;
+
+  StreamDemux streamDemux_2 (
+    .io_select                        (sel                                          ), //i
+    .io_input_valid                   (raw_data_valid                               ), //i
+    .io_input_ready                   (streamDemux_2_io_input_ready                 ), //o
+    .io_input_payload_last            (raw_data_payload_last                        ), //i
+    .io_input_payload_fragment        (raw_data_payload_fragment                    ), //i
+    .io_outputs_0_valid               (streamDemux_2_io_outputs_0_valid             ), //o
+    .io_outputs_0_ready               (dePuncturing_2_raw_data_ready                ), //i
+    .io_outputs_0_payload_last        (streamDemux_2_io_outputs_0_payload_last      ), //o
+    .io_outputs_0_payload_fragment    (streamDemux_2_io_outputs_0_payload_fragment  ), //o
+    .io_outputs_1_valid               (streamDemux_2_io_outputs_1_valid             ), //o
+    .io_outputs_1_ready               (dePuncturing_3_raw_data_ready                ), //i
+    .io_outputs_1_payload_last        (streamDemux_2_io_outputs_1_payload_last      ), //o
+    .io_outputs_1_payload_fragment    (streamDemux_2_io_outputs_1_payload_fragment  )  //o
+  );
+  DePuncturing dePuncturing_2 (
+    .raw_data_valid                               (streamDemux_2_io_outputs_0_valid                          ), //i
+    .raw_data_ready                               (dePuncturing_2_raw_data_ready                             ), //o
+    .raw_data_payload_last                        (streamDemux_2_io_outputs_0_payload_last                   ), //i
+    .raw_data_payload_fragment                    (streamDemux_2_io_outputs_0_payload_fragment               ), //i
+    .de_punched_data_valid                        (dePuncturing_2_de_punched_data_valid                      ), //o
+    .de_punched_data_ready                        (streamMux_1_io_inputs_0_ready                             ), //i
+    .de_punched_data_payload_last                 (dePuncturing_2_de_punched_data_payload_last               ), //o
+    .de_punched_data_payload_fragment_data        (dePuncturing_2_de_punched_data_payload_fragment_data      ), //o
+    .de_punched_data_payload_fragment_indicate    (dePuncturing_2_de_punched_data_payload_fragment_indicate  ), //o
+    .clk                                          (clk                                                       ), //i
+    .reset                                        (reset                                                     )  //i
+  );
+  DePuncturing_1 dePuncturing_3 (
+    .raw_data_valid                               (streamDemux_2_io_outputs_1_valid                          ), //i
+    .raw_data_ready                               (dePuncturing_3_raw_data_ready                             ), //o
+    .raw_data_payload_last                        (streamDemux_2_io_outputs_1_payload_last                   ), //i
+    .raw_data_payload_fragment                    (dePuncturing_3_raw_data_payload_fragment                  ), //i
+    .de_punched_data_valid                        (dePuncturing_3_de_punched_data_valid                      ), //o
+    .de_punched_data_ready                        (streamMux_1_io_inputs_1_ready                             ), //i
+    .de_punched_data_payload_last                 (dePuncturing_3_de_punched_data_payload_last               ), //o
+    .de_punched_data_payload_fragment_data        (dePuncturing_3_de_punched_data_payload_fragment_data      ), //o
+    .de_punched_data_payload_fragment_indicate    (dePuncturing_3_de_punched_data_payload_fragment_indicate  ), //o
+    .clk                                          (clk                                                       ), //i
+    .reset                                        (reset                                                     )  //i
+  );
+  StreamMux streamMux_1 (
+    .io_select                                (sel                                                       ), //i
+    .io_inputs_0_valid                        (dePuncturing_2_de_punched_data_valid                      ), //i
+    .io_inputs_0_ready                        (streamMux_1_io_inputs_0_ready                             ), //o
+    .io_inputs_0_payload_last                 (dePuncturing_2_de_punched_data_payload_last               ), //i
+    .io_inputs_0_payload_fragment_data        (dePuncturing_2_de_punched_data_payload_fragment_data      ), //i
+    .io_inputs_0_payload_fragment_indicate    (dePuncturing_2_de_punched_data_payload_fragment_indicate  ), //i
+    .io_inputs_1_valid                        (dePuncturing_3_de_punched_data_valid                      ), //i
+    .io_inputs_1_ready                        (streamMux_1_io_inputs_1_ready                             ), //o
+    .io_inputs_1_payload_last                 (dePuncturing_3_de_punched_data_payload_last               ), //i
+    .io_inputs_1_payload_fragment_data        (dePuncturing_3_de_punched_data_payload_fragment_data      ), //i
+    .io_inputs_1_payload_fragment_indicate    (dePuncturing_3_de_punched_data_payload_fragment_indicate  ), //i
+    .io_output_valid                          (streamMux_1_io_output_valid                               ), //o
+    .io_output_ready                          (de_punched_data_ready                                     ), //i
+    .io_output_payload_last                   (streamMux_1_io_output_payload_last                        ), //o
+    .io_output_payload_fragment_data          (streamMux_1_io_output_payload_fragment_data               ), //o
+    .io_output_payload_fragment_indicate      (streamMux_1_io_output_payload_fragment_indicate           )  //o
+  );
+  assign raw_data_ready = streamDemux_2_io_input_ready;
+  assign dePuncturing_3_raw_data_payload_fragment = streamDemux_2_io_outputs_1_payload_fragment[11:0];
+  assign de_punched_data_valid = streamMux_1_io_output_valid;
+  assign de_punched_data_payload_last = streamMux_1_io_output_payload_last;
+  assign de_punched_data_payload_fragment_data = streamMux_1_io_output_payload_fragment_data;
+  assign de_punched_data_payload_fragment_indicate = streamMux_1_io_output_payload_fragment_indicate;
+
+endmodule
+
+module MultiPuncturing (
   input               raw_data_valid,
   output              raw_data_ready,
   input               raw_data_payload_last,
   input      [15:0]   raw_data_payload_fragment,
   output              punched_data_valid,
   output              punched_data_payload_last,
-  output     [11:0]   punched_data_payload_fragment,
+  output     [15:0]   punched_data_payload_fragment,
+  input      [0:0]    sel,
   input               clk,
   input               reset
 );
-  wire       [0:0]    _zz_punched_data_payload_fragment;
-  wire       [0:0]    _zz_punched_data_payload_fragment_1;
-  wire                _zz_punched_data_payload_fragment_2;
-  reg        [15:0]   raw_data_fragment;
-  reg                 raw_data_valid_1;
-  reg                 raw_data_last;
+  wire       [15:0]   flowMux_1_inputs_1_payload_fragment;
+  wire                streamDemux_2_io_input_ready;
+  wire                streamDemux_2_io_outputs_0_valid;
+  wire                streamDemux_2_io_outputs_0_payload_last;
+  wire       [15:0]   streamDemux_2_io_outputs_0_payload_fragment;
+  wire                streamDemux_2_io_outputs_1_valid;
+  wire                streamDemux_2_io_outputs_1_payload_last;
+  wire       [15:0]   streamDemux_2_io_outputs_1_payload_fragment;
+  wire                puncturing_2_raw_data_ready;
+  wire                puncturing_2_punched_data_valid;
+  wire                puncturing_2_punched_data_payload_last;
+  wire       [15:0]   puncturing_2_punched_data_payload_fragment;
+  wire                puncturing_3_raw_data_ready;
+  wire                puncturing_3_punched_data_valid;
+  wire                puncturing_3_punched_data_payload_last;
+  wire       [11:0]   puncturing_3_punched_data_payload_fragment;
+  wire                flowMux_1_output_valid;
+  wire                flowMux_1_output_payload_last;
+  wire       [15:0]   flowMux_1_output_payload_fragment;
+  wire                _zz_inputs_0_valid;
+  wire                _zz_inputs_0_payload_last;
+  wire                _zz_inputs_1_valid;
+  wire                _zz_inputs_1_payload_last;
 
-  assign _zz_punched_data_payload_fragment = raw_data_fragment[7];
-  assign _zz_punched_data_payload_fragment_1 = raw_data_fragment[14];
-  assign _zz_punched_data_payload_fragment_2 = raw_data_fragment[6];
-  assign raw_data_ready = 1'b1;
-  assign punched_data_valid = raw_data_valid_1;
-  assign punched_data_payload_last = raw_data_last;
-  assign punched_data_payload_fragment = {{{{{{{{{{{_zz_punched_data_payload_fragment,_zz_punched_data_payload_fragment_1},_zz_punched_data_payload_fragment_2},raw_data_fragment[5]},raw_data_fragment[12]},raw_data_fragment[4]},raw_data_fragment[3]},raw_data_fragment[10]},raw_data_fragment[2]},raw_data_fragment[1]},raw_data_fragment[8]},raw_data_fragment[0]};
-  always @(posedge clk) begin
-    raw_data_fragment <= raw_data_payload_fragment;
-  end
-
-  always @(posedge clk or posedge reset) begin
-    if(reset) begin
-      raw_data_valid_1 <= 1'b0;
-      raw_data_last <= 1'b0;
-    end else begin
-      raw_data_valid_1 <= raw_data_valid;
-      raw_data_last <= raw_data_payload_last;
-    end
-  end
-
+  StreamDemux streamDemux_2 (
+    .io_select                        (sel                                          ), //i
+    .io_input_valid                   (raw_data_valid                               ), //i
+    .io_input_ready                   (streamDemux_2_io_input_ready                 ), //o
+    .io_input_payload_last            (raw_data_payload_last                        ), //i
+    .io_input_payload_fragment        (raw_data_payload_fragment                    ), //i
+    .io_outputs_0_valid               (streamDemux_2_io_outputs_0_valid             ), //o
+    .io_outputs_0_ready               (puncturing_2_raw_data_ready                  ), //i
+    .io_outputs_0_payload_last        (streamDemux_2_io_outputs_0_payload_last      ), //o
+    .io_outputs_0_payload_fragment    (streamDemux_2_io_outputs_0_payload_fragment  ), //o
+    .io_outputs_1_valid               (streamDemux_2_io_outputs_1_valid             ), //o
+    .io_outputs_1_ready               (puncturing_3_raw_data_ready                  ), //i
+    .io_outputs_1_payload_last        (streamDemux_2_io_outputs_1_payload_last      ), //o
+    .io_outputs_1_payload_fragment    (streamDemux_2_io_outputs_1_payload_fragment  )  //o
+  );
+  Puncturing puncturing_2 (
+    .raw_data_valid                   (streamDemux_2_io_outputs_0_valid             ), //i
+    .raw_data_ready                   (puncturing_2_raw_data_ready                  ), //o
+    .raw_data_payload_last            (streamDemux_2_io_outputs_0_payload_last      ), //i
+    .raw_data_payload_fragment        (streamDemux_2_io_outputs_0_payload_fragment  ), //i
+    .punched_data_valid               (puncturing_2_punched_data_valid              ), //o
+    .punched_data_payload_last        (puncturing_2_punched_data_payload_last       ), //o
+    .punched_data_payload_fragment    (puncturing_2_punched_data_payload_fragment   ), //o
+    .clk                              (clk                                          ), //i
+    .reset                            (reset                                        )  //i
+  );
+  Puncturing_1 puncturing_3 (
+    .raw_data_valid                   (streamDemux_2_io_outputs_1_valid             ), //i
+    .raw_data_ready                   (puncturing_3_raw_data_ready                  ), //o
+    .raw_data_payload_last            (streamDemux_2_io_outputs_1_payload_last      ), //i
+    .raw_data_payload_fragment        (streamDemux_2_io_outputs_1_payload_fragment  ), //i
+    .punched_data_valid               (puncturing_3_punched_data_valid              ), //o
+    .punched_data_payload_last        (puncturing_3_punched_data_payload_last       ), //o
+    .punched_data_payload_fragment    (puncturing_3_punched_data_payload_fragment   ), //o
+    .clk                              (clk                                          ), //i
+    .reset                            (reset                                        )  //i
+  );
+  FlowMux flowMux_1 (
+    .inputs_0_valid               (_zz_inputs_0_valid                          ), //i
+    .inputs_0_payload_last        (_zz_inputs_0_payload_last                   ), //i
+    .inputs_0_payload_fragment    (puncturing_2_punched_data_payload_fragment  ), //i
+    .inputs_1_valid               (_zz_inputs_1_valid                          ), //i
+    .inputs_1_payload_last        (_zz_inputs_1_payload_last                   ), //i
+    .inputs_1_payload_fragment    (flowMux_1_inputs_1_payload_fragment         ), //i
+    .select_1                     (sel                                         ), //i
+    .output_valid                 (flowMux_1_output_valid                      ), //o
+    .output_payload_last          (flowMux_1_output_payload_last               ), //o
+    .output_payload_fragment      (flowMux_1_output_payload_fragment           )  //o
+  );
+  assign raw_data_ready = streamDemux_2_io_input_ready;
+  assign _zz_inputs_0_valid = puncturing_2_punched_data_valid;
+  assign _zz_inputs_0_payload_last = puncturing_2_punched_data_payload_last;
+  assign _zz_inputs_1_valid = puncturing_3_punched_data_valid;
+  assign _zz_inputs_1_payload_last = puncturing_3_punched_data_payload_last;
+  assign flowMux_1_inputs_1_payload_fragment = {4'd0, puncturing_3_punched_data_payload_fragment};
+  assign punched_data_valid = flowMux_1_output_valid;
+  assign punched_data_payload_last = flowMux_1_output_payload_last;
+  assign punched_data_payload_fragment = flowMux_1_output_payload_fragment;
 
 endmodule
 
@@ -5186,6 +4953,659 @@ module PathMetric (
         node_weight_63 <= addCompareSelect_127_state_weight;
         survival_path[63] <= addCompareSelect_127_decision;
       end
+    end
+  end
+
+
+endmodule
+
+module StreamMux (
+  input      [0:0]    io_select,
+  input               io_inputs_0_valid,
+  output              io_inputs_0_ready,
+  input               io_inputs_0_payload_last,
+  input      [1:0]    io_inputs_0_payload_fragment_data,
+  input      [1:0]    io_inputs_0_payload_fragment_indicate,
+  input               io_inputs_1_valid,
+  output              io_inputs_1_ready,
+  input               io_inputs_1_payload_last,
+  input      [1:0]    io_inputs_1_payload_fragment_data,
+  input      [1:0]    io_inputs_1_payload_fragment_indicate,
+  output              io_output_valid,
+  input               io_output_ready,
+  output              io_output_payload_last,
+  output     [1:0]    io_output_payload_fragment_data,
+  output     [1:0]    io_output_payload_fragment_indicate
+);
+  reg                 _zz_io_output_valid;
+  reg                 _zz_io_output_payload_last;
+  reg        [1:0]    _zz_io_output_payload_fragment_data;
+  reg        [1:0]    _zz_io_output_payload_fragment_indicate;
+
+  always @(*) begin
+    case(io_select)
+      1'b0 : begin
+        _zz_io_output_valid = io_inputs_0_valid;
+        _zz_io_output_payload_last = io_inputs_0_payload_last;
+        _zz_io_output_payload_fragment_data = io_inputs_0_payload_fragment_data;
+        _zz_io_output_payload_fragment_indicate = io_inputs_0_payload_fragment_indicate;
+      end
+      default : begin
+        _zz_io_output_valid = io_inputs_1_valid;
+        _zz_io_output_payload_last = io_inputs_1_payload_last;
+        _zz_io_output_payload_fragment_data = io_inputs_1_payload_fragment_data;
+        _zz_io_output_payload_fragment_indicate = io_inputs_1_payload_fragment_indicate;
+      end
+    endcase
+  end
+
+  assign io_inputs_0_ready = ((io_select == 1'b0) && io_output_ready);
+  assign io_inputs_1_ready = ((io_select == 1'b1) && io_output_ready);
+  assign io_output_valid = _zz_io_output_valid;
+  assign io_output_payload_last = _zz_io_output_payload_last;
+  assign io_output_payload_fragment_data = _zz_io_output_payload_fragment_data;
+  assign io_output_payload_fragment_indicate = _zz_io_output_payload_fragment_indicate;
+
+endmodule
+
+module DePuncturing_1 (
+  input               raw_data_valid,
+  output              raw_data_ready,
+  input               raw_data_payload_last,
+  input      [11:0]   raw_data_payload_fragment,
+  output              de_punched_data_valid,
+  input               de_punched_data_ready,
+  output              de_punched_data_payload_last,
+  output     [1:0]    de_punched_data_payload_fragment_data,
+  output     [1:0]    de_punched_data_payload_fragment_indicate,
+  input               clk,
+  input               reset
+);
+  reg        [1:0]    _zz_switch_Misc_l200;
+  wire       [2:0]    _zz_switch_Misc_l200_1;
+  wire       [3:0]    _zz_mask_cnt;
+  reg        [1:0]    _zz_switch_Misc_l200_1_1;
+  wire       [2:0]    _zz_switch_Misc_l200_1_2;
+  reg        [1:0]    _zz_de_punched_data_payload_fragment_indicate;
+  wire       [2:0]    _zz_de_punched_data_payload_fragment_indicate_1;
+  wire       [1:0]    mask_rom_0;
+  wire       [1:0]    mask_rom_1;
+  wire       [1:0]    mask_rom_2;
+  wire       [1:0]    mask_rom_3;
+  wire       [1:0]    mask_rom_4;
+  wire       [1:0]    mask_rom_5;
+  wire       [1:0]    mask_rom_6;
+  wire       [1:0]    mask_rom_7;
+  reg        [3:0]    mask_cnt;
+  reg        [3:0]    cnt;
+  reg        [11:0]   raw_data_fragment;
+  reg                 raw_data_last;
+  wire                when_DePuncturing_l52;
+  wire       [1:0]    switch_Misc_l200;
+  reg        [11:0]   _zz_raw_data_fragment;
+  wire                raw_data_fire;
+  wire                de_punched_data_fire;
+  wire       [1:0]    switch_Misc_l200_1;
+  wire       [0:0]    _zz_de_punched_data_payload_fragment_data;
+  reg        [1:0]    _zz_de_punched_data_payload_fragment_data_1;
+
+  assign _zz_switch_Misc_l200_1 = mask_cnt[2:0];
+  assign _zz_mask_cnt = (mask_cnt + 4'b0001);
+  assign _zz_switch_Misc_l200_1_2 = mask_cnt[2:0];
+  assign _zz_de_punched_data_payload_fragment_indicate_1 = mask_cnt[2:0];
+  always @(*) begin
+    case(_zz_switch_Misc_l200_1)
+      3'b000 : begin
+        _zz_switch_Misc_l200 = mask_rom_0;
+      end
+      3'b001 : begin
+        _zz_switch_Misc_l200 = mask_rom_1;
+      end
+      3'b010 : begin
+        _zz_switch_Misc_l200 = mask_rom_2;
+      end
+      3'b011 : begin
+        _zz_switch_Misc_l200 = mask_rom_3;
+      end
+      3'b100 : begin
+        _zz_switch_Misc_l200 = mask_rom_4;
+      end
+      3'b101 : begin
+        _zz_switch_Misc_l200 = mask_rom_5;
+      end
+      3'b110 : begin
+        _zz_switch_Misc_l200 = mask_rom_6;
+      end
+      default : begin
+        _zz_switch_Misc_l200 = mask_rom_7;
+      end
+    endcase
+  end
+
+  always @(*) begin
+    case(_zz_switch_Misc_l200_1_2)
+      3'b000 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_0;
+      end
+      3'b001 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_1;
+      end
+      3'b010 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_2;
+      end
+      3'b011 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_3;
+      end
+      3'b100 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_4;
+      end
+      3'b101 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_5;
+      end
+      3'b110 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_6;
+      end
+      default : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_7;
+      end
+    endcase
+  end
+
+  always @(*) begin
+    case(_zz_de_punched_data_payload_fragment_indicate_1)
+      3'b000 : begin
+        _zz_de_punched_data_payload_fragment_indicate = mask_rom_0;
+      end
+      3'b001 : begin
+        _zz_de_punched_data_payload_fragment_indicate = mask_rom_1;
+      end
+      3'b010 : begin
+        _zz_de_punched_data_payload_fragment_indicate = mask_rom_2;
+      end
+      3'b011 : begin
+        _zz_de_punched_data_payload_fragment_indicate = mask_rom_3;
+      end
+      3'b100 : begin
+        _zz_de_punched_data_payload_fragment_indicate = mask_rom_4;
+      end
+      3'b101 : begin
+        _zz_de_punched_data_payload_fragment_indicate = mask_rom_5;
+      end
+      3'b110 : begin
+        _zz_de_punched_data_payload_fragment_indicate = mask_rom_6;
+      end
+      default : begin
+        _zz_de_punched_data_payload_fragment_indicate = mask_rom_7;
+      end
+    endcase
+  end
+
+  assign mask_rom_0 = 2'b11;
+  assign mask_rom_1 = 2'b01;
+  assign mask_rom_2 = 2'b11;
+  assign mask_rom_3 = 2'b01;
+  assign mask_rom_4 = 2'b11;
+  assign mask_rom_5 = 2'b01;
+  assign mask_rom_6 = 2'b11;
+  assign mask_rom_7 = 2'b01;
+  assign when_DePuncturing_l52 = (raw_data_last && (cnt == 4'b0000));
+  assign switch_Misc_l200 = _zz_switch_Misc_l200;
+  always @(*) begin
+    case(switch_Misc_l200)
+      2'b11 : begin
+        _zz_raw_data_fragment = (raw_data_fragment >>> 2);
+      end
+      2'b01 : begin
+        _zz_raw_data_fragment = (raw_data_fragment >>> 1);
+      end
+      default : begin
+        _zz_raw_data_fragment = raw_data_fragment;
+      end
+    endcase
+  end
+
+  assign raw_data_fire = (raw_data_valid && raw_data_ready);
+  assign de_punched_data_fire = (de_punched_data_valid && de_punched_data_ready);
+  assign switch_Misc_l200_1 = _zz_switch_Misc_l200_1_1;
+  assign _zz_de_punched_data_payload_fragment_data = raw_data_fragment[0 : 0];
+  always @(*) begin
+    case(switch_Misc_l200_1)
+      2'b11 : begin
+        _zz_de_punched_data_payload_fragment_data_1 = {raw_data_fragment[1 : 1],_zz_de_punched_data_payload_fragment_data};
+      end
+      2'b01 : begin
+        _zz_de_punched_data_payload_fragment_data_1 = {1'b0,_zz_de_punched_data_payload_fragment_data};
+      end
+      default : begin
+        _zz_de_punched_data_payload_fragment_data_1 = 2'b00;
+      end
+    endcase
+  end
+
+  assign de_punched_data_payload_fragment_data = _zz_de_punched_data_payload_fragment_data_1;
+  assign de_punched_data_payload_fragment_indicate = _zz_de_punched_data_payload_fragment_indicate;
+  assign de_punched_data_valid = (cnt != 4'b0000);
+  assign de_punched_data_payload_last = ((cnt == 4'b0001) && raw_data_last);
+  assign raw_data_ready = ((cnt == 4'b0000) && (! raw_data_last));
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      mask_cnt <= 4'b0000;
+      cnt <= 4'b0000;
+      raw_data_last <= 1'b0;
+    end else begin
+      if(when_DePuncturing_l52) begin
+        mask_cnt <= 4'b0000;
+        cnt <= 4'b0000;
+        raw_data_last <= 1'b0;
+      end else begin
+        if(raw_data_fire) begin
+          raw_data_last <= raw_data_payload_last;
+          cnt <= 4'b1000;
+        end else begin
+          if(de_punched_data_fire) begin
+            cnt <= (cnt - 4'b0001);
+            mask_cnt <= ((mask_cnt == 4'b0111) ? 4'b0000 : _zz_mask_cnt);
+          end
+        end
+      end
+    end
+  end
+
+  always @(posedge clk) begin
+    if(!when_DePuncturing_l52) begin
+      if(raw_data_fire) begin
+        raw_data_fragment <= raw_data_payload_fragment;
+      end else begin
+        if(de_punched_data_fire) begin
+          raw_data_fragment <= _zz_raw_data_fragment;
+        end
+      end
+    end
+  end
+
+
+endmodule
+
+module DePuncturing (
+  input               raw_data_valid,
+  output              raw_data_ready,
+  input               raw_data_payload_last,
+  input      [15:0]   raw_data_payload_fragment,
+  output              de_punched_data_valid,
+  input               de_punched_data_ready,
+  output              de_punched_data_payload_last,
+  output     [1:0]    de_punched_data_payload_fragment_data,
+  output     [1:0]    de_punched_data_payload_fragment_indicate,
+  input               clk,
+  input               reset
+);
+  reg        [1:0]    _zz_switch_Misc_l200;
+  wire       [2:0]    _zz_switch_Misc_l200_1;
+  wire       [3:0]    _zz_mask_cnt;
+  reg        [1:0]    _zz_switch_Misc_l200_1_1;
+  wire       [2:0]    _zz_switch_Misc_l200_1_2;
+  reg        [1:0]    _zz_de_punched_data_payload_fragment_indicate;
+  wire       [2:0]    _zz_de_punched_data_payload_fragment_indicate_1;
+  wire       [1:0]    mask_rom_0;
+  wire       [1:0]    mask_rom_1;
+  wire       [1:0]    mask_rom_2;
+  wire       [1:0]    mask_rom_3;
+  wire       [1:0]    mask_rom_4;
+  wire       [1:0]    mask_rom_5;
+  wire       [1:0]    mask_rom_6;
+  wire       [1:0]    mask_rom_7;
+  reg        [3:0]    mask_cnt;
+  reg        [3:0]    cnt;
+  reg        [15:0]   raw_data_fragment;
+  reg                 raw_data_last;
+  wire                when_DePuncturing_l52;
+  wire       [1:0]    switch_Misc_l200;
+  reg        [15:0]   _zz_raw_data_fragment;
+  wire                raw_data_fire;
+  wire                de_punched_data_fire;
+  wire       [1:0]    switch_Misc_l200_1;
+  reg        [1:0]    _zz_de_punched_data_payload_fragment_data;
+
+  assign _zz_switch_Misc_l200_1 = mask_cnt[2:0];
+  assign _zz_mask_cnt = (mask_cnt + 4'b0001);
+  assign _zz_switch_Misc_l200_1_2 = mask_cnt[2:0];
+  assign _zz_de_punched_data_payload_fragment_indicate_1 = mask_cnt[2:0];
+  always @(*) begin
+    case(_zz_switch_Misc_l200_1)
+      3'b000 : begin
+        _zz_switch_Misc_l200 = mask_rom_0;
+      end
+      3'b001 : begin
+        _zz_switch_Misc_l200 = mask_rom_1;
+      end
+      3'b010 : begin
+        _zz_switch_Misc_l200 = mask_rom_2;
+      end
+      3'b011 : begin
+        _zz_switch_Misc_l200 = mask_rom_3;
+      end
+      3'b100 : begin
+        _zz_switch_Misc_l200 = mask_rom_4;
+      end
+      3'b101 : begin
+        _zz_switch_Misc_l200 = mask_rom_5;
+      end
+      3'b110 : begin
+        _zz_switch_Misc_l200 = mask_rom_6;
+      end
+      default : begin
+        _zz_switch_Misc_l200 = mask_rom_7;
+      end
+    endcase
+  end
+
+  always @(*) begin
+    case(_zz_switch_Misc_l200_1_2)
+      3'b000 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_0;
+      end
+      3'b001 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_1;
+      end
+      3'b010 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_2;
+      end
+      3'b011 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_3;
+      end
+      3'b100 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_4;
+      end
+      3'b101 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_5;
+      end
+      3'b110 : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_6;
+      end
+      default : begin
+        _zz_switch_Misc_l200_1_1 = mask_rom_7;
+      end
+    endcase
+  end
+
+  always @(*) begin
+    case(_zz_de_punched_data_payload_fragment_indicate_1)
+      3'b000 : begin
+        _zz_de_punched_data_payload_fragment_indicate = mask_rom_0;
+      end
+      3'b001 : begin
+        _zz_de_punched_data_payload_fragment_indicate = mask_rom_1;
+      end
+      3'b010 : begin
+        _zz_de_punched_data_payload_fragment_indicate = mask_rom_2;
+      end
+      3'b011 : begin
+        _zz_de_punched_data_payload_fragment_indicate = mask_rom_3;
+      end
+      3'b100 : begin
+        _zz_de_punched_data_payload_fragment_indicate = mask_rom_4;
+      end
+      3'b101 : begin
+        _zz_de_punched_data_payload_fragment_indicate = mask_rom_5;
+      end
+      3'b110 : begin
+        _zz_de_punched_data_payload_fragment_indicate = mask_rom_6;
+      end
+      default : begin
+        _zz_de_punched_data_payload_fragment_indicate = mask_rom_7;
+      end
+    endcase
+  end
+
+  assign mask_rom_0 = 2'b11;
+  assign mask_rom_1 = 2'b11;
+  assign mask_rom_2 = 2'b11;
+  assign mask_rom_3 = 2'b11;
+  assign mask_rom_4 = 2'b11;
+  assign mask_rom_5 = 2'b11;
+  assign mask_rom_6 = 2'b11;
+  assign mask_rom_7 = 2'b11;
+  assign when_DePuncturing_l52 = (raw_data_last && (cnt == 4'b0000));
+  assign switch_Misc_l200 = _zz_switch_Misc_l200;
+  always @(*) begin
+    case(switch_Misc_l200)
+      2'b11 : begin
+        _zz_raw_data_fragment = (raw_data_fragment >>> 2);
+      end
+      default : begin
+        _zz_raw_data_fragment = raw_data_fragment;
+      end
+    endcase
+  end
+
+  assign raw_data_fire = (raw_data_valid && raw_data_ready);
+  assign de_punched_data_fire = (de_punched_data_valid && de_punched_data_ready);
+  assign switch_Misc_l200_1 = _zz_switch_Misc_l200_1_1;
+  always @(*) begin
+    case(switch_Misc_l200_1)
+      2'b11 : begin
+        _zz_de_punched_data_payload_fragment_data = {raw_data_fragment[1 : 1],raw_data_fragment[0 : 0]};
+      end
+      default : begin
+        _zz_de_punched_data_payload_fragment_data = 2'b00;
+      end
+    endcase
+  end
+
+  assign de_punched_data_payload_fragment_data = _zz_de_punched_data_payload_fragment_data;
+  assign de_punched_data_payload_fragment_indicate = _zz_de_punched_data_payload_fragment_indicate;
+  assign de_punched_data_valid = (cnt != 4'b0000);
+  assign de_punched_data_payload_last = ((cnt == 4'b0001) && raw_data_last);
+  assign raw_data_ready = ((cnt == 4'b0000) && (! raw_data_last));
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      mask_cnt <= 4'b0000;
+      cnt <= 4'b0000;
+      raw_data_last <= 1'b0;
+    end else begin
+      if(when_DePuncturing_l52) begin
+        mask_cnt <= 4'b0000;
+        cnt <= 4'b0000;
+        raw_data_last <= 1'b0;
+      end else begin
+        if(raw_data_fire) begin
+          raw_data_last <= raw_data_payload_last;
+          cnt <= 4'b1000;
+        end else begin
+          if(de_punched_data_fire) begin
+            cnt <= (cnt - 4'b0001);
+            mask_cnt <= ((mask_cnt == 4'b0111) ? 4'b0000 : _zz_mask_cnt);
+          end
+        end
+      end
+    end
+  end
+
+  always @(posedge clk) begin
+    if(!when_DePuncturing_l52) begin
+      if(raw_data_fire) begin
+        raw_data_fragment <= raw_data_payload_fragment;
+      end else begin
+        if(de_punched_data_fire) begin
+          raw_data_fragment <= _zz_raw_data_fragment;
+        end
+      end
+    end
+  end
+
+
+endmodule
+
+//StreamDemux replaced by StreamDemux
+
+module FlowMux (
+  input               inputs_0_valid,
+  input               inputs_0_payload_last,
+  input      [15:0]   inputs_0_payload_fragment,
+  input               inputs_1_valid,
+  input               inputs_1_payload_last,
+  input      [15:0]   inputs_1_payload_fragment,
+  input      [0:0]    select_1,
+  output              output_valid,
+  output              output_payload_last,
+  output     [15:0]   output_payload_fragment
+);
+  reg                 _zz_output_valid;
+  reg                 _zz_output_payload_last;
+  reg        [15:0]   _zz_output_payload_fragment;
+
+  always @(*) begin
+    case(select_1)
+      1'b0 : begin
+        _zz_output_valid = inputs_0_valid;
+        _zz_output_payload_last = inputs_0_payload_last;
+        _zz_output_payload_fragment = inputs_0_payload_fragment;
+      end
+      default : begin
+        _zz_output_valid = inputs_1_valid;
+        _zz_output_payload_last = inputs_1_payload_last;
+        _zz_output_payload_fragment = inputs_1_payload_fragment;
+      end
+    endcase
+  end
+
+  assign output_valid = _zz_output_valid;
+  assign output_payload_last = _zz_output_payload_last;
+  assign output_payload_fragment = _zz_output_payload_fragment;
+
+endmodule
+
+module Puncturing_1 (
+  input               raw_data_valid,
+  output              raw_data_ready,
+  input               raw_data_payload_last,
+  input      [15:0]   raw_data_payload_fragment,
+  output              punched_data_valid,
+  output              punched_data_payload_last,
+  output     [11:0]   punched_data_payload_fragment,
+  input               clk,
+  input               reset
+);
+  wire       [0:0]    _zz_punched_data_payload_fragment;
+  wire       [0:0]    _zz_punched_data_payload_fragment_1;
+  wire                _zz_punched_data_payload_fragment_2;
+  reg        [15:0]   raw_data_fragment;
+  reg                 raw_data_valid_1;
+  reg                 raw_data_last;
+
+  assign _zz_punched_data_payload_fragment = raw_data_fragment[7];
+  assign _zz_punched_data_payload_fragment_1 = raw_data_fragment[14];
+  assign _zz_punched_data_payload_fragment_2 = raw_data_fragment[6];
+  assign raw_data_ready = 1'b1;
+  assign punched_data_valid = raw_data_valid_1;
+  assign punched_data_payload_last = raw_data_last;
+  assign punched_data_payload_fragment = {{{{{{{{{{{_zz_punched_data_payload_fragment,_zz_punched_data_payload_fragment_1},_zz_punched_data_payload_fragment_2},raw_data_fragment[5]},raw_data_fragment[12]},raw_data_fragment[4]},raw_data_fragment[3]},raw_data_fragment[10]},raw_data_fragment[2]},raw_data_fragment[1]},raw_data_fragment[8]},raw_data_fragment[0]};
+  always @(posedge clk) begin
+    raw_data_fragment <= raw_data_payload_fragment;
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      raw_data_valid_1 <= 1'b0;
+      raw_data_last <= 1'b0;
+    end else begin
+      raw_data_valid_1 <= raw_data_valid;
+      raw_data_last <= raw_data_payload_last;
+    end
+  end
+
+
+endmodule
+
+module Puncturing (
+  input               raw_data_valid,
+  output              raw_data_ready,
+  input               raw_data_payload_last,
+  input      [15:0]   raw_data_payload_fragment,
+  output              punched_data_valid,
+  output              punched_data_payload_last,
+  output     [15:0]   punched_data_payload_fragment,
+  input               clk,
+  input               reset
+);
+  wire       [4:0]    _zz_punched_data_payload_fragment;
+  wire       [0:0]    _zz_punched_data_payload_fragment_1;
+  wire                _zz_punched_data_payload_fragment_2;
+  reg        [15:0]   raw_data_fragment;
+  reg                 raw_data_valid_1;
+  reg                 raw_data_last;
+
+  assign _zz_punched_data_payload_fragment = {{{{raw_data_fragment[15],raw_data_fragment[7]},raw_data_fragment[14]},raw_data_fragment[6]},raw_data_fragment[13]};
+  assign _zz_punched_data_payload_fragment_1 = raw_data_fragment[5];
+  assign _zz_punched_data_payload_fragment_2 = raw_data_fragment[12];
+  assign raw_data_ready = 1'b1;
+  assign punched_data_valid = raw_data_valid_1;
+  assign punched_data_payload_last = raw_data_last;
+  assign punched_data_payload_fragment = {{{{{{{{{{{_zz_punched_data_payload_fragment,_zz_punched_data_payload_fragment_1},_zz_punched_data_payload_fragment_2},raw_data_fragment[4]},raw_data_fragment[11]},raw_data_fragment[3]},raw_data_fragment[10]},raw_data_fragment[2]},raw_data_fragment[9]},raw_data_fragment[1]},raw_data_fragment[8]},raw_data_fragment[0]};
+  always @(posedge clk) begin
+    raw_data_fragment <= raw_data_payload_fragment;
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      raw_data_valid_1 <= 1'b0;
+      raw_data_last <= 1'b0;
+    end else begin
+      raw_data_valid_1 <= raw_data_valid;
+      raw_data_last <= raw_data_payload_last;
+    end
+  end
+
+
+endmodule
+
+module StreamDemux (
+  input      [0:0]    io_select,
+  input               io_input_valid,
+  output reg          io_input_ready,
+  input               io_input_payload_last,
+  input      [15:0]   io_input_payload_fragment,
+  output reg          io_outputs_0_valid,
+  input               io_outputs_0_ready,
+  output              io_outputs_0_payload_last,
+  output     [15:0]   io_outputs_0_payload_fragment,
+  output reg          io_outputs_1_valid,
+  input               io_outputs_1_ready,
+  output              io_outputs_1_payload_last,
+  output     [15:0]   io_outputs_1_payload_fragment
+);
+  wire                when_Stream_l745;
+  wire                when_Stream_l745_1;
+
+  always @(*) begin
+    io_input_ready = 1'b0;
+    if(!when_Stream_l745) begin
+      io_input_ready = io_outputs_0_ready;
+    end
+    if(!when_Stream_l745_1) begin
+      io_input_ready = io_outputs_1_ready;
+    end
+  end
+
+  assign io_outputs_0_payload_last = io_input_payload_last;
+  assign io_outputs_0_payload_fragment = io_input_payload_fragment;
+  assign when_Stream_l745 = (1'b0 != io_select);
+  always @(*) begin
+    if(when_Stream_l745) begin
+      io_outputs_0_valid = 1'b0;
+    end else begin
+      io_outputs_0_valid = io_input_valid;
+    end
+  end
+
+  assign io_outputs_1_payload_last = io_input_payload_last;
+  assign io_outputs_1_payload_fragment = io_input_payload_fragment;
+  assign when_Stream_l745_1 = (1'b1 != io_select);
+  always @(*) begin
+    if(when_Stream_l745_1) begin
+      io_outputs_1_valid = 1'b0;
+    end else begin
+      io_outputs_1_valid = io_input_valid;
     end
   end
 

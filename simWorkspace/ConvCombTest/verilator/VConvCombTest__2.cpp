@@ -972,6 +972,10 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__46(VConvCombTest__Syms* __restr
     WData/*511:0*/ __Vtemp9[16];
     WData/*511:0*/ __Vtemp10[16];
     WData/*511:0*/ __Vtemp11[16];
+    WData/*511:0*/ __Vtemp12[16];
+    WData/*511:0*/ __Vtemp13[16];
+    WData/*511:0*/ __Vtemp14[16];
+    WData/*511:0*/ __Vtemp15[16];
     // Body
     vlTOPp->ConvCombTest__DOT__decoder__DOT__pmu_core__DOT__candidate_branches_77 
         = (7U & ((3U == (3U & ((IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT___zz_logic_ram_port0) 
@@ -1046,10 +1050,10 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__46(VConvCombTest__Syms* __restr
             }
         }
     }
-    if (((IData)(vlTOPp->ConvCombTest__DOT__streamFifo_7_io_pop_valid) 
-         & (IData)(vlTOPp->ConvCombTest__DOT__streamFifo_7_io_pop_ready))) {
+    if (((IData)(vlTOPp->ConvCombTest__DOT__streamFifo_5_io_pop_valid) 
+         & (IData)(vlTOPp->ConvCombTest__DOT__streamFifo_5_io_pop_ready))) {
         vlTOPp->ConvCombTest__DOT___zz_decoded_data_payload_fragment 
-            = ((0x40U & ((IData)(vlTOPp->ConvCombTest__DOT__streamFifo_7__DOT___zz_logic_ram_port0) 
+            = ((0x40U & ((IData)(vlTOPp->ConvCombTest__DOT__streamFifo_5__DOT___zz_logic_ram_port0) 
                          << 5U)) | (IData)(vlTOPp->ConvCombTest__DOT___zz___05Fzz_decoded_data_payload_fragment));
     }
     if (((2U == (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_select)) 
@@ -1088,14 +1092,6 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__46(VConvCombTest__Syms* __restr
                 = vlTOPp->ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_addr_write;
         }
     }
-    if (vlTOPp->ConvCombTest__DOT__streamFifo_5__DOT___zz_1) {
-        vlTOPp->__Vdlyvval__ConvCombTest__DOT__streamFifo_5__DOT__logic_ram__v0 
-            = (((IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT__coded_data) 
-                << 1U) | (IData)(vlTOPp->ConvCombTest__DOT__encoder__DOT__raw_data_payload_last_regNext));
-        vlTOPp->__Vdlyvset__ConvCombTest__DOT__streamFifo_5__DOT__logic_ram__v0 = 1U;
-        vlTOPp->__Vdlyvdim0__ConvCombTest__DOT__streamFifo_5__DOT__logic_ram__v0 
-            = vlTOPp->ConvCombTest__DOT__streamFifo_5__DOT__logic_pushPtr_value;
-    }
     vlTOPp->__Vdly__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_last 
         = ((~ (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state)) 
            & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_last) 
@@ -1104,50 +1100,34 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__46(VConvCombTest__Syms* __restr
         = ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state) 
            & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_last) 
               | (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT___zz_lifo_last)));
-    if (vlTOPp->ConvCombTest__DOT__streamFifo_6__DOT___zz_1) {
-        vlTOPp->__Vdlyvval__ConvCombTest__DOT__streamFifo_6__DOT__logic_ram__v0 
-            = ((0x1000U & ((IData)(vlTOPp->ConvCombTest__DOT__puncture_core__DOT__raw_data_fragment) 
-                           << 5U)) | ((0x800U & ((IData)(vlTOPp->ConvCombTest__DOT__puncture_core__DOT__raw_data_fragment) 
-                                                 >> 3U)) 
-                                      | ((0x400U & 
-                                          ((IData)(vlTOPp->ConvCombTest__DOT__puncture_core__DOT__raw_data_fragment) 
-                                           << 4U)) 
-                                         | ((0x200U 
-                                             & ((IData)(vlTOPp->ConvCombTest__DOT__puncture_core__DOT__raw_data_fragment) 
-                                                << 4U)) 
-                                            | ((0x100U 
-                                                & ((IData)(vlTOPp->ConvCombTest__DOT__puncture_core__DOT__raw_data_fragment) 
-                                                   >> 4U)) 
-                                               | ((0xc0U 
-                                                   & ((IData)(vlTOPp->ConvCombTest__DOT__puncture_core__DOT__raw_data_fragment) 
-                                                      << 3U)) 
-                                                  | ((0x20U 
-                                                      & ((IData)(vlTOPp->ConvCombTest__DOT__puncture_core__DOT__raw_data_fragment) 
-                                                         >> 5U)) 
-                                                     | ((0x18U 
-                                                         & ((IData)(vlTOPp->ConvCombTest__DOT__puncture_core__DOT__raw_data_fragment) 
-                                                            << 2U)) 
-                                                        | ((4U 
-                                                            & ((IData)(vlTOPp->ConvCombTest__DOT__puncture_core__DOT__raw_data_fragment) 
-                                                               >> 6U)) 
-                                                           | ((2U 
-                                                               & ((IData)(vlTOPp->ConvCombTest__DOT__puncture_core__DOT__raw_data_fragment) 
-                                                                  << 1U)) 
-                                                              | (IData)(vlTOPp->ConvCombTest__DOT__puncture_core__DOT__raw_data_last)))))))))));
-        vlTOPp->__Vdlyvset__ConvCombTest__DOT__streamFifo_6__DOT__logic_ram__v0 = 1U;
-        vlTOPp->__Vdlyvdim0__ConvCombTest__DOT__streamFifo_6__DOT__logic_ram__v0 
-            = vlTOPp->ConvCombTest__DOT__streamFifo_6__DOT__logic_pushPtr_value;
+    if (vlTOPp->ConvCombTest__DOT__streamFifo_4__DOT___zz_1) {
+        vlTOPp->__Vdlyvval__ConvCombTest__DOT__streamFifo_4__DOT__logic_ram__v0 
+            = (((IData)(vlTOPp->ConvCombTest__DOT__puncture_core__DOT__flowMux_1__DOT___zz_output_payload_fragment) 
+                << 1U) | ((IData)(vlTOPp->sel) ? (IData)(vlTOPp->ConvCombTest__DOT__puncture_core__DOT__puncturing_3__DOT__raw_data_last)
+                           : (IData)(vlTOPp->ConvCombTest__DOT__puncture_core__DOT__puncturing_2__DOT__raw_data_last)));
+        vlTOPp->__Vdlyvset__ConvCombTest__DOT__streamFifo_4__DOT__logic_ram__v0 = 1U;
+        vlTOPp->__Vdlyvdim0__ConvCombTest__DOT__streamFifo_4__DOT__logic_ram__v0 
+            = vlTOPp->ConvCombTest__DOT__streamFifo_4__DOT__logic_pushPtr_value;
     }
     if (vlTOPp->ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT___zz_1) {
         vlTOPp->__Vdlyvval__ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_ram__v0 
-            = (((IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core__DOT___zz_de_punched_data_payload_fragment_indicate) 
-                << 3U) | ((6U & (((3U == (IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core__DOT___zz_switch_Misc_l200_1_1))
-                                   ? (IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core__DOT__raw_data_fragment)
-                                   : ((1U == (IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core__DOT___zz_switch_Misc_l200_1_1))
-                                       ? (1U & (IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core__DOT__raw_data_fragment))
-                                       : 0U)) << 1U)) 
-                          | ((1U == (IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core__DOT__cnt)) 
-                             & (IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core__DOT__raw_data_last))));
+            = ((((IData)(vlTOPp->sel) ? (IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_de_punched_data_payload_fragment_indicate)
+                  : 3U) << 3U) | ((6U & (((IData)(vlTOPp->sel)
+                                           ? ((3U == (IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_switch_Misc_l200_1_1))
+                                               ? (IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT__raw_data_fragment)
+                                               : ((1U 
+                                                   == (IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_switch_Misc_l200_1_1))
+                                                   ? 
+                                                  (1U 
+                                                   & (IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT__raw_data_fragment))
+                                                   : 0U))
+                                           : (IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_2__DOT__raw_data_fragment)) 
+                                         << 1U)) | 
+                                  ((IData)(vlTOPp->sel)
+                                    ? ((1U == (IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT__cnt)) 
+                                       & (IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT__raw_data_last))
+                                    : ((1U == (IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_2__DOT__cnt)) 
+                                       & (IData)(vlTOPp->ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_2__DOT__raw_data_last)))));
         vlTOPp->__Vdlyvset__ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_ram__v0 = 1U;
         vlTOPp->__Vdlyvdim0__ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_ram__v0 
             = vlTOPp->ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_pushPtr_value;
@@ -1291,69 +1271,6 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__46(VConvCombTest__Syms* __restr
             }
         }
     }
-}
-
-VL_INLINE_OPT void VConvCombTest::_sequent__TOP__47(VConvCombTest__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__47\n"); );
-    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Variables
-    WData/*511:0*/ __Vtemp12[16];
-    WData/*511:0*/ __Vtemp13[16];
-    WData/*511:0*/ __Vtemp14[16];
-    WData/*511:0*/ __Vtemp15[16];
-    WData/*511:0*/ __Vtemp16[16];
-    WData/*511:0*/ __Vtemp17[16];
-    WData/*511:0*/ __Vtemp18[16];
-    WData/*511:0*/ __Vtemp19[16];
-    WData/*511:0*/ __Vtemp20[16];
-    WData/*511:0*/ __Vtemp21[16];
-    WData/*511:0*/ __Vtemp22[16];
-    WData/*511:0*/ __Vtemp23[16];
-    WData/*511:0*/ __Vtemp24[16];
-    WData/*511:0*/ __Vtemp25[16];
-    WData/*511:0*/ __Vtemp26[16];
-    WData/*511:0*/ __Vtemp27[16];
-    WData/*511:0*/ __Vtemp28[16];
-    WData/*511:0*/ __Vtemp29[16];
-    WData/*511:0*/ __Vtemp30[16];
-    WData/*511:0*/ __Vtemp31[16];
-    WData/*511:0*/ __Vtemp32[16];
-    WData/*511:0*/ __Vtemp33[16];
-    WData/*511:0*/ __Vtemp34[16];
-    WData/*511:0*/ __Vtemp35[16];
-    WData/*511:0*/ __Vtemp36[16];
-    WData/*511:0*/ __Vtemp37[16];
-    WData/*511:0*/ __Vtemp38[16];
-    WData/*511:0*/ __Vtemp39[16];
-    WData/*511:0*/ __Vtemp40[16];
-    WData/*511:0*/ __Vtemp41[16];
-    WData/*511:0*/ __Vtemp42[16];
-    WData/*511:0*/ __Vtemp43[16];
-    WData/*511:0*/ __Vtemp44[16];
-    WData/*511:0*/ __Vtemp45[16];
-    WData/*511:0*/ __Vtemp46[16];
-    WData/*511:0*/ __Vtemp47[16];
-    WData/*511:0*/ __Vtemp48[16];
-    WData/*511:0*/ __Vtemp49[16];
-    WData/*511:0*/ __Vtemp50[16];
-    WData/*511:0*/ __Vtemp51[16];
-    WData/*511:0*/ __Vtemp52[16];
-    WData/*511:0*/ __Vtemp53[16];
-    WData/*511:0*/ __Vtemp54[16];
-    WData/*511:0*/ __Vtemp55[16];
-    WData/*511:0*/ __Vtemp56[16];
-    WData/*511:0*/ __Vtemp57[16];
-    WData/*511:0*/ __Vtemp58[16];
-    WData/*511:0*/ __Vtemp59[16];
-    WData/*511:0*/ __Vtemp60[16];
-    WData/*511:0*/ __Vtemp61[16];
-    WData/*511:0*/ __Vtemp62[16];
-    WData/*511:0*/ __Vtemp63[16];
-    WData/*511:0*/ __Vtemp64[16];
-    WData/*511:0*/ __Vtemp65[16];
-    WData/*511:0*/ __Vtemp66[16];
-    WData/*511:0*/ __Vtemp67[16];
-    // Body
     if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state) {
         if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__when_SISOLifo_l25) {
             __Vtemp12[0U] = 1U;
@@ -1406,6 +1323,69 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__47(VConvCombTest__Syms* __restr
             }
         }
     }
+}
+
+VL_INLINE_OPT void VConvCombTest::_sequent__TOP__47(VConvCombTest__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_sequent__TOP__47\n"); );
+    VConvCombTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Variables
+    WData/*511:0*/ __Vtemp16[16];
+    WData/*511:0*/ __Vtemp17[16];
+    WData/*511:0*/ __Vtemp18[16];
+    WData/*511:0*/ __Vtemp19[16];
+    WData/*511:0*/ __Vtemp20[16];
+    WData/*511:0*/ __Vtemp21[16];
+    WData/*511:0*/ __Vtemp22[16];
+    WData/*511:0*/ __Vtemp23[16];
+    WData/*511:0*/ __Vtemp24[16];
+    WData/*511:0*/ __Vtemp25[16];
+    WData/*511:0*/ __Vtemp26[16];
+    WData/*511:0*/ __Vtemp27[16];
+    WData/*511:0*/ __Vtemp28[16];
+    WData/*511:0*/ __Vtemp29[16];
+    WData/*511:0*/ __Vtemp30[16];
+    WData/*511:0*/ __Vtemp31[16];
+    WData/*511:0*/ __Vtemp32[16];
+    WData/*511:0*/ __Vtemp33[16];
+    WData/*511:0*/ __Vtemp34[16];
+    WData/*511:0*/ __Vtemp35[16];
+    WData/*511:0*/ __Vtemp36[16];
+    WData/*511:0*/ __Vtemp37[16];
+    WData/*511:0*/ __Vtemp38[16];
+    WData/*511:0*/ __Vtemp39[16];
+    WData/*511:0*/ __Vtemp40[16];
+    WData/*511:0*/ __Vtemp41[16];
+    WData/*511:0*/ __Vtemp42[16];
+    WData/*511:0*/ __Vtemp43[16];
+    WData/*511:0*/ __Vtemp44[16];
+    WData/*511:0*/ __Vtemp45[16];
+    WData/*511:0*/ __Vtemp46[16];
+    WData/*511:0*/ __Vtemp47[16];
+    WData/*511:0*/ __Vtemp48[16];
+    WData/*511:0*/ __Vtemp49[16];
+    WData/*511:0*/ __Vtemp50[16];
+    WData/*511:0*/ __Vtemp51[16];
+    WData/*511:0*/ __Vtemp52[16];
+    WData/*511:0*/ __Vtemp53[16];
+    WData/*511:0*/ __Vtemp54[16];
+    WData/*511:0*/ __Vtemp55[16];
+    WData/*511:0*/ __Vtemp56[16];
+    WData/*511:0*/ __Vtemp57[16];
+    WData/*511:0*/ __Vtemp58[16];
+    WData/*511:0*/ __Vtemp59[16];
+    WData/*511:0*/ __Vtemp60[16];
+    WData/*511:0*/ __Vtemp61[16];
+    WData/*511:0*/ __Vtemp62[16];
+    WData/*511:0*/ __Vtemp63[16];
+    WData/*511:0*/ __Vtemp64[16];
+    WData/*511:0*/ __Vtemp65[16];
+    WData/*511:0*/ __Vtemp66[16];
+    WData/*511:0*/ __Vtemp67[16];
+    WData/*511:0*/ __Vtemp68[16];
+    WData/*511:0*/ __Vtemp69[16];
+    WData/*511:0*/ __Vtemp70[16];
+    WData/*511:0*/ __Vtemp71[16];
+    // Body
     if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state) {
         if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__when_SISOLifo_l25) {
             __Vtemp16[0U] = 1U;
@@ -2077,6 +2057,58 @@ VL_INLINE_OPT void VConvCombTest::_sequent__TOP__47(VConvCombTest__Syms* __restr
             VL_SHIFTL_WWI(512,512,9, __Vtemp67, __Vtemp66, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_head_cursor));
             if ((0x800U & __Vtemp67[7U])) {
                 vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_235 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 2U));
+            }
+        }
+    }
+    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__when_SISOLifo_l25) {
+            __Vtemp68[0U] = 1U;
+            __Vtemp68[1U] = 0U;
+            __Vtemp68[2U] = 0U;
+            __Vtemp68[3U] = 0U;
+            __Vtemp68[4U] = 0U;
+            __Vtemp68[5U] = 0U;
+            __Vtemp68[6U] = 0U;
+            __Vtemp68[7U] = 0U;
+            __Vtemp68[8U] = 0U;
+            __Vtemp68[9U] = 0U;
+            __Vtemp68[0xaU] = 0U;
+            __Vtemp68[0xbU] = 0U;
+            __Vtemp68[0xcU] = 0U;
+            __Vtemp68[0xdU] = 0U;
+            __Vtemp68[0xeU] = 0U;
+            __Vtemp68[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp69, __Vtemp68, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_head_cursor));
+            if ((0x400U & __Vtemp69[7U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_234 
+                    = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
+                             >> 2U));
+            }
+        }
+    }
+    if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state) {
+        if (vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__when_SISOLifo_l25) {
+            __Vtemp70[0U] = 1U;
+            __Vtemp70[1U] = 0U;
+            __Vtemp70[2U] = 0U;
+            __Vtemp70[3U] = 0U;
+            __Vtemp70[4U] = 0U;
+            __Vtemp70[5U] = 0U;
+            __Vtemp70[6U] = 0U;
+            __Vtemp70[7U] = 0U;
+            __Vtemp70[8U] = 0U;
+            __Vtemp70[9U] = 0U;
+            __Vtemp70[0xaU] = 0U;
+            __Vtemp70[0xbU] = 0U;
+            __Vtemp70[0xcU] = 0U;
+            __Vtemp70[0xdU] = 0U;
+            __Vtemp70[0xeU] = 0U;
+            __Vtemp70[0xfU] = 0U;
+            VL_SHIFTL_WWI(512,512,9, __Vtemp71, __Vtemp70, (IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_head_cursor));
+            if ((0x200U & __Vtemp71[7U])) {
+                vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_233 
                     = (1U & ((IData)(vlTOPp->ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__inverted_order_fifo__DOT___zz_logic_ram_port0) 
                              >> 2U));
             }

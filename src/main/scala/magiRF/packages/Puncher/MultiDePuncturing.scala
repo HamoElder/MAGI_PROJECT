@@ -15,7 +15,6 @@ case class MultiDePuncturingConfig(
     def dePunchedDataType: Bits = Bits(dePunchedDataWidth bits)
 
     def rawDataWidth: Int = mask.map(_.map(i => i.toBinaryString.count(_=='1')).sum).max
-    println(rawDataWidth)
     def rawDataType: Bits = Bits(rawDataWidth bits)
     def selDataType: UInt = UInt(log2Up(maskSize) bits)
 }

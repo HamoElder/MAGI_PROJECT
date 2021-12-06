@@ -29,10 +29,10 @@ case class AxiLite4SpiSlave(config: AxiLite4SpiSlaveConfig) extends Component{
     io.spi <> core.io.spi
 }
 
-object axil4SpiSlaveCtrlBench{
+object AxiLite4SpiSlaveBench{
     def main(args: Array[String]): Unit ={
         val spi_slave_config = AxiLite4SpiSlaveConfig(8)
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
-            targetDirectory = "rtl").generateSystemVerilog(new AxiLite4SpiSlave(spi_slave_config)).printPruned().printUnused()
+            targetDirectory = "rtl/AxiLite4SpiSlave").generateSystemVerilog(new AxiLite4SpiSlave(spi_slave_config)).printPruned().printUnused()
     }
 }

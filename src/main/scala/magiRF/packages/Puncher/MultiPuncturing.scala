@@ -44,8 +44,8 @@ case class MultiPuncturing(config: MultiPuncturingConfig) extends Component{
 object MultiPuncturingBench {
     def main(args: Array[String]): Unit = {
         var mask_seq = Seq[Seq[Int]]()
-        mask_seq = mask_seq :+ Seq(15, 7, 14, 6, 13, 5, 12, 4, 11, 3, 10, 2, 9, 1, 8, 0)   // 1/2
-        mask_seq = mask_seq :+ Seq(15, 7, 14, 13, 5, 12, 11, 3, 10, 9, 1, 8)               // 2/3
+        mask_seq = mask_seq :+ Seq(0, 8, 1, 9, 2, 10, 3, 11, 4, 12, 5, 13, 6, 14, 7, 15)   // 1 / 2
+        mask_seq = mask_seq :+ Seq(0, 8, 1, 2, 10, 3, 4, 12, 5, 6, 14, 7)                    // 2 / 3
         val multi_puncturing_config = MultiPuncturingConfig(16, 2, mask_seq)
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
             targetDirectory = "rtl/MultiPuncturing").generateSystemVerilog(new MultiPuncturing(multi_puncturing_config)).printPruned().printUnused()

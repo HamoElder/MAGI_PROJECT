@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : Puncturing
-// Git hash  : 20f2bbecaafb9bca8a0b2f811067904083589e4b
+// Git hash  : f551716d88446d93e1dd170a856757e67c11b4e4
 
 
 
@@ -15,20 +15,20 @@ module Puncturing (
   input               clk,
   input               resetn
 );
-  wire                _zz_punched_data_payload_fragment;
+  wire       [0:0]    _zz_punched_data_payload_fragment;
   wire       [0:0]    _zz_punched_data_payload_fragment_1;
-  wire       [0:0]    _zz_punched_data_payload_fragment_2;
+  wire                _zz_punched_data_payload_fragment_2;
   reg        [15:0]   raw_data_fragment;
   reg                 raw_data_valid_1;
   reg                 raw_data_last;
 
-  assign _zz_punched_data_payload_fragment = raw_data_fragment[9];
-  assign _zz_punched_data_payload_fragment_1 = raw_data_fragment[1];
-  assign _zz_punched_data_payload_fragment_2 = raw_data_fragment[8];
+  assign _zz_punched_data_payload_fragment = raw_data_fragment[7];
+  assign _zz_punched_data_payload_fragment_1 = raw_data_fragment[14];
+  assign _zz_punched_data_payload_fragment_2 = raw_data_fragment[6];
   assign raw_data_ready = 1'b1;
   assign punched_data_valid = raw_data_valid_1;
   assign punched_data_payload_last = raw_data_last;
-  assign punched_data_payload_fragment = {raw_data_fragment[15],{raw_data_fragment[7],{raw_data_fragment[14],{raw_data_fragment[13],{raw_data_fragment[5],{raw_data_fragment[12],{raw_data_fragment[11],{raw_data_fragment[3],{raw_data_fragment[10],{_zz_punched_data_payload_fragment,{_zz_punched_data_payload_fragment_1,_zz_punched_data_payload_fragment_2}}}}}}}}}}};
+  assign punched_data_payload_fragment = {{{{{{{{{{{_zz_punched_data_payload_fragment,_zz_punched_data_payload_fragment_1},_zz_punched_data_payload_fragment_2},raw_data_fragment[5]},raw_data_fragment[12]},raw_data_fragment[4]},raw_data_fragment[3]},raw_data_fragment[10]},raw_data_fragment[2]},raw_data_fragment[1]},raw_data_fragment[8]},raw_data_fragment[0]};
   always @(posedge clk) begin
     raw_data_fragment <= raw_data_payload_fragment;
   end

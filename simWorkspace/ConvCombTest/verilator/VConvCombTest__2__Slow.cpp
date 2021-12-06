@@ -8,6 +8,8 @@
 void VConvCombTest::_ctor_var_reset_2() {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_ctor_var_reset_2\n"); );
     // Body
+    ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_62 = VL_RAND_RESET_I(1);
+    ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_63 = VL_RAND_RESET_I(1);
     ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_64 = VL_RAND_RESET_I(1);
     ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_65 = VL_RAND_RESET_I(1);
     ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_last_66 = VL_RAND_RESET_I(1);
@@ -507,13 +509,13 @@ void VConvCombTest::_ctor_var_reset_2() {
     ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_18 = VL_RAND_RESET_I(1);
     ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_19 = VL_RAND_RESET_I(1);
     ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_20 = VL_RAND_RESET_I(1);
-    ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_21 = VL_RAND_RESET_I(1);
-    ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_22 = VL_RAND_RESET_I(1);
 }
 
 void VConvCombTest::_ctor_var_reset_3() {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VConvCombTest::_ctor_var_reset_3\n"); );
     // Body
+    ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_21 = VL_RAND_RESET_I(1);
+    ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_22 = VL_RAND_RESET_I(1);
     ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_23 = VL_RAND_RESET_I(1);
     ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_24 = VL_RAND_RESET_I(1);
     ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_last_25 = VL_RAND_RESET_I(1);
@@ -766,64 +768,64 @@ void VConvCombTest::_ctor_var_reset_3() {
     ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(5);
     ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT___zz_1 = VL_RAND_RESET_I(1);
     ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
-    ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(11);
-    ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_pushPtr_value = VL_RAND_RESET_I(11);
+    ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(3);
+    ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_pushPtr_value = VL_RAND_RESET_I(3);
     ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
-    ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(11);
-    ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_popPtr_value = VL_RAND_RESET_I(11);
+    ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(3);
+    ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_popPtr_value = VL_RAND_RESET_I(3);
     ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
     ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
     ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_pushing = VL_RAND_RESET_I(1);
     ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_popping = VL_RAND_RESET_I(1);
     ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_full = VL_RAND_RESET_I(1);
     ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
-    { int __Vi0=0; for (; __Vi0<2048; ++__Vi0) {
+    { int __Vi0=0; for (; __Vi0<8; ++__Vi0) {
             ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(5);
     }}
-    ConvCombTest__DOT__streamFifo_7__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(2);
-    ConvCombTest__DOT__streamFifo_7__DOT___zz_1 = VL_RAND_RESET_I(1);
-    ConvCombTest__DOT__streamFifo_7__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
-    ConvCombTest__DOT__streamFifo_7__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(11);
-    ConvCombTest__DOT__streamFifo_7__DOT__logic_pushPtr_value = VL_RAND_RESET_I(11);
-    ConvCombTest__DOT__streamFifo_7__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
-    ConvCombTest__DOT__streamFifo_7__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(11);
-    ConvCombTest__DOT__streamFifo_7__DOT__logic_popPtr_value = VL_RAND_RESET_I(11);
-    ConvCombTest__DOT__streamFifo_7__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
-    ConvCombTest__DOT__streamFifo_7__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
-    ConvCombTest__DOT__streamFifo_7__DOT__logic_pushing = VL_RAND_RESET_I(1);
-    ConvCombTest__DOT__streamFifo_7__DOT__logic_popping = VL_RAND_RESET_I(1);
-    ConvCombTest__DOT__streamFifo_7__DOT__logic_full = VL_RAND_RESET_I(1);
-    ConvCombTest__DOT__streamFifo_7__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
+    ConvCombTest__DOT__streamFifo_5__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(2);
+    ConvCombTest__DOT__streamFifo_5__DOT___zz_1 = VL_RAND_RESET_I(1);
+    ConvCombTest__DOT__streamFifo_5__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
+    ConvCombTest__DOT__streamFifo_5__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(11);
+    ConvCombTest__DOT__streamFifo_5__DOT__logic_pushPtr_value = VL_RAND_RESET_I(11);
+    ConvCombTest__DOT__streamFifo_5__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
+    ConvCombTest__DOT__streamFifo_5__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(11);
+    ConvCombTest__DOT__streamFifo_5__DOT__logic_popPtr_value = VL_RAND_RESET_I(11);
+    ConvCombTest__DOT__streamFifo_5__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
+    ConvCombTest__DOT__streamFifo_5__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
+    ConvCombTest__DOT__streamFifo_5__DOT__logic_pushing = VL_RAND_RESET_I(1);
+    ConvCombTest__DOT__streamFifo_5__DOT__logic_popping = VL_RAND_RESET_I(1);
+    ConvCombTest__DOT__streamFifo_5__DOT__logic_full = VL_RAND_RESET_I(1);
+    ConvCombTest__DOT__streamFifo_5__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
     { int __Vi0=0; for (; __Vi0<2048; ++__Vi0) {
-            ConvCombTest__DOT__streamFifo_7__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(2);
+            ConvCombTest__DOT__streamFifo_5__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(2);
     }}
     __Vtableidx1 = 0;
-    __Vtable1_ConvCombTest__DOT__de_puncture_core__DOT___zz_switch_Misc_l200[0] = 3U;
-    __Vtable1_ConvCombTest__DOT__de_puncture_core__DOT___zz_switch_Misc_l200[1] = 1U;
-    __Vtable1_ConvCombTest__DOT__de_puncture_core__DOT___zz_switch_Misc_l200[2] = 3U;
-    __Vtable1_ConvCombTest__DOT__de_puncture_core__DOT___zz_switch_Misc_l200[3] = 1U;
-    __Vtable1_ConvCombTest__DOT__de_puncture_core__DOT___zz_switch_Misc_l200[4] = 3U;
-    __Vtable1_ConvCombTest__DOT__de_puncture_core__DOT___zz_switch_Misc_l200[5] = 1U;
-    __Vtable1_ConvCombTest__DOT__de_puncture_core__DOT___zz_switch_Misc_l200[6] = 3U;
-    __Vtable1_ConvCombTest__DOT__de_puncture_core__DOT___zz_switch_Misc_l200[7] = 1U;
+    __Vtable1_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_switch_Misc_l200[0] = 3U;
+    __Vtable1_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_switch_Misc_l200[1] = 1U;
+    __Vtable1_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_switch_Misc_l200[2] = 3U;
+    __Vtable1_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_switch_Misc_l200[3] = 1U;
+    __Vtable1_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_switch_Misc_l200[4] = 3U;
+    __Vtable1_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_switch_Misc_l200[5] = 1U;
+    __Vtable1_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_switch_Misc_l200[6] = 3U;
+    __Vtable1_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_switch_Misc_l200[7] = 1U;
     __Vtableidx2 = 0;
-    __Vtable2_ConvCombTest__DOT__de_puncture_core__DOT___zz_switch_Misc_l200_1_1[0] = 3U;
-    __Vtable2_ConvCombTest__DOT__de_puncture_core__DOT___zz_switch_Misc_l200_1_1[1] = 1U;
-    __Vtable2_ConvCombTest__DOT__de_puncture_core__DOT___zz_switch_Misc_l200_1_1[2] = 3U;
-    __Vtable2_ConvCombTest__DOT__de_puncture_core__DOT___zz_switch_Misc_l200_1_1[3] = 1U;
-    __Vtable2_ConvCombTest__DOT__de_puncture_core__DOT___zz_switch_Misc_l200_1_1[4] = 3U;
-    __Vtable2_ConvCombTest__DOT__de_puncture_core__DOT___zz_switch_Misc_l200_1_1[5] = 1U;
-    __Vtable2_ConvCombTest__DOT__de_puncture_core__DOT___zz_switch_Misc_l200_1_1[6] = 3U;
-    __Vtable2_ConvCombTest__DOT__de_puncture_core__DOT___zz_switch_Misc_l200_1_1[7] = 1U;
+    __Vtable2_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_switch_Misc_l200_1_1[0] = 3U;
+    __Vtable2_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_switch_Misc_l200_1_1[1] = 1U;
+    __Vtable2_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_switch_Misc_l200_1_1[2] = 3U;
+    __Vtable2_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_switch_Misc_l200_1_1[3] = 1U;
+    __Vtable2_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_switch_Misc_l200_1_1[4] = 3U;
+    __Vtable2_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_switch_Misc_l200_1_1[5] = 1U;
+    __Vtable2_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_switch_Misc_l200_1_1[6] = 3U;
+    __Vtable2_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_switch_Misc_l200_1_1[7] = 1U;
     __Vtableidx3 = 0;
-    __Vtable3_ConvCombTest__DOT__de_puncture_core__DOT___zz_de_punched_data_payload_fragment_indicate[0] = 3U;
-    __Vtable3_ConvCombTest__DOT__de_puncture_core__DOT___zz_de_punched_data_payload_fragment_indicate[1] = 1U;
-    __Vtable3_ConvCombTest__DOT__de_puncture_core__DOT___zz_de_punched_data_payload_fragment_indicate[2] = 3U;
-    __Vtable3_ConvCombTest__DOT__de_puncture_core__DOT___zz_de_punched_data_payload_fragment_indicate[3] = 1U;
-    __Vtable3_ConvCombTest__DOT__de_puncture_core__DOT___zz_de_punched_data_payload_fragment_indicate[4] = 3U;
-    __Vtable3_ConvCombTest__DOT__de_puncture_core__DOT___zz_de_punched_data_payload_fragment_indicate[5] = 1U;
-    __Vtable3_ConvCombTest__DOT__de_puncture_core__DOT___zz_de_punched_data_payload_fragment_indicate[6] = 3U;
-    __Vtable3_ConvCombTest__DOT__de_puncture_core__DOT___zz_de_punched_data_payload_fragment_indicate[7] = 1U;
+    __Vtable3_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_de_punched_data_payload_fragment_indicate[0] = 3U;
+    __Vtable3_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_de_punched_data_payload_fragment_indicate[1] = 1U;
+    __Vtable3_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_de_punched_data_payload_fragment_indicate[2] = 3U;
+    __Vtable3_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_de_punched_data_payload_fragment_indicate[3] = 1U;
+    __Vtable3_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_de_punched_data_payload_fragment_indicate[4] = 3U;
+    __Vtable3_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_de_punched_data_payload_fragment_indicate[5] = 1U;
+    __Vtable3_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_de_punched_data_payload_fragment_indicate[6] = 3U;
+    __Vtable3_ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT___zz_de_punched_data_payload_fragment_indicate[7] = 1U;
     __Vtablechg4[0] = 0xfU;
     __Vtablechg4[1] = 0x1fU;
     __Vtablechg4[2] = 0xfU;
@@ -1601,8 +1603,10 @@ void VConvCombTest::_ctor_var_reset_3() {
     VL_CONST_W_3X(88,__Vtable5_ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state_string[5],0x0046494e,0x49534820,0x20202020);
     VL_CONST_W_3X(88,__Vtable5_ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state_string[6],0x003f3f3f,0x3f3f3f3f,0x3f3f3f3f);
     VL_CONST_W_3X(88,__Vtable5_ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__traceback_state_string[7],0x003f3f3f,0x3f3f3f3f,0x3f3f3f3f);
-    __Vdly__ConvCombTest__DOT__de_puncture_core__DOT__cnt = VL_RAND_RESET_I(4);
-    __Vdly__ConvCombTest__DOT__de_puncture_core__DOT__mask_cnt = VL_RAND_RESET_I(4);
+    __Vdly__ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_2__DOT__cnt = VL_RAND_RESET_I(4);
+    __Vdly__ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_2__DOT__mask_cnt = VL_RAND_RESET_I(4);
+    __Vdly__ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT__cnt = VL_RAND_RESET_I(4);
+    __Vdly__ConvCombTest__DOT__de_puncture_core__DOT__dePuncturing_3__DOT__mask_cnt = VL_RAND_RESET_I(4);
     __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_select = VL_RAND_RESET_I(2);
     __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_addr_write = VL_RAND_RESET_I(8);
     __Vdly__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__ram_addr_read = VL_RAND_RESET_I(8);
@@ -1612,12 +1616,9 @@ void VConvCombTest::_ctor_var_reset_3() {
     __Vdly__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__reorder_state = VL_RAND_RESET_I(1);
     __Vdly__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_head_cursor = VL_RAND_RESET_I(9);
     __Vdly__ConvCombTest__DOT__decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_head_cursor = VL_RAND_RESET_I(9);
-    __Vdlyvdim0__ConvCombTest__DOT__streamFifo_5__DOT__logic_ram__v0 = 0;
-    __Vdlyvval__ConvCombTest__DOT__streamFifo_5__DOT__logic_ram__v0 = VL_RAND_RESET_I(17);
-    __Vdlyvset__ConvCombTest__DOT__streamFifo_5__DOT__logic_ram__v0 = 0;
-    __Vdlyvdim0__ConvCombTest__DOT__streamFifo_6__DOT__logic_ram__v0 = 0;
-    __Vdlyvval__ConvCombTest__DOT__streamFifo_6__DOT__logic_ram__v0 = VL_RAND_RESET_I(13);
-    __Vdlyvset__ConvCombTest__DOT__streamFifo_6__DOT__logic_ram__v0 = 0;
+    __Vdlyvdim0__ConvCombTest__DOT__streamFifo_4__DOT__logic_ram__v0 = 0;
+    __Vdlyvval__ConvCombTest__DOT__streamFifo_4__DOT__logic_ram__v0 = VL_RAND_RESET_I(17);
+    __Vdlyvset__ConvCombTest__DOT__streamFifo_4__DOT__logic_ram__v0 = 0;
     __Vdlyvdim0__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__survival_path_ram_0__v0 = 0;
     __Vdlyvval__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__survival_path_ram_0__v0 = VL_RAND_RESET_Q(64);
     __Vdlyvset__ConvCombTest__DOT__decoder__DOT__tbu_core__DOT__survival_path_ram_0__v0 = 0;
@@ -1637,8 +1638,8 @@ void VConvCombTest::_ctor_var_reset_3() {
     __Vdlyvdim0__ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_ram__v0 = 0;
     __Vdlyvval__ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_ram__v0 = VL_RAND_RESET_I(5);
     __Vdlyvset__ConvCombTest__DOT__de_puncture_core_de_punched_data_fifo__DOT__logic_ram__v0 = 0;
-    __Vdlyvdim0__ConvCombTest__DOT__streamFifo_7__DOT__logic_ram__v0 = 0;
-    __Vdlyvval__ConvCombTest__DOT__streamFifo_7__DOT__logic_ram__v0 = VL_RAND_RESET_I(2);
-    __Vdlyvset__ConvCombTest__DOT__streamFifo_7__DOT__logic_ram__v0 = 0;
+    __Vdlyvdim0__ConvCombTest__DOT__streamFifo_5__DOT__logic_ram__v0 = 0;
+    __Vdlyvval__ConvCombTest__DOT__streamFifo_5__DOT__logic_ram__v0 = VL_RAND_RESET_I(2);
+    __Vdlyvset__ConvCombTest__DOT__streamFifo_5__DOT__logic_ram__v0 = 0;
     __Vm_traceActivity = 0;
 }

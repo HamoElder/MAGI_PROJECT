@@ -37,10 +37,10 @@ case class AxiLite4SpiMaster(config : AxiLite4SpiMasterConfig) extends Component
     axil4busCtrl.printDataModel()
 }
 
-object axil4SpiMasterCtrlBench{
+object AxiLite4SpiMasterBench{
     def main(args: Array[String]): Unit ={
         val spi_master_config = AxiLite4SpiMasterConfig(1, 16)
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
-            targetDirectory = "rtl").generateSystemVerilog(new AxiLite4SpiMaster(spi_master_config)).printPruned().printUnused()
+            targetDirectory = "rtl/AxiLite4SpiMaster").generateSystemVerilog(new AxiLite4SpiMaster(spi_master_config)).printPruned().printUnused()
     }
 }
