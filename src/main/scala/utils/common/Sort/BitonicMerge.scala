@@ -12,7 +12,10 @@ case class BitonicMerge[T <: Data](dataType: HardType[T], dataSize: Int, useSign
 
     def resultDataType: IdxWithData = IdxWithData(payloadDataType, idxDataType, useSigned)
     val io = new Bundle{
-        val raw_data = slave(Stream(dataType))
+        val raw_data = slave(Stream(new Bundle{
+            val low = dataType
+            val high = dataType
+        }))
 //        val result_data = master(Stream(resultDataType))
     }
     noIoPrefix()

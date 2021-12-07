@@ -64,26 +64,24 @@ void VBitonicSort::traceInitThis__1(VBitonicSort__Syms* __restrict vlSymsp, Veri
         vcdp->declBit(c+681,"raw_data_ready", false,-1);
         vcdp->declBus(c+689,"raw_data_payload_data", false,-1, 15,0);
         vcdp->declBus(c+697,"raw_data_payload_idx", false,-1, 3,0);
-        vcdp->declBit(c+705,"sorted_data_0_valid", false,-1);
-        vcdp->declBus(c+713,"sorted_data_0_payload_data", false,-1, 15,0);
-        vcdp->declBus(c+721,"sorted_data_0_payload_idx", false,-1, 3,0);
-        vcdp->declBit(c+729,"sorted_data_1_valid", false,-1);
-        vcdp->declBus(c+737,"sorted_data_1_payload_data", false,-1, 15,0);
-        vcdp->declBus(c+745,"sorted_data_1_payload_idx", false,-1, 3,0);
-        vcdp->declBit(c+753,"clk", false,-1);
-        vcdp->declBit(c+761,"reset", false,-1);
+        vcdp->declBit(c+705,"sorted_data_valid", false,-1);
+        vcdp->declBus(c+713,"sorted_data_payload_low_data", false,-1, 15,0);
+        vcdp->declBus(c+721,"sorted_data_payload_low_idx", false,-1, 3,0);
+        vcdp->declBus(c+729,"sorted_data_payload_high_data", false,-1, 15,0);
+        vcdp->declBus(c+737,"sorted_data_payload_high_idx", false,-1, 3,0);
+        vcdp->declBit(c+745,"clk", false,-1);
+        vcdp->declBit(c+753,"reset", false,-1);
         vcdp->declBit(c+673,"BitonicSort raw_data_valid", false,-1);
         vcdp->declBit(c+681,"BitonicSort raw_data_ready", false,-1);
         vcdp->declBus(c+689,"BitonicSort raw_data_payload_data", false,-1, 15,0);
         vcdp->declBus(c+697,"BitonicSort raw_data_payload_idx", false,-1, 3,0);
-        vcdp->declBit(c+705,"BitonicSort sorted_data_0_valid", false,-1);
-        vcdp->declBus(c+713,"BitonicSort sorted_data_0_payload_data", false,-1, 15,0);
-        vcdp->declBus(c+721,"BitonicSort sorted_data_0_payload_idx", false,-1, 3,0);
-        vcdp->declBit(c+729,"BitonicSort sorted_data_1_valid", false,-1);
-        vcdp->declBus(c+737,"BitonicSort sorted_data_1_payload_data", false,-1, 15,0);
-        vcdp->declBus(c+745,"BitonicSort sorted_data_1_payload_idx", false,-1, 3,0);
-        vcdp->declBit(c+753,"BitonicSort clk", false,-1);
-        vcdp->declBit(c+761,"BitonicSort reset", false,-1);
+        vcdp->declBit(c+705,"BitonicSort sorted_data_valid", false,-1);
+        vcdp->declBus(c+713,"BitonicSort sorted_data_payload_low_data", false,-1, 15,0);
+        vcdp->declBus(c+721,"BitonicSort sorted_data_payload_low_idx", false,-1, 3,0);
+        vcdp->declBus(c+729,"BitonicSort sorted_data_payload_high_data", false,-1, 15,0);
+        vcdp->declBus(c+737,"BitonicSort sorted_data_payload_high_idx", false,-1, 3,0);
+        vcdp->declBit(c+745,"BitonicSort clk", false,-1);
+        vcdp->declBit(c+753,"BitonicSort reset", false,-1);
         vcdp->declBit(c+641,"BitonicSort cmpSwitch_3_sel", false,-1);
         vcdp->declBit(c+649,"BitonicSort cmpSwitch_4_sel", false,-1);
         vcdp->declBit(c+657,"BitonicSort cmpSwitch_5_sel", false,-1);
@@ -91,8 +89,8 @@ void VBitonicSort::traceInitThis__1(VBitonicSort__Syms* __restrict vlSymsp, Veri
         vcdp->declBus(c+265,"BitonicSort shiftRegister_7_output_idx", false,-1, 3,0);
         vcdp->declBus(c+113,"BitonicSort cmpUnit_4_out1_data", false,-1, 15,0);
         vcdp->declBus(c+121,"BitonicSort cmpUnit_4_out1_idx", false,-1, 3,0);
-        vcdp->declBus(c+769,"BitonicSort cmpUnit_4_out2_data", false,-1, 15,0);
-        vcdp->declBus(c+777,"BitonicSort cmpUnit_4_out2_idx", false,-1, 3,0);
+        vcdp->declBus(c+761,"BitonicSort cmpUnit_4_out2_data", false,-1, 15,0);
+        vcdp->declBus(c+769,"BitonicSort cmpUnit_4_out2_idx", false,-1, 3,0);
         vcdp->declBus(c+273,"BitonicSort shiftRegister_8_output_data", false,-1, 15,0);
         vcdp->declBus(c+281,"BitonicSort shiftRegister_8_output_idx", false,-1, 3,0);
         vcdp->declBus(c+1,"BitonicSort cmpSwitch_3_out1_data", false,-1, 15,0);
@@ -130,9 +128,9 @@ void VBitonicSort::traceInitThis__1(VBitonicSort__Syms* __restrict vlSymsp, Veri
         vcdp->declBus(c+97,"BitonicSort cmpUnit_7_out2_data", false,-1, 15,0);
         vcdp->declBus(c+105,"BitonicSort cmpUnit_7_out2_idx", false,-1, 3,0);
         vcdp->declBus(c+665,"BitonicSort cnt", false,-1, 4,0);
-        vcdp->declBit(c+785,"BitonicSort raw_data_fire", false,-1);
-        vcdp->declBit(c+793,"BitonicSort when_BitonicSort_l23", false,-1);
-        vcdp->declBit(c+785,"BitonicSort raw_data_fire_1", false,-1);
+        vcdp->declBit(c+777,"BitonicSort raw_data_fire", false,-1);
+        vcdp->declBit(c+785,"BitonicSort when_BitonicSort_l26", false,-1);
+        vcdp->declBit(c+777,"BitonicSort raw_data_fire_1", false,-1);
         vcdp->declBit(c+209,"BitonicSort raw_data_free_run", false,-1);
         vcdp->declBus(c+689,"BitonicSort out0_buf_0_data", false,-1, 15,0);
         vcdp->declBus(c+697,"BitonicSort out0_buf_0_idx", false,-1, 3,0);
@@ -159,8 +157,8 @@ void VBitonicSort::traceInitThis__1(VBitonicSort__Syms* __restrict vlSymsp, Veri
         vcdp->declBus(c+257,"BitonicSort shiftRegister_7 output_data", false,-1, 15,0);
         vcdp->declBus(c+265,"BitonicSort shiftRegister_7 output_idx", false,-1, 3,0);
         vcdp->declBit(c+209,"BitonicSort shiftRegister_7 enable", false,-1);
-        vcdp->declBit(c+753,"BitonicSort shiftRegister_7 clk", false,-1);
-        vcdp->declBit(c+761,"BitonicSort shiftRegister_7 reset", false,-1);
+        vcdp->declBit(c+745,"BitonicSort shiftRegister_7 clk", false,-1);
+        vcdp->declBit(c+753,"BitonicSort shiftRegister_7 reset", false,-1);
         vcdp->declBus(c+401,"BitonicSort shiftRegister_7 shift_reg_0_data", false,-1, 15,0);
         vcdp->declBus(c+409,"BitonicSort shiftRegister_7 shift_reg_0_idx", false,-1, 3,0);
         vcdp->declBus(c+417,"BitonicSort shiftRegister_7 shift_reg_1_data", false,-1, 15,0);
@@ -181,20 +179,20 @@ void VBitonicSort::traceInitThis__1(VBitonicSort__Syms* __restrict vlSymsp, Veri
         vcdp->declBus(c+265,"BitonicSort cmpUnit_4 in1_idx", false,-1, 3,0);
         vcdp->declBus(c+689,"BitonicSort cmpUnit_4 in2_data", false,-1, 15,0);
         vcdp->declBus(c+697,"BitonicSort cmpUnit_4 in2_idx", false,-1, 3,0);
-        vcdp->declBit(c+801,"BitonicSort cmpUnit_4 less", false,-1);
+        vcdp->declBit(c+793,"BitonicSort cmpUnit_4 less", false,-1);
         vcdp->declBus(c+113,"BitonicSort cmpUnit_4 out1_data", false,-1, 15,0);
         vcdp->declBus(c+121,"BitonicSort cmpUnit_4 out1_idx", false,-1, 3,0);
-        vcdp->declBus(c+769,"BitonicSort cmpUnit_4 out2_data", false,-1, 15,0);
-        vcdp->declBus(c+777,"BitonicSort cmpUnit_4 out2_idx", false,-1, 3,0);
+        vcdp->declBus(c+761,"BitonicSort cmpUnit_4 out2_data", false,-1, 15,0);
+        vcdp->declBus(c+769,"BitonicSort cmpUnit_4 out2_idx", false,-1, 3,0);
         vcdp->declBit(c+217,"BitonicSort cmpUnit_4 cmp_less_result", false,-1);
         vcdp->declBit(c+217,"BitonicSort cmpUnit_4 cmp_sel", false,-1);
-        vcdp->declBus(c+769,"BitonicSort shiftRegister_8 input_data", false,-1, 15,0);
-        vcdp->declBus(c+777,"BitonicSort shiftRegister_8 input_idx", false,-1, 3,0);
+        vcdp->declBus(c+761,"BitonicSort shiftRegister_8 input_data", false,-1, 15,0);
+        vcdp->declBus(c+769,"BitonicSort shiftRegister_8 input_idx", false,-1, 3,0);
         vcdp->declBus(c+273,"BitonicSort shiftRegister_8 output_data", false,-1, 15,0);
         vcdp->declBus(c+281,"BitonicSort shiftRegister_8 output_idx", false,-1, 3,0);
         vcdp->declBit(c+209,"BitonicSort shiftRegister_8 enable", false,-1);
-        vcdp->declBit(c+753,"BitonicSort shiftRegister_8 clk", false,-1);
-        vcdp->declBit(c+761,"BitonicSort shiftRegister_8 reset", false,-1);
+        vcdp->declBit(c+745,"BitonicSort shiftRegister_8 clk", false,-1);
+        vcdp->declBit(c+753,"BitonicSort shiftRegister_8 reset", false,-1);
         vcdp->declBus(c+513,"BitonicSort shiftRegister_8 shift_reg_0_data", false,-1, 15,0);
         vcdp->declBus(c+521,"BitonicSort shiftRegister_8 shift_reg_0_idx", false,-1, 3,0);
         vcdp->declBus(c+529,"BitonicSort shiftRegister_8 shift_reg_1_data", false,-1, 15,0);
@@ -217,8 +215,8 @@ void VBitonicSort::traceInitThis__1(VBitonicSort__Syms* __restrict vlSymsp, Veri
         vcdp->declBus(c+289,"BitonicSort shiftRegister_9 output_data", false,-1, 15,0);
         vcdp->declBus(c+297,"BitonicSort shiftRegister_9 output_idx", false,-1, 3,0);
         vcdp->declBit(c+209,"BitonicSort shiftRegister_9 enable", false,-1);
-        vcdp->declBit(c+753,"BitonicSort shiftRegister_9 clk", false,-1);
-        vcdp->declBit(c+761,"BitonicSort shiftRegister_9 reset", false,-1);
+        vcdp->declBit(c+745,"BitonicSort shiftRegister_9 clk", false,-1);
+        vcdp->declBit(c+753,"BitonicSort shiftRegister_9 reset", false,-1);
         vcdp->declBus(c+561,"BitonicSort shiftRegister_9 shift_reg_0_data", false,-1, 15,0);
         vcdp->declBus(c+569,"BitonicSort shiftRegister_9 shift_reg_0_idx", false,-1, 3,0);
         vcdp->declBus(c+577,"BitonicSort shiftRegister_9 shift_reg_1_data", false,-1, 15,0);
@@ -231,7 +229,7 @@ void VBitonicSort::traceInitThis__1(VBitonicSort__Syms* __restrict vlSymsp, Veri
         vcdp->declBus(c+297,"BitonicSort cmpUnit_5 in1_idx", false,-1, 3,0);
         vcdp->declBus(c+129,"BitonicSort cmpUnit_5 in2_data", false,-1, 15,0);
         vcdp->declBus(c+137,"BitonicSort cmpUnit_5 in2_idx", false,-1, 3,0);
-        vcdp->declBit(c+801,"BitonicSort cmpUnit_5 less", false,-1);
+        vcdp->declBit(c+793,"BitonicSort cmpUnit_5 less", false,-1);
         vcdp->declBus(c+145,"BitonicSort cmpUnit_5 out1_data", false,-1, 15,0);
         vcdp->declBus(c+153,"BitonicSort cmpUnit_5 out1_idx", false,-1, 3,0);
         vcdp->declBus(c+49,"BitonicSort cmpUnit_5 out2_data", false,-1, 15,0);
@@ -243,8 +241,8 @@ void VBitonicSort::traceInitThis__1(VBitonicSort__Syms* __restrict vlSymsp, Veri
         vcdp->declBus(c+305,"BitonicSort shiftRegister_10 output_data", false,-1, 15,0);
         vcdp->declBus(c+313,"BitonicSort shiftRegister_10 output_idx", false,-1, 3,0);
         vcdp->declBit(c+209,"BitonicSort shiftRegister_10 enable", false,-1);
-        vcdp->declBit(c+753,"BitonicSort shiftRegister_10 clk", false,-1);
-        vcdp->declBit(c+761,"BitonicSort shiftRegister_10 reset", false,-1);
+        vcdp->declBit(c+745,"BitonicSort shiftRegister_10 clk", false,-1);
+        vcdp->declBit(c+753,"BitonicSort shiftRegister_10 reset", false,-1);
         vcdp->declBus(c+609,"BitonicSort shiftRegister_10 shift_reg_0_data", false,-1, 15,0);
         vcdp->declBus(c+617,"BitonicSort shiftRegister_10 shift_reg_0_idx", false,-1, 3,0);
         vcdp->declBus(c+305,"BitonicSort shiftRegister_10 shift_reg_1_data", false,-1, 15,0);
@@ -263,8 +261,8 @@ void VBitonicSort::traceInitThis__1(VBitonicSort__Syms* __restrict vlSymsp, Veri
         vcdp->declBus(c+321,"BitonicSort shiftRegister_11 output_data", false,-1, 15,0);
         vcdp->declBus(c+329,"BitonicSort shiftRegister_11 output_idx", false,-1, 3,0);
         vcdp->declBit(c+209,"BitonicSort shiftRegister_11 enable", false,-1);
-        vcdp->declBit(c+753,"BitonicSort shiftRegister_11 clk", false,-1);
-        vcdp->declBit(c+761,"BitonicSort shiftRegister_11 reset", false,-1);
+        vcdp->declBit(c+745,"BitonicSort shiftRegister_11 clk", false,-1);
+        vcdp->declBit(c+753,"BitonicSort shiftRegister_11 reset", false,-1);
         vcdp->declBus(c+625,"BitonicSort shiftRegister_11 shift_reg_0_data", false,-1, 15,0);
         vcdp->declBus(c+633,"BitonicSort shiftRegister_11 shift_reg_0_idx", false,-1, 3,0);
         vcdp->declBus(c+321,"BitonicSort shiftRegister_11 shift_reg_1_data", false,-1, 15,0);
@@ -273,7 +271,7 @@ void VBitonicSort::traceInitThis__1(VBitonicSort__Syms* __restrict vlSymsp, Veri
         vcdp->declBus(c+329,"BitonicSort cmpUnit_6 in1_idx", false,-1, 3,0);
         vcdp->declBus(c+161,"BitonicSort cmpUnit_6 in2_data", false,-1, 15,0);
         vcdp->declBus(c+169,"BitonicSort cmpUnit_6 in2_idx", false,-1, 3,0);
-        vcdp->declBit(c+801,"BitonicSort cmpUnit_6 less", false,-1);
+        vcdp->declBit(c+793,"BitonicSort cmpUnit_6 less", false,-1);
         vcdp->declBus(c+177,"BitonicSort cmpUnit_6 out1_data", false,-1, 15,0);
         vcdp->declBus(c+185,"BitonicSort cmpUnit_6 out1_idx", false,-1, 3,0);
         vcdp->declBus(c+65,"BitonicSort cmpUnit_6 out2_data", false,-1, 15,0);
@@ -285,8 +283,8 @@ void VBitonicSort::traceInitThis__1(VBitonicSort__Syms* __restrict vlSymsp, Veri
         vcdp->declBus(c+337,"BitonicSort shiftRegister_12 output_data", false,-1, 15,0);
         vcdp->declBus(c+345,"BitonicSort shiftRegister_12 output_idx", false,-1, 3,0);
         vcdp->declBit(c+209,"BitonicSort shiftRegister_12 enable", false,-1);
-        vcdp->declBit(c+753,"BitonicSort shiftRegister_12 clk", false,-1);
-        vcdp->declBit(c+761,"BitonicSort shiftRegister_12 reset", false,-1);
+        vcdp->declBit(c+745,"BitonicSort shiftRegister_12 clk", false,-1);
+        vcdp->declBit(c+753,"BitonicSort shiftRegister_12 reset", false,-1);
         vcdp->declBus(c+337,"BitonicSort shiftRegister_12 shift_reg_0_data", false,-1, 15,0);
         vcdp->declBus(c+345,"BitonicSort shiftRegister_12 shift_reg_0_idx", false,-1, 3,0);
         vcdp->declBus(c+177,"BitonicSort cmpSwitch_5 in1_data", false,-1, 15,0);
@@ -302,9 +300,9 @@ void VBitonicSort::traceInitThis__1(VBitonicSort__Syms* __restrict vlSymsp, Veri
         vcdp->declBus(c+41,"BitonicSort shiftRegister_13 input_idx", false,-1, 3,0);
         vcdp->declBus(c+353,"BitonicSort shiftRegister_13 output_data", false,-1, 15,0);
         vcdp->declBus(c+361,"BitonicSort shiftRegister_13 output_idx", false,-1, 3,0);
-        vcdp->declBit(c+801,"BitonicSort shiftRegister_13 enable", false,-1);
-        vcdp->declBit(c+753,"BitonicSort shiftRegister_13 clk", false,-1);
-        vcdp->declBit(c+761,"BitonicSort shiftRegister_13 reset", false,-1);
+        vcdp->declBit(c+793,"BitonicSort shiftRegister_13 enable", false,-1);
+        vcdp->declBit(c+745,"BitonicSort shiftRegister_13 clk", false,-1);
+        vcdp->declBit(c+753,"BitonicSort shiftRegister_13 reset", false,-1);
         vcdp->declBus(c+353,"BitonicSort shiftRegister_13 shift_reg_0_data", false,-1, 15,0);
         vcdp->declBus(c+361,"BitonicSort shiftRegister_13 shift_reg_0_idx", false,-1, 3,0);
         vcdp->declBus(c+353,"BitonicSort cmpUnit_7 in1_data", false,-1, 15,0);
@@ -381,7 +379,7 @@ void VBitonicSort::traceFullThis__1(VBitonicSort__Syms* __restrict vlSymsp, Veri
         vcdp->fullBus(c+185,(vlTOPp->BitonicSort__DOT__cmpUnit_6_out1_idx),4);
         vcdp->fullBus(c+193,(vlTOPp->BitonicSort__DOT__cmpSwitch_5_out2_data),16);
         vcdp->fullBus(c+201,(vlTOPp->BitonicSort__DOT__cmpSwitch_5_out2_idx),4);
-        vcdp->fullBit(c+209,(vlTOPp->BitonicSort__DOT__when_BitonicSort_l23));
+        vcdp->fullBit(c+209,(vlTOPp->BitonicSort__DOT__when_BitonicSort_l26));
         vcdp->fullBit(c+217,(vlTOPp->BitonicSort__DOT__cmpUnit_4__DOT__cmp_less_result));
         vcdp->fullBit(c+225,(vlTOPp->BitonicSort__DOT__cmpUnit_5__DOT__cmp_less_result));
         vcdp->fullBit(c+233,(vlTOPp->BitonicSort__DOT__cmpUnit_6__DOT__cmp_less_result));
@@ -445,25 +443,24 @@ void VBitonicSort::traceFullThis__1(VBitonicSort__Syms* __restrict vlSymsp, Veri
         vcdp->fullBit(c+681,(vlTOPp->raw_data_ready));
         vcdp->fullBus(c+689,(vlTOPp->raw_data_payload_data),16);
         vcdp->fullBus(c+697,(vlTOPp->raw_data_payload_idx),4);
-        vcdp->fullBit(c+705,(vlTOPp->sorted_data_0_valid));
-        vcdp->fullBus(c+713,(vlTOPp->sorted_data_0_payload_data),16);
-        vcdp->fullBus(c+721,(vlTOPp->sorted_data_0_payload_idx),4);
-        vcdp->fullBit(c+729,(vlTOPp->sorted_data_1_valid));
-        vcdp->fullBus(c+737,(vlTOPp->sorted_data_1_payload_data),16);
-        vcdp->fullBus(c+745,(vlTOPp->sorted_data_1_payload_idx),4);
-        vcdp->fullBit(c+753,(vlTOPp->clk));
-        vcdp->fullBit(c+761,(vlTOPp->reset));
-        vcdp->fullBus(c+769,(((IData)(vlTOPp->BitonicSort__DOT__cmpUnit_4__DOT__cmp_less_result)
+        vcdp->fullBit(c+705,(vlTOPp->sorted_data_valid));
+        vcdp->fullBus(c+713,(vlTOPp->sorted_data_payload_low_data),16);
+        vcdp->fullBus(c+721,(vlTOPp->sorted_data_payload_low_idx),4);
+        vcdp->fullBus(c+729,(vlTOPp->sorted_data_payload_high_data),16);
+        vcdp->fullBus(c+737,(vlTOPp->sorted_data_payload_high_idx),4);
+        vcdp->fullBit(c+745,(vlTOPp->clk));
+        vcdp->fullBit(c+753,(vlTOPp->reset));
+        vcdp->fullBus(c+761,(((IData)(vlTOPp->BitonicSort__DOT__cmpUnit_4__DOT__cmp_less_result)
                                ? (IData)(vlTOPp->raw_data_payload_data)
                                : (IData)(vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_7_data))),16);
-        vcdp->fullBus(c+777,(((IData)(vlTOPp->BitonicSort__DOT__cmpUnit_4__DOT__cmp_less_result)
+        vcdp->fullBus(c+769,(((IData)(vlTOPp->BitonicSort__DOT__cmpUnit_4__DOT__cmp_less_result)
                                ? (IData)(vlTOPp->raw_data_payload_idx)
                                : (IData)(vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_7_idx))),4);
-        vcdp->fullBit(c+785,(((IData)(vlTOPp->raw_data_valid) 
+        vcdp->fullBit(c+777,(((IData)(vlTOPp->raw_data_valid) 
                               & (IData)(vlTOPp->raw_data_ready))));
-        vcdp->fullBit(c+793,((((IData)(vlTOPp->raw_data_valid) 
+        vcdp->fullBit(c+785,((((IData)(vlTOPp->raw_data_valid) 
                                & (IData)(vlTOPp->raw_data_ready)) 
                               | (0x10U <= (IData)(vlTOPp->BitonicSort__DOT__cnt)))));
-        vcdp->fullBit(c+801,(1U));
+        vcdp->fullBit(c+793,(1U));
     }
 }

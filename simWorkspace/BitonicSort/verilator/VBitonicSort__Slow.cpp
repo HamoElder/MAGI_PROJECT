@@ -29,19 +29,18 @@ void VBitonicSort::_settle__TOP__5(VBitonicSort__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VBitonicSort::_settle__TOP__5\n"); );
     VBitonicSort* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->sorted_data_0_payload_data = vlTOPp->BitonicSort__DOT__cmpUnit_7_out1_regNext_data;
-    vlTOPp->sorted_data_0_payload_idx = vlTOPp->BitonicSort__DOT__cmpUnit_7_out1_regNext_idx;
-    vlTOPp->sorted_data_1_payload_data = vlTOPp->BitonicSort__DOT__cmpUnit_7_out2_regNext_data;
-    vlTOPp->sorted_data_1_payload_idx = vlTOPp->BitonicSort__DOT__cmpUnit_7_out2_regNext_idx;
+    vlTOPp->sorted_data_payload_low_data = vlTOPp->BitonicSort__DOT__cmpUnit_7_out1_regNext_data;
+    vlTOPp->sorted_data_payload_low_idx = vlTOPp->BitonicSort__DOT__cmpUnit_7_out1_regNext_idx;
+    vlTOPp->sorted_data_payload_high_data = vlTOPp->BitonicSort__DOT__cmpUnit_7_out2_regNext_data;
+    vlTOPp->sorted_data_payload_high_idx = vlTOPp->BitonicSort__DOT__cmpUnit_7_out2_regNext_idx;
     vlTOPp->BitonicSort__DOT___zz_cnt = (0x1fU & ((IData)(1U) 
                                                   + (IData)(vlTOPp->BitonicSort__DOT__cnt)));
-    vlTOPp->sorted_data_0_valid = (0xfU < (IData)(vlTOPp->BitonicSort__DOT__cnt));
-    vlTOPp->sorted_data_1_valid = (0xfU < (IData)(vlTOPp->BitonicSort__DOT__cnt));
+    vlTOPp->sorted_data_valid = (0xfU < (IData)(vlTOPp->BitonicSort__DOT__cnt));
     vlTOPp->raw_data_ready = (0x10U > (IData)(vlTOPp->BitonicSort__DOT__cnt));
     vlTOPp->BitonicSort__DOT__cmpUnit_4__DOT__cmp_less_result 
         = ((IData)(vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_7_data) 
            < (IData)(vlTOPp->raw_data_payload_data));
-    vlTOPp->BitonicSort__DOT__when_BitonicSort_l23 
+    vlTOPp->BitonicSort__DOT__when_BitonicSort_l26 
         = (((IData)(vlTOPp->raw_data_valid) & (IData)(vlTOPp->raw_data_ready)) 
            | (0x10U <= (IData)(vlTOPp->BitonicSort__DOT__cnt)));
     vlTOPp->BitonicSort__DOT__cmpUnit_4_out1_idx = 
@@ -102,7 +101,7 @@ void VBitonicSort::_settle__TOP__5(VBitonicSort__Syms* __restrict vlSymsp) {
         = ((IData)(vlTOPp->BitonicSort__DOT__shiftRegister_13__DOT__shift_reg_0_data) 
            < (IData)(vlTOPp->BitonicSort__DOT__cmpSwitch_5_out2_data));
     vlTOPp->BitonicSort__DOT__cmpUnit_7__DOT__cmp_sel 
-        = (1U & ((IData)(vlTOPp->BitonicSort__DOT__when_BitonicSort_l23)
+        = (1U & ((IData)(vlTOPp->BitonicSort__DOT__when_BitonicSort_l26)
                   ? (IData)(vlTOPp->BitonicSort__DOT__cmpUnit_7__DOT__cmp_less_result)
                   : (~ (IData)(vlTOPp->BitonicSort__DOT__cmpUnit_7__DOT__cmp_less_result))));
 }
@@ -137,12 +136,11 @@ void VBitonicSort::_ctor_var_reset() {
     raw_data_ready = VL_RAND_RESET_I(1);
     raw_data_payload_data = VL_RAND_RESET_I(16);
     raw_data_payload_idx = VL_RAND_RESET_I(4);
-    sorted_data_0_valid = VL_RAND_RESET_I(1);
-    sorted_data_0_payload_data = VL_RAND_RESET_I(16);
-    sorted_data_0_payload_idx = VL_RAND_RESET_I(4);
-    sorted_data_1_valid = VL_RAND_RESET_I(1);
-    sorted_data_1_payload_data = VL_RAND_RESET_I(16);
-    sorted_data_1_payload_idx = VL_RAND_RESET_I(4);
+    sorted_data_valid = VL_RAND_RESET_I(1);
+    sorted_data_payload_low_data = VL_RAND_RESET_I(16);
+    sorted_data_payload_low_idx = VL_RAND_RESET_I(4);
+    sorted_data_payload_high_data = VL_RAND_RESET_I(16);
+    sorted_data_payload_high_idx = VL_RAND_RESET_I(4);
     clk = VL_RAND_RESET_I(1);
     reset = VL_RAND_RESET_I(1);
     BitonicSort__DOT__cmpUnit_4_out1_data = VL_RAND_RESET_I(16);
@@ -159,7 +157,7 @@ void VBitonicSort::_ctor_var_reset() {
     BitonicSort__DOT__cmpSwitch_5_out2_idx = VL_RAND_RESET_I(4);
     BitonicSort__DOT___zz_cnt = VL_RAND_RESET_I(5);
     BitonicSort__DOT__cnt = VL_RAND_RESET_I(5);
-    BitonicSort__DOT__when_BitonicSort_l23 = VL_RAND_RESET_I(1);
+    BitonicSort__DOT__when_BitonicSort_l26 = VL_RAND_RESET_I(1);
     BitonicSort__DOT__cmpUnit_7_out1_regNext_data = VL_RAND_RESET_I(16);
     BitonicSort__DOT__cmpUnit_7_out1_regNext_idx = VL_RAND_RESET_I(4);
     BitonicSort__DOT__cmpUnit_7_out2_regNext_data = VL_RAND_RESET_I(16);

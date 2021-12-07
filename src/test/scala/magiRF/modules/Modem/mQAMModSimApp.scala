@@ -1,7 +1,7 @@
 package magiRF.modules.Modem
 
 import magiRF.modules.Modem.Misc.modUnitConfig
-import magiRF.modules.Modem.Modulator.mQAMMod
+import magiRF.modules.Modem.Modulator.extensions.mQAMMod
 import spinal.core.sim._
 import spinal.core._
 import spinal.lib._

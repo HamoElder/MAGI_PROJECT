@@ -1,10 +1,11 @@
 package magiRF.modules.Modem
 
 import magiRF.modules.Modem.Misc.modUnitConfig
-import magiRF.modules.Modem.Modulator.mASKMod
+import magiRF.modules.Modem.Modulator.extensions.mASKMod
 import spinal.core.sim._
 import utils.bus.AxiLite.sim.AxiLite4Driver
 import spinal.lib.sim.{StreamDriver, StreamMonitor, StreamReadyRandomizer}
+
 import scala.util.Random
 import spinal.core._
 import spinal.lib._

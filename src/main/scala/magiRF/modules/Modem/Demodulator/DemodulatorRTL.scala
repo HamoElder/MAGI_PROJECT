@@ -6,6 +6,7 @@ import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
 import sun.jvm.hotspot.oops.TypeArrayKlass
+import utils.bus.IQBundle.IQBundle
 import utils.common.ClkCrossing.ClkCrossing
 import utils.common.Mux.{FlowDeMux, FlowMux}
 
@@ -93,7 +94,7 @@ case class DemodulatorRTL(config: DemodulatorRTLConfig) extends Component{
 
     noIoPrefix()
 
-    val mod_data_iq_demux = FlowDeMux(io.data_flow.mod_iq, io.select, config.select_num)
+    val mod_data_iq_demux: Vec[Flow[IQBundle[SInt]]] = FlowDeMux(io.data_flow.mod_iq, io.select, config.select_num)
 
     val bpsk_demod = IQDemod(config.bpsk_config)
     val qpsk_demod = IQDemod(config.qpsk_config)
@@ -107,7 +108,7 @@ case class DemodulatorRTL(config: DemodulatorRTLConfig) extends Component{
     qam64_demod.io.mod_iq << mod_data_iq_demux(3)
     lookup_demod.io.data_flow.mod_iq << mod_data_iq_demux(4)
 
-    val unit_data_vec = Vec(bpsk_demod.io.unit_data, qpsk_demod.io.unit_data, qam16_demod.io.unit_data,
+    val unit_data_vec: Vec[Flow[UInt]] = Vec(bpsk_demod.io.unit_data, qpsk_demod.io.unit_data, qam16_demod.io.unit_data,
         qam64_demod.io.unit_data, lookup_demod.io.data_flow.unit_data)
 
     io.data_flow.unit_data := FlowMux(io.select, unit_data_vec)

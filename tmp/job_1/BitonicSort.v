@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : BitonicSort
-// Git hash  : e86c2de0f4bf47259102e700592686340712fdf0
+// Git hash  : 337bfd8570c228307d1eda92fceba305cde6c602
 
 
 
@@ -9,12 +9,11 @@ module BitonicSort (
   output              raw_data_ready,
   input      [15:0]   raw_data_payload_data,
   input      [3:0]    raw_data_payload_idx,
-  output              sorted_data_0_valid,
-  output     [15:0]   sorted_data_0_payload_data,
-  output     [3:0]    sorted_data_0_payload_idx,
-  output              sorted_data_1_valid,
-  output     [15:0]   sorted_data_1_payload_data,
-  output     [3:0]    sorted_data_1_payload_idx,
+  output              sorted_data_valid,
+  output     [15:0]   sorted_data_payload_low_data,
+  output     [3:0]    sorted_data_payload_low_idx,
+  output     [15:0]   sorted_data_payload_high_data,
+  output     [3:0]    sorted_data_payload_high_idx,
   input               clk,
   input               reset
 );
@@ -66,7 +65,7 @@ module BitonicSort (
   wire       [4:0]    _zz_cnt;
   reg        [4:0]    cnt;
   wire                raw_data_fire;
-  wire                when_BitonicSort_l23;
+  wire                when_BitonicSort_l26;
   wire                raw_data_fire_1;
   wire                raw_data_free_run;
   wire       [15:0]   out0_buf_0_data;
@@ -232,7 +231,7 @@ module BitonicSort (
     .out2_idx     (cmpUnit_7_out2_idx            )  //o
   );
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign when_BitonicSort_l23 = (raw_data_fire || (5'h10 <= cnt));
+  assign when_BitonicSort_l26 = (raw_data_fire || (5'h10 <= cnt));
   assign raw_data_fire_1 = (raw_data_valid && raw_data_ready);
   assign raw_data_free_run = (raw_data_fire_1 || (5'h10 <= cnt));
   assign out0_buf_0_data = raw_data_payload_data;
@@ -254,18 +253,17 @@ module BitonicSort (
   assign out0_buf_3_idx = cmpSwitch_5_out1_idx;
   assign out1_buf_3_data = cmpSwitch_5_out2_data;
   assign out1_buf_3_idx = cmpSwitch_5_out2_idx;
-  assign sorted_data_0_payload_data = cmpUnit_7_out1_regNext_data;
-  assign sorted_data_0_payload_idx = cmpUnit_7_out1_regNext_idx;
-  assign sorted_data_1_payload_data = cmpUnit_7_out2_regNext_data;
-  assign sorted_data_1_payload_idx = cmpUnit_7_out2_regNext_idx;
-  assign sorted_data_0_valid = (5'h0f < cnt);
-  assign sorted_data_1_valid = (5'h0f < cnt);
+  assign sorted_data_payload_low_data = cmpUnit_7_out1_regNext_data;
+  assign sorted_data_payload_low_idx = cmpUnit_7_out1_regNext_idx;
+  assign sorted_data_payload_high_data = cmpUnit_7_out2_regNext_data;
+  assign sorted_data_payload_high_idx = cmpUnit_7_out2_regNext_idx;
+  assign sorted_data_valid = (5'h0f < cnt);
   assign raw_data_ready = (cnt < 5'h10);
   always @(posedge clk or posedge reset) begin
     if(reset) begin
       cnt <= 5'h0;
     end else begin
-      if(when_BitonicSort_l23) begin
+      if(when_BitonicSort_l26) begin
         cnt <= ((cnt == 5'h17) ? 5'h0 : _zz_cnt);
       end
     end

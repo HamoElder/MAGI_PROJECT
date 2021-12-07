@@ -5,18 +5,21 @@ import spinal.lib._
 import utils.common.ShiftReg.ShiftRegister
 
 
+
 case class BitonicSort(dataWidth: Int, dataSize: Int, useSigned: Boolean) extends Component {
     def payloadDataType: Bits = Bits(dataWidth bits)
     def idxDataWidth: Int = log2Up(dataSize)
     def idxDataType: UInt = UInt(idxDataWidth bits)
     def stages: Int = log2Up(dataSize)
 
-    def rawDataType: IdxWithData = IdxWithData(payloadDataType, idxDataType, useSigned)
+    def dataType: IdxWithData = IdxWithData(payloadDataType, idxDataType, useSigned)
 
     val io = new Bundle{
-        val raw_data = slave(Stream(rawDataType))
-        val sorted_data_0 = master(Flow(rawDataType))
-        val sorted_data_1 = master(Flow(rawDataType))
+        val raw_data = slave(Stream(dataType))
+        val sorted_data = master(Flow(new Bundle{
+            val low = dataType
+            val high = dataType
+        }))
     }
     noIoPrefix()
     val cnt: UInt = Reg(UInt(stages + 1 bits)) init(0)
@@ -26,8 +29,8 @@ case class BitonicSort(dataWidth: Int, dataSize: Int, useSigned: Boolean) extend
 
     val raw_data_free_run = io.raw_data.fire || (cnt >= dataSize)
 
-    val out0_buf = Vec(rawDataType, stages)
-    val out1_buf = Vec(rawDataType, stages)
+    val out0_buf = Vec(dataType, stages)
+    val out1_buf = Vec(dataType, stages)
 
     out0_buf(0) := io.raw_data.payload
     out1_buf(0) := io.raw_data.payload
@@ -40,10 +43,9 @@ case class BitonicSort(dataWidth: Int, dataSize: Int, useSigned: Boolean) extend
         out1_buf(idx + 1) := cmp_sw._2
     }
     val final_cmp_bf = CmpUnit(ShiftRegister(out0_buf(stages - 1), 1), out1_buf(stages - 1), raw_data_free_run)
-    io.sorted_data_0.payload := RegNext(final_cmp_bf._1)
-    io.sorted_data_1.payload := RegNext(final_cmp_bf._2)
-    io.sorted_data_0.valid := cnt > (dataSize - 1)
-    io.sorted_data_1.valid := cnt > (dataSize - 1)
+    io.sorted_data.low := RegNext(final_cmp_bf._1)
+    io.sorted_data.high := RegNext(final_cmp_bf._2)
+    io.sorted_data.valid := cnt > (dataSize - 1)
     io.raw_data.ready := cnt < dataSize
 }
 

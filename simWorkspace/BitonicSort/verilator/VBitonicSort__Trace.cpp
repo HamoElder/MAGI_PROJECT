@@ -133,7 +133,7 @@ void VBitonicSort::traceChgThis__4(VBitonicSort__Syms* __restrict vlSymsp, Veril
         vcdp->chgBus(c+185,(vlTOPp->BitonicSort__DOT__cmpUnit_6_out1_idx),4);
         vcdp->chgBus(c+193,(vlTOPp->BitonicSort__DOT__cmpSwitch_5_out2_data),16);
         vcdp->chgBus(c+201,(vlTOPp->BitonicSort__DOT__cmpSwitch_5_out2_idx),4);
-        vcdp->chgBit(c+209,(vlTOPp->BitonicSort__DOT__when_BitonicSort_l23));
+        vcdp->chgBit(c+209,(vlTOPp->BitonicSort__DOT__when_BitonicSort_l26));
         vcdp->chgBit(c+217,(vlTOPp->BitonicSort__DOT__cmpUnit_4__DOT__cmp_less_result));
         vcdp->chgBit(c+225,(vlTOPp->BitonicSort__DOT__cmpUnit_5__DOT__cmp_less_result));
         vcdp->chgBit(c+233,(vlTOPp->BitonicSort__DOT__cmpUnit_6__DOT__cmp_less_result));
@@ -224,23 +224,22 @@ void VBitonicSort::traceChgThis__7(VBitonicSort__Syms* __restrict vlSymsp, Veril
         vcdp->chgBit(c+681,(vlTOPp->raw_data_ready));
         vcdp->chgBus(c+689,(vlTOPp->raw_data_payload_data),16);
         vcdp->chgBus(c+697,(vlTOPp->raw_data_payload_idx),4);
-        vcdp->chgBit(c+705,(vlTOPp->sorted_data_0_valid));
-        vcdp->chgBus(c+713,(vlTOPp->sorted_data_0_payload_data),16);
-        vcdp->chgBus(c+721,(vlTOPp->sorted_data_0_payload_idx),4);
-        vcdp->chgBit(c+729,(vlTOPp->sorted_data_1_valid));
-        vcdp->chgBus(c+737,(vlTOPp->sorted_data_1_payload_data),16);
-        vcdp->chgBus(c+745,(vlTOPp->sorted_data_1_payload_idx),4);
-        vcdp->chgBit(c+753,(vlTOPp->clk));
-        vcdp->chgBit(c+761,(vlTOPp->reset));
-        vcdp->chgBus(c+769,(((IData)(vlTOPp->BitonicSort__DOT__cmpUnit_4__DOT__cmp_less_result)
+        vcdp->chgBit(c+705,(vlTOPp->sorted_data_valid));
+        vcdp->chgBus(c+713,(vlTOPp->sorted_data_payload_low_data),16);
+        vcdp->chgBus(c+721,(vlTOPp->sorted_data_payload_low_idx),4);
+        vcdp->chgBus(c+729,(vlTOPp->sorted_data_payload_high_data),16);
+        vcdp->chgBus(c+737,(vlTOPp->sorted_data_payload_high_idx),4);
+        vcdp->chgBit(c+745,(vlTOPp->clk));
+        vcdp->chgBit(c+753,(vlTOPp->reset));
+        vcdp->chgBus(c+761,(((IData)(vlTOPp->BitonicSort__DOT__cmpUnit_4__DOT__cmp_less_result)
                               ? (IData)(vlTOPp->raw_data_payload_data)
                               : (IData)(vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_7_data))),16);
-        vcdp->chgBus(c+777,(((IData)(vlTOPp->BitonicSort__DOT__cmpUnit_4__DOT__cmp_less_result)
+        vcdp->chgBus(c+769,(((IData)(vlTOPp->BitonicSort__DOT__cmpUnit_4__DOT__cmp_less_result)
                               ? (IData)(vlTOPp->raw_data_payload_idx)
                               : (IData)(vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_7_idx))),4);
-        vcdp->chgBit(c+785,(((IData)(vlTOPp->raw_data_valid) 
+        vcdp->chgBit(c+777,(((IData)(vlTOPp->raw_data_valid) 
                              & (IData)(vlTOPp->raw_data_ready))));
-        vcdp->chgBit(c+793,((((IData)(vlTOPp->raw_data_valid) 
+        vcdp->chgBit(c+785,((((IData)(vlTOPp->raw_data_valid) 
                               & (IData)(vlTOPp->raw_data_ready)) 
                              | (0x10U <= (IData)(vlTOPp->BitonicSort__DOT__cnt)))));
     }

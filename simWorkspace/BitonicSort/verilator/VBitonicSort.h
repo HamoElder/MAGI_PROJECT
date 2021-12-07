@@ -29,13 +29,12 @@ VL_MODULE(VBitonicSort) {
     VL_IN8(raw_data_valid,0,0);
     VL_OUT8(raw_data_ready,0,0);
     VL_IN8(raw_data_payload_idx,3,0);
-    VL_OUT8(sorted_data_0_valid,0,0);
-    VL_OUT8(sorted_data_0_payload_idx,3,0);
-    VL_OUT8(sorted_data_1_valid,0,0);
-    VL_OUT8(sorted_data_1_payload_idx,3,0);
+    VL_OUT8(sorted_data_valid,0,0);
+    VL_OUT8(sorted_data_payload_low_idx,3,0);
+    VL_OUT8(sorted_data_payload_high_idx,3,0);
     VL_IN16(raw_data_payload_data,15,0);
-    VL_OUT16(sorted_data_0_payload_data,15,0);
-    VL_OUT16(sorted_data_1_payload_data,15,0);
+    VL_OUT16(sorted_data_payload_low_data,15,0);
+    VL_OUT16(sorted_data_payload_high_data,15,0);
     
     // LOCAL SIGNALS
     // Internals; generally not touched by application code
@@ -49,7 +48,7 @@ VL_MODULE(VBitonicSort) {
         CData/*3:0*/ BitonicSort__DOT__cmpSwitch_5_out2_idx;
         CData/*4:0*/ BitonicSort__DOT___zz_cnt;
         CData/*4:0*/ BitonicSort__DOT__cnt;
-        CData/*0:0*/ BitonicSort__DOT__when_BitonicSort_l23;
+        CData/*0:0*/ BitonicSort__DOT__when_BitonicSort_l26;
         CData/*3:0*/ BitonicSort__DOT__cmpUnit_7_out1_regNext_idx;
         CData/*3:0*/ BitonicSort__DOT__cmpUnit_7_out2_regNext_idx;
         CData/*3:0*/ BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_0_idx;

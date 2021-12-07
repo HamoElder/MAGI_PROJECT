@@ -86,155 +86,155 @@ VL_INLINE_OPT void VBitonicSort::_sequent__TOP__2(VBitonicSort__Syms* __restrict
         = ((IData)(vlTOPp->BitonicSort__DOT__cmpUnit_7__DOT__cmp_sel)
             ? (IData)(vlTOPp->BitonicSort__DOT__shiftRegister_13__DOT__shift_reg_0_data)
             : (IData)(vlTOPp->BitonicSort__DOT__cmpSwitch_5_out2_data));
-    vlTOPp->sorted_data_1_payload_idx = vlTOPp->BitonicSort__DOT__cmpUnit_7_out2_regNext_idx;
-    vlTOPp->sorted_data_0_payload_idx = vlTOPp->BitonicSort__DOT__cmpUnit_7_out1_regNext_idx;
+    vlTOPp->sorted_data_payload_high_idx = vlTOPp->BitonicSort__DOT__cmpUnit_7_out2_regNext_idx;
+    vlTOPp->sorted_data_payload_low_idx = vlTOPp->BitonicSort__DOT__cmpUnit_7_out1_regNext_idx;
     vlTOPp->BitonicSort__DOT__shiftRegister_13__DOT__shift_reg_0_idx 
         = ((1U & (IData)(vlTOPp->BitonicSort__DOT__cnt))
             ? (IData)(vlTOPp->BitonicSort__DOT__shiftRegister_12__DOT__shift_reg_0_idx)
             : (IData)(vlTOPp->BitonicSort__DOT__cmpUnit_6_out1_idx));
-    vlTOPp->sorted_data_1_payload_data = vlTOPp->BitonicSort__DOT__cmpUnit_7_out2_regNext_data;
-    vlTOPp->sorted_data_0_payload_data = vlTOPp->BitonicSort__DOT__cmpUnit_7_out1_regNext_data;
+    vlTOPp->sorted_data_payload_high_data = vlTOPp->BitonicSort__DOT__cmpUnit_7_out2_regNext_data;
+    vlTOPp->sorted_data_payload_low_data = vlTOPp->BitonicSort__DOT__cmpUnit_7_out1_regNext_data;
     vlTOPp->BitonicSort__DOT__shiftRegister_13__DOT__shift_reg_0_data 
         = ((1U & (IData)(vlTOPp->BitonicSort__DOT__cnt))
             ? (IData)(vlTOPp->BitonicSort__DOT__shiftRegister_12__DOT__shift_reg_0_data)
             : (IData)(vlTOPp->BitonicSort__DOT__cmpUnit_6_out1_data));
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_12__DOT__shift_reg_0_idx 
             = ((IData)(vlTOPp->BitonicSort__DOT__cmpUnit_6__DOT__cmp_less_result)
                 ? (IData)(vlTOPp->BitonicSort__DOT__cmpSwitch_4_out2_idx)
                 : (IData)(vlTOPp->BitonicSort__DOT__shiftRegister_11__DOT__shift_reg_1_idx));
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_12__DOT__shift_reg_0_data 
             = ((IData)(vlTOPp->BitonicSort__DOT__cmpUnit_6__DOT__cmp_less_result)
                 ? (IData)(vlTOPp->BitonicSort__DOT__cmpSwitch_4_out2_data)
                 : (IData)(vlTOPp->BitonicSort__DOT__shiftRegister_11__DOT__shift_reg_1_data));
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_11__DOT__shift_reg_1_idx 
             = vlTOPp->BitonicSort__DOT__shiftRegister_11__DOT__shift_reg_0_idx;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_11__DOT__shift_reg_1_data 
             = vlTOPp->BitonicSort__DOT__shiftRegister_11__DOT__shift_reg_0_data;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_11__DOT__shift_reg_0_idx 
             = ((2U & (IData)(vlTOPp->BitonicSort__DOT__cnt))
                 ? (IData)(vlTOPp->BitonicSort__DOT__shiftRegister_10__DOT__shift_reg_1_idx)
                 : (IData)(vlTOPp->BitonicSort__DOT__cmpUnit_5_out1_idx));
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_11__DOT__shift_reg_0_data 
             = ((2U & (IData)(vlTOPp->BitonicSort__DOT__cnt))
                 ? (IData)(vlTOPp->BitonicSort__DOT__shiftRegister_10__DOT__shift_reg_1_data)
                 : (IData)(vlTOPp->BitonicSort__DOT__cmpUnit_5_out1_data));
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_10__DOT__shift_reg_1_idx 
             = vlTOPp->BitonicSort__DOT__shiftRegister_10__DOT__shift_reg_0_idx;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_10__DOT__shift_reg_1_data 
             = vlTOPp->BitonicSort__DOT__shiftRegister_10__DOT__shift_reg_0_data;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_10__DOT__shift_reg_0_idx 
             = ((IData)(vlTOPp->BitonicSort__DOT__cmpUnit_5__DOT__cmp_less_result)
                 ? (IData)(vlTOPp->BitonicSort__DOT__cmpSwitch_3_out2_idx)
                 : (IData)(vlTOPp->BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_3_idx));
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_10__DOT__shift_reg_0_data 
             = ((IData)(vlTOPp->BitonicSort__DOT__cmpUnit_5__DOT__cmp_less_result)
                 ? (IData)(vlTOPp->BitonicSort__DOT__cmpSwitch_3_out2_data)
                 : (IData)(vlTOPp->BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_3_data));
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_3_idx 
             = vlTOPp->BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_2_idx;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_3_data 
             = vlTOPp->BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_2_data;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_2_idx 
             = vlTOPp->BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_1_idx;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_2_data 
             = vlTOPp->BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_1_data;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_1_idx 
             = vlTOPp->BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_0_idx;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_1_data 
             = vlTOPp->BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_0_data;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_0_idx 
             = ((4U & (IData)(vlTOPp->BitonicSort__DOT__cnt))
                 ? (IData)(vlTOPp->BitonicSort__DOT__shiftRegister_8__DOT__shift_reg_3_idx)
                 : (IData)(vlTOPp->BitonicSort__DOT__cmpUnit_4_out1_idx));
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_0_data 
             = ((4U & (IData)(vlTOPp->BitonicSort__DOT__cnt))
                 ? (IData)(vlTOPp->BitonicSort__DOT__shiftRegister_8__DOT__shift_reg_3_data)
                 : (IData)(vlTOPp->BitonicSort__DOT__cmpUnit_4_out1_data));
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_8__DOT__shift_reg_3_idx 
             = vlTOPp->BitonicSort__DOT__shiftRegister_8__DOT__shift_reg_2_idx;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_8__DOT__shift_reg_3_data 
             = vlTOPp->BitonicSort__DOT__shiftRegister_8__DOT__shift_reg_2_data;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_8__DOT__shift_reg_2_idx 
             = vlTOPp->BitonicSort__DOT__shiftRegister_8__DOT__shift_reg_1_idx;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_8__DOT__shift_reg_2_data 
             = vlTOPp->BitonicSort__DOT__shiftRegister_8__DOT__shift_reg_1_data;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_8__DOT__shift_reg_1_idx 
             = vlTOPp->BitonicSort__DOT__shiftRegister_8__DOT__shift_reg_0_idx;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_8__DOT__shift_reg_1_data 
             = vlTOPp->BitonicSort__DOT__shiftRegister_8__DOT__shift_reg_0_data;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_8__DOT__shift_reg_0_idx 
             = ((IData)(vlTOPp->BitonicSort__DOT__cmpUnit_4__DOT__cmp_less_result)
                 ? (IData)(vlTOPp->raw_data_payload_idx)
                 : (IData)(vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_7_idx));
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_8__DOT__shift_reg_0_data 
             = ((IData)(vlTOPp->BitonicSort__DOT__cmpUnit_4__DOT__cmp_less_result)
                 ? (IData)(vlTOPp->raw_data_payload_data)
                 : (IData)(vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_7_data));
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_7_idx 
             = vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_6_idx;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_7_data 
             = vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_6_data;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_6_idx 
             = vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_5_idx;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_6_data 
             = vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_5_data;
     }
@@ -244,51 +244,51 @@ VL_INLINE_OPT void VBitonicSort::_sequent__TOP__3(VBitonicSort__Syms* __restrict
     VL_DEBUG_IF(VL_DBG_MSGF("+    VBitonicSort::_sequent__TOP__3\n"); );
     VBitonicSort* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_5_idx 
             = vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_4_idx;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_5_data 
             = vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_4_data;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_4_idx 
             = vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_3_idx;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_4_data 
             = vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_3_data;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_3_idx 
             = vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_2_idx;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_3_data 
             = vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_2_data;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_2_idx 
             = vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_1_idx;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_2_data 
             = vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_1_data;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_1_idx 
             = vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_0_idx;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_1_data 
             = vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_0_data;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_0_idx 
             = vlTOPp->raw_data_payload_idx;
     }
-    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+    if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
         vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_0_data 
             = vlTOPp->raw_data_payload_data;
     }
@@ -304,7 +304,7 @@ VL_INLINE_OPT void VBitonicSort::_sequent__TOP__4(VBitonicSort__Syms* __restrict
     if (vlTOPp->reset) {
         __Vdly__BitonicSort__DOT__cnt = 0U;
     } else {
-        if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l23) {
+        if (vlTOPp->BitonicSort__DOT__when_BitonicSort_l26) {
             __Vdly__BitonicSort__DOT__cnt = ((0x17U 
                                               == (IData)(vlTOPp->BitonicSort__DOT__cnt))
                                               ? 0U : (IData)(vlTOPp->BitonicSort__DOT___zz_cnt));
@@ -313,8 +313,7 @@ VL_INLINE_OPT void VBitonicSort::_sequent__TOP__4(VBitonicSort__Syms* __restrict
     vlTOPp->BitonicSort__DOT__cnt = __Vdly__BitonicSort__DOT__cnt;
     vlTOPp->BitonicSort__DOT___zz_cnt = (0x1fU & ((IData)(1U) 
                                                   + (IData)(vlTOPp->BitonicSort__DOT__cnt)));
-    vlTOPp->sorted_data_0_valid = (0xfU < (IData)(vlTOPp->BitonicSort__DOT__cnt));
-    vlTOPp->sorted_data_1_valid = (0xfU < (IData)(vlTOPp->BitonicSort__DOT__cnt));
+    vlTOPp->sorted_data_valid = (0xfU < (IData)(vlTOPp->BitonicSort__DOT__cnt));
     vlTOPp->raw_data_ready = (0x10U > (IData)(vlTOPp->BitonicSort__DOT__cnt));
 }
 
@@ -325,7 +324,7 @@ VL_INLINE_OPT void VBitonicSort::_combo__TOP__6(VBitonicSort__Syms* __restrict v
     vlTOPp->BitonicSort__DOT__cmpUnit_4__DOT__cmp_less_result 
         = ((IData)(vlTOPp->BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_7_data) 
            < (IData)(vlTOPp->raw_data_payload_data));
-    vlTOPp->BitonicSort__DOT__when_BitonicSort_l23 
+    vlTOPp->BitonicSort__DOT__when_BitonicSort_l26 
         = (((IData)(vlTOPp->raw_data_valid) & (IData)(vlTOPp->raw_data_ready)) 
            | (0x10U <= (IData)(vlTOPp->BitonicSort__DOT__cnt)));
     vlTOPp->BitonicSort__DOT__cmpUnit_4_out1_idx = 
@@ -386,7 +385,7 @@ VL_INLINE_OPT void VBitonicSort::_combo__TOP__6(VBitonicSort__Syms* __restrict v
         = ((IData)(vlTOPp->BitonicSort__DOT__shiftRegister_13__DOT__shift_reg_0_data) 
            < (IData)(vlTOPp->BitonicSort__DOT__cmpSwitch_5_out2_data));
     vlTOPp->BitonicSort__DOT__cmpUnit_7__DOT__cmp_sel 
-        = (1U & ((IData)(vlTOPp->BitonicSort__DOT__when_BitonicSort_l23)
+        = (1U & ((IData)(vlTOPp->BitonicSort__DOT__when_BitonicSort_l26)
                   ? (IData)(vlTOPp->BitonicSort__DOT__cmpUnit_7__DOT__cmp_less_result)
                   : (~ (IData)(vlTOPp->BitonicSort__DOT__cmpUnit_7__DOT__cmp_less_result))));
 }
