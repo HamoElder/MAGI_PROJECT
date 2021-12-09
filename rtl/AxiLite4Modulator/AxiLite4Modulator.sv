@@ -1,13 +1,13 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : AxiLite4Modulator
-// Git hash  : 337bfd8570c228307d1eda92fceba305cde6c602
+// Git hash  : 3719e1498550fcb5698cad1a7a1f3542c14ddf12
 
 
 
 module AxiLite4Modulator (
   input               base_data_valid,
   output              base_data_ready,
-  input      [7:0]    base_data_payload,
+  input      [15:0]   base_data_payload,
   input               axil4Ctrl_awvalid,
   output              axil4Ctrl_awready,
   input      [7:0]    axil4Ctrl_awaddr,
@@ -35,15 +35,16 @@ module AxiLite4Modulator (
   input               clk,
   input               resetn
 );
+  wire       [7:0]    rfClockArea_mod_rtl_data_flow_unit_data_payload;
   wire                rfClockArea_mod_data_div_base_data_ready;
   wire                rfClockArea_mod_data_div_unit_data_valid;
-  wire       [7:0]    rfClockArea_mod_data_div_unit_data_payload;
+  wire       [15:0]   rfClockArea_mod_data_div_unit_data_payload;
   wire                rfClockArea_mod_rtl_data_flow_mod_iq_valid;
   wire       [11:0]   rfClockArea_mod_rtl_data_flow_mod_iq_payload_cha_i;
   wire       [11:0]   rfClockArea_mod_rtl_data_flow_mod_iq_payload_cha_q;
   wire                clkCrossing_7_dataOut;
-  wire       [2:0]    clkCrossing_8_dataOut;
-  wire       [2:0]    clkCrossing_9_dataOut;
+  wire       [3:0]    clkCrossing_8_dataOut;
+  wire       [3:0]    clkCrossing_9_dataOut;
   wire       [0:0]    clkCrossing_10_dataOut;
   wire       [31:0]   clkCrossing_11_dataOut;
   wire       [31:0]   clkCrossing_12_dataOut;
@@ -78,11 +79,11 @@ module AxiLite4Modulator (
   wire                writeOccur;
   wire                readOccur;
   wire                mod_data_bridge_enable;
-  wire       [2:0]    mod_data_bridge_cnt_step;
-  wire       [2:0]    mod_data_bridge_cnt_limit;
+  wire       [3:0]    mod_data_bridge_cnt_step;
+  wire       [3:0]    mod_data_bridge_cnt_limit;
   reg                 mod_data_bridge_enable_driver;
-  reg        [2:0]    mod_data_bridge_cnt_step_driver;
-  reg        [2:0]    mod_data_bridge_cnt_limit_driver;
+  reg        [3:0]    mod_data_bridge_cnt_step_driver;
+  reg        [3:0]    mod_data_bridge_cnt_limit_driver;
   wire       [1:0]    mod_rtl_bridge_select;
   reg        [1:0]    mod_rtl_bridge_select_driver;
   reg        [0:0]    _zz_dataIn;
@@ -103,7 +104,7 @@ module AxiLite4Modulator (
   );
   ModulatorRTL rfClockArea_mod_rtl (
     .data_flow_unit_data_valid         (_zz_data_flow_unit_data_valid                       ), //i
-    .data_flow_unit_data_payload       (rfClockArea_mod_data_div_unit_data_payload          ), //i
+    .data_flow_unit_data_payload       (rfClockArea_mod_rtl_data_flow_unit_data_payload     ), //i
     .data_flow_mod_iq_valid            (rfClockArea_mod_rtl_data_flow_mod_iq_valid          ), //o
     .data_flow_mod_iq_payload_cha_i    (rfClockArea_mod_rtl_data_flow_mod_iq_payload_cha_i  ), //o
     .data_flow_mod_iq_payload_cha_q    (rfClockArea_mod_rtl_data_flow_mod_iq_payload_cha_q  ), //o
@@ -172,6 +173,7 @@ module AxiLite4Modulator (
   );
   assign base_data_ready = rfClockArea_mod_data_div_base_data_ready;
   assign _zz_data_flow_unit_data_valid = rfClockArea_mod_data_div_unit_data_valid;
+  assign rfClockArea_mod_rtl_data_flow_unit_data_payload = rfClockArea_mod_data_div_unit_data_payload[7:0];
   assign mod_iq_payload_cha_i = rfClockArea_mod_rtl_data_flow_mod_iq_payload_cha_i;
   assign mod_iq_payload_cha_q = rfClockArea_mod_rtl_data_flow_mod_iq_payload_cha_q;
   assign mod_iq_valid = rfClockArea_mod_rtl_data_flow_mod_iq_valid;
@@ -222,10 +224,10 @@ module AxiLite4Modulator (
         readRsp_data[0 : 0] = mod_data_bridge_enable_driver;
       end
       8'h04 : begin
-        readRsp_data[2 : 0] = mod_data_bridge_cnt_step_driver;
+        readRsp_data[3 : 0] = mod_data_bridge_cnt_step_driver;
       end
       8'h08 : begin
-        readRsp_data[2 : 0] = mod_data_bridge_cnt_limit_driver;
+        readRsp_data[3 : 0] = mod_data_bridge_cnt_limit_driver;
       end
       8'h10 : begin
         readRsp_data[1 : 0] = mod_rtl_bridge_select_driver;
@@ -246,8 +248,8 @@ module AxiLite4Modulator (
       _zz_axil4Ctrl_bvalid_2 <= 1'b0;
       axil4Ctrl_ar_rValid <= 1'b0;
       mod_data_bridge_enable_driver <= 1'b0;
-      mod_data_bridge_cnt_step_driver <= 3'b000;
-      mod_data_bridge_cnt_limit_driver <= 3'b000;
+      mod_data_bridge_cnt_step_driver <= 4'b0000;
+      mod_data_bridge_cnt_limit_driver <= 4'b0000;
       mod_rtl_bridge_select_driver <= 2'b00;
       _zz_dataIn <= 1'b1;
       _zz_dataIn_1 <= 32'h0;
@@ -267,12 +269,12 @@ module AxiLite4Modulator (
         end
         8'h04 : begin
           if(writeOccur) begin
-            mod_data_bridge_cnt_step_driver <= axil4Ctrl_wdata[2 : 0];
+            mod_data_bridge_cnt_step_driver <= axil4Ctrl_wdata[3 : 0];
           end
         end
         8'h08 : begin
           if(writeOccur) begin
-            mod_data_bridge_cnt_limit_driver <= axil4Ctrl_wdata[2 : 0];
+            mod_data_bridge_cnt_limit_driver <= axil4Ctrl_wdata[3 : 0];
           end
         end
         8'h10 : begin
@@ -394,16 +396,16 @@ endmodule
 //ClkCrossing_1 replaced by ClkCrossing_1
 
 module ClkCrossing_1 (
-  input      [2:0]    dataIn,
-  output     [2:0]    dataOut,
+  input      [3:0]    dataIn,
+  output     [3:0]    dataOut,
   input               clk,
   input               resetn,
   input               rf_clk,
   input               rf_resetn
 );
-  reg        [2:0]    area_clkI_reg;
-  (* async_reg = "true" *) reg        [2:0]    area_clkO_buf0;
-  reg        [2:0]    area_clkO_buf1;
+  reg        [3:0]    area_clkI_reg;
+  (* async_reg = "true" *) reg        [3:0]    area_clkO_buf0;
+  reg        [3:0]    area_clkO_buf1;
 
   assign dataOut = area_clkO_buf1;
   always @(posedge clk) begin
@@ -583,20 +585,20 @@ endmodule
 module dataDivDynamic (
   input               base_data_valid,
   output              base_data_ready,
-  input      [7:0]    base_data_payload,
+  input      [15:0]   base_data_payload,
   input               enable,
-  input      [2:0]    cnt_step,
-  input      [2:0]    cnt_limit,
+  input      [3:0]    cnt_step,
+  input      [3:0]    cnt_limit,
   output              unit_data_valid,
-  output     [7:0]    unit_data_payload,
+  output     [15:0]   unit_data_payload,
   input               rf_clk,
   input               rf_resetn
 );
-  wire       [2:0]    _zz_base_cnt;
+  wire       [3:0]    _zz_base_cnt;
   reg                 unit_valid;
-  reg        [2:0]    base_cnt;
+  reg        [3:0]    base_cnt;
   wire                base_ready;
-  reg        [7:0]    base_buffer;
+  reg        [15:0]   base_buffer;
   wire                when_dataDivDynamic_l40;
   wire                base_data_fire;
   wire                when_dataDivDynamic_l47;
@@ -612,15 +614,15 @@ module dataDivDynamic (
   always @(posedge rf_clk) begin
     if(!rf_resetn) begin
       unit_valid <= 1'b0;
-      base_cnt <= 3'b000;
-      base_buffer <= 8'h0;
+      base_cnt <= 4'b0000;
+      base_buffer <= 16'h0;
     end else begin
       if(when_dataDivDynamic_l40) begin
         base_cnt <= cnt_limit;
         unit_valid <= 1'b0;
       end else begin
         if(base_data_fire) begin
-          base_cnt <= (_zz_base_cnt + 3'b000);
+          base_cnt <= (_zz_base_cnt + 4'b0000);
           base_buffer <= base_data_payload;
           unit_valid <= 1'b1;
         end else begin

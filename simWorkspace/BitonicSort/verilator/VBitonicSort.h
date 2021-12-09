@@ -26,6 +26,7 @@ VL_MODULE(VBitonicSort) {
     // propagate new values into/out from the Verilated model.
     VL_IN8(clk,0,0);
     VL_IN8(reset,0,0);
+    VL_IN8(cmp_less,0,0);
     VL_IN8(raw_data_valid,0,0);
     VL_OUT8(raw_data_ready,0,0);
     VL_IN8(raw_data_payload_idx,3,0);
@@ -48,7 +49,7 @@ VL_MODULE(VBitonicSort) {
         CData/*3:0*/ BitonicSort__DOT__cmpSwitch_5_out2_idx;
         CData/*4:0*/ BitonicSort__DOT___zz_cnt;
         CData/*4:0*/ BitonicSort__DOT__cnt;
-        CData/*0:0*/ BitonicSort__DOT__when_BitonicSort_l26;
+        CData/*0:0*/ BitonicSort__DOT__when_BitonicSort_l27;
         CData/*3:0*/ BitonicSort__DOT__cmpUnit_7_out1_regNext_idx;
         CData/*3:0*/ BitonicSort__DOT__cmpUnit_7_out2_regNext_idx;
         CData/*3:0*/ BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_0_idx;
@@ -60,6 +61,7 @@ VL_MODULE(VBitonicSort) {
         CData/*3:0*/ BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_6_idx;
         CData/*3:0*/ BitonicSort__DOT__shiftRegister_7__DOT__shift_reg_7_idx;
         CData/*0:0*/ BitonicSort__DOT__cmpUnit_4__DOT__cmp_less_result;
+        CData/*0:0*/ BitonicSort__DOT__cmpUnit_4__DOT__cmp_sel;
         CData/*3:0*/ BitonicSort__DOT__shiftRegister_8__DOT__shift_reg_0_idx;
         CData/*3:0*/ BitonicSort__DOT__shiftRegister_8__DOT__shift_reg_1_idx;
         CData/*3:0*/ BitonicSort__DOT__shiftRegister_8__DOT__shift_reg_2_idx;
@@ -69,11 +71,13 @@ VL_MODULE(VBitonicSort) {
         CData/*3:0*/ BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_2_idx;
         CData/*3:0*/ BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_3_idx;
         CData/*0:0*/ BitonicSort__DOT__cmpUnit_5__DOT__cmp_less_result;
+        CData/*0:0*/ BitonicSort__DOT__cmpUnit_5__DOT__cmp_sel;
         CData/*3:0*/ BitonicSort__DOT__shiftRegister_10__DOT__shift_reg_0_idx;
         CData/*3:0*/ BitonicSort__DOT__shiftRegister_10__DOT__shift_reg_1_idx;
         CData/*3:0*/ BitonicSort__DOT__shiftRegister_11__DOT__shift_reg_0_idx;
         CData/*3:0*/ BitonicSort__DOT__shiftRegister_11__DOT__shift_reg_1_idx;
         CData/*0:0*/ BitonicSort__DOT__cmpUnit_6__DOT__cmp_less_result;
+        CData/*0:0*/ BitonicSort__DOT__cmpUnit_6__DOT__cmp_sel;
         CData/*3:0*/ BitonicSort__DOT__shiftRegister_12__DOT__shift_reg_0_idx;
         CData/*3:0*/ BitonicSort__DOT__shiftRegister_13__DOT__shift_reg_0_idx;
         CData/*0:0*/ BitonicSort__DOT__cmpUnit_7__DOT__cmp_less_result;
@@ -101,11 +105,11 @@ VL_MODULE(VBitonicSort) {
         SData/*15:0*/ BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_0_data;
         SData/*15:0*/ BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_1_data;
         SData/*15:0*/ BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_2_data;
+    };
+    struct {
         SData/*15:0*/ BitonicSort__DOT__shiftRegister_9__DOT__shift_reg_3_data;
         SData/*15:0*/ BitonicSort__DOT__shiftRegister_10__DOT__shift_reg_0_data;
         SData/*15:0*/ BitonicSort__DOT__shiftRegister_10__DOT__shift_reg_1_data;
-    };
-    struct {
         SData/*15:0*/ BitonicSort__DOT__shiftRegister_11__DOT__shift_reg_0_data;
         SData/*15:0*/ BitonicSort__DOT__shiftRegister_11__DOT__shift_reg_1_data;
         SData/*15:0*/ BitonicSort__DOT__shiftRegister_12__DOT__shift_reg_0_data;

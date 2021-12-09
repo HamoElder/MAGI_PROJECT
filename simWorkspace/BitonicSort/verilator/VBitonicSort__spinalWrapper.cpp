@@ -159,7 +159,7 @@ public:
     uint32_t timeCheck;
     bool waveEnabled;
     VBitonicSort top;
-    ISignalAccess *signalAccess[11];
+    ISignalAccess *signalAccess[12];
     #ifdef TRACE
 	  VerilatedVcdC tfp;
 	  #endif
@@ -171,17 +171,18 @@ public:
       timeCheck = 0;
       lastFlushAt = high_resolution_clock::now();
       waveEnabled = true;
-      signalAccess[0] = new CDataSignalAccess( top.raw_data_valid );
-      signalAccess[1] = new CDataSignalAccess( top.raw_data_ready );
-      signalAccess[2] = new SDataSignalAccess( top.raw_data_payload_data );
-      signalAccess[3] = new CDataSignalAccess( top.raw_data_payload_idx );
-      signalAccess[4] = new CDataSignalAccess( top.sorted_data_valid );
-      signalAccess[5] = new SDataSignalAccess( top.sorted_data_payload_low_data );
-      signalAccess[6] = new CDataSignalAccess( top.sorted_data_payload_low_idx );
-      signalAccess[7] = new SDataSignalAccess( top.sorted_data_payload_high_data );
-      signalAccess[8] = new CDataSignalAccess( top.sorted_data_payload_high_idx );
-      signalAccess[9] = new CDataSignalAccess( top.clk );
-      signalAccess[10] = new CDataSignalAccess( top.reset );
+      signalAccess[0] = new CDataSignalAccess( top.cmp_less );
+      signalAccess[1] = new CDataSignalAccess( top.raw_data_valid );
+      signalAccess[2] = new CDataSignalAccess( top.raw_data_ready );
+      signalAccess[3] = new SDataSignalAccess( top.raw_data_payload_data );
+      signalAccess[4] = new CDataSignalAccess( top.raw_data_payload_idx );
+      signalAccess[5] = new CDataSignalAccess( top.sorted_data_valid );
+      signalAccess[6] = new SDataSignalAccess( top.sorted_data_payload_low_data );
+      signalAccess[7] = new CDataSignalAccess( top.sorted_data_payload_low_idx );
+      signalAccess[8] = new SDataSignalAccess( top.sorted_data_payload_high_data );
+      signalAccess[9] = new CDataSignalAccess( top.sorted_data_payload_high_idx );
+      signalAccess[10] = new CDataSignalAccess( top.clk );
+      signalAccess[11] = new CDataSignalAccess( top.reset );
 
       #ifdef TRACE
       Verilated::traceEverOn(true);
@@ -192,7 +193,7 @@ public:
     }
 
     virtual ~Wrapper_1(){
-      for(int idx = 0;idx < 11;idx++){
+      for(int idx = 0;idx < 12;idx++){
           delete signalAccess[idx];
       }
 

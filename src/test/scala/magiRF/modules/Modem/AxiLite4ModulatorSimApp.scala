@@ -96,16 +96,17 @@ object AxiLite4ModulatorSimApp extends App{
     //        }
     //        val qam64_config = modUnitConfig(modDataWidth, modDataWidth, 64, QAM64Table802_11, QAM64Table802_11)
     lookup_mod_config = lookup_mod_config :+ lookUpModConfig(modDataWidth, 8)
-    val modulator_config = AxiLite4ModulatorConfig(24, 16, 4, 32, mod_config, mod_method, lookup_mod_config)
+    val modulator_config = AxiLite4ModulatorConfig(24, 12, 4, 32, mod_config, mod_method, lookup_mod_config)
     SimConfig.withWave.doSim(new AxiLite4Modulator(modulator_config)){ dut =>
         dut.clockDomain.forkStimulus(5)
+        dut.rfClockDomain.forkStimulus(2)
         val aliteDrv = AxiLite4Driver(dut.io.axil4Ctrl, dut.clockDomain)
         dut.io.base_data.valid #= false
         aliteDrv.reset()
         aliteDrv.write(0x00, 0x0)
         aliteDrv.write(0x04, 0x2)
         aliteDrv.write(0x08, 0x22)
-        aliteDrv.write(0x10, 0x4)
+        aliteDrv.write(0x10, 0x1)
         aliteDrv.write(0x14, 0x1)
         for(idx <- 0 until 2048){
             aliteDrv.write(0x18, idx)
@@ -122,7 +123,7 @@ object AxiLite4ModulatorSimApp extends App{
             dut.clockDomain.waitSampling(1)
         }
         dut.io.base_data.valid #= false
-        dut.clockDomain.waitSampling(10000)
+        dut.clockDomain.waitSampling(1000)
         aliteDrv.write(0x00, 0x0)
     }
 }

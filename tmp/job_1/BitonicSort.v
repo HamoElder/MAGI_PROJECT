@@ -1,10 +1,11 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : BitonicSort
-// Git hash  : 337bfd8570c228307d1eda92fceba305cde6c602
+// Git hash  : 3719e1498550fcb5698cad1a7a1f3542c14ddf12
 
 
 
 module BitonicSort (
+  input               cmp_less,
   input               raw_data_valid,
   output              raw_data_ready,
   input      [15:0]   raw_data_payload_data,
@@ -65,7 +66,7 @@ module BitonicSort (
   wire       [4:0]    _zz_cnt;
   reg        [4:0]    cnt;
   wire                raw_data_fire;
-  wire                when_BitonicSort_l26;
+  wire                when_BitonicSort_l27;
   wire                raw_data_fire_1;
   wire                raw_data_free_run;
   wire       [15:0]   out0_buf_0_data;
@@ -104,7 +105,7 @@ module BitonicSort (
     .in1_idx      (shiftRegister_7_output_idx   ), //i
     .in2_data     (out1_buf_0_data              ), //i
     .in2_idx      (out1_buf_0_idx               ), //i
-    .less         (1'b1                         ), //i
+    .less         (cmp_less                     ), //i
     .out1_data    (cmpUnit_4_out1_data          ), //o
     .out1_idx     (cmpUnit_4_out1_idx           ), //o
     .out2_data    (cmpUnit_4_out2_data          ), //o
@@ -144,7 +145,7 @@ module BitonicSort (
     .in1_idx      (shiftRegister_9_output_idx   ), //i
     .in2_data     (out1_buf_1_data              ), //i
     .in2_idx      (out1_buf_1_idx               ), //i
-    .less         (1'b1                         ), //i
+    .less         (cmp_less                     ), //i
     .out1_data    (cmpUnit_5_out1_data          ), //o
     .out1_idx     (cmpUnit_5_out1_idx           ), //o
     .out2_data    (cmpUnit_5_out2_data          ), //o
@@ -184,7 +185,7 @@ module BitonicSort (
     .in1_idx      (shiftRegister_11_output_idx   ), //i
     .in2_data     (out1_buf_2_data               ), //i
     .in2_idx      (out1_buf_2_idx                ), //i
-    .less         (1'b1                          ), //i
+    .less         (cmp_less                      ), //i
     .out1_data    (cmpUnit_6_out1_data           ), //o
     .out1_idx     (cmpUnit_6_out1_idx            ), //o
     .out2_data    (cmpUnit_6_out2_data           ), //o
@@ -231,7 +232,7 @@ module BitonicSort (
     .out2_idx     (cmpUnit_7_out2_idx            )  //o
   );
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign when_BitonicSort_l26 = (raw_data_fire || (5'h10 <= cnt));
+  assign when_BitonicSort_l27 = (raw_data_fire || (5'h10 <= cnt));
   assign raw_data_fire_1 = (raw_data_valid && raw_data_ready);
   assign raw_data_free_run = (raw_data_fire_1 || (5'h10 <= cnt));
   assign out0_buf_0_data = raw_data_payload_data;
@@ -263,7 +264,7 @@ module BitonicSort (
     if(reset) begin
       cnt <= 5'h0;
     end else begin
-      if(when_BitonicSort_l26) begin
+      if(when_BitonicSort_l27) begin
         cnt <= ((cnt == 5'h17) ? 5'h0 : _zz_cnt);
       end
     end

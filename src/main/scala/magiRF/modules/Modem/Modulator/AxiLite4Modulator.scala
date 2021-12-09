@@ -155,7 +155,7 @@ object AxiLite4ModulatorBench{
         //        val qam64_config = modUnitConfig(modDataWidth, modDataWidth, 64, QAM64Table802_11, QAM64Table802_11)
         lookup_mod_config = lookup_mod_config :+ lookUpModConfig(modDataWidth, 8)
 //        lookup_mod_config = lookup_mod_config :+ lookUpModConfig(modDataWidth, 4, 3)
-        val modulator_config = AxiLite4ModulatorConfig(8, modDataWidth, unitDataWidth, 32, mod_config, mod_method, lookup_mod_config)
+        val modulator_config = AxiLite4ModulatorConfig(16, modDataWidth, unitDataWidth, 32, mod_config, mod_method, lookup_mod_config)
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
             targetDirectory = "rtl/AxiLite4Modulator").generateSystemVerilog(new AxiLite4Modulator(modulator_config)).printPruned()
     }

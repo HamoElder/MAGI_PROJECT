@@ -3,13 +3,15 @@ package utils.common.Sort
 import spinal.core._
 import spinal.lib._
 
-case class IdxWithData(dataType: Bits, idxType: UInt, useSigned: Boolean = true) extends Bundle with IMasterSlave{
+case class IdxWithData(dataType: Bits, idxType: UInt, useSigned: Boolean, useIndex:  Boolean) extends Bundle with IMasterSlave{
     val data = cloneOf(dataType)
-    val idx = cloneOf(idxType)
+    val idx = if(useIndex) cloneOf(idxType) else null
 
     def := (that: IdxWithData): Unit = {
         this.data := that.data
-        this.idx := that.idx
+        if(useIndex){
+            this.idx := that.idx
+        }
     }
 
     def < (that: IdxWithData): Bool = {
@@ -35,19 +37,20 @@ case class IdxWithData(dataType: Bits, idxType: UInt, useSigned: Boolean = true)
     }
 
     override def asMaster(): Unit = {
-        out(data, idx)
+        out(data)
+        if(useIndex) out(idx)
     }
 
     override type RefOwnerType = this.type
 }
 
-case class CmpSwitch(dataType: Bits, idxType: UInt, useSigned: Boolean = true) extends Component{
+case class CmpSwitch(dataType: Bits, idxType: UInt, useSigned: Boolean = true, useIndex:  Boolean = true) extends Component{
     val io = new Bundle{
-        val in1 = slave(IdxWithData(dataType, idxType, useSigned))
-        val in2 = slave(IdxWithData(dataType, idxType, useSigned))
+        val in1 = slave(IdxWithData(dataType, idxType, useSigned, useIndex))
+        val in2 = slave(IdxWithData(dataType, idxType, useSigned, useIndex))
         val sel = in(Bool())
-        val out1 = master(IdxWithData(dataType, idxType, useSigned))
-        val out2 = master(IdxWithData(dataType, idxType, useSigned))
+        val out1 = master(IdxWithData(dataType, idxType, useSigned, useIndex))
+        val out2 = master(IdxWithData(dataType, idxType, useSigned, useIndex))
     }
     noIoPrefix()
 
@@ -57,7 +60,7 @@ case class CmpSwitch(dataType: Bits, idxType: UInt, useSigned: Boolean = true) e
 
 object CmpSwitch{
     def apply(in1: IdxWithData, in2: IdxWithData, sel: Bool):(IdxWithData, IdxWithData) = {
-        val switch_unit = CmpSwitch(in1.dataType, in1.idxType, in1.useSigned)
+        val switch_unit = CmpSwitch(in1.dataType, in1.idxType, in1.useSigned, in1.useIndex)
         switch_unit.io.in1 := in1
         switch_unit.io.in2 := in2
         switch_unit.io.sel := sel
@@ -65,13 +68,13 @@ object CmpSwitch{
     }
 }
 
-case class CmpUnit(dataType: Bits, idxType: UInt, useSigned: Boolean = true) extends Component{
+case class CmpUnit(dataType: Bits, idxType: UInt, useSigned: Boolean = true, useIndex:  Boolean = true) extends Component{
     val io = new Bundle{
-        val in1: IdxWithData = slave(IdxWithData(dataType, idxType, useSigned))
-        val in2: IdxWithData = slave(IdxWithData(dataType, idxType, useSigned))
+        val in1: IdxWithData = slave(IdxWithData(dataType, idxType, useSigned, useIndex))
+        val in2: IdxWithData = slave(IdxWithData(dataType, idxType, useSigned, useIndex))
         val less: Bool = in(Bool())
-        val out1: IdxWithData = master(IdxWithData(dataType, idxType, useSigned))
-        val out2: IdxWithData = master(IdxWithData(dataType, idxType, useSigned))
+        val out1: IdxWithData = master(IdxWithData(dataType, idxType, useSigned, useIndex))
+        val out2: IdxWithData = master(IdxWithData(dataType, idxType, useSigned, useIndex))
     }
     noIoPrefix()
     val cmp_less_result: Bool = io.in1 < io.in2
@@ -82,7 +85,7 @@ case class CmpUnit(dataType: Bits, idxType: UInt, useSigned: Boolean = true) ext
 
 object CmpUnit {
     def apply(in1: IdxWithData, in2: IdxWithData, cmp_less: Bool): (IdxWithData, IdxWithData) = {
-        val cmp_unit = CmpUnit(in1.dataType, in1.idxType, in1.useSigned)
+        val cmp_unit = CmpUnit(in1.dataType, in1.idxType, in1.useSigned, in1.useIndex)
         cmp_unit.io.in1 := in1
         cmp_unit.io.in2 := in2
         cmp_unit.io.less := cmp_less
