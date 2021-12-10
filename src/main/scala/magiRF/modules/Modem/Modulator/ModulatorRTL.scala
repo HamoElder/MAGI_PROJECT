@@ -28,9 +28,9 @@ case class modRTLConfig(
     def editNum: Int = if(hasLookup) lookUpConfig.map(i => {if(i.codeTableIQ == null) 1 else 0}).sum else 0
     def editable: Boolean = editNum != 0
     def useTPlay: Boolean = if(hasLookup) lookUpConfig.map(i => {if(i.useTPlay) 1 else 0}).sum != 0 else false
-    def lookupNum: Int =  if(hasLookup) lookUpConfig.length else 0
+    def lookUpNum: Int =  if(hasLookup) lookUpConfig.length else 0
     def modNum: Int = if(hasMod) modConfig.length else 0
-    def selectNum: Int = lookupNum + modNum
+    def selectNum: Int = lookUpNum + modNum
     def editSelectDataType: UInt = UInt(log2Up(editNum + 1) bits)
 }
 
@@ -56,13 +56,12 @@ case class ModulatorRTL(config: modRTLConfig) extends Component {
         area.setName(extension._1.getName)
     }
 
-    for(idx <- 0 until config.lookupNum){
+    for(idx <- 0 until config.lookUpNum){
         val area = lookUpModExtension().applyIt(this, idx)
         area.setName(area.getName)
     }
 
     io.data_flow.mod_iq := FlowMux(io.select, mod_data_iq_seq)
-
 
     def driveFrom(busCtrl: BusSlaveFactory, baseAddress: BigInt, coreClockDomain: ClockDomain, rfClockDomain: ClockDomain): Area = new Area {
         val select = cloneOf(io.select)

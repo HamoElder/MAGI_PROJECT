@@ -44,11 +44,12 @@ case class dataCombination(config: dataCombinationConfig) extends Component{
         base_data_valid := (base_cnt === io.cnt_limit)
         base_cnt := (base_cnt === io.cnt_limit) ? U(0) | (base_cnt + io.cnt_step)
         base_data_buffer := ((base_data_buffer << io.cnt_step) | (unit_data_buffer).resized).resized
-    }.otherwise{
-        base_data_valid := (base_cnt === io.cnt_limit)
-        base_cnt := (base_cnt === io.cnt_limit) ? U(0) | (base_cnt + io.cnt_step)
-        base_data_buffer := (base_data_buffer << io.cnt_step).resized
     }
+//        .otherwise{
+//        base_data_valid := (base_cnt === io.cnt_limit)
+//        base_cnt := (base_cnt === io.cnt_limit) ? U(0) | (base_cnt + io.cnt_step)
+//        base_data_buffer := (base_data_buffer << io.cnt_step).resized
+//    }
 
     io.base_data.payload := base_data_buffer
     io.base_data.valid := base_data_valid

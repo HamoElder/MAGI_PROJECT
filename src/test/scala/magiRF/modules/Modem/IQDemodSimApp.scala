@@ -1,6 +1,6 @@
 package magiRF.modules.Modem
 
-import magiRF.modules.Modem.Demodulator.IQDemod
+import magiRF.modules.Modem.Demodulator.extensions.IQDemod
 import magiRF.modules.Modem.Misc.demodUnitConfig
 import spinal.core.sim._
 import spinal.core._
