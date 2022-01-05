@@ -45,7 +45,7 @@ case class AxiLite4Gpios(config: AxiLite4GpiosConfig) extends Component {
 }
 
 object AxiLite4GpiosBench {
-    def main(args: Array[String]) {
+    def main(args: Array[String]): Unit = {
         val axil4_gpio_config = AxiLite4GpiosConfig(32, 16, 2, interrupt = (0 until 16))
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
             targetDirectory = "rtl/AxiLite4Gpios").generateSystemVerilog(new AxiLite4Gpios(axil4_gpio_config)).printPruned()
