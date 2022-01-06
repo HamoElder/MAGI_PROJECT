@@ -159,7 +159,7 @@ public:
     uint32_t timeCheck;
     bool waveEnabled;
     VAxiLite4Gpios top;
-    ISignalAccess *signalAccess[23];
+    ISignalAccess *signalAccess[25];
     #ifdef TRACE
 	  VerilatedVcdC tfp;
 	  #endif
@@ -191,9 +191,11 @@ public:
       signalAccess[17] = new IDataSignalAccess( top.axil4Ctrl_rdata );
       signalAccess[18] = new CDataSignalAccess( top.axil4Ctrl_rresp );
       signalAccess[19] = new SDataSignalAccess( top.gpio_0 );
-      signalAccess[20] = new CDataSignalAccess( top.interrupt_0 );
-      signalAccess[21] = new CDataSignalAccess( top.clk );
-      signalAccess[22] = new CDataSignalAccess( top.reset );
+      signalAccess[20] = new SDataSignalAccess( top.gpio_1 );
+      signalAccess[21] = new CDataSignalAccess( top.interrupt_0 );
+      signalAccess[22] = new CDataSignalAccess( top.interrupt_1 );
+      signalAccess[23] = new CDataSignalAccess( top.clk );
+      signalAccess[24] = new CDataSignalAccess( top.reset );
 
       #ifdef TRACE
       Verilated::traceEverOn(true);
@@ -204,7 +206,7 @@ public:
     }
 
     virtual ~Wrapper_1(){
-      for(int idx = 0;idx < 23;idx++){
+      for(int idx = 0;idx < 25;idx++){
           delete signalAccess[idx];
       }
 
