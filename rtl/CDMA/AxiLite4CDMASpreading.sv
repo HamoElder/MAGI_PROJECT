@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : AxiLite4CDMASpreading
-// Git hash  : d100a76ae59975d746d4f29fbf7dd08d40cbceb2
+// Git hash  : 67f129201e20f87ae1cc1df1af41955d77102f75
 
 
 
@@ -25,61 +25,46 @@ module AxiLite4CDMASpreading (
   output     [31:0]   axil4Ctrl_rdata,
   output     [1:0]    axil4Ctrl_rresp,
   input               base_iq_valid,
+  output              base_iq_ready,
   input      [15:0]   base_iq_payload_cha_i,
   input      [15:0]   base_iq_payload_cha_q,
-  output              mod_iq_0_valid,
-  output     [15:0]   mod_iq_0_payload_cha_i,
-  output     [15:0]   mod_iq_0_payload_cha_q,
-  output              mod_iq_1_valid,
-  output     [15:0]   mod_iq_1_payload_cha_i,
-  output     [15:0]   mod_iq_1_payload_cha_q,
-  output              mod_iq_2_valid,
-  output     [15:0]   mod_iq_2_payload_cha_i,
-  output     [15:0]   mod_iq_2_payload_cha_q,
-  output              mod_iq_3_valid,
-  output     [15:0]   mod_iq_3_payload_cha_i,
-  output     [15:0]   mod_iq_3_payload_cha_q,
-  output              mod_iq_4_valid,
-  output     [15:0]   mod_iq_4_payload_cha_i,
-  output     [15:0]   mod_iq_4_payload_cha_q,
-  output              mod_iq_5_valid,
-  output     [15:0]   mod_iq_5_payload_cha_i,
-  output     [15:0]   mod_iq_5_payload_cha_q,
-  output              mod_iq_6_valid,
-  output     [15:0]   mod_iq_6_payload_cha_i,
-  output     [15:0]   mod_iq_6_payload_cha_q,
-  output              mod_iq_7_valid,
-  output     [15:0]   mod_iq_7_payload_cha_i,
-  output     [15:0]   mod_iq_7_payload_cha_q,
+  output              mod_iq_valid,
+  input               mod_iq_ready,
+  output     [15:0]   mod_iq_payload_cha_i,
+  output     [15:0]   mod_iq_payload_cha_q,
   input               rf_clk,
   input               rf_resetn,
   input               clk,
   input               resetn
 );
-  wire                rfClockArea_cdma_spread_mod_iq_0_valid;
-  wire       [15:0]   rfClockArea_cdma_spread_mod_iq_0_payload_cha_i;
-  wire       [15:0]   rfClockArea_cdma_spread_mod_iq_0_payload_cha_q;
-  wire                rfClockArea_cdma_spread_mod_iq_1_valid;
-  wire       [15:0]   rfClockArea_cdma_spread_mod_iq_1_payload_cha_i;
-  wire       [15:0]   rfClockArea_cdma_spread_mod_iq_1_payload_cha_q;
-  wire                rfClockArea_cdma_spread_mod_iq_2_valid;
-  wire       [15:0]   rfClockArea_cdma_spread_mod_iq_2_payload_cha_i;
-  wire       [15:0]   rfClockArea_cdma_spread_mod_iq_2_payload_cha_q;
-  wire                rfClockArea_cdma_spread_mod_iq_3_valid;
-  wire       [15:0]   rfClockArea_cdma_spread_mod_iq_3_payload_cha_i;
-  wire       [15:0]   rfClockArea_cdma_spread_mod_iq_3_payload_cha_q;
-  wire                rfClockArea_cdma_spread_mod_iq_4_valid;
-  wire       [15:0]   rfClockArea_cdma_spread_mod_iq_4_payload_cha_i;
-  wire       [15:0]   rfClockArea_cdma_spread_mod_iq_4_payload_cha_q;
-  wire                rfClockArea_cdma_spread_mod_iq_5_valid;
-  wire       [15:0]   rfClockArea_cdma_spread_mod_iq_5_payload_cha_i;
-  wire       [15:0]   rfClockArea_cdma_spread_mod_iq_5_payload_cha_q;
-  wire                rfClockArea_cdma_spread_mod_iq_6_valid;
-  wire       [15:0]   rfClockArea_cdma_spread_mod_iq_6_payload_cha_i;
-  wire       [15:0]   rfClockArea_cdma_spread_mod_iq_6_payload_cha_q;
-  wire                rfClockArea_cdma_spread_mod_iq_7_valid;
-  wire       [15:0]   rfClockArea_cdma_spread_mod_iq_7_payload_cha_i;
-  wire       [15:0]   rfClockArea_cdma_spread_mod_iq_7_payload_cha_q;
+  wire                rfClockArea_cdma_spread_base_iq_ready;
+  wire                rfClockArea_cdma_spread_mod_sub_iqs_0_valid;
+  wire       [15:0]   rfClockArea_cdma_spread_mod_sub_iqs_0_payload_cha_i;
+  wire       [15:0]   rfClockArea_cdma_spread_mod_sub_iqs_0_payload_cha_q;
+  wire                rfClockArea_cdma_spread_mod_sub_iqs_1_valid;
+  wire       [15:0]   rfClockArea_cdma_spread_mod_sub_iqs_1_payload_cha_i;
+  wire       [15:0]   rfClockArea_cdma_spread_mod_sub_iqs_1_payload_cha_q;
+  wire                rfClockArea_cdma_spread_mod_sub_iqs_2_valid;
+  wire       [15:0]   rfClockArea_cdma_spread_mod_sub_iqs_2_payload_cha_i;
+  wire       [15:0]   rfClockArea_cdma_spread_mod_sub_iqs_2_payload_cha_q;
+  wire                rfClockArea_cdma_spread_mod_sub_iqs_3_valid;
+  wire       [15:0]   rfClockArea_cdma_spread_mod_sub_iqs_3_payload_cha_i;
+  wire       [15:0]   rfClockArea_cdma_spread_mod_sub_iqs_3_payload_cha_q;
+  wire                rfClockArea_cdma_spread_mod_sub_iqs_4_valid;
+  wire       [15:0]   rfClockArea_cdma_spread_mod_sub_iqs_4_payload_cha_i;
+  wire       [15:0]   rfClockArea_cdma_spread_mod_sub_iqs_4_payload_cha_q;
+  wire                rfClockArea_cdma_spread_mod_sub_iqs_5_valid;
+  wire       [15:0]   rfClockArea_cdma_spread_mod_sub_iqs_5_payload_cha_i;
+  wire       [15:0]   rfClockArea_cdma_spread_mod_sub_iqs_5_payload_cha_q;
+  wire                rfClockArea_cdma_spread_mod_sub_iqs_6_valid;
+  wire       [15:0]   rfClockArea_cdma_spread_mod_sub_iqs_6_payload_cha_i;
+  wire       [15:0]   rfClockArea_cdma_spread_mod_sub_iqs_6_payload_cha_q;
+  wire                rfClockArea_cdma_spread_mod_sub_iqs_7_valid;
+  wire       [15:0]   rfClockArea_cdma_spread_mod_sub_iqs_7_payload_cha_i;
+  wire       [15:0]   rfClockArea_cdma_spread_mod_sub_iqs_7_payload_cha_q;
+  wire                rfClockArea_cdma_code_sum_mod_iq_valid;
+  wire       [15:0]   rfClockArea_cdma_code_sum_mod_iq_payload_cha_i;
+  wire       [15:0]   rfClockArea_cdma_code_sum_mod_iq_payload_cha_q;
   wire                clkCrossing_5_dataOut;
   wire                clkCrossing_6_dataOut;
   wire       [2:0]    clkCrossing_7_dataOut;
@@ -121,40 +106,73 @@ module AxiLite4CDMASpreading (
   reg        [2:0]    _zz_dataIn_3;
 
   CDMASpreading rfClockArea_cdma_spread (
-    .w_en                      (clkCrossing_6_dataOut                           ), //i
-    .w_addr                    (clkCrossing_7_dataOut                           ), //i
-    .w_data                    (clkCrossing_8_dataOut                           ), //i
-    .clc                       (clkCrossing_5_dataOut                           ), //i
-    .cnt_limit                 (clkCrossing_9_dataOut                           ), //i
-    .base_iq_valid             (base_iq_valid                                   ), //i
-    .base_iq_payload_cha_i     (base_iq_payload_cha_i                           ), //i
-    .base_iq_payload_cha_q     (base_iq_payload_cha_q                           ), //i
-    .mod_iq_0_valid            (rfClockArea_cdma_spread_mod_iq_0_valid          ), //o
-    .mod_iq_0_payload_cha_i    (rfClockArea_cdma_spread_mod_iq_0_payload_cha_i  ), //o
-    .mod_iq_0_payload_cha_q    (rfClockArea_cdma_spread_mod_iq_0_payload_cha_q  ), //o
-    .mod_iq_1_valid            (rfClockArea_cdma_spread_mod_iq_1_valid          ), //o
-    .mod_iq_1_payload_cha_i    (rfClockArea_cdma_spread_mod_iq_1_payload_cha_i  ), //o
-    .mod_iq_1_payload_cha_q    (rfClockArea_cdma_spread_mod_iq_1_payload_cha_q  ), //o
-    .mod_iq_2_valid            (rfClockArea_cdma_spread_mod_iq_2_valid          ), //o
-    .mod_iq_2_payload_cha_i    (rfClockArea_cdma_spread_mod_iq_2_payload_cha_i  ), //o
-    .mod_iq_2_payload_cha_q    (rfClockArea_cdma_spread_mod_iq_2_payload_cha_q  ), //o
-    .mod_iq_3_valid            (rfClockArea_cdma_spread_mod_iq_3_valid          ), //o
-    .mod_iq_3_payload_cha_i    (rfClockArea_cdma_spread_mod_iq_3_payload_cha_i  ), //o
-    .mod_iq_3_payload_cha_q    (rfClockArea_cdma_spread_mod_iq_3_payload_cha_q  ), //o
-    .mod_iq_4_valid            (rfClockArea_cdma_spread_mod_iq_4_valid          ), //o
-    .mod_iq_4_payload_cha_i    (rfClockArea_cdma_spread_mod_iq_4_payload_cha_i  ), //o
-    .mod_iq_4_payload_cha_q    (rfClockArea_cdma_spread_mod_iq_4_payload_cha_q  ), //o
-    .mod_iq_5_valid            (rfClockArea_cdma_spread_mod_iq_5_valid          ), //o
-    .mod_iq_5_payload_cha_i    (rfClockArea_cdma_spread_mod_iq_5_payload_cha_i  ), //o
-    .mod_iq_5_payload_cha_q    (rfClockArea_cdma_spread_mod_iq_5_payload_cha_q  ), //o
-    .mod_iq_6_valid            (rfClockArea_cdma_spread_mod_iq_6_valid          ), //o
-    .mod_iq_6_payload_cha_i    (rfClockArea_cdma_spread_mod_iq_6_payload_cha_i  ), //o
-    .mod_iq_6_payload_cha_q    (rfClockArea_cdma_spread_mod_iq_6_payload_cha_q  ), //o
-    .mod_iq_7_valid            (rfClockArea_cdma_spread_mod_iq_7_valid          ), //o
-    .mod_iq_7_payload_cha_i    (rfClockArea_cdma_spread_mod_iq_7_payload_cha_i  ), //o
-    .mod_iq_7_payload_cha_q    (rfClockArea_cdma_spread_mod_iq_7_payload_cha_q  ), //o
-    .rf_clk                    (rf_clk                                          ), //i
-    .rf_resetn                 (rf_resetn                                       )  //i
+    .w_en                           (clkCrossing_6_dataOut                                ), //i
+    .w_addr                         (clkCrossing_7_dataOut                                ), //i
+    .w_data                         (clkCrossing_8_dataOut                                ), //i
+    .clc                            (clkCrossing_5_dataOut                                ), //i
+    .cnt_limit                      (clkCrossing_9_dataOut                                ), //i
+    .base_iq_valid                  (base_iq_valid                                        ), //i
+    .base_iq_ready                  (rfClockArea_cdma_spread_base_iq_ready                ), //o
+    .base_iq_payload_cha_i          (base_iq_payload_cha_i                                ), //i
+    .base_iq_payload_cha_q          (base_iq_payload_cha_q                                ), //i
+    .mod_sub_iqs_0_valid            (rfClockArea_cdma_spread_mod_sub_iqs_0_valid          ), //o
+    .mod_sub_iqs_0_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_0_payload_cha_i  ), //o
+    .mod_sub_iqs_0_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_0_payload_cha_q  ), //o
+    .mod_sub_iqs_1_valid            (rfClockArea_cdma_spread_mod_sub_iqs_1_valid          ), //o
+    .mod_sub_iqs_1_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_1_payload_cha_i  ), //o
+    .mod_sub_iqs_1_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_1_payload_cha_q  ), //o
+    .mod_sub_iqs_2_valid            (rfClockArea_cdma_spread_mod_sub_iqs_2_valid          ), //o
+    .mod_sub_iqs_2_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_2_payload_cha_i  ), //o
+    .mod_sub_iqs_2_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_2_payload_cha_q  ), //o
+    .mod_sub_iqs_3_valid            (rfClockArea_cdma_spread_mod_sub_iqs_3_valid          ), //o
+    .mod_sub_iqs_3_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_3_payload_cha_i  ), //o
+    .mod_sub_iqs_3_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_3_payload_cha_q  ), //o
+    .mod_sub_iqs_4_valid            (rfClockArea_cdma_spread_mod_sub_iqs_4_valid          ), //o
+    .mod_sub_iqs_4_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_4_payload_cha_i  ), //o
+    .mod_sub_iqs_4_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_4_payload_cha_q  ), //o
+    .mod_sub_iqs_5_valid            (rfClockArea_cdma_spread_mod_sub_iqs_5_valid          ), //o
+    .mod_sub_iqs_5_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_5_payload_cha_i  ), //o
+    .mod_sub_iqs_5_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_5_payload_cha_q  ), //o
+    .mod_sub_iqs_6_valid            (rfClockArea_cdma_spread_mod_sub_iqs_6_valid          ), //o
+    .mod_sub_iqs_6_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_6_payload_cha_i  ), //o
+    .mod_sub_iqs_6_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_6_payload_cha_q  ), //o
+    .mod_sub_iqs_7_valid            (rfClockArea_cdma_spread_mod_sub_iqs_7_valid          ), //o
+    .mod_sub_iqs_7_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_7_payload_cha_i  ), //o
+    .mod_sub_iqs_7_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_7_payload_cha_q  ), //o
+    .rf_clk                         (rf_clk                                               ), //i
+    .rf_resetn                      (rf_resetn                                            )  //i
+  );
+  CodeCompose rfClockArea_cdma_code_sum (
+    .mod_sub_iqs_0_valid            (rfClockArea_cdma_spread_mod_sub_iqs_0_valid          ), //i
+    .mod_sub_iqs_0_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_0_payload_cha_i  ), //i
+    .mod_sub_iqs_0_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_0_payload_cha_q  ), //i
+    .mod_sub_iqs_1_valid            (rfClockArea_cdma_spread_mod_sub_iqs_1_valid          ), //i
+    .mod_sub_iqs_1_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_1_payload_cha_i  ), //i
+    .mod_sub_iqs_1_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_1_payload_cha_q  ), //i
+    .mod_sub_iqs_2_valid            (rfClockArea_cdma_spread_mod_sub_iqs_2_valid          ), //i
+    .mod_sub_iqs_2_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_2_payload_cha_i  ), //i
+    .mod_sub_iqs_2_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_2_payload_cha_q  ), //i
+    .mod_sub_iqs_3_valid            (rfClockArea_cdma_spread_mod_sub_iqs_3_valid          ), //i
+    .mod_sub_iqs_3_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_3_payload_cha_i  ), //i
+    .mod_sub_iqs_3_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_3_payload_cha_q  ), //i
+    .mod_sub_iqs_4_valid            (rfClockArea_cdma_spread_mod_sub_iqs_4_valid          ), //i
+    .mod_sub_iqs_4_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_4_payload_cha_i  ), //i
+    .mod_sub_iqs_4_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_4_payload_cha_q  ), //i
+    .mod_sub_iqs_5_valid            (rfClockArea_cdma_spread_mod_sub_iqs_5_valid          ), //i
+    .mod_sub_iqs_5_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_5_payload_cha_i  ), //i
+    .mod_sub_iqs_5_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_5_payload_cha_q  ), //i
+    .mod_sub_iqs_6_valid            (rfClockArea_cdma_spread_mod_sub_iqs_6_valid          ), //i
+    .mod_sub_iqs_6_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_6_payload_cha_i  ), //i
+    .mod_sub_iqs_6_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_6_payload_cha_q  ), //i
+    .mod_sub_iqs_7_valid            (rfClockArea_cdma_spread_mod_sub_iqs_7_valid          ), //i
+    .mod_sub_iqs_7_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_7_payload_cha_i  ), //i
+    .mod_sub_iqs_7_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_7_payload_cha_q  ), //i
+    .mod_iq_valid                   (rfClockArea_cdma_code_sum_mod_iq_valid               ), //o
+    .mod_iq_ready                   (mod_iq_ready                                         ), //i
+    .mod_iq_payload_cha_i           (rfClockArea_cdma_code_sum_mod_iq_payload_cha_i       ), //o
+    .mod_iq_payload_cha_q           (rfClockArea_cdma_code_sum_mod_iq_payload_cha_q       ), //o
+    .rf_clk                         (rf_clk                                               ), //i
+    .rf_resetn                      (rf_resetn                                            )  //i
   );
   ClkCrossing clkCrossing_5 (
     .dataIn       (cdma_spread_bridge_clc  ), //i
@@ -196,30 +214,10 @@ module AxiLite4CDMASpreading (
     .rf_clk       (rf_clk                 ), //i
     .rf_resetn    (rf_resetn              )  //i
   );
-  assign mod_iq_0_valid = rfClockArea_cdma_spread_mod_iq_0_valid;
-  assign mod_iq_0_payload_cha_i = rfClockArea_cdma_spread_mod_iq_0_payload_cha_i;
-  assign mod_iq_0_payload_cha_q = rfClockArea_cdma_spread_mod_iq_0_payload_cha_q;
-  assign mod_iq_1_valid = rfClockArea_cdma_spread_mod_iq_1_valid;
-  assign mod_iq_1_payload_cha_i = rfClockArea_cdma_spread_mod_iq_1_payload_cha_i;
-  assign mod_iq_1_payload_cha_q = rfClockArea_cdma_spread_mod_iq_1_payload_cha_q;
-  assign mod_iq_2_valid = rfClockArea_cdma_spread_mod_iq_2_valid;
-  assign mod_iq_2_payload_cha_i = rfClockArea_cdma_spread_mod_iq_2_payload_cha_i;
-  assign mod_iq_2_payload_cha_q = rfClockArea_cdma_spread_mod_iq_2_payload_cha_q;
-  assign mod_iq_3_valid = rfClockArea_cdma_spread_mod_iq_3_valid;
-  assign mod_iq_3_payload_cha_i = rfClockArea_cdma_spread_mod_iq_3_payload_cha_i;
-  assign mod_iq_3_payload_cha_q = rfClockArea_cdma_spread_mod_iq_3_payload_cha_q;
-  assign mod_iq_4_valid = rfClockArea_cdma_spread_mod_iq_4_valid;
-  assign mod_iq_4_payload_cha_i = rfClockArea_cdma_spread_mod_iq_4_payload_cha_i;
-  assign mod_iq_4_payload_cha_q = rfClockArea_cdma_spread_mod_iq_4_payload_cha_q;
-  assign mod_iq_5_valid = rfClockArea_cdma_spread_mod_iq_5_valid;
-  assign mod_iq_5_payload_cha_i = rfClockArea_cdma_spread_mod_iq_5_payload_cha_i;
-  assign mod_iq_5_payload_cha_q = rfClockArea_cdma_spread_mod_iq_5_payload_cha_q;
-  assign mod_iq_6_valid = rfClockArea_cdma_spread_mod_iq_6_valid;
-  assign mod_iq_6_payload_cha_i = rfClockArea_cdma_spread_mod_iq_6_payload_cha_i;
-  assign mod_iq_6_payload_cha_q = rfClockArea_cdma_spread_mod_iq_6_payload_cha_q;
-  assign mod_iq_7_valid = rfClockArea_cdma_spread_mod_iq_7_valid;
-  assign mod_iq_7_payload_cha_i = rfClockArea_cdma_spread_mod_iq_7_payload_cha_i;
-  assign mod_iq_7_payload_cha_q = rfClockArea_cdma_spread_mod_iq_7_payload_cha_q;
+  assign base_iq_ready = rfClockArea_cdma_spread_base_iq_ready;
+  assign mod_iq_valid = rfClockArea_cdma_code_sum_mod_iq_valid;
+  assign mod_iq_payload_cha_i = rfClockArea_cdma_code_sum_mod_iq_payload_cha_i;
+  assign mod_iq_payload_cha_q = rfClockArea_cdma_code_sum_mod_iq_payload_cha_q;
   assign readHaltRequest = 1'b0;
   assign writeHaltRequest = 1'b0;
   assign writeJoinEvent_fire = (writeJoinEvent_valid && writeJoinEvent_ready);
@@ -413,6 +411,236 @@ module ClkCrossing (
 
 endmodule
 
+module CodeCompose (
+  input               mod_sub_iqs_0_valid,
+  input      [15:0]   mod_sub_iqs_0_payload_cha_i,
+  input      [15:0]   mod_sub_iqs_0_payload_cha_q,
+  input               mod_sub_iqs_1_valid,
+  input      [15:0]   mod_sub_iqs_1_payload_cha_i,
+  input      [15:0]   mod_sub_iqs_1_payload_cha_q,
+  input               mod_sub_iqs_2_valid,
+  input      [15:0]   mod_sub_iqs_2_payload_cha_i,
+  input      [15:0]   mod_sub_iqs_2_payload_cha_q,
+  input               mod_sub_iqs_3_valid,
+  input      [15:0]   mod_sub_iqs_3_payload_cha_i,
+  input      [15:0]   mod_sub_iqs_3_payload_cha_q,
+  input               mod_sub_iqs_4_valid,
+  input      [15:0]   mod_sub_iqs_4_payload_cha_i,
+  input      [15:0]   mod_sub_iqs_4_payload_cha_q,
+  input               mod_sub_iqs_5_valid,
+  input      [15:0]   mod_sub_iqs_5_payload_cha_i,
+  input      [15:0]   mod_sub_iqs_5_payload_cha_q,
+  input               mod_sub_iqs_6_valid,
+  input      [15:0]   mod_sub_iqs_6_payload_cha_i,
+  input      [15:0]   mod_sub_iqs_6_payload_cha_q,
+  input               mod_sub_iqs_7_valid,
+  input      [15:0]   mod_sub_iqs_7_payload_cha_i,
+  input      [15:0]   mod_sub_iqs_7_payload_cha_q,
+  output              mod_iq_valid,
+  input               mod_iq_ready,
+  output     [15:0]   mod_iq_payload_cha_i,
+  output     [15:0]   mod_iq_payload_cha_q,
+  input               rf_clk,
+  input               rf_resetn
+);
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_i;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_i_1;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_i_2;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_i_3;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_i_4;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_i_5;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_i_6;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_i_7;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_i_8;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_i_9;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_i_10;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_i_11;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_i_12;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_i_13;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_i_1_1;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_i_1_2;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_i_1_3;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_i_1_4;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_i_1_5;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_i_1_6;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_i_1_7;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_i_1_8;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_i_1_9;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_i_1_10;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_i_1_11;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_i_1_12;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_i_1_13;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_i_1_14;
+  wire       [15:0]   _zz_mod_iq_payload_cha_i_2;
+  wire       [12:0]   _zz_mod_iq_payload_cha_i_3;
+  wire       [15:0]   _zz_mod_iq_payload_cha_i_4;
+  wire       [12:0]   _zz_mod_iq_payload_cha_i_5;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_q;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_q_1;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_q_2;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_q_3;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_q_4;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_q_5;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_q_6;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_q_7;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_q_8;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_q_9;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_q_10;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_q_11;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_q_12;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_q_13;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_q_1_1;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_q_1_2;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_q_1_3;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_q_1_4;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_q_1_5;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_q_1_6;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_q_1_7;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_q_1_8;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_q_1_9;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_q_1_10;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_q_1_11;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_q_1_12;
+  wire       [15:0]   _zz__zz_mod_iq_payload_cha_q_1_13;
+  wire       [12:0]   _zz__zz_mod_iq_payload_cha_q_1_14;
+  wire       [15:0]   _zz_mod_iq_payload_cha_q_2;
+  wire       [12:0]   _zz_mod_iq_payload_cha_q_3;
+  wire       [15:0]   _zz_mod_iq_payload_cha_q_4;
+  wire       [12:0]   _zz_mod_iq_payload_cha_q_5;
+  wire       [15:0]   sub_i_data_vec_0;
+  wire       [15:0]   sub_i_data_vec_1;
+  wire       [15:0]   sub_i_data_vec_2;
+  wire       [15:0]   sub_i_data_vec_3;
+  wire       [15:0]   sub_i_data_vec_4;
+  wire       [15:0]   sub_i_data_vec_5;
+  wire       [15:0]   sub_i_data_vec_6;
+  wire       [15:0]   sub_i_data_vec_7;
+  wire       [15:0]   sub_q_data_vec_0;
+  wire       [15:0]   sub_q_data_vec_1;
+  wire       [15:0]   sub_q_data_vec_2;
+  wire       [15:0]   sub_q_data_vec_3;
+  wire       [15:0]   sub_q_data_vec_4;
+  wire       [15:0]   sub_q_data_vec_5;
+  wire       [15:0]   sub_q_data_vec_6;
+  wire       [15:0]   sub_q_data_vec_7;
+  wire                sub_iqs_valid_vec_0;
+  wire                sub_iqs_valid_vec_1;
+  wire                sub_iqs_valid_vec_2;
+  wire                sub_iqs_valid_vec_3;
+  wire                sub_iqs_valid_vec_4;
+  wire                sub_iqs_valid_vec_5;
+  wire                sub_iqs_valid_vec_6;
+  wire                sub_iqs_valid_vec_7;
+  reg        [15:0]   _zz_mod_iq_payload_cha_i;
+  reg        [15:0]   _zz_mod_iq_payload_cha_i_1;
+  reg        [15:0]   _zz_mod_iq_payload_cha_q;
+  reg        [15:0]   _zz_mod_iq_payload_cha_q_1;
+  reg                 _zz_mod_iq_valid;
+  reg                 _zz_mod_iq_valid_1;
+
+  assign _zz__zz_mod_iq_payload_cha_i_1 = (_zz__zz_mod_iq_payload_cha_i_2 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_i = {{3{_zz__zz_mod_iq_payload_cha_i_1[12]}}, _zz__zz_mod_iq_payload_cha_i_1};
+  assign _zz__zz_mod_iq_payload_cha_i_2 = ($signed(_zz__zz_mod_iq_payload_cha_i_3) + $signed(_zz__zz_mod_iq_payload_cha_i_5));
+  assign _zz__zz_mod_iq_payload_cha_i_4 = (sub_i_data_vec_0 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_i_3 = {{3{_zz__zz_mod_iq_payload_cha_i_4[12]}}, _zz__zz_mod_iq_payload_cha_i_4};
+  assign _zz__zz_mod_iq_payload_cha_i_6 = (sub_i_data_vec_1 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_i_5 = {{3{_zz__zz_mod_iq_payload_cha_i_6[12]}}, _zz__zz_mod_iq_payload_cha_i_6};
+  assign _zz__zz_mod_iq_payload_cha_i_8 = (_zz__zz_mod_iq_payload_cha_i_9 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_i_7 = {{3{_zz__zz_mod_iq_payload_cha_i_8[12]}}, _zz__zz_mod_iq_payload_cha_i_8};
+  assign _zz__zz_mod_iq_payload_cha_i_9 = ($signed(_zz__zz_mod_iq_payload_cha_i_10) + $signed(_zz__zz_mod_iq_payload_cha_i_12));
+  assign _zz__zz_mod_iq_payload_cha_i_11 = (sub_i_data_vec_2 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_i_10 = {{3{_zz__zz_mod_iq_payload_cha_i_11[12]}}, _zz__zz_mod_iq_payload_cha_i_11};
+  assign _zz__zz_mod_iq_payload_cha_i_13 = (sub_i_data_vec_3 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_i_12 = {{3{_zz__zz_mod_iq_payload_cha_i_13[12]}}, _zz__zz_mod_iq_payload_cha_i_13};
+  assign _zz__zz_mod_iq_payload_cha_i_1_2 = (_zz__zz_mod_iq_payload_cha_i_1_3 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_i_1_1 = {{3{_zz__zz_mod_iq_payload_cha_i_1_2[12]}}, _zz__zz_mod_iq_payload_cha_i_1_2};
+  assign _zz__zz_mod_iq_payload_cha_i_1_3 = ($signed(_zz__zz_mod_iq_payload_cha_i_1_4) + $signed(_zz__zz_mod_iq_payload_cha_i_1_6));
+  assign _zz__zz_mod_iq_payload_cha_i_1_5 = (sub_i_data_vec_4 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_i_1_4 = {{3{_zz__zz_mod_iq_payload_cha_i_1_5[12]}}, _zz__zz_mod_iq_payload_cha_i_1_5};
+  assign _zz__zz_mod_iq_payload_cha_i_1_7 = (sub_i_data_vec_5 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_i_1_6 = {{3{_zz__zz_mod_iq_payload_cha_i_1_7[12]}}, _zz__zz_mod_iq_payload_cha_i_1_7};
+  assign _zz__zz_mod_iq_payload_cha_i_1_9 = (_zz__zz_mod_iq_payload_cha_i_1_10 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_i_1_8 = {{3{_zz__zz_mod_iq_payload_cha_i_1_9[12]}}, _zz__zz_mod_iq_payload_cha_i_1_9};
+  assign _zz__zz_mod_iq_payload_cha_i_1_10 = ($signed(_zz__zz_mod_iq_payload_cha_i_1_11) + $signed(_zz__zz_mod_iq_payload_cha_i_1_13));
+  assign _zz__zz_mod_iq_payload_cha_i_1_12 = (sub_i_data_vec_6 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_i_1_11 = {{3{_zz__zz_mod_iq_payload_cha_i_1_12[12]}}, _zz__zz_mod_iq_payload_cha_i_1_12};
+  assign _zz__zz_mod_iq_payload_cha_i_1_14 = (sub_i_data_vec_7 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_i_1_13 = {{3{_zz__zz_mod_iq_payload_cha_i_1_14[12]}}, _zz__zz_mod_iq_payload_cha_i_1_14};
+  assign _zz_mod_iq_payload_cha_i_3 = (_zz_mod_iq_payload_cha_i >>> 3);
+  assign _zz_mod_iq_payload_cha_i_2 = {{3{_zz_mod_iq_payload_cha_i_3[12]}}, _zz_mod_iq_payload_cha_i_3};
+  assign _zz_mod_iq_payload_cha_i_5 = (_zz_mod_iq_payload_cha_i_1 >>> 3);
+  assign _zz_mod_iq_payload_cha_i_4 = {{3{_zz_mod_iq_payload_cha_i_5[12]}}, _zz_mod_iq_payload_cha_i_5};
+  assign _zz__zz_mod_iq_payload_cha_q_1 = (_zz__zz_mod_iq_payload_cha_q_2 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_q = {{3{_zz__zz_mod_iq_payload_cha_q_1[12]}}, _zz__zz_mod_iq_payload_cha_q_1};
+  assign _zz__zz_mod_iq_payload_cha_q_2 = ($signed(_zz__zz_mod_iq_payload_cha_q_3) + $signed(_zz__zz_mod_iq_payload_cha_q_5));
+  assign _zz__zz_mod_iq_payload_cha_q_4 = (sub_q_data_vec_0 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_q_3 = {{3{_zz__zz_mod_iq_payload_cha_q_4[12]}}, _zz__zz_mod_iq_payload_cha_q_4};
+  assign _zz__zz_mod_iq_payload_cha_q_6 = (sub_q_data_vec_1 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_q_5 = {{3{_zz__zz_mod_iq_payload_cha_q_6[12]}}, _zz__zz_mod_iq_payload_cha_q_6};
+  assign _zz__zz_mod_iq_payload_cha_q_8 = (_zz__zz_mod_iq_payload_cha_q_9 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_q_7 = {{3{_zz__zz_mod_iq_payload_cha_q_8[12]}}, _zz__zz_mod_iq_payload_cha_q_8};
+  assign _zz__zz_mod_iq_payload_cha_q_9 = ($signed(_zz__zz_mod_iq_payload_cha_q_10) + $signed(_zz__zz_mod_iq_payload_cha_q_12));
+  assign _zz__zz_mod_iq_payload_cha_q_11 = (sub_q_data_vec_2 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_q_10 = {{3{_zz__zz_mod_iq_payload_cha_q_11[12]}}, _zz__zz_mod_iq_payload_cha_q_11};
+  assign _zz__zz_mod_iq_payload_cha_q_13 = (sub_q_data_vec_3 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_q_12 = {{3{_zz__zz_mod_iq_payload_cha_q_13[12]}}, _zz__zz_mod_iq_payload_cha_q_13};
+  assign _zz__zz_mod_iq_payload_cha_q_1_2 = (_zz__zz_mod_iq_payload_cha_q_1_3 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_q_1_1 = {{3{_zz__zz_mod_iq_payload_cha_q_1_2[12]}}, _zz__zz_mod_iq_payload_cha_q_1_2};
+  assign _zz__zz_mod_iq_payload_cha_q_1_3 = ($signed(_zz__zz_mod_iq_payload_cha_q_1_4) + $signed(_zz__zz_mod_iq_payload_cha_q_1_6));
+  assign _zz__zz_mod_iq_payload_cha_q_1_5 = (sub_q_data_vec_4 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_q_1_4 = {{3{_zz__zz_mod_iq_payload_cha_q_1_5[12]}}, _zz__zz_mod_iq_payload_cha_q_1_5};
+  assign _zz__zz_mod_iq_payload_cha_q_1_7 = (sub_q_data_vec_5 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_q_1_6 = {{3{_zz__zz_mod_iq_payload_cha_q_1_7[12]}}, _zz__zz_mod_iq_payload_cha_q_1_7};
+  assign _zz__zz_mod_iq_payload_cha_q_1_9 = (_zz__zz_mod_iq_payload_cha_q_1_10 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_q_1_8 = {{3{_zz__zz_mod_iq_payload_cha_q_1_9[12]}}, _zz__zz_mod_iq_payload_cha_q_1_9};
+  assign _zz__zz_mod_iq_payload_cha_q_1_10 = ($signed(_zz__zz_mod_iq_payload_cha_q_1_11) + $signed(_zz__zz_mod_iq_payload_cha_q_1_13));
+  assign _zz__zz_mod_iq_payload_cha_q_1_12 = (sub_q_data_vec_6 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_q_1_11 = {{3{_zz__zz_mod_iq_payload_cha_q_1_12[12]}}, _zz__zz_mod_iq_payload_cha_q_1_12};
+  assign _zz__zz_mod_iq_payload_cha_q_1_14 = (sub_q_data_vec_7 >>> 3);
+  assign _zz__zz_mod_iq_payload_cha_q_1_13 = {{3{_zz__zz_mod_iq_payload_cha_q_1_14[12]}}, _zz__zz_mod_iq_payload_cha_q_1_14};
+  assign _zz_mod_iq_payload_cha_q_3 = (_zz_mod_iq_payload_cha_q >>> 3);
+  assign _zz_mod_iq_payload_cha_q_2 = {{3{_zz_mod_iq_payload_cha_q_3[12]}}, _zz_mod_iq_payload_cha_q_3};
+  assign _zz_mod_iq_payload_cha_q_5 = (_zz_mod_iq_payload_cha_q_1 >>> 3);
+  assign _zz_mod_iq_payload_cha_q_4 = {{3{_zz_mod_iq_payload_cha_q_5[12]}}, _zz_mod_iq_payload_cha_q_5};
+  assign sub_i_data_vec_0 = mod_sub_iqs_0_payload_cha_i;
+  assign sub_q_data_vec_0 = mod_sub_iqs_0_payload_cha_q;
+  assign sub_iqs_valid_vec_0 = mod_sub_iqs_0_valid;
+  assign sub_i_data_vec_1 = mod_sub_iqs_1_payload_cha_i;
+  assign sub_q_data_vec_1 = mod_sub_iqs_1_payload_cha_q;
+  assign sub_iqs_valid_vec_1 = mod_sub_iqs_1_valid;
+  assign sub_i_data_vec_2 = mod_sub_iqs_2_payload_cha_i;
+  assign sub_q_data_vec_2 = mod_sub_iqs_2_payload_cha_q;
+  assign sub_iqs_valid_vec_2 = mod_sub_iqs_2_valid;
+  assign sub_i_data_vec_3 = mod_sub_iqs_3_payload_cha_i;
+  assign sub_q_data_vec_3 = mod_sub_iqs_3_payload_cha_q;
+  assign sub_iqs_valid_vec_3 = mod_sub_iqs_3_valid;
+  assign sub_i_data_vec_4 = mod_sub_iqs_4_payload_cha_i;
+  assign sub_q_data_vec_4 = mod_sub_iqs_4_payload_cha_q;
+  assign sub_iqs_valid_vec_4 = mod_sub_iqs_4_valid;
+  assign sub_i_data_vec_5 = mod_sub_iqs_5_payload_cha_i;
+  assign sub_q_data_vec_5 = mod_sub_iqs_5_payload_cha_q;
+  assign sub_iqs_valid_vec_5 = mod_sub_iqs_5_valid;
+  assign sub_i_data_vec_6 = mod_sub_iqs_6_payload_cha_i;
+  assign sub_q_data_vec_6 = mod_sub_iqs_6_payload_cha_q;
+  assign sub_iqs_valid_vec_6 = mod_sub_iqs_6_valid;
+  assign sub_i_data_vec_7 = mod_sub_iqs_7_payload_cha_i;
+  assign sub_q_data_vec_7 = mod_sub_iqs_7_payload_cha_q;
+  assign sub_iqs_valid_vec_7 = mod_sub_iqs_7_valid;
+  assign mod_iq_payload_cha_i = ($signed(_zz_mod_iq_payload_cha_i_2) + $signed(_zz_mod_iq_payload_cha_i_4));
+  assign mod_iq_payload_cha_q = ($signed(_zz_mod_iq_payload_cha_q_2) + $signed(_zz_mod_iq_payload_cha_q_4));
+  assign mod_iq_valid = (_zz_mod_iq_valid && _zz_mod_iq_valid_1);
+  always @(posedge rf_clk) begin
+    _zz_mod_iq_payload_cha_i <= ($signed(_zz__zz_mod_iq_payload_cha_i) + $signed(_zz__zz_mod_iq_payload_cha_i_7));
+    _zz_mod_iq_payload_cha_i_1 <= ($signed(_zz__zz_mod_iq_payload_cha_i_1_1) + $signed(_zz__zz_mod_iq_payload_cha_i_1_8));
+    _zz_mod_iq_payload_cha_q <= ($signed(_zz__zz_mod_iq_payload_cha_q) + $signed(_zz__zz_mod_iq_payload_cha_q_7));
+    _zz_mod_iq_payload_cha_q_1 <= ($signed(_zz__zz_mod_iq_payload_cha_q_1_1) + $signed(_zz__zz_mod_iq_payload_cha_q_1_8));
+    _zz_mod_iq_valid <= ((sub_iqs_valid_vec_0 && sub_iqs_valid_vec_1) && (sub_iqs_valid_vec_2 && sub_iqs_valid_vec_3));
+    _zz_mod_iq_valid_1 <= ((sub_iqs_valid_vec_4 && sub_iqs_valid_vec_5) && (sub_iqs_valid_vec_6 && sub_iqs_valid_vec_7));
+  end
+
+
+endmodule
+
 module CDMASpreading (
   input               w_en,
   input      [2:0]    w_addr,
@@ -420,43 +648,36 @@ module CDMASpreading (
   input               clc,
   input      [2:0]    cnt_limit,
   input               base_iq_valid,
+  output              base_iq_ready,
   input      [15:0]   base_iq_payload_cha_i,
   input      [15:0]   base_iq_payload_cha_q,
-  output              mod_iq_0_valid,
-  output     [15:0]   mod_iq_0_payload_cha_i,
-  output     [15:0]   mod_iq_0_payload_cha_q,
-  output              mod_iq_1_valid,
-  output     [15:0]   mod_iq_1_payload_cha_i,
-  output     [15:0]   mod_iq_1_payload_cha_q,
-  output              mod_iq_2_valid,
-  output     [15:0]   mod_iq_2_payload_cha_i,
-  output     [15:0]   mod_iq_2_payload_cha_q,
-  output              mod_iq_3_valid,
-  output     [15:0]   mod_iq_3_payload_cha_i,
-  output     [15:0]   mod_iq_3_payload_cha_q,
-  output              mod_iq_4_valid,
-  output     [15:0]   mod_iq_4_payload_cha_i,
-  output     [15:0]   mod_iq_4_payload_cha_q,
-  output              mod_iq_5_valid,
-  output     [15:0]   mod_iq_5_payload_cha_i,
-  output     [15:0]   mod_iq_5_payload_cha_q,
-  output              mod_iq_6_valid,
-  output     [15:0]   mod_iq_6_payload_cha_i,
-  output     [15:0]   mod_iq_6_payload_cha_q,
-  output              mod_iq_7_valid,
-  output     [15:0]   mod_iq_7_payload_cha_i,
-  output     [15:0]   mod_iq_7_payload_cha_q,
+  output              mod_sub_iqs_0_valid,
+  output     [15:0]   mod_sub_iqs_0_payload_cha_i,
+  output     [15:0]   mod_sub_iqs_0_payload_cha_q,
+  output              mod_sub_iqs_1_valid,
+  output     [15:0]   mod_sub_iqs_1_payload_cha_i,
+  output     [15:0]   mod_sub_iqs_1_payload_cha_q,
+  output              mod_sub_iqs_2_valid,
+  output     [15:0]   mod_sub_iqs_2_payload_cha_i,
+  output     [15:0]   mod_sub_iqs_2_payload_cha_q,
+  output              mod_sub_iqs_3_valid,
+  output     [15:0]   mod_sub_iqs_3_payload_cha_i,
+  output     [15:0]   mod_sub_iqs_3_payload_cha_q,
+  output              mod_sub_iqs_4_valid,
+  output     [15:0]   mod_sub_iqs_4_payload_cha_i,
+  output     [15:0]   mod_sub_iqs_4_payload_cha_q,
+  output              mod_sub_iqs_5_valid,
+  output     [15:0]   mod_sub_iqs_5_payload_cha_i,
+  output     [15:0]   mod_sub_iqs_5_payload_cha_q,
+  output              mod_sub_iqs_6_valid,
+  output     [15:0]   mod_sub_iqs_6_payload_cha_i,
+  output     [15:0]   mod_sub_iqs_6_payload_cha_q,
+  output              mod_sub_iqs_7_valid,
+  output     [15:0]   mod_sub_iqs_7_payload_cha_i,
+  output     [15:0]   mod_sub_iqs_7_payload_cha_q,
   input               rf_clk,
   input               rf_resetn
 );
-  wire                computeUnit_8_code;
-  wire                computeUnit_9_code;
-  wire                computeUnit_10_code;
-  wire                computeUnit_11_code;
-  wire                computeUnit_12_code;
-  wire                computeUnit_13_code;
-  wire                computeUnit_14_code;
-  wire                computeUnit_15_code;
   wire       [7:0]    _zz_code_map_port0;
   wire       [7:0]    _zz_code_map_port1;
   wire       [7:0]    _zz_code_map_port2;
@@ -492,6 +713,20 @@ module CDMASpreading (
   wire       [2:0]    _zz_cnt;
   reg                 _zz_1;
   reg        [2:0]    cnt;
+  reg        [15:0]   flow_iq_data_cha_i;
+  reg        [15:0]   flow_iq_data_cha_q;
+  reg                 flow_iq_valid;
+  reg                 _zz_code;
+  reg                 _zz_code_1;
+  reg                 _zz_code_2;
+  reg                 _zz_code_3;
+  reg                 _zz_code_4;
+  reg                 _zz_code_5;
+  reg                 _zz_code_6;
+  reg                 _zz_code_7;
+  wire                base_iq_fire;
+  wire                when_CDMASpreading_l52;
+  wire                when_CDMASpreading_l65;
   (* ram_style = "distributed" *) reg [7:0] code_map [0:7];
 
   assign _zz_cnt = (cnt + 3'b001);
@@ -510,10 +745,10 @@ module CDMASpreading (
   end
 
   ComputeUnit computeUnit_8 (
-    .code                     (computeUnit_8_code                  ), //i
-    .base_iq_valid            (base_iq_valid                       ), //i
-    .base_iq_payload_cha_i    (base_iq_payload_cha_i               ), //i
-    .base_iq_payload_cha_q    (base_iq_payload_cha_q               ), //i
+    .code                     (_zz_code                            ), //i
+    .base_iq_valid            (flow_iq_valid                       ), //i
+    .base_iq_payload_cha_i    (flow_iq_data_cha_i                  ), //i
+    .base_iq_payload_cha_q    (flow_iq_data_cha_q                  ), //i
     .mod_iq_valid             (computeUnit_8_mod_iq_valid          ), //o
     .mod_iq_payload_cha_i     (computeUnit_8_mod_iq_payload_cha_i  ), //o
     .mod_iq_payload_cha_q     (computeUnit_8_mod_iq_payload_cha_q  ), //o
@@ -521,10 +756,10 @@ module CDMASpreading (
     .rf_resetn                (rf_resetn                           )  //i
   );
   ComputeUnit computeUnit_9 (
-    .code                     (computeUnit_9_code                  ), //i
-    .base_iq_valid            (base_iq_valid                       ), //i
-    .base_iq_payload_cha_i    (base_iq_payload_cha_i               ), //i
-    .base_iq_payload_cha_q    (base_iq_payload_cha_q               ), //i
+    .code                     (_zz_code_1                          ), //i
+    .base_iq_valid            (flow_iq_valid                       ), //i
+    .base_iq_payload_cha_i    (flow_iq_data_cha_i                  ), //i
+    .base_iq_payload_cha_q    (flow_iq_data_cha_q                  ), //i
     .mod_iq_valid             (computeUnit_9_mod_iq_valid          ), //o
     .mod_iq_payload_cha_i     (computeUnit_9_mod_iq_payload_cha_i  ), //o
     .mod_iq_payload_cha_q     (computeUnit_9_mod_iq_payload_cha_q  ), //o
@@ -532,10 +767,10 @@ module CDMASpreading (
     .rf_resetn                (rf_resetn                           )  //i
   );
   ComputeUnit computeUnit_10 (
-    .code                     (computeUnit_10_code                  ), //i
-    .base_iq_valid            (base_iq_valid                        ), //i
-    .base_iq_payload_cha_i    (base_iq_payload_cha_i                ), //i
-    .base_iq_payload_cha_q    (base_iq_payload_cha_q                ), //i
+    .code                     (_zz_code_2                           ), //i
+    .base_iq_valid            (flow_iq_valid                        ), //i
+    .base_iq_payload_cha_i    (flow_iq_data_cha_i                   ), //i
+    .base_iq_payload_cha_q    (flow_iq_data_cha_q                   ), //i
     .mod_iq_valid             (computeUnit_10_mod_iq_valid          ), //o
     .mod_iq_payload_cha_i     (computeUnit_10_mod_iq_payload_cha_i  ), //o
     .mod_iq_payload_cha_q     (computeUnit_10_mod_iq_payload_cha_q  ), //o
@@ -543,10 +778,10 @@ module CDMASpreading (
     .rf_resetn                (rf_resetn                            )  //i
   );
   ComputeUnit computeUnit_11 (
-    .code                     (computeUnit_11_code                  ), //i
-    .base_iq_valid            (base_iq_valid                        ), //i
-    .base_iq_payload_cha_i    (base_iq_payload_cha_i                ), //i
-    .base_iq_payload_cha_q    (base_iq_payload_cha_q                ), //i
+    .code                     (_zz_code_3                           ), //i
+    .base_iq_valid            (flow_iq_valid                        ), //i
+    .base_iq_payload_cha_i    (flow_iq_data_cha_i                   ), //i
+    .base_iq_payload_cha_q    (flow_iq_data_cha_q                   ), //i
     .mod_iq_valid             (computeUnit_11_mod_iq_valid          ), //o
     .mod_iq_payload_cha_i     (computeUnit_11_mod_iq_payload_cha_i  ), //o
     .mod_iq_payload_cha_q     (computeUnit_11_mod_iq_payload_cha_q  ), //o
@@ -554,10 +789,10 @@ module CDMASpreading (
     .rf_resetn                (rf_resetn                            )  //i
   );
   ComputeUnit computeUnit_12 (
-    .code                     (computeUnit_12_code                  ), //i
-    .base_iq_valid            (base_iq_valid                        ), //i
-    .base_iq_payload_cha_i    (base_iq_payload_cha_i                ), //i
-    .base_iq_payload_cha_q    (base_iq_payload_cha_q                ), //i
+    .code                     (_zz_code_4                           ), //i
+    .base_iq_valid            (flow_iq_valid                        ), //i
+    .base_iq_payload_cha_i    (flow_iq_data_cha_i                   ), //i
+    .base_iq_payload_cha_q    (flow_iq_data_cha_q                   ), //i
     .mod_iq_valid             (computeUnit_12_mod_iq_valid          ), //o
     .mod_iq_payload_cha_i     (computeUnit_12_mod_iq_payload_cha_i  ), //o
     .mod_iq_payload_cha_q     (computeUnit_12_mod_iq_payload_cha_q  ), //o
@@ -565,10 +800,10 @@ module CDMASpreading (
     .rf_resetn                (rf_resetn                            )  //i
   );
   ComputeUnit computeUnit_13 (
-    .code                     (computeUnit_13_code                  ), //i
-    .base_iq_valid            (base_iq_valid                        ), //i
-    .base_iq_payload_cha_i    (base_iq_payload_cha_i                ), //i
-    .base_iq_payload_cha_q    (base_iq_payload_cha_q                ), //i
+    .code                     (_zz_code_5                           ), //i
+    .base_iq_valid            (flow_iq_valid                        ), //i
+    .base_iq_payload_cha_i    (flow_iq_data_cha_i                   ), //i
+    .base_iq_payload_cha_q    (flow_iq_data_cha_q                   ), //i
     .mod_iq_valid             (computeUnit_13_mod_iq_valid          ), //o
     .mod_iq_payload_cha_i     (computeUnit_13_mod_iq_payload_cha_i  ), //o
     .mod_iq_payload_cha_q     (computeUnit_13_mod_iq_payload_cha_q  ), //o
@@ -576,10 +811,10 @@ module CDMASpreading (
     .rf_resetn                (rf_resetn                            )  //i
   );
   ComputeUnit computeUnit_14 (
-    .code                     (computeUnit_14_code                  ), //i
-    .base_iq_valid            (base_iq_valid                        ), //i
-    .base_iq_payload_cha_i    (base_iq_payload_cha_i                ), //i
-    .base_iq_payload_cha_q    (base_iq_payload_cha_q                ), //i
+    .code                     (_zz_code_6                           ), //i
+    .base_iq_valid            (flow_iq_valid                        ), //i
+    .base_iq_payload_cha_i    (flow_iq_data_cha_i                   ), //i
+    .base_iq_payload_cha_q    (flow_iq_data_cha_q                   ), //i
     .mod_iq_valid             (computeUnit_14_mod_iq_valid          ), //o
     .mod_iq_payload_cha_i     (computeUnit_14_mod_iq_payload_cha_i  ), //o
     .mod_iq_payload_cha_q     (computeUnit_14_mod_iq_payload_cha_q  ), //o
@@ -587,10 +822,10 @@ module CDMASpreading (
     .rf_resetn                (rf_resetn                            )  //i
   );
   ComputeUnit computeUnit_15 (
-    .code                     (computeUnit_15_code                  ), //i
-    .base_iq_valid            (base_iq_valid                        ), //i
-    .base_iq_payload_cha_i    (base_iq_payload_cha_i                ), //i
-    .base_iq_payload_cha_q    (base_iq_payload_cha_q                ), //i
+    .code                     (_zz_code_7                           ), //i
+    .base_iq_valid            (flow_iq_valid                        ), //i
+    .base_iq_payload_cha_i    (flow_iq_data_cha_i                   ), //i
+    .base_iq_payload_cha_q    (flow_iq_data_cha_q                   ), //i
     .mod_iq_valid             (computeUnit_15_mod_iq_valid          ), //o
     .mod_iq_payload_cha_i     (computeUnit_15_mod_iq_payload_cha_i  ), //o
     .mod_iq_payload_cha_q     (computeUnit_15_mod_iq_payload_cha_q  ), //o
@@ -604,49 +839,64 @@ module CDMASpreading (
     end
   end
 
-  assign computeUnit_8_code = _zz_code_map_port0[0];
-  assign mod_iq_0_valid = computeUnit_8_mod_iq_valid;
-  assign mod_iq_0_payload_cha_i = computeUnit_8_mod_iq_payload_cha_i;
-  assign mod_iq_0_payload_cha_q = computeUnit_8_mod_iq_payload_cha_q;
-  assign computeUnit_9_code = _zz_code_map_port1[1];
-  assign mod_iq_1_valid = computeUnit_9_mod_iq_valid;
-  assign mod_iq_1_payload_cha_i = computeUnit_9_mod_iq_payload_cha_i;
-  assign mod_iq_1_payload_cha_q = computeUnit_9_mod_iq_payload_cha_q;
-  assign computeUnit_10_code = _zz_code_map_port2[2];
-  assign mod_iq_2_valid = computeUnit_10_mod_iq_valid;
-  assign mod_iq_2_payload_cha_i = computeUnit_10_mod_iq_payload_cha_i;
-  assign mod_iq_2_payload_cha_q = computeUnit_10_mod_iq_payload_cha_q;
-  assign computeUnit_11_code = _zz_code_map_port3[3];
-  assign mod_iq_3_valid = computeUnit_11_mod_iq_valid;
-  assign mod_iq_3_payload_cha_i = computeUnit_11_mod_iq_payload_cha_i;
-  assign mod_iq_3_payload_cha_q = computeUnit_11_mod_iq_payload_cha_q;
-  assign computeUnit_12_code = _zz_code_map_port4[4];
-  assign mod_iq_4_valid = computeUnit_12_mod_iq_valid;
-  assign mod_iq_4_payload_cha_i = computeUnit_12_mod_iq_payload_cha_i;
-  assign mod_iq_4_payload_cha_q = computeUnit_12_mod_iq_payload_cha_q;
-  assign computeUnit_13_code = _zz_code_map_port5[5];
-  assign mod_iq_5_valid = computeUnit_13_mod_iq_valid;
-  assign mod_iq_5_payload_cha_i = computeUnit_13_mod_iq_payload_cha_i;
-  assign mod_iq_5_payload_cha_q = computeUnit_13_mod_iq_payload_cha_q;
-  assign computeUnit_14_code = _zz_code_map_port6[6];
-  assign mod_iq_6_valid = computeUnit_14_mod_iq_valid;
-  assign mod_iq_6_payload_cha_i = computeUnit_14_mod_iq_payload_cha_i;
-  assign mod_iq_6_payload_cha_q = computeUnit_14_mod_iq_payload_cha_q;
-  assign computeUnit_15_code = _zz_code_map_port7[7];
-  assign mod_iq_7_valid = computeUnit_15_mod_iq_valid;
-  assign mod_iq_7_payload_cha_i = computeUnit_15_mod_iq_payload_cha_i;
-  assign mod_iq_7_payload_cha_q = computeUnit_15_mod_iq_payload_cha_q;
+  assign mod_sub_iqs_0_valid = computeUnit_8_mod_iq_valid;
+  assign mod_sub_iqs_0_payload_cha_i = computeUnit_8_mod_iq_payload_cha_i;
+  assign mod_sub_iqs_0_payload_cha_q = computeUnit_8_mod_iq_payload_cha_q;
+  assign mod_sub_iqs_1_valid = computeUnit_9_mod_iq_valid;
+  assign mod_sub_iqs_1_payload_cha_i = computeUnit_9_mod_iq_payload_cha_i;
+  assign mod_sub_iqs_1_payload_cha_q = computeUnit_9_mod_iq_payload_cha_q;
+  assign mod_sub_iqs_2_valid = computeUnit_10_mod_iq_valid;
+  assign mod_sub_iqs_2_payload_cha_i = computeUnit_10_mod_iq_payload_cha_i;
+  assign mod_sub_iqs_2_payload_cha_q = computeUnit_10_mod_iq_payload_cha_q;
+  assign mod_sub_iqs_3_valid = computeUnit_11_mod_iq_valid;
+  assign mod_sub_iqs_3_payload_cha_i = computeUnit_11_mod_iq_payload_cha_i;
+  assign mod_sub_iqs_3_payload_cha_q = computeUnit_11_mod_iq_payload_cha_q;
+  assign mod_sub_iqs_4_valid = computeUnit_12_mod_iq_valid;
+  assign mod_sub_iqs_4_payload_cha_i = computeUnit_12_mod_iq_payload_cha_i;
+  assign mod_sub_iqs_4_payload_cha_q = computeUnit_12_mod_iq_payload_cha_q;
+  assign mod_sub_iqs_5_valid = computeUnit_13_mod_iq_valid;
+  assign mod_sub_iqs_5_payload_cha_i = computeUnit_13_mod_iq_payload_cha_i;
+  assign mod_sub_iqs_5_payload_cha_q = computeUnit_13_mod_iq_payload_cha_q;
+  assign mod_sub_iqs_6_valid = computeUnit_14_mod_iq_valid;
+  assign mod_sub_iqs_6_payload_cha_i = computeUnit_14_mod_iq_payload_cha_i;
+  assign mod_sub_iqs_6_payload_cha_q = computeUnit_14_mod_iq_payload_cha_q;
+  assign mod_sub_iqs_7_valid = computeUnit_15_mod_iq_valid;
+  assign mod_sub_iqs_7_payload_cha_i = computeUnit_15_mod_iq_payload_cha_i;
+  assign mod_sub_iqs_7_payload_cha_q = computeUnit_15_mod_iq_payload_cha_q;
+  assign base_iq_fire = (base_iq_valid && base_iq_ready);
+  assign when_CDMASpreading_l52 = (base_iq_fire || (cnt != 3'b000));
+  assign when_CDMASpreading_l65 = (cnt == 3'b000);
+  assign base_iq_ready = (cnt == 3'b000);
   always @(posedge rf_clk) begin
     if(!rf_resetn) begin
       cnt <= 3'b000;
+      flow_iq_valid <= 1'b0;
     end else begin
       if(clc) begin
         cnt <= 3'b000;
       end else begin
-        if(base_iq_valid) begin
+        if(when_CDMASpreading_l52) begin
           cnt <= ((cnt == cnt_limit) ? 3'b000 : _zz_cnt);
         end
       end
+      if(when_CDMASpreading_l65) begin
+        flow_iq_valid <= base_iq_valid;
+      end
+    end
+  end
+
+  always @(posedge rf_clk) begin
+    _zz_code <= _zz_code_map_port0[7];
+    _zz_code_1 <= _zz_code_map_port1[6];
+    _zz_code_2 <= _zz_code_map_port2[5];
+    _zz_code_3 <= _zz_code_map_port3[4];
+    _zz_code_4 <= _zz_code_map_port4[3];
+    _zz_code_5 <= _zz_code_map_port5[2];
+    _zz_code_6 <= _zz_code_map_port6[1];
+    _zz_code_7 <= _zz_code_map_port7[0];
+    if(when_CDMASpreading_l65) begin
+      flow_iq_data_cha_i <= base_iq_payload_cha_i;
+      flow_iq_data_cha_q <= base_iq_payload_cha_q;
     end
   end
 

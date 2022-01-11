@@ -1,0 +1,551 @@
+// Verilated -*- C++ -*-
+// DESCRIPTION: Verilator output: Primary design header
+//
+// This header should be included by all source files instantiating the design.
+// The class here is then constructed to instantiate the design.
+// See the Verilator manual for examples.
+
+#ifndef _VAxiLite4CDMADespread_H_
+#define _VAxiLite4CDMADespread_H_
+
+#include "verilated.h"
+#include "VAxiLite4CDMADespread__Inlines.h"
+class VAxiLite4CDMADespread__Syms;
+class VerilatedVcd;
+
+//----------
+
+VL_MODULE(VAxiLite4CDMADespread) {
+  public:
+    // CELLS
+    // Public to allow access to /*verilator_public*/ items;
+    // otherwise the application code can consider these internals.
+    
+    // PORTS
+    // The application code writes and reads these signals to
+    // propagate new values into/out from the Verilated model.
+    VL_IN8(rf_clk,0,0);
+    VL_IN8(clk,0,0);
+    VL_IN8(reset,0,0);
+    VL_IN8(axil4Ctrl_awvalid,0,0);
+    VL_OUT8(axil4Ctrl_awready,0,0);
+    VL_IN8(axil4Ctrl_awaddr,7,0);
+    VL_IN8(axil4Ctrl_awprot,2,0);
+    VL_IN8(axil4Ctrl_wvalid,0,0);
+    VL_OUT8(axil4Ctrl_wready,0,0);
+    VL_IN8(axil4Ctrl_wstrb,3,0);
+    VL_OUT8(axil4Ctrl_bvalid,0,0);
+    VL_IN8(axil4Ctrl_bready,0,0);
+    VL_OUT8(axil4Ctrl_bresp,1,0);
+    VL_IN8(axil4Ctrl_arvalid,0,0);
+    VL_OUT8(axil4Ctrl_arready,0,0);
+    VL_IN8(axil4Ctrl_araddr,7,0);
+    VL_IN8(axil4Ctrl_arprot,2,0);
+    VL_OUT8(axil4Ctrl_rvalid,0,0);
+    VL_IN8(axil4Ctrl_rready,0,0);
+    VL_OUT8(axil4Ctrl_rresp,1,0);
+    VL_IN8(mod_iq_valid,0,0);
+    VL_OUT8(mod_iq_ready,0,0);
+    VL_OUT8(base_sub_iqs_0_valid,0,0);
+    VL_OUT8(base_sub_iqs_1_valid,0,0);
+    VL_OUT8(base_sub_iqs_2_valid,0,0);
+    VL_OUT8(base_sub_iqs_3_valid,0,0);
+    VL_OUT8(base_sub_iqs_4_valid,0,0);
+    VL_OUT8(base_sub_iqs_5_valid,0,0);
+    VL_OUT8(base_sub_iqs_6_valid,0,0);
+    VL_OUT8(base_sub_iqs_7_valid,0,0);
+    VL_IN8(rf_resetn,0,0);
+    //char	__VpadToAlign31[1];
+    VL_IN16(mod_iq_payload_cha_i,15,0);
+    VL_IN16(mod_iq_payload_cha_q,15,0);
+    VL_OUT16(base_sub_iqs_0_payload_cha_i,15,0);
+    VL_OUT16(base_sub_iqs_0_payload_cha_q,15,0);
+    VL_OUT16(base_sub_iqs_1_payload_cha_i,15,0);
+    VL_OUT16(base_sub_iqs_1_payload_cha_q,15,0);
+    VL_OUT16(base_sub_iqs_2_payload_cha_i,15,0);
+    VL_OUT16(base_sub_iqs_2_payload_cha_q,15,0);
+    VL_OUT16(base_sub_iqs_3_payload_cha_i,15,0);
+    VL_OUT16(base_sub_iqs_3_payload_cha_q,15,0);
+    VL_OUT16(base_sub_iqs_4_payload_cha_i,15,0);
+    VL_OUT16(base_sub_iqs_4_payload_cha_q,15,0);
+    VL_OUT16(base_sub_iqs_5_payload_cha_i,15,0);
+    VL_OUT16(base_sub_iqs_5_payload_cha_q,15,0);
+    VL_OUT16(base_sub_iqs_6_payload_cha_i,15,0);
+    VL_OUT16(base_sub_iqs_6_payload_cha_q,15,0);
+    VL_OUT16(base_sub_iqs_7_payload_cha_i,15,0);
+    VL_OUT16(base_sub_iqs_7_payload_cha_q,15,0);
+    VL_IN(axil4Ctrl_wdata,31,0);
+    VL_OUT(axil4Ctrl_rdata,31,0);
+    
+    // LOCAL SIGNALS
+    // Internals; generally not touched by application code
+    VL_SIG8(AxiLite4CDMADespread__DOT__writeJoinEvent_valid,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT___zz_writeJoinEvent_translated_ready,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT___zz_axil4Ctrl_bvalid_2,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT___zz_axil4Ctrl_bresp,1,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__axil4Ctrl_ar_rValid,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__axil4Ctrl_ar_rData_addr,7,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__axil4Ctrl_ar_rData_prot,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__writeOccur,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__cdma_spread_bridge_clc_driver,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT___zz_dataIn,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT___zz_dataIn_1,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT___zz_dataIn_2,7,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT___zz_dataIn_3,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT___zz_code_map_port0,7,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT___zz_code_map_port1,7,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT___zz_code_map_port2,7,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT___zz_code_map_port3,7,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT___zz_code_map_port4,7,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT___zz_code_map_port5,7,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT___zz_code_map_port6,7,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT___zz_code_map_port7,7,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT___zz_1,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT___zz_cnt,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__cnt,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT___zz_base_iq_valid,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT___zz_cnt,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__cnt,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT___zz_base_iq_valid,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT___zz_cnt,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__cnt,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT___zz_base_iq_valid,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT___zz_cnt,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__cnt,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT___zz_base_iq_valid,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT___zz_cnt,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__cnt,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT___zz_base_iq_valid,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT___zz_cnt,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__cnt,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT___zz_base_iq_valid,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT___zz_cnt,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__cnt,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT___zz_base_iq_valid,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT___zz_cnt,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__cnt,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT___zz_base_iq_valid,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__clkCrossing_5__DOT__area_clkI_reg,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__clkCrossing_5__DOT__area_clkO_buf0,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__clkCrossing_5__DOT__area_clkO_buf1,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__clkCrossing_6__DOT__area_clkI_reg,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__clkCrossing_6__DOT__area_clkO_buf0,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__clkCrossing_6__DOT__area_clkO_buf1,0,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__clkCrossing_7__DOT__area_clkI_reg,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__clkCrossing_7__DOT__area_clkO_buf0,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__clkCrossing_7__DOT__area_clkO_buf1,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__clkCrossing_8__DOT__area_clkI_reg,7,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__clkCrossing_8__DOT__area_clkO_buf0,7,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__clkCrossing_8__DOT__area_clkO_buf1,7,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__clkCrossing_9__DOT__area_clkI_reg,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__clkCrossing_9__DOT__area_clkO_buf0,2,0);
+    VL_SIG8(AxiLite4CDMADespread__DOT__clkCrossing_9__DOT__area_clkO_buf1,2,0);
+    //char	__VpadToAlign141[1];
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__base_i,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__base_q,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__data_i,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__data_q,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__base_i_next,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__base_q_next,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__base_i_next_regNext,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__base_q_next_regNext,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_16__DOT__shift_reg_0,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_16__DOT__shift_reg_1,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_16__DOT__shift_reg_2,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_16__DOT__shift_reg_3,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_16__DOT__shift_reg_4,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_16__DOT__shift_reg_5,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_16__DOT__shift_reg_6,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_16__DOT__shift_reg_7,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_17__DOT__shift_reg_0,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_17__DOT__shift_reg_1,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_17__DOT__shift_reg_2,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_17__DOT__shift_reg_3,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_17__DOT__shift_reg_4,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_17__DOT__shift_reg_5,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_17__DOT__shift_reg_6,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_17__DOT__shift_reg_7,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__base_i,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__base_q,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__data_i,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__data_q,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__base_i_next,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__base_q_next,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__base_i_next_regNext,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__base_q_next_regNext,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_16__DOT__shift_reg_0,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_16__DOT__shift_reg_1,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_16__DOT__shift_reg_2,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_16__DOT__shift_reg_3,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_16__DOT__shift_reg_4,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_16__DOT__shift_reg_5,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_16__DOT__shift_reg_6,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_16__DOT__shift_reg_7,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_17__DOT__shift_reg_0,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_17__DOT__shift_reg_1,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_17__DOT__shift_reg_2,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_17__DOT__shift_reg_3,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_17__DOT__shift_reg_4,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_17__DOT__shift_reg_5,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_17__DOT__shift_reg_6,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_17__DOT__shift_reg_7,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__base_i,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__base_q,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__data_i,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__data_q,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__base_i_next,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__base_q_next,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__base_i_next_regNext,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__base_q_next_regNext,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_16__DOT__shift_reg_0,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_16__DOT__shift_reg_1,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_16__DOT__shift_reg_2,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_16__DOT__shift_reg_3,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_16__DOT__shift_reg_4,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_16__DOT__shift_reg_5,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_16__DOT__shift_reg_6,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_16__DOT__shift_reg_7,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_17__DOT__shift_reg_0,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_17__DOT__shift_reg_1,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_17__DOT__shift_reg_2,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_17__DOT__shift_reg_3,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_17__DOT__shift_reg_4,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_17__DOT__shift_reg_5,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_17__DOT__shift_reg_6,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_17__DOT__shift_reg_7,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__base_i,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__base_q,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__data_i,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__data_q,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__base_i_next,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__base_q_next,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__base_i_next_regNext,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__base_q_next_regNext,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_16__DOT__shift_reg_0,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_16__DOT__shift_reg_1,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_16__DOT__shift_reg_2,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_16__DOT__shift_reg_3,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_16__DOT__shift_reg_4,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_16__DOT__shift_reg_5,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_16__DOT__shift_reg_6,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_16__DOT__shift_reg_7,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_17__DOT__shift_reg_0,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_17__DOT__shift_reg_1,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_17__DOT__shift_reg_2,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_17__DOT__shift_reg_3,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_17__DOT__shift_reg_4,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_17__DOT__shift_reg_5,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_17__DOT__shift_reg_6,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_17__DOT__shift_reg_7,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__base_i,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__base_q,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__data_i,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__data_q,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__base_i_next,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__base_q_next,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__base_i_next_regNext,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__base_q_next_regNext,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_16__DOT__shift_reg_0,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_16__DOT__shift_reg_1,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_16__DOT__shift_reg_2,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_16__DOT__shift_reg_3,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_16__DOT__shift_reg_4,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_16__DOT__shift_reg_5,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_16__DOT__shift_reg_6,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_16__DOT__shift_reg_7,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_17__DOT__shift_reg_0,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_17__DOT__shift_reg_1,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_17__DOT__shift_reg_2,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_17__DOT__shift_reg_3,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_17__DOT__shift_reg_4,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_17__DOT__shift_reg_5,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_17__DOT__shift_reg_6,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_17__DOT__shift_reg_7,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__base_i,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__base_q,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__data_i,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__data_q,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__base_i_next,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__base_q_next,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__base_i_next_regNext,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__base_q_next_regNext,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_16__DOT__shift_reg_0,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_16__DOT__shift_reg_1,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_16__DOT__shift_reg_2,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_16__DOT__shift_reg_3,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_16__DOT__shift_reg_4,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_16__DOT__shift_reg_5,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_16__DOT__shift_reg_6,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_16__DOT__shift_reg_7,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_17__DOT__shift_reg_0,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_17__DOT__shift_reg_1,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_17__DOT__shift_reg_2,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_17__DOT__shift_reg_3,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_17__DOT__shift_reg_4,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_17__DOT__shift_reg_5,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_17__DOT__shift_reg_6,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_17__DOT__shift_reg_7,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__base_i,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__base_q,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__data_i,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__data_q,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__base_i_next,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__base_q_next,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__base_i_next_regNext,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__base_q_next_regNext,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_16__DOT__shift_reg_0,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_16__DOT__shift_reg_1,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_16__DOT__shift_reg_2,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_16__DOT__shift_reg_3,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_16__DOT__shift_reg_4,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_16__DOT__shift_reg_5,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_16__DOT__shift_reg_6,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_16__DOT__shift_reg_7,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_17__DOT__shift_reg_0,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_17__DOT__shift_reg_1,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_17__DOT__shift_reg_2,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_17__DOT__shift_reg_3,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_17__DOT__shift_reg_4,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_17__DOT__shift_reg_5,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_17__DOT__shift_reg_6,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_17__DOT__shift_reg_7,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__base_i,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__base_q,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__data_i,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__data_q,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__base_i_next,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__base_q_next,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__base_i_next_regNext,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__base_q_next_regNext,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_16__DOT__shift_reg_0,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_16__DOT__shift_reg_1,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_16__DOT__shift_reg_2,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_16__DOT__shift_reg_3,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_16__DOT__shift_reg_4,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_16__DOT__shift_reg_5,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_16__DOT__shift_reg_6,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_16__DOT__shift_reg_7,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_17__DOT__shift_reg_0,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_17__DOT__shift_reg_1,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_17__DOT__shift_reg_2,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_17__DOT__shift_reg_3,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_17__DOT__shift_reg_4,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_17__DOT__shift_reg_5,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_17__DOT__shift_reg_6,15,0);
+    VL_SIG16(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_17__DOT__shift_reg_7,15,0);
+    //char	__VpadToAlign526[2];
+    VL_SIG(AxiLite4CDMADespread__DOT__readRsp_data,31,0);
+    //char	__VpadToAlign532[4];
+    VL_SIG8(AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__code_map[8],7,0);
+    
+    // LOCAL VARIABLES
+    // Internals; generally not touched by application code
+    VL_SIG8(__Vdlyvdim0__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__code_map__v0,2,0);
+    VL_SIG8(__Vdlyvval__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__code_map__v0,7,0);
+    VL_SIG8(__Vdlyvset__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__code_map__v0,0,0);
+    VL_SIG8(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__cnt,2,0);
+    VL_SIG8(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__cnt,2,0);
+    VL_SIG8(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__cnt,2,0);
+    VL_SIG8(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__cnt,2,0);
+    VL_SIG8(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__cnt,2,0);
+    VL_SIG8(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__cnt,2,0);
+    VL_SIG8(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__cnt,2,0);
+    VL_SIG8(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__cnt,2,0);
+    VL_SIG8(__Vclklast__TOP__rf_clk,0,0);
+    VL_SIG8(__Vclklast__TOP__clk,0,0);
+    VL_SIG8(__Vclklast__TOP__reset,0,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_16__DOT__shift_reg_0,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_16__DOT__shift_reg_1,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_16__DOT__shift_reg_2,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_16__DOT__shift_reg_3,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_16__DOT__shift_reg_4,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_16__DOT__shift_reg_5,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_16__DOT__shift_reg_6,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_17__DOT__shift_reg_0,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_17__DOT__shift_reg_1,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_17__DOT__shift_reg_2,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_17__DOT__shift_reg_3,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_17__DOT__shift_reg_4,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_17__DOT__shift_reg_5,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_8__DOT__shiftRegister_17__DOT__shift_reg_6,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_16__DOT__shift_reg_0,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_16__DOT__shift_reg_1,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_16__DOT__shift_reg_2,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_16__DOT__shift_reg_3,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_16__DOT__shift_reg_4,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_16__DOT__shift_reg_5,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_16__DOT__shift_reg_6,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_17__DOT__shift_reg_0,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_17__DOT__shift_reg_1,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_17__DOT__shift_reg_2,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_17__DOT__shift_reg_3,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_17__DOT__shift_reg_4,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_17__DOT__shift_reg_5,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_9__DOT__shiftRegister_17__DOT__shift_reg_6,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_16__DOT__shift_reg_0,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_16__DOT__shift_reg_1,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_16__DOT__shift_reg_2,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_16__DOT__shift_reg_3,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_16__DOT__shift_reg_4,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_16__DOT__shift_reg_5,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_16__DOT__shift_reg_6,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_17__DOT__shift_reg_0,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_17__DOT__shift_reg_1,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_17__DOT__shift_reg_2,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_17__DOT__shift_reg_3,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_17__DOT__shift_reg_4,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_17__DOT__shift_reg_5,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_10__DOT__shiftRegister_17__DOT__shift_reg_6,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_16__DOT__shift_reg_0,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_16__DOT__shift_reg_1,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_16__DOT__shift_reg_2,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_16__DOT__shift_reg_3,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_16__DOT__shift_reg_4,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_16__DOT__shift_reg_5,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_16__DOT__shift_reg_6,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_17__DOT__shift_reg_0,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_17__DOT__shift_reg_1,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_17__DOT__shift_reg_2,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_17__DOT__shift_reg_3,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_17__DOT__shift_reg_4,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_17__DOT__shift_reg_5,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_11__DOT__shiftRegister_17__DOT__shift_reg_6,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_16__DOT__shift_reg_0,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_16__DOT__shift_reg_1,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_16__DOT__shift_reg_2,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_16__DOT__shift_reg_3,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_16__DOT__shift_reg_4,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_16__DOT__shift_reg_5,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_16__DOT__shift_reg_6,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_17__DOT__shift_reg_0,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_17__DOT__shift_reg_1,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_17__DOT__shift_reg_2,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_17__DOT__shift_reg_3,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_17__DOT__shift_reg_4,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_17__DOT__shift_reg_5,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_12__DOT__shiftRegister_17__DOT__shift_reg_6,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_16__DOT__shift_reg_0,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_16__DOT__shift_reg_1,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_16__DOT__shift_reg_2,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_16__DOT__shift_reg_3,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_16__DOT__shift_reg_4,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_16__DOT__shift_reg_5,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_16__DOT__shift_reg_6,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_17__DOT__shift_reg_0,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_17__DOT__shift_reg_1,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_17__DOT__shift_reg_2,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_17__DOT__shift_reg_3,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_17__DOT__shift_reg_4,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_17__DOT__shift_reg_5,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_13__DOT__shiftRegister_17__DOT__shift_reg_6,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_16__DOT__shift_reg_0,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_16__DOT__shift_reg_1,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_16__DOT__shift_reg_2,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_16__DOT__shift_reg_3,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_16__DOT__shift_reg_4,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_16__DOT__shift_reg_5,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_16__DOT__shift_reg_6,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_17__DOT__shift_reg_0,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_17__DOT__shift_reg_1,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_17__DOT__shift_reg_2,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_17__DOT__shift_reg_3,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_17__DOT__shift_reg_4,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_17__DOT__shift_reg_5,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_14__DOT__shiftRegister_17__DOT__shift_reg_6,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_16__DOT__shift_reg_0,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_16__DOT__shift_reg_1,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_16__DOT__shift_reg_2,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_16__DOT__shift_reg_3,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_16__DOT__shift_reg_4,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_16__DOT__shift_reg_5,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_16__DOT__shift_reg_6,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_17__DOT__shift_reg_0,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_17__DOT__shift_reg_1,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_17__DOT__shift_reg_2,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_17__DOT__shift_reg_3,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_17__DOT__shift_reg_4,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_17__DOT__shift_reg_5,15,0);
+    VL_SIG16(__Vdly__AxiLite4CDMADespread__DOT__rfClockArea_cdma_despread__DOT__computeUnit_15__DOT__shiftRegister_17__DOT__shift_reg_6,15,0);
+    //char	__VpadToAlign786[2];
+    VL_SIG(__Vm_traceActivity,31,0);
+    
+    // INTERNAL VARIABLES
+    // Internals; generally not touched by application code
+    //char	__VpadToAlign796[4];
+    VAxiLite4CDMADespread__Syms*	__VlSymsp;		// Symbol table
+    
+    // PARAMETERS
+    // Parameters marked /*verilator public*/ for use by application code
+    
+    // CONSTRUCTORS
+  private:
+    VAxiLite4CDMADespread& operator= (const VAxiLite4CDMADespread&);	///< Copying not allowed
+    VAxiLite4CDMADespread(const VAxiLite4CDMADespread&);	///< Copying not allowed
+  public:
+    /// Construct the model; called by application code
+    /// The special name  may be used to make a wrapper with a
+    /// single model invisible WRT DPI scope names.
+    VAxiLite4CDMADespread(const char* name="TOP");
+    /// Destroy the model; called (often implicitly) by application code
+    ~VAxiLite4CDMADespread();
+    /// Trace signals in the model; called by application code
+    void trace (VerilatedVcdC* tfp, int levels, int options=0);
+    
+    // USER METHODS
+    
+    // API METHODS
+    /// Evaluate the model.  Application must call when inputs change.
+    void eval();
+    /// Simulation complete, run final blocks.  Application must call on completion.
+    void final();
+    
+    // INTERNAL METHODS
+  private:
+    static void _eval_initial_loop(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+  public:
+    void __Vconfigure(VAxiLite4CDMADespread__Syms* symsp, bool first);
+  private:
+    static QData	_change_request(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+    static QData	_change_request_1(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+  public:
+    static void	_combo__TOP__14(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+    static void	_combo__TOP__17(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+  private:
+    void	_configure_coverage(VAxiLite4CDMADespread__Syms* __restrict vlSymsp, bool first);
+    void	_ctor_var_reset();
+  public:
+    static void	_eval(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+    static void	_eval_initial(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+    static void	_eval_settle(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+    static void	_initial__TOP__1(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__10(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__11(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__12(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__15(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__5(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__6(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__7(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__8(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+    static void	_sequent__TOP__9(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+    static void	_settle__TOP__13(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+    static void	_settle__TOP__16(VAxiLite4CDMADespread__Syms* __restrict vlSymsp);
+    static void	traceChgThis(VAxiLite4CDMADespread__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void	traceChgThis__2(VAxiLite4CDMADespread__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void	traceChgThis__3(VAxiLite4CDMADespread__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void	traceChgThis__4(VAxiLite4CDMADespread__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void	traceChgThis__5(VAxiLite4CDMADespread__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void	traceChgThis__6(VAxiLite4CDMADespread__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void	traceChgThis__7(VAxiLite4CDMADespread__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void	traceChgThis__8(VAxiLite4CDMADespread__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void	traceFullThis(VAxiLite4CDMADespread__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void	traceFullThis__1(VAxiLite4CDMADespread__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void	traceFullThis__9(VAxiLite4CDMADespread__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void	traceInitThis(VAxiLite4CDMADespread__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void	traceInitThis__1(VAxiLite4CDMADespread__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void	traceInitThis__2(VAxiLite4CDMADespread__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceInit (VerilatedVcd* vcdp, void* userthis, uint32_t code);
+    static void traceFull (VerilatedVcd* vcdp, void* userthis, uint32_t code);
+    static void traceChg  (VerilatedVcd* vcdp, void* userthis, uint32_t code);
+} VL_ATTR_ALIGNED(128);
+
+#endif  /*guard*/

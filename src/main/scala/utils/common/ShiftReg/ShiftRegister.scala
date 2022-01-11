@@ -19,9 +19,11 @@ case class ShiftRegister[T <: Data](dataType: T, depth: Int, initZero: Boolean, 
                 shift_reg(idx) := dataType.getZero
             }
         }.otherwise{
-            shift_reg(0) := io.input
-            for(idx <- 1 until depth){
-                shift_reg(idx) := shift_reg(idx - 1)
+            when(io.enable){
+                shift_reg(0) := io.input
+                for(idx <- 1 until depth){
+                    shift_reg(idx) := shift_reg(idx - 1)
+                }
             }
         }
     }

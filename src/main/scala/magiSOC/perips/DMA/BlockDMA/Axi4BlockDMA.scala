@@ -11,19 +11,7 @@ object Axi4DMAWriteStates extends SpinalEnum{
     val IDLE, START, WRITE, FINISH_BURST, DROP_DATA = newElement()
 }
 
-case class DMAControlChannel(config: Axi4BlockDMAConfig)extends Bundle with IMasterSlave {
-    val desc_addr = config.axi4Config.addressType
-    val desc_total_bytes = config.lenDataType
-    val desc_burst = Bits(2 bits)
-    val desc_id = config.axi4Config.idType
-    val intr_en = Bool()
 
-    override def asMaster(): Unit = {
-        out(desc_total_bytes, desc_addr, desc_burst, desc_id, intr_en)
-    }
-
-    override type RefOwnerType = this.type
-}
 
 /**
  *
@@ -76,7 +64,7 @@ case class Axi4BlockDMAConfig(
         dataWidth = axi4DataWidth,
         idWidth   = idWidth,
         userWidth = -1,
-        useID = axis4IDEn, useStrb = axisStrbEn, useKeep = axis4KeepEn, useLast = axis4LastEn
+        useID = axis4IDEn, useStrb = axisStrbEn, useKeep = axis4KeepEn
     )
 
     def lenDataType: UInt = UInt(lenWidth bits)

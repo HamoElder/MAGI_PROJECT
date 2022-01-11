@@ -10,8 +10,7 @@ case class AxiStream4Config(
                            userWidth : Int = -1,
                            useID     : Boolean = true,
                            useStrb   : Boolean = true,
-                           useKeep   : Boolean = true,
-                           useLast   : Boolean = true,
+                           useKeep   : Boolean = true
                            ){
     if(useID)
         require(idWidth >= 0, "You need to set idWidth")
@@ -30,7 +29,6 @@ case class AxiStream4X(config: AxiStream4Config) extends Bundle with IMasterSlav
     val data = config.dataType
     val id = if(config.useID) config.idType else null
     val strb = if(config.useStrb) config.strbType else null
-    val last = if(config.useLast) Bool() else null
     val keep_ = if(config.useKeep) config.keepType else null
     val user = if(config.useUser) Bits(config.userWidth bits) else null
 
@@ -45,7 +43,6 @@ case class AxiStream4X(config: AxiStream4Config) extends Bundle with IMasterSlav
         out(data)
         if(config.useID) out(id)
         if(config.useStrb) out(strb)
-        if(config.useLast) out(last)
         if(config.useKeep) out(keep_)
         if(config.useUser) out(user)
     }
@@ -54,7 +51,7 @@ case class AxiStream4X(config: AxiStream4Config) extends Bundle with IMasterSlav
 }
 
 case class AxiStream4(config: AxiStream4Config) extends Bundle with IMasterSlave{
-    val stream = Stream(AxiStream4X(config))
+    val stream = Stream(Fragment(AxiStream4X(config)))
 
     override def asMaster(): Unit = {
         master(stream)
@@ -77,7 +74,10 @@ object  AxiStream4SpecRenamer{
                 bt.setName(bt.getName().replace("_stream", "stream"))
                 bt.setName(bt.getName().replace("_valid","valid"))
                 bt.setName(bt.getName().replace("_ready","ready"))
-                bt.setName(bt.getName().replace("keep_", "keep"))
+                bt.setName(bt.getName().replace("_strb","strb"))
+                bt.setName(bt.getName().replace("_id","id"))
+                bt.setName(bt.getName().replace("_user","user"))
+                bt.setName(bt.getName().replace("_keep_", "keep"))
                 if(bt.getName().startsWith("io_")) bt.setName(bt.getName().replaceFirst("io_",""))
             })
         }
