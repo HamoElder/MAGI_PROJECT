@@ -71,13 +71,13 @@ object  AxiStream4SpecRenamer{
     def apply(that: AxiStream4): Unit ={
         def doIt(): Unit ={
             that.flatten.foreach((bt)=>{
-                bt.setName(bt.getName().replace("_stream", "stream"))
-                bt.setName(bt.getName().replace("_valid","valid"))
-                bt.setName(bt.getName().replace("_ready","ready"))
-                bt.setName(bt.getName().replace("_strb","strb"))
-                bt.setName(bt.getName().replace("_id","id"))
-                bt.setName(bt.getName().replace("_user","user"))
-                bt.setName(bt.getName().replace("_keep_", "keep"))
+//                bt.setName(bt.getName().replace("_stream", "stream"))
+//                bt.setName(bt.getName().replace("_valid","valid"))
+//                bt.setName(bt.getName().replace("_ready","ready"))
+//                bt.setName(bt.getName().replace("_strb","strb"))
+//                bt.setName(bt.getName().replace("_id","id"))
+//                bt.setName(bt.getName().replace("_user","user"))
+                bt.setName(bt.getName().replace("_keep_", "_keep"))
                 if(bt.getName().startsWith("io_")) bt.setName(bt.getName().replaceFirst("io_",""))
             })
         }

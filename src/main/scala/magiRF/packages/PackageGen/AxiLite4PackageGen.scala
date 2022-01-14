@@ -1,9 +1,9 @@
 package magiRF.packages.PackageGen
 
-import magiRF.interface.misc.BaseInterface.DataWithStrb
 import spinal.core._
 import spinal.lib._
 import utils.bus.AxiLite.{AxiLite4, AxiLite4Config, AxiLite4SlaveFactory, AxiLite4SpecRenamer}
+import utils.bus.AxiStream4.{AxiStream4, AxiStream4SpecRenamer}
 
 case class AxiLite4PackageGenConfig(
                                        rawDataWidth       : Int,
@@ -19,7 +19,7 @@ case class AxiLite4PackageGenConfig(
 case class AxiLite4PackageGen(config: AxiLite4PackageGenConfig) extends Component{
     val io = new Bundle{
         val axil4Ctrl = slave(AxiLite4(config.axiLite4Config))
-        val raw_data = slave(Stream(DataWithStrb(config.streamGenConfig.rawDataType, useStrb = true)))
+        val raw_data = slave(AxiStream4(config.streamGenConfig.axisConfig))
         val pkg_data = master(Stream(Fragment(config.streamGenConfig.pkgDataType)))
 
         val rf_clk = in(Bool())
@@ -27,6 +27,7 @@ case class AxiLite4PackageGen(config: AxiLite4PackageGenConfig) extends Componen
     }
     noIoPrefix()
     AxiLite4SpecRenamer(io.axil4Ctrl)
+    AxiStream4SpecRenamer(io.raw_data)
     val axil4busCtrl = new AxiLite4SlaveFactory(io.axil4Ctrl).setName("")
 
     val rfClockDomain: ClockDomain = ClockDomain(

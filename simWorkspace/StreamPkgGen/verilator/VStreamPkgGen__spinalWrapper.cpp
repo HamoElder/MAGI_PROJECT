@@ -159,7 +159,7 @@ public:
     uint32_t timeCheck;
     bool waveEnabled;
     VStreamPkgGen top;
-    ISignalAccess *signalAccess[11];
+    ISignalAccess *signalAccess[13];
     #ifdef TRACE
 	  VerilatedVcdC tfp;
 	  #endif
@@ -172,27 +172,29 @@ public:
       lastFlushAt = high_resolution_clock::now();
       waveEnabled = true;
       signalAccess[0] = new SDataSignalAccess( top.slices_limit );
-      signalAccess[1] = new CDataSignalAccess( top.raw_data_valid );
-      signalAccess[2] = new CDataSignalAccess( top.raw_data_ready );
-      signalAccess[3] = new IDataSignalAccess( top.raw_data_payload_data );
-      signalAccess[4] = new CDataSignalAccess( top.raw_data_payload_strb );
-      signalAccess[5] = new CDataSignalAccess( top.pkg_data_valid );
-      signalAccess[6] = new CDataSignalAccess( top.pkg_data_ready );
-      signalAccess[7] = new CDataSignalAccess( top.pkg_data_payload_last );
-      signalAccess[8] = new CDataSignalAccess( top.pkg_data_payload_fragment );
-      signalAccess[9] = new CDataSignalAccess( top.clk );
-      signalAccess[10] = new CDataSignalAccess( top.reset );
+      signalAccess[1] = new SDataSignalAccess( top.slices_cnt );
+      signalAccess[2] = new CDataSignalAccess( top.raw_data_stream_valid );
+      signalAccess[3] = new CDataSignalAccess( top.raw_data_stream_ready );
+      signalAccess[4] = new CDataSignalAccess( top.raw_data_stream_payload_last );
+      signalAccess[5] = new IDataSignalAccess( top.raw_data_stream_payload_fragment_data );
+      signalAccess[6] = new CDataSignalAccess( top.raw_data_stream_payload_fragment_strb );
+      signalAccess[7] = new CDataSignalAccess( top.pkg_data_valid );
+      signalAccess[8] = new CDataSignalAccess( top.pkg_data_ready );
+      signalAccess[9] = new CDataSignalAccess( top.pkg_data_payload_last );
+      signalAccess[10] = new CDataSignalAccess( top.pkg_data_payload_fragment );
+      signalAccess[11] = new CDataSignalAccess( top.clk );
+      signalAccess[12] = new CDataSignalAccess( top.reset );
 
       #ifdef TRACE
       Verilated::traceEverOn(true);
       top.trace(&tfp, 99);
-      tfp.open((std::string("/home/missdown/MAGI_PROJECT/./simWorkspace/StreamPkgGen/") + name + ".vcd").c_str());
+      tfp.open((std::string("/home/crystal/project/MAGI_PROJECT/./simWorkspace/StreamPkgGen/") + name + ".vcd").c_str());
       #endif
       this->name = name;
     }
 
     virtual ~Wrapper_1(){
-      for(int idx = 0;idx < 11;idx++){
+      for(int idx = 0;idx < 13;idx++){
           delete signalAccess[idx];
       }
 
@@ -201,7 +203,7 @@ public:
       tfp.close();
       #endif
       #ifdef COVERAGE
-      VerilatedCov::write((("/home/missdown/MAGI_PROJECT/./simWorkspace/StreamPkgGen/") + name + ".dat").c_str());
+      VerilatedCov::write((("/home/crystal/project/MAGI_PROJECT/./simWorkspace/StreamPkgGen/") + name + ".dat").c_str());
       #endif
     }
 

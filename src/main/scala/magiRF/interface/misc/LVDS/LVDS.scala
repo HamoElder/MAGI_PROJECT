@@ -4,9 +4,9 @@ import spinal.core._
 import spinal.lib._
 
 
-case class LVDS() extends Bundle with IMasterSlave {
-    val p = Bool()
-    val n = Bool()
+case class LVDS[T <: Data](dataType: T) extends Bundle with IMasterSlave {
+    val p = cloneOf(dataType)
+    val n = cloneOf(dataType)
 
     override def asMaster(): Unit = {
         out(p, n)

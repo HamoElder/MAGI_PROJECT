@@ -1,10 +1,10 @@
 package magiRF.packages.PackageGen
 
-import magiRF.interface.misc.BaseInterface.DataWithStrb
 import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
 import utils.bus.AxiLite.{AxiLite4, AxiLite4Config, AxiLite4SpecRenamer}
+import utils.bus.AxiStream4.{AxiStream4, AxiStream4Config, AxiStream4SpecRenamer}
 import utils.common.ClkCrossing.ClkCrossing
 import utils.common.DataSplitUnite.StreamSplitUnite.StreamPayloadSplit
 
@@ -21,25 +21,31 @@ case class StreamPkgGenConfig(
 
 	def slicesCntWidth: Int = log2Up(maxSlicesCnt)
 	def slicesCntDataType: UInt = UInt(slicesCntWidth bits)
-
+	def axisConfig: AxiStream4Config = AxiStream4Config(
+		dataWidth = rawDataWidth,
+		idWidth = 0,
+		userWidth = -1,
+		useID = false, useKeep = false
+	)
 }
 
 case class StreamPkgGen(config: StreamPkgGenConfig) extends Component {
 	val io = new Bundle{
 		val slices_limit = in(config.slicesCntDataType)
 		val slices_cnt = out(config.slicesCntDataType)
-		val raw_data = slave(Stream(DataWithStrb(config.rawDataType, useStrb = true)))
+		val raw_data = slave(AxiStream4(config.axisConfig))
 		val pkg_data = master(Stream(Fragment(config.pkgDataType)))
 	}
 	noIoPrefix()
-	val strb_buf = Reg(cloneOf(io.raw_data.strb))
+	AxiStream4SpecRenamer(io.raw_data)
+	val strb_buf = Reg(config.axisConfig.strbType)
 	val pkg_slices_cnt = Reg(config.slicesCntDataType) init(0)
 	val bit_valid = if(config.endianness == LITTLE) strb_buf(0) else strb_buf(config.pkgBytesNum - 1)
-	val split_core = StreamPayloadSplit(io.raw_data.payload.data, io.pkg_data.fragment, config.endianness == LITTLE)
+	val split_core = StreamPayloadSplit(io.raw_data.stream.data, io.pkg_data.fragment, config.endianness == LITTLE)
 
-	split_core.io.raw_data.valid := io.raw_data.valid
-	split_core.io.raw_data.payload := io.raw_data.payload.data
-	io.raw_data.ready := split_core.io.raw_data.ready
+	split_core.io.raw_data.valid := io.raw_data.stream.valid
+	split_core.io.raw_data.payload := io.raw_data.stream.payload.data
+	io.raw_data.stream.ready := split_core.io.raw_data.ready
 
 	split_core.io.split_data.ready := io.pkg_data.ready
 	io.pkg_data.valid := split_core.io.split_data.valid && bit_valid
@@ -47,8 +53,8 @@ case class StreamPkgGen(config: StreamPkgGenConfig) extends Component {
 	io.pkg_data.last := (pkg_slices_cnt === (io.slices_limit - 1))
 
 
-	when(io.raw_data.fire){
-		strb_buf := io.raw_data.strb
+	when(io.raw_data.stream.fire){
+		strb_buf := io.raw_data.stream.strb
 	}.elsewhen(split_core.io.split_data.fire){
 		if(config.endianness == LITTLE){
 			strb_buf := strb_buf |>> 1
