@@ -172,17 +172,17 @@ public:
       lastFlushAt = high_resolution_clock::now();
       waveEnabled = true;
       signalAccess[0] = new CDataSignalAccess( top.raw_data_valid );
-      signalAccess[1] = new CDataSignalAccess( top.raw_data_ready );
-      signalAccess[2] = new SDataSignalAccess( top.raw_data_payload_0 );
-      signalAccess[3] = new CDataSignalAccess( top.filtered_data_valid );
-      signalAccess[4] = new IDataSignalAccess( top.filtered_data_payload_0 );
+      signalAccess[1] = new SDataSignalAccess( top.raw_data_payload_0 );
+      signalAccess[2] = new CDataSignalAccess( top.filtered_data_valid );
+      signalAccess[3] = new IDataSignalAccess( top.filtered_data_payload_0 );
+      signalAccess[4] = new CDataSignalAccess( top.clc );
       signalAccess[5] = new CDataSignalAccess( top.clk );
       signalAccess[6] = new CDataSignalAccess( top.reset );
 
       #ifdef TRACE
       Verilated::traceEverOn(true);
       top.trace(&tfp, 99);
-      tfp.open((std::string("/home/missdown/MAGI_PROJECT/./simWorkspace/TransposeFIR/") + name + ".vcd").c_str());
+      tfp.open((std::string("/home/crystal/project/MAGI_PROJECT/./simWorkspace/TransposeFIR/") + name + ".vcd").c_str());
       #endif
       this->name = name;
     }
@@ -197,7 +197,7 @@ public:
       tfp.close();
       #endif
       #ifdef COVERAGE
-      VerilatedCov::write((("/home/missdown/MAGI_PROJECT/./simWorkspace/TransposeFIR/") + name + ".dat").c_str());
+      VerilatedCov::write((("/home/crystal/project/MAGI_PROJECT/./simWorkspace/TransposeFIR/") + name + ".dat").c_str());
       #endif
     }
 

@@ -1,15 +1,15 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : TransposeFIR
-// Git hash  : d74d505388061bfcc61486ef34047c52cb1446a4
+// Git hash  : b50f8eedfee0ae5b23a664070b7c6bea62d4901e
 
 
 
 module TransposeFIR (
   input               raw_data_valid,
-  output              raw_data_ready,
   input      [15:0]   raw_data_payload_0,
   output              filtered_data_valid,
   output     [23:0]   filtered_data_payload_0,
+  input               clc,
   input               clk,
   input               reset
 );
@@ -62,6 +62,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_0                        ), //i
     .adder_data         (24'h0                             ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_21_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -71,6 +72,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_1                        ), //i
     .adder_data         (transposeCore_21_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_22_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -80,6 +82,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_2                        ), //i
     .adder_data         (transposeCore_22_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_23_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -89,6 +92,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_3                        ), //i
     .adder_data         (transposeCore_23_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_24_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -98,6 +102,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_4                        ), //i
     .adder_data         (transposeCore_24_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_25_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -107,6 +112,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_5                        ), //i
     .adder_data         (transposeCore_25_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_26_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -116,6 +122,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_6                        ), //i
     .adder_data         (transposeCore_26_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_27_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -125,6 +132,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_7                        ), //i
     .adder_data         (transposeCore_27_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_28_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -134,6 +142,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_8                        ), //i
     .adder_data         (transposeCore_28_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_29_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -143,6 +152,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_9                        ), //i
     .adder_data         (transposeCore_29_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_30_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -152,6 +162,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_10                       ), //i
     .adder_data         (transposeCore_30_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_31_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -161,6 +172,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_11                       ), //i
     .adder_data         (transposeCore_31_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_32_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -170,6 +182,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_12                       ), //i
     .adder_data         (transposeCore_32_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_33_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -179,6 +192,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_13                       ), //i
     .adder_data         (transposeCore_33_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_34_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -188,6 +202,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_14                       ), //i
     .adder_data         (transposeCore_34_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_35_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -197,6 +212,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_15                       ), //i
     .adder_data         (transposeCore_35_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_36_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -206,6 +222,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_16                       ), //i
     .adder_data         (transposeCore_36_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_37_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -215,6 +232,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_17                       ), //i
     .adder_data         (transposeCore_37_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_38_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -224,6 +242,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_18                       ), //i
     .adder_data         (transposeCore_38_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_39_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -233,6 +252,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_19                       ), //i
     .adder_data         (transposeCore_39_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_40_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -242,6 +262,7 @@ module TransposeFIR (
     .coff_data          (coff_mem_20                       ), //i
     .adder_data         (transposeCore_40_next_adder_data  ), //i
     .valid              (raw_data_valid                    ), //i
+    .clc                (clc                               ), //i
     .next_adder_data    (transposeCore_41_next_adder_data  ), //o
     .clk                (clk                               ), //i
     .reset              (reset                             )  //i
@@ -249,7 +270,6 @@ module TransposeFIR (
   assign filtered_data_payload_0 = transposeCore_41_next_adder_data;
   assign filtered_data_valid_vec_0 = raw_data_valid;
   assign filtered_data_valid = filtered_data_valid_vec_0;
-  assign raw_data_ready = 1'b1;
   always @(posedge clk) begin
     coff_mem_0 <= 8'h06;
     coff_mem_1 <= 8'h0;
@@ -322,6 +342,7 @@ module TransposeCore (
   input      [7:0]    coff_data,
   input      [23:0]   adder_data,
   input               valid,
+  input               clc,
   output     [23:0]   next_adder_data,
   input               clk,
   input               reset
@@ -335,8 +356,12 @@ module TransposeCore (
     if(reset) begin
       previous_adder_data <= 24'h0;
     end else begin
-      if(valid) begin
-        previous_adder_data <= adder_data;
+      if(clc) begin
+        previous_adder_data <= 24'h0;
+      end else begin
+        if(valid) begin
+          previous_adder_data <= adder_data;
+        end
       end
     end
   end

@@ -7,12 +7,8 @@
 ### Switches...
 # Coverage output mode?  0/1 (from --coverage)
 VM_COVERAGE = 0
-# Threaded output mode?  0/1/N threads (from --threads)
-VM_THREADS = 0
 # Tracing output mode?  0/1 (from --trace)
 VM_TRACE = 1
-# Tracing threaded output mode?  0/1 (from --trace-fst-thread)
-VM_TRACE_THREADED = 0
 
 ### Object file lists...
 # Generated module classes, fast-path, compile with highest optimization
