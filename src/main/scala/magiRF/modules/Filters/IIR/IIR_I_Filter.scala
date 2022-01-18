@@ -25,7 +25,7 @@ case class IIR_I_Filter(dataWidth: Int, Hx: List[Int], Hy: List[Int], chaNum: In
     fir_x.io.clc := io.clc
     fir_y.io.clc := io.clc
     fir_x.io.raw_data.valid := io.raw_data.valid
-    fir_y.io.raw_data.valid := io.raw_data.valid
+    fir_y.io.raw_data.valid := fir_x.io.filtered_data.valid
     for(cha <- 0 until chaNum){
         fir_x.io.raw_data.payload(cha) := io.raw_data.payload(cha)
         io.filtered_data.payload(cha) := fir_x.io.filtered_data.payload(cha) + fir_y.io.filtered_data.payload(cha)
@@ -42,14 +42,14 @@ case class IIR_I_Filter(dataWidth: Int, Hx: List[Int], Hy: List[Int], chaNum: In
 object IIR_I_FilterBench{
     def main(args: Array[String]): Unit ={
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
-            targetDirectory = "rtl/IIR_I_Filter").generateSystemVerilog(new IIR_I_Filter(16, List(3, 2, 2, 3), List(1024, -2604, 2237, -647), chaNum = 2)).printUnused()
+            targetDirectory = "rtl/IIR_I_Filter").generateSystemVerilog(new IIR_I_Filter(16, List(3, 2, 2, 3), List(-2604, 2237, -647), chaNum = 2)).printUnused()
     }
 }
 
 object IIR_I_FilterSimApp extends App{
     import spinal.core.sim._
 
-    SimConfig.withWave.doSim(new IIR_I_Filter(16, List(3, 2, 2, 3), List(2604, -2237, 647), chaNum = 1)){ dut =>
+    SimConfig.withWave.doSim(new IIR_I_Filter(16, List(3, 2, 2, 3), List(-1, 0, 1), chaNum = 1)){ dut =>
         dut.clockDomain.forkStimulus(5)
         dut.io.raw_data.valid #= false
         dut.io.raw_data.payload(0) #= 0

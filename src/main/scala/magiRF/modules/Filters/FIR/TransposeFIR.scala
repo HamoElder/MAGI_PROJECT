@@ -61,7 +61,7 @@ case class TransposeFIR(dataWidth: Int, H: List[Int], chaNum: Int, reloadableCof
         io.filtered_data.payload(idx) := fir_stage_out._1
         filtered_data_valid_vec(idx) := fir_stage_out._2
     }
-    io.filtered_data.valid := filtered_data_valid_vec(0)
+    io.filtered_data.valid := filtered_data_valid_vec.reduce(_&_)
 
     def firStage(input: SInt, coff: Vec[SInt], adder: SInt, valid: Bool, clc: Bool, cursor: Int): (SInt, Bool) = {
 

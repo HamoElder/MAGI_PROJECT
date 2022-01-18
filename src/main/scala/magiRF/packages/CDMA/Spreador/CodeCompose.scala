@@ -22,7 +22,7 @@ case class CodeCompose(iqWidth: Int, channelNum: Int) extends Component{
         sub_q_data_vec(idx) := (io.mod_sub_iqs(idx).cha_q >> scaleShift).resized
         sub_iqs_valid_vec(idx) := io.mod_sub_iqs(idx).valid
     }
-    io.mod_iq.cha_i := sub_i_data_vec.reduceBalancedTree((op1, op2) => {op1 + op2},(s,l)=>{if(l%2==0) s else (s)})
-    io.mod_iq.cha_q := sub_q_data_vec.reduceBalancedTree((op1, op2) => {op1 + op2},(s,l)=>{if(l%2==0) s else (s)})
-    io.mod_iq.valid := sub_iqs_valid_vec.reduceBalancedTree(_ & _, (s,l)=>{if(l%2==0) s else (s)})
+    io.mod_iq.cha_i := sub_i_data_vec.reduceBalancedTree((op1, op2) => {op1 + op2},(s,l)=>{if(l%2==0) s else RegNext(s)})
+    io.mod_iq.cha_q := sub_q_data_vec.reduceBalancedTree((op1, op2) => {op1 + op2},(s,l)=>{if(l%2==0) s else RegNext(s)})
+    io.mod_iq.valid := sub_iqs_valid_vec.reduceBalancedTree(_ & _, (s,l)=>{if(l%2==0) s else RegNext(s)})
 }
