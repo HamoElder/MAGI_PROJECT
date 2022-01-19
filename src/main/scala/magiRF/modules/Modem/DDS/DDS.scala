@@ -135,8 +135,8 @@ case class DDS(config: DDS_Config) extends Component {
 }
 
 
-object DDS_Bench {
-    def main(args: Array[String]) {
+object DDSBench {
+    def main(args: Array[String]): Unit = {
         val dds_config = DDS_Config(16, 10, useRam = true)
         SpinalConfig(targetDirectory = "rtl").generateSystemVerilog(new DDS(dds_config)).printPruned()
     }
