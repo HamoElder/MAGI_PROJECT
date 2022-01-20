@@ -101,6 +101,7 @@ case class CordicRotator(config: CordicConfig) extends Component {
 		val y_n = Vec(Reg(config.dataType), config.iterations)
 		val z_n = Vec(Reg(config.dataType), config.iterations)
 		val valid_bypass = Vec(Reg(Bool()) init(False), config.iterations)
+		val rotate_mode_vec = Vec(Reg(Bool()), config.iterations)
 
 		val rot_mem = Vec(Reg(config.dataType), config.iterations)
 		if(config.useProgrammable){
@@ -118,13 +119,15 @@ case class CordicRotator(config: CordicConfig) extends Component {
 			y_n(0) := io.raw_data.y
 			z_n(0) := io.raw_data.z
 			valid_bypass(0) := True
+			rotate_mode_vec(0) := io.rotate_mode
 		}.otherwise{
 			valid_bypass(0) := False
 		}
 
 		for (idx <- 1 until config.iterations){
-			val d_n = io.rotate_mode ? (!z_n(idx - 1).raw.sign) | (y_n(idx - 1).raw.sign)
-			//	val d_n = io.rotate_mode ? (z_n >= 0) | ((y_n(idx - 1) < 0) ^ (x_n(idx - 1) < 0))
+			rotate_mode_vec(idx) := rotate_mode_vec(idx - 1)
+			val d_n = rotate_mode_vec(idx - 1) ? (!z_n(idx - 1).raw.sign) | (y_n(idx - 1).raw.sign)
+			//	val d_n = rotate_mode_vec(idx - 1) ? (z_n >= 0) | ((y_n(idx - 1) < 0) ^ (x_n(idx - 1) < 0))
 			val sx = config.dataType
 			sx.raw := (x_n(idx - 1).raw |>> (idx - 1))
 			val sy = config.dataType

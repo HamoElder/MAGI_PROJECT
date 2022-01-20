@@ -192,7 +192,7 @@ public:
       #ifdef TRACE
       Verilated::traceEverOn(true);
       top.trace(&tfp, 99);
-      tfp.open((std::string("/home/missdown/MAGI_PROJECT/./simWorkspace/CordicRotator/") + name + ".vcd").c_str());
+      tfp.open((std::string("/home/crystal/project/MAGI_PROJECT/./simWorkspace/CordicRotator/") + name + ".vcd").c_str());
       #endif
       this->name = name;
     }
@@ -207,7 +207,7 @@ public:
       tfp.close();
       #endif
       #ifdef COVERAGE
-      VerilatedCov::write((("/home/missdown/MAGI_PROJECT/./simWorkspace/CordicRotator/") + name + ".dat").c_str());
+      VerilatedCov::write((("/home/crystal/project/MAGI_PROJECT/./simWorkspace/CordicRotator/") + name + ".dat").c_str());
       #endif
     }
 

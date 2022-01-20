@@ -8,10 +8,10 @@
 
 void VCordicRotator::traceChg(VerilatedVcd* vcdp, void* userthis, uint32_t code) {
     // Callback from vcd->dump()
-    VCordicRotator* t = (VCordicRotator*)userthis;
-    VCordicRotator__Syms* __restrict vlSymsp = t->__VlSymsp;  // Setup global symbol table
+    VCordicRotator* t=(VCordicRotator*)userthis;
+    VCordicRotator__Syms* __restrict vlSymsp = t->__VlSymsp; // Setup global symbol table
     if (vlSymsp->getClearActivity()) {
-        t->traceChgThis(vlSymsp, vcdp, code);
+	t->traceChgThis (vlSymsp, vcdp, code);
     }
 }
 
@@ -20,16 +20,16 @@ void VCordicRotator::traceChg(VerilatedVcd* vcdp, void* userthis, uint32_t code)
 
 void VCordicRotator::traceChgThis(VCordicRotator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     VCordicRotator* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
+    int c=code;
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        if (VL_UNLIKELY((1U & (vlTOPp->__Vm_traceActivity 
-                               | (vlTOPp->__Vm_traceActivity 
-                                  >> 1U))))) {
-            vlTOPp->traceChgThis__2(vlSymsp, vcdp, code);
-        }
-        vlTOPp->traceChgThis__3(vlSymsp, vcdp, code);
+	if (VL_UNLIKELY((1U & (vlTOPp->__Vm_traceActivity 
+			       | (vlTOPp->__Vm_traceActivity 
+				  >> 1U))))) {
+	    vlTOPp->traceChgThis__2(vlSymsp, vcdp, code);
+	}
+	vlTOPp->traceChgThis__3(vlSymsp, vcdp, code);
     }
     // Final
     vlTOPp->__Vm_traceActivity = 0U;
@@ -37,38 +37,38 @@ void VCordicRotator::traceChgThis(VCordicRotator__Syms* __restrict vlSymsp, Veri
 
 void VCordicRotator::traceChgThis__2(VCordicRotator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     VCordicRotator* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
+    int c=code;
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBit(c+1,(vlTOPp->CordicRotator__DOT__raw_data_fire));
+	vcdp->chgBit  (c+1,(vlTOPp->CordicRotator__DOT__raw_data_fire));
     }
 }
 
 void VCordicRotator::traceChgThis__3(VCordicRotator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) {
     VCordicRotator* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    int c = code;
+    int c=code;
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBus(c+9,(vlTOPp->iter_limit),5);
-        vcdp->chgBit(c+17,(vlTOPp->rotate_mode));
-        vcdp->chgBus(c+25,(vlTOPp->x_u),2);
-        vcdp->chgBit(c+33,(vlTOPp->w_en));
-        vcdp->chgBus(c+41,(vlTOPp->w_addr),8);
-        vcdp->chgBus(c+49,(vlTOPp->w_data),32);
-        vcdp->chgBit(c+57,(vlTOPp->raw_data_valid));
-        vcdp->chgBit(c+65,(vlTOPp->raw_data_ready));
-        vcdp->chgBus(c+73,(vlTOPp->raw_data_payload_x),32);
-        vcdp->chgBus(c+81,(vlTOPp->raw_data_payload_y),32);
-        vcdp->chgBus(c+89,(vlTOPp->raw_data_payload_z),32);
-        vcdp->chgBit(c+97,(vlTOPp->result_valid));
-        vcdp->chgBus(c+105,(vlTOPp->result_payload_x),32);
-        vcdp->chgBus(c+113,(vlTOPp->result_payload_y),32);
-        vcdp->chgBus(c+121,(vlTOPp->result_payload_z),32);
-        vcdp->chgBit(c+129,(vlTOPp->clk));
-        vcdp->chgBit(c+137,(vlTOPp->reset));
-        vcdp->chgBit(c+145,(((IData)(vlTOPp->iter_limit) 
-                             <= (IData)(vlTOPp->CordicRotator__DOT___zz_result_payload_x))));
+	vcdp->chgBus  (c+2,(vlTOPp->iter_limit),5);
+	vcdp->chgBit  (c+3,(vlTOPp->rotate_mode));
+	vcdp->chgBus  (c+4,(vlTOPp->x_u),2);
+	vcdp->chgBit  (c+5,(vlTOPp->w_en));
+	vcdp->chgBus  (c+6,(vlTOPp->w_addr),8);
+	vcdp->chgBus  (c+7,(vlTOPp->w_data),32);
+	vcdp->chgBit  (c+8,(vlTOPp->raw_data_valid));
+	vcdp->chgBit  (c+9,(vlTOPp->raw_data_ready));
+	vcdp->chgBus  (c+10,(vlTOPp->raw_data_payload_x),32);
+	vcdp->chgBus  (c+11,(vlTOPp->raw_data_payload_y),32);
+	vcdp->chgBus  (c+12,(vlTOPp->raw_data_payload_z),32);
+	vcdp->chgBit  (c+13,(vlTOPp->result_valid));
+	vcdp->chgBus  (c+14,(vlTOPp->result_payload_x),32);
+	vcdp->chgBus  (c+15,(vlTOPp->result_payload_y),32);
+	vcdp->chgBus  (c+16,(vlTOPp->result_payload_z),32);
+	vcdp->chgBit  (c+17,(vlTOPp->clk));
+	vcdp->chgBit  (c+18,(vlTOPp->reset));
+	vcdp->chgBit  (c+19,(((IData)(vlTOPp->iter_limit) 
+			      <= (IData)(vlTOPp->CordicRotator__DOT___zz_result_payload_x))));
     }
 }

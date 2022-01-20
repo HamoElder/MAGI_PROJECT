@@ -2,11 +2,15 @@
 // DESCRIPTION: Verilator output: Design implementation internals
 // See VCordicRotator.h for the primary calling header
 
-#include "VCordicRotator.h"
+#include "VCordicRotator.h"    // For This
 #include "VCordicRotator__Syms.h"
 
-//==========
-CData/*1:0*/ VCordicRotator::__Vtable1_CordicRotator__DOT___zz_4[64];
+//--------------------
+// STATIC VARIABLES
+
+VL_ST_SIG8(VCordicRotator::__Vtable1_CordicRotator__DOT___zz_4[64],1,0);
+
+//--------------------
 
 VL_CTOR_IMP(VCordicRotator) {
     VCordicRotator__Syms* __restrict vlSymsp = __VlSymsp = new VCordicRotator__Syms(this, name());
@@ -26,12 +30,17 @@ VCordicRotator::~VCordicRotator() {
     delete __VlSymsp; __VlSymsp=NULL;
 }
 
+//--------------------
+// Internal Methods
+
 void VCordicRotator::_initial__TOP__3(VCordicRotator__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VCordicRotator::_initial__TOP__3\n"); );
+    VL_DEBUG_IF(VL_PRINTF("    VCordicRotator::_initial__TOP__3\n"); );
     VCordicRotator* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Variables
-    WData/*287:0*/ __Vtemp1[9];
+    //char	__VpadToAlign4[4];
+    VL_SIGW(__Vtemp1,287,0,9);
     // Body
+    // INITIAL at /home/crystal/project/MAGI_PROJECT/tmp/job_1/CordicRotator.v:86
     __Vtemp1[0U] = 0x2e62696eU;
     __Vtemp1[1U] = 0x7a7a5f31U;
     __Vtemp1[2U] = 0x656c5f5fU;
@@ -41,94 +50,103 @@ void VCordicRotator::_initial__TOP__3(VCordicRotator__Syms* __restrict vlSymsp) 
     __Vtemp1[6U] = 0x526f7461U;
     __Vtemp1[7U] = 0x72646963U;
     __Vtemp1[8U] = 0x436fU;
-    VL_READMEM_N(false, 32, 16, 0, VL_CVT_PACK_STR_NW(9, __Vtemp1)
-                 , vlTOPp->CordicRotator__DOT___zz_1
-                 , 0, ~VL_ULL(0));
+    VL_READMEM_W (false,32,16, 0,9, __Vtemp1, vlTOPp->CordicRotator__DOT___zz_1
+		  ,0,~0);
 }
 
 void VCordicRotator::_settle__TOP__4(VCordicRotator__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VCordicRotator::_settle__TOP__4\n"); );
+    VL_DEBUG_IF(VL_PRINTF("    VCordicRotator::_settle__TOP__4\n"); );
     VCordicRotator* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->result_payload_x = vlTOPp->CordicRotator__DOT___zz_result_payload_x_4;
     vlTOPp->result_payload_y = vlTOPp->CordicRotator__DOT___zz_result_payload_y;
     vlTOPp->result_payload_z = vlTOPp->CordicRotator__DOT___zz_result_payload_z;
-    vlTOPp->CordicRotator__DOT___zz_result_payload_x_5 
-        = VL_SHIFTRS_III(32,32,5, vlTOPp->CordicRotator__DOT___zz_result_payload_x_1, (IData)(vlTOPp->CordicRotator__DOT___zz_result_payload_x_regNext));
-    vlTOPp->result_valid = vlTOPp->CordicRotator__DOT___zz_result_valid;
-    vlTOPp->raw_data_ready = vlTOPp->CordicRotator__DOT___zz_raw_data_ready;
     vlTOPp->CordicRotator__DOT___zz___05Fzz_result_payload_x_3 
-        = (vlTOPp->CordicRotator__DOT___zz_result_payload_x_3 
-           - vlTOPp->CordicRotator__DOT___zz___05Fzz_1_port1);
+	= (vlTOPp->CordicRotator__DOT___zz_result_payload_x_3 
+	   - vlTOPp->CordicRotator__DOT___zz___05Fzz_1_port1);
     vlTOPp->CordicRotator__DOT___zz___05Fzz_result_payload_x_3_1 
-        = (vlTOPp->CordicRotator__DOT___zz_result_payload_x_3 
-           + vlTOPp->CordicRotator__DOT___zz___05Fzz_1_port1);
+	= (vlTOPp->CordicRotator__DOT___zz_result_payload_x_3 
+	   + vlTOPp->CordicRotator__DOT___zz___05Fzz_1_port1);
+    vlTOPp->CordicRotator__DOT___zz_result_payload_x_5 
+	= VL_SHIFTRS_III(32,32,5, vlTOPp->CordicRotator__DOT___zz_result_payload_x_1, (IData)(vlTOPp->CordicRotator__DOT___zz_result_payload_x_regNext));
     vlTOPp->CordicRotator__DOT___zz_result_payload_x_9 
-        = ((IData)(vlTOPp->rotate_mode) ? VL_LTES_III(1,32,32, 0U, vlTOPp->CordicRotator__DOT___zz_result_payload_x_3)
-            : VL_GTS_III(1,32,32, 0U, vlTOPp->CordicRotator__DOT___zz_result_payload_x_2));
+	= (1U & ((IData)(vlTOPp->rotate_mode) ? (~ 
+						 (vlTOPp->CordicRotator__DOT___zz_result_payload_x_3 
+						  >> 0x1fU))
+		  : (vlTOPp->CordicRotator__DOT___zz_result_payload_x_2 
+		     >> 0x1fU)));
     vlTOPp->CordicRotator__DOT___zz_result_payload_x_6 
-        = VL_SHIFTRS_III(32,32,5, vlTOPp->CordicRotator__DOT___zz_result_payload_x_2, (IData)(vlTOPp->CordicRotator__DOT___zz_result_payload_x_regNext));
+	= VL_SHIFTRS_III(32,32,5, vlTOPp->CordicRotator__DOT___zz_result_payload_x_2, (IData)(vlTOPp->CordicRotator__DOT___zz_result_payload_x_regNext));
+    vlTOPp->result_valid = vlTOPp->CordicRotator__DOT___zz_result_valid;
+    // ALWAYS at /home/crystal/project/MAGI_PROJECT/tmp/job_1/CordicRotator.v:127
     vlTOPp->CordicRotator__DOT___zz_2 = 0U;
     if ((1U != (IData)(vlTOPp->CordicRotator__DOT___zz_3))) {
-        if ((2U != (IData)(vlTOPp->CordicRotator__DOT___zz_3))) {
-            if ((3U != (IData)(vlTOPp->CordicRotator__DOT___zz_3))) {
-                vlTOPp->CordicRotator__DOT___zz_2 = 1U;
-            }
-        }
+	if ((2U != (IData)(vlTOPp->CordicRotator__DOT___zz_3))) {
+	    if ((3U != (IData)(vlTOPp->CordicRotator__DOT___zz_3))) {
+		vlTOPp->CordicRotator__DOT___zz_2 = 1U;
+	    }
+	}
     }
+    vlTOPp->raw_data_ready = vlTOPp->CordicRotator__DOT___zz_raw_data_ready;
     vlTOPp->CordicRotator__DOT___zz___05Fzz_result_payload_x_2 
-        = (vlTOPp->CordicRotator__DOT___zz_result_payload_x_2 
-           + vlTOPp->CordicRotator__DOT___zz_result_payload_x_5);
+	= (vlTOPp->CordicRotator__DOT___zz_result_payload_x_2 
+	   + vlTOPp->CordicRotator__DOT___zz_result_payload_x_5);
     vlTOPp->CordicRotator__DOT___zz___05Fzz_result_payload_x_2_1 
-        = (vlTOPp->CordicRotator__DOT___zz_result_payload_x_2 
-           - vlTOPp->CordicRotator__DOT___zz_result_payload_x_5);
+	= (vlTOPp->CordicRotator__DOT___zz_result_payload_x_2 
+	   - vlTOPp->CordicRotator__DOT___zz_result_payload_x_5);
+    vlTOPp->CordicRotator__DOT___zz___05Fzz_result_payload_x_1_2 
+	= (vlTOPp->CordicRotator__DOT___zz_result_payload_x_1 
+	   + vlTOPp->CordicRotator__DOT___zz_result_payload_x_6);
+    vlTOPp->CordicRotator__DOT___zz___05Fzz_result_payload_x_1_3 
+	= (vlTOPp->CordicRotator__DOT___zz_result_payload_x_1 
+	   - vlTOPp->CordicRotator__DOT___zz_result_payload_x_6);
     vlTOPp->CordicRotator__DOT__raw_data_fire = ((IData)(vlTOPp->raw_data_valid) 
-                                                 & (IData)(vlTOPp->raw_data_ready));
-    vlTOPp->CordicRotator__DOT___zz___05Fzz_result_payload_x_1 
-        = (vlTOPp->CordicRotator__DOT___zz_result_payload_x_1 
-           - vlTOPp->CordicRotator__DOT___zz_result_payload_x_6);
-    vlTOPp->CordicRotator__DOT___zz___05Fzz_result_payload_x_1_1 
-        = (vlTOPp->CordicRotator__DOT___zz_result_payload_x_1 
-           + vlTOPp->CordicRotator__DOT___zz_result_payload_x_6);
+						 & (IData)(vlTOPp->raw_data_ready));
+}
+
+void VCordicRotator::_settle__TOP__7(VCordicRotator__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_PRINTF("    VCordicRotator::_settle__TOP__7\n"); );
+    VCordicRotator* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
+    // ALWAYS at /home/crystal/project/MAGI_PROJECT/tmp/job_1/CordicRotator.v:147
     vlTOPp->__Vtableidx1 = (((IData)(vlTOPp->CordicRotator__DOT___zz_2) 
-                             << 5U) | (((IData)(vlTOPp->result_valid) 
-                                        << 4U) | ((
-                                                   ((IData)(vlTOPp->iter_limit) 
-                                                    <= (IData)(vlTOPp->CordicRotator__DOT___zz_result_payload_x)) 
-                                                   << 3U) 
-                                                  | (((IData)(vlTOPp->CordicRotator__DOT__raw_data_fire) 
-                                                      << 2U) 
-                                                     | (IData)(vlTOPp->CordicRotator__DOT___zz_3)))));
+			     << 5U) | (((IData)(vlTOPp->result_valid) 
+					<< 4U) | ((
+						   ((IData)(vlTOPp->iter_limit) 
+						    <= (IData)(vlTOPp->CordicRotator__DOT___zz_result_payload_x)) 
+						   << 3U) 
+						  | (((IData)(vlTOPp->CordicRotator__DOT__raw_data_fire) 
+						      << 2U) 
+						     | (IData)(vlTOPp->CordicRotator__DOT___zz_3)))));
     vlTOPp->CordicRotator__DOT___zz_4 = vlTOPp->__Vtable1_CordicRotator__DOT___zz_4
-        [vlTOPp->__Vtableidx1];
+	[vlTOPp->__Vtableidx1];
 }
 
 void VCordicRotator::_eval_initial(VCordicRotator__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VCordicRotator::_eval_initial\n"); );
+    VL_DEBUG_IF(VL_PRINTF("    VCordicRotator::_eval_initial\n"); );
     VCordicRotator* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->__Vclklast__TOP__clk = vlTOPp->clk;
-    vlTOPp->__Vclklast__TOP__reset = vlTOPp->reset;
     vlTOPp->_initial__TOP__3(vlSymsp);
 }
 
 void VCordicRotator::final() {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VCordicRotator::final\n"); );
+    VL_DEBUG_IF(VL_PRINTF("    VCordicRotator::final\n"); );
     // Variables
     VCordicRotator__Syms* __restrict vlSymsp = this->__VlSymsp;
     VCordicRotator* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
 }
 
 void VCordicRotator::_eval_settle(VCordicRotator__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VCordicRotator::_eval_settle\n"); );
+    VL_DEBUG_IF(VL_PRINTF("    VCordicRotator::_eval_settle\n"); );
     VCordicRotator* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->_settle__TOP__4(vlSymsp);
     vlTOPp->__Vm_traceActivity = (1U | vlTOPp->__Vm_traceActivity);
+    vlTOPp->_settle__TOP__7(vlSymsp);
 }
 
 void VCordicRotator::_ctor_var_reset() {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VCordicRotator::_ctor_var_reset\n"); );
+    VL_DEBUG_IF(VL_PRINTF("    VCordicRotator::_ctor_var_reset\n"); );
     // Body
     iter_limit = VL_RAND_RESET_I(5);
     rotate_mode = VL_RAND_RESET_I(1);
@@ -148,8 +166,8 @@ void VCordicRotator::_ctor_var_reset() {
     clk = VL_RAND_RESET_I(1);
     reset = VL_RAND_RESET_I(1);
     CordicRotator__DOT___zz___05Fzz_1_port1 = VL_RAND_RESET_I(32);
-    CordicRotator__DOT___zz___05Fzz_result_payload_x_1 = VL_RAND_RESET_I(32);
-    CordicRotator__DOT___zz___05Fzz_result_payload_x_1_1 = VL_RAND_RESET_I(32);
+    CordicRotator__DOT___zz___05Fzz_result_payload_x_1_2 = VL_RAND_RESET_I(32);
+    CordicRotator__DOT___zz___05Fzz_result_payload_x_1_3 = VL_RAND_RESET_I(32);
     CordicRotator__DOT___zz___05Fzz_result_payload_x_2 = VL_RAND_RESET_I(32);
     CordicRotator__DOT___zz___05Fzz_result_payload_x_2_1 = VL_RAND_RESET_I(32);
     CordicRotator__DOT___zz___05Fzz_result_payload_x_3 = VL_RAND_RESET_I(32);
@@ -172,9 +190,9 @@ void VCordicRotator::_ctor_var_reset() {
     CordicRotator__DOT___zz_4 = VL_RAND_RESET_I(2);
     CordicRotator__DOT__raw_data_fire = VL_RAND_RESET_I(1);
     { int __Vi0=0; for (; __Vi0<16; ++__Vi0) {
-            CordicRotator__DOT___zz_1[__Vi0] = VL_RAND_RESET_I(32);
+	    CordicRotator__DOT___zz_1[__Vi0] = VL_RAND_RESET_I(32);
     }}
-    __Vtableidx1 = 0;
+    __Vtableidx1 = VL_RAND_RESET_I(6);
     __Vtable1_CordicRotator__DOT___zz_4[0] = 0U;
     __Vtable1_CordicRotator__DOT___zz_4[1] = 1U;
     __Vtable1_CordicRotator__DOT___zz_4[2] = 2U;
@@ -239,5 +257,11 @@ void VCordicRotator::_ctor_var_reset() {
     __Vtable1_CordicRotator__DOT___zz_4[61] = 1U;
     __Vtable1_CordicRotator__DOT___zz_4[62] = 1U;
     __Vtable1_CordicRotator__DOT___zz_4[63] = 1U;
-    __Vm_traceActivity = 0;
+    __Vclklast__TOP__clk = VL_RAND_RESET_I(1);
+    __Vclklast__TOP__reset = VL_RAND_RESET_I(1);
+    __Vm_traceActivity = VL_RAND_RESET_I(32);
+}
+
+void VCordicRotator::_configure_coverage(VCordicRotator__Syms* __restrict vlSymsp, bool first) {
+    VL_DEBUG_IF(VL_PRINTF("    VCordicRotator::_configure_coverage\n"); );
 }

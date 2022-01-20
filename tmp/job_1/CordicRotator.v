@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : CordicRotator
-// Git hash  : cf8112ca4b6fbc647e801d7a00f410aa23474696
+// Git hash  : dcc5c1d5e265e228fb218e1a34c35d9d2f21b6e0
 
 
 `define StateMachineEnum_binary_sequential_type [1:0]
@@ -36,8 +36,6 @@ module CordicRotator (
   wire                _zz__zz_1_port_3;
   wire       [3:0]    _zz__zz_result_payload_x_8;
   wire                _zz__zz_result_payload_x_8_1;
-  wire       [31:0]   _zz__zz_result_payload_x_9;
-  wire       [31:0]   _zz__zz_result_payload_x_9_1;
   wire       [31:0]   _zz__zz_result_payload_x_1;
   wire       [31:0]   _zz__zz_result_payload_x_1_1;
   wire       [31:0]   _zz__zz_result_payload_x_1_2;
@@ -65,7 +63,7 @@ module CordicRotator (
   reg        `StateMachineEnum_binary_sequential_type _zz_3;
   reg        `StateMachineEnum_binary_sequential_type _zz_4;
   wire                raw_data_fire;
-  wire                when_CordicRotator_l212;
+  wire                when_CordicRotator_l221;
   `ifndef SYNTHESIS
   reg [15:0] _zz_3_string;
   reg [15:0] _zz_4_string;
@@ -75,8 +73,6 @@ module CordicRotator (
 
   assign _zz__zz_1_port = w_addr[3:0];
   assign _zz__zz_result_payload_x_8 = _zz_result_payload_x_7[3:0];
-  assign _zz__zz_result_payload_x_9 = 32'h0;
-  assign _zz__zz_result_payload_x_9_1 = 32'h0;
   assign _zz__zz_result_payload_x_1 = ($signed(_zz_result_payload_x_1) - $signed(_zz_result_payload_x_6));
   assign _zz__zz_result_payload_x_1_1 = ($signed(_zz_result_payload_x_1) + $signed(_zz_result_payload_x_6));
   assign _zz__zz_result_payload_x_1_2 = ($signed(_zz_result_payload_x_1) + $signed(_zz_result_payload_x_6));
@@ -127,7 +123,7 @@ module CordicRotator (
   assign _zz_result_payload_x_6 = ($signed(_zz_result_payload_x_2) >>> _zz_result_payload_x_regNext);
   assign _zz_result_payload_x_7 = _zz_result_payload_x;
   assign _zz_result_payload_x_8 = _zz__zz_1_port1[31 : 0];
-  assign _zz_result_payload_x_9 = (rotate_mode ? ($signed(_zz__zz_result_payload_x_9) <= $signed(_zz_result_payload_x_3)) : ($signed(_zz_result_payload_x_2) < $signed(_zz__zz_result_payload_x_9_1)));
+  assign _zz_result_payload_x_9 = (rotate_mode ? (! _zz_result_payload_x_3[31]) : _zz_result_payload_x_2[31]);
   always @(*) begin
     _zz_2 = 1'b0;
     case(_zz_3)
@@ -157,7 +153,7 @@ module CordicRotator (
         end
       end
       `StateMachineEnum_binary_sequential_e2 : begin
-        if(when_CordicRotator_l212) begin
+        if(when_CordicRotator_l221) begin
           _zz_4 = `StateMachineEnum_binary_sequential_e3;
         end
       end
@@ -178,7 +174,7 @@ module CordicRotator (
   end
 
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign when_CordicRotator_l212 = (iter_limit <= _zz_result_payload_x);
+  assign when_CordicRotator_l221 = (iter_limit <= _zz_result_payload_x);
   always @(posedge clk or posedge reset) begin
     if(reset) begin
       _zz_result_payload_x <= 5'h0;
