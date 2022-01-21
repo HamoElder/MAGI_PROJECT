@@ -1,3 +1,5 @@
 package magiDSP.bus
 
-case class Axi4CrossBar()
+case class Axi4CrossBar(){
+
+}
