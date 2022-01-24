@@ -75,6 +75,6 @@ object ConvEncoderBench {
 		val conv_coder_config = ConvEncoderConfig(8, 7, List(91, 121))
 //		val conv_coder_config = ConvEncoderConfig(1, 7, List(91, 121))
 		SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
-			targetDirectory = "rtl/ConvCode").generateSystemVerilog(new ConvEncoder(conv_coder_config)).printPruned().printUnused()
+			targetDirectory = "rtl/ConvCode/ConvCode_802_11").generateSystemVerilog(new ConvEncoder(conv_coder_config)).printPruned().printUnused()
 	}
 }

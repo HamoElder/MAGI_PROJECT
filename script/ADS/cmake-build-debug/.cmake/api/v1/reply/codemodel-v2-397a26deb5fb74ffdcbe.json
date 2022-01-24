@@ -1,0 +1,135 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3
+					],
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						2,
+						3
+					]
+				},
+				{
+					"build" : "3rdParty",
+					"jsonFile" : "directory-3rdParty-Debug-a57902d5c933ba137f98.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "3rdParty"
+				},
+				{
+					"build" : "editor",
+					"jsonFile" : "directory-editor-Debug-ba6a32e4025a2cdfed87.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "editor",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "DI",
+					"jsonFile" : "directory-DI-Debug-9a54bdf05cd548df82d7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "DI",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					],
+					"name" : "ADS",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 3,
+					"id" : "ADS_DI::@bd67c130ce7cec772c2f",
+					"jsonFile" : "target-ADS_DI-Debug-0e345fa01fcd7c43018e.json",
+					"name" : "ADS_DI",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "ADS_EDITOR::@ed37844f285895dce70e",
+					"jsonFile" : "target-ADS_EDITOR-Debug-76c1b83abd37f0e8ef03.json",
+					"name" : "ADS_EDITOR",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "GLAD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-GLAD-Debug-08df54548a5d1ee22a83.json",
+					"name" : "GLAD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "STB_IMAGE::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-STB_IMAGE-Debug-f9dd90d64cfb3e6272a4.json",
+					"name" : "STB_IMAGE",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug",
+		"source" : "/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

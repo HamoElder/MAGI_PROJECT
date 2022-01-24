@@ -86,9 +86,9 @@ case class PreambleDetector(config: PreambleDetectorConfig) extends Component{
 
 object PreambleDetectorBench {
     def main(args: Array[String]): Unit = {
-        val preamble_config = PreambleDetectorConfig(16, 16, 32)
+        val preamble_config = PreambleDetectorConfig(12, 16, 32)
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
-            targetDirectory = "rtl/PreambleDetector").generateSystemVerilog(new PreambleDetector(preamble_config)).printPruned()
+            targetDirectory = "rtl/PreambleDetector/PreambleDetector_802_11_stf").generateSystemVerilog(new PreambleDetector(preamble_config)).printPruned()
     }
 }
 

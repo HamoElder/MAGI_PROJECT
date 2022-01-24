@@ -56,7 +56,7 @@ case class AxiLite4CDMADespread(config: AxiLite4CDMADespreadConfig) extends Comp
 object AxiLite4CDMADespreadBench{
     def main(args: Array[String]): Unit = {
         val walsh_8_order = Seq[BigInt](0xff, 0xaa, 0xcc, 0x99, 0xf0, 0xa5, 0xc3, 0x96)
-        val axiLite4_cdma_despread_config = AxiLite4CDMADespreadConfig(16, 8, 8, 32, true, walsh_8_order)
+        val axiLite4_cdma_despread_config = AxiLite4CDMADespreadConfig(12, 8, 1, 32, true)
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
             targetDirectory = "rtl/AxiLite4CDMADespread").generateSystemVerilog(new AxiLite4CDMADespread(axiLite4_cdma_despread_config)).printPruned()
     }

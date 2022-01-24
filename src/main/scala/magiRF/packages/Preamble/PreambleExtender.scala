@@ -1,6 +1,7 @@
 package magiRF.packages.Preamble
 
 import Misc.math.Complex
+import magiRF.top.IEEE802_11.IEEE802_11
 import spinal.core._
 import spinal.lib._
 import utils.bus.IQBundle.IQBundle
@@ -101,8 +102,8 @@ case class PreambleExtender(config: PreambleConfig) extends Component {
 object PreambleExtenderBench {
 	def main(args: Array[String]): Unit = {
 		import magiRF.top.OAM_BETA.OAM_CDMA
-		val preamble_config = PreambleConfig(16, OAM_CDMA.stf)
+		val preamble_config = PreambleConfig(16, IEEE802_11.ltf)
 		SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
-			targetDirectory = "rtl/PreambleExtender").generateSystemVerilog(new PreambleExtender(preamble_config)).printPruned()
+			targetDirectory = "rtl/PreambleExtender/PreambleExtender_802_11_ltf").generateSystemVerilog(new PreambleExtender(preamble_config)).printPruned()
 	}
 }

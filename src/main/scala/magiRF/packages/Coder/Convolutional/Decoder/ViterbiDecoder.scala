@@ -80,6 +80,6 @@ object ViterbiDecoderModuleBench {
         val viterbi_decoder = ViterbiDecoderConfig(7, 84, 1, List(91, 121), Seq(3, 1, 3, 1, 3, 1, 3, 1))
         ViterbiGen.TrellisGen(viterbi_decoder)
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
-            targetDirectory = "rtl/ViterbiDecoder").generateSystemVerilog(new ViterbiDecoder(viterbi_decoder)).printPruned()
+            targetDirectory = "rtl/ViterbiDecoder/ViterbiDecoder_802_11").generateSystemVerilog(new ViterbiDecoder(viterbi_decoder)).printPruned()
     }
 }
