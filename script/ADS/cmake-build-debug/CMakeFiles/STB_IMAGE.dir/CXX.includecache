@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../3rdParty/stb/stb_image.h
+stb_image.h
+../3rdParty/stb/stb_image.h
+stdio.h
+-
+stdlib.h
+-
+stdarg.h
+-
+stddef.h
+-
+stdlib.h
+-
+string.h
+-
+limits.h
+-
+math.h
+-
+stdio.h
+-
+assert.h
+-
+stdint.h
+-
+emmintrin.h
+-
+intrin.h
+-
+arm_neon.h
+-
+
+/home/crystal/project/MAGI_PROJECT/script/ADS/src/stb/stb_image.cpp
+stb/stb_image.h
+/home/crystal/project/MAGI_PROJECT/script/ADS/src/stb/stb/stb_image.h
+
