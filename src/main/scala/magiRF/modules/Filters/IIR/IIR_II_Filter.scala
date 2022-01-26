@@ -9,7 +9,6 @@ case class IIR_II_Core(dataWidth: Int, Hx: List[Int], Hy: List[Int]) extends Com
     val coffDataWidth : Int = log2Up((Hx ++ Hy).max + 1) + 1
     val filteredDataWidth: Int = dataWidth + coffDataWidth
     val io = new Bundle{
-        val clc = in(Bool())
         val raw_data = slave(Flow(SInt(dataWidth bits)))
         val filtered_data = master(Flow(SInt(filteredDataWidth bits)))
     }
@@ -25,7 +24,7 @@ case class IIR_II_Core(dataWidth: Int, Hx: List[Int], Hy: List[Int]) extends Com
 
     val raw_data_buf = RegNext(io.raw_data.payload) init(0)
     val raw_data_valid = RegNext(io.raw_data.valid) init(False)
-    val raw_data_delay_vec = Vec(Reg(SInt(filteredDataWidth bits)), Hx.length)
+    val raw_data_delay_vec = Vec(Reg(SInt(filteredDataWidth bits)) init(0), Hx.length)
 
     val x_mult = Vec(SInt(filteredDataWidth bits), Hx.length)
     for(idx <- Hx.indices){
@@ -40,11 +39,7 @@ case class IIR_II_Core(dataWidth: Int, Hx: List[Int], Hy: List[Int]) extends Com
     y_mult(0) := (coff_y_mem(0) * x_sum).resized
     val y_sum = y_mult.reduce(_ + _)
 
-    when(io.clc){
-        for(idx <- Hx.indices){
-            raw_data_delay_vec(idx) := 0
-        }
-    }.elsewhen(raw_data_valid){
+    when(raw_data_valid){
         for(idx <- 1 until Hx.length){
             raw_data_delay_vec(idx) := raw_data_delay_vec(idx - 1)
         }
@@ -59,7 +54,6 @@ case class IIR_II_Filter(dataWidth: Int, Hx: List[Int], Hy: List[Int], chaNum: I
     val coffDataWidth : Int = log2Up((Hx ++ Hy).max + 1) + 1
     val filteredDataWidth: Int = dataWidth + coffDataWidth
     val io = new Bundle{
-        val clc = in(Bool())
         val raw_data: Flow[Vec[SInt]] = slave(Flow(Vec(SInt(dataWidth bits), chaNum)))
         val filtered_data: Flow[Vec[SInt]] = master(Flow(Vec(SInt(filteredDataWidth bits), chaNum)))
     }
@@ -68,7 +62,6 @@ case class IIR_II_Filter(dataWidth: Int, Hx: List[Int], Hy: List[Int], chaNum: I
     val filtered_valid_vec = Vec(Bool(), chaNum)
     for(cha <- 0 until chaNum){
         val iir_ii_core = IIR_II_Core(dataWidth, Hx, Hy)
-        iir_ii_core.io.clc := io.clc
         iir_ii_core.io.raw_data.valid := io.raw_data.valid
         iir_ii_core.io.raw_data.payload := io.raw_data.payload(cha)
         io.filtered_data.payload(cha) := iir_ii_core.io.filtered_data.payload

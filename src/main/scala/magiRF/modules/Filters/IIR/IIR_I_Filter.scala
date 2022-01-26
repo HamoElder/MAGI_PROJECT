@@ -13,7 +13,6 @@ case class IIR_I_Filter(dataWidth: Int, Hx: List[Int], Hy: List[Int], chaNum: In
     val filteredDataWidth: Int = internalDataWidth + coffYDataWidth
 
     val io = new Bundle{
-        val clc = in(Bool())
         val raw_data: Flow[Vec[SInt]] = slave(Flow(Vec(SInt(dataWidth bits), chaNum)))
         val filtered_data: Flow[Vec[SInt]] = master(Flow(Vec(SInt(filteredDataWidth bits), chaNum)))
     }
@@ -22,8 +21,6 @@ case class IIR_I_Filter(dataWidth: Int, Hx: List[Int], Hy: List[Int], chaNum: In
     val fir_x = TransposeFIR(dataWidth, Hx, chaNum, reloadableCoff = false)
     val fir_y = TransposeFIR(internalDataWidth, Hy, chaNum, reloadableCoff = false)
 
-    fir_x.io.clc := io.clc
-    fir_y.io.clc := io.clc
     fir_x.io.raw_data.valid := io.raw_data.valid
     fir_y.io.raw_data.valid := fir_x.io.filtered_data.valid
     for(cha <- 0 until chaNum){
@@ -31,9 +28,6 @@ case class IIR_I_Filter(dataWidth: Int, Hx: List[Int], Hy: List[Int], chaNum: In
         io.filtered_data.payload(cha) := fir_x.io.filtered_data.payload(cha) + fir_y.io.filtered_data.payload(cha)
         val filtered_data_next = RegNext(io.filtered_data.payload(cha).resize(internalDataWidth)) init(0)
         fir_y.io.raw_data.payload(cha) := filtered_data_next
-        when(io.clc){
-            filtered_data_next := 0
-        }
     }
 
     io.filtered_data.valid := fir_x.io.filtered_data.valid
@@ -51,11 +45,11 @@ object IIR_I_FilterSimApp extends App{
 
     SimConfig.withWave.doSim(new IIR_I_Filter(16, List(3, 2, 2, 3), List(-1, 0, 1), chaNum = 1)){ dut =>
         dut.clockDomain.forkStimulus(5)
+
         dut.io.raw_data.valid #= false
         dut.io.raw_data.payload(0) #= 0
-        dut.io.clc #= true
         dut.clockDomain.waitSampling(1)
-        dut.io.clc #= false
+        dut.clockDomain.reset
         //        dut.io.raw_data.payload(1) #= 0
         dut.clockDomain.waitSampling(10)
         var valid_bool = false

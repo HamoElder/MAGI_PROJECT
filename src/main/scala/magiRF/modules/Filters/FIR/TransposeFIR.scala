@@ -13,14 +13,11 @@ case class TransposeCore(dataWidth: Int, adderDataWidth: Int, coffDataWidth: Int
         val adder_data = in(SInt(adderDataWidth bits))
         val valid = in(Bool())
 
-        val clc = in(Bool())
         val next_adder_data = out(SInt(adderDataWidth bits))
     }
     noIoPrefix()
     val previous_adder_data = Reg(SInt(adderDataWidth bits)) init(0)
-    when(io.clc){
-        previous_adder_data := 0
-    }.elsewhen(io.valid){
+    when(io.valid){
         previous_adder_data := io.adder_data
     }
     io.next_adder_data := (io.input_data * io.coff_data + previous_adder_data)
@@ -34,7 +31,6 @@ case class TransposeFIR(dataWidth: Int, H: List[Int], chaNum: Int, reloadableCof
     val io= new Bundle{
         val raw_data = slave(Flow(Vec(SInt(dataWidth bits), chaNum)))
         val filtered_data = master(Flow(Vec(SInt(filteredDataWidth bits), chaNum)))
-        val clc = in(Bool())
 
         val w_en = if(reloadableCoff) in(Bool()) else null
         val w_addr = if(reloadableCoff) in(UInt(coffDataSize bits)) else null
@@ -57,13 +53,13 @@ case class TransposeFIR(dataWidth: Int, H: List[Int], chaNum: Int, reloadableCof
 
     val filtered_data_valid_vec: Vec[Bool] = Vec(Bool(), chaNum)
     for(idx <- 0 until chaNum){
-        val fir_stage_out = firStage(io.raw_data.payload(idx), coff_mem, S(0), io.raw_data.valid, io.clc, cursor = 0)
+        val fir_stage_out = firStage(io.raw_data.payload(idx), coff_mem, S(0), io.raw_data.valid, cursor = 0)
         io.filtered_data.payload(idx) := fir_stage_out._1
         filtered_data_valid_vec(idx) := fir_stage_out._2
     }
     io.filtered_data.valid := filtered_data_valid_vec.reduce(_&_)
 
-    def firStage(input: SInt, coff: Vec[SInt], adder: SInt, valid: Bool, clc: Bool, cursor: Int): (SInt, Bool) = {
+    def firStage(input: SInt, coff: Vec[SInt], adder: SInt, valid: Bool, cursor: Int): (SInt, Bool) = {
 
         if(cursor < coff.size) {
             val transpose_core = TransposeCore(dataWidth, filteredDataWidth, coffDataWidth)
@@ -71,8 +67,7 @@ case class TransposeFIR(dataWidth: Int, H: List[Int], chaNum: Int, reloadableCof
             transpose_core.io.coff_data := coff(cursor)
             transpose_core.io.adder_data := adder
             transpose_core.io.valid := valid
-            transpose_core.io.clc := clc
-            firStage(transpose_core.io.input_data, coff, transpose_core.io.next_adder_data, transpose_core.io.valid, clc, cursor + 1)
+            firStage(transpose_core.io.input_data, coff, transpose_core.io.next_adder_data, transpose_core.io.valid, cursor + 1)
         }else{
             (adder, valid)
         }
@@ -96,8 +91,9 @@ object TransposeFIRFilterSimApp extends App{
         dut.clockDomain.forkStimulus(5)
         dut.io.raw_data.valid #= false
         dut.io.raw_data.payload(0) #= 0
-        dut.io.clc #= false
         //        dut.io.raw_data.payload(1) #= 0
+        dut.clockDomain.waitSampling(1)
+        dut.clockDomain.reset
         dut.clockDomain.waitSampling(100)
         var valid_bool = false
         for(idx <- 0 until 1024){
