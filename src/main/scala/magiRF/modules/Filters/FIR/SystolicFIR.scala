@@ -28,32 +28,30 @@ case class SystolicCore(dataWidth: Int, adderDataWidth: Int, coffDataWidth: Int)
 
     io.next_valid := RegNext(io.valid) init(False)
     io.next_input_data := next_input
-    io.next_adder_data := next_adder
+    io.next_adder_data := next_adder.resized
 
 }
 
 
-case class SystolicFIR(dataWidth: Int, H: List[Int], chaNum: Int) extends Component{
-    val coffDataWidth: Int = log2Up(H.max + 1) + 1
-    val filteredDataWidth: Int = dataWidth+coffDataWidth
+case class SystolicFIR(dataWidth: Int, filteredDataWidth: Int, H: List[Int], chaNum: Int) extends Component{
+    def coffDataWidth: Int = log2Up(H.map({Math.abs}).max + 1) + 1
 
     val io = new Bundle{
-        val raw_data = slave(Stream(Vec(SInt(dataWidth bits), chaNum)))
+        val raw_data = slave(Flow(Vec(SInt(dataWidth bits), chaNum)))
         val filtered_data = master(Flow(Vec(SInt(filteredDataWidth bits), chaNum)))
     }
     noIoPrefix()
     val filtered_data_valid_vec: Vec[Bool] = Vec(Bool(), chaNum)
     for(idx <- 0 until chaNum){
-        val fir_stage_out = firStage(io.raw_data.payload(idx), H, S(0), io.raw_data.valid)
+        val fir_stage_out = firStage(io.raw_data.payload(idx).resized, H, S(0), io.raw_data.valid)
         io.filtered_data.payload(idx) := fir_stage_out._1
         filtered_data_valid_vec(idx) := fir_stage_out._2
     }
     io.filtered_data.valid := filtered_data_valid_vec(0)
-    io.raw_data.ready := True
 
     def firStage(input: SInt, H: List[Int], adder: SInt, valid: Bool): (SInt, Bool) = {
         if(H.nonEmpty) {
-            val systolic_core = SystolicCore(dataWidth, filteredDataWidth, coffDataWidth)
+            val systolic_core = SystolicCore(filteredDataWidth, filteredDataWidth, coffDataWidth)
             systolic_core.io.input_data := input
             systolic_core.io.coff_data := H.head
             systolic_core.io.adder_data := adder
@@ -69,30 +67,29 @@ case class SystolicFIR(dataWidth: Int, H: List[Int], chaNum: Int) extends Compon
 object SystolicFIRFilterBench{
     def main(args: Array[String]): Unit ={
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
-            targetDirectory = "rtl").generateSystemVerilog(new SystolicFIR(16, List(6,0,-4,-3,5,6,-6,-13,7,44,64,44,7,-13,-6,6,5,-3,-4,0,6), chaNum = 1)).printUnused()
+            targetDirectory = "rtl/SystolicFIR").generateSystemVerilog(new SystolicFIR(12, 29, List(6,0,-4,-3,5,6,-6,-13,7,44,64,44,7,-13,-6,6,5,-3,-4,0,6), chaNum = 1)).printUnused()
     }
 }
 
 object SystolicFIRFilterSimApp extends App{
     import spinal.core.sim._
 
-    SimConfig.withWave.doSim(new SystolicFIR(16, List(6,0,-4,-3,5,6,-6,-13,7,44,64,44,7,-13,-6,6,5,-3,-4,0,6), chaNum = 1)){ dut =>
+    SimConfig.withWave.doSim(new SystolicFIR(12, 29, List(11, 31, 63, 104, 152, 198, 235, 255, 255, 235, 198, 152, 104, 63, 31, 11), chaNum = 1)){ dut =>
         dut.clockDomain.forkStimulus(5)
         dut.io.raw_data.valid #= false
         dut.io.raw_data.payload(0) #= 0
 //        dut.io.raw_data.payload(1) #= 0
         dut.clockDomain.waitSampling(100)
         var valid_bool = false
-        for(idx <- 1 until 500){
+        for(idx <- 1 until 1024){
 //            valid_bool = !valid_bool
             dut.io.raw_data.valid #= true
-            dut.io.raw_data.payload(0) #= idx
+            dut.io.raw_data.payload(0) #= (20 * Math.sin(idx*2*Math.PI*3 / 1024) + 20 * Math.sin(idx*2*Math.PI*200 / 1024)).toInt
 //            dut.io.raw_data.payload(1) #= idx
             dut.clockDomain.waitSampling(1)
         }
-        dut.clockDomain.waitSampling(1)
         dut.io.raw_data.valid #= false
-        dut.clockDomain.waitSampling(1000)
+        dut.clockDomain.waitSampling(100)
     }
 }
 

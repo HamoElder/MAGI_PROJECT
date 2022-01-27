@@ -54,7 +54,7 @@ object CICFilterSimApp extends App{
         for(idx <- 1 until 1024){
             valid_bool = !valid_bool
             dut.io.raw_data.valid #= true
-            dut.io.raw_data.payload #= (20 * Math.sin(idx*2*Math.PI*5 / 1024) + 100 * Math.sin(idx*2*Math.PI*150 / 1024)).toInt
+            dut.io.raw_data.payload #= (20 * Math.sin(idx*2*Math.PI*3 / 1024) + 30 * Math.sin(idx*2*Math.PI*150 / 1024)).toInt
             //            dut.io.raw_data.payload(1) #= idx
             dut.clockDomain.waitSampling(1)
         }
