@@ -49,6 +49,6 @@ object AxiLite4UartBench {
     def main(args: Array[String]) {
         val axil4_uart_config = AxiLite4UartConfig()
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
-            defaultClockDomainFrequency=FixedFrequency(100 MHz), targetDirectory = "rtl").generateSystemVerilog(new AxiLite4Uart(axil4_uart_config)).printPruned()
+            defaultClockDomainFrequency=FixedFrequency(100 MHz), targetDirectory = "rtl/AxiLite4Uart").generateSystemVerilog(new AxiLite4Uart(axil4_uart_config)).printPruned()
     }
 }

@@ -5,7 +5,6 @@ import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
 import spinal.lib.fsm._
 import utils.common.ClkCrossing.ClkCrossing
-import scala.math.sqrt
 
 /******************************************************************************
  * ---------------------------------------------------------------------------------------------------------------------------
@@ -125,7 +124,6 @@ case class CordicRotator(config: CordicConfig) extends Component {
 		}
 
 		for (idx <- 1 until config.iterations){
-			rotate_mode_vec(idx) := rotate_mode_vec(idx - 1)
 			val d_n = rotate_mode_vec(idx - 1) ? (!z_n(idx - 1).raw.sign) | (y_n(idx - 1).raw.sign)
 			//	val d_n = rotate_mode_vec(idx - 1) ? (z_n >= 0) | ((y_n(idx - 1) < 0) ^ (x_n(idx - 1) < 0))
 			val sx = config.dataType
@@ -148,6 +146,7 @@ case class CordicRotator(config: CordicConfig) extends Component {
 				z_n(idx) := d_n ? (z_n(idx - 1) - rot_mem(idx - 1)) | (z_n(idx - 1) + rot_mem(idx - 1))
 			}
 			valid_bypass(idx) := valid_bypass(idx - 1)
+			rotate_mode_vec(idx) := rotate_mode_vec(idx - 1)
 		}
 		io.result.valid := valid_bypass(config.iterations - 1)
 		io.result.x := x_n(config.iterations - 1)

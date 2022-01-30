@@ -1,34 +1,50 @@
 package magiRF.packages.Equalizer
 
-import magiRF.modules.DSP.CORDIC.CordicRotator
+import magiRF.modules.DSP.CORDIC.{CordicConfig, CordicRotator}
 import spinal.core._
 import spinal.lib._
 import utils.common.Divider.{MixedDivider, SignedDivider, UnsignedDivider}
 
 
-case class ZeroForcing(dataWidth: Int) extends Component{
+case class ZeroForcing(dataTypePeak          : ExpNumber = 8 exp,
+                       dataTypeResolution    : ExpNumber = -2 exp, iterations: Int) extends Component{
+    def dataWidth: Int = dataTypePeak.value - dataTypeResolution.value + 1
     def dataType: SInt = SInt(dataWidth bits)
+    /**
+     * Get sequences of length n that go 1.0, 0.5, 0.25, ...
+     */
+    def linearRam(n: Int):Seq[Double] = for (i <- 0 until n) yield Math.pow(2.0, -i)
+    val cordic_config: CordicConfig = CordicConfig(dataTypePeak, dataTypeResolution, iterations, linearRam, usePipeline = true)
     val io = new Bundle{
         val raw_data = slave(Stream(dataType))
-        val result_data = master(Flow(dataType))
-        val ref_data = slave(Stream(dataType))
+        val scale = in(dataType)
+        val ref_data = in(dataType)
         val train_en = in(Bool())
+
+        val result_data = master(Flow(dataType))
     }
     noIoPrefix()
-//    val cal_core = CordicRotator()
-    when(io.train_en){
+    val cal_core = CordicRotator(cordic_config)
+    val x_sign = Delay(io.raw_data.payload.sign, iterations)
+    cal_core.io.raw_data.x.raw := io.raw_data.payload.abs.asSInt
+    cal_core.io.raw_data.y.raw := io.train_en ? io.ref_data | S(0)
+    cal_core.io.raw_data.z.raw := io.train_en ? S(0) | io.scale
+    cal_core.io.raw_data.valid := io.raw_data.valid
+    io.raw_data.ready := cal_core.io.raw_data.ready
 
-    }.otherwise{
+    cal_core.io.rotate_mode := ~io.train_en
+    cal_core.io.x_u := 1
 
-    }
-    when(io.raw_data.fire){
+    io.result_data.valid := cal_core.io.result.valid
+    val mul_result = x_sign ? -cal_core.io.result.y.raw | cal_core.io.result.y.raw
+    val div_result = x_sign ? -cal_core.io.result.z.raw | cal_core.io.result.z.raw
+    io.result_data.payload := Delay(io.train_en, iterations) ? div_result | mul_result
 
-    }
 }
 
 object ZeroForcingBench {
     def main(args: Array[String]): Unit = {
-        SpinalConfig(targetDirectory = "rtl/ZeroForcing").generateSystemVerilog(new UnsignedDivider(16, 16, true)).printPruned()
+        SpinalConfig(targetDirectory = "rtl/ZeroForcing").generateSystemVerilog(new ZeroForcing(9 exp, -6 exp, 16)).printPruned()
     }
 }
 
@@ -36,25 +52,36 @@ object ZeroForcingSimApp extends App {
     import spinal.core.sim._
 
     SimConfig.withWave.allOptimisation
-        .doSim(new MixedDivider(16, 16, false)) { dut =>
-        dut.clockDomain.forkStimulus(5)
-        dut.clockDomain.reset
-        dut.io.flush #= true
-        dut.io.cmd.signed #= true
-        dut.clockDomain.waitSampling(1)
-        dut.io.flush #= false
-        dut.io.cmd.valid #= false
-        dut.io.rsp.ready #= true
-        dut.clockDomain.waitSampling(10)
-        for(idx <- 0 until 100){
-            dut.io.cmd.valid.randomize()
-            dut.io.rsp.ready.randomize()
-            dut.io.cmd.numerator #= idx * 10
-            dut.io.cmd.denominator #= (0xffff - 50 + idx) & 0xffff
-            dut.clockDomain.waitSampling(1)
-        }
-        dut.io.cmd.valid #= false
-        dut.io.flush #= true
-        dut.clockDomain.waitSampling(100)
+        .doSim(new ZeroForcing(3 exp, -12 exp, 16)) { dut =>
+            dut.clockDomain.forkStimulus(5)
+            dut.io.raw_data.valid #= false
+            dut.io.train_en #= false
+            dut.clockDomain.waitSampling(10)
+
+            /**
+             * Train
+             */
+            dut.io.train_en #= true
+            for(idx <- 1 until 100){
+                dut.io.raw_data.payload #= (-idx << 6)
+                dut.io.ref_data #= ((1.5*idx).toInt << 6)
+                dut.io.raw_data.valid #= true
+//                dut.io.raw_data.valid.randomize()
+                dut.clockDomain.waitSampling(1)
+            }
+
+            /**
+             * Eq
+             */
+            dut.io.train_en #= false
+            for(idx <- 1 until 100){
+                dut.io.raw_data.payload #= (idx << 6)
+                dut.io.scale #= (1 << 12) +  (1 << 11) + (1 << 10)
+                dut.io.raw_data.valid #= true
+//                dut.io.raw_data.valid.randomize()
+                dut.clockDomain.waitSampling(1)
+            }
+            dut.io.raw_data.valid #= false
+            dut.clockDomain.waitSampling(50)
     }
 }

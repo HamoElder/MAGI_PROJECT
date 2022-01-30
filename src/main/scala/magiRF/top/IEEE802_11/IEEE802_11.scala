@@ -46,7 +46,7 @@ object IEEE802_11 {
 
 	)
 
-	val ltf64 = ifft(ltfFreq)
+	val ltf64: Array[Complex] = ifft(ltfFreq)
 
 	val ltf = (ltf64 ++ ltf64 ++ ltf64).slice(32,160+32)
 
