@@ -19,11 +19,10 @@ case class Crc(kind : CrcKind, dataWidth : Int) extends Component{
         acc \= ((acc |<< 1) ^ ((io.input.payload(i) ^ acc.msb) ? B(kind.polynomial, kind.polynomialWidth bits) | B(0, kind.polynomialWidth bits)))
     }
 
-    when(io.input.fire){
-        state := acc
-    }
     when(io.flush){
         state := kind.initValue
+    }.elsewhen(io.input.fire){
+        state := acc
     }
 
     val stateXor = state ^ kind.finalXor
