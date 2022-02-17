@@ -6,11 +6,7 @@ import spinal.lib.bus.amba4.axi.{Axi4Aw, Axi4B, Axi4W}
 import utils.bus.AxiStream4.{AxiStream4, AxiStream4X}
 
 object BDMAs2mStates extends SpinalEnum{
-    val IDLE, BURST, RESP = newElement()
-}
-
-object BDMAConvertStates extends SpinalEnum{
-    val IDLE, CONVERT, DROP = newElement()
+    val IDLE, BURST, RESP, DROP = newElement()
 }
 
 
@@ -34,20 +30,18 @@ case class BDMAs2m(config: BDMAConfig) extends Component{
     val s2m_aw_fifo = StreamFifo(Axi4Aw(config.axi4Config), config.axi4AxFifoDepth)
     val low_addr_fifo = StreamFifo(UInt(config.axi4Size bits), config.axi4AxFifoDepth)
     val low_bytes_fifo = StreamFifo(UInt(config.axi4Size bits), config.axi4AxFifoDepth)
-    val s2m_data_fifo = StreamFifo(Axi4W(config.axi4Config), config.axis4FifoDepth)
 
     /**
      * FSM Status
      */
     val s2m_cch_state = Reg(BDMAcchStates()) init(BDMAcchStates.IDLE)
-    val s2m_convert_state = Reg(BDMAConvertStates()) init(BDMAConvertStates.IDLE)
     val s2m_w_state = Reg(BDMAs2mStates()) init(BDMAs2mStates.IDLE)
 
     /**
      * Axi4 Channel Enable Valve
      */
     val s2m_aw_valve = Reg(Bool()) init(False)
-    val s2m_w_valve = Reg(Bool()) init(False)
+    val s2m_data_valve = Reg(Bool()) init(False)
 
     /**
      * CCH Control Reg
@@ -196,136 +190,109 @@ case class BDMAs2m(config: BDMAConfig) extends Component{
     low_bytes_fifo.io.pop.ready := io.dma_aw.fire
 
     /**
-     * AxiStream4 Data Regroup
+     * Stream to Memory Write Channel Reg
      */
-    val fifo_push_w_data = Reg(config.axi4Config.dataType)
-    val fifo_push_w_strb = Reg(Bits(config.axi4Config.bytePerWord bits))
-    val fifo_push_w_last = Reg(Bool()) init(False)
-    val fifo_push_w_valid = Reg(Bool()) init(False)
-    val fifo_push_w_valve = Reg(Bool()) init(False)
+    val s2m_w_data = Reg(config.axi4Config.dataType)
+    val s2m_w_strb = Reg(Bits(config.axi4Config.bytePerWord bits))
+    val s2m_w_valid = Reg(Bool()) init(False)
+    val s2m_b_ready = Reg(Bool()) init(False)
 
     val w_residual_data = Reg(config.axi4Config.dataType)
     val w_residual_strb = Reg(Bits(config.axi4Config.bytePerWord bits))
 
     val s2m_axis_len = Reg(config.axi4Config.lenType)
-
     val strb_mask = Reg(Bits(config.axi4Config.bytePerWord bits))
     val bytes_shift = Reg(UInt(config.axi4Size bits))
     val strb_full = Bits((1 << config.axi4Size) bits).setAll()
 
-    switch(s2m_convert_state){
-        is(BDMAConvertStates.IDLE){
+    switch(s2m_w_state){
+        is(BDMAs2mStates.IDLE){
             when(io.dma_aw.fire){
                 s2m_aw_valve := False
-                fifo_push_w_valve := True
+                s2m_data_valve := True
+
                 bytes_shift := low_addr_fifo.io.pop.payload
                 strb_mask := (strb_full << low_bytes_fifo.io.pop.payload).asBits.resized
                 w_residual_strb := 0
                 s2m_axis_len := io.dma_aw.len
-                s2m_convert_state :=BDMAConvertStates.CONVERT
+
+                s2m_w_state := BDMAs2mStates.BURST
             }.otherwise{
                 s2m_aw_valve := True
-                fifo_push_w_valve := False
+                s2m_data_valve := False
             }
-            fifo_push_w_last := False
-            fifo_push_w_valid := False
+            s2m_w_valid := False
+            s2m_b_ready := False
         }
-        is(BDMAConvertStates.CONVERT){
-            when(s2m_data_fifo.io.push.fire){
-
-            }
-            when(io.s2m_data.stream.fire){
+        is(BDMAs2mStates.BURST){
+            when(io.dma_w.fire){
                 s2m_axis_len := s2m_axis_len - 1
+                when(s2m_axis_len === 0){
+                    s2m_w_state := BDMAs2mStates.RESP
+                    s2m_b_ready := True
+                }
+            }
+
+            when(io.s2m_data.stream.fire){
+
                 if(config.axisConfig.useKeep){
-                    fifo_push_w_strb := ((w_residual_strb ## io.s2m_data.stream.keep_) >> bytes_shift).asBits.resized
+                    s2m_w_strb := ((w_residual_strb ## io.s2m_data.stream.keep_) >> bytes_shift).asBits.resized
                     w_residual_strb := io.s2m_data.stream.keep_
                 }else if(config.axisConfig.useStrb){
-                    fifo_push_w_strb := ((w_residual_strb ## io.s2m_data.stream.strb) >> bytes_shift).asBits.resized
+                    s2m_w_strb := ((w_residual_strb ## io.s2m_data.stream.strb) >> bytes_shift).asBits.resized
                     w_residual_strb := io.s2m_data.stream.strb
                 }else{
-                    fifo_push_w_strb := strb_full
+                    s2m_w_strb := strb_full
                 }
-
-                when(s2m_axis_len === 0){
-                    fifo_push_w_last := True
-                    if(config.axisConfig.useLast){
-                        when(s2m_cch_state === BDMAcchStates.HALT && ~s2m_aw_fifo.io.pop.valid){
-                            s2m_aw_valve := False
-                            fifo_push_w_valve := True
-                            s2m_convert_state := io.s2m_data.stream.last ? BDMAConvertStates.IDLE | BDMAConvertStates.DROP
-                        }.otherwise{
-                            s2m_aw_valve := True
-                            fifo_push_w_valve := False
-                            s2m_convert_state := BDMAConvertStates.IDLE
-                        }
-                    }else{
-                        s2m_aw_valve := True
-                        fifo_push_w_valve := False
-                        s2m_convert_state := BDMAConvertStates.IDLE
-                    }
-                }
-
-                fifo_push_w_valid := True
-
-                fifo_push_w_data := ((w_residual_data ## io.s2m_data.stream.data) >> bytes_shift).asBits.resized
+                s2m_w_data := ((w_residual_data ## io.s2m_data.stream.data) >> bytes_shift).asBits.resized
                 w_residual_data := io.s2m_data.stream.data
+
+
+                when(s2m_axis_len === 1 && io.s2m_data.stream.valid){
+                    s2m_data_valve := False
+                }.elsewhen(s2m_axis_len === 0){
+                    s2m_w_valid := False
+                    s2m_data_valve := False
+                }.otherwise{
+                    s2m_w_valid := True
+                }
+
             }.otherwise{
-                fifo_push_w_valid := False
+                s2m_w_valid := False
             }
         }
-        is(BDMAConvertStates.DROP){
-            when(io.s2m_data.stream.fire && io.s2m_data.stream.last){
-                s2m_convert_state := BDMAConvertStates.IDLE
+        is(BDMAs2mStates.RESP){
+            when(io.dma_b.fire){
+                s2m_b_ready := False
+                s2m_w_state := BDMAs2mStates.IDLE
             }
-            fifo_push_w_last := False
-            fifo_push_w_valid := False
+        }
+        is(BDMAs2mStates.DROP){
+            when(io.s2m_data.stream.fire && io.s2m_data.stream.last){
+                s2m_w_state := BDMAs2mStates.IDLE
+            }
+            s2m_w_valid := False
         }
     }
 
     /**
      * Stream to W Channel Connections
      */
-    io.s2m_data.stream.ready := s2m_data_fifo.io.push.ready && fifo_push_w_valve
-    s2m_data_fifo.io.push.valid := fifo_push_w_valid && fifo_push_w_valve
-    s2m_data_fifo.io.push.data := fifo_push_w_data
-    s2m_data_fifo.io.push.last := fifo_push_w_last
-    s2m_data_fifo.io.push.strb := (s2m_axis_len === 0) ? (strb_mask & fifo_push_w_strb) | fifo_push_w_strb
+    io.s2m_data.stream.ready := io.dma_w.ready && s2m_data_valve
+    io.dma_w.valid := s2m_w_valid
+    io.dma_w.data := s2m_w_data
+    io.dma_w.last := (s2m_axis_len === 0)
+    io.dma_w.strb :=  (s2m_axis_len === 0) ? (strb_mask & s2m_w_strb) | s2m_w_strb
 
-    /**
-     * Stream to Memory Write Channel Reg
-     */
-    val b_ready = Reg(Bool()) init(False)
-    switch(s2m_w_state){
-        is(BDMAs2mStates.IDLE){
-            when(s2m_data_fifo.io.pop.valid){
-                s2m_w_state := BDMAs2mStates.BURST
-                s2m_w_valve := True
-            }
-            b_ready := False
-        }
-        is(BDMAs2mStates.BURST){
-            when(io.dma_w.last && io.dma_w.fire){
-                s2m_w_state := BDMAs2mStates.RESP
-                s2m_w_valve := False
-                b_ready := True
-            }
-        }
-        is(BDMAs2mStates.RESP){
-            when(io.dma_b.fire){
-                b_ready := False
-                s2m_w_state := BDMAs2mStates.IDLE
-            }
-        }
-    }
+    io.dma_b.ready := s2m_b_ready
 
     /**
      * W channel Connections
      */
-    io.dma_w << s2m_data_fifo.io.pop.haltWhen(~s2m_w_valve)
-    io.dma_b.ready := b_ready
+
     when(s2m_cch_state === BDMAcchStates.IDLE){
         cycle_finished := False
-    }.elsewhen(s2m_w_state === BDMAs2mStates.IDLE && s2m_cch_state === BDMAcchStates.HALT && ~s2m_data_fifo.io.pop.valid && ~s2m_aw_fifo.io.pop.valid)(
+    }.elsewhen(s2m_w_state === BDMAs2mStates.IDLE && s2m_cch_state === BDMAcchStates.HALT && ~s2m_aw_fifo.io.pop.valid)(
         cycle_finished := True
     )
     io.s2m_intr := cycle_finished
@@ -350,12 +317,13 @@ object BDMAs2mSimApp extends App{
         dut.io.s2m_cch.valid #= false
         dut.io.dma_aw.ready #= true
         dut.io.dma_w.ready #= true
+        dut.io.dma_b.valid #= true
         dut.io.s2m_reset #= false
         dut.io.s2m_data.stream.valid #= false
         dut.io.s2m_data.stream.last #= false
         dut.clockDomain.waitSampling(10)
         dut.io.s2m_cch.desc_start_addr #= 0x8ff1ef1
-        dut.io.s2m_cch.desc_total_bytes #= 0x226
+        dut.io.s2m_cch.desc_total_bytes #= 0x225
         dut.io.s2m_cch.desc_burst #= 1
         dut.io.s2m_cch.desc_id #= 3
         dut.io.s2m_cch.valid #= true
