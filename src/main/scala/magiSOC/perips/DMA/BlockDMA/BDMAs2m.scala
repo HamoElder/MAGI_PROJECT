@@ -6,7 +6,7 @@ import spinal.lib.bus.amba4.axi.{Axi4Aw, Axi4B, Axi4W}
 import utils.bus.AxiStream4.{AxiStream4, AxiStream4X}
 
 object BDMAs2mStates extends SpinalEnum{
-    val IDLE, BURST, RESP, DROP = newElement()
+    val IDLE, PENDING, BURST, RESP, DROP = newElement()
 }
 
 
@@ -17,8 +17,7 @@ case class BDMAs2m(config: BDMAConfig) extends Component{
         val dma_b = slave(Stream(Axi4B(config.axi4Config)))
 
         val s2m_data = slave(AxiStream4(config.axisConfig))
-        val s2m_reset = in(Bool())
-
+        val s2m_state = out(BDMAs2mStates())
         val s2m_cch = slave(Stream(BDMAControlChannel(config)))
         val s2m_intr = out(Bool())
     }
@@ -30,7 +29,7 @@ case class BDMAs2m(config: BDMAConfig) extends Component{
     val s2m_aw_fifo = StreamFifo(Axi4Aw(config.axi4Config), config.axi4AxFifoDepth)
     val low_addr_fifo = StreamFifo(UInt(config.axi4Size bits), config.axi4AxFifoDepth)
     val low_bytes_fifo = StreamFifo(UInt(config.axi4Size bits), config.axi4AxFifoDepth)
-
+    val s2m_data_fifo = StreamFifo(AxiStream4X(config.axisConfig), config.axi4MaxBurstLen)
     /**
      * FSM Status
      */
@@ -162,7 +161,7 @@ case class BDMAs2m(config: BDMAConfig) extends Component{
             s2m_aw_len := ((trans_bytes_cnt + (cch_address & config.axi4AddrOffsetMask) - 1) >> config.axi4Size).resized
         }
         is(BDMAcchStates.HALT){
-            when(io.s2m_reset && cycle_finished){
+            when(io.s2m_cch.desc_reset && cycle_finished){
                 s2m_cch_state := BDMAcchStates.IDLE
             }
         }
@@ -198,8 +197,11 @@ case class BDMAs2m(config: BDMAConfig) extends Component{
     val s2m_b_ready = Reg(Bool()) init(False)
 
     val w_residual_data = Reg(config.axi4Config.dataType)
-    val w_residual_strb = Reg(Bits(config.axi4Config.bytePerWord bits))
+    val w_residual_strb = Reg(Bits(config.axi4Config.bytePerWord bits)) init(0)
 
+    val s2m_axis_last = if(config.axisConfig.useLast) Reg(Bool()) init(False) else null
+    val s2m_axis_leak = if(config.axisConfig.useLast) Reg(Bool()) init(False) else null
+    val s2m_aw_finish = (s2m_cch_state === BDMAcchStates.HALT && ~s2m_aw_fifo.io.pop.valid)
     val s2m_axis_len = Reg(config.axi4Config.lenType)
     val strb_mask = Reg(Bits(config.axi4Config.bytePerWord bits))
     val bytes_shift = Reg(UInt(config.axi4Size bits))
@@ -209,68 +211,83 @@ case class BDMAs2m(config: BDMAConfig) extends Component{
         is(BDMAs2mStates.IDLE){
             when(io.dma_aw.fire){
                 s2m_aw_valve := False
-                s2m_data_valve := True
-
                 bytes_shift := low_addr_fifo.io.pop.payload
                 strb_mask := (strb_full << low_bytes_fifo.io.pop.payload).asBits.resized
-                w_residual_strb := 0
                 s2m_axis_len := io.dma_aw.len
-
-                s2m_w_state := BDMAs2mStates.BURST
+                when(s2m_data_fifo.io.occupancy >= (s2m_axis_len + 1)){
+                    s2m_w_state := BDMAs2mStates.BURST
+                    s2m_data_valve := True
+                }.otherwise{
+                    s2m_w_state := BDMAs2mStates.PENDING
+                    s2m_data_valve := False
+                }
             }.otherwise{
-                s2m_aw_valve := True
                 s2m_data_valve := False
+                s2m_aw_valve := True
             }
+            if(config.axisConfig.useLast){
+                s2m_axis_last := False
+            }
+
             s2m_w_valid := False
             s2m_b_ready := False
+        }
+        is(BDMAs2mStates.PENDING){
+            when(s2m_data_fifo.io.occupancy >= (s2m_axis_len + 1)){
+                s2m_w_state := BDMAs2mStates.BURST
+                s2m_data_valve := True
+            }
         }
         is(BDMAs2mStates.BURST){
             when(io.dma_w.fire){
                 s2m_axis_len := s2m_axis_len - 1
                 when(s2m_axis_len === 0){
+                    s2m_data_valve := False
                     s2m_w_state := BDMAs2mStates.RESP
                     s2m_b_ready := True
                 }
             }
 
-            when(io.s2m_data.stream.fire){
-
+            when(s2m_data_fifo.io.pop.fire){
                 if(config.axisConfig.useKeep){
-                    s2m_w_strb := ((w_residual_strb ## io.s2m_data.stream.keep_) >> bytes_shift).asBits.resized
-                    w_residual_strb := io.s2m_data.stream.keep_
+                    s2m_w_strb := ((w_residual_strb ## s2m_data_fifo.io.pop.keep_) >> bytes_shift).asBits.resized
+                    w_residual_strb := s2m_data_fifo.io.pop.keep_
                 }else if(config.axisConfig.useStrb){
-                    s2m_w_strb := ((w_residual_strb ## io.s2m_data.stream.strb) >> bytes_shift).asBits.resized
-                    w_residual_strb := io.s2m_data.stream.strb
+                    s2m_w_strb := ((w_residual_strb ## s2m_data_fifo.io.pop.strb) >> bytes_shift).asBits.resized
+                    w_residual_strb := s2m_data_fifo.io.pop.strb
                 }else{
                     s2m_w_strb := strb_full
                 }
-                s2m_w_data := ((w_residual_data ## io.s2m_data.stream.data) >> bytes_shift).asBits.resized
-                w_residual_data := io.s2m_data.stream.data
-
-
-                when(s2m_axis_len === 1 && io.s2m_data.stream.valid){
-                    s2m_data_valve := False
-                }.elsewhen(s2m_axis_len === 0){
-                    s2m_w_valid := False
-                    s2m_data_valve := False
-                }.otherwise{
-                    s2m_w_valid := True
+                s2m_w_data := ((w_residual_data ## s2m_data_fifo.io.pop.data) >> bytes_shift).asBits.resized
+                w_residual_data := s2m_data_fifo.io.pop.data
+                if(config.axisConfig.useLast) {
+                    s2m_axis_last := s2m_data_fifo.io.pop.last
                 }
-
-            }.otherwise{
+                s2m_w_valid := True
+            }.elsewhen(io.dma_w.fire){
                 s2m_w_valid := False
             }
         }
         is(BDMAs2mStates.RESP){
             when(io.dma_b.fire){
                 s2m_b_ready := False
-                s2m_w_state := BDMAs2mStates.IDLE
+                s2m_aw_valve := True
+                s2m_w_state := s2m_aw_finish ? BDMAs2mStates.DROP | BDMAs2mStates.IDLE
             }
         }
         is(BDMAs2mStates.DROP){
-            when(io.s2m_data.stream.fire && io.s2m_data.stream.last){
+            if(config.axisConfig.useLast){
+                when(s2m_axis_last || (s2m_data_fifo.io.pop.fire && s2m_data_fifo.io.pop.last)){
+                    s2m_w_state := BDMAs2mStates.IDLE
+                    s2m_axis_leak := False
+                }.otherwise{
+                    s2m_axis_leak := True
+                }
+                s2m_axis_last := False
+            }else{
                 s2m_w_state := BDMAs2mStates.IDLE
             }
+            w_residual_strb := 0
             s2m_w_valid := False
         }
     }
@@ -278,7 +295,8 @@ case class BDMAs2m(config: BDMAConfig) extends Component{
     /**
      * Stream to W Channel Connections
      */
-    io.s2m_data.stream.ready := io.dma_w.ready && s2m_data_valve
+    s2m_data_fifo.io.push << io.s2m_data.stream
+    s2m_data_fifo.io.pop.ready := (io.dma_w.ready && s2m_data_valve && (s2m_axis_len =/= 0)) || s2m_axis_leak
     io.dma_w.valid := s2m_w_valid
     io.dma_w.data := s2m_w_data
     io.dma_w.last := (s2m_axis_len === 0)
@@ -292,10 +310,11 @@ case class BDMAs2m(config: BDMAConfig) extends Component{
 
     when(s2m_cch_state === BDMAcchStates.IDLE){
         cycle_finished := False
-    }.elsewhen(s2m_w_state === BDMAs2mStates.IDLE && s2m_cch_state === BDMAcchStates.HALT && ~s2m_aw_fifo.io.pop.valid)(
+    }.elsewhen(s2m_w_state === BDMAs2mStates.IDLE && s2m_aw_finish)(
         cycle_finished := True
     )
     io.s2m_intr := cycle_finished
+    io.s2m_state := s2m_w_state
 }
 
 
@@ -318,36 +337,37 @@ object BDMAs2mSimApp extends App{
         dut.io.dma_aw.ready #= true
         dut.io.dma_w.ready #= true
         dut.io.dma_b.valid #= true
-        dut.io.s2m_reset #= false
+        dut.io.s2m_cch.desc_reset #= false
         dut.io.s2m_data.stream.valid #= false
         dut.io.s2m_data.stream.last #= false
         dut.clockDomain.waitSampling(10)
         dut.io.s2m_cch.desc_start_addr #= 0x8ff1ef1
-        dut.io.s2m_cch.desc_total_bytes #= 0x225
+        dut.io.s2m_cch.desc_total_bytes #= 0x175
         dut.io.s2m_cch.desc_burst #= 1
         dut.io.s2m_cch.desc_id #= 3
         dut.io.s2m_cch.valid #= true
         dut.clockDomain.waitSampling(1)
         dut.io.s2m_cch.valid #= false
         for(idx <- 0 until 500){
-            dut.io.s2m_data.stream.valid #= true
-            dut.io.s2m_data.stream.strb #= 7
+            dut.io.s2m_data.stream.strb #= 15
+            dut.io.s2m_data.stream.keep_ #= 15
             dut.io.s2m_data.stream.data #= idx
             dut.io.s2m_data.stream.last #= false
-            //            dut.io.dma_r.valid.randomize()
-            //            dut.io.dma_ar.ready.randomize()
-            //            dut.io.m2s_data.stream.ready.randomize()
-            //            dut.io.m2s_reset.randomize()
+//            dut.io.s2m_data.stream.valid #= true
+            dut.io.dma_w.ready.randomize()
+            dut.io.dma_aw.ready.randomize()
+            dut.io.s2m_data.stream.valid.randomize()
+            dut.io.s2m_cch.desc_reset.randomize()
             dut.clockDomain.waitSampling(1)
         }
         dut.io.s2m_data.stream.valid #= true
         dut.io.s2m_data.stream.strb #= 7
         dut.io.s2m_data.stream.data #= 255
         dut.io.s2m_data.stream.last #= true
-        dut.io.s2m_reset #= true
+        dut.io.s2m_cch.desc_reset #= true
         dut.clockDomain.waitSampling(1)
         dut.io.s2m_data.stream.valid #= false
-        dut.io.s2m_reset #= false
+        dut.io.s2m_cch.desc_reset #= false
         dut.clockDomain.waitSampling(500)
     }
 }

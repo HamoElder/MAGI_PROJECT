@@ -194,13 +194,13 @@ public:
       signalAccess[20] = new CDataSignalAccess( top.s2m_data_stream_payload_strb );
       signalAccess[21] = new CDataSignalAccess( top.s2m_data_stream_payload_keep_ );
       signalAccess[22] = new CDataSignalAccess( top.s2m_data_stream_payload_last );
-      signalAccess[23] = new CDataSignalAccess( top.s2m_reset );
-      signalAccess[24] = new CDataSignalAccess( top.s2m_cch_valid );
-      signalAccess[25] = new CDataSignalAccess( top.s2m_cch_ready );
-      signalAccess[26] = new IDataSignalAccess( top.s2m_cch_payload_desc_start_addr );
-      signalAccess[27] = new IDataSignalAccess( top.s2m_cch_payload_desc_total_bytes );
-      signalAccess[28] = new CDataSignalAccess( top.s2m_cch_payload_desc_burst );
-      signalAccess[29] = new CDataSignalAccess( top.s2m_cch_payload_desc_id );
+      signalAccess[23] = new CDataSignalAccess( top.s2m_cch_valid );
+      signalAccess[24] = new CDataSignalAccess( top.s2m_cch_ready );
+      signalAccess[25] = new IDataSignalAccess( top.s2m_cch_payload_desc_start_addr );
+      signalAccess[26] = new IDataSignalAccess( top.s2m_cch_payload_desc_total_bytes );
+      signalAccess[27] = new CDataSignalAccess( top.s2m_cch_payload_desc_burst );
+      signalAccess[28] = new CDataSignalAccess( top.s2m_cch_payload_desc_id );
+      signalAccess[29] = new CDataSignalAccess( top.s2m_cch_payload_desc_reset );
       signalAccess[30] = new CDataSignalAccess( top.s2m_intr );
       signalAccess[31] = new CDataSignalAccess( top.clk );
       signalAccess[32] = new CDataSignalAccess( top.reset );
@@ -208,7 +208,7 @@ public:
       #ifdef TRACE
       Verilated::traceEverOn(true);
       top.trace(&tfp, 99);
-      tfp.open((std::string("/home/crystal/project/MAGI_PROJECT/./simWorkspace/BDMAs2m/") + name + ".vcd").c_str());
+      tfp.open((std::string("/home/missdown/IdeaProjects/MAGI_PROJECT/./simWorkspace/BDMAs2m/") + name + ".vcd").c_str());
       #endif
       this->name = name;
     }
@@ -223,7 +223,7 @@ public:
       tfp.close();
       #endif
       #ifdef COVERAGE
-      VerilatedCov::write((("/home/crystal/project/MAGI_PROJECT/./simWorkspace/BDMAs2m/") + name + ".dat").c_str());
+      VerilatedCov::write((("/home/missdown/IdeaProjects/MAGI_PROJECT/./simWorkspace/BDMAs2m/") + name + ".dat").c_str());
       #endif
     }
 

@@ -14,8 +14,7 @@ case class BDMAm2s(config: BDMAConfig) extends Component {
         val dma_ar = master(Stream(Axi4Ar(config.axi4Config)))
         val dma_r = slave(Stream(Axi4R(config.axi4Config)))
         val m2s_data = master(AxiStream4(config.axisConfig))
-        val m2s_reset = in(Bool())
-
+        val m2s_state = out(BDMAm2sStates())
         val m2s_cch = slave(Stream(BDMAControlChannel(config)))
         val m2s_intr = out(Bool())
     }
@@ -158,7 +157,7 @@ case class BDMAm2s(config: BDMAConfig) extends Component {
             m2s_ar_len := ((trans_bytes_cnt + (cch_address & config.axi4AddrOffsetMask) - 1) >> config.axi4Size).resized
         }
         is(BDMAcchStates.HALT){
-            when(io.m2s_reset && cycle_finished){
+            when(io.m2s_cch.desc_reset && cycle_finished){
                 m2s_cch_state := BDMAcchStates.IDLE
             }
         }
@@ -267,7 +266,7 @@ case class BDMAm2s(config: BDMAConfig) extends Component {
     io.dma_r.ready := m2s_data_fifo.io.push.ready && m2s_r_valve
 
     io.m2s_data.stream << m2s_data_fifo.io.pop
-
+    io.m2s_state := m2s_r_state
 }
 
 
@@ -289,7 +288,7 @@ object BDMAm2sSimApp extends App{
         dut.io.m2s_cch.valid #= false
         dut.io.dma_ar.ready #= true
         dut.io.dma_r.valid #= true
-        dut.io.m2s_reset #= false
+        dut.io.m2s_cch.desc_reset #= false
         dut.io.m2s_data.stream.ready #= true
         dut.clockDomain.waitSampling(10)
         dut.io.m2s_cch.desc_start_addr #= 0x8ff1ef1
@@ -306,9 +305,9 @@ object BDMAm2sSimApp extends App{
 //            dut.io.m2s_reset.randomize()
             dut.clockDomain.waitSampling(1)
         }
-        dut.io.m2s_reset #= true
+        dut.io.m2s_cch.desc_reset #= true
         dut.clockDomain.waitSampling(1)
-        dut.io.m2s_reset #= false
+        dut.io.m2s_cch.desc_reset #= false
         dut.clockDomain.waitSampling(500)
     }
 }
