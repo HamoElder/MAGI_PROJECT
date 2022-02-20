@@ -42,6 +42,9 @@ case class AxiStream4X(config: AxiStream4Config) extends Bundle with IMasterSlav
     def setKeep(): Unit = if(config.useKeep) keep_ := (1 << widthOf(keep_)) - 1
     def setKeep(keepLane: Bits): Unit = if(config.useKeep) keep_ := keepLane
 
+    def setLast(): Unit = if(config.useLast) last := True
+    def setLast(lastLane: Bool): Unit = if(config.useLast) last := lastLane
+
     override def asMaster(): Unit = {
         out(data)
         if(config.useID) out(id)
@@ -77,13 +80,15 @@ object  AxiStream4SpecRenamer{
     def apply(that: AxiStream4): Unit ={
         def doIt(): Unit ={
             that.flatten.foreach((bt)=>{
-//                bt.setName(bt.getName().replace("_stream", "stream"))
-//                bt.setName(bt.getName().replace("_valid","valid"))
-//                bt.setName(bt.getName().replace("_ready","ready"))
-//                bt.setName(bt.getName().replace("_strb","strb"))
-//                bt.setName(bt.getName().replace("_id","id"))
-//                bt.setName(bt.getName().replace("_user","user"))
-                bt.setName(bt.getName().replace("_keep_", "_keep"))
+                bt.setName(bt.getName().replace("stream_valid","tvalid"))
+                bt.setName(bt.getName().replace("stream_payload_last","tlast"))
+                bt.setName(bt.getName().replace("stream_payload_data","tdata"))
+                bt.setName(bt.getName().replace("stream_payload_user","tuser"))
+                bt.setName(bt.getName().replace("stream_ready","tready"))
+                bt.setName(bt.getName().replace("stream_payload_strb","tstrb"))
+                bt.setName(bt.getName().replace("stream_payload_id","tid"))
+                bt.setName(bt.getName().replace("stream_payload_user","tuser"))
+                bt.setName(bt.getName().replace("stream_payload_keep_", "tkeep"))
                 if(bt.getName().startsWith("io_")) bt.setName(bt.getName().replaceFirst("io_",""))
             })
         }

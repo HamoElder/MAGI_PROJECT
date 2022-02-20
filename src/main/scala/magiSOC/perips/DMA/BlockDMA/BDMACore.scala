@@ -4,7 +4,7 @@ import spinal.lib._
 import spinal.core._
 import spinal.lib.bus.amba4.axi.{Axi4, Axi4Config, Axi4SpecRenamer}
 import spinal.lib.bus.misc.BusSlaveFactory
-import utils.bus.AxiStream4.{AxiStream4, AxiStream4Config}
+import utils.bus.AxiStream4.{AxiStream4, AxiStream4Config, AxiStream4SpecRenamer}
 
 object BDMAcchStates extends SpinalEnum{
     val IDLE, FIXED_REQ, INCR_REQ, HALT = newElement()
@@ -20,7 +20,8 @@ case class BDMAConfig(
                          axis4KeepEn    : Boolean = true,
                          axis4IDEn      : Boolean = true,
                          axis4LastEn    : Boolean = true,
-                         bytesLimit     : BigInt = 1 GiB
+                         bytesLimit     : BigInt = 1 GiB,
+                         endianness     : Endianness = LITTLE
                      ){
     def axi4Config: Axi4Config = Axi4Config(
         addressWidth = axi4AddrWidth,
@@ -41,7 +42,7 @@ case class BDMAConfig(
         dataWidth = axi4DataWidth,
         idWidth = axi4IDWidth,
         userWidth = -1,
-        useID = axis4IDEn, useStrb = axis4StrbEn, useKeep = axis4KeepEn, useLast = axis4LastEn
+        useID = axis4IDEn, useStrb = axis4StrbEn, useKeep = axis4KeepEn, useLast = true
     )
     def axi4AxFifoDepth: Int = 8
     def axis4FifoDepth: Int = 32
@@ -88,6 +89,8 @@ case class BDMACore(config: BDMAConfig) extends Component{
     noIoPrefix()
     Axi4SpecRenamer(io.axi4M2S)
     Axi4SpecRenamer(io.axi4S2M)
+    AxiStream4SpecRenamer(io.dataS2M)
+    AxiStream4SpecRenamer(io.dataM2S)
 
     val dma_s2m_core = BDMAs2m(config)
     val dma_m2s_core = BDMAm2s(config)
@@ -187,9 +190,9 @@ case class BDMACore(config: BDMAConfig) extends Component{
         busCtrl.read(io.cchS2M.ready, address = baseAddress + 0x18, bitOffset = 0,
             documentation = s"Ready Indicator Register of BDMA Stream to Memory Control Channel. (1 bits)")
         busCtrl.read(io.intrS2M, address = baseAddress + 0x18, bitOffset = 1,
-            documentation = s"Interrupt Indicator Register of BDMA Stream to Memory Control Channel. (1 bits)")
+            documentation = s"Interrupt Indicator Register of BDMA Stream to Memory Module. (1 bits)")
         busCtrl.read(io.indicatorS2M, address = baseAddress + 0x1C, bitOffset = 0,
-            documentation = s"Ready Indicator Register of BDMA Stream to Memory Control Channel. (${BDMAs2mStates().getBitsWidth} bits)")
+            documentation = s"State Indicator Register of BDMA Stream to Memory Module. (${BDMAs2mStates().getBitsWidth} bits)")
 
         busCtrl.driveAndRead(io.cchM2S.valid, address = baseAddress + 0x20, bitOffset = 0,
             documentation = s"Valid Enable Register of BDMA Memory to Stream Control Channel. (1 bits)") init(False)
@@ -206,9 +209,9 @@ case class BDMACore(config: BDMAConfig) extends Component{
         busCtrl.read(io.cchM2S.ready, address = baseAddress + 0x38, bitOffset = 0,
             documentation = s"Ready Indicator Register of BDMA Memory to Stream Control Channel. (1 bits)")
         busCtrl.read(io.intrM2S, address = baseAddress + 0x38, bitOffset = 1,
-            documentation = s"Interrupt Indicator Register of BDMA Memory to Stream Control Channel. (1 bits)")
+            documentation = s"Interrupt Indicator Register of BDMA Memory to Stream Module. (1 bits)")
         busCtrl.read(io.indicatorM2S, address = baseAddress + 0x3C, bitOffset = 0,
-            documentation = s"Ready Indicator Register of BDMA Memory to Stream Control Channel. (${BDMAs2mStates().getBitsWidth} bits)")
+            documentation = s"State Indicator Register of BDMA Memory to Stream Module. (${BDMAs2mStates().getBitsWidth} bits)")
     }
 }
 

@@ -191,10 +191,9 @@ case class BDMAm2s(config: BDMAConfig) extends Component {
     val m2s_axis_len = Reg(config.axi4Config.lenType)
     val m2s_axis_id = if(config.axisConfig.useID) Reg(config.axisConfig.idType) else null
     val m2s_axis_strb = if(config.axisConfig.useStrb) Reg(config.axisConfig.strbType) else null
-    val m2s_axis_keep = if(config.axisConfig.useKeep)Reg(config.axisConfig.keepType) else null
+    val m2s_axis_keep = if(config.axisConfig.useKeep) Reg(config.axisConfig.keepType) else null
 
     val keep_strb_mask = Reg(Bits(config.axi4Config.bytePerWord bits))
-//    val axis_trans_bytes = Reg(config.bytesCntDataType)
     val keep_strb_full = Bits((1 << config.axi4Size) bits).setAll()
 //    val error_probe = Reg(UInt(2 bits)) init(0)
     switch(m2s_r_state){
@@ -203,13 +202,24 @@ case class BDMAm2s(config: BDMAConfig) extends Component {
                 m2s_ar_valve := False
                 m2s_r_valve := True
                 m2s_axis_len := m2s_ar_fifo.io.pop.len
-                if(config.axisConfig.useKeep){
-                    m2s_axis_keep := (keep_strb_full >> low_addr_fifo.io.pop.payload).asBits.resized
+                if(config.endianness == LITTLE){
+                    if(config.axisConfig.useKeep){
+                        m2s_axis_keep := (keep_strb_full << low_addr_fifo.io.pop.payload).asBits.resized
+                    }
+                    if(config.axisConfig.useStrb){
+                        m2s_axis_strb := (keep_strb_full << low_addr_fifo.io.pop.payload).asBits.resized
+                    }
+                    keep_strb_mask := (keep_strb_full >> low_bytes_fifo.io.pop.payload).asBits.resized
+                }else{
+                    if(config.axisConfig.useKeep){
+                        m2s_axis_keep := (keep_strb_full >> low_addr_fifo.io.pop.payload).asBits.resized
+                    }
+                    if(config.axisConfig.useStrb){
+                        m2s_axis_strb := (keep_strb_full >> low_addr_fifo.io.pop.payload).asBits.resized
+                    }
+                    keep_strb_mask := (keep_strb_full << low_bytes_fifo.io.pop.payload).asBits.resized
                 }
-                if(config.axisConfig.useStrb){
-                    m2s_axis_strb := (keep_strb_full >> low_addr_fifo.io.pop.payload).asBits.resized
-                }
-                keep_strb_mask := (keep_strb_full << low_bytes_fifo.io.pop.payload).asBits.resized
+
                 if(config.axisConfig.useID){
                     m2s_axis_id := m2s_ar_fifo.io.pop.id
                 }
@@ -260,8 +270,8 @@ case class BDMAm2s(config: BDMAConfig) extends Component {
 
     m2s_data_fifo.io.push.setID(m2s_axis_id)
     m2s_data_fifo.io.push.setStrb((m2s_axis_len === 0) ? (keep_strb_mask & m2s_axis_strb) | m2s_axis_strb)
-    m2s_data_fifo.io.push.setKeep((m2s_axis_len === 0) ? (keep_strb_mask & m2s_axis_strb) | m2s_axis_strb)
-    m2s_data_fifo.io.push.last := (m2s_axis_len === 0) && (m2s_ar_fifo.io.pop.valid === False) && (m2s_cch_state === BDMAcchStates.HALT)
+    m2s_data_fifo.io.push.setKeep((m2s_axis_len === 0) ? (keep_strb_mask & m2s_axis_keep) | m2s_axis_keep)
+    m2s_data_fifo.io.push.setLast((m2s_axis_len === 0) && (m2s_ar_fifo.io.pop.valid === False) && (m2s_cch_state === BDMAcchStates.HALT))
 
     io.dma_r.ready := m2s_data_fifo.io.push.ready && m2s_r_valve
 

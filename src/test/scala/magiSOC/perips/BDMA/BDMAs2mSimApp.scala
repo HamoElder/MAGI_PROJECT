@@ -16,23 +16,23 @@ object BDMAs2mSimApp extends App{
         dut.io.s2m_data.stream.valid #= false
         dut.io.s2m_data.stream.last #= false
         dut.clockDomain.waitSampling(10)
-        dut.io.s2m_cch.desc_start_addr #= 0x8ff1ef1
-        dut.io.s2m_cch.desc_total_bytes #= 0x175
+        dut.io.s2m_cch.desc_start_addr #= 0x8ff1ef2
+        dut.io.s2m_cch.desc_total_bytes #= 0x174
         dut.io.s2m_cch.desc_burst #= 1
         dut.io.s2m_cch.desc_id #= 3
         dut.io.s2m_cch.valid #= true
         dut.clockDomain.waitSampling(1)
         dut.io.s2m_cch.valid #= false
-        for(idx <- 0 until 500){
+        for(idx <- 0 until 255){
             dut.io.s2m_data.stream.strb #= 15
             dut.io.s2m_data.stream.keep_ #= 15
-            dut.io.s2m_data.stream.data #= idx
+            dut.io.s2m_data.stream.data #= idx + (idx << 8) + (idx << 16)
             dut.io.s2m_data.stream.last #= false
-            //            dut.io.s2m_data.stream.valid #= true
-            dut.io.dma_w.ready.randomize()
-            dut.io.dma_aw.ready.randomize()
-            dut.io.s2m_data.stream.valid.randomize()
-            dut.io.s2m_cch.desc_reset.randomize()
+            dut.io.s2m_data.stream.valid #= true
+//            dut.io.dma_w.ready.randomize()
+//            dut.io.dma_aw.ready.randomize()
+//            dut.io.s2m_data.stream.valid.randomize()
+//            dut.io.s2m_cch.desc_reset.randomize()
             dut.clockDomain.waitSampling(1)
         }
         dut.io.s2m_data.stream.valid #= true

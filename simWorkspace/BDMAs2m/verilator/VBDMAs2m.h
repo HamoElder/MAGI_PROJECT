@@ -46,6 +46,7 @@ VL_MODULE(VBDMAs2m) {
     VL_IN8(s2m_data_stream_payload_strb,3,0);
     VL_IN8(s2m_data_stream_payload_keep_,3,0);
     VL_IN8(s2m_data_stream_payload_last,0,0);
+    VL_OUT8(s2m_state,2,0);
     VL_IN8(s2m_cch_valid,0,0);
     VL_OUT8(s2m_cch_ready,0,0);
     VL_IN8(s2m_cch_payload_desc_burst,1,0);
@@ -91,7 +92,7 @@ VL_MODULE(VBDMAs2m) {
         CData/*1:0*/ BDMAs2m__DOT__bytes_shift;
         CData/*0:0*/ BDMAs2m__DOT__dma_aw_fire_2;
         CData/*0:0*/ BDMAs2m__DOT__dma_w_fire;
-        CData/*0:0*/ BDMAs2m__DOT__when_BDMAs2m_l280;
+        CData/*0:0*/ BDMAs2m__DOT__when_BDMAs2m_l302;
         CData/*0:0*/ BDMAs2m__DOT__s2m_aw_fifo__DOT___zz_1;
         CData/*0:0*/ BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_pushPtr_willIncrement;
         CData/*2:0*/ BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_pushPtr_valueNext;
@@ -156,6 +157,7 @@ VL_MODULE(VBDMAs2m) {
         IData/*31:0*/ BDMAs2m__DOT__s2m_w_data;
         IData/*31:0*/ BDMAs2m__DOT__w_residual_data;
         WData/*71:0*/ BDMAs2m__DOT__s2m_cch_state_string[3];
+        QData/*55:0*/ BDMAs2m__DOT__s2m_state_string;
         QData/*55:0*/ BDMAs2m__DOT__s2m_w_state_string;
         QData/*48:0*/ BDMAs2m__DOT__s2m_aw_fifo__DOT___zz_logic_ram_port0;
         QData/*44:0*/ BDMAs2m__DOT__s2m_data_fifo__DOT___zz_logic_ram_port0;
@@ -167,8 +169,9 @@ VL_MODULE(VBDMAs2m) {
     
     // LOCAL VARIABLES
     // Internals; generally not touched by application code
-    CData/*1:0*/ __Vtableidx1;
-    CData/*2:0*/ __Vtableidx2;
+    CData/*2:0*/ __Vtableidx1;
+    CData/*1:0*/ __Vtableidx2;
+    CData/*2:0*/ __Vtableidx3;
     CData/*2:0*/ __Vdly__BDMAs2m__DOT__s2m_w_state;
     CData/*1:0*/ __Vdly__BDMAs2m__DOT__s2m_cch_state;
     CData/*7:0*/ __Vdly__BDMAs2m__DOT__s2m_axis_len;
@@ -187,8 +190,9 @@ VL_MODULE(VBDMAs2m) {
     IData/*31:0*/ __Vdly__BDMAs2m__DOT__cch_address;
     IData/*31:0*/ __Vm_traceActivity;
     QData/*44:0*/ __Vdlyvval__BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram__v0;
-    static WData/*71:0*/ __Vtable1_BDMAs2m__DOT__s2m_cch_state_string[4][3];
-    static QData/*55:0*/ __Vtable2_BDMAs2m__DOT__s2m_w_state_string[8];
+    static QData/*55:0*/ __Vtable1_BDMAs2m__DOT__s2m_state_string[8];
+    static WData/*71:0*/ __Vtable2_BDMAs2m__DOT__s2m_cch_state_string[4][3];
+    static QData/*55:0*/ __Vtable3_BDMAs2m__DOT__s2m_w_state_string[8];
     
     // INTERNAL VARIABLES
     // Internals; generally not touched by application code

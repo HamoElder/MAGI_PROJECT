@@ -1,17 +1,17 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : BDMAm2s
-// Git hash  : 15584b1e2cb13eebcfd6eb36c7575145e9f8b46e
+// Git hash  : b68131ea60dec115f99cc06b72be130f89e72a0b
 
+
+`define BDMAm2sStates_binary_sequential_type [0:0]
+`define BDMAm2sStates_binary_sequential_IDLE 1'b0
+`define BDMAm2sStates_binary_sequential_BURST 1'b1
 
 `define BDMAcchStates_binary_sequential_type [1:0]
 `define BDMAcchStates_binary_sequential_IDLE 2'b00
 `define BDMAcchStates_binary_sequential_FIXED_REQ 2'b01
 `define BDMAcchStates_binary_sequential_INCR_REQ 2'b10
 `define BDMAcchStates_binary_sequential_HALT 2'b11
-
-`define BDMAm2sStates_binary_sequential_type [0:0]
-`define BDMAm2sStates_binary_sequential_IDLE 1'b0
-`define BDMAm2sStates_binary_sequential_BURST 1'b1
 
 
 module BDMAm2s (
@@ -35,13 +35,14 @@ module BDMAm2s (
   output     [3:0]    m2s_data_stream_payload_strb,
   output     [3:0]    m2s_data_stream_payload_keep_,
   output              m2s_data_stream_payload_last,
-  input               m2s_reset,
+  output     `BDMAm2sStates_binary_sequential_type m2s_state,
   input               m2s_cch_valid,
   output              m2s_cch_ready,
   input      [31:0]   m2s_cch_payload_desc_start_addr,
   input      [29:0]   m2s_cch_payload_desc_total_bytes,
   input      [1:0]    m2s_cch_payload_desc_burst,
   input      [3:0]    m2s_cch_payload_desc_id,
+  input               m2s_cch_payload_desc_reset,
   output              m2s_intr,
   input               clk,
   input               reset
@@ -82,24 +83,24 @@ module BDMAm2s (
   wire       [5:0]    m2s_data_fifo_io_occupancy;
   wire       [5:0]    m2s_data_fifo_io_availability;
   wire       [29:0]   _zz_aligned_address;
-  wire       [31:0]   _zz_when_BDMAm2s_l102;
-  wire       [31:0]   _zz_when_BDMAm2s_l102_1;
+  wire       [31:0]   _zz_when_BDMAm2s_l101;
+  wire       [31:0]   _zz_when_BDMAm2s_l101_1;
   wire       [31:0]   _zz_trans_bytes_cnt;
   wire       [29:0]   _zz_m2s_ar_len;
   wire       [31:0]   _zz_m2s_ar_len_1;
   wire       [31:0]   _zz_m2s_ar_len_2;
   wire       [31:0]   _zz_m2s_ar_len_3;
   wire       [31:0]   _zz_cch_address;
-  wire       [31:0]   _zz_when_BDMAm2s_l133;
-  wire       [31:0]   _zz_when_BDMAm2s_l133_1;
-  wire       [19:0]   _zz_when_BDMAm2s_l137;
-  wire       [31:0]   _zz_when_BDMAm2s_l137_1;
-  wire       [31:0]   _zz_when_BDMAm2s_l137_2;
-  wire       [29:0]   _zz_when_BDMAm2s_l137_3;
-  wire       [17:0]   _zz_when_BDMAm2s_l137_4;
+  wire       [31:0]   _zz_when_BDMAm2s_l132;
+  wire       [31:0]   _zz_when_BDMAm2s_l132_1;
+  wire       [19:0]   _zz_when_BDMAm2s_l136;
+  wire       [31:0]   _zz_when_BDMAm2s_l136_1;
+  wire       [31:0]   _zz_when_BDMAm2s_l136_2;
+  wire       [29:0]   _zz_when_BDMAm2s_l136_3;
+  wire       [17:0]   _zz_when_BDMAm2s_l136_4;
   wire       [31:0]   _zz_trans_bytes_cnt_1;
-  wire       [19:0]   _zz_when_BDMAm2s_l149;
-  wire       [31:0]   _zz_when_BDMAm2s_l149_1;
+  wire       [19:0]   _zz_when_BDMAm2s_l148;
+  wire       [31:0]   _zz_when_BDMAm2s_l148_1;
   wire       [31:0]   _zz_trans_bytes_cnt_2;
   wire       [31:0]   _zz_trans_bytes_cnt_3;
   wire       [31:0]   _zz_trans_bytes_cnt_4;
@@ -108,7 +109,8 @@ module BDMAm2s (
   wire       [31:0]   _zz_m2s_ar_len_6;
   wire       [31:0]   _zz_m2s_ar_len_7;
   wire       [1:0]    _zz_io_push_payload;
-  wire       [6:0]    _zz_keep_strb_mask;
+  wire       [6:0]    _zz_m2s_axis_keep;
+  wire       [6:0]    _zz_m2s_axis_strb;
   reg        `BDMAcchStates_binary_sequential_type m2s_cch_state;
   reg        `BDMAm2sStates_binary_sequential_type m2s_r_state;
   reg                 m2s_ar_valve;
@@ -124,17 +126,17 @@ module BDMAm2s (
   wire       [31:0]   aligned_address;
   reg                 cycle_finished;
   wire                m2s_cch_fire;
-  wire                when_BDMAm2s_l86;
+  wire                when_BDMAm2s_l85;
   wire                m2s_ar_fifo_io_push_fire;
   wire                m2s_ar_fifo_io_push_fire_1;
-  wire                when_BDMAm2s_l102;
-  wire                when_BDMAm2s_l116;
+  wire                when_BDMAm2s_l101;
+  wire                when_BDMAm2s_l115;
   wire                m2s_ar_fifo_io_push_fire_2;
   wire                m2s_ar_fifo_io_push_fire_3;
-  wire                when_BDMAm2s_l133;
-  wire                when_BDMAm2s_l137;
-  wire                when_BDMAm2s_l149;
-  wire                when_BDMAm2s_l161;
+  wire                when_BDMAm2s_l132;
+  wire                when_BDMAm2s_l136;
+  wire                when_BDMAm2s_l148;
+  wire                when_BDMAm2s_l160;
   wire                _zz_dma_ar_valid;
   wire                dma_ar_fire;
   wire                dma_ar_fire_1;
@@ -147,35 +149,36 @@ module BDMAm2s (
   wire       [3:0]    keep_strb_full;
   wire                dma_ar_fire_2;
   wire                dma_r_fire;
-  wire                when_BDMAm2s_l232;
-  wire                when_BDMAm2s_l249;
+  wire                when_BDMAm2s_l242;
+  wire                when_BDMAm2s_l259;
   wire                m2s_data_fifo_io_pop_fire;
-  wire                when_BDMAm2s_l251;
+  wire                when_BDMAm2s_l261;
   `ifndef SYNTHESIS
+  reg [39:0] m2s_state_string;
   reg [71:0] m2s_cch_state_string;
   reg [39:0] m2s_r_state_string;
   `endif
 
 
   assign _zz_aligned_address = (cch_address >>> 2);
-  assign _zz_when_BDMAm2s_l102 = (_zz_when_BDMAm2s_l102_1 + (cch_address & 32'h00000003));
-  assign _zz_when_BDMAm2s_l102_1 = {2'd0, cch_total_bytes};
+  assign _zz_when_BDMAm2s_l101 = (_zz_when_BDMAm2s_l101_1 + (cch_address & 32'h00000003));
+  assign _zz_when_BDMAm2s_l101_1 = {2'd0, cch_total_bytes};
   assign _zz_trans_bytes_cnt = (32'h00000040 - (cch_address & 32'h00000003));
   assign _zz_m2s_ar_len = (_zz_m2s_ar_len_1 >>> 2);
   assign _zz_m2s_ar_len_1 = (_zz_m2s_ar_len_2 - 32'h00000001);
   assign _zz_m2s_ar_len_2 = (_zz_m2s_ar_len_3 + (cch_address & 32'h00000003));
   assign _zz_m2s_ar_len_3 = {2'd0, trans_bytes_cnt};
   assign _zz_cch_address = {2'd0, trans_bytes_cnt};
-  assign _zz_when_BDMAm2s_l133 = (_zz_when_BDMAm2s_l133_1 + (cch_address & 32'h00000003));
-  assign _zz_when_BDMAm2s_l133_1 = {2'd0, cch_total_bytes};
-  assign _zz_when_BDMAm2s_l137 = (_zz_when_BDMAm2s_l137_1 >>> 12);
-  assign _zz_when_BDMAm2s_l137_1 = ((cch_address & 32'h00000fff) + _zz_when_BDMAm2s_l137_2);
-  assign _zz_when_BDMAm2s_l137_3 = (cch_total_bytes & 30'h00000fff);
-  assign _zz_when_BDMAm2s_l137_2 = {2'd0, _zz_when_BDMAm2s_l137_3};
-  assign _zz_when_BDMAm2s_l137_4 = ((cch_total_bytes & 30'h00000fff) >>> 12);
+  assign _zz_when_BDMAm2s_l132 = (_zz_when_BDMAm2s_l132_1 + (cch_address & 32'h00000003));
+  assign _zz_when_BDMAm2s_l132_1 = {2'd0, cch_total_bytes};
+  assign _zz_when_BDMAm2s_l136 = (_zz_when_BDMAm2s_l136_1 >>> 12);
+  assign _zz_when_BDMAm2s_l136_1 = ((cch_address & 32'h00000fff) + _zz_when_BDMAm2s_l136_2);
+  assign _zz_when_BDMAm2s_l136_3 = (cch_total_bytes & 30'h00000fff);
+  assign _zz_when_BDMAm2s_l136_2 = {2'd0, _zz_when_BDMAm2s_l136_3};
+  assign _zz_when_BDMAm2s_l136_4 = ((cch_total_bytes & 30'h00000fff) >>> 12);
   assign _zz_trans_bytes_cnt_1 = (32'h00001000 - (cch_address & 32'h00000fff));
-  assign _zz_when_BDMAm2s_l149 = (_zz_when_BDMAm2s_l149_1 >>> 12);
-  assign _zz_when_BDMAm2s_l149_1 = ((cch_address & 32'h00000fff) + 32'h00000040);
+  assign _zz_when_BDMAm2s_l148 = (_zz_when_BDMAm2s_l148_1 >>> 12);
+  assign _zz_when_BDMAm2s_l148_1 = ((cch_address & 32'h00000fff) + 32'h00000040);
   assign _zz_trans_bytes_cnt_2 = (_zz_trans_bytes_cnt_3 & 32'h00000fff);
   assign _zz_trans_bytes_cnt_3 = (32'h00001000 - cch_address);
   assign _zz_trans_bytes_cnt_4 = (32'h00000040 - (cch_address & 32'h00000003));
@@ -184,7 +187,8 @@ module BDMAm2s (
   assign _zz_m2s_ar_len_6 = (_zz_m2s_ar_len_7 + (cch_address & 32'h00000003));
   assign _zz_m2s_ar_len_7 = {2'd0, trans_bytes_cnt};
   assign _zz_io_push_payload = (trans_bytes_cnt[1 : 0] + cch_address[1 : 0]);
-  assign _zz_keep_strb_mask = ({3'd0,keep_strb_full} <<< low_bytes_fifo_io_pop_payload);
+  assign _zz_m2s_axis_keep = ({3'd0,keep_strb_full} <<< low_addr_fifo_io_pop_payload);
+  assign _zz_m2s_axis_strb = ({3'd0,keep_strb_full} <<< low_addr_fifo_io_pop_payload);
   StreamFifo m2s_ar_fifo (
     .io_push_valid            (m2s_ar_valid                      ), //i
     .io_push_ready            (m2s_ar_fifo_io_push_ready         ), //o
@@ -255,6 +259,13 @@ module BDMAm2s (
   );
   `ifndef SYNTHESIS
   always @(*) begin
+    case(m2s_state)
+      `BDMAm2sStates_binary_sequential_IDLE : m2s_state_string = "IDLE ";
+      `BDMAm2sStates_binary_sequential_BURST : m2s_state_string = "BURST";
+      default : m2s_state_string = "?????";
+    endcase
+  end
+  always @(*) begin
     case(m2s_cch_state)
       `BDMAcchStates_binary_sequential_IDLE : m2s_cch_state_string = "IDLE     ";
       `BDMAcchStates_binary_sequential_FIXED_REQ : m2s_cch_state_string = "FIXED_REQ";
@@ -274,17 +285,17 @@ module BDMAm2s (
 
   assign aligned_address = {_zz_aligned_address,2'b00};
   assign m2s_cch_fire = (m2s_cch_valid && m2s_cch_ready);
-  assign when_BDMAm2s_l86 = (cch_total_bytes == 30'h0);
+  assign when_BDMAm2s_l85 = (cch_total_bytes == 30'h0);
   assign m2s_ar_fifo_io_push_fire = (m2s_ar_valid && m2s_ar_fifo_io_push_ready);
   assign m2s_ar_fifo_io_push_fire_1 = (m2s_ar_valid && m2s_ar_fifo_io_push_ready);
-  assign when_BDMAm2s_l102 = ((_zz_when_BDMAm2s_l102 <= 32'h00000040) || 1'b0);
-  assign when_BDMAm2s_l116 = (cch_total_bytes == 30'h0);
+  assign when_BDMAm2s_l101 = ((_zz_when_BDMAm2s_l101 <= 32'h00000040) || 1'b0);
+  assign when_BDMAm2s_l115 = (cch_total_bytes == 30'h0);
   assign m2s_ar_fifo_io_push_fire_2 = (m2s_ar_valid && m2s_ar_fifo_io_push_ready);
   assign m2s_ar_fifo_io_push_fire_3 = (m2s_ar_valid && m2s_ar_fifo_io_push_ready);
-  assign when_BDMAm2s_l133 = ((_zz_when_BDMAm2s_l133 <= 32'h00000040) || 1'b0);
-  assign when_BDMAm2s_l137 = ((_zz_when_BDMAm2s_l137 != 20'h0) || (_zz_when_BDMAm2s_l137_4 != 18'h0));
-  assign when_BDMAm2s_l149 = (_zz_when_BDMAm2s_l149 != 20'h0);
-  assign when_BDMAm2s_l161 = (m2s_reset && cycle_finished);
+  assign when_BDMAm2s_l132 = ((_zz_when_BDMAm2s_l132 <= 32'h00000040) || 1'b0);
+  assign when_BDMAm2s_l136 = ((_zz_when_BDMAm2s_l136 != 20'h0) || (_zz_when_BDMAm2s_l136_4 != 18'h0));
+  assign when_BDMAm2s_l148 = (_zz_when_BDMAm2s_l148 != 20'h0);
+  assign when_BDMAm2s_l160 = (m2s_cch_payload_desc_reset && cycle_finished);
   assign m2s_cch_ready = cch_ready;
   assign _zz_dma_ar_valid = (! (! m2s_ar_valve));
   assign m2s_ar_fifo_io_pop_ready = (dma_ar_ready && _zz_dma_ar_valid);
@@ -301,15 +312,15 @@ module BDMAm2s (
   assign keep_strb_full = 4'b1111;
   assign dma_ar_fire_2 = (dma_ar_valid && dma_ar_ready);
   assign dma_r_fire = (dma_r_valid && dma_r_ready);
-  assign when_BDMAm2s_l232 = (m2s_axis_len == 8'h0);
-  assign when_BDMAm2s_l249 = (m2s_cch_state == `BDMAcchStates_binary_sequential_IDLE);
+  assign when_BDMAm2s_l242 = (m2s_axis_len == 8'h0);
+  assign when_BDMAm2s_l259 = (m2s_cch_state == `BDMAcchStates_binary_sequential_IDLE);
   assign m2s_data_fifo_io_pop_fire = (m2s_data_fifo_io_pop_valid && m2s_data_stream_ready);
-  assign when_BDMAm2s_l251 = (m2s_data_fifo_io_pop_payload_last && m2s_data_fifo_io_pop_fire);
+  assign when_BDMAm2s_l261 = (m2s_data_fifo_io_pop_payload_last && m2s_data_fifo_io_pop_fire);
   assign m2s_intr = cycle_finished;
   assign m2s_data_fifo_io_push_valid = (dma_r_valid && m2s_r_valve);
   assign m2s_data_fifo_io_push_payload_strb = ((m2s_axis_len == 8'h0) ? (keep_strb_mask & m2s_axis_strb) : m2s_axis_strb);
-  assign m2s_data_fifo_io_push_payload_keep_ = ((m2s_axis_len == 8'h0) ? (keep_strb_mask & m2s_axis_strb) : m2s_axis_strb);
-  assign m2s_data_fifo_io_push_payload_last = (((m2s_axis_len == 8'h0) && (m2s_ar_fifo_io_occupancy == 4'b0000)) && (m2s_cch_state == `BDMAcchStates_binary_sequential_HALT));
+  assign m2s_data_fifo_io_push_payload_keep_ = ((m2s_axis_len == 8'h0) ? (keep_strb_mask & m2s_axis_keep) : m2s_axis_keep);
+  assign m2s_data_fifo_io_push_payload_last = (((m2s_axis_len == 8'h0) && (m2s_ar_fifo_io_pop_valid == 1'b0)) && (m2s_cch_state == `BDMAcchStates_binary_sequential_HALT));
   assign dma_r_ready = (m2s_data_fifo_io_push_ready && m2s_r_valve);
   assign m2s_data_stream_valid = m2s_data_fifo_io_pop_valid;
   assign m2s_data_stream_payload_data = m2s_data_fifo_io_pop_payload_data;
@@ -317,6 +328,7 @@ module BDMAm2s (
   assign m2s_data_stream_payload_strb = m2s_data_fifo_io_pop_payload_strb;
   assign m2s_data_stream_payload_keep_ = m2s_data_fifo_io_pop_payload_keep_;
   assign m2s_data_stream_payload_last = m2s_data_fifo_io_pop_payload_last;
+  assign m2s_state = m2s_r_state;
   always @(posedge clk or posedge reset) begin
     if(reset) begin
       m2s_cch_state <= `BDMAcchStates_binary_sequential_IDLE;
@@ -345,7 +357,7 @@ module BDMAm2s (
           end
         end
         `BDMAcchStates_binary_sequential_FIXED_REQ : begin
-          if(when_BDMAm2s_l86) begin
+          if(when_BDMAm2s_l85) begin
             m2s_cch_state <= `BDMAcchStates_binary_sequential_HALT;
           end else begin
             if(m2s_ar_fifo_io_push_fire) begin
@@ -363,7 +375,7 @@ module BDMAm2s (
           end
         end
         `BDMAcchStates_binary_sequential_INCR_REQ : begin
-          if(when_BDMAm2s_l116) begin
+          if(when_BDMAm2s_l115) begin
             m2s_cch_state <= `BDMAcchStates_binary_sequential_HALT;
           end else begin
             if(m2s_ar_fifo_io_push_fire_2) begin
@@ -381,7 +393,7 @@ module BDMAm2s (
           end
         end
         default : begin
-          if(when_BDMAm2s_l161) begin
+          if(when_BDMAm2s_l160) begin
             m2s_cch_state <= `BDMAcchStates_binary_sequential_IDLE;
           end
         end
@@ -399,7 +411,7 @@ module BDMAm2s (
         end
         default : begin
           if(dma_r_fire) begin
-            if(when_BDMAm2s_l232) begin
+            if(when_BDMAm2s_l242) begin
               m2s_r_valve <= 1'b0;
               m2s_ar_valve <= 1'b1;
               m2s_r_state <= `BDMAm2sStates_binary_sequential_IDLE;
@@ -407,10 +419,10 @@ module BDMAm2s (
           end
         end
       endcase
-      if(when_BDMAm2s_l249) begin
+      if(when_BDMAm2s_l259) begin
         cycle_finished <= 1'b0;
       end else begin
-        if(when_BDMAm2s_l251) begin
+        if(when_BDMAm2s_l261) begin
           cycle_finished <= 1'b1;
         end
       end
@@ -428,12 +440,12 @@ module BDMAm2s (
         end
       end
       `BDMAcchStates_binary_sequential_FIXED_REQ : begin
-        if(!when_BDMAm2s_l86) begin
+        if(!when_BDMAm2s_l85) begin
           if(m2s_ar_fifo_io_push_fire) begin
             cch_total_bytes <= (cch_total_bytes - trans_bytes_cnt);
           end
         end
-        if(when_BDMAm2s_l102) begin
+        if(when_BDMAm2s_l101) begin
           trans_bytes_cnt <= cch_total_bytes;
         end else begin
           trans_bytes_cnt <= _zz_trans_bytes_cnt[29:0];
@@ -441,20 +453,20 @@ module BDMAm2s (
         m2s_ar_len <= _zz_m2s_ar_len[7:0];
       end
       `BDMAcchStates_binary_sequential_INCR_REQ : begin
-        if(!when_BDMAm2s_l116) begin
+        if(!when_BDMAm2s_l115) begin
           if(m2s_ar_fifo_io_push_fire_2) begin
             cch_address <= (cch_address + _zz_cch_address);
             cch_total_bytes <= (cch_total_bytes - trans_bytes_cnt);
           end
         end
-        if(when_BDMAm2s_l133) begin
-          if(when_BDMAm2s_l137) begin
+        if(when_BDMAm2s_l132) begin
+          if(when_BDMAm2s_l136) begin
             trans_bytes_cnt <= _zz_trans_bytes_cnt_1[29:0];
           end else begin
             trans_bytes_cnt <= cch_total_bytes;
           end
         end else begin
-          if(when_BDMAm2s_l149) begin
+          if(when_BDMAm2s_l148) begin
             trans_bytes_cnt <= _zz_trans_bytes_cnt_2[29:0];
           end else begin
             trans_bytes_cnt <= _zz_trans_bytes_cnt_4[29:0];
@@ -469,9 +481,9 @@ module BDMAm2s (
       `BDMAm2sStates_binary_sequential_IDLE : begin
         if(dma_ar_fire_2) begin
           m2s_axis_len <= m2s_ar_fifo_io_pop_payload_len;
-          m2s_axis_keep <= (keep_strb_full >>> low_addr_fifo_io_pop_payload);
-          m2s_axis_strb <= (keep_strb_full >>> low_addr_fifo_io_pop_payload);
-          keep_strb_mask <= _zz_keep_strb_mask[3:0];
+          m2s_axis_keep <= _zz_m2s_axis_keep[3:0];
+          m2s_axis_strb <= _zz_m2s_axis_strb[3:0];
+          keep_strb_mask <= (keep_strb_full >>> low_bytes_fifo_io_pop_payload);
           m2s_axis_id <= m2s_ar_fifo_io_pop_payload_id;
         end
       end

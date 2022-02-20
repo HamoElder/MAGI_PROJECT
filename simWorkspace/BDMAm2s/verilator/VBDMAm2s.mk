@@ -11,22 +11,16 @@ default: VBDMAm2s
 PERL = perl
 # Path to Verilator kit (from $VERILATOR_ROOT)
 VERILATOR_ROOT = /usr/share/verilator
-# Path to SystemPerl kit top (from $SYSTEMPERL)
-SYSTEMPERL = 
-# Path to SystemPerl kit includes (from $SYSTEMPERL_INCLUDE)
-SYSTEMPERL_INCLUDE = 
 # SystemC include directory with systemc.h (from $SYSTEMC_INCLUDE)
-SYSTEMC_INCLUDE ?= 
+SYSTEMC_INCLUDE ?= /usr/include
 # SystemC library directory with libsystemc.a (from $SYSTEMC_LIBDIR)
-SYSTEMC_LIBDIR ?= 
+SYSTEMC_LIBDIR ?= /usr/lib/x86_64-linux-gnu
 
 ### Switches...
-# SystemPerl output mode?  0/1 (from --sp)
-VM_SP = 0
 # SystemC output mode?  0/1 (from --sc)
 VM_SC = 0
-# SystemPerl or SystemC output mode?  0/1 (from --sp/--sc)
-VM_SP_OR_SC = 0
+# Legacy or SystemC output mode?  0/1 (from --sc)
+VM_SP_OR_SC = $(VM_SC)
 # Deprecated
 VM_PCLI = 1
 # Deprecated: SystemC architecture to find link library path (from $SYSTEMC_ARCH)
@@ -39,24 +33,24 @@ VM_PREFIX = VBDMAm2s
 VM_MODPREFIX = VBDMAm2s
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
-	-DTRACE \
-	-I/home/crystal/idea/jbr/include \
-	-I/home/crystal/idea/jbr/include/linux \
-	-O3 \
-	-Wno-attributes \
 	-fPIC \
-	-fvisibility=hidden \
 	-m64 \
 	-shared \
+	-Wno-attributes \
+	-I/snap/intellij-idea-community/345/jbr/include \
+	-I/snap/intellij-idea-community/345/jbr/include/linux \
+	-fvisibility=hidden \
 	-std=c++11 \
+	-O3 \
+	-DTRACE \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
-	-Wno-attributes \
 	-fPIC \
-	-fvisibility=hidden \
 	-m64 \
 	-shared \
+	-Wno-attributes \
+	-fvisibility=hidden \
 	-std=c++11 \
 
 # User .cpp files (from .cpp's on Verilator command line)
@@ -78,11 +72,11 @@ include $(VERILATOR_ROOT)/include/verilated.mk
 VPATH += $(VM_USER_DIR)
 
 VBDMAm2s__spinalWrapper.o: verilator/VBDMAm2s__spinalWrapper.cpp
-	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 
 ### Link rules... (from --exe)
 VBDMAm2s: $(VK_USER_OBJS) $(VK_GLOBAL_OBJS) $(VM_PREFIX)__ALL.a
-	$(LINK) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@ $(LIBS) $(SC_LIBS) 2>&1 | c++filt
+	$(LINK) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@ $(LIBS) $(SC_LIBS)
 
 
 # Verilated -*- Makefile -*-

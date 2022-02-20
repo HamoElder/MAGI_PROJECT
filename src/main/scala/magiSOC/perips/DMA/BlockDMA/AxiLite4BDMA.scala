@@ -4,7 +4,7 @@ import spinal.lib._
 import spinal.core._
 import spinal.lib.bus.amba4.axi.{Axi4, Axi4SpecRenamer}
 import utils.bus.AxiLite.{AxiLite4, AxiLite4Config, AxiLite4SlaveFactory, AxiLite4SpecRenamer}
-import utils.bus.AxiStream4.AxiStream4
+import utils.bus.AxiStream4.{AxiStream4, AxiStream4SpecRenamer}
 
 case class AxiLite4BDMAConfig(
                                  axi4AddrWidth  : Int = 32,
@@ -40,6 +40,8 @@ case class AxiLite4BDMA(config: AxiLite4BDMAConfig) extends Component {
     noIoPrefix()
     Axi4SpecRenamer(io.axi4M2S)
     Axi4SpecRenamer(io.axi4S2M)
+    AxiStream4SpecRenamer(io.dataS2M)
+    AxiStream4SpecRenamer(io.dataM2S)
     AxiLite4SpecRenamer(io.axil4Ctrl)
 
     val axil4busCtrl = new AxiLite4SlaveFactory(io.axil4Ctrl).setName("")

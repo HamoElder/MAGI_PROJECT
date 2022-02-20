@@ -159,7 +159,7 @@ public:
     uint32_t timeCheck;
     bool waveEnabled;
     VBDMAm2s top;
-    ISignalAccess *signalAccess[30];
+    ISignalAccess *signalAccess[31];
     #ifdef TRACE
 	  VerilatedVcdC tfp;
 	  #endif
@@ -191,27 +191,28 @@ public:
       signalAccess[17] = new CDataSignalAccess( top.m2s_data_stream_payload_strb );
       signalAccess[18] = new CDataSignalAccess( top.m2s_data_stream_payload_keep_ );
       signalAccess[19] = new CDataSignalAccess( top.m2s_data_stream_payload_last );
-      signalAccess[20] = new CDataSignalAccess( top.m2s_reset );
+      signalAccess[20] = new CDataSignalAccess( top.m2s_state );
       signalAccess[21] = new CDataSignalAccess( top.m2s_cch_valid );
       signalAccess[22] = new CDataSignalAccess( top.m2s_cch_ready );
       signalAccess[23] = new IDataSignalAccess( top.m2s_cch_payload_desc_start_addr );
       signalAccess[24] = new IDataSignalAccess( top.m2s_cch_payload_desc_total_bytes );
       signalAccess[25] = new CDataSignalAccess( top.m2s_cch_payload_desc_burst );
       signalAccess[26] = new CDataSignalAccess( top.m2s_cch_payload_desc_id );
-      signalAccess[27] = new CDataSignalAccess( top.m2s_intr );
-      signalAccess[28] = new CDataSignalAccess( top.clk );
-      signalAccess[29] = new CDataSignalAccess( top.reset );
+      signalAccess[27] = new CDataSignalAccess( top.m2s_cch_payload_desc_reset );
+      signalAccess[28] = new CDataSignalAccess( top.m2s_intr );
+      signalAccess[29] = new CDataSignalAccess( top.clk );
+      signalAccess[30] = new CDataSignalAccess( top.reset );
 
       #ifdef TRACE
       Verilated::traceEverOn(true);
       top.trace(&tfp, 99);
-      tfp.open((std::string("/home/crystal/project/MAGI_PROJECT/./simWorkspace/BDMAm2s/") + name + ".vcd").c_str());
+      tfp.open((std::string("/home/missdown/IdeaProjects/MAGI_PROJECT/./simWorkspace/BDMAm2s/") + name + ".vcd").c_str());
       #endif
       this->name = name;
     }
 
     virtual ~Wrapper_1(){
-      for(int idx = 0;idx < 30;idx++){
+      for(int idx = 0;idx < 31;idx++){
           delete signalAccess[idx];
       }
 
@@ -220,7 +221,7 @@ public:
       tfp.close();
       #endif
       #ifdef COVERAGE
-      VerilatedCov::write((("/home/crystal/project/MAGI_PROJECT/./simWorkspace/BDMAm2s/") + name + ".dat").c_str());
+      VerilatedCov::write((("/home/missdown/IdeaProjects/MAGI_PROJECT/./simWorkspace/BDMAm2s/") + name + ".dat").c_str());
       #endif
     }
 
