@@ -173,10 +173,14 @@ VL_INLINE_OPT void VBDMAs2m::_sequent__TOP__2(VBDMAs2m__Syms* __restrict vlSymsp
             if ((1U & (~ (IData)(vlTOPp->BDMAs2m__DOT__s2m_w_state)))) {
                 if (vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_popping) {
                     vlTOPp->BDMAs2m__DOT__s2m_w_data 
-                        = (IData)(((((QData)((IData)(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT___zz_logic_ram_port0)) 
-                                     << 0x20U) | (QData)((IData)(vlTOPp->BDMAs2m__DOT__w_residual_data))) 
-                                   >> (0x3fU & ((IData)(vlTOPp->BDMAs2m__DOT__bytes_shift) 
-                                                << 3U))));
+                        = ((0U == (IData)(vlTOPp->BDMAs2m__DOT__bytes_shift))
+                            ? (IData)(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT___zz_logic_ram_port0)
+                            : (IData)(((((QData)((IData)(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT___zz_logic_ram_port0)) 
+                                         << 0x20U) 
+                                        | (QData)((IData)(vlTOPp->BDMAs2m__DOT__w_residual_data))) 
+                                       >> (0x3fU & 
+                                           ((IData)(vlTOPp->BDMAs2m__DOT__bytes_shift) 
+                                            << 3U)))));
                 }
             }
         }
@@ -206,12 +210,16 @@ VL_INLINE_OPT void VBDMAs2m::_sequent__TOP__2(VBDMAs2m__Syms* __restrict vlSymsp
             if ((1U & (~ (IData)(vlTOPp->BDMAs2m__DOT__s2m_w_state)))) {
                 if (vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_popping) {
                     vlTOPp->BDMAs2m__DOT__s2m_w_strb 
-                        = (0xfU & (((0xf0U & ((IData)(
-                                                      (vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT___zz_logic_ram_port0 
-                                                       >> 0x28U)) 
-                                              << 4U)) 
-                                    | (IData)(vlTOPp->BDMAs2m__DOT__w_residual_strb)) 
-                                   >> (IData)(vlTOPp->BDMAs2m__DOT__bytes_shift)));
+                        = (0xfU & ((0U == (IData)(vlTOPp->BDMAs2m__DOT__bytes_shift))
+                                    ? (IData)((vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT___zz_logic_ram_port0 
+                                               >> 0x28U))
+                                    : (0xffU & (((0xf0U 
+                                                  & ((IData)(
+                                                             (vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT___zz_logic_ram_port0 
+                                                              >> 0x28U)) 
+                                                     << 4U)) 
+                                                 | (IData)(vlTOPp->BDMAs2m__DOT__w_residual_strb)) 
+                                                >> (IData)(vlTOPp->BDMAs2m__DOT__bytes_shift)))));
                 }
             }
         }
@@ -282,19 +290,9 @@ VL_INLINE_OPT void VBDMAs2m::_sequent__TOP__2(VBDMAs2m__Syms* __restrict vlSymsp
             if ((1U & (~ (IData)(vlTOPp->BDMAs2m__DOT__s2m_w_state)))) {
                 if (vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_popping) {
                     vlTOPp->BDMAs2m__DOT__w_residual_data 
-                        = (IData)(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT___zz_logic_ram_port0);
-                }
-            }
-        }
-    }
-    if ((1U & (~ ((IData)(vlTOPp->BDMAs2m__DOT__s2m_w_state) 
-                  >> 2U)))) {
-        if ((1U & (~ ((IData)(vlTOPp->BDMAs2m__DOT__s2m_w_state) 
-                      >> 1U)))) {
-            if ((1U & (~ (IData)(vlTOPp->BDMAs2m__DOT__s2m_w_state)))) {
-                if (vlTOPp->BDMAs2m__DOT__dma_aw_fire_2) {
-                    vlTOPp->BDMAs2m__DOT__bytes_shift 
-                        = vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT___zz_logic_ram_port0;
+                        = ((0U == (IData)(vlTOPp->BDMAs2m__DOT__bytes_shift))
+                            ? (IData)(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT___zz_logic_ram_port0)
+                            : (IData)(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT___zz_logic_ram_port0));
                 }
             }
         }
@@ -339,6 +337,18 @@ VL_INLINE_OPT void VBDMAs2m::_sequent__TOP__3(VBDMAs2m__Syms* __restrict vlSymsp
     }
     vlTOPp->BDMAs2m__DOT__trans_bytes_cnt = vlTOPp->__Vdly__BDMAs2m__DOT__trans_bytes_cnt;
     vlTOPp->BDMAs2m__DOT__cch_address = vlTOPp->__Vdly__BDMAs2m__DOT__cch_address;
+    if ((1U & (~ ((IData)(vlTOPp->BDMAs2m__DOT__s2m_w_state) 
+                  >> 2U)))) {
+        if ((1U & (~ ((IData)(vlTOPp->BDMAs2m__DOT__s2m_w_state) 
+                      >> 1U)))) {
+            if ((1U & (~ (IData)(vlTOPp->BDMAs2m__DOT__s2m_w_state)))) {
+                if (vlTOPp->BDMAs2m__DOT__dma_aw_fire_2) {
+                    vlTOPp->BDMAs2m__DOT__bytes_shift 
+                        = vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT___zz_logic_ram_port0;
+                }
+            }
+        }
+    }
     vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT___zz_logic_ram_port0 
         = vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_ram
         [vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_popPtr_valueNext];
@@ -440,7 +450,7 @@ VL_INLINE_OPT void VBDMAs2m::_sequent__TOP__5(VBDMAs2m__Syms* __restrict vlSymsp
         vlTOPp->BDMAs2m__DOT__s2m_axis_leak = 0U;
     } else {
         if ((4U & (IData)(vlTOPp->BDMAs2m__DOT__s2m_w_state))) {
-            if (vlTOPp->BDMAs2m__DOT__when_BDMAs2m_l302) {
+            if (vlTOPp->BDMAs2m__DOT__when_BDMAs2m_l335) {
                 vlTOPp->__Vdly__BDMAs2m__DOT__s2m_w_state = 0U;
                 vlTOPp->BDMAs2m__DOT__s2m_axis_leak = 0U;
             } else {
@@ -769,7 +779,7 @@ VL_INLINE_OPT void VBDMAs2m::_combo__TOP__9(VBDMAs2m__Syms* __restrict vlSymsp) 
     if (vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_popping) {
         vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_popPtr_willIncrement = 1U;
     }
-    vlTOPp->BDMAs2m__DOT__when_BDMAs2m_l302 = ((IData)(vlTOPp->BDMAs2m__DOT__s2m_axis_last) 
+    vlTOPp->BDMAs2m__DOT__when_BDMAs2m_l335 = ((IData)(vlTOPp->BDMAs2m__DOT__s2m_axis_last) 
                                                | (((IData)(vlTOPp->BDMAs2m__DOT__s2m_data_fifo_io_pop_valid) 
                                                    & (IData)(vlTOPp->BDMAs2m__DOT__s2m_data_fifo_io_pop_ready)) 
                                                   & (IData)(

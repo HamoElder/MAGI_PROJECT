@@ -92,7 +92,7 @@ VL_MODULE(VBDMAs2m) {
         CData/*1:0*/ BDMAs2m__DOT__bytes_shift;
         CData/*0:0*/ BDMAs2m__DOT__dma_aw_fire_2;
         CData/*0:0*/ BDMAs2m__DOT__dma_w_fire;
-        CData/*0:0*/ BDMAs2m__DOT__when_BDMAs2m_l302;
+        CData/*0:0*/ BDMAs2m__DOT__when_BDMAs2m_l335;
         CData/*0:0*/ BDMAs2m__DOT__s2m_aw_fifo__DOT___zz_1;
         CData/*0:0*/ BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_pushPtr_willIncrement;
         CData/*2:0*/ BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_pushPtr_valueNext;

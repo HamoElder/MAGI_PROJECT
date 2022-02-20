@@ -255,28 +255,61 @@ case class BDMAs2m(config: BDMAConfig) extends Component{
 
             when(s2m_data_fifo.io.pop.fire){
                 if(config.endianness == LITTLE){
-                    s2m_w_data := ((s2m_data_fifo.io.pop.data ## w_residual_data) >> (8 * bytes_shift)).asBits.resized
-                    w_residual_data := s2m_data_fifo.io.pop.data
+                    when(bytes_shift === 0){
+                        s2m_w_data := s2m_data_fifo.io.pop.data
+                        w_residual_data := s2m_data_fifo.io.pop.data
+                    }.otherwise{
+                        s2m_w_data := ((s2m_data_fifo.io.pop.data ## w_residual_data) >> (8 * bytes_shift)).asBits.resized
+                        w_residual_data := s2m_data_fifo.io.pop.data
+                    }
+
 
                     if(config.axisConfig.useKeep){
-                        s2m_w_strb := ((s2m_data_fifo.io.pop.keep_ ## w_residual_strb) >> bytes_shift).asBits.resized
-                        w_residual_strb := s2m_data_fifo.io.pop.keep_
+                        when(bytes_shift === 0){
+                            s2m_w_strb := s2m_data_fifo.io.pop.keep_
+                            w_residual_strb := s2m_data_fifo.io.pop.keep_
+                        }.otherwise{
+                            s2m_w_strb := ((s2m_data_fifo.io.pop.keep_ ## w_residual_strb) >> bytes_shift).asBits.resized
+                            w_residual_strb := s2m_data_fifo.io.pop.keep_
+                        }
                     }else if(config.axisConfig.useStrb){
-                        s2m_w_strb := ((s2m_data_fifo.io.pop.strb ## w_residual_strb) >> bytes_shift).asBits.resized
-                        w_residual_strb := s2m_data_fifo.io.pop.strb
+                        when(bytes_shift === 0){
+                            s2m_w_strb := s2m_data_fifo.io.pop.strb
+                            w_residual_strb := s2m_data_fifo.io.pop.strb
+                        }.otherwise{
+                            s2m_w_strb := ((s2m_data_fifo.io.pop.strb ## w_residual_strb) >> bytes_shift).asBits.resized
+                            w_residual_strb := s2m_data_fifo.io.pop.strb
+                        }
                     }else{
                         s2m_w_strb := strb_full
                     }
                 }else{
-                    s2m_w_data := ((w_residual_data ## s2m_data_fifo.io.pop.data) >> (8 * bytes_shift)).asBits.resized
-                    w_residual_data := s2m_data_fifo.io.pop.data
+                    when(bytes_shift === 0){
+                        s2m_w_data := s2m_data_fifo.io.pop.data
+                        w_residual_data := s2m_data_fifo.io.pop.data
+                    }.otherwise{
+                        s2m_w_data := ((w_residual_data ## s2m_data_fifo.io.pop.data) >> (8 * bytes_shift)).asBits.resized
+                        w_residual_data := s2m_data_fifo.io.pop.data
+                    }
+
 
                     if(config.axisConfig.useKeep){
-                        s2m_w_strb := ((w_residual_strb ## s2m_data_fifo.io.pop.keep_) >> bytes_shift).asBits.resized
-                        w_residual_strb := s2m_data_fifo.io.pop.keep_
+                        when(bytes_shift === 0){
+                            s2m_w_strb := s2m_data_fifo.io.pop.keep_
+                            w_residual_strb := s2m_data_fifo.io.pop.keep_
+                        }.otherwise{
+                            s2m_w_strb := ((w_residual_strb ## s2m_data_fifo.io.pop.keep_) >> bytes_shift).asBits.resized
+                            w_residual_strb := s2m_data_fifo.io.pop.keep_
+                        }
+
                     }else if(config.axisConfig.useStrb){
-                        s2m_w_strb := ((w_residual_strb ## s2m_data_fifo.io.pop.strb) >> bytes_shift).asBits.resized
-                        w_residual_strb := s2m_data_fifo.io.pop.strb
+                        when(bytes_shift === 0){
+                            s2m_w_strb := s2m_data_fifo.io.pop.strb
+                            w_residual_strb := s2m_data_fifo.io.pop.strb
+                        }.otherwise{
+                            s2m_w_strb := ((w_residual_strb ## s2m_data_fifo.io.pop.strb) >> bytes_shift).asBits.resized
+                            w_residual_strb := s2m_data_fifo.io.pop.strb
+                        }
                     }else{
                         s2m_w_strb := strb_full
                     }

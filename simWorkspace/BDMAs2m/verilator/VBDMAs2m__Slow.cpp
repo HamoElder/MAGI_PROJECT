@@ -68,11 +68,7 @@ void VBDMAs2m::_settle__TOP__7(VBDMAs2m__Syms* __restrict vlSymsp) {
     vlTOPp->BDMAs2m__DOT__s2m_cch_state_string[2U] 
         = vlTOPp->__Vtable2_BDMAs2m__DOT__s2m_cch_state_string
         [vlTOPp->__Vtableidx2][2U];
-    vlTOPp->__Vtableidx3 = vlTOPp->BDMAs2m__DOT__s2m_w_state;
-    vlTOPp->BDMAs2m__DOT__s2m_w_state_string = vlTOPp->__Vtable3_BDMAs2m__DOT__s2m_w_state_string
-        [vlTOPp->__Vtableidx3];
     vlTOPp->dma_w_valid = vlTOPp->BDMAs2m__DOT__s2m_w_valid;
-    vlTOPp->s2m_state = vlTOPp->BDMAs2m__DOT__s2m_w_state;
     vlTOPp->BDMAs2m__DOT__s2m_data_fifo_io_pop_ready 
         = ((((IData)(vlTOPp->dma_w_ready) & (IData)(vlTOPp->BDMAs2m__DOT__s2m_data_valve)) 
             & (0U != (IData)(vlTOPp->BDMAs2m__DOT__s2m_axis_len))) 
@@ -89,13 +85,14 @@ void VBDMAs2m::_settle__TOP__7(VBDMAs2m__Syms* __restrict vlSymsp) {
     vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_ptrMatch 
         = ((IData)(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_pushPtr_value) 
            == (IData)(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_popPtr_value));
+    vlTOPp->__Vtableidx3 = vlTOPp->BDMAs2m__DOT__s2m_w_state;
+    vlTOPp->BDMAs2m__DOT__s2m_w_state_string = vlTOPp->__Vtable3_BDMAs2m__DOT__s2m_w_state_string
+        [vlTOPp->__Vtableidx3];
+    vlTOPp->s2m_state = vlTOPp->BDMAs2m__DOT__s2m_w_state;
     vlTOPp->BDMAs2m__DOT__s2m_cch_fire = ((IData)(vlTOPp->s2m_cch_valid) 
                                           & (IData)(vlTOPp->s2m_cch_ready));
     vlTOPp->BDMAs2m__DOT__dma_w_fire = ((IData)(vlTOPp->dma_w_valid) 
                                         & (IData)(vlTOPp->dma_w_ready));
-    vlTOPp->__Vtableidx1 = vlTOPp->s2m_state;
-    vlTOPp->BDMAs2m__DOT__s2m_state_string = vlTOPp->__Vtable1_BDMAs2m__DOT__s2m_state_string
-        [vlTOPp->__Vtableidx1];
     vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_full 
         = ((IData)(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_ptrMatch) 
            & (IData)(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_risingOccupancy));
@@ -113,6 +110,9 @@ void VBDMAs2m::_settle__TOP__7(VBDMAs2m__Syms* __restrict vlSymsp) {
     vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_full 
         = ((IData)(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_ptrMatch) 
            & (IData)(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_risingOccupancy));
+    vlTOPp->__Vtableidx1 = vlTOPp->s2m_state;
+    vlTOPp->BDMAs2m__DOT__s2m_state_string = vlTOPp->__Vtable1_BDMAs2m__DOT__s2m_state_string
+        [vlTOPp->__Vtableidx1];
     vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_pushing 
         = ((IData)(vlTOPp->BDMAs2m__DOT__s2m_aw_valid) 
            & (~ (IData)(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_full)));
@@ -160,7 +160,7 @@ void VBDMAs2m::_settle__TOP__7(VBDMAs2m__Syms* __restrict vlSymsp) {
     if (vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_pushing) {
         vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_pushPtr_willIncrement = 1U;
     }
-    vlTOPp->BDMAs2m__DOT__when_BDMAs2m_l302 = ((IData)(vlTOPp->BDMAs2m__DOT__s2m_axis_last) 
+    vlTOPp->BDMAs2m__DOT__when_BDMAs2m_l335 = ((IData)(vlTOPp->BDMAs2m__DOT__s2m_axis_last) 
                                                | (((IData)(vlTOPp->BDMAs2m__DOT__s2m_data_fifo_io_pop_valid) 
                                                    & (IData)(vlTOPp->BDMAs2m__DOT__s2m_data_fifo_io_pop_ready)) 
                                                   & (IData)(
@@ -336,7 +336,7 @@ void VBDMAs2m::_ctor_var_reset() {
     BDMAs2m__DOT__bytes_shift = VL_RAND_RESET_I(2);
     BDMAs2m__DOT__dma_aw_fire_2 = VL_RAND_RESET_I(1);
     BDMAs2m__DOT__dma_w_fire = VL_RAND_RESET_I(1);
-    BDMAs2m__DOT__when_BDMAs2m_l302 = VL_RAND_RESET_I(1);
+    BDMAs2m__DOT__when_BDMAs2m_l335 = VL_RAND_RESET_I(1);
     BDMAs2m__DOT__s2m_state_string = VL_RAND_RESET_Q(56);
     VL_RAND_RESET_W(72, BDMAs2m__DOT__s2m_cch_state_string);
     BDMAs2m__DOT__s2m_w_state_string = VL_RAND_RESET_Q(56);

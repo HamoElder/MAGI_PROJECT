@@ -285,30 +285,31 @@ void VBDMAs2m::traceChgThis__7(VBDMAs2m__Syms* __restrict vlSymsp, VerilatedVcd*
         vcdp->chgBus(c+793,(vlTOPp->BDMAs2m__DOT__w_residual_data),32);
         vcdp->chgBus(c+801,(vlTOPp->BDMAs2m__DOT__strb_mask),4);
         vcdp->chgBus(c+809,(vlTOPp->BDMAs2m__DOT__bytes_shift),2);
-        vcdp->chgQuad(c+817,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_ram[0]),49);
-        vcdp->chgQuad(c+819,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_ram[1]),49);
-        vcdp->chgQuad(c+821,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_ram[2]),49);
-        vcdp->chgQuad(c+823,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_ram[3]),49);
-        vcdp->chgQuad(c+825,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_ram[4]),49);
-        vcdp->chgQuad(c+827,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_ram[5]),49);
-        vcdp->chgQuad(c+829,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_ram[6]),49);
-        vcdp->chgQuad(c+831,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_ram[7]),49);
-        vcdp->chgBus(c+945,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_ram[0]),2);
-        vcdp->chgBus(c+946,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_ram[1]),2);
-        vcdp->chgBus(c+947,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_ram[2]),2);
-        vcdp->chgBus(c+948,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_ram[3]),2);
-        vcdp->chgBus(c+949,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_ram[4]),2);
-        vcdp->chgBus(c+950,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_ram[5]),2);
-        vcdp->chgBus(c+951,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_ram[6]),2);
-        vcdp->chgBus(c+952,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_ram[7]),2);
-        vcdp->chgBus(c+1009,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_ram[0]),2);
-        vcdp->chgBus(c+1010,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_ram[1]),2);
-        vcdp->chgBus(c+1011,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_ram[2]),2);
-        vcdp->chgBus(c+1012,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_ram[3]),2);
-        vcdp->chgBus(c+1013,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_ram[4]),2);
-        vcdp->chgBus(c+1014,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_ram[5]),2);
-        vcdp->chgBus(c+1015,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_ram[6]),2);
-        vcdp->chgBus(c+1016,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_ram[7]),2);
+        vcdp->chgBit(c+817,((0U == (IData)(vlTOPp->BDMAs2m__DOT__bytes_shift))));
+        vcdp->chgQuad(c+825,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_ram[0]),49);
+        vcdp->chgQuad(c+827,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_ram[1]),49);
+        vcdp->chgQuad(c+829,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_ram[2]),49);
+        vcdp->chgQuad(c+831,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_ram[3]),49);
+        vcdp->chgQuad(c+833,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_ram[4]),49);
+        vcdp->chgQuad(c+835,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_ram[5]),49);
+        vcdp->chgQuad(c+837,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_ram[6]),49);
+        vcdp->chgQuad(c+839,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_ram[7]),49);
+        vcdp->chgBus(c+953,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_ram[0]),2);
+        vcdp->chgBus(c+954,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_ram[1]),2);
+        vcdp->chgBus(c+955,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_ram[2]),2);
+        vcdp->chgBus(c+956,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_ram[3]),2);
+        vcdp->chgBus(c+957,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_ram[4]),2);
+        vcdp->chgBus(c+958,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_ram[5]),2);
+        vcdp->chgBus(c+959,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_ram[6]),2);
+        vcdp->chgBus(c+960,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_ram[7]),2);
+        vcdp->chgBus(c+1017,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_ram[0]),2);
+        vcdp->chgBus(c+1018,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_ram[1]),2);
+        vcdp->chgBus(c+1019,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_ram[2]),2);
+        vcdp->chgBus(c+1020,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_ram[3]),2);
+        vcdp->chgBus(c+1021,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_ram[4]),2);
+        vcdp->chgBus(c+1022,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_ram[5]),2);
+        vcdp->chgBus(c+1023,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_ram[6]),2);
+        vcdp->chgBus(c+1024,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_ram[7]),2);
     }
 }
 
@@ -318,9 +319,9 @@ void VBDMAs2m::traceChgThis__8(VBDMAs2m__Syms* __restrict vlSymsp, VerilatedVcd*
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBit(c+1073,((0x40U >= (vlTOPp->BDMAs2m__DOT__cch_total_bytes 
+        vcdp->chgBit(c+1081,((0x40U >= (vlTOPp->BDMAs2m__DOT__cch_total_bytes 
                                         + (3U & vlTOPp->BDMAs2m__DOT__cch_address)))));
-        vcdp->chgBit(c+1081,((0U != (0xfffffU & (((0xfffU 
+        vcdp->chgBit(c+1089,((0U != (0xfffffU & (((0xfffU 
                                                    & vlTOPp->BDMAs2m__DOT__cch_address) 
                                                   + 
                                                   (0xfffU 
@@ -335,47 +336,47 @@ void VBDMAs2m::traceChgThis__9(VBDMAs2m__Syms* __restrict vlSymsp, VerilatedVcd*
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBus(c+1089,(vlTOPp->BDMAs2m__DOT__s2m_cch_state),2);
-        vcdp->chgBus(c+1097,(vlTOPp->BDMAs2m__DOT__s2m_w_state),3);
-        vcdp->chgBit(c+1105,(vlTOPp->BDMAs2m__DOT__s2m_aw_valve));
-        vcdp->chgBit(c+1113,(vlTOPp->BDMAs2m__DOT__s2m_data_valve));
-        vcdp->chgBit(c+1121,(vlTOPp->BDMAs2m__DOT__cch_ready));
-        vcdp->chgBit(c+1129,(vlTOPp->BDMAs2m__DOT__s2m_aw_valid));
-        vcdp->chgBit(c+1137,(vlTOPp->BDMAs2m__DOT__s2m_aw_halt_exec));
-        vcdp->chgBit(c+1145,(vlTOPp->BDMAs2m__DOT__cycle_finished));
-        vcdp->chgBit(c+1153,(vlTOPp->BDMAs2m__DOT__s2m_w_valid));
-        vcdp->chgBit(c+1161,(vlTOPp->BDMAs2m__DOT__s2m_b_ready));
-        vcdp->chgBus(c+1169,(vlTOPp->BDMAs2m__DOT__w_residual_strb),4);
-        vcdp->chgBit(c+1177,(vlTOPp->BDMAs2m__DOT__s2m_axis_last));
-        vcdp->chgBit(c+1185,(vlTOPp->BDMAs2m__DOT__s2m_axis_leak));
-        vcdp->chgBit(c+1193,((0U == (IData)(vlTOPp->BDMAs2m__DOT__s2m_cch_state))));
-        vcdp->chgBus(c+1201,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_pushPtr_value),3);
-        vcdp->chgBit(c+1209,((7U == (IData)(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_pushPtr_value))));
-        vcdp->chgBus(c+1217,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_popPtr_value),3);
-        vcdp->chgBit(c+1225,((7U == (IData)(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_popPtr_value))));
-        vcdp->chgBit(c+1233,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_risingOccupancy));
-        vcdp->chgBus(c+1241,((7U & ((IData)(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_pushPtr_value) 
+        vcdp->chgBus(c+1097,(vlTOPp->BDMAs2m__DOT__s2m_cch_state),2);
+        vcdp->chgBus(c+1105,(vlTOPp->BDMAs2m__DOT__s2m_w_state),3);
+        vcdp->chgBit(c+1113,(vlTOPp->BDMAs2m__DOT__s2m_aw_valve));
+        vcdp->chgBit(c+1121,(vlTOPp->BDMAs2m__DOT__s2m_data_valve));
+        vcdp->chgBit(c+1129,(vlTOPp->BDMAs2m__DOT__cch_ready));
+        vcdp->chgBit(c+1137,(vlTOPp->BDMAs2m__DOT__s2m_aw_valid));
+        vcdp->chgBit(c+1145,(vlTOPp->BDMAs2m__DOT__s2m_aw_halt_exec));
+        vcdp->chgBit(c+1153,(vlTOPp->BDMAs2m__DOT__cycle_finished));
+        vcdp->chgBit(c+1161,(vlTOPp->BDMAs2m__DOT__s2m_w_valid));
+        vcdp->chgBit(c+1169,(vlTOPp->BDMAs2m__DOT__s2m_b_ready));
+        vcdp->chgBus(c+1177,(vlTOPp->BDMAs2m__DOT__w_residual_strb),4);
+        vcdp->chgBit(c+1185,(vlTOPp->BDMAs2m__DOT__s2m_axis_last));
+        vcdp->chgBit(c+1193,(vlTOPp->BDMAs2m__DOT__s2m_axis_leak));
+        vcdp->chgBit(c+1201,((0U == (IData)(vlTOPp->BDMAs2m__DOT__s2m_cch_state))));
+        vcdp->chgBus(c+1209,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_pushPtr_value),3);
+        vcdp->chgBit(c+1217,((7U == (IData)(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_pushPtr_value))));
+        vcdp->chgBus(c+1225,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_popPtr_value),3);
+        vcdp->chgBit(c+1233,((7U == (IData)(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_popPtr_value))));
+        vcdp->chgBit(c+1241,(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_risingOccupancy));
+        vcdp->chgBus(c+1249,((7U & ((IData)(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_pushPtr_value) 
                                     - (IData)(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_popPtr_value)))),3);
-        vcdp->chgBus(c+1249,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_pushPtr_value),3);
-        vcdp->chgBit(c+1257,((7U == (IData)(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_pushPtr_value))));
-        vcdp->chgBus(c+1265,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_popPtr_value),3);
-        vcdp->chgBit(c+1273,((7U == (IData)(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_popPtr_value))));
-        vcdp->chgBit(c+1281,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_risingOccupancy));
-        vcdp->chgBus(c+1289,((7U & ((IData)(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_pushPtr_value) 
+        vcdp->chgBus(c+1257,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_pushPtr_value),3);
+        vcdp->chgBit(c+1265,((7U == (IData)(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_pushPtr_value))));
+        vcdp->chgBus(c+1273,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_popPtr_value),3);
+        vcdp->chgBit(c+1281,((7U == (IData)(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_popPtr_value))));
+        vcdp->chgBit(c+1289,(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_risingOccupancy));
+        vcdp->chgBus(c+1297,((7U & ((IData)(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_pushPtr_value) 
                                     - (IData)(vlTOPp->BDMAs2m__DOT__low_addr_fifo__DOT__logic_popPtr_value)))),3);
-        vcdp->chgBus(c+1297,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_pushPtr_value),3);
-        vcdp->chgBit(c+1305,((7U == (IData)(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_pushPtr_value))));
-        vcdp->chgBus(c+1313,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_popPtr_value),3);
-        vcdp->chgBit(c+1321,((7U == (IData)(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_popPtr_value))));
-        vcdp->chgBit(c+1329,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_risingOccupancy));
-        vcdp->chgBus(c+1337,((7U & ((IData)(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_pushPtr_value) 
+        vcdp->chgBus(c+1305,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_pushPtr_value),3);
+        vcdp->chgBit(c+1313,((7U == (IData)(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_pushPtr_value))));
+        vcdp->chgBus(c+1321,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_popPtr_value),3);
+        vcdp->chgBit(c+1329,((7U == (IData)(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_popPtr_value))));
+        vcdp->chgBit(c+1337,(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_risingOccupancy));
+        vcdp->chgBus(c+1345,((7U & ((IData)(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_pushPtr_value) 
                                     - (IData)(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_popPtr_value)))),3);
-        vcdp->chgBus(c+1345,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_pushPtr_value),4);
-        vcdp->chgBit(c+1353,((0xfU == (IData)(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_pushPtr_value))));
-        vcdp->chgBus(c+1361,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_popPtr_value),4);
-        vcdp->chgBit(c+1369,((0xfU == (IData)(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_popPtr_value))));
-        vcdp->chgBit(c+1377,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_risingOccupancy));
-        vcdp->chgBus(c+1385,((0xfU & ((IData)(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_pushPtr_value) 
+        vcdp->chgBus(c+1353,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_pushPtr_value),4);
+        vcdp->chgBit(c+1361,((0xfU == (IData)(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_pushPtr_value))));
+        vcdp->chgBus(c+1369,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_popPtr_value),4);
+        vcdp->chgBit(c+1377,((0xfU == (IData)(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_popPtr_value))));
+        vcdp->chgBit(c+1385,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_risingOccupancy));
+        vcdp->chgBus(c+1393,((0xfU & ((IData)(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_pushPtr_value) 
                                       - (IData)(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_popPtr_value)))),4);
     }
 }
@@ -386,35 +387,35 @@ void VBDMAs2m::traceChgThis__11(VBDMAs2m__Syms* __restrict vlSymsp, VerilatedVcd
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBus(c+1393,((IData)(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT___zz_logic_ram_port0)),32);
-        vcdp->chgBus(c+1401,((0xfU & (IData)((vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT___zz_logic_ram_port0 
-                                              >> 0x20U)))),4);
+        vcdp->chgBus(c+1401,((IData)(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT___zz_logic_ram_port0)),32);
         vcdp->chgBus(c+1409,((0xfU & (IData)((vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT___zz_logic_ram_port0 
-                                              >> 0x24U)))),4);
+                                              >> 0x20U)))),4);
         vcdp->chgBus(c+1417,((0xfU & (IData)((vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT___zz_logic_ram_port0 
+                                              >> 0x24U)))),4);
+        vcdp->chgBus(c+1425,((0xfU & (IData)((vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT___zz_logic_ram_port0 
                                               >> 0x28U)))),4);
-        vcdp->chgBit(c+1425,((1U & (IData)((vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT___zz_logic_ram_port0 
+        vcdp->chgBit(c+1433,((1U & (IData)((vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT___zz_logic_ram_port0 
                                             >> 0x2cU)))));
-        vcdp->chgBus(c+1433,(vlTOPp->BDMAs2m__DOT__cch_total_bytes),30);
-        vcdp->chgBit(c+1441,((0U == vlTOPp->BDMAs2m__DOT__cch_total_bytes)));
-        vcdp->chgBus(c+1449,(vlTOPp->BDMAs2m__DOT__s2m_axis_len),8);
-        vcdp->chgBit(c+1457,((0U == (IData)(vlTOPp->BDMAs2m__DOT__s2m_axis_len))));
-        vcdp->chgQuad(c+1465,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[0]),45);
-        vcdp->chgQuad(c+1467,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[1]),45);
-        vcdp->chgQuad(c+1469,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[2]),45);
-        vcdp->chgQuad(c+1471,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[3]),45);
-        vcdp->chgQuad(c+1473,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[4]),45);
-        vcdp->chgQuad(c+1475,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[5]),45);
-        vcdp->chgQuad(c+1477,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[6]),45);
-        vcdp->chgQuad(c+1479,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[7]),45);
-        vcdp->chgQuad(c+1481,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[8]),45);
-        vcdp->chgQuad(c+1483,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[9]),45);
-        vcdp->chgQuad(c+1485,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[10]),45);
-        vcdp->chgQuad(c+1487,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[11]),45);
-        vcdp->chgQuad(c+1489,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[12]),45);
-        vcdp->chgQuad(c+1491,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[13]),45);
-        vcdp->chgQuad(c+1493,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[14]),45);
-        vcdp->chgQuad(c+1495,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[15]),45);
+        vcdp->chgBus(c+1441,(vlTOPp->BDMAs2m__DOT__cch_total_bytes),30);
+        vcdp->chgBit(c+1449,((0U == vlTOPp->BDMAs2m__DOT__cch_total_bytes)));
+        vcdp->chgBus(c+1457,(vlTOPp->BDMAs2m__DOT__s2m_axis_len),8);
+        vcdp->chgBit(c+1465,((0U == (IData)(vlTOPp->BDMAs2m__DOT__s2m_axis_len))));
+        vcdp->chgQuad(c+1473,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[0]),45);
+        vcdp->chgQuad(c+1475,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[1]),45);
+        vcdp->chgQuad(c+1477,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[2]),45);
+        vcdp->chgQuad(c+1479,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[3]),45);
+        vcdp->chgQuad(c+1481,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[4]),45);
+        vcdp->chgQuad(c+1483,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[5]),45);
+        vcdp->chgQuad(c+1485,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[6]),45);
+        vcdp->chgQuad(c+1487,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[7]),45);
+        vcdp->chgQuad(c+1489,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[8]),45);
+        vcdp->chgQuad(c+1491,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[9]),45);
+        vcdp->chgQuad(c+1493,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[10]),45);
+        vcdp->chgQuad(c+1495,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[11]),45);
+        vcdp->chgQuad(c+1497,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[12]),45);
+        vcdp->chgQuad(c+1499,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[13]),45);
+        vcdp->chgQuad(c+1501,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[14]),45);
+        vcdp->chgQuad(c+1503,(vlTOPp->BDMAs2m__DOT__s2m_data_fifo__DOT__logic_ram[15]),45);
     }
 }
 
@@ -424,49 +425,49 @@ void VBDMAs2m::traceChgThis__12(VBDMAs2m__Syms* __restrict vlSymsp, VerilatedVcd
     if (0 && vcdp && c) {}  // Prevent unused
     // Body
     {
-        vcdp->chgBit(c+1721,(vlTOPp->dma_aw_valid));
-        vcdp->chgBit(c+1729,(vlTOPp->dma_aw_ready));
-        vcdp->chgBus(c+1737,(vlTOPp->dma_aw_payload_addr),32);
-        vcdp->chgBus(c+1745,(vlTOPp->dma_aw_payload_id),4);
-        vcdp->chgBus(c+1753,(vlTOPp->dma_aw_payload_len),8);
-        vcdp->chgBus(c+1761,(vlTOPp->dma_aw_payload_size),3);
-        vcdp->chgBus(c+1769,(vlTOPp->dma_aw_payload_burst),2);
-        vcdp->chgBit(c+1777,(vlTOPp->dma_w_valid));
-        vcdp->chgBit(c+1785,(vlTOPp->dma_w_ready));
-        vcdp->chgBus(c+1793,(vlTOPp->dma_w_payload_data),32);
-        vcdp->chgBus(c+1801,(vlTOPp->dma_w_payload_strb),4);
-        vcdp->chgBit(c+1809,(vlTOPp->dma_w_payload_last));
-        vcdp->chgBit(c+1817,(vlTOPp->dma_b_valid));
-        vcdp->chgBit(c+1825,(vlTOPp->dma_b_ready));
-        vcdp->chgBus(c+1833,(vlTOPp->dma_b_payload_id),4);
-        vcdp->chgBus(c+1841,(vlTOPp->dma_b_payload_resp),2);
-        vcdp->chgBit(c+1849,(vlTOPp->s2m_data_stream_valid));
-        vcdp->chgBit(c+1857,(vlTOPp->s2m_data_stream_ready));
-        vcdp->chgBus(c+1865,(vlTOPp->s2m_data_stream_payload_data),32);
-        vcdp->chgBus(c+1873,(vlTOPp->s2m_data_stream_payload_id),4);
-        vcdp->chgBus(c+1881,(vlTOPp->s2m_data_stream_payload_strb),4);
-        vcdp->chgBus(c+1889,(vlTOPp->s2m_data_stream_payload_keep_),4);
-        vcdp->chgBit(c+1897,(vlTOPp->s2m_data_stream_payload_last));
-        vcdp->chgBus(c+1905,(vlTOPp->s2m_state),3);
-        vcdp->chgBit(c+1913,(vlTOPp->s2m_cch_valid));
-        vcdp->chgBit(c+1921,(vlTOPp->s2m_cch_ready));
-        vcdp->chgBus(c+1929,(vlTOPp->s2m_cch_payload_desc_start_addr),32);
-        vcdp->chgBus(c+1937,(vlTOPp->s2m_cch_payload_desc_total_bytes),30);
-        vcdp->chgBus(c+1945,(vlTOPp->s2m_cch_payload_desc_burst),2);
-        vcdp->chgBus(c+1953,(vlTOPp->s2m_cch_payload_desc_id),4);
-        vcdp->chgBit(c+1961,(vlTOPp->s2m_cch_payload_desc_reset));
-        vcdp->chgBit(c+1969,(vlTOPp->s2m_intr));
-        vcdp->chgBit(c+1977,(vlTOPp->clk));
-        vcdp->chgBit(c+1985,(vlTOPp->reset));
-        vcdp->chgBit(c+1993,(((IData)(vlTOPp->dma_aw_ready) 
+        vcdp->chgBit(c+1729,(vlTOPp->dma_aw_valid));
+        vcdp->chgBit(c+1737,(vlTOPp->dma_aw_ready));
+        vcdp->chgBus(c+1745,(vlTOPp->dma_aw_payload_addr),32);
+        vcdp->chgBus(c+1753,(vlTOPp->dma_aw_payload_id),4);
+        vcdp->chgBus(c+1761,(vlTOPp->dma_aw_payload_len),8);
+        vcdp->chgBus(c+1769,(vlTOPp->dma_aw_payload_size),3);
+        vcdp->chgBus(c+1777,(vlTOPp->dma_aw_payload_burst),2);
+        vcdp->chgBit(c+1785,(vlTOPp->dma_w_valid));
+        vcdp->chgBit(c+1793,(vlTOPp->dma_w_ready));
+        vcdp->chgBus(c+1801,(vlTOPp->dma_w_payload_data),32);
+        vcdp->chgBus(c+1809,(vlTOPp->dma_w_payload_strb),4);
+        vcdp->chgBit(c+1817,(vlTOPp->dma_w_payload_last));
+        vcdp->chgBit(c+1825,(vlTOPp->dma_b_valid));
+        vcdp->chgBit(c+1833,(vlTOPp->dma_b_ready));
+        vcdp->chgBus(c+1841,(vlTOPp->dma_b_payload_id),4);
+        vcdp->chgBus(c+1849,(vlTOPp->dma_b_payload_resp),2);
+        vcdp->chgBit(c+1857,(vlTOPp->s2m_data_stream_valid));
+        vcdp->chgBit(c+1865,(vlTOPp->s2m_data_stream_ready));
+        vcdp->chgBus(c+1873,(vlTOPp->s2m_data_stream_payload_data),32);
+        vcdp->chgBus(c+1881,(vlTOPp->s2m_data_stream_payload_id),4);
+        vcdp->chgBus(c+1889,(vlTOPp->s2m_data_stream_payload_strb),4);
+        vcdp->chgBus(c+1897,(vlTOPp->s2m_data_stream_payload_keep_),4);
+        vcdp->chgBit(c+1905,(vlTOPp->s2m_data_stream_payload_last));
+        vcdp->chgBus(c+1913,(vlTOPp->s2m_state),3);
+        vcdp->chgBit(c+1921,(vlTOPp->s2m_cch_valid));
+        vcdp->chgBit(c+1929,(vlTOPp->s2m_cch_ready));
+        vcdp->chgBus(c+1937,(vlTOPp->s2m_cch_payload_desc_start_addr),32);
+        vcdp->chgBus(c+1945,(vlTOPp->s2m_cch_payload_desc_total_bytes),30);
+        vcdp->chgBus(c+1953,(vlTOPp->s2m_cch_payload_desc_burst),2);
+        vcdp->chgBus(c+1961,(vlTOPp->s2m_cch_payload_desc_id),4);
+        vcdp->chgBit(c+1969,(vlTOPp->s2m_cch_payload_desc_reset));
+        vcdp->chgBit(c+1977,(vlTOPp->s2m_intr));
+        vcdp->chgBit(c+1985,(vlTOPp->clk));
+        vcdp->chgBit(c+1993,(vlTOPp->reset));
+        vcdp->chgBit(c+2001,(((IData)(vlTOPp->dma_aw_ready) 
                               & (IData)(vlTOPp->BDMAs2m__DOT__s2m_aw_valve))));
-        vcdp->chgBit(c+2001,(((IData)(vlTOPp->s2m_cch_payload_desc_reset) 
+        vcdp->chgBit(c+2009,(((IData)(vlTOPp->s2m_cch_payload_desc_reset) 
                               & (IData)(vlTOPp->BDMAs2m__DOT__cycle_finished))));
-        vcdp->chgBit(c+2009,(((IData)(vlTOPp->dma_aw_valid) 
+        vcdp->chgBit(c+2017,(((IData)(vlTOPp->dma_aw_valid) 
                               & (IData)(vlTOPp->dma_aw_ready))));
-        vcdp->chgBit(c+2017,(((IData)(vlTOPp->dma_w_valid) 
+        vcdp->chgBit(c+2025,(((IData)(vlTOPp->dma_w_valid) 
                               & (IData)(vlTOPp->dma_w_ready))));
-        vcdp->chgBit(c+2025,(((IData)(vlTOPp->dma_b_valid) 
+        vcdp->chgBit(c+2033,(((IData)(vlTOPp->dma_b_valid) 
                               & (IData)(vlTOPp->dma_b_ready))));
     }
 }
