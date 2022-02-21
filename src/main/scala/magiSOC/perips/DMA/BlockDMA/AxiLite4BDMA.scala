@@ -16,10 +16,12 @@ case class AxiLite4BDMAConfig(
                                  axis4KeepEn    : Boolean = true,
                                  axis4IDEn      : Boolean = true,
                                  axis4LastEn    : Boolean = true,
-                                 bytesLimit     : BigInt = 1 GiB
+                                 bytesLimit     : BigInt = 1 GiB,
+                                 outStandingLen : Int     = 8,
+                                 endianness     : Endianness = LITTLE
                              ){
-    val bdmaConfig = BDMAConfig(axi4AddrWidth, axi4DataWidth, axi4MaxBurstLen, axi4IDWidth, axis4StrbEn, axis4KeepEn,
-                    axis4IDEn, axis4LastEn, bytesLimit)
+    val bdmaConfig: BDMAConfig = BDMAConfig(axi4AddrWidth, axi4DataWidth, axi4MaxBurstLen, axi4IDWidth, axis4StrbEn, axis4KeepEn,
+                    axis4IDEn, axis4LastEn, bytesLimit, outStandingLen, endianness)
     def addressWidth = 8
     def axiLite4Config: AxiLite4Config = AxiLite4Config(addressWidth, axi4DataWidth)
 }

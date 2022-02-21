@@ -21,6 +21,7 @@ case class BDMAConfig(
                          axis4IDEn      : Boolean = true,
                          axis4LastEn    : Boolean = true,
                          bytesLimit     : BigInt = 1 GiB,
+                         outStandingLen : Int     = 8,
                          endianness     : Endianness = LITTLE
                      ){
     def axi4Config: Axi4Config = Axi4Config(
@@ -46,6 +47,7 @@ case class BDMAConfig(
     )
     def axi4AxFifoDepth: Int = 8
     def axis4FifoDepth: Int = 32
+    def axi4OutstandingDepth: Int = outStandingLen + 4
 
     def bytesCntWidth: Int = log2Up(bytesLimit)
     def bytesCntDataType: UInt = UInt(bytesCntWidth bits)
@@ -165,11 +167,6 @@ case class BDMACore(config: BDMAConfig) extends Component{
     io.intrM2S := dma_m2s_core.io.m2s_intr
 
     /**
-     *     val desc_start_addr = config.axi4Config.addressType
-    val desc_total_bytes = config.bytesCntDataType
-    val desc_burst = Bits(2 bits)
-    val desc_id = config.axi4Config.idType
-    val desc_reset = Bool()
      * @param busCtrl
      * @param baseAddress
      * @return
