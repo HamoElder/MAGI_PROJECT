@@ -46,6 +46,7 @@ case class BDMAConfig(
         useID = axis4IDEn, useStrb = axis4StrbEn, useKeep = axis4KeepEn, useLast = true
     )
     def axi4AxFifoDepth: Int = 8
+    def axi4WFifoDepth: Int = 2 * axi4MaxBurstLen
     def axis4FifoDepth: Int = 32
     def axi4OutstandingDepth: Int = outStandingLen + 4
 

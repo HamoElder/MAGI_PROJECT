@@ -32,6 +32,7 @@ case class BDMAm2s(config: BDMAConfig) extends Component {
      */
     val m2s_cch_state = Reg(BDMAcchStates()) init(BDMAcchStates.IDLE)
     val m2s_r_state = Reg(BDMAm2sStates()) init(BDMAm2sStates.IDLE)
+    val m2s_axis_state = Reg(BDMAm2sStates()) init(BDMAm2sStates.IDLE)
 
     /**
      * CCH Control Reg
@@ -182,30 +183,33 @@ case class BDMAm2s(config: BDMAConfig) extends Component {
      */
     val keep_strb_full = Bits((1 << config.axi4Size) bits).setAll()
 
+    val bytes_shift_pending_fifo = StreamFifo(UInt(config.axi4Size bits), config.axi4OutstandingDepth)
     val len_pending_fifo = StreamFifo(config.axi4Config.lenType, config.axi4OutstandingDepth)
     val keep_strb_mask_pending_fifo = StreamFifo(config.axisConfig.strbType, config.axi4OutstandingDepth)
-    val keep_strb_pending_fifo = if(config.axisConfig.useStrb || config.axisConfig.useKeep) StreamFifo(config.axisConfig.strbType, config.axi4OutstandingDepth) else null
+    val keep_strb_pending_fifo = StreamFifo(config.axisConfig.strbType, config.axi4OutstandingDepth)
     val id_pending_fifo = if(config.axisConfig.useID) StreamFifo(config.axisConfig.idType, config.axi4OutstandingDepth) else null
 
     val pending_valid = Reg(Bool()) init(False)
+    val bytes_shift_pending = Reg(UInt(config.axi4Size bits))
     val len_pending = Reg(config.axi4Config.lenType)
     val keep_strb_mask_pending = Reg(config.axisConfig.strbType)
     val id_pending = if(config.axisConfig.useID)  Reg(config.axisConfig.idType) else null
-    val keep_strb_pending = if(config.axisConfig.useStrb || config.axisConfig.useKeep) Reg(config.axisConfig.strbType) else null
+    val keep_strb_pending = Reg(config.axisConfig.strbType)
 
     when(io.dma_ar.fire){
         len_pending := io.dma_ar.len
         pending_valid := True
+        bytes_shift_pending := low_addr_fifo.io.pop.payload
         if(config.endianness == LITTLE){
             if(config.axisConfig.useStrb || config.axisConfig.useKeep){
-                keep_strb_pending := (keep_strb_full << low_addr_fifo.io.pop.payload).asBits.resized
+                keep_strb_pending := (keep_strb_full << low_addr_fifo.io.pop.payload).resized
             }
-            keep_strb_mask_pending := (keep_strb_full >> low_bytes_fifo.io.pop.payload).asBits.resized
+            keep_strb_mask_pending := (keep_strb_full >> low_bytes_fifo.io.pop.payload).resized
         }else{
             if(config.axisConfig.useStrb || config.axisConfig.useKeep){
-                keep_strb_pending := (keep_strb_full >> low_addr_fifo.io.pop.payload).asBits.resized
+                keep_strb_pending := (keep_strb_full >> low_addr_fifo.io.pop.payload).resized
             }
-            keep_strb_mask_pending := (keep_strb_full << low_bytes_fifo.io.pop.payload).asBits.resized
+            keep_strb_mask_pending := (keep_strb_full << low_bytes_fifo.io.pop.payload).resized
         }
 
         if(config.axisConfig.useID){
@@ -221,10 +225,13 @@ case class BDMAm2s(config: BDMAConfig) extends Component {
     keep_strb_mask_pending_fifo.io.push.valid := pending_valid
     keep_strb_mask_pending_fifo.io.push.payload := keep_strb_mask_pending
 
-    if(config.axisConfig.useStrb || config.axisConfig.useKeep){
-        keep_strb_pending_fifo.io.push.valid := pending_valid
-        keep_strb_pending_fifo.io.push.payload := keep_strb_pending
-    }
+    bytes_shift_pending_fifo.io.push.valid := pending_valid
+    bytes_shift_pending_fifo.io.push.payload := bytes_shift_pending
+
+
+    keep_strb_pending_fifo.io.push.valid := pending_valid
+    keep_strb_pending_fifo.io.push.payload := keep_strb_pending
+
     if(config.axisConfig.useID){
         id_pending_fifo.io.push.valid := pending_valid
         id_pending_fifo.io.push.payload := id_pending
@@ -237,10 +244,13 @@ case class BDMAm2s(config: BDMAConfig) extends Component {
      */
     val pending_fifo_pop_ready = Reg(Bool()) init(False)
     val m2s_r_valve = Reg(Bool()) init(False)
+    val bytes_shift_fifo = StreamFifo(UInt(config.axi4Size bits), 8)
+    val bytes_shift_reg = Reg(UInt(config.axi4Size bits))
+    val bytes_shift_valid = Reg(Bool()) init(False)
 
-    val m2s_axis_len = Reg(config.axi4Config.lenType)
-    val m2s_axis_id = if(config.axisConfig.useID) Reg(config.axisConfig.idType) else null
-    val m2s_axis_strb_keep = if(config.axisConfig.useStrb || config.axisConfig.useKeep) Reg(config.axisConfig.strbType) else null
+    val m2s_r_len = Reg(config.axi4Config.lenType)
+    val m2s_r_id = if(config.axisConfig.useID) Reg(config.axisConfig.idType) else null
+    val m2s_r_strb_keep = Reg(config.axisConfig.strbType)
     val keep_strb_mask = Reg(Bits(config.axi4Config.bytePerWord bits))
 
     switch(m2s_r_state){
@@ -248,69 +258,152 @@ case class BDMAm2s(config: BDMAConfig) extends Component {
             when(len_pending_fifo.io.pop.fire){
                 m2s_r_valve := True
                 pending_fifo_pop_ready := False
-                m2s_axis_len := len_pending_fifo.io.pop.payload
+                m2s_r_len := len_pending_fifo.io.pop.payload
                 keep_strb_mask := keep_strb_mask_pending_fifo.io.pop.payload
                 if(config.axisConfig.useID){
-                    m2s_axis_id := id_pending_fifo.io.pop.payload
+                    m2s_r_id := id_pending_fifo.io.pop.payload
                 }
                 if(config.axisConfig.useStrb || config.axisConfig.useKeep){
-                    m2s_axis_strb_keep := keep_strb_pending_fifo.io.pop.payload
+                    m2s_r_strb_keep := keep_strb_pending_fifo.io.pop.payload
                 }
-
+                bytes_shift_reg := bytes_shift_pending_fifo.io.pop.payload
+                bytes_shift_valid := True
                 m2s_r_state := BDMAm2sStates.BURST
             }.otherwise{
+                bytes_shift_valid := False
                 m2s_r_valve := False
                 pending_fifo_pop_ready := True
             }
         }
         is(BDMAm2sStates.BURST){
             when(io.dma_r.fire){
-                m2s_axis_len := m2s_axis_len - 1
+                m2s_r_len := m2s_r_len - 1
                 if(config.axisConfig.useKeep || config.axisConfig.useStrb){
-                    m2s_axis_strb_keep := keep_strb_full
+                    m2s_r_strb_keep := keep_strb_full
                 }
-                when(m2s_axis_len === 0){
+                when(m2s_r_len === 0){
                     m2s_r_valve := False
                     pending_fifo_pop_ready := True
                     m2s_r_state := BDMAm2sStates.IDLE
                 }
-
-//                when((io.dma_r.isSLVERR()) && io.dma_r.fire){
-//                    error_probe := 1
-//                }.elsewhen((io.dma_r.isDECERR()) && io.dma_r.fire){
-//                    error_probe := 2
-//                }.otherwise{
-//                    error_probe := 0
-//                }
             }
+            bytes_shift_valid := False
         }
     }
-    when(m2s_cch_state === BDMAcchStates.IDLE){
-        cycle_finished := False
-    }.elsewhen(m2s_data_fifo.io.pop.last && m2s_data_fifo.io.pop.fire)(
-        cycle_finished := True
-    )
-    io.m2s_intr := cycle_finished
     /**
      * R Channel Connections
      */
+    io.dma_r.ready := (m2s_data_fifo.io.availability >= 2) && m2s_r_valve
+
     len_pending_fifo.io.pop.ready := pending_fifo_pop_ready
     keep_strb_mask_pending_fifo.io.pop.ready := pending_fifo_pop_ready
+    bytes_shift_pending_fifo.io.pop.ready := pending_fifo_pop_ready
+    bytes_shift_fifo.io.push.valid := bytes_shift_valid
+    bytes_shift_fifo.io.push.payload := bytes_shift_reg
+
     if(config.axisConfig.useID) id_pending_fifo.io.pop.ready := pending_fifo_pop_ready
-    if(config.axisConfig.useStrb || config.axisConfig.useKeep) keep_strb_pending_fifo.io.pop.ready := pending_fifo_pop_ready
+    keep_strb_pending_fifo.io.pop.ready := pending_fifo_pop_ready
 
     m2s_data_fifo.io.push.valid := io.dma_r.valid && m2s_r_valve
     m2s_data_fifo.io.push.data := io.dma_r.data
-//    io.m2s_cch.desc_err := error_probe
 
-    m2s_data_fifo.io.push.setID(m2s_axis_id)
-    m2s_data_fifo.io.push.setStrb((m2s_axis_len === 0) ? (keep_strb_mask & m2s_axis_strb_keep) | m2s_axis_strb_keep)
-    m2s_data_fifo.io.push.setKeep((m2s_axis_len === 0) ? (keep_strb_mask & m2s_axis_strb_keep) | m2s_axis_strb_keep)
-    m2s_data_fifo.io.push.setLast((m2s_axis_len === 0) && (~len_pending_fifo.io.pop.valid) && (m2s_cch_state === BDMAcchStates.HALT))
+    m2s_data_fifo.io.push.setID(m2s_r_id)
+    m2s_data_fifo.io.push.setStrb((m2s_r_len === 0) ? (keep_strb_mask & m2s_r_strb_keep) | m2s_r_strb_keep)
+    m2s_data_fifo.io.push.setKeep((m2s_r_len === 0) ? (keep_strb_mask & m2s_r_strb_keep) | m2s_r_strb_keep)
+    m2s_data_fifo.io.push.setLast((m2s_r_len === 0) && (~len_pending_fifo.io.pop.valid) && (m2s_cch_state === BDMAcchStates.HALT))
 
-    io.dma_r.ready := m2s_data_fifo.io.push.ready && m2s_r_valve
 
-    io.m2s_data.stream << m2s_data_fifo.io.pop
+    /**
+     * Bubble Remove
+     */
+    val m2s_axis_data_fifo_pop_ready = Reg(Bool()) init(False)
+    val m2s_axis_shift_fifo_pop_ready = Reg(Bool()) init(False)
+    val m2s_axis_fifo = StreamFifo(AxiStream4X(config.axisConfig), 8)
+    val m2s_bytes_shift = Reg(UInt(config.axi4Size bits))
+
+    val m2s_axis_valid = Reg(Bool()) init(False)
+    val m2s_axis_final = Reg(Bool()) init(False)
+    val m2s_axis_last = Reg(Bool()) init(False)
+    val m2s_axis_id = if(config.axisConfig.useID) Reg(config.axisConfig.idType) else null
+    val m2s_axis_strb_keep = Reg(config.axisConfig.strbType)
+    val m2s_axis_residual_strb_keep = Reg(config.axisConfig.strbType)
+    val m2s_axis_data = Reg(config.axisConfig.dataType)
+    val m2s_axis_residual_data = Reg(config.axisConfig.dataType)
+    val m2s_axis_valid_next = Reg(Bool()) init(False)
+
+    switch(m2s_axis_state){
+        is(BDMAm2sStates.IDLE){
+            when(bytes_shift_fifo.io.pop.fire){
+                m2s_axis_shift_fifo_pop_ready := False
+                m2s_bytes_shift := bytes_shift_fifo.io.pop.payload
+                m2s_axis_data_fifo_pop_ready := True
+                m2s_axis_state := BDMAm2sStates.BURST
+            }.otherwise{
+                m2s_axis_shift_fifo_pop_ready := True
+                m2s_axis_data_fifo_pop_ready := False
+            }
+            m2s_axis_final := False
+            m2s_axis_valid_next := False
+            m2s_axis_valid := False
+            m2s_axis_last := False
+        }
+        is(BDMAm2sStates.BURST){
+            when(m2s_axis_final && io.m2s_data.stream.ready){
+                m2s_axis_data := ((m2s_axis_residual_data.getZero ## m2s_axis_residual_data) >> (8 * m2s_bytes_shift)).resized
+                m2s_axis_state := BDMAm2sStates.IDLE
+                m2s_axis_strb_keep := ((config.axisConfig.strbType.getZero ## m2s_axis_residual_strb_keep) >> m2s_bytes_shift).resized
+
+                m2s_axis_valid := True
+                m2s_axis_last := True
+                m2s_axis_shift_fifo_pop_ready := True
+            }.elsewhen(m2s_data_fifo.io.pop.fire){
+                m2s_axis_valid_next := True
+                m2s_axis_valid := m2s_axis_valid_next
+
+                m2s_axis_id := m2s_data_fifo.io.pop.id
+                m2s_axis_residual_data := m2s_data_fifo.io.pop.data
+                m2s_axis_data := ((m2s_data_fifo.io.pop.data ## m2s_axis_residual_data) >> (8 * m2s_bytes_shift)).resized
+                if(config.axisConfig.useStrb || config.axisConfig.useKeep){
+                    m2s_axis_residual_strb_keep := m2s_data_fifo.io.pop.keep_
+                    m2s_axis_strb_keep := ((m2s_data_fifo.io.pop.keep_ ## m2s_axis_residual_strb_keep) >> m2s_bytes_shift).resized
+                }
+                when(m2s_data_fifo.io.pop.last){
+                    when((m2s_data_fifo.io.pop.keep_ >> m2s_bytes_shift) === 0){
+                        m2s_axis_state := BDMAm2sStates.IDLE
+                        m2s_axis_valid := True
+                        m2s_axis_last := True
+                        m2s_axis_shift_fifo_pop_ready := True
+                    }.otherwise{
+                        m2s_axis_final := True
+                    }
+                    m2s_axis_data_fifo_pop_ready := False
+                }.otherwise{
+                    m2s_axis_data_fifo_pop_ready := True
+                }
+            }.otherwise{
+                m2s_axis_valid := False
+            }
+
+        }
+    }
+    m2s_axis_fifo.io.push.valid := m2s_axis_valid
+    m2s_axis_fifo.io.push.data := m2s_axis_data
+
+    m2s_axis_fifo.io.push.setID(m2s_axis_id)
+    m2s_axis_fifo.io.push.setStrb(m2s_axis_strb_keep)
+    m2s_axis_fifo.io.push.setKeep(m2s_axis_strb_keep)
+    m2s_axis_fifo.io.push.setLast(m2s_axis_last)
+
+    io.m2s_data.stream << m2s_axis_fifo.io.pop
+    m2s_data_fifo.io.pop.ready := m2s_axis_data_fifo_pop_ready
+    bytes_shift_fifo.io.pop.ready := m2s_axis_shift_fifo_pop_ready
+
+    when(m2s_cch_state === BDMAcchStates.IDLE){
+        cycle_finished := False
+    }.elsewhen(m2s_axis_fifo.io.pop.last && m2s_axis_fifo.io.pop.fire)(
+        cycle_finished := True
+    )
+    io.m2s_intr := cycle_finished
     io.m2s_state := m2s_r_state
 }
 

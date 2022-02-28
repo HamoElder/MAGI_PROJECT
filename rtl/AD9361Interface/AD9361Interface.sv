@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : AD9361Interface
-// Git hash  : c25aef4ce126c6f2485d3659049da526d3e7b24f
+// Git hash  : 0cd018b79100e2862d569815e96aa168603c6c8b
 
 
 
@@ -18,7 +18,7 @@ module AD9361Interface (
   output reg [11:0]   adc_data_payload_1_cha_i,
   output reg [11:0]   adc_data_payload_1_cha_q,
   input               adc_r1_mod,
-  output reg          adc_error,
+  output reg          adc_status,
   input               rx_if_frame_p,
   input               rx_if_frame_n,
   input      [5:0]    rx_if_data_p,
@@ -105,29 +105,30 @@ module AD9361Interface (
   wire                txClockArea_tx_clk_oddr_Q;
   wire                txClockArea_tx_clk_obuf_O;
   wire                txClockArea_tx_clk_obuf_OB;
-  reg        [5:0]    rxClockArea_rx_data_p;
+  reg        [5:0]    rxClockArea_rx_data_p_s;
+  reg        [5:0]    rxClockArea_rx_data_n_s;
+  wire                rxClockArea_rx_frame_p_s;
+  wire                rxClockArea_rx_frame_n_s;
   reg        [5:0]    rxClockArea_rx_data_n;
-  wire                rxClockArea_rx_frame_p;
-  wire                rxClockArea_rx_frame_n;
-  reg                 rxClockArea_rx_frame_n_regNext;
-  wire       [1:0]    rxClockArea_rx_frame;
-  reg        [5:0]    rxClockArea_rx_data_n_regNext;
-  wire       [11:0]   rxClockArea_rx_data;
-  reg        [1:0]    rxClockArea_rx_frame_next;
-  reg        [11:0]   rxClockArea_rx_data_next;
+  reg                 rxClockArea_rx_frame_n;
+  reg        [11:0]   rxClockArea_rx_data;
+  reg        [1:0]    rxClockArea_rx_frame;
+  reg        [1:0]    rxClockArea_rx_frame_d;
+  reg        [11:0]   rxClockArea_rx_data_d;
   wire       [3:0]    rxClockArea_rx_frame_comb;
-  wire                rxClockArea_rx_error_r1;
-  wire                rxClockArea_rx_valid_r1;
+  reg                 rxClockArea_rx_valid_r1;
+  reg                 rxClockArea_rx_error_r1;
   reg        [11:0]   rxClockArea_rx_data_i_r1;
   reg        [11:0]   rxClockArea_rx_data_q_r1;
-  wire                rxClockArea_rx_error_r2;
-  wire                rxClockArea_rx_valid_r2;
+  wire                when_AD9361Interface_l102;
+  reg                 rxClockArea_rx_error_r2;
+  reg                 rxClockArea_rx_valid_r2;
   reg        [11:0]   rxClockArea_rx_data_i0_r2;
   reg        [11:0]   rxClockArea_rx_data_q0_r2;
   reg        [11:0]   rxClockArea_rx_data_i1_r2;
   reg        [11:0]   rxClockArea_rx_data_q1_r2;
-  wire                when_AD9361Interface_l114;
-  wire                when_AD9361Interface_l119;
+  wire                when_AD9361Interface_l118;
+  wire                when_AD9361Interface_l123;
   reg        [2:0]    txClockArea_tx_data_cnt;
   reg        [11:0]   txClockArea_tx_data_i0_d;
   reg        [11:0]   txClockArea_tx_data_q0_d;
@@ -138,7 +139,7 @@ module AD9361Interface (
   reg        [5:0]    txClockArea_tx_data_n;
   wire       [3:0]    txClockArea_tx_data_sel;
   wire                dac_data_fire;
-  wire                when_AD9361Interface_l173;
+  wire                when_AD9361Interface_l177;
   wire                txClockArea_tx_frame_buf;
   wire                txClockArea_tx_clk_buf;
 
@@ -431,21 +432,21 @@ module AD9361Interface (
   assign iBUFDS_1_I = rx_if_data_p[0];
   assign iBUFDS_1_IB = rx_if_data_n[0];
   always @(*) begin
-    rxClockArea_rx_data_p[0] = iDDR_1_Q1;
-    rxClockArea_rx_data_p[1] = iDDR_2_Q1;
-    rxClockArea_rx_data_p[2] = iDDR_3_Q1;
-    rxClockArea_rx_data_p[3] = iDDR_4_Q1;
-    rxClockArea_rx_data_p[4] = iDDR_5_Q1;
-    rxClockArea_rx_data_p[5] = iDDR_6_Q1;
+    rxClockArea_rx_data_p_s[0] = iDDR_1_Q1;
+    rxClockArea_rx_data_p_s[1] = iDDR_2_Q1;
+    rxClockArea_rx_data_p_s[2] = iDDR_3_Q1;
+    rxClockArea_rx_data_p_s[3] = iDDR_4_Q1;
+    rxClockArea_rx_data_p_s[4] = iDDR_5_Q1;
+    rxClockArea_rx_data_p_s[5] = iDDR_6_Q1;
   end
 
   always @(*) begin
-    rxClockArea_rx_data_n[0] = iDDR_1_Q2;
-    rxClockArea_rx_data_n[1] = iDDR_2_Q2;
-    rxClockArea_rx_data_n[2] = iDDR_3_Q2;
-    rxClockArea_rx_data_n[3] = iDDR_4_Q2;
-    rxClockArea_rx_data_n[4] = iDDR_5_Q2;
-    rxClockArea_rx_data_n[5] = iDDR_6_Q2;
+    rxClockArea_rx_data_n_s[0] = iDDR_1_Q2;
+    rxClockArea_rx_data_n_s[1] = iDDR_2_Q2;
+    rxClockArea_rx_data_n_s[2] = iDDR_3_Q2;
+    rxClockArea_rx_data_n_s[3] = iDDR_4_Q2;
+    rxClockArea_rx_data_n_s[4] = iDDR_5_Q2;
+    rxClockArea_rx_data_n_s[5] = iDDR_6_Q2;
   end
 
   assign iBUFDS_2_I = rx_if_data_p[1];
@@ -458,17 +459,12 @@ module AD9361Interface (
   assign iBUFDS_5_IB = rx_if_data_n[4];
   assign iBUFDS_6_I = rx_if_data_p[5];
   assign iBUFDS_6_IB = rx_if_data_n[5];
-  assign rxClockArea_rx_frame_p = rxClockArea_iddr_frame_Q1;
-  assign rxClockArea_rx_frame_n = rxClockArea_iddr_frame_Q2;
-  assign rxClockArea_rx_frame = {rxClockArea_rx_frame_n_regNext,rxClockArea_rx_frame_p};
-  assign rxClockArea_rx_data = {rxClockArea_rx_data_n_regNext,rxClockArea_rx_data_p};
-  assign rxClockArea_rx_frame_comb = {rxClockArea_rx_frame_next,rxClockArea_rx_frame};
-  assign rxClockArea_rx_error_r1 = (! ((rxClockArea_rx_frame_comb == 4'b1100) || (rxClockArea_rx_frame_comb == 4'b0011)));
-  assign rxClockArea_rx_valid_r1 = (rxClockArea_rx_frame_comb == 4'b1100);
-  assign rxClockArea_rx_error_r2 = (! ((((rxClockArea_rx_frame_comb == 4'b1111) || (rxClockArea_rx_frame_comb == 4'b1100)) || (rxClockArea_rx_frame_comb == 4'b0000)) || (rxClockArea_rx_frame_comb == 4'b0011)));
-  assign rxClockArea_rx_valid_r2 = (rxClockArea_rx_frame_comb == 4'b0000);
-  assign when_AD9361Interface_l114 = (rxClockArea_rx_frame_comb == 4'b1111);
-  assign when_AD9361Interface_l119 = (rxClockArea_rx_frame_comb == 4'b0000);
+  assign rxClockArea_rx_frame_p_s = rxClockArea_iddr_frame_Q1;
+  assign rxClockArea_rx_frame_n_s = rxClockArea_iddr_frame_Q2;
+  assign rxClockArea_rx_frame_comb = {rxClockArea_rx_frame_d,rxClockArea_rx_frame};
+  assign when_AD9361Interface_l102 = (rxClockArea_rx_frame_comb == 4'b1100);
+  assign when_AD9361Interface_l118 = (rxClockArea_rx_frame_comb == 4'b1111);
+  assign when_AD9361Interface_l123 = (rxClockArea_rx_frame_comb == 4'b0000);
   always @(*) begin
     if(adc_r1_mod) begin
       adc_data_valid = rxClockArea_rx_valid_r1;
@@ -511,15 +507,15 @@ module AD9361Interface (
 
   always @(*) begin
     if(adc_r1_mod) begin
-      adc_error = rxClockArea_rx_error_r1;
+      adc_status = (! rxClockArea_rx_error_r1);
     end else begin
-      adc_error = rxClockArea_rx_error_r2;
+      adc_status = (! rxClockArea_rx_error_r2);
     end
   end
 
   assign txClockArea_tx_data_sel = {{txClockArea_tx_data_cnt[2],dac_t1_mod},txClockArea_tx_data_cnt[1 : 0]};
   assign dac_data_fire = (dac_data_valid && dac_data_ready);
-  assign when_AD9361Interface_l173 = txClockArea_tx_data_cnt[2];
+  assign when_AD9361Interface_l177 = txClockArea_tx_data_cnt[2];
   assign dac_data_ready = (txClockArea_tx_data_cnt == 3'b000);
   assign oDDR_1_D1 = txClockArea_tx_data_p[0];
   assign oDDR_1_D2 = txClockArea_tx_data_n[0];
@@ -559,24 +555,64 @@ module AD9361Interface (
   assign tx_fb_clk_n = txClockArea_tx_clk_obuf_OB;
   assign data_clk = bUFG_1_O;
   always @(posedge bUFG_1_O) begin
-    rxClockArea_rx_frame_n_regNext <= rxClockArea_rx_frame_n;
-    rxClockArea_rx_data_n_regNext <= rxClockArea_rx_data_n;
-    rxClockArea_rx_frame_next <= rxClockArea_rx_frame;
-    rxClockArea_rx_data_next <= rxClockArea_rx_data;
-    if(rxClockArea_rx_valid_r1) begin
-      rxClockArea_rx_data_i_r1 <= {rxClockArea_rx_data_next[11 : 6],rxClockArea_rx_data[11 : 6]};
-      rxClockArea_rx_data_q_r1 <= {rxClockArea_rx_data_next[5 : 0],rxClockArea_rx_data[5 : 0]};
+    if(!resetn) begin
+      rxClockArea_rx_data_n <= 6'h0;
+      rxClockArea_rx_frame_n <= 1'b0;
+      rxClockArea_rx_data <= 12'h0;
+      rxClockArea_rx_frame <= 2'b00;
+      rxClockArea_rx_frame_d <= 2'b00;
+      rxClockArea_rx_data_d <= 12'h0;
+      rxClockArea_rx_valid_r1 <= 1'b0;
+      rxClockArea_rx_error_r1 <= 1'b0;
+      rxClockArea_rx_error_r2 <= 1'b0;
+      rxClockArea_rx_valid_r2 <= 1'b0;
+      txClockArea_tx_data_cnt <= 3'b000;
+      txClockArea_tx_data_i0_d <= 12'h0;
+      txClockArea_tx_data_q0_d <= 12'h0;
+      txClockArea_tx_data_i1_d <= 12'h0;
+      txClockArea_tx_data_q1_d <= 12'h0;
+    end else begin
+      rxClockArea_rx_data_n <= rxClockArea_rx_data_n_s;
+      rxClockArea_rx_frame_n <= rxClockArea_rx_frame_n_s;
+      rxClockArea_rx_data <= {rxClockArea_rx_data_n,rxClockArea_rx_data_p_s};
+      rxClockArea_rx_frame <= {rxClockArea_rx_frame_n,rxClockArea_rx_frame_p_s};
+      rxClockArea_rx_frame_d <= rxClockArea_rx_frame;
+      rxClockArea_rx_data_d <= rxClockArea_rx_data;
+      rxClockArea_rx_valid_r1 <= (rxClockArea_rx_frame_comb == 4'b1100);
+      if(when_AD9361Interface_l102) begin
+        rxClockArea_rx_error_r1 <= (! ((rxClockArea_rx_frame_comb == 4'b1100) || (rxClockArea_rx_frame_comb == 4'b0011)));
+      end
+      rxClockArea_rx_error_r2 <= (! ((((rxClockArea_rx_frame_comb == 4'b1111) || (rxClockArea_rx_frame_comb == 4'b1100)) || (rxClockArea_rx_frame_comb == 4'b0000)) || (rxClockArea_rx_frame_comb == 4'b0011)));
+      rxClockArea_rx_valid_r2 <= (rxClockArea_rx_frame_comb == 4'b0000);
+      if(dac_data_fire) begin
+        txClockArea_tx_data_cnt <= 3'b100;
+        txClockArea_tx_data_i0_d <= dac_data_payload_0_cha_i;
+        txClockArea_tx_data_q0_d <= dac_data_payload_0_cha_q;
+        txClockArea_tx_data_i1_d <= dac_data_payload_1_cha_i;
+        txClockArea_tx_data_q1_d <= dac_data_payload_1_cha_q;
+      end else begin
+        if(when_AD9361Interface_l177) begin
+          txClockArea_tx_data_cnt <= (txClockArea_tx_data_cnt + 3'b001);
+        end
+      end
     end
-    if(when_AD9361Interface_l114) begin
-      rxClockArea_rx_data_i0_r2 <= {rxClockArea_rx_data_next[11 : 6],rxClockArea_rx_data[11 : 6]};
-      rxClockArea_rx_data_q0_r2 <= {rxClockArea_rx_data_next[5 : 0],rxClockArea_rx_data[5 : 0]};
+  end
+
+  always @(posedge bUFG_1_O) begin
+    if(when_AD9361Interface_l102) begin
+      rxClockArea_rx_data_i_r1 <= {rxClockArea_rx_data_d[11 : 6],rxClockArea_rx_data[11 : 6]};
+      rxClockArea_rx_data_q_r1 <= {rxClockArea_rx_data_d[5 : 0],rxClockArea_rx_data[5 : 0]};
     end
-    if(when_AD9361Interface_l119) begin
-      rxClockArea_rx_data_i1_r2 <= {rxClockArea_rx_data_next[11 : 6],rxClockArea_rx_data[11 : 6]};
-      rxClockArea_rx_data_q1_r2 <= {rxClockArea_rx_data_next[5 : 0],rxClockArea_rx_data[5 : 0]};
+    if(when_AD9361Interface_l118) begin
+      rxClockArea_rx_data_i0_r2 <= {rxClockArea_rx_data_d[11 : 6],rxClockArea_rx_data[11 : 6]};
+      rxClockArea_rx_data_q0_r2 <= {rxClockArea_rx_data_d[5 : 0],rxClockArea_rx_data[5 : 0]};
+    end
+    if(when_AD9361Interface_l123) begin
+      rxClockArea_rx_data_i1_r2 <= {rxClockArea_rx_data_d[11 : 6],rxClockArea_rx_data[11 : 6]};
+      rxClockArea_rx_data_q1_r2 <= {rxClockArea_rx_data_d[5 : 0],rxClockArea_rx_data[5 : 0]};
     end
     if(!dac_data_fire) begin
-      if(when_AD9361Interface_l173) begin
+      if(when_AD9361Interface_l177) begin
         case(txClockArea_tx_data_sel)
           4'b1101 : begin
             txClockArea_tx_frame <= 1'b0;
@@ -618,28 +654,6 @@ module AD9361Interface (
         txClockArea_tx_frame <= 1'b0;
         txClockArea_tx_data_p <= 6'h0;
         txClockArea_tx_data_n <= 6'h0;
-      end
-    end
-  end
-
-  always @(posedge bUFG_1_O) begin
-    if(!resetn) begin
-      txClockArea_tx_data_cnt <= 3'b000;
-      txClockArea_tx_data_i0_d <= 12'h0;
-      txClockArea_tx_data_q0_d <= 12'h0;
-      txClockArea_tx_data_i1_d <= 12'h0;
-      txClockArea_tx_data_q1_d <= 12'h0;
-    end else begin
-      if(dac_data_fire) begin
-        txClockArea_tx_data_cnt <= 3'b100;
-        txClockArea_tx_data_i0_d <= dac_data_payload_0_cha_i;
-        txClockArea_tx_data_q0_d <= dac_data_payload_0_cha_q;
-        txClockArea_tx_data_i1_d <= dac_data_payload_1_cha_i;
-        txClockArea_tx_data_q1_d <= dac_data_payload_1_cha_q;
-      end else begin
-        if(when_AD9361Interface_l173) begin
-          txClockArea_tx_data_cnt <= (txClockArea_tx_data_cnt + 3'b001);
-        end
       end
     end
   end

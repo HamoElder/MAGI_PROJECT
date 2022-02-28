@@ -18,7 +18,7 @@ case class AD9361Interface() extends Component {
         val dac_t1_mod = in(Bool())
         val adc_data = master(Flow(Vec(IQBundle(dataType), 2)))
         val adc_r1_mod = in(Bool())
-        val adc_error = out(Bool())
+        val adc_status = out(Bool())
         /**
          * Physical Interface(Receive Channel)
          */
@@ -56,8 +56,8 @@ case class AD9361Interface() extends Component {
         /**
          * AD9361 IP CORE
          */
-        val rx_data_p = interfaceDataType
-        val rx_data_n = interfaceDataType
+        val rx_data_p_s = interfaceDataType
+        val rx_data_n_s = interfaceDataType
         for(idx <- 0 until interfaceWidth){
             val rx_data_ibuf = IBUFDS(io.rx_if_data.p(idx), io.rx_if_data.n(idx))
             val iddr_data = IDDR(ClkEdge = "SAME_EDGE_PIPELINED", Q1Init = false, Q2Init = false, SRType = "ASYNC")
@@ -66,59 +66,63 @@ case class AD9361Interface() extends Component {
             iddr_data.io.S <> False
             iddr_data.io.C <> rx_clk
             iddr_data.io.D <> rx_data_ibuf
-            iddr_data.io.Q1 <> rx_data_p(idx)
-            iddr_data.io.Q2 <> rx_data_n(idx)
+            iddr_data.io.Q1 <> rx_data_p_s(idx)
+            iddr_data.io.Q2 <> rx_data_n_s(idx)
         }
         val rx_frame_ibuf = IBUFDS(io.rx_if_frame.p, io.rx_if_frame.n)
-        val rx_frame_p = Bool()
-        val rx_frame_n = Bool()
+        val rx_frame_p_s = Bool()
+        val rx_frame_n_s = Bool()
         val iddr_frame = IDDR(ClkEdge = "SAME_EDGE_PIPELINED", Q1Init = false, Q2Init = false, SRType = "ASYNC")
         iddr_frame.io.CE <> True
         iddr_frame.io.R <> False
         iddr_frame.io.S <> False
         iddr_frame.io.C <> rx_clk
         iddr_frame.io.D <> rx_frame_ibuf
-        iddr_frame.io.Q1 <> rx_frame_p
-        iddr_frame.io.Q2 <> rx_frame_n
+        iddr_frame.io.Q1 <> rx_frame_p_s
+        iddr_frame.io.Q2 <> rx_frame_n_s
 
         /**
          * AD9361 RX Interface Logic
          */
-        val rx_frame = RegNext(rx_frame_n) ## rx_frame_p
-        val rx_data = RegNext(rx_data_n) ## rx_data_p
-        val rx_frame_next = RegNext(rx_frame)
-        val rx_data_next = RegNext(rx_data)
-        val rx_frame_comb = rx_frame_next ## rx_frame
+        val rx_data_n: Bits = RegNext(rx_data_n_s) init(0)
+        val rx_frame_n: Bool = RegNext(rx_frame_n_s) init(False)
+        val rx_data: Bits = RegNext(rx_data_n ## rx_data_p_s) init(0)
+        val rx_frame: Bits = RegNext(rx_frame_n.asBits ## rx_frame_p_s.asBits) init(0)
+        val rx_frame_d: Bits = RegNext(rx_frame) init(0)
+        val rx_data_d: Bits = RegNext(rx_data) init(0)
+        val rx_frame_comb: Bits = rx_frame_d ## rx_frame
         /**
          * Receive data path for single rf channel, frame is expected to qualify i/q msb only
           */
-        val rx_error_r1 = !((rx_frame_comb===B"4'b1100")||(rx_frame_comb===B"4'b0011"))
-        val rx_valid_r1 = rx_frame_comb===B"4'b1100"
-        val rx_data_i_r1 = Reg(dataType)
-        val rx_data_q_r1 = Reg(dataType)
-        when(rx_valid_r1){
-            rx_data_i_r1 := rx_data_next(iqWidth - 1 downto 6) ## rx_data(iqWidth - 1 downto 6)
-            rx_data_q_r1 := rx_data_next(5 downto 0) ## rx_data(5 downto 0)
+
+        val rx_valid_r1: Bool = RegNext(rx_frame_comb===B"4'b1100") init(False)
+        val rx_error_r1: Bool = Reg(Bool()) init(False)
+        val rx_data_i_r1: Bits = Reg(dataType)
+        val rx_data_q_r1: Bits = Reg(dataType)
+        when(rx_frame_comb===B"4'b1100"){
+            rx_error_r1 := !((rx_frame_comb===B"4'b1100")||(rx_frame_comb===B"4'b0011"))
+            rx_data_i_r1 := rx_data_d(iqWidth - 1 downto 6) ## rx_data(iqWidth - 1 downto 6)
+            rx_data_q_r1 := rx_data_d(5 downto 0) ## rx_data(5 downto 0)
         }
 
         /**
          * Receive data path for dual rf channel, frame is expected to qualify i/q msb and lsb for rf-1 only
          */
-        val rx_error_r2 = ~((rx_frame_comb===B"4'b1111")||(rx_frame_comb===B"4'b1100")||(rx_frame_comb===B"4'b0000")||(rx_frame_comb===B"4'b0011"))
-        val rx_valid_r2 = rx_frame_comb === B"4'b0000"
+        val rx_error_r2: Bool = RegNext(!((rx_frame_comb===B"4'b1111")||(rx_frame_comb===B"4'b1100")||
+            (rx_frame_comb===B"4'b0000")||(rx_frame_comb===B"4'b0011"))) init(False)
+        val rx_valid_r2: Bool = RegNext(rx_frame_comb === B"4'b0000") init(False)
         val rx_data_i0_r2 = Reg(dataType)
         val rx_data_q0_r2 = Reg(dataType)
         val rx_data_i1_r2 = Reg(dataType)
         val rx_data_q1_r2 = Reg(dataType)
-
         when(rx_frame_comb===B"4'b1111"){
-            rx_data_i0_r2 := rx_data_next(11 downto 6) ## rx_data(11 downto 6)
-            rx_data_q0_r2 := rx_data_next(5 downto 0) ## rx_data(5 downto 0)
+            rx_data_i0_r2 := rx_data_d(11 downto 6) ## rx_data(11 downto 6)
+            rx_data_q0_r2 := rx_data_d(5 downto 0) ## rx_data(5 downto 0)
         }
 
         when(rx_frame_comb===B"4'b0000"){
-            rx_data_i1_r2 := rx_data_next(11 downto 6) ## rx_data(11 downto 6)
-            rx_data_q1_r2 := rx_data_next(5 downto 0) ## rx_data(5 downto 0)
+            rx_data_i1_r2 := rx_data_d(11 downto 6) ## rx_data(11 downto 6)
+            rx_data_q1_r2 := rx_data_d(5 downto 0) ## rx_data(5 downto 0)
         }
 
         /**
@@ -130,14 +134,14 @@ case class AD9361Interface() extends Component {
             io.adc_data.payload(0).cha_q := rx_data_q_r1
             io.adc_data.payload(1).cha_i := 0
             io.adc_data.payload(1).cha_q := 0
-            io.adc_error := rx_error_r1
+            io.adc_status := ~rx_error_r1
         }.otherwise{
             io.adc_data.valid := rx_valid_r2
             io.adc_data.payload(0).cha_i := rx_data_i0_r2
             io.adc_data.payload(0).cha_q := rx_data_q0_r2
             io.adc_data.payload(1).cha_i := rx_data_i1_r2
             io.adc_data.payload(1).cha_q := rx_data_q1_r2
-            io.adc_error := rx_error_r2
+            io.adc_status := ~rx_error_r2
         }
     }
 
