@@ -94,11 +94,13 @@ VL_MODULE(VBDMAs2m) {
         CData/*3:0*/ BDMAs2m__DOT__s2m_w_strb;
         CData/*0:0*/ BDMAs2m__DOT__s2m_w_valid;
         CData/*0:0*/ BDMAs2m__DOT__s2m_w_last;
+        CData/*0:0*/ BDMAs2m__DOT__s2m_w_final;
         CData/*0:0*/ BDMAs2m__DOT__pending_fifo_pop_ready;
         CData/*0:0*/ BDMAs2m__DOT__stream_data_valve;
         CData/*0:0*/ BDMAs2m__DOT__len_pending_fifo_io_pop_fire;
+        CData/*0:0*/ BDMAs2m__DOT__when_BDMAs2m_l264;
         CData/*0:0*/ BDMAs2m__DOT__s2m_data_stream_fire;
-        CData/*0:0*/ BDMAs2m__DOT__when_BDMAs2m_l305;
+        CData/*0:0*/ BDMAs2m__DOT__when_BDMAs2m_l338;
         CData/*0:0*/ BDMAs2m__DOT__s2m_aw_fifo__DOT___zz_1;
         CData/*0:0*/ BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_pushPtr_willIncrement;
         CData/*2:0*/ BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_pushPtr_valueNext;
@@ -125,10 +127,10 @@ VL_MODULE(VBDMAs2m) {
         CData/*0:0*/ BDMAs2m__DOT__low_addr_fifo__DOT__logic_popping;
         CData/*0:0*/ BDMAs2m__DOT__low_addr_fifo__DOT__logic_full;
         CData/*0:0*/ BDMAs2m__DOT__low_addr_fifo__DOT___zz_io_pop_valid;
-        CData/*1:0*/ BDMAs2m__DOT__low_bytes_fifo__DOT___zz_logic_ram_port0;
-        CData/*0:0*/ BDMAs2m__DOT__low_bytes_fifo__DOT___zz_1;
     };
     struct {
+        CData/*1:0*/ BDMAs2m__DOT__low_bytes_fifo__DOT___zz_logic_ram_port0;
+        CData/*0:0*/ BDMAs2m__DOT__low_bytes_fifo__DOT___zz_1;
         CData/*0:0*/ BDMAs2m__DOT__low_bytes_fifo__DOT__logic_pushPtr_willIncrement;
         CData/*2:0*/ BDMAs2m__DOT__low_bytes_fifo__DOT__logic_pushPtr_valueNext;
         CData/*2:0*/ BDMAs2m__DOT__low_bytes_fifo__DOT__logic_pushPtr_value;
@@ -191,10 +193,10 @@ VL_MODULE(VBDMAs2m) {
         CData/*3:0*/ BDMAs2m__DOT__len_pending_fifo__DOT__logic_popPtr_valueNext;
         CData/*3:0*/ BDMAs2m__DOT__len_pending_fifo__DOT__logic_popPtr_value;
         CData/*0:0*/ BDMAs2m__DOT__len_pending_fifo__DOT__logic_ptrMatch;
-        CData/*0:0*/ BDMAs2m__DOT__len_pending_fifo__DOT__logic_risingOccupancy;
-        CData/*0:0*/ BDMAs2m__DOT__len_pending_fifo__DOT__logic_pushing;
     };
     struct {
+        CData/*0:0*/ BDMAs2m__DOT__len_pending_fifo__DOT__logic_risingOccupancy;
+        CData/*0:0*/ BDMAs2m__DOT__len_pending_fifo__DOT__logic_pushing;
         CData/*0:0*/ BDMAs2m__DOT__len_pending_fifo__DOT__logic_full;
         CData/*0:0*/ BDMAs2m__DOT__len_pending_fifo__DOT___zz_io_pop_valid;
         CData/*3:0*/ BDMAs2m__DOT__len_pending_fifo__DOT__logic_ptrDif;

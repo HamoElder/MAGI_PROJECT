@@ -31,12 +31,12 @@ void VBDMAs2m::_initial__TOP__1(VBDMAs2m__Syms* __restrict vlSymsp) {
     VBDMAs2m* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->dma_b_ready = 1U;
-    vlTOPp->BDMAs2m__DOT__strb_mask_pending_fifo__DOT____Vxrand1 
-        = VL_RAND_RESET_I(4);
     vlTOPp->BDMAs2m__DOT__len_pending_fifo__DOT____Vxrand1 
         = VL_RAND_RESET_I(8);
     vlTOPp->BDMAs2m__DOT__bytes_shift_pending_fifo__DOT____Vxrand1 
         = VL_RAND_RESET_I(2);
+    vlTOPp->BDMAs2m__DOT__strb_mask_pending_fifo__DOT____Vxrand1 
+        = VL_RAND_RESET_I(4);
 }
 
 void VBDMAs2m::_settle__TOP__9(VBDMAs2m__Syms* __restrict vlSymsp) {
@@ -165,6 +165,8 @@ void VBDMAs2m::_settle__TOP__9(VBDMAs2m__Syms* __restrict vlSymsp) {
     vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_pushing 
         = ((IData)(vlTOPp->BDMAs2m__DOT__s2m_aw_valid) 
            & (~ (IData)(vlTOPp->BDMAs2m__DOT__low_bytes_fifo__DOT__logic_full)));
+    vlTOPp->BDMAs2m__DOT__when_BDMAs2m_l264 = ((IData)(vlTOPp->BDMAs2m__DOT__s2m_w_final) 
+                                               & (~ (IData)(vlTOPp->BDMAs2m__DOT__s2m_w_fifo__DOT__logic_full)));
     vlTOPp->BDMAs2m__DOT__s2m_w_fifo__DOT__logic_pushing 
         = ((IData)(vlTOPp->BDMAs2m__DOT__s2m_w_valid) 
            & (~ (IData)(vlTOPp->BDMAs2m__DOT__s2m_w_fifo__DOT__logic_full)));
@@ -175,7 +177,7 @@ void VBDMAs2m::_settle__TOP__9(VBDMAs2m__Syms* __restrict vlSymsp) {
                      & (~ (IData)(vlTOPp->BDMAs2m__DOT__s2m_w_fifo__DOT__logic_full))))));
     vlTOPp->BDMAs2m__DOT__s2m_data_stream_fire = ((IData)(vlTOPp->s2m_data_stream_valid) 
                                                   & (IData)(vlTOPp->s2m_data_stream_ready));
-    vlTOPp->BDMAs2m__DOT__when_BDMAs2m_l305 = ((IData)(vlTOPp->BDMAs2m__DOT__s2m_axis_last) 
+    vlTOPp->BDMAs2m__DOT__when_BDMAs2m_l338 = ((IData)(vlTOPp->BDMAs2m__DOT__s2m_axis_last) 
                                                | (((IData)(vlTOPp->s2m_data_stream_valid) 
                                                    & (IData)(vlTOPp->s2m_data_stream_ready)) 
                                                   & (IData)(vlTOPp->s2m_data_stream_payload_last)));
@@ -469,11 +471,13 @@ void VBDMAs2m::_ctor_var_reset() {
     BDMAs2m__DOT__s2m_w_strb = VL_RAND_RESET_I(4);
     BDMAs2m__DOT__s2m_w_valid = VL_RAND_RESET_I(1);
     BDMAs2m__DOT__s2m_w_last = VL_RAND_RESET_I(1);
+    BDMAs2m__DOT__s2m_w_final = VL_RAND_RESET_I(1);
     BDMAs2m__DOT__pending_fifo_pop_ready = VL_RAND_RESET_I(1);
     BDMAs2m__DOT__stream_data_valve = VL_RAND_RESET_I(1);
     BDMAs2m__DOT__len_pending_fifo_io_pop_fire = VL_RAND_RESET_I(1);
+    BDMAs2m__DOT__when_BDMAs2m_l264 = VL_RAND_RESET_I(1);
     BDMAs2m__DOT__s2m_data_stream_fire = VL_RAND_RESET_I(1);
-    BDMAs2m__DOT__when_BDMAs2m_l305 = VL_RAND_RESET_I(1);
+    BDMAs2m__DOT__when_BDMAs2m_l338 = VL_RAND_RESET_I(1);
     VL_RAND_RESET_W(72, BDMAs2m__DOT__s2m_cch_state_string);
     BDMAs2m__DOT__s2m_aw_fifo__DOT___zz_logic_ram_port0 = VL_RAND_RESET_Q(49);
     BDMAs2m__DOT__s2m_aw_fifo__DOT___zz_1 = VL_RAND_RESET_I(1);
