@@ -180,7 +180,7 @@ void VBDMAs2m::traceChgThis__2(VBDMAs2m__Syms* __restrict vlSymsp, VerilatedVcd*
                              & (~ (IData)(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_full)))));
         vcdp->chgBit(c+241,(vlTOPp->BDMAs2m__DOT__s2m_aw_finish));
         vcdp->chgBit(c+249,(vlTOPp->BDMAs2m__DOT__len_pending_fifo_io_pop_fire));
-        vcdp->chgBit(c+257,(vlTOPp->BDMAs2m__DOT__when_BDMAs2m_l264));
+        vcdp->chgBit(c+257,(vlTOPp->BDMAs2m__DOT__when_BDMAs2m_l263));
         vcdp->chgBit(c+265,(((0U == (IData)(vlTOPp->BDMAs2m__DOT__s2m_w_state)) 
                              & (IData)(vlTOPp->BDMAs2m__DOT__s2m_aw_finish))));
         vcdp->chgArray(c+273,(vlTOPp->BDMAs2m__DOT__s2m_cch_state_string),72);
@@ -617,15 +617,13 @@ void VBDMAs2m::traceChgThis__10(VBDMAs2m__Syms* __restrict vlSymsp, VerilatedVcd
                               & (IData)(vlTOPp->BDMAs2m__DOT__cycle_finished))));
         vcdp->chgBit(c+3089,(((IData)(vlTOPp->dma_aw_valid) 
                               & (IData)(vlTOPp->dma_aw_ready))));
-        vcdp->chgBit(c+3097,(((IData)(vlTOPp->s2m_data_stream_payload_last) 
-                              & (1U == (IData)(vlTOPp->BDMAs2m__DOT__s2m_axis_len)))));
-        vcdp->chgBit(c+3105,(((IData)(vlTOPp->s2m_data_stream_valid) 
+        vcdp->chgBit(c+3097,(((IData)(vlTOPp->s2m_data_stream_valid) 
                               & (IData)(vlTOPp->s2m_data_stream_ready))));
-        vcdp->chgBit(c+3113,(((IData)(vlTOPp->BDMAs2m__DOT__s2m_axis_last) 
+        vcdp->chgBit(c+3105,(((IData)(vlTOPp->BDMAs2m__DOT__s2m_axis_last) 
                               | (((IData)(vlTOPp->s2m_data_stream_valid) 
                                   & (IData)(vlTOPp->s2m_data_stream_ready)) 
                                  & (IData)(vlTOPp->s2m_data_stream_payload_last)))));
-        vcdp->chgQuad(c+3121,(((0U == (IData)(vlTOPp->s2m_state))
+        vcdp->chgQuad(c+3113,(((0U == (IData)(vlTOPp->s2m_state))
                                 ? VL_ULL(0x49444c4520)
                                 : ((1U == (IData)(vlTOPp->s2m_state))
                                     ? VL_ULL(0x4255525354)

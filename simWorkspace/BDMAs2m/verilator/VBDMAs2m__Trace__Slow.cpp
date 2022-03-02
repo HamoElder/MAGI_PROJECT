@@ -200,7 +200,7 @@ void VBDMAs2m::traceInitThis__1(VBDMAs2m__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBit(c+3081,"BDMAs2m when_BDMAs2m_l158", false,-1);
         vcdp->declBit(c+3089,"BDMAs2m dma_aw_fire", false,-1);
         vcdp->declBit(c+3089,"BDMAs2m dma_aw_fire_1", false,-1);
-        vcdp->declBus(c+3137,"BDMAs2m strb_full", false,-1, 3,0);
+        vcdp->declBus(c+3129,"BDMAs2m strb_full", false,-1, 3,0);
         vcdp->declBit(c+2345,"BDMAs2m pending_valid", false,-1);
         vcdp->declBus(c+1161,"BDMAs2m bytes_shift_pending", false,-1, 1,0);
         vcdp->declBus(c+1169,"BDMAs2m strb_mask_pending", false,-1, 3,0);
@@ -222,15 +222,14 @@ void VBDMAs2m::traceInitThis__1(VBDMAs2m__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBit(c+2401,"BDMAs2m pending_fifo_pop_ready", false,-1);
         vcdp->declBit(c+2409,"BDMAs2m stream_data_valve", false,-1);
         vcdp->declBit(c+249,"BDMAs2m len_pending_fifo_io_pop_fire", false,-1);
-        vcdp->declBit(c+257,"BDMAs2m when_BDMAs2m_l264", false,-1);
-        vcdp->declBit(c+3097,"BDMAs2m when_BDMAs2m_l293", false,-1);
-        vcdp->declBit(c+2793,"BDMAs2m when_BDMAs2m_l299", false,-1);
+        vcdp->declBit(c+257,"BDMAs2m when_BDMAs2m_l263", false,-1);
+        vcdp->declBit(c+2793,"BDMAs2m when_BDMAs2m_l306", false,-1);
         vcdp->declBit(c+881,"BDMAs2m s2m_data_stream_fire", false,-1);
-        vcdp->declBit(c+3105,"BDMAs2m s2m_data_stream_fire_1", false,-1);
-        vcdp->declBit(c+3113,"BDMAs2m when_BDMAs2m_l338", false,-1);
-        vcdp->declBit(c+2417,"BDMAs2m when_BDMAs2m_l380", false,-1);
-        vcdp->declBit(c+265,"BDMAs2m when_BDMAs2m_l382", false,-1);
-        vcdp->declQuad(c+3121,"BDMAs2m s2m_state_string", false,-1, 39,0);
+        vcdp->declBit(c+3097,"BDMAs2m s2m_data_stream_fire_1", false,-1);
+        vcdp->declBit(c+3105,"BDMAs2m when_BDMAs2m_l345", false,-1);
+        vcdp->declBit(c+2417,"BDMAs2m when_BDMAs2m_l388", false,-1);
+        vcdp->declBit(c+265,"BDMAs2m when_BDMAs2m_l390", false,-1);
+        vcdp->declQuad(c+3113,"BDMAs2m s2m_state_string", false,-1, 39,0);
         vcdp->declArray(c+273,"BDMAs2m s2m_cch_state_string", false,-1, 71,0);
         vcdp->declQuad(c+2425,"BDMAs2m s2m_w_state_string", false,-1, 39,0);
         vcdp->declBit(c+2321,"BDMAs2m s2m_aw_fifo io_push_valid", false,-1);
@@ -238,7 +237,7 @@ void VBDMAs2m::traceInitThis__1(VBDMAs2m__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBus(c+1145,"BDMAs2m s2m_aw_fifo io_push_payload_addr", false,-1, 31,0);
         vcdp->declBus(c+1121,"BDMAs2m s2m_aw_fifo io_push_payload_id", false,-1, 3,0);
         vcdp->declBus(c+1137,"BDMAs2m s2m_aw_fifo io_push_payload_len", false,-1, 7,0);
-        vcdp->declBus(c+3145,"BDMAs2m s2m_aw_fifo io_push_payload_size", false,-1, 2,0);
+        vcdp->declBus(c+3137,"BDMAs2m s2m_aw_fifo io_push_payload_size", false,-1, 2,0);
         vcdp->declBus(c+1113,"BDMAs2m s2m_aw_fifo io_push_payload_burst", false,-1, 1,0);
         vcdp->declBit(c+9,"BDMAs2m s2m_aw_fifo io_pop_valid", false,-1);
         vcdp->declBit(c+3073,"BDMAs2m s2m_aw_fifo io_pop_ready", false,-1);
@@ -247,19 +246,19 @@ void VBDMAs2m::traceInitThis__1(VBDMAs2m__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBus(c+1017,"BDMAs2m s2m_aw_fifo io_pop_payload_len", false,-1, 7,0);
         vcdp->declBus(c+1025,"BDMAs2m s2m_aw_fifo io_pop_payload_size", false,-1, 2,0);
         vcdp->declBus(c+1033,"BDMAs2m s2m_aw_fifo io_pop_payload_burst", false,-1, 1,0);
-        vcdp->declBit(c+3153,"BDMAs2m s2m_aw_fifo io_flush", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m s2m_aw_fifo io_flush", false,-1);
         vcdp->declBus(c+17,"BDMAs2m s2m_aw_fifo io_occupancy", false,-1, 3,0);
         vcdp->declBus(c+25,"BDMAs2m s2m_aw_fifo io_availability", false,-1, 3,0);
         vcdp->declBit(c+3057,"BDMAs2m s2m_aw_fifo clk", false,-1);
         vcdp->declBit(c+3065,"BDMAs2m s2m_aw_fifo reset", false,-1);
         vcdp->declBit(c+297,"BDMAs2m s2m_aw_fifo logic_pushPtr_willIncrement", false,-1);
-        vcdp->declBit(c+3153,"BDMAs2m s2m_aw_fifo logic_pushPtr_willClear", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m s2m_aw_fifo logic_pushPtr_willClear", false,-1);
         vcdp->declBus(c+305,"BDMAs2m s2m_aw_fifo logic_pushPtr_valueNext", false,-1, 2,0);
         vcdp->declBus(c+2441,"BDMAs2m s2m_aw_fifo logic_pushPtr_value", false,-1, 2,0);
         vcdp->declBit(c+2449,"BDMAs2m s2m_aw_fifo logic_pushPtr_willOverflowIfInc", false,-1);
         vcdp->declBit(c+313,"BDMAs2m s2m_aw_fifo logic_pushPtr_willOverflow", false,-1);
         vcdp->declBit(c+889,"BDMAs2m s2m_aw_fifo logic_popPtr_willIncrement", false,-1);
-        vcdp->declBit(c+3153,"BDMAs2m s2m_aw_fifo logic_popPtr_willClear", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m s2m_aw_fifo logic_popPtr_willClear", false,-1);
         vcdp->declBus(c+897,"BDMAs2m s2m_aw_fifo logic_popPtr_valueNext", false,-1, 2,0);
         vcdp->declBus(c+2457,"BDMAs2m s2m_aw_fifo logic_popPtr_value", false,-1, 2,0);
         vcdp->declBit(c+2465,"BDMAs2m s2m_aw_fifo logic_popPtr_willOverflowIfInc", false,-1);
@@ -280,19 +279,19 @@ void VBDMAs2m::traceInitThis__1(VBDMAs2m__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBit(c+41,"BDMAs2m low_addr_fifo io_pop_valid", false,-1);
         vcdp->declBit(c+3089,"BDMAs2m low_addr_fifo io_pop_ready", false,-1);
         vcdp->declBus(c+1041,"BDMAs2m low_addr_fifo io_pop_payload", false,-1, 1,0);
-        vcdp->declBit(c+3153,"BDMAs2m low_addr_fifo io_flush", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m low_addr_fifo io_flush", false,-1);
         vcdp->declBus(c+49,"BDMAs2m low_addr_fifo io_occupancy", false,-1, 3,0);
         vcdp->declBus(c+57,"BDMAs2m low_addr_fifo io_availability", false,-1, 3,0);
         vcdp->declBit(c+3057,"BDMAs2m low_addr_fifo clk", false,-1);
         vcdp->declBit(c+3065,"BDMAs2m low_addr_fifo reset", false,-1);
         vcdp->declBit(c+345,"BDMAs2m low_addr_fifo logic_pushPtr_willIncrement", false,-1);
-        vcdp->declBit(c+3153,"BDMAs2m low_addr_fifo logic_pushPtr_willClear", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m low_addr_fifo logic_pushPtr_willClear", false,-1);
         vcdp->declBus(c+353,"BDMAs2m low_addr_fifo logic_pushPtr_valueNext", false,-1, 2,0);
         vcdp->declBus(c+2489,"BDMAs2m low_addr_fifo logic_pushPtr_value", false,-1, 2,0);
         vcdp->declBit(c+2497,"BDMAs2m low_addr_fifo logic_pushPtr_willOverflowIfInc", false,-1);
         vcdp->declBit(c+361,"BDMAs2m low_addr_fifo logic_pushPtr_willOverflow", false,-1);
         vcdp->declBit(c+913,"BDMAs2m low_addr_fifo logic_popPtr_willIncrement", false,-1);
-        vcdp->declBit(c+3153,"BDMAs2m low_addr_fifo logic_popPtr_willClear", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m low_addr_fifo logic_popPtr_willClear", false,-1);
         vcdp->declBus(c+921,"BDMAs2m low_addr_fifo logic_popPtr_valueNext", false,-1, 2,0);
         vcdp->declBus(c+2505,"BDMAs2m low_addr_fifo logic_popPtr_value", false,-1, 2,0);
         vcdp->declBit(c+2513,"BDMAs2m low_addr_fifo logic_popPtr_willOverflowIfInc", false,-1);
@@ -313,19 +312,19 @@ void VBDMAs2m::traceInitThis__1(VBDMAs2m__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBit(c+73,"BDMAs2m low_bytes_fifo io_pop_valid", false,-1);
         vcdp->declBit(c+3089,"BDMAs2m low_bytes_fifo io_pop_ready", false,-1);
         vcdp->declBus(c+1049,"BDMAs2m low_bytes_fifo io_pop_payload", false,-1, 1,0);
-        vcdp->declBit(c+3153,"BDMAs2m low_bytes_fifo io_flush", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m low_bytes_fifo io_flush", false,-1);
         vcdp->declBus(c+81,"BDMAs2m low_bytes_fifo io_occupancy", false,-1, 3,0);
         vcdp->declBus(c+89,"BDMAs2m low_bytes_fifo io_availability", false,-1, 3,0);
         vcdp->declBit(c+3057,"BDMAs2m low_bytes_fifo clk", false,-1);
         vcdp->declBit(c+3065,"BDMAs2m low_bytes_fifo reset", false,-1);
         vcdp->declBit(c+401,"BDMAs2m low_bytes_fifo logic_pushPtr_willIncrement", false,-1);
-        vcdp->declBit(c+3153,"BDMAs2m low_bytes_fifo logic_pushPtr_willClear", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m low_bytes_fifo logic_pushPtr_willClear", false,-1);
         vcdp->declBus(c+409,"BDMAs2m low_bytes_fifo logic_pushPtr_valueNext", false,-1, 2,0);
         vcdp->declBus(c+2537,"BDMAs2m low_bytes_fifo logic_pushPtr_value", false,-1, 2,0);
         vcdp->declBit(c+2545,"BDMAs2m low_bytes_fifo logic_pushPtr_willOverflowIfInc", false,-1);
         vcdp->declBit(c+417,"BDMAs2m low_bytes_fifo logic_pushPtr_willOverflow", false,-1);
         vcdp->declBit(c+937,"BDMAs2m low_bytes_fifo logic_popPtr_willIncrement", false,-1);
-        vcdp->declBit(c+3153,"BDMAs2m low_bytes_fifo logic_popPtr_willClear", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m low_bytes_fifo logic_popPtr_willClear", false,-1);
         vcdp->declBus(c+945,"BDMAs2m low_bytes_fifo logic_popPtr_valueNext", false,-1, 2,0);
         vcdp->declBus(c+2553,"BDMAs2m low_bytes_fifo logic_popPtr_value", false,-1, 2,0);
         vcdp->declBit(c+2561,"BDMAs2m low_bytes_fifo logic_popPtr_willOverflowIfInc", false,-1);
@@ -350,19 +349,19 @@ void VBDMAs2m::traceInitThis__1(VBDMAs2m__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBus(c+1057,"BDMAs2m s2m_w_fifo io_pop_payload_data", false,-1, 31,0);
         vcdp->declBus(c+1065,"BDMAs2m s2m_w_fifo io_pop_payload_strb", false,-1, 3,0);
         vcdp->declBit(c+1073,"BDMAs2m s2m_w_fifo io_pop_payload_last", false,-1);
-        vcdp->declBit(c+3153,"BDMAs2m s2m_w_fifo io_flush", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m s2m_w_fifo io_flush", false,-1);
         vcdp->declBus(c+113,"BDMAs2m s2m_w_fifo io_occupancy", false,-1, 5,0);
         vcdp->declBus(c+121,"BDMAs2m s2m_w_fifo io_availability", false,-1, 5,0);
         vcdp->declBit(c+3057,"BDMAs2m s2m_w_fifo clk", false,-1);
         vcdp->declBit(c+3065,"BDMAs2m s2m_w_fifo reset", false,-1);
         vcdp->declBit(c+457,"BDMAs2m s2m_w_fifo logic_pushPtr_willIncrement", false,-1);
-        vcdp->declBit(c+3153,"BDMAs2m s2m_w_fifo logic_pushPtr_willClear", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m s2m_w_fifo logic_pushPtr_willClear", false,-1);
         vcdp->declBus(c+465,"BDMAs2m s2m_w_fifo logic_pushPtr_valueNext", false,-1, 4,0);
         vcdp->declBus(c+2585,"BDMAs2m s2m_w_fifo logic_pushPtr_value", false,-1, 4,0);
         vcdp->declBit(c+2593,"BDMAs2m s2m_w_fifo logic_pushPtr_willOverflowIfInc", false,-1);
         vcdp->declBit(c+473,"BDMAs2m s2m_w_fifo logic_pushPtr_willOverflow", false,-1);
         vcdp->declBit(c+961,"BDMAs2m s2m_w_fifo logic_popPtr_willIncrement", false,-1);
-        vcdp->declBit(c+3153,"BDMAs2m s2m_w_fifo logic_popPtr_willClear", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m s2m_w_fifo logic_popPtr_willClear", false,-1);
         vcdp->declBus(c+969,"BDMAs2m s2m_w_fifo logic_popPtr_valueNext", false,-1, 4,0);
         vcdp->declBus(c+2601,"BDMAs2m s2m_w_fifo logic_popPtr_value", false,-1, 4,0);
         vcdp->declBit(c+2609,"BDMAs2m s2m_w_fifo logic_popPtr_willOverflowIfInc", false,-1);
@@ -383,19 +382,19 @@ void VBDMAs2m::traceInitThis__1(VBDMAs2m__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBit(c+137,"BDMAs2m bytes_shift_pending_fifo io_pop_valid", false,-1);
         vcdp->declBit(c+2401,"BDMAs2m bytes_shift_pending_fifo io_pop_ready", false,-1);
         vcdp->declBus(c+1081,"BDMAs2m bytes_shift_pending_fifo io_pop_payload", false,-1, 1,0);
-        vcdp->declBit(c+3153,"BDMAs2m bytes_shift_pending_fifo io_flush", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m bytes_shift_pending_fifo io_flush", false,-1);
         vcdp->declBus(c+145,"BDMAs2m bytes_shift_pending_fifo io_occupancy", false,-1, 3,0);
         vcdp->declBus(c+153,"BDMAs2m bytes_shift_pending_fifo io_availability", false,-1, 3,0);
         vcdp->declBit(c+3057,"BDMAs2m bytes_shift_pending_fifo clk", false,-1);
         vcdp->declBit(c+3065,"BDMAs2m bytes_shift_pending_fifo reset", false,-1);
         vcdp->declBit(c+513,"BDMAs2m bytes_shift_pending_fifo logic_pushPtr_willIncrement", false,-1);
-        vcdp->declBit(c+3153,"BDMAs2m bytes_shift_pending_fifo logic_pushPtr_willClear", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m bytes_shift_pending_fifo logic_pushPtr_willClear", false,-1);
         vcdp->declBus(c+521,"BDMAs2m bytes_shift_pending_fifo logic_pushPtr_valueNext", false,-1, 3,0);
         vcdp->declBus(c+2633,"BDMAs2m bytes_shift_pending_fifo logic_pushPtr_value", false,-1, 3,0);
         vcdp->declBit(c+2641,"BDMAs2m bytes_shift_pending_fifo logic_pushPtr_willOverflowIfInc", false,-1);
         vcdp->declBit(c+529,"BDMAs2m bytes_shift_pending_fifo logic_pushPtr_willOverflow", false,-1);
         vcdp->declBit(c+537,"BDMAs2m bytes_shift_pending_fifo logic_popPtr_willIncrement", false,-1);
-        vcdp->declBit(c+3153,"BDMAs2m bytes_shift_pending_fifo logic_popPtr_willClear", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m bytes_shift_pending_fifo logic_popPtr_willClear", false,-1);
         vcdp->declBus(c+545,"BDMAs2m bytes_shift_pending_fifo logic_popPtr_valueNext", false,-1, 3,0);
         vcdp->declBus(c+2649,"BDMAs2m bytes_shift_pending_fifo logic_popPtr_value", false,-1, 3,0);
         vcdp->declBit(c+2657,"BDMAs2m bytes_shift_pending_fifo logic_popPtr_willOverflowIfInc", false,-1);
@@ -416,19 +415,19 @@ void VBDMAs2m::traceInitThis__1(VBDMAs2m__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBit(c+169,"BDMAs2m strb_mask_pending_fifo io_pop_valid", false,-1);
         vcdp->declBit(c+2401,"BDMAs2m strb_mask_pending_fifo io_pop_ready", false,-1);
         vcdp->declBus(c+1089,"BDMAs2m strb_mask_pending_fifo io_pop_payload", false,-1, 3,0);
-        vcdp->declBit(c+3153,"BDMAs2m strb_mask_pending_fifo io_flush", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m strb_mask_pending_fifo io_flush", false,-1);
         vcdp->declBus(c+177,"BDMAs2m strb_mask_pending_fifo io_occupancy", false,-1, 3,0);
         vcdp->declBus(c+185,"BDMAs2m strb_mask_pending_fifo io_availability", false,-1, 3,0);
         vcdp->declBit(c+3057,"BDMAs2m strb_mask_pending_fifo clk", false,-1);
         vcdp->declBit(c+3065,"BDMAs2m strb_mask_pending_fifo reset", false,-1);
         vcdp->declBit(c+609,"BDMAs2m strb_mask_pending_fifo logic_pushPtr_willIncrement", false,-1);
-        vcdp->declBit(c+3153,"BDMAs2m strb_mask_pending_fifo logic_pushPtr_willClear", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m strb_mask_pending_fifo logic_pushPtr_willClear", false,-1);
         vcdp->declBus(c+617,"BDMAs2m strb_mask_pending_fifo logic_pushPtr_valueNext", false,-1, 3,0);
         vcdp->declBus(c+2681,"BDMAs2m strb_mask_pending_fifo logic_pushPtr_value", false,-1, 3,0);
         vcdp->declBit(c+2689,"BDMAs2m strb_mask_pending_fifo logic_pushPtr_willOverflowIfInc", false,-1);
         vcdp->declBit(c+625,"BDMAs2m strb_mask_pending_fifo logic_pushPtr_willOverflow", false,-1);
         vcdp->declBit(c+633,"BDMAs2m strb_mask_pending_fifo logic_popPtr_willIncrement", false,-1);
-        vcdp->declBit(c+3153,"BDMAs2m strb_mask_pending_fifo logic_popPtr_willClear", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m strb_mask_pending_fifo logic_popPtr_willClear", false,-1);
         vcdp->declBus(c+641,"BDMAs2m strb_mask_pending_fifo logic_popPtr_valueNext", false,-1, 3,0);
         vcdp->declBus(c+2697,"BDMAs2m strb_mask_pending_fifo logic_popPtr_value", false,-1, 3,0);
         vcdp->declBit(c+2705,"BDMAs2m strb_mask_pending_fifo logic_popPtr_willOverflowIfInc", false,-1);
@@ -449,19 +448,19 @@ void VBDMAs2m::traceInitThis__1(VBDMAs2m__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBit(c+201,"BDMAs2m len_pending_fifo io_pop_valid", false,-1);
         vcdp->declBit(c+2401,"BDMAs2m len_pending_fifo io_pop_ready", false,-1);
         vcdp->declBus(c+1097,"BDMAs2m len_pending_fifo io_pop_payload", false,-1, 7,0);
-        vcdp->declBit(c+3153,"BDMAs2m len_pending_fifo io_flush", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m len_pending_fifo io_flush", false,-1);
         vcdp->declBus(c+209,"BDMAs2m len_pending_fifo io_occupancy", false,-1, 3,0);
         vcdp->declBus(c+217,"BDMAs2m len_pending_fifo io_availability", false,-1, 3,0);
         vcdp->declBit(c+3057,"BDMAs2m len_pending_fifo clk", false,-1);
         vcdp->declBit(c+3065,"BDMAs2m len_pending_fifo reset", false,-1);
         vcdp->declBit(c+705,"BDMAs2m len_pending_fifo logic_pushPtr_willIncrement", false,-1);
-        vcdp->declBit(c+3153,"BDMAs2m len_pending_fifo logic_pushPtr_willClear", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m len_pending_fifo logic_pushPtr_willClear", false,-1);
         vcdp->declBus(c+713,"BDMAs2m len_pending_fifo logic_pushPtr_valueNext", false,-1, 3,0);
         vcdp->declBus(c+2729,"BDMAs2m len_pending_fifo logic_pushPtr_value", false,-1, 3,0);
         vcdp->declBit(c+2737,"BDMAs2m len_pending_fifo logic_pushPtr_willOverflowIfInc", false,-1);
         vcdp->declBit(c+721,"BDMAs2m len_pending_fifo logic_pushPtr_willOverflow", false,-1);
         vcdp->declBit(c+729,"BDMAs2m len_pending_fifo logic_popPtr_willIncrement", false,-1);
-        vcdp->declBit(c+3153,"BDMAs2m len_pending_fifo logic_popPtr_willClear", false,-1);
+        vcdp->declBit(c+3145,"BDMAs2m len_pending_fifo logic_popPtr_willClear", false,-1);
         vcdp->declBus(c+737,"BDMAs2m len_pending_fifo logic_popPtr_valueNext", false,-1, 3,0);
         vcdp->declBus(c+2745,"BDMAs2m len_pending_fifo logic_popPtr_value", false,-1, 3,0);
         vcdp->declBit(c+2753,"BDMAs2m len_pending_fifo logic_popPtr_willOverflowIfInc", false,-1);
@@ -599,7 +598,7 @@ void VBDMAs2m::traceFullThis__1(VBDMAs2m__Syms* __restrict vlSymsp, VerilatedVcd
                               & (~ (IData)(vlTOPp->BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_full)))));
         vcdp->fullBit(c+241,(vlTOPp->BDMAs2m__DOT__s2m_aw_finish));
         vcdp->fullBit(c+249,(vlTOPp->BDMAs2m__DOT__len_pending_fifo_io_pop_fire));
-        vcdp->fullBit(c+257,(vlTOPp->BDMAs2m__DOT__when_BDMAs2m_l264));
+        vcdp->fullBit(c+257,(vlTOPp->BDMAs2m__DOT__when_BDMAs2m_l263));
         vcdp->fullBit(c+265,(((0U == (IData)(vlTOPp->BDMAs2m__DOT__s2m_w_state)) 
                               & (IData)(vlTOPp->BDMAs2m__DOT__s2m_aw_finish))));
         vcdp->fullArray(c+273,(vlTOPp->BDMAs2m__DOT__s2m_cch_state_string),72);
@@ -983,23 +982,21 @@ void VBDMAs2m::traceFullThis__5(VBDMAs2m__Syms* __restrict vlSymsp, VerilatedVcd
                                & (IData)(vlTOPp->BDMAs2m__DOT__cycle_finished))));
         vcdp->fullBit(c+3089,(((IData)(vlTOPp->dma_aw_valid) 
                                & (IData)(vlTOPp->dma_aw_ready))));
-        vcdp->fullBit(c+3097,(((IData)(vlTOPp->s2m_data_stream_payload_last) 
-                               & (1U == (IData)(vlTOPp->BDMAs2m__DOT__s2m_axis_len)))));
-        vcdp->fullBit(c+3105,(((IData)(vlTOPp->s2m_data_stream_valid) 
+        vcdp->fullBit(c+3097,(((IData)(vlTOPp->s2m_data_stream_valid) 
                                & (IData)(vlTOPp->s2m_data_stream_ready))));
-        vcdp->fullBit(c+3113,(((IData)(vlTOPp->BDMAs2m__DOT__s2m_axis_last) 
+        vcdp->fullBit(c+3105,(((IData)(vlTOPp->BDMAs2m__DOT__s2m_axis_last) 
                                | (((IData)(vlTOPp->s2m_data_stream_valid) 
                                    & (IData)(vlTOPp->s2m_data_stream_ready)) 
                                   & (IData)(vlTOPp->s2m_data_stream_payload_last)))));
-        vcdp->fullQuad(c+3121,(((0U == (IData)(vlTOPp->s2m_state))
+        vcdp->fullQuad(c+3113,(((0U == (IData)(vlTOPp->s2m_state))
                                  ? VL_ULL(0x49444c4520)
                                  : ((1U == (IData)(vlTOPp->s2m_state))
                                      ? VL_ULL(0x4255525354)
                                      : ((2U == (IData)(vlTOPp->s2m_state))
                                          ? VL_ULL(0x44524f5020)
                                          : VL_ULL(0x3f3f3f3f3f))))),40);
-        vcdp->fullBus(c+3137,(0xfU),4);
-        vcdp->fullBus(c+3145,(2U),3);
-        vcdp->fullBit(c+3153,(0U));
+        vcdp->fullBus(c+3129,(0xfU),4);
+        vcdp->fullBus(c+3137,(2U),3);
+        vcdp->fullBit(c+3145,(0U));
     }
 }

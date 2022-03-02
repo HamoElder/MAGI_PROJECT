@@ -17,13 +17,13 @@ object BDMAs2mSimApp extends App {
         dut.io.s2m_data.stream.last #= false
         dut.clockDomain.waitSampling(10)
         dut.io.s2m_cch.desc_start_addr #= 0x10016305
-        dut.io.s2m_cch.desc_total_bytes #= 1000
+        dut.io.s2m_cch.desc_total_bytes #= 65
         dut.io.s2m_cch.desc_burst #= 1
         dut.io.s2m_cch.desc_id #= 3
         dut.io.s2m_cch.valid #= true
         dut.clockDomain.waitSampling(1)
         dut.io.s2m_cch.valid #= false
-        for (idx <- 1 until 255) {
+        for (idx <- 1 until 24) {
             dut.io.s2m_data.stream.strb #= 15
             dut.io.s2m_data.stream.keep_ #= 15
             dut.io.s2m_data.stream.data #= 0x03020100
@@ -37,7 +37,7 @@ object BDMAs2mSimApp extends App {
         }
         dut.io.s2m_data.stream.valid #= true
         dut.io.s2m_data.stream.strb #= 7
-        dut.io.s2m_data.stream.data #= 0x03020100
+        dut.io.s2m_data.stream.data #= 0x08070605
         dut.io.s2m_data.stream.last #= true
         dut.io.s2m_cch.desc_reset #= true
         dut.clockDomain.waitSampling(1)

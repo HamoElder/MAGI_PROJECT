@@ -98,9 +98,9 @@ VL_MODULE(VBDMAs2m) {
         CData/*0:0*/ BDMAs2m__DOT__pending_fifo_pop_ready;
         CData/*0:0*/ BDMAs2m__DOT__stream_data_valve;
         CData/*0:0*/ BDMAs2m__DOT__len_pending_fifo_io_pop_fire;
-        CData/*0:0*/ BDMAs2m__DOT__when_BDMAs2m_l264;
+        CData/*0:0*/ BDMAs2m__DOT__when_BDMAs2m_l263;
         CData/*0:0*/ BDMAs2m__DOT__s2m_data_stream_fire;
-        CData/*0:0*/ BDMAs2m__DOT__when_BDMAs2m_l338;
+        CData/*0:0*/ BDMAs2m__DOT__when_BDMAs2m_l345;
         CData/*0:0*/ BDMAs2m__DOT__s2m_aw_fifo__DOT___zz_1;
         CData/*0:0*/ BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_pushPtr_willIncrement;
         CData/*2:0*/ BDMAs2m__DOT__s2m_aw_fifo__DOT__logic_pushPtr_valueNext;

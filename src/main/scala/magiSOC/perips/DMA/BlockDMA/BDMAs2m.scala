@@ -258,17 +258,25 @@ case class BDMAs2m(config: BDMAConfig) extends Component {
             }
             s2m_w_valid := False
             s2m_w_last := False
-            s2m_w_final := False
         }
         is(BDMAs2mStates.BURST) {
             when((s2m_w_final && s2m_w_fifo.io.push.ready)) {
                 s2m_w_valid := True
                 if (config.endianness == LITTLE) {
                     s2m_w_data := ((io.s2m_data.stream.data.getZero ## w_residual_data) << (8 * s2m_bytes_shift)) ((2 * s2m_w_data.getWidth - 1) downto s2m_w_data.getWidth)
+                    if (config.axisConfig.useKeep) {
+                        s2m_w_strb := s2m_strb_mask & (((io.s2m_data.stream.keep_ ## w_residual_strb) << s2m_bytes_shift) ((2 * s2m_w_strb.getWidth - 1) downto s2m_w_strb.getWidth))
+                    } else if (config.axisConfig.useStrb) {
+                        s2m_w_strb := s2m_strb_mask & (((io.s2m_data.stream.strb ## w_residual_strb) << s2m_bytes_shift) ((2 * s2m_w_strb.getWidth - 1) downto s2m_w_strb.getWidth))
+                    }
                 } else {
                     s2m_w_data := ((w_residual_data ## io.s2m_data.stream.data.getZero) >> (8 * s2m_bytes_shift)).resized
+                    if (config.axisConfig.useKeep) {
+                        s2m_w_strb := ((w_residual_strb ## io.s2m_data.stream.keep_) >> s2m_bytes_shift).resized
+                    } else if (config.axisConfig.useStrb) {
+                        s2m_w_strb := ((w_residual_strb ## io.s2m_data.stream.strb) >> s2m_bytes_shift).resized
+                    }
                 }
-                s2m_w_strb := s2m_strb_mask
                 s2m_w_last := True
                 s2m_w_state := s2m_aw_finish ? BDMAs2mStates.DROP | BDMAs2mStates.IDLE
             }.elsewhen(io.s2m_data.stream.fire) {
@@ -290,11 +298,10 @@ case class BDMAs2m(config: BDMAConfig) extends Component {
 
                 if (config.axis4LastEn) {
                     s2m_axis_last := io.s2m_data.stream.last
-                    when(io.s2m_data.stream.last && (s2m_axis_len === 1)) {
+                    when(io.s2m_data.stream.last) {
                         s2m_w_final := True
                     }
                 }
-
 
                 when(s2m_axis_len === 0) {
                     s2m_w_valid := True
@@ -345,6 +352,7 @@ case class BDMAs2m(config: BDMAConfig) extends Component {
             } else {
                 s2m_w_state := BDMAs2mStates.IDLE
             }
+            s2m_w_final := False
             w_residual_strb := 0
             s2m_w_valid := False
         }
