@@ -1,0 +1,4 @@
+Cannot generate into /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug
+It is already used for project /home/crystal/project/MAGI_PROJECT/script/ADS
+
+Please either delete it manually or select another generation directory

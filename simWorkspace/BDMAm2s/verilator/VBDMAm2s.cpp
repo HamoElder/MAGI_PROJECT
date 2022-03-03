@@ -70,7 +70,7 @@ VL_INLINE_OPT void VBDMAm2s::_sequent__TOP__2(VBDMAm2s__Syms* __restrict vlSymsp
     VL_DEBUG_IF(VL_DBG_MSGF("+    VBDMAm2s::_sequent__TOP__2\n"); );
     VBDMAm2s* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_len = vlTOPp->BDMAm2s__DOT__m2s_data_len;
+    vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_len = vlTOPp->BDMAm2s__DOT__m2s_r_len;
     vlTOPp->__Vdly__BDMAm2s__DOT__cch_address = vlTOPp->BDMAm2s__DOT__cch_address;
     vlTOPp->__Vdly__BDMAm2s__DOT__trans_bytes_cnt = vlTOPp->BDMAm2s__DOT__trans_bytes_cnt;
     vlTOPp->__Vdly__BDMAm2s__DOT__cch_total_bytes = vlTOPp->BDMAm2s__DOT__cch_total_bytes;
@@ -82,14 +82,14 @@ VL_INLINE_OPT void VBDMAm2s::_sequent__TOP__2(VBDMAm2s__Syms* __restrict vlSymsp
     vlTOPp->__Vdlyvset__BDMAm2s__DOT__len_pending_fifo__DOT__logic_ram__v0 = 0U;
     if ((0U == (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_state))) {
         if (vlTOPp->BDMAm2s__DOT__len_pending_fifo_io_pop_fire) {
-            vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_len 
+            vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_len 
                 = vlTOPp->BDMAm2s__DOT__len_pending_fifo__DOT___zz_logic_ram_port0;
         }
     } else {
         if ((1U == (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_state))) {
             if (vlTOPp->BDMAm2s__DOT__dma_r_fire) {
-                vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_len 
-                    = (0xffU & ((IData)(vlTOPp->BDMAm2s__DOT__m2s_data_len) 
+                vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_len 
+                    = (0xffU & ((IData)(vlTOPp->BDMAm2s__DOT__m2s_r_len) 
                                 - (IData)(1U)));
             }
         }
@@ -119,7 +119,7 @@ VL_INLINE_OPT void VBDMAm2s::_sequent__TOP__2(VBDMAm2s__Syms* __restrict vlSymsp
         }
     } else {
         if ((1U == (IData)(vlTOPp->BDMAm2s__DOT__m2s_cch_state))) {
-            if ((1U & (~ (IData)(vlTOPp->BDMAm2s__DOT__when_BDMAm2s_l85)))) {
+            if ((1U & (~ (IData)(vlTOPp->BDMAm2s__DOT__when_BDMAm2s_l81)))) {
                 if (vlTOPp->BDMAm2s__DOT__m2s_ar_fifo_io_push_fire) {
                     vlTOPp->__Vdly__BDMAm2s__DOT__cch_total_bytes 
                         = (0x3fffffffU & (vlTOPp->BDMAm2s__DOT__cch_total_bytes 
@@ -127,13 +127,13 @@ VL_INLINE_OPT void VBDMAm2s::_sequent__TOP__2(VBDMAm2s__Syms* __restrict vlSymsp
                 }
             }
             vlTOPp->__Vdly__BDMAm2s__DOT__trans_bytes_cnt 
-                = (0x3fffffffU & ((0x40U >= vlTOPp->BDMAm2s__DOT___zz_when_BDMAm2s_l101)
+                = (0x3fffffffU & ((0x40U >= vlTOPp->BDMAm2s__DOT___zz_when_BDMAm2s_l97)
                                    ? vlTOPp->BDMAm2s__DOT__cch_total_bytes
                                    : ((IData)(0x40U) 
                                       - (3U & vlTOPp->BDMAm2s__DOT__cch_address))));
         } else {
             if ((2U == (IData)(vlTOPp->BDMAm2s__DOT__m2s_cch_state))) {
-                if ((1U & (~ (IData)(vlTOPp->BDMAm2s__DOT__when_BDMAm2s_l85)))) {
+                if ((1U & (~ (IData)(vlTOPp->BDMAm2s__DOT__when_BDMAm2s_l81)))) {
                     if (vlTOPp->BDMAm2s__DOT__m2s_ar_fifo_io_push_fire) {
                         vlTOPp->__Vdly__BDMAm2s__DOT__cch_total_bytes 
                             = (0x3fffffffU & (vlTOPp->BDMAm2s__DOT__cch_total_bytes 
@@ -141,9 +141,9 @@ VL_INLINE_OPT void VBDMAm2s::_sequent__TOP__2(VBDMAm2s__Syms* __restrict vlSymsp
                     }
                 }
                 vlTOPp->__Vdly__BDMAm2s__DOT__trans_bytes_cnt 
-                    = (0x3fffffffU & ((0x40U >= vlTOPp->BDMAm2s__DOT___zz_when_BDMAm2s_l101)
+                    = (0x3fffffffU & ((0x40U >= vlTOPp->BDMAm2s__DOT___zz_when_BDMAm2s_l97)
                                        ? ((0U != (0xfffffU 
-                                                  & (vlTOPp->BDMAm2s__DOT___zz_when_BDMAm2s_l136_1 
+                                                  & (vlTOPp->BDMAm2s__DOT___zz_when_BDMAm2s_l132_1 
                                                      >> 0xcU)))
                                            ? ((IData)(0x1000U) 
                                               - (0xfffU 
@@ -247,7 +247,7 @@ VL_INLINE_OPT void VBDMAm2s::_sequent__TOP__2(VBDMAm2s__Syms* __restrict vlSymsp
     }
     if ((0U != (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_state))) {
         if ((1U == (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_state))) {
-            if (vlTOPp->BDMAm2s__DOT__m2s_data_req) {
+            if (vlTOPp->BDMAm2s__DOT__m2s_r_req) {
                 vlTOPp->BDMAm2s__DOT__m2s_axis_strb_keep 
                     = ((4U > vlTOPp->BDMAm2s__DOT__m2s_axis_trans_bytes)
                         ? (0xfU & (0xfU >> (7U & ((IData)(4U) 
@@ -272,14 +272,14 @@ VL_INLINE_OPT void VBDMAm2s::_sequent__TOP__2(VBDMAm2s__Syms* __restrict vlSymsp
     }
     if ((0U != (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_state))) {
         if ((1U == (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_state))) {
-            if (vlTOPp->BDMAm2s__DOT__m2s_data_req) {
+            if (vlTOPp->BDMAm2s__DOT__m2s_r_req) {
                 vlTOPp->BDMAm2s__DOT__m2s_axis_payload 
-                    = vlTOPp->BDMAm2s__DOT__m2s_data_payload;
+                    = vlTOPp->BDMAm2s__DOT__m2s_r_payload;
             }
         } else {
             if ((0U != vlTOPp->BDMAm2s__DOT__m2s_axis_trans_bytes)) {
                 vlTOPp->BDMAm2s__DOT__m2s_axis_payload 
-                    = (IData)(((QData)((IData)(vlTOPp->BDMAm2s__DOT__m2s_data_residual_payload)) 
+                    = (IData)(((QData)((IData)(vlTOPp->BDMAm2s__DOT__m2s_r_residual_payload)) 
                                >> (0x3fU & ((IData)(vlTOPp->BDMAm2s__DOT__m2s_bytes_shift) 
                                             << 3U))));
             }
@@ -342,9 +342,9 @@ VL_INLINE_OPT void VBDMAm2s::_sequent__TOP__3(VBDMAm2s__Syms* __restrict vlSymsp
     if ((0U != (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_state))) {
         if ((1U == (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_state))) {
             if (vlTOPp->BDMAm2s__DOT__dma_r_fire) {
-                vlTOPp->BDMAm2s__DOT__m2s_data_payload 
-                    = (((~ (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_first)) 
-                        & (0U == (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_len)))
+                vlTOPp->BDMAm2s__DOT__m2s_r_payload 
+                    = (((~ (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_first)) 
+                        & (0U == (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_len)))
                         ? ((0x1fU >= (0x3fU & ((IData)(vlTOPp->BDMAm2s__DOT__m2s_bytes_shift) 
                                                << 3U)))
                             ? (vlTOPp->dma_r_payload_data 
@@ -352,7 +352,7 @@ VL_INLINE_OPT void VBDMAm2s::_sequent__TOP__3(VBDMAm2s__Syms* __restrict vlSymsp
                                             << 3U)))
                             : 0U) : (IData)(((((QData)((IData)(vlTOPp->dma_r_payload_data)) 
                                                << 0x20U) 
-                                              | (QData)((IData)(vlTOPp->BDMAm2s__DOT__m2s_data_residual_payload))) 
+                                              | (QData)((IData)(vlTOPp->BDMAm2s__DOT__m2s_r_residual_payload))) 
                                              >> (0x3fU 
                                                  & ((IData)(vlTOPp->BDMAm2s__DOT__m2s_bytes_shift) 
                                                     << 3U)))));
@@ -383,7 +383,7 @@ VL_INLINE_OPT void VBDMAm2s::_sequent__TOP__3(VBDMAm2s__Syms* __restrict vlSymsp
     if ((0U != (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_state))) {
         if ((1U == (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_state))) {
             if (vlTOPp->BDMAm2s__DOT__dma_r_fire) {
-                vlTOPp->BDMAm2s__DOT__m2s_data_residual_payload 
+                vlTOPp->BDMAm2s__DOT__m2s_r_residual_payload 
                     = vlTOPp->dma_r_payload_data;
             }
         }
@@ -394,10 +394,10 @@ VL_INLINE_OPT void VBDMAm2s::_sequent__TOP__5(VBDMAm2s__Syms* __restrict vlSymsp
     VL_DEBUG_IF(VL_DBG_MSGF("+    VBDMAm2s::_sequent__TOP__5\n"); );
     VBDMAm2s* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_last_cycle 
-        = vlTOPp->BDMAm2s__DOT__m2s_data_last_cycle;
-    vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_first = vlTOPp->BDMAm2s__DOT__m2s_data_first;
-    vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_req = vlTOPp->BDMAm2s__DOT__m2s_data_req;
+    vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_last_cycle 
+        = vlTOPp->BDMAm2s__DOT__m2s_r_last_cycle;
+    vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_first = vlTOPp->BDMAm2s__DOT__m2s_r_first;
+    vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_req = vlTOPp->BDMAm2s__DOT__m2s_r_req;
     vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_state = vlTOPp->BDMAm2s__DOT__m2s_r_state;
     vlTOPp->__Vdly__BDMAm2s__DOT__m2s_axis_trans_bytes 
         = vlTOPp->BDMAm2s__DOT__m2s_axis_trans_bytes;
@@ -410,12 +410,12 @@ VL_INLINE_OPT void VBDMAm2s::_sequent__TOP__5(VBDMAm2s__Syms* __restrict vlSymsp
         vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_state = 0U;
         vlTOPp->BDMAm2s__DOT__pending_fifo_pop_ready = 0U;
         vlTOPp->BDMAm2s__DOT__m2s_r_valve = 0U;
-        vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_req = 0U;
-        vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_first = 0U;
+        vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_req = 0U;
+        vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_first = 0U;
+        vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_last_cycle = 0U;
         vlTOPp->BDMAm2s__DOT__m2s_axis_valid = 0U;
         vlTOPp->BDMAm2s__DOT__m2s_axis_last = 0U;
         vlTOPp->__Vdly__BDMAm2s__DOT__m2s_axis_trans_bytes = 0U;
-        vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_last_cycle = 0U;
     } else {
         if ((0U == (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_state))) {
             if (vlTOPp->BDMAm2s__DOT__len_pending_fifo_io_pop_fire) {
@@ -431,17 +431,17 @@ VL_INLINE_OPT void VBDMAm2s::_sequent__TOP__5(VBDMAm2s__Syms* __restrict vlSymsp
             }
             vlTOPp->BDMAm2s__DOT__m2s_axis_valid = 0U;
             vlTOPp->BDMAm2s__DOT__m2s_axis_last = 0U;
-            vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_req = 0U;
-            vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_last_cycle = 0U;
+            vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_req = 0U;
+            vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_last_cycle = 0U;
         } else {
             if ((1U == (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_state))) {
-                if (vlTOPp->BDMAm2s__DOT__m2s_data_req) {
+                if (vlTOPp->BDMAm2s__DOT__m2s_r_req) {
                     vlTOPp->__Vdly__BDMAm2s__DOT__m2s_axis_trans_bytes 
-                        = ((IData)(vlTOPp->BDMAm2s__DOT__when_BDMAm2s_l268)
+                        = ((IData)(vlTOPp->BDMAm2s__DOT__when_BDMAm2s_l264)
                             ? 0U : (0x3fffffffU & (vlTOPp->BDMAm2s__DOT__m2s_axis_trans_bytes 
                                                    - (IData)(4U))));
                     vlTOPp->BDMAm2s__DOT__m2s_axis_valid = 1U;
-                    if (vlTOPp->BDMAm2s__DOT__m2s_data_last_cycle) {
+                    if (vlTOPp->BDMAm2s__DOT__m2s_r_last_cycle) {
                         vlTOPp->BDMAm2s__DOT__pending_fifo_pop_ready 
                             = (1U & (~ (IData)(vlTOPp->BDMAm2s__DOT__ar_finish)));
                         vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_state 
@@ -455,21 +455,21 @@ VL_INLINE_OPT void VBDMAm2s::_sequent__TOP__5(VBDMAm2s__Syms* __restrict vlSymsp
                     vlTOPp->BDMAm2s__DOT__m2s_axis_valid = 0U;
                 }
                 if (vlTOPp->BDMAm2s__DOT__dma_r_fire) {
-                    if ((0U == (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_len))) {
-                        vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_last_cycle = 1U;
+                    if ((0U == (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_len))) {
+                        vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_last_cycle = 1U;
                         vlTOPp->BDMAm2s__DOT__m2s_r_valve = 0U;
-                        vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_req = 1U;
+                        vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_req = 1U;
                     } else {
-                        vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_req 
-                            = vlTOPp->BDMAm2s__DOT__m2s_data_first;
+                        vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_req 
+                            = vlTOPp->BDMAm2s__DOT__m2s_r_first;
                     }
-                    vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_first = 1U;
+                    vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_first = 1U;
                 } else {
-                    vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_req = 0U;
+                    vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_req = 0U;
                 }
             } else {
-                vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_first = 0U;
-                if (vlTOPp->BDMAm2s__DOT__when_BDMAm2s_l311) {
+                vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_first = 0U;
+                if (vlTOPp->BDMAm2s__DOT__when_BDMAm2s_l307) {
                     vlTOPp->__Vdly__BDMAm2s__DOT__m2s_axis_trans_bytes = 0U;
                     vlTOPp->BDMAm2s__DOT__m2s_axis_last = 1U;
                     vlTOPp->BDMAm2s__DOT__m2s_axis_valid = 1U;
@@ -630,14 +630,14 @@ VL_INLINE_OPT void VBDMAm2s::_sequent__TOP__6(VBDMAm2s__Syms* __restrict vlSymsp
     vlTOPp->BDMAm2s__DOT__len_pending_fifo__DOT___zz_io_pop_valid 
         = ((~ (IData)(vlTOPp->reset)) & ((IData)(vlTOPp->BDMAm2s__DOT__len_pending_fifo__DOT__logic_popPtr_valueNext) 
                                          == (IData)(vlTOPp->BDMAm2s__DOT__len_pending_fifo__DOT__logic_pushPtr_value)));
-    vlTOPp->BDMAm2s__DOT__m2s_data_last_cycle = vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_last_cycle;
-    vlTOPp->BDMAm2s__DOT__m2s_data_req = vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_req;
+    vlTOPp->BDMAm2s__DOT__m2s_r_last_cycle = vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_last_cycle;
+    vlTOPp->BDMAm2s__DOT__m2s_r_req = vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_req;
     vlTOPp->BDMAm2s__DOT__m2s_axis_trans_bytes = vlTOPp->__Vdly__BDMAm2s__DOT__m2s_axis_trans_bytes;
-    vlTOPp->BDMAm2s__DOT__m2s_data_first = vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_first;
+    vlTOPp->BDMAm2s__DOT__m2s_r_first = vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_first;
     vlTOPp->BDMAm2s__DOT__m2s_r_state = vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_state;
     vlTOPp->BDMAm2s__DOT__m2s_ar_halt_exec = vlTOPp->__Vdly__BDMAm2s__DOT__m2s_ar_halt_exec;
-    vlTOPp->BDMAm2s__DOT__when_BDMAm2s_l268 = (4U > vlTOPp->BDMAm2s__DOT__m2s_axis_trans_bytes);
-    vlTOPp->BDMAm2s__DOT__when_BDMAm2s_l311 = (0U != vlTOPp->BDMAm2s__DOT__m2s_axis_trans_bytes);
+    vlTOPp->BDMAm2s__DOT__when_BDMAm2s_l264 = (4U > vlTOPp->BDMAm2s__DOT__m2s_axis_trans_bytes);
+    vlTOPp->BDMAm2s__DOT__when_BDMAm2s_l307 = (0U != vlTOPp->BDMAm2s__DOT__m2s_axis_trans_bytes);
     vlTOPp->m2s_state = vlTOPp->BDMAm2s__DOT__m2s_r_state;
     vlTOPp->m2s_cch_ready = vlTOPp->BDMAm2s__DOT__cch_ready;
     if (vlTOPp->reset) {
@@ -707,11 +707,11 @@ VL_INLINE_OPT void VBDMAm2s::_sequent__TOP__6(VBDMAm2s__Syms* __restrict vlSymsp
     vlTOPp->BDMAm2s__DOT__m2s_trans_bytes_fifo__DOT__logic_full 
         = ((IData)(vlTOPp->BDMAm2s__DOT__m2s_trans_bytes_fifo__DOT__logic_ptrMatch) 
            & (IData)(vlTOPp->BDMAm2s__DOT__m2s_trans_bytes_fifo__DOT__logic_risingOccupancy));
-    vlTOPp->dma_r_ready = ((2U <= ((((~ (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_risingOccupancy)) 
-                                     & (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_ptrMatch)) 
-                                    << 5U) | (0x1fU 
-                                              & ((IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_value) 
-                                                 - (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushPtr_value))))) 
+    vlTOPp->dma_r_ready = ((2U < ((((~ (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_risingOccupancy)) 
+                                    & (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_ptrMatch)) 
+                                   << 5U) | (0x1fU 
+                                             & ((IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_value) 
+                                                - (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushPtr_value))))) 
                            & (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_valve));
     vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_full 
         = ((IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_ptrMatch) 
@@ -890,19 +890,19 @@ VL_INLINE_OPT void VBDMAm2s::_sequent__TOP__11(VBDMAm2s__Syms* __restrict vlSyms
     VL_DEBUG_IF(VL_DBG_MSGF("+    VBDMAm2s::_sequent__TOP__11\n"); );
     VBDMAm2s* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->BDMAm2s__DOT__m2s_data_len = vlTOPp->__Vdly__BDMAm2s__DOT__m2s_data_len;
+    vlTOPp->BDMAm2s__DOT__m2s_r_len = vlTOPp->__Vdly__BDMAm2s__DOT__m2s_r_len;
     vlTOPp->BDMAm2s__DOT__cch_total_bytes = vlTOPp->__Vdly__BDMAm2s__DOT__cch_total_bytes;
     vlTOPp->BDMAm2s__DOT__trans_pending_fifo__DOT___zz_logic_ram_port0 
         = ((0xbU >= (IData)(vlTOPp->BDMAm2s__DOT__trans_pending_fifo__DOT__logic_popPtr_valueNext))
             ? vlTOPp->BDMAm2s__DOT__trans_pending_fifo__DOT__logic_ram
            [vlTOPp->BDMAm2s__DOT__trans_pending_fifo__DOT__logic_popPtr_valueNext]
             : vlTOPp->BDMAm2s__DOT__trans_pending_fifo__DOT____Vxrand1);
-    vlTOPp->BDMAm2s__DOT__when_BDMAm2s_l85 = (0U == vlTOPp->BDMAm2s__DOT__cch_total_bytes);
-    vlTOPp->BDMAm2s__DOT___zz_when_BDMAm2s_l101 = (vlTOPp->BDMAm2s__DOT__cch_total_bytes 
-                                                   + 
-                                                   (3U 
-                                                    & vlTOPp->BDMAm2s__DOT__cch_address));
-    vlTOPp->BDMAm2s__DOT___zz_when_BDMAm2s_l136_1 = 
+    vlTOPp->BDMAm2s__DOT__when_BDMAm2s_l81 = (0U == vlTOPp->BDMAm2s__DOT__cch_total_bytes);
+    vlTOPp->BDMAm2s__DOT___zz_when_BDMAm2s_l97 = (vlTOPp->BDMAm2s__DOT__cch_total_bytes 
+                                                  + 
+                                                  (3U 
+                                                   & vlTOPp->BDMAm2s__DOT__cch_address));
+    vlTOPp->BDMAm2s__DOT___zz_when_BDMAm2s_l132_1 = 
         ((0xfffU & vlTOPp->BDMAm2s__DOT__cch_address) 
          + (0xfffU & vlTOPp->BDMAm2s__DOT__cch_total_bytes));
     vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT___zz_logic_ram_port0 

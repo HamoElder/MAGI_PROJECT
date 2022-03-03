@@ -17,16 +17,16 @@ object BDMAs2mSimApp extends App {
         dut.io.s2m_data.stream.last #= false
         dut.clockDomain.waitSampling(10)
         dut.io.s2m_cch.desc_start_addr #= 0x10016305
-        dut.io.s2m_cch.desc_total_bytes #= 65
+        dut.io.s2m_cch.desc_total_bytes #= 128
         dut.io.s2m_cch.desc_burst #= 1
         dut.io.s2m_cch.desc_id #= 3
         dut.io.s2m_cch.valid #= true
         dut.clockDomain.waitSampling(1)
         dut.io.s2m_cch.valid #= false
-        for (idx <- 1 until 24) {
+        for (idx <- 1 until 60) {
             dut.io.s2m_data.stream.strb #= 15
             dut.io.s2m_data.stream.keep_ #= 15
-            dut.io.s2m_data.stream.data #= 0x03020100
+            dut.io.s2m_data.stream.data #= idx + idx * 256 + idx * 65536 + idx * 256*256*256
             dut.io.s2m_data.stream.last #= false
             dut.io.s2m_data.stream.valid #= true
             //            dut.io.dma_w.ready.randomize()
@@ -43,7 +43,34 @@ object BDMAs2mSimApp extends App {
         dut.clockDomain.waitSampling(1)
         dut.io.s2m_data.stream.valid #= false
         dut.io.s2m_cch.desc_reset #= false
-        dut.clockDomain.waitSampling(500)
+        dut.clockDomain.waitSampling(5)
+        /**
+         * Next Round
+         */
+        dut.io.s2m_cch.valid #= true
+        dut.clockDomain.waitSampling(1)
+        dut.io.s2m_cch.valid #= false
+        for (idx <- 1 until 60) {
+            dut.io.s2m_data.stream.strb #= 15
+            dut.io.s2m_data.stream.keep_ #= 15
+            dut.io.s2m_data.stream.data #= idx + idx * 256 + idx * 65536 + idx * 256*256*256
+            dut.io.s2m_data.stream.last #= false
+            dut.io.s2m_data.stream.valid #= true
+            //            dut.io.dma_w.ready.randomize()
+            //            dut.io.dma_aw.ready.randomize()
+            //            dut.io.s2m_data.stream.valid.randomize()
+            //            dut.io.s2m_cch.desc_reset.randomize()
+            dut.clockDomain.waitSampling(1)
+        }
+        dut.io.s2m_data.stream.valid #= true
+        dut.io.s2m_data.stream.strb #= 7
+        dut.io.s2m_data.stream.data #= 0x08070605
+        dut.io.s2m_data.stream.last #= true
+        dut.io.s2m_cch.desc_reset #= true
+        dut.clockDomain.waitSampling(1)
+        dut.io.s2m_data.stream.valid #= false
+        dut.io.s2m_cch.desc_reset #= false
+        dut.clockDomain.waitSampling(300)
     }
 }
 

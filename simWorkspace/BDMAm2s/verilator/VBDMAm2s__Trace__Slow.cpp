@@ -177,17 +177,17 @@ void VBDMAm2s::traceInitThis__1(VBDMAm2s__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBit(c+1465,"BDMAm2s cycle_finished", false,-1);
         vcdp->declBus(c+1473,"BDMAm2s m2s_bytes_shift", false,-1, 1,0);
         vcdp->declBit(c+737,"BDMAm2s m2s_cch_fire", false,-1);
-        vcdp->declBit(c+1937,"BDMAm2s when_BDMAm2s_l85", false,-1);
+        vcdp->declBit(c+1937,"BDMAm2s when_BDMAm2s_l81", false,-1);
         vcdp->declBit(c+193,"BDMAm2s m2s_ar_fifo_io_push_fire", false,-1);
         vcdp->declBit(c+201,"BDMAm2s m2s_ar_fifo_io_push_fire_1", false,-1);
-        vcdp->declBit(c+1409,"BDMAm2s when_BDMAm2s_l101", false,-1);
-        vcdp->declBit(c+1937,"BDMAm2s when_BDMAm2s_l115", false,-1);
+        vcdp->declBit(c+1409,"BDMAm2s when_BDMAm2s_l97", false,-1);
+        vcdp->declBit(c+1937,"BDMAm2s when_BDMAm2s_l111", false,-1);
         vcdp->declBit(c+193,"BDMAm2s m2s_ar_fifo_io_push_fire_2", false,-1);
         vcdp->declBit(c+201,"BDMAm2s m2s_ar_fifo_io_push_fire_3", false,-1);
-        vcdp->declBit(c+1409,"BDMAm2s when_BDMAm2s_l132", false,-1);
-        vcdp->declBit(c+1417,"BDMAm2s when_BDMAm2s_l136", false,-1);
-        vcdp->declBit(c+953,"BDMAm2s when_BDMAm2s_l148", false,-1);
-        vcdp->declBit(c+2825,"BDMAm2s when_BDMAm2s_l160", false,-1);
+        vcdp->declBit(c+1409,"BDMAm2s when_BDMAm2s_l128", false,-1);
+        vcdp->declBit(c+1417,"BDMAm2s when_BDMAm2s_l132", false,-1);
+        vcdp->declBit(c+953,"BDMAm2s when_BDMAm2s_l144", false,-1);
+        vcdp->declBit(c+2825,"BDMAm2s when_BDMAm2s_l156", false,-1);
         vcdp->declBit(c+2833,"BDMAm2s dma_ar_fire", false,-1);
         vcdp->declBus(c+2873,"BDMAm2s keep_strb_full", false,-1, 3,0);
         vcdp->declBit(c+1481,"BDMAm2s pending_valid", false,-1);
@@ -198,28 +198,28 @@ void VBDMAm2s::traceInitThis__1(VBDMAm2s__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBit(c+209,"BDMAm2s ar_finish", false,-1);
         vcdp->declBit(c+1489,"BDMAm2s pending_fifo_pop_ready", false,-1);
         vcdp->declBit(c+1497,"BDMAm2s m2s_r_valve", false,-1);
-        vcdp->declBus(c+985,"BDMAm2s m2s_data_payload", false,-1, 31,0);
-        vcdp->declBus(c+993,"BDMAm2s m2s_data_residual_payload", false,-1, 31,0);
-        vcdp->declBit(c+1505,"BDMAm2s m2s_data_req", false,-1);
-        vcdp->declBit(c+1513,"BDMAm2s m2s_data_first", false,-1);
-        vcdp->declBus(c+1945,"BDMAm2s m2s_data_len", false,-1, 7,0);
+        vcdp->declBus(c+985,"BDMAm2s m2s_r_payload", false,-1, 31,0);
+        vcdp->declBus(c+993,"BDMAm2s m2s_r_residual_payload", false,-1, 31,0);
+        vcdp->declBit(c+1505,"BDMAm2s m2s_r_req", false,-1);
+        vcdp->declBit(c+1513,"BDMAm2s m2s_r_first", false,-1);
+        vcdp->declBus(c+1945,"BDMAm2s m2s_r_len", false,-1, 7,0);
+        vcdp->declBit(c+1521,"BDMAm2s m2s_r_last_cycle", false,-1);
         vcdp->declBus(c+1001,"BDMAm2s m2s_axis_payload", false,-1, 31,0);
         vcdp->declBus(c+1009,"BDMAm2s m2s_axis_strb_keep", false,-1, 3,0);
-        vcdp->declBit(c+1521,"BDMAm2s m2s_axis_valid", false,-1);
-        vcdp->declBit(c+1529,"BDMAm2s m2s_axis_last", false,-1);
+        vcdp->declBit(c+1529,"BDMAm2s m2s_axis_valid", false,-1);
+        vcdp->declBit(c+1537,"BDMAm2s m2s_axis_last", false,-1);
         vcdp->declBus(c+2881,"BDMAm2s m2s_axis_low_bytes", false,-1, 1,0);
         vcdp->declBus(c+1017,"BDMAm2s m2s_axis_id", false,-1, 3,0);
-        vcdp->declBus(c+1537,"BDMAm2s m2s_axis_trans_bytes", false,-1, 29,0);
-        vcdp->declBit(c+1545,"BDMAm2s m2s_data_last_cycle", false,-1);
+        vcdp->declBus(c+1545,"BDMAm2s m2s_axis_trans_bytes", false,-1, 29,0);
         vcdp->declBit(c+217,"BDMAm2s len_pending_fifo_io_pop_fire", false,-1);
-        vcdp->declBit(c+1553,"BDMAm2s when_BDMAm2s_l268", false,-1);
+        vcdp->declBit(c+1553,"BDMAm2s when_BDMAm2s_l264", false,-1);
         vcdp->declBit(c+753,"BDMAm2s dma_r_fire", false,-1);
-        vcdp->declBit(c+1873,"BDMAm2s when_BDMAm2s_l291", false,-1);
-        vcdp->declBit(c+1953,"BDMAm2s when_BDMAm2s_l297", false,-1);
-        vcdp->declBit(c+1561,"BDMAm2s when_BDMAm2s_l311", false,-1);
-        vcdp->declBit(c+1569,"BDMAm2s when_BDMAm2s_l346", false,-1);
+        vcdp->declBit(c+1873,"BDMAm2s when_BDMAm2s_l287", false,-1);
+        vcdp->declBit(c+1953,"BDMAm2s when_BDMAm2s_l293", false,-1);
+        vcdp->declBit(c+1561,"BDMAm2s when_BDMAm2s_l307", false,-1);
+        vcdp->declBit(c+1569,"BDMAm2s when_BDMAm2s_l342", false,-1);
         vcdp->declBit(c+2841,"BDMAm2s m2s_data_fifo_io_pop_fire", false,-1);
-        vcdp->declBit(c+2849,"BDMAm2s when_BDMAm2s_l348", false,-1);
+        vcdp->declBit(c+2849,"BDMAm2s when_BDMAm2s_l344", false,-1);
         vcdp->declQuad(c+2857,"BDMAm2s m2s_state_string", false,-1, 55,0);
         vcdp->declArray(c+225,"BDMAm2s m2s_cch_state_string", false,-1, 71,0);
         vcdp->declQuad(c+1577,"BDMAm2s m2s_r_state_string", false,-1, 55,0);
@@ -297,13 +297,13 @@ void VBDMAm2s::traceInitThis__1(VBDMAm2s__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->declBus(c+1681,"BDMAm2s m2s_trans_bytes_fifo logic_ptrDif", false,-1, 2,0);
         {int i; for (i=0; i<8; i++) {
                 vcdp->declBus(c+1153+i*1,"BDMAm2s m2s_trans_bytes_fifo logic_ram", true,(i+0), 29,0);}}
-        vcdp->declBit(c+1521,"BDMAm2s m2s_data_fifo io_push_valid", false,-1);
+        vcdp->declBit(c+1529,"BDMAm2s m2s_data_fifo io_push_valid", false,-1);
         vcdp->declBit(c+65,"BDMAm2s m2s_data_fifo io_push_ready", false,-1);
         vcdp->declBus(c+1001,"BDMAm2s m2s_data_fifo io_push_payload_data", false,-1, 31,0);
         vcdp->declBus(c+1017,"BDMAm2s m2s_data_fifo io_push_payload_id", false,-1, 3,0);
         vcdp->declBus(c+1009,"BDMAm2s m2s_data_fifo io_push_payload_strb", false,-1, 3,0);
         vcdp->declBus(c+1009,"BDMAm2s m2s_data_fifo io_push_payload_keep_", false,-1, 3,0);
-        vcdp->declBit(c+1529,"BDMAm2s m2s_data_fifo io_push_payload_last", false,-1);
+        vcdp->declBit(c+1537,"BDMAm2s m2s_data_fifo io_push_payload_last", false,-1);
         vcdp->declBit(c+73,"BDMAm2s m2s_data_fifo io_pop_valid", false,-1);
         vcdp->declBit(c+2681,"BDMAm2s m2s_data_fifo io_pop_ready", false,-1);
         vcdp->declBus(c+1881,"BDMAm2s m2s_data_fifo io_pop_payload_data", false,-1, 31,0);
@@ -681,8 +681,8 @@ void VBDMAm2s::traceFullThis__7(VBDMAm2s__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->fullBus(c+961,(vlTOPp->BDMAm2s__DOT__len_pending),8);
         vcdp->fullBus(c+969,(vlTOPp->BDMAm2s__DOT__trans_pending),30);
         vcdp->fullBus(c+977,(vlTOPp->BDMAm2s__DOT__id_pending),4);
-        vcdp->fullBus(c+985,(vlTOPp->BDMAm2s__DOT__m2s_data_payload),32);
-        vcdp->fullBus(c+993,(vlTOPp->BDMAm2s__DOT__m2s_data_residual_payload),32);
+        vcdp->fullBus(c+985,(vlTOPp->BDMAm2s__DOT__m2s_r_payload),32);
+        vcdp->fullBus(c+993,(vlTOPp->BDMAm2s__DOT__m2s_r_residual_payload),32);
         vcdp->fullBus(c+1001,(vlTOPp->BDMAm2s__DOT__m2s_axis_payload),32);
         vcdp->fullBus(c+1009,(vlTOPp->BDMAm2s__DOT__m2s_axis_strb_keep),4);
         vcdp->fullBus(c+1017,(vlTOPp->BDMAm2s__DOT__m2s_axis_id),4);
@@ -745,12 +745,12 @@ void VBDMAm2s::traceFullThis__7(VBDMAm2s__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->fullBit(c+1481,(vlTOPp->BDMAm2s__DOT__pending_valid));
         vcdp->fullBit(c+1489,(vlTOPp->BDMAm2s__DOT__pending_fifo_pop_ready));
         vcdp->fullBit(c+1497,(vlTOPp->BDMAm2s__DOT__m2s_r_valve));
-        vcdp->fullBit(c+1505,(vlTOPp->BDMAm2s__DOT__m2s_data_req));
-        vcdp->fullBit(c+1513,(vlTOPp->BDMAm2s__DOT__m2s_data_first));
-        vcdp->fullBit(c+1521,(vlTOPp->BDMAm2s__DOT__m2s_axis_valid));
-        vcdp->fullBit(c+1529,(vlTOPp->BDMAm2s__DOT__m2s_axis_last));
-        vcdp->fullBus(c+1537,(vlTOPp->BDMAm2s__DOT__m2s_axis_trans_bytes),30);
-        vcdp->fullBit(c+1545,(vlTOPp->BDMAm2s__DOT__m2s_data_last_cycle));
+        vcdp->fullBit(c+1505,(vlTOPp->BDMAm2s__DOT__m2s_r_req));
+        vcdp->fullBit(c+1513,(vlTOPp->BDMAm2s__DOT__m2s_r_first));
+        vcdp->fullBit(c+1521,(vlTOPp->BDMAm2s__DOT__m2s_r_last_cycle));
+        vcdp->fullBit(c+1529,(vlTOPp->BDMAm2s__DOT__m2s_axis_valid));
+        vcdp->fullBit(c+1537,(vlTOPp->BDMAm2s__DOT__m2s_axis_last));
+        vcdp->fullBus(c+1545,(vlTOPp->BDMAm2s__DOT__m2s_axis_trans_bytes),30);
         vcdp->fullBit(c+1553,((4U > vlTOPp->BDMAm2s__DOT__m2s_axis_trans_bytes)));
         vcdp->fullBit(c+1561,((0U != vlTOPp->BDMAm2s__DOT__m2s_axis_trans_bytes)));
         vcdp->fullBit(c+1569,((0U == (IData)(vlTOPp->BDMAm2s__DOT__m2s_cch_state))));
@@ -801,8 +801,8 @@ void VBDMAm2s::traceFullThis__7(VBDMAm2s__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->fullBit(c+1857,(vlTOPp->BDMAm2s__DOT__trans_pending_fifo__DOT__logic_risingOccupancy));
         vcdp->fullBus(c+1865,((0xfU & ((IData)(vlTOPp->BDMAm2s__DOT__trans_pending_fifo__DOT__logic_pushPtr_value) 
                                        - (IData)(vlTOPp->BDMAm2s__DOT__trans_pending_fifo__DOT__logic_popPtr_value)))),4);
-        vcdp->fullBit(c+1873,(((~ (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_first)) 
-                               & (0U == (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_len)))));
+        vcdp->fullBit(c+1873,(((~ (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_first)) 
+                               & (0U == (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_len)))));
         vcdp->fullBus(c+1881,((IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT___zz_logic_ram_port0)),32);
         vcdp->fullBus(c+1889,((0xfU & (IData)((vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT___zz_logic_ram_port0 
                                                >> 0x20U)))),4);
@@ -815,8 +815,8 @@ void VBDMAm2s::traceFullThis__7(VBDMAm2s__Syms* __restrict vlSymsp, VerilatedVcd
         vcdp->fullBus(c+1921,(vlTOPp->BDMAm2s__DOT__trans_pending_fifo__DOT___zz_logic_ram_port0),30);
         vcdp->fullBus(c+1929,(vlTOPp->BDMAm2s__DOT__cch_total_bytes),30);
         vcdp->fullBit(c+1937,((0U == vlTOPp->BDMAm2s__DOT__cch_total_bytes)));
-        vcdp->fullBus(c+1945,(vlTOPp->BDMAm2s__DOT__m2s_data_len),8);
-        vcdp->fullBit(c+1953,((0U == (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_len))));
+        vcdp->fullBus(c+1945,(vlTOPp->BDMAm2s__DOT__m2s_r_len),8);
+        vcdp->fullBit(c+1953,((0U == (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_len))));
         vcdp->fullQuad(c+1961,(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_ram[0]),45);
         vcdp->fullQuad(c+1963,(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_ram[1]),45);
         vcdp->fullQuad(c+1965,(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_ram[2]),45);

@@ -9,10 +9,6 @@ object BDMAm2sStates extends SpinalEnum{
     val IDLE, BURST, FINAL = newElement()
 }
 
-//case class BDMAm2sAR2RBundle(config: BDMAConfig) extends Bundle{
-//    val low_addr = UInt(config.axi4Size bits)
-//    val  = config.bytesCntDataType
-//}
 
 case class BDMAm2s(config: BDMAConfig) extends Component {
     val io = new Bundle{
@@ -227,11 +223,12 @@ case class BDMAm2s(config: BDMAConfig) extends Component {
 
     val m2s_r_valve = Reg(Bool()) init(False)
 
-    val m2s_data_payload = Reg(config.axisConfig.dataType)
-    val m2s_data_residual_payload = Reg(config.axisConfig.dataType)
-    val m2s_data_req = Reg(Bool()) init(False)
-    val m2s_data_first = Reg(Bool()) init(False)
-    val m2s_data_len = Reg(config.axi4Config.lenType)
+    val m2s_r_payload = Reg(config.axisConfig.dataType)
+    val m2s_r_residual_payload = Reg(config.axisConfig.dataType)
+    val m2s_r_req = Reg(Bool()) init(False)
+    val m2s_r_first = Reg(Bool()) init(False)
+    val m2s_r_len = Reg(config.axi4Config.lenType)
+    val m2s_r_last_cycle = Reg(Bool()) init(False)
 
     val m2s_axis_payload = Reg(config.axisConfig.dataType)
     val m2s_axis_strb_keep = Reg(config.axisConfig.strbType)
@@ -241,14 +238,13 @@ case class BDMAm2s(config: BDMAConfig) extends Component {
     val m2s_axis_id = if(config.axisConfig.useID) Reg(config.axisConfig.idType) else null
     val m2s_axis_trans_bytes = Reg(config.bytesCntDataType) init(0)
 
-    val m2s_data_last_cycle = Reg(Bool()) init(False)
 
     switch(m2s_r_state){
         is(BDMAm2sStates.IDLE){
             when(len_pending_fifo.io.pop.fire){
                 m2s_r_valve := True
                 pending_fifo_pop_ready := False
-                m2s_data_len := len_pending_fifo.io.pop.payload
+                m2s_r_len := len_pending_fifo.io.pop.payload
                 if(config.axisConfig.useID){
                     m2s_axis_id := id_pending_fifo.io.pop.payload
                 }
@@ -260,11 +256,11 @@ case class BDMAm2s(config: BDMAConfig) extends Component {
             }
             m2s_axis_valid := False
             m2s_axis_last := False
-            m2s_data_req := False
-            m2s_data_last_cycle := False
+            m2s_r_req := False
+            m2s_r_last_cycle := False
         }
         is(BDMAm2sStates.BURST){
-            when(m2s_data_req){
+            when(m2s_r_req){
                 when(m2s_axis_trans_bytes < config.axisConfig.bytePerWord){
                     m2s_axis_trans_bytes := 0
                     m2s_axis_strb_keep := (keep_strb_full >> (config.axisConfig.bytePerWord - m2s_axis_trans_bytes(config.axi4LowAddrRange))).resized
@@ -274,8 +270,8 @@ case class BDMAm2s(config: BDMAConfig) extends Component {
                 }
 
                 m2s_axis_valid := True
-                m2s_axis_payload := m2s_data_payload
-                when(m2s_data_last_cycle){
+                m2s_axis_payload := m2s_r_payload
+                when(m2s_r_last_cycle){
                     pending_fifo_pop_ready := ~ar_finish
                     m2s_r_state := ar_finish ? BDMAm2sStates.FINAL | BDMAm2sStates.IDLE
                     m2s_axis_last := ar_finish ? (m2s_axis_trans_bytes < config.axisConfig.bytePerWord) | False
@@ -285,33 +281,33 @@ case class BDMAm2s(config: BDMAConfig) extends Component {
             }
 
             when(io.dma_r.fire){
-                m2s_data_first := True
-                m2s_data_len := m2s_data_len - 1
-                m2s_data_residual_payload := io.dma_r.data
-                when(~m2s_data_first&& (m2s_data_len === 0)){
-                    m2s_data_payload := (io.dma_r.data >> (8 * m2s_bytes_shift)).resized
+                m2s_r_first := True
+                m2s_r_len := m2s_r_len - 1
+                m2s_r_residual_payload := io.dma_r.data
+                when(~m2s_r_first&& (m2s_r_len === 0)){
+                    m2s_r_payload := (io.dma_r.data >> (8 * m2s_bytes_shift)).resized
                 }.otherwise{
-                    m2s_data_payload := ((io.dma_r.data ## m2s_data_residual_payload) >> (8 * m2s_bytes_shift)).resized
+                    m2s_r_payload := ((io.dma_r.data ## m2s_r_residual_payload) >> (8 * m2s_bytes_shift)).resized
                 }
 
-                when(m2s_data_len === 0){
-                    m2s_data_last_cycle := True
+                when(m2s_r_len === 0){
+                    m2s_r_last_cycle := True
                     m2s_r_valve := False
-                    m2s_data_req := True
+                    m2s_r_req := True
                 }.otherwise{
-                    m2s_data_req := m2s_data_first
+                    m2s_r_req := m2s_r_first
                 }
             }.otherwise{
-                m2s_data_req := False
+                m2s_r_req := False
             }
         }
 
         is(BDMAm2sStates.FINAL){
-            m2s_data_first := False
+            m2s_r_first := False
             when(m2s_axis_trans_bytes =/= 0){
                 m2s_axis_trans_bytes := 0
                 m2s_axis_strb_keep := (keep_strb_full >> (config.axisConfig.bytePerWord - m2s_axis_trans_bytes(config.axi4LowAddrRange))).resized
-                m2s_axis_payload := ((m2s_axis_payload.getZero ## m2s_data_residual_payload) >> (8 * m2s_bytes_shift)).resized
+                m2s_axis_payload := ((m2s_axis_payload.getZero ## m2s_r_residual_payload) >> (8 * m2s_bytes_shift)).resized
                 m2s_axis_last := True
                 m2s_axis_valid := True
             }.otherwise{
