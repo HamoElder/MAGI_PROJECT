@@ -239,7 +239,7 @@ case class BDMAs2m(config: BDMAConfig) extends Component {
         is(BDMAs2mStates.IDLE){
             when(io.dma_aw.fire){
                 s2m_w_state := BDMAs2mStates.REQ
-                s2m_w_final_mask := (strb_full >> (config.axi4Config.bytePerWord - s2m_mask_shift)).resized
+                s2m_w_final_mask := (strb_full >> (config.axi4Config.bytePerWord - s2m_mask_shift).resize(s2m_mask_shift.getWidth)).resized
             }
             s2m_axis_residual_strb_keep := 0
             s2m_axis_strb_keep := 0

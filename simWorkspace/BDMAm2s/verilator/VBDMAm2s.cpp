@@ -449,7 +449,7 @@ VL_INLINE_OPT void VBDMAm2s::_sequent__TOP__5(VBDMAm2s__Syms* __restrict vlSymsp
                                 ? 2U : 0U);
                         vlTOPp->BDMAm2s__DOT__m2s_axis_last 
                             = ((IData)(vlTOPp->BDMAm2s__DOT__ar_finish) 
-                               & (4U > vlTOPp->BDMAm2s__DOT__m2s_axis_trans_bytes));
+                               & (4U >= vlTOPp->BDMAm2s__DOT__m2s_axis_trans_bytes));
                     }
                 } else {
                     vlTOPp->BDMAm2s__DOT__m2s_axis_valid = 0U;

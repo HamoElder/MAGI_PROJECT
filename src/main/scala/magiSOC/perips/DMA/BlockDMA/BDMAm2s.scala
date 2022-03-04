@@ -25,7 +25,7 @@ case class BDMAm2s(config: BDMAConfig) extends Component {
      */
     val m2s_ar_fifo = StreamFifo(Axi4Ar(config.axi4Config), config.axi4AxFifoDepth)
     val m2s_trans_bytes_fifo = StreamFifo(config.bytesCntDataType, config.axi4AxFifoDepth)
-    val m2s_data_fifo = StreamFifo(AxiStream4X(config.axisConfig), config.axis4FifoDepth)
+    val m2s_data_fifo = StreamFifo(AxiStream4X(config.axisConfig), 8)
 
     /**
      * FSM Status
@@ -274,7 +274,7 @@ case class BDMAm2s(config: BDMAConfig) extends Component {
                 when(m2s_r_last_cycle){
                     pending_fifo_pop_ready := ~ar_finish
                     m2s_r_state := ar_finish ? BDMAm2sStates.FINAL | BDMAm2sStates.IDLE
-                    m2s_axis_last := ar_finish ? (m2s_axis_trans_bytes < config.axisConfig.bytePerWord) | False
+                    m2s_axis_last := ar_finish && (m2s_axis_trans_bytes <= config.axisConfig.bytePerWord)
                 }
             }.otherwise{
                 m2s_axis_valid := False

@@ -1,16 +1,18 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : AxiLite4BDMA
-// Git hash  : 3cd9888e2ca8f3f3be26abbf0d25a3721280e949
+// Git hash  : fefcfcbf4ea4b5320f476681f83c9c8cbd19c743
 
 
 `define BDMAs2mStates_binary_sequential_type [1:0]
 `define BDMAs2mStates_binary_sequential_IDLE 2'b00
-`define BDMAs2mStates_binary_sequential_BURST 2'b01
-`define BDMAs2mStates_binary_sequential_DROP 2'b10
+`define BDMAs2mStates_binary_sequential_REQ 2'b01
+`define BDMAs2mStates_binary_sequential_BURST 2'b10
+`define BDMAs2mStates_binary_sequential_DROP 2'b11
 
-`define BDMAm2sStates_binary_sequential_type [0:0]
-`define BDMAm2sStates_binary_sequential_IDLE 1'b0
-`define BDMAm2sStates_binary_sequential_BURST 1'b1
+`define BDMAm2sStates_binary_sequential_type [1:0]
+`define BDMAm2sStates_binary_sequential_IDLE 2'b00
+`define BDMAm2sStates_binary_sequential_BURST 2'b01
+`define BDMAm2sStates_binary_sequential_FINAL_1 2'b10
 
 `define BDMAcchStates_binary_sequential_type [1:0]
 `define BDMAcchStates_binary_sequential_IDLE 2'b00
@@ -391,7 +393,7 @@ module AxiLite4BDMA (
         readRsp_data[1 : 1] = bdma_core_intrM2S;
       end
       8'h3c : begin
-        readRsp_data[0 : 0] = bdma_core_indicatorM2S;
+        readRsp_data[1 : 0] = bdma_core_indicatorM2S;
       end
       default : begin
       end
@@ -675,7 +677,7 @@ module BDMACore (
   wire                dma_m2s_core_m2s_intr;
   `ifndef SYNTHESIS
   reg [39:0] indicatorS2M_string;
-  reg [39:0] indicatorM2S_string;
+  reg [55:0] indicatorM2S_string;
   `endif
 
 
@@ -752,6 +754,7 @@ module BDMACore (
   always @(*) begin
     case(indicatorS2M)
       `BDMAs2mStates_binary_sequential_IDLE : indicatorS2M_string = "IDLE ";
+      `BDMAs2mStates_binary_sequential_REQ : indicatorS2M_string = "REQ  ";
       `BDMAs2mStates_binary_sequential_BURST : indicatorS2M_string = "BURST";
       `BDMAs2mStates_binary_sequential_DROP : indicatorS2M_string = "DROP ";
       default : indicatorS2M_string = "?????";
@@ -759,9 +762,10 @@ module BDMACore (
   end
   always @(*) begin
     case(indicatorM2S)
-      `BDMAm2sStates_binary_sequential_IDLE : indicatorM2S_string = "IDLE ";
-      `BDMAm2sStates_binary_sequential_BURST : indicatorM2S_string = "BURST";
-      default : indicatorM2S_string = "?????";
+      `BDMAm2sStates_binary_sequential_IDLE : indicatorM2S_string = "IDLE   ";
+      `BDMAm2sStates_binary_sequential_BURST : indicatorM2S_string = "BURST  ";
+      `BDMAm2sStates_binary_sequential_FINAL_1 : indicatorM2S_string = "FINAL_1";
+      default : indicatorM2S_string = "???????";
     endcase
   end
   `endif
@@ -852,12 +856,6 @@ module BDMAm2s (
   input               resetn
 );
   wire                m2s_ar_fifo_io_pop_ready;
-  wire       [1:0]    low_addr_fifo_io_push_payload;
-  wire       [1:0]    low_bytes_fifo_io_push_payload;
-  wire                m2s_data_fifo_io_push_valid;
-  wire       [3:0]    m2s_data_fifo_io_push_payload_strb;
-  wire       [3:0]    m2s_data_fifo_io_push_payload_keep_;
-  wire                m2s_data_fifo_io_push_payload_last;
   wire                m2s_ar_fifo_io_push_ready;
   wire                m2s_ar_fifo_io_pop_valid;
   wire       [31:0]   m2s_ar_fifo_io_pop_payload_addr;
@@ -867,16 +865,11 @@ module BDMAm2s (
   wire       [1:0]    m2s_ar_fifo_io_pop_payload_burst;
   wire       [3:0]    m2s_ar_fifo_io_occupancy;
   wire       [3:0]    m2s_ar_fifo_io_availability;
-  wire                low_addr_fifo_io_push_ready;
-  wire                low_addr_fifo_io_pop_valid;
-  wire       [1:0]    low_addr_fifo_io_pop_payload;
-  wire       [3:0]    low_addr_fifo_io_occupancy;
-  wire       [3:0]    low_addr_fifo_io_availability;
-  wire                low_bytes_fifo_io_push_ready;
-  wire                low_bytes_fifo_io_pop_valid;
-  wire       [1:0]    low_bytes_fifo_io_pop_payload;
-  wire       [3:0]    low_bytes_fifo_io_occupancy;
-  wire       [3:0]    low_bytes_fifo_io_availability;
+  wire                m2s_trans_bytes_fifo_io_push_ready;
+  wire                m2s_trans_bytes_fifo_io_pop_valid;
+  wire       [29:0]   m2s_trans_bytes_fifo_io_pop_payload;
+  wire       [3:0]    m2s_trans_bytes_fifo_io_occupancy;
+  wire       [3:0]    m2s_trans_bytes_fifo_io_availability;
   wire                m2s_data_fifo_io_push_ready;
   wire                m2s_data_fifo_io_pop_valid;
   wire       [31:0]   m2s_data_fifo_io_pop_payload_data;
@@ -884,47 +877,23 @@ module BDMAm2s (
   wire       [3:0]    m2s_data_fifo_io_pop_payload_strb;
   wire       [3:0]    m2s_data_fifo_io_pop_payload_keep_;
   wire                m2s_data_fifo_io_pop_payload_last;
-  wire       [5:0]    m2s_data_fifo_io_occupancy;
-  wire       [5:0]    m2s_data_fifo_io_availability;
-  wire                bytes_shift_pending_fifo_io_push_ready;
-  wire                bytes_shift_pending_fifo_io_pop_valid;
-  wire       [1:0]    bytes_shift_pending_fifo_io_pop_payload;
-  wire       [3:0]    bytes_shift_pending_fifo_io_occupancy;
-  wire       [3:0]    bytes_shift_pending_fifo_io_availability;
+  wire       [3:0]    m2s_data_fifo_io_occupancy;
+  wire       [3:0]    m2s_data_fifo_io_availability;
   wire                len_pending_fifo_io_push_ready;
   wire                len_pending_fifo_io_pop_valid;
   wire       [7:0]    len_pending_fifo_io_pop_payload;
   wire       [3:0]    len_pending_fifo_io_occupancy;
   wire       [3:0]    len_pending_fifo_io_availability;
-  wire                keep_strb_mask_pending_fifo_io_push_ready;
-  wire                keep_strb_mask_pending_fifo_io_pop_valid;
-  wire       [3:0]    keep_strb_mask_pending_fifo_io_pop_payload;
-  wire       [3:0]    keep_strb_mask_pending_fifo_io_occupancy;
-  wire       [3:0]    keep_strb_mask_pending_fifo_io_availability;
-  wire                keep_strb_pending_fifo_io_push_ready;
-  wire                keep_strb_pending_fifo_io_pop_valid;
-  wire       [3:0]    keep_strb_pending_fifo_io_pop_payload;
-  wire       [3:0]    keep_strb_pending_fifo_io_occupancy;
-  wire       [3:0]    keep_strb_pending_fifo_io_availability;
   wire                id_pending_fifo_io_push_ready;
   wire                id_pending_fifo_io_pop_valid;
   wire       [3:0]    id_pending_fifo_io_pop_payload;
   wire       [3:0]    id_pending_fifo_io_occupancy;
   wire       [3:0]    id_pending_fifo_io_availability;
-  wire                bytes_shift_fifo_io_push_ready;
-  wire                bytes_shift_fifo_io_pop_valid;
-  wire       [1:0]    bytes_shift_fifo_io_pop_payload;
-  wire       [3:0]    bytes_shift_fifo_io_occupancy;
-  wire       [3:0]    bytes_shift_fifo_io_availability;
-  wire                m2s_axis_fifo_io_push_ready;
-  wire                m2s_axis_fifo_io_pop_valid;
-  wire       [31:0]   m2s_axis_fifo_io_pop_payload_data;
-  wire       [3:0]    m2s_axis_fifo_io_pop_payload_id;
-  wire       [3:0]    m2s_axis_fifo_io_pop_payload_strb;
-  wire       [3:0]    m2s_axis_fifo_io_pop_payload_keep_;
-  wire                m2s_axis_fifo_io_pop_payload_last;
-  wire       [3:0]    m2s_axis_fifo_io_occupancy;
-  wire       [3:0]    m2s_axis_fifo_io_availability;
+  wire                trans_pending_fifo_io_push_ready;
+  wire                trans_pending_fifo_io_pop_valid;
+  wire       [29:0]   trans_pending_fifo_io_pop_payload;
+  wire       [3:0]    trans_pending_fifo_io_occupancy;
+  wire       [3:0]    trans_pending_fifo_io_availability;
   wire       [29:0]   _zz_aligned_address;
   wire       [31:0]   _zz_when_BDMAm2s_l97;
   wire       [31:0]   _zz_when_BDMAm2s_l97_1;
@@ -951,18 +920,19 @@ module BDMAm2s (
   wire       [31:0]   _zz_m2s_ar_len_5;
   wire       [31:0]   _zz_m2s_ar_len_6;
   wire       [31:0]   _zz_m2s_ar_len_7;
-  wire       [1:0]    _zz_io_push_payload;
-  wire       [6:0]    _zz_keep_strb_pending;
-  wire       [63:0]   _zz_m2s_axis_data;
-  wire       [5:0]    _zz_m2s_axis_data_1;
-  wire       [7:0]    _zz_m2s_axis_strb_keep;
-  wire       [63:0]   _zz_m2s_axis_data_2;
-  wire       [5:0]    _zz_m2s_axis_data_3;
-  wire       [7:0]    _zz_m2s_axis_strb_keep_1;
-  wire       [3:0]    _zz_when_BDMAm2s_l371;
+  wire       [2:0]    _zz_m2s_axis_strb_keep;
+  wire       [2:0]    _zz_m2s_axis_strb_keep_1;
+  wire       [1:0]    _zz_m2s_axis_strb_keep_2;
+  wire       [5:0]    _zz_m2s_r_payload;
+  wire       [63:0]   _zz_m2s_r_payload_1;
+  wire       [5:0]    _zz_m2s_r_payload_2;
+  wire       [2:0]    _zz_m2s_axis_strb_keep_3;
+  wire       [2:0]    _zz_m2s_axis_strb_keep_4;
+  wire       [1:0]    _zz_m2s_axis_strb_keep_5;
+  wire       [63:0]   _zz_m2s_axis_payload;
+  wire       [5:0]    _zz_m2s_axis_payload_1;
   reg        `BDMAcchStates_binary_sequential_type m2s_cch_state;
   reg        `BDMAm2sStates_binary_sequential_type m2s_r_state;
-  reg        `BDMAm2sStates_binary_sequential_type m2s_axis_state;
   reg                 cch_ready;
   reg        [29:0]   cch_total_bytes;
   reg        [31:0]   cch_address;
@@ -974,6 +944,7 @@ module BDMAm2s (
   reg                 m2s_ar_halt_exec;
   wire       [31:0]   aligned_address;
   reg                 cycle_finished;
+  reg        [1:0]    m2s_bytes_shift;
   wire                m2s_cch_fire;
   wire                when_BDMAm2s_l81;
   wire                m2s_ar_fifo_io_push_fire;
@@ -987,51 +958,42 @@ module BDMAm2s (
   wire                when_BDMAm2s_l144;
   wire                when_BDMAm2s_l156;
   wire                dma_ar_fire;
-  wire                dma_ar_fire_1;
   wire       [3:0]    keep_strb_full;
   reg                 pending_valid;
-  reg        [1:0]    bytes_shift_pending;
   reg        [7:0]    len_pending;
-  reg        [3:0]    keep_strb_mask_pending;
+  reg        [29:0]   trans_pending;
   reg        [3:0]    id_pending;
-  reg        [3:0]    keep_strb_pending;
-  wire                dma_ar_fire_2;
+  wire                dma_ar_fire_1;
   wire                _zz_dma_ar_valid;
+  wire                ar_finish;
   reg                 pending_fifo_pop_ready;
   reg                 m2s_r_valve;
-  reg        [1:0]    bytes_shift_reg;
-  reg                 bytes_shift_valid;
+  reg        [31:0]   m2s_r_payload;
+  reg        [31:0]   m2s_r_residual_payload;
+  reg                 m2s_r_req;
+  reg                 m2s_r_first;
   reg        [7:0]    m2s_r_len;
-  reg        [3:0]    m2s_r_id;
-  reg        [3:0]    m2s_r_strb_keep;
-  reg        [3:0]    keep_strb_mask;
-  wire                len_pending_fifo_io_pop_fire;
-  wire                dma_r_fire;
-  wire                when_BDMAm2s_l284;
-  reg                 m2s_axis_data_fifo_pop_ready;
-  reg                 m2s_axis_shift_fifo_pop_ready;
-  reg        [1:0]    m2s_bytes_shift;
-  reg                 m2s_axis_valid;
-  reg                 m2s_axis_final;
-  reg                 m2s_axis_last;
-  reg        [3:0]    m2s_axis_id;
+  reg                 m2s_r_last_cycle;
+  reg        [31:0]   m2s_axis_payload;
   reg        [3:0]    m2s_axis_strb_keep;
-  reg        [3:0]    m2s_axis_residual_strb_keep;
-  reg        [31:0]   m2s_axis_data;
-  reg        [31:0]   m2s_axis_residual_data;
-  reg                 m2s_axis_valid_next;
-  wire                bytes_shift_fifo_io_pop_fire;
-  wire                when_BDMAm2s_l351;
-  wire                when_BDMAm2s_l371;
+  reg                 m2s_axis_valid;
+  reg                 m2s_axis_last;
+  reg        [1:0]    m2s_axis_low_bytes;
+  reg        [3:0]    m2s_axis_id;
+  reg        [29:0]   m2s_axis_trans_bytes;
+  wire                len_pending_fifo_io_pop_fire;
+  wire                when_BDMAm2s_l264;
+  wire                dma_r_fire;
+  wire                when_BDMAm2s_l287;
+  wire                when_BDMAm2s_l293;
+  wire                when_BDMAm2s_l307;
+  wire                when_BDMAm2s_l342;
   wire                m2s_data_fifo_io_pop_fire;
-  wire                when_BDMAm2s_l401;
-  wire                m2s_axis_fifo_io_pop_fire;
-  wire                when_BDMAm2s_l403;
+  wire                when_BDMAm2s_l344;
   `ifndef SYNTHESIS
-  reg [39:0] m2s_state_string;
+  reg [55:0] m2s_state_string;
   reg [71:0] m2s_cch_state_string;
-  reg [39:0] m2s_r_state_string;
-  reg [39:0] m2s_axis_state_string;
+  reg [55:0] m2s_r_state_string;
   `endif
 
 
@@ -1061,15 +1023,17 @@ module BDMAm2s (
   assign _zz_m2s_ar_len_5 = (_zz_m2s_ar_len_6 - 32'h00000001);
   assign _zz_m2s_ar_len_6 = (_zz_m2s_ar_len_7 + (cch_address & 32'h00000003));
   assign _zz_m2s_ar_len_7 = {2'd0, trans_bytes_cnt};
-  assign _zz_io_push_payload = (trans_bytes_cnt[1 : 0] + cch_address[1 : 0]);
-  assign _zz_keep_strb_pending = ({3'd0,keep_strb_full} <<< low_addr_fifo_io_pop_payload);
-  assign _zz_m2s_axis_data = ({32'h0,m2s_axis_residual_data} >>> _zz_m2s_axis_data_1);
-  assign _zz_m2s_axis_data_1 = (4'b1000 * m2s_bytes_shift);
-  assign _zz_m2s_axis_strb_keep = ({4'b0000,m2s_axis_residual_strb_keep} >>> m2s_bytes_shift);
-  assign _zz_m2s_axis_data_2 = ({m2s_data_fifo_io_pop_payload_data,m2s_axis_residual_data} >>> _zz_m2s_axis_data_3);
-  assign _zz_m2s_axis_data_3 = (4'b1000 * m2s_bytes_shift);
-  assign _zz_m2s_axis_strb_keep_1 = ({m2s_data_fifo_io_pop_payload_keep_,m2s_axis_residual_strb_keep} >>> m2s_bytes_shift);
-  assign _zz_when_BDMAm2s_l371 = (m2s_data_fifo_io_pop_payload_keep_ >>> m2s_bytes_shift);
+  assign _zz_m2s_axis_strb_keep = (3'b100 - _zz_m2s_axis_strb_keep_1);
+  assign _zz_m2s_axis_strb_keep_2 = m2s_axis_trans_bytes[1 : 0];
+  assign _zz_m2s_axis_strb_keep_1 = {1'd0, _zz_m2s_axis_strb_keep_2};
+  assign _zz_m2s_r_payload = (4'b1000 * m2s_bytes_shift);
+  assign _zz_m2s_r_payload_1 = ({dma_r_payload_data,m2s_r_residual_payload} >>> _zz_m2s_r_payload_2);
+  assign _zz_m2s_r_payload_2 = (4'b1000 * m2s_bytes_shift);
+  assign _zz_m2s_axis_strb_keep_3 = (3'b100 - _zz_m2s_axis_strb_keep_4);
+  assign _zz_m2s_axis_strb_keep_5 = m2s_axis_trans_bytes[1 : 0];
+  assign _zz_m2s_axis_strb_keep_4 = {1'd0, _zz_m2s_axis_strb_keep_5};
+  assign _zz_m2s_axis_payload = ({32'h0,m2s_r_residual_payload} >>> _zz_m2s_axis_payload_1);
+  assign _zz_m2s_axis_payload_1 = (4'b1000 * m2s_bytes_shift);
   StreamFifo m2s_ar_fifo (
     .io_push_valid            (m2s_ar_valid                      ), //i
     .io_push_ready            (m2s_ar_fifo_io_push_ready         ), //o
@@ -1091,67 +1055,41 @@ module BDMAm2s (
     .clk                      (clk                               ), //i
     .resetn                   (resetn                            )  //i
   );
-  StreamFifo_1 low_addr_fifo (
-    .io_push_valid      (m2s_ar_valid                   ), //i
-    .io_push_ready      (low_addr_fifo_io_push_ready    ), //o
-    .io_push_payload    (low_addr_fifo_io_push_payload  ), //i
-    .io_pop_valid       (low_addr_fifo_io_pop_valid     ), //o
-    .io_pop_ready       (dma_ar_fire                    ), //i
-    .io_pop_payload     (low_addr_fifo_io_pop_payload   ), //o
-    .io_flush           (1'b0                           ), //i
-    .io_occupancy       (low_addr_fifo_io_occupancy     ), //o
-    .io_availability    (low_addr_fifo_io_availability  ), //o
-    .clk                (clk                            ), //i
-    .resetn             (resetn                         )  //i
+  StreamFifo_1 m2s_trans_bytes_fifo (
+    .io_push_valid      (m2s_ar_valid                          ), //i
+    .io_push_ready      (m2s_trans_bytes_fifo_io_push_ready    ), //o
+    .io_push_payload    (trans_bytes_cnt                       ), //i
+    .io_pop_valid       (m2s_trans_bytes_fifo_io_pop_valid     ), //o
+    .io_pop_ready       (dma_ar_fire                           ), //i
+    .io_pop_payload     (m2s_trans_bytes_fifo_io_pop_payload   ), //o
+    .io_flush           (1'b0                                  ), //i
+    .io_occupancy       (m2s_trans_bytes_fifo_io_occupancy     ), //o
+    .io_availability    (m2s_trans_bytes_fifo_io_availability  ), //o
+    .clk                (clk                                   ), //i
+    .resetn             (resetn                                )  //i
   );
-  StreamFifo_1 low_bytes_fifo (
-    .io_push_valid      (m2s_ar_valid                    ), //i
-    .io_push_ready      (low_bytes_fifo_io_push_ready    ), //o
-    .io_push_payload    (low_bytes_fifo_io_push_payload  ), //i
-    .io_pop_valid       (low_bytes_fifo_io_pop_valid     ), //o
-    .io_pop_ready       (dma_ar_fire_1                   ), //i
-    .io_pop_payload     (low_bytes_fifo_io_pop_payload   ), //o
-    .io_flush           (1'b0                            ), //i
-    .io_occupancy       (low_bytes_fifo_io_occupancy     ), //o
-    .io_availability    (low_bytes_fifo_io_availability  ), //o
-    .clk                (clk                             ), //i
-    .resetn             (resetn                          )  //i
+  StreamFifo_7 m2s_data_fifo (
+    .io_push_valid            (m2s_axis_valid                      ), //i
+    .io_push_ready            (m2s_data_fifo_io_push_ready         ), //o
+    .io_push_payload_data     (m2s_axis_payload                    ), //i
+    .io_push_payload_id       (m2s_axis_id                         ), //i
+    .io_push_payload_strb     (m2s_axis_strb_keep                  ), //i
+    .io_push_payload_keep_    (m2s_axis_strb_keep                  ), //i
+    .io_push_payload_last     (m2s_axis_last                       ), //i
+    .io_pop_valid             (m2s_data_fifo_io_pop_valid          ), //o
+    .io_pop_ready             (m2s_data_stream_ready               ), //i
+    .io_pop_payload_data      (m2s_data_fifo_io_pop_payload_data   ), //o
+    .io_pop_payload_id        (m2s_data_fifo_io_pop_payload_id     ), //o
+    .io_pop_payload_strb      (m2s_data_fifo_io_pop_payload_strb   ), //o
+    .io_pop_payload_keep_     (m2s_data_fifo_io_pop_payload_keep_  ), //o
+    .io_pop_payload_last      (m2s_data_fifo_io_pop_payload_last   ), //o
+    .io_flush                 (1'b0                                ), //i
+    .io_occupancy             (m2s_data_fifo_io_occupancy          ), //o
+    .io_availability          (m2s_data_fifo_io_availability       ), //o
+    .clk                      (clk                                 ), //i
+    .resetn                   (resetn                              )  //i
   );
-  StreamFifo_10 m2s_data_fifo (
-    .io_push_valid            (m2s_data_fifo_io_push_valid          ), //i
-    .io_push_ready            (m2s_data_fifo_io_push_ready          ), //o
-    .io_push_payload_data     (dma_r_payload_data                   ), //i
-    .io_push_payload_id       (m2s_r_id                             ), //i
-    .io_push_payload_strb     (m2s_data_fifo_io_push_payload_strb   ), //i
-    .io_push_payload_keep_    (m2s_data_fifo_io_push_payload_keep_  ), //i
-    .io_push_payload_last     (m2s_data_fifo_io_push_payload_last   ), //i
-    .io_pop_valid             (m2s_data_fifo_io_pop_valid           ), //o
-    .io_pop_ready             (m2s_axis_data_fifo_pop_ready         ), //i
-    .io_pop_payload_data      (m2s_data_fifo_io_pop_payload_data    ), //o
-    .io_pop_payload_id        (m2s_data_fifo_io_pop_payload_id      ), //o
-    .io_pop_payload_strb      (m2s_data_fifo_io_pop_payload_strb    ), //o
-    .io_pop_payload_keep_     (m2s_data_fifo_io_pop_payload_keep_   ), //o
-    .io_pop_payload_last      (m2s_data_fifo_io_pop_payload_last    ), //o
-    .io_flush                 (1'b0                                 ), //i
-    .io_occupancy             (m2s_data_fifo_io_occupancy           ), //o
-    .io_availability          (m2s_data_fifo_io_availability        ), //o
-    .clk                      (clk                                  ), //i
-    .resetn                   (resetn                               )  //i
-  );
-  StreamFifo_4 bytes_shift_pending_fifo (
-    .io_push_valid      (pending_valid                             ), //i
-    .io_push_ready      (bytes_shift_pending_fifo_io_push_ready    ), //o
-    .io_push_payload    (bytes_shift_pending                       ), //i
-    .io_pop_valid       (bytes_shift_pending_fifo_io_pop_valid     ), //o
-    .io_pop_ready       (pending_fifo_pop_ready                    ), //i
-    .io_pop_payload     (bytes_shift_pending_fifo_io_pop_payload   ), //o
-    .io_flush           (1'b0                                      ), //i
-    .io_occupancy       (bytes_shift_pending_fifo_io_occupancy     ), //o
-    .io_availability    (bytes_shift_pending_fifo_io_availability  ), //o
-    .clk                (clk                                       ), //i
-    .resetn             (resetn                                    )  //i
-  );
-  StreamFifo_6 len_pending_fifo (
+  StreamFifo_3 len_pending_fifo (
     .io_push_valid      (pending_valid                     ), //i
     .io_push_ready      (len_pending_fifo_io_push_ready    ), //o
     .io_push_payload    (len_pending                       ), //i
@@ -1164,33 +1102,7 @@ module BDMAm2s (
     .clk                (clk                               ), //i
     .resetn             (resetn                            )  //i
   );
-  StreamFifo_5 keep_strb_mask_pending_fifo (
-    .io_push_valid      (pending_valid                                ), //i
-    .io_push_ready      (keep_strb_mask_pending_fifo_io_push_ready    ), //o
-    .io_push_payload    (keep_strb_mask_pending                       ), //i
-    .io_pop_valid       (keep_strb_mask_pending_fifo_io_pop_valid     ), //o
-    .io_pop_ready       (pending_fifo_pop_ready                       ), //i
-    .io_pop_payload     (keep_strb_mask_pending_fifo_io_pop_payload   ), //o
-    .io_flush           (1'b0                                         ), //i
-    .io_occupancy       (keep_strb_mask_pending_fifo_io_occupancy     ), //o
-    .io_availability    (keep_strb_mask_pending_fifo_io_availability  ), //o
-    .clk                (clk                                          ), //i
-    .resetn             (resetn                                       )  //i
-  );
-  StreamFifo_5 keep_strb_pending_fifo (
-    .io_push_valid      (pending_valid                           ), //i
-    .io_push_ready      (keep_strb_pending_fifo_io_push_ready    ), //o
-    .io_push_payload    (keep_strb_pending                       ), //i
-    .io_pop_valid       (keep_strb_pending_fifo_io_pop_valid     ), //o
-    .io_pop_ready       (pending_fifo_pop_ready                  ), //i
-    .io_pop_payload     (keep_strb_pending_fifo_io_pop_payload   ), //o
-    .io_flush           (1'b0                                    ), //i
-    .io_occupancy       (keep_strb_pending_fifo_io_occupancy     ), //o
-    .io_availability    (keep_strb_pending_fifo_io_availability  ), //o
-    .clk                (clk                                     ), //i
-    .resetn             (resetn                                  )  //i
-  );
-  StreamFifo_15 id_pending_fifo (
+  StreamFifo_9 id_pending_fifo (
     .io_push_valid      (pending_valid                    ), //i
     .io_push_ready      (id_pending_fifo_io_push_ready    ), //o
     .io_push_payload    (id_pending                       ), //i
@@ -1203,46 +1115,26 @@ module BDMAm2s (
     .clk                (clk                              ), //i
     .resetn             (resetn                           )  //i
   );
-  StreamFifo_1 bytes_shift_fifo (
-    .io_push_valid      (bytes_shift_valid                 ), //i
-    .io_push_ready      (bytes_shift_fifo_io_push_ready    ), //o
-    .io_push_payload    (bytes_shift_reg                   ), //i
-    .io_pop_valid       (bytes_shift_fifo_io_pop_valid     ), //o
-    .io_pop_ready       (m2s_axis_shift_fifo_pop_ready     ), //i
-    .io_pop_payload     (bytes_shift_fifo_io_pop_payload   ), //o
-    .io_flush           (1'b0                              ), //i
-    .io_occupancy       (bytes_shift_fifo_io_occupancy     ), //o
-    .io_availability    (bytes_shift_fifo_io_availability  ), //o
-    .clk                (clk                               ), //i
-    .resetn             (resetn                            )  //i
-  );
-  StreamFifo_17 m2s_axis_fifo (
-    .io_push_valid            (m2s_axis_valid                      ), //i
-    .io_push_ready            (m2s_axis_fifo_io_push_ready         ), //o
-    .io_push_payload_data     (m2s_axis_data                       ), //i
-    .io_push_payload_id       (m2s_axis_id                         ), //i
-    .io_push_payload_strb     (m2s_axis_strb_keep                  ), //i
-    .io_push_payload_keep_    (m2s_axis_strb_keep                  ), //i
-    .io_push_payload_last     (m2s_axis_last                       ), //i
-    .io_pop_valid             (m2s_axis_fifo_io_pop_valid          ), //o
-    .io_pop_ready             (m2s_data_stream_ready               ), //i
-    .io_pop_payload_data      (m2s_axis_fifo_io_pop_payload_data   ), //o
-    .io_pop_payload_id        (m2s_axis_fifo_io_pop_payload_id     ), //o
-    .io_pop_payload_strb      (m2s_axis_fifo_io_pop_payload_strb   ), //o
-    .io_pop_payload_keep_     (m2s_axis_fifo_io_pop_payload_keep_  ), //o
-    .io_pop_payload_last      (m2s_axis_fifo_io_pop_payload_last   ), //o
-    .io_flush                 (1'b0                                ), //i
-    .io_occupancy             (m2s_axis_fifo_io_occupancy          ), //o
-    .io_availability          (m2s_axis_fifo_io_availability       ), //o
-    .clk                      (clk                                 ), //i
-    .resetn                   (resetn                              )  //i
+  StreamFifo_4 trans_pending_fifo (
+    .io_push_valid      (pending_valid                       ), //i
+    .io_push_ready      (trans_pending_fifo_io_push_ready    ), //o
+    .io_push_payload    (trans_pending                       ), //i
+    .io_pop_valid       (trans_pending_fifo_io_pop_valid     ), //o
+    .io_pop_ready       (pending_fifo_pop_ready              ), //i
+    .io_pop_payload     (trans_pending_fifo_io_pop_payload   ), //o
+    .io_flush           (1'b0                                ), //i
+    .io_occupancy       (trans_pending_fifo_io_occupancy     ), //o
+    .io_availability    (trans_pending_fifo_io_availability  ), //o
+    .clk                (clk                                 ), //i
+    .resetn             (resetn                              )  //i
   );
   `ifndef SYNTHESIS
   always @(*) begin
     case(m2s_state)
-      `BDMAm2sStates_binary_sequential_IDLE : m2s_state_string = "IDLE ";
-      `BDMAm2sStates_binary_sequential_BURST : m2s_state_string = "BURST";
-      default : m2s_state_string = "?????";
+      `BDMAm2sStates_binary_sequential_IDLE : m2s_state_string = "IDLE   ";
+      `BDMAm2sStates_binary_sequential_BURST : m2s_state_string = "BURST  ";
+      `BDMAm2sStates_binary_sequential_FINAL_1 : m2s_state_string = "FINAL_1";
+      default : m2s_state_string = "???????";
     endcase
   end
   always @(*) begin
@@ -1256,16 +1148,10 @@ module BDMAm2s (
   end
   always @(*) begin
     case(m2s_r_state)
-      `BDMAm2sStates_binary_sequential_IDLE : m2s_r_state_string = "IDLE ";
-      `BDMAm2sStates_binary_sequential_BURST : m2s_r_state_string = "BURST";
-      default : m2s_r_state_string = "?????";
-    endcase
-  end
-  always @(*) begin
-    case(m2s_axis_state)
-      `BDMAm2sStates_binary_sequential_IDLE : m2s_axis_state_string = "IDLE ";
-      `BDMAm2sStates_binary_sequential_BURST : m2s_axis_state_string = "BURST";
-      default : m2s_axis_state_string = "?????";
+      `BDMAm2sStates_binary_sequential_IDLE : m2s_r_state_string = "IDLE   ";
+      `BDMAm2sStates_binary_sequential_BURST : m2s_r_state_string = "BURST  ";
+      `BDMAm2sStates_binary_sequential_FINAL_1 : m2s_r_state_string = "FINAL_1";
+      default : m2s_r_state_string = "???????";
     endcase
   end
   `endif
@@ -1284,12 +1170,9 @@ module BDMAm2s (
   assign when_BDMAm2s_l144 = (_zz_when_BDMAm2s_l144 != 20'h0);
   assign when_BDMAm2s_l156 = (m2s_cch_payload_desc_reset && cycle_finished);
   assign m2s_cch_ready = cch_ready;
-  assign low_addr_fifo_io_push_payload = cch_address[1 : 0];
   assign dma_ar_fire = (dma_ar_valid && dma_ar_ready);
-  assign low_bytes_fifo_io_push_payload = ((~ _zz_io_push_payload) + 2'b01);
-  assign dma_ar_fire_1 = (dma_ar_valid && dma_ar_ready);
   assign keep_strb_full = 4'b1111;
-  assign dma_ar_fire_2 = (dma_ar_valid && dma_ar_ready);
+  assign dma_ar_fire_1 = (dma_ar_valid && dma_ar_ready);
   assign _zz_dma_ar_valid = (! (4'b1000 <= len_pending_fifo_io_occupancy));
   assign m2s_ar_fifo_io_pop_ready = (dma_ar_ready && _zz_dma_ar_valid);
   assign dma_ar_valid = (m2s_ar_fifo_io_pop_valid && _zz_dma_ar_valid);
@@ -1298,53 +1181,49 @@ module BDMAm2s (
   assign dma_ar_payload_len = m2s_ar_fifo_io_pop_payload_len;
   assign dma_ar_payload_size = m2s_ar_fifo_io_pop_payload_size;
   assign dma_ar_payload_burst = m2s_ar_fifo_io_pop_payload_burst;
+  assign ar_finish = (((! len_pending_fifo_io_pop_valid) && (m2s_cch_state == `BDMAcchStates_binary_sequential_HALT)) && (! m2s_ar_fifo_io_pop_valid));
   assign len_pending_fifo_io_pop_fire = (len_pending_fifo_io_pop_valid && pending_fifo_pop_ready);
+  assign when_BDMAm2s_l264 = (m2s_axis_trans_bytes < 30'h00000004);
   assign dma_r_fire = (dma_r_valid && dma_r_ready);
-  assign when_BDMAm2s_l284 = (m2s_r_len == 8'h0);
-  assign dma_r_ready = ((6'h02 <= m2s_data_fifo_io_availability) && m2s_r_valve);
-  assign m2s_data_fifo_io_push_valid = (dma_r_valid && m2s_r_valve);
-  assign m2s_data_fifo_io_push_payload_strb = ((m2s_r_len == 8'h0) ? (keep_strb_mask & m2s_r_strb_keep) : m2s_r_strb_keep);
-  assign m2s_data_fifo_io_push_payload_keep_ = ((m2s_r_len == 8'h0) ? (keep_strb_mask & m2s_r_strb_keep) : m2s_r_strb_keep);
-  assign m2s_data_fifo_io_push_payload_last = (((m2s_r_len == 8'h0) && (! len_pending_fifo_io_pop_valid)) && (m2s_cch_state == `BDMAcchStates_binary_sequential_HALT));
-  assign bytes_shift_fifo_io_pop_fire = (bytes_shift_fifo_io_pop_valid && m2s_axis_shift_fifo_pop_ready);
-  assign when_BDMAm2s_l351 = (m2s_axis_final && m2s_data_stream_ready);
-  assign when_BDMAm2s_l371 = (_zz_when_BDMAm2s_l371 == 4'b0000);
-  assign m2s_data_fifo_io_pop_fire = (m2s_data_fifo_io_pop_valid && m2s_axis_data_fifo_pop_ready);
-  assign m2s_data_stream_valid = m2s_axis_fifo_io_pop_valid;
-  assign m2s_data_stream_payload_data = m2s_axis_fifo_io_pop_payload_data;
-  assign m2s_data_stream_payload_id = m2s_axis_fifo_io_pop_payload_id;
-  assign m2s_data_stream_payload_strb = m2s_axis_fifo_io_pop_payload_strb;
-  assign m2s_data_stream_payload_keep_ = m2s_axis_fifo_io_pop_payload_keep_;
-  assign m2s_data_stream_payload_last = m2s_axis_fifo_io_pop_payload_last;
-  assign when_BDMAm2s_l401 = (m2s_cch_state == `BDMAcchStates_binary_sequential_IDLE);
-  assign m2s_axis_fifo_io_pop_fire = (m2s_axis_fifo_io_pop_valid && m2s_data_stream_ready);
-  assign when_BDMAm2s_l403 = (m2s_axis_fifo_io_pop_payload_last && m2s_axis_fifo_io_pop_fire);
+  assign when_BDMAm2s_l287 = ((! m2s_r_first) && (m2s_r_len == 8'h0));
+  assign when_BDMAm2s_l293 = (m2s_r_len == 8'h0);
+  assign when_BDMAm2s_l307 = (m2s_axis_trans_bytes != 30'h0);
+  assign dma_r_ready = ((4'b0010 < m2s_data_fifo_io_availability) && m2s_r_valve);
+  assign m2s_data_stream_valid = m2s_data_fifo_io_pop_valid;
+  assign m2s_data_stream_payload_data = m2s_data_fifo_io_pop_payload_data;
+  assign m2s_data_stream_payload_id = m2s_data_fifo_io_pop_payload_id;
+  assign m2s_data_stream_payload_strb = m2s_data_fifo_io_pop_payload_strb;
+  assign m2s_data_stream_payload_keep_ = m2s_data_fifo_io_pop_payload_keep_;
+  assign m2s_data_stream_payload_last = m2s_data_fifo_io_pop_payload_last;
+  assign when_BDMAm2s_l342 = (m2s_cch_state == `BDMAcchStates_binary_sequential_IDLE);
+  assign m2s_data_fifo_io_pop_fire = (m2s_data_fifo_io_pop_valid && m2s_data_stream_ready);
+  assign when_BDMAm2s_l344 = (m2s_data_fifo_io_pop_payload_last && m2s_data_fifo_io_pop_fire);
   assign m2s_intr = cycle_finished;
   assign m2s_state = m2s_r_state;
   always @(posedge clk) begin
     if(!resetn) begin
       m2s_cch_state <= `BDMAcchStates_binary_sequential_IDLE;
       m2s_r_state <= `BDMAm2sStates_binary_sequential_IDLE;
-      m2s_axis_state <= `BDMAm2sStates_binary_sequential_IDLE;
       cch_ready <= 1'b0;
       m2s_ar_valid <= 1'b0;
       m2s_ar_halt_exec <= 1'b0;
       cycle_finished <= 1'b0;
+      m2s_bytes_shift <= 2'b00;
       pending_valid <= 1'b0;
       pending_fifo_pop_ready <= 1'b0;
       m2s_r_valve <= 1'b0;
-      bytes_shift_valid <= 1'b0;
-      m2s_axis_data_fifo_pop_ready <= 1'b0;
-      m2s_axis_shift_fifo_pop_ready <= 1'b0;
+      m2s_r_req <= 1'b0;
+      m2s_r_first <= 1'b0;
+      m2s_r_last_cycle <= 1'b0;
       m2s_axis_valid <= 1'b0;
-      m2s_axis_final <= 1'b0;
       m2s_axis_last <= 1'b0;
-      m2s_axis_valid_next <= 1'b0;
+      m2s_axis_trans_bytes <= 30'h0;
     end else begin
       case(m2s_cch_state)
         `BDMAcchStates_binary_sequential_IDLE : begin
           if(m2s_cch_fire) begin
             cch_ready <= 1'b0;
+            m2s_bytes_shift <= m2s_cch_payload_desc_start_addr[1 : 0];
             case(m2s_cch_payload_desc_burst)
               2'b00 : begin
                 m2s_cch_state <= `BDMAcchStates_binary_sequential_FIXED_REQ;
@@ -1396,10 +1275,11 @@ module BDMAm2s (
         default : begin
           if(when_BDMAm2s_l156) begin
             m2s_cch_state <= `BDMAcchStates_binary_sequential_IDLE;
+            m2s_bytes_shift <= 2'b00;
           end
         end
       endcase
-      if(dma_ar_fire_2) begin
+      if(dma_ar_fire_1) begin
         pending_valid <= 1'b1;
       end else begin
         pending_valid <= 1'b0;
@@ -1409,73 +1289,64 @@ module BDMAm2s (
           if(len_pending_fifo_io_pop_fire) begin
             m2s_r_valve <= 1'b1;
             pending_fifo_pop_ready <= 1'b0;
-            bytes_shift_valid <= 1'b1;
+            m2s_axis_trans_bytes <= (m2s_axis_trans_bytes + trans_pending_fifo_io_pop_payload);
             m2s_r_state <= `BDMAm2sStates_binary_sequential_BURST;
           end else begin
-            bytes_shift_valid <= 1'b0;
             m2s_r_valve <= 1'b0;
             pending_fifo_pop_ready <= 1'b1;
           end
-        end
-        default : begin
-          if(dma_r_fire) begin
-            if(when_BDMAm2s_l284) begin
-              m2s_r_valve <= 1'b0;
-              pending_fifo_pop_ready <= 1'b1;
-              m2s_r_state <= `BDMAm2sStates_binary_sequential_IDLE;
-            end
-          end
-          bytes_shift_valid <= 1'b0;
-        end
-      endcase
-      case(m2s_axis_state)
-        `BDMAm2sStates_binary_sequential_IDLE : begin
-          if(bytes_shift_fifo_io_pop_fire) begin
-            m2s_axis_shift_fifo_pop_ready <= 1'b0;
-            m2s_axis_data_fifo_pop_ready <= 1'b1;
-            m2s_axis_state <= `BDMAm2sStates_binary_sequential_BURST;
-          end else begin
-            m2s_axis_shift_fifo_pop_ready <= 1'b1;
-            m2s_axis_data_fifo_pop_ready <= 1'b0;
-          end
-          m2s_axis_final <= 1'b0;
-          m2s_axis_valid_next <= 1'b0;
           m2s_axis_valid <= 1'b0;
           m2s_axis_last <= 1'b0;
+          m2s_r_req <= 1'b0;
+          m2s_r_last_cycle <= 1'b0;
         end
-        default : begin
-          if(when_BDMAm2s_l351) begin
-            m2s_axis_state <= `BDMAm2sStates_binary_sequential_IDLE;
-            m2s_axis_valid <= 1'b1;
-            m2s_axis_last <= 1'b1;
-            m2s_axis_shift_fifo_pop_ready <= 1'b1;
-          end else begin
-            if(m2s_data_fifo_io_pop_fire) begin
-              m2s_axis_valid_next <= 1'b1;
-              m2s_axis_valid <= m2s_axis_valid_next;
-              if(m2s_data_fifo_io_pop_payload_last) begin
-                if(when_BDMAm2s_l371) begin
-                  m2s_axis_state <= `BDMAm2sStates_binary_sequential_IDLE;
-                  m2s_axis_valid <= 1'b1;
-                  m2s_axis_last <= 1'b1;
-                  m2s_axis_shift_fifo_pop_ready <= 1'b1;
-                end else begin
-                  m2s_axis_final <= 1'b1;
-                end
-                m2s_axis_data_fifo_pop_ready <= 1'b0;
-              end else begin
-                m2s_axis_data_fifo_pop_ready <= 1'b1;
-              end
+        `BDMAm2sStates_binary_sequential_BURST : begin
+          if(m2s_r_req) begin
+            if(when_BDMAm2s_l264) begin
+              m2s_axis_trans_bytes <= 30'h0;
             end else begin
-              m2s_axis_valid <= 1'b0;
+              m2s_axis_trans_bytes <= (m2s_axis_trans_bytes - 30'h00000004);
             end
+            m2s_axis_valid <= 1'b1;
+            if(m2s_r_last_cycle) begin
+              pending_fifo_pop_ready <= (! ar_finish);
+              m2s_r_state <= (ar_finish ? `BDMAm2sStates_binary_sequential_FINAL_1 : `BDMAm2sStates_binary_sequential_IDLE);
+              m2s_axis_last <= (ar_finish && (m2s_axis_trans_bytes <= 30'h00000004));
+            end
+          end else begin
+            m2s_axis_valid <= 1'b0;
+          end
+          if(dma_r_fire) begin
+            m2s_r_first <= 1'b1;
+            if(when_BDMAm2s_l293) begin
+              m2s_r_last_cycle <= 1'b1;
+              m2s_r_valve <= 1'b0;
+              m2s_r_req <= 1'b1;
+            end else begin
+              m2s_r_req <= m2s_r_first;
+            end
+          end else begin
+            m2s_r_req <= 1'b0;
           end
         end
+        default : begin
+          m2s_r_first <= 1'b0;
+          if(when_BDMAm2s_l307) begin
+            m2s_axis_trans_bytes <= 30'h0;
+            m2s_axis_last <= 1'b1;
+            m2s_axis_valid <= 1'b1;
+          end else begin
+            m2s_axis_valid <= 1'b0;
+            m2s_axis_last <= 1'b0;
+          end
+          pending_fifo_pop_ready <= 1'b1;
+          m2s_r_state <= `BDMAm2sStates_binary_sequential_IDLE;
+        end
       endcase
-      if(when_BDMAm2s_l401) begin
+      if(when_BDMAm2s_l342) begin
         cycle_finished <= 1'b0;
       end else begin
-        if(when_BDMAm2s_l403) begin
+        if(when_BDMAm2s_l344) begin
           cycle_finished <= 1'b1;
         end
       end
@@ -1530,48 +1401,41 @@ module BDMAm2s (
       default : begin
       end
     endcase
-    if(dma_ar_fire_2) begin
+    if(dma_ar_fire_1) begin
       len_pending <= dma_ar_payload_len;
-      bytes_shift_pending <= low_addr_fifo_io_pop_payload;
-      keep_strb_pending <= _zz_keep_strb_pending[3:0];
-      keep_strb_mask_pending <= (keep_strb_full >>> low_bytes_fifo_io_pop_payload);
+      trans_pending <= m2s_trans_bytes_fifo_io_pop_payload;
       id_pending <= m2s_ar_fifo_io_pop_payload_id;
     end
     case(m2s_r_state)
       `BDMAm2sStates_binary_sequential_IDLE : begin
         if(len_pending_fifo_io_pop_fire) begin
           m2s_r_len <= len_pending_fifo_io_pop_payload;
-          keep_strb_mask <= keep_strb_mask_pending_fifo_io_pop_payload;
-          m2s_r_id <= id_pending_fifo_io_pop_payload;
-          m2s_r_strb_keep <= keep_strb_pending_fifo_io_pop_payload;
-          bytes_shift_reg <= bytes_shift_pending_fifo_io_pop_payload;
+          m2s_axis_id <= id_pending_fifo_io_pop_payload;
         end
       end
-      default : begin
+      `BDMAm2sStates_binary_sequential_BURST : begin
+        if(m2s_r_req) begin
+          if(when_BDMAm2s_l264) begin
+            m2s_axis_strb_keep <= (keep_strb_full >>> _zz_m2s_axis_strb_keep);
+          end else begin
+            m2s_axis_strb_keep <= keep_strb_full;
+          end
+          m2s_axis_payload <= m2s_r_payload;
+        end
         if(dma_r_fire) begin
           m2s_r_len <= (m2s_r_len - 8'h01);
-          m2s_r_strb_keep <= keep_strb_full;
-        end
-      end
-    endcase
-    case(m2s_axis_state)
-      `BDMAm2sStates_binary_sequential_IDLE : begin
-        if(bytes_shift_fifo_io_pop_fire) begin
-          m2s_bytes_shift <= bytes_shift_fifo_io_pop_payload;
+          m2s_r_residual_payload <= dma_r_payload_data;
+          if(when_BDMAm2s_l287) begin
+            m2s_r_payload <= (dma_r_payload_data >>> _zz_m2s_r_payload);
+          end else begin
+            m2s_r_payload <= _zz_m2s_r_payload_1[31:0];
+          end
         end
       end
       default : begin
-        if(when_BDMAm2s_l351) begin
-          m2s_axis_data <= _zz_m2s_axis_data[31:0];
-          m2s_axis_strb_keep <= _zz_m2s_axis_strb_keep[3:0];
-        end else begin
-          if(m2s_data_fifo_io_pop_fire) begin
-            m2s_axis_id <= m2s_data_fifo_io_pop_payload_id;
-            m2s_axis_residual_data <= m2s_data_fifo_io_pop_payload_data;
-            m2s_axis_data <= _zz_m2s_axis_data_2[31:0];
-            m2s_axis_residual_strb_keep <= m2s_data_fifo_io_pop_payload_keep_;
-            m2s_axis_strb_keep <= _zz_m2s_axis_strb_keep_1[3:0];
-          end
+        if(when_BDMAm2s_l307) begin
+          m2s_axis_strb_keep <= (keep_strb_full >>> _zz_m2s_axis_strb_keep_3);
+          m2s_axis_payload <= _zz_m2s_axis_payload[31:0];
         end
       end
     endcase
@@ -1617,8 +1481,6 @@ module BDMAs2m (
   input               resetn
 );
   wire                s2m_aw_fifo_io_pop_ready;
-  wire       [1:0]    low_addr_fifo_io_push_payload;
-  wire       [1:0]    low_bytes_fifo_io_push_payload;
   wire                s2m_aw_fifo_io_push_ready;
   wire                s2m_aw_fifo_io_pop_valid;
   wire       [31:0]   s2m_aw_fifo_io_pop_payload_addr;
@@ -1628,16 +1490,11 @@ module BDMAs2m (
   wire       [1:0]    s2m_aw_fifo_io_pop_payload_burst;
   wire       [3:0]    s2m_aw_fifo_io_occupancy;
   wire       [3:0]    s2m_aw_fifo_io_availability;
-  wire                low_addr_fifo_io_push_ready;
-  wire                low_addr_fifo_io_pop_valid;
-  wire       [1:0]    low_addr_fifo_io_pop_payload;
-  wire       [3:0]    low_addr_fifo_io_occupancy;
-  wire       [3:0]    low_addr_fifo_io_availability;
-  wire                low_bytes_fifo_io_push_ready;
-  wire                low_bytes_fifo_io_pop_valid;
-  wire       [1:0]    low_bytes_fifo_io_pop_payload;
-  wire       [3:0]    low_bytes_fifo_io_occupancy;
-  wire       [3:0]    low_bytes_fifo_io_availability;
+  wire                s2m_trans_bytes_fifo_io_push_ready;
+  wire                s2m_trans_bytes_fifo_io_pop_valid;
+  wire       [29:0]   s2m_trans_bytes_fifo_io_pop_payload;
+  wire       [3:0]    s2m_trans_bytes_fifo_io_occupancy;
+  wire       [3:0]    s2m_trans_bytes_fifo_io_availability;
   wire                s2m_w_fifo_io_push_ready;
   wire                s2m_w_fifo_io_pop_valid;
   wire       [31:0]   s2m_w_fifo_io_pop_payload_data;
@@ -1645,40 +1502,35 @@ module BDMAs2m (
   wire                s2m_w_fifo_io_pop_payload_last;
   wire       [5:0]    s2m_w_fifo_io_occupancy;
   wire       [5:0]    s2m_w_fifo_io_availability;
-  wire                bytes_shift_pending_fifo_io_push_ready;
-  wire                bytes_shift_pending_fifo_io_pop_valid;
-  wire       [1:0]    bytes_shift_pending_fifo_io_pop_payload;
-  wire       [3:0]    bytes_shift_pending_fifo_io_occupancy;
-  wire       [3:0]    bytes_shift_pending_fifo_io_availability;
-  wire                strb_mask_pending_fifo_io_push_ready;
-  wire                strb_mask_pending_fifo_io_pop_valid;
-  wire       [3:0]    strb_mask_pending_fifo_io_pop_payload;
-  wire       [3:0]    strb_mask_pending_fifo_io_occupancy;
-  wire       [3:0]    strb_mask_pending_fifo_io_availability;
   wire                len_pending_fifo_io_push_ready;
   wire                len_pending_fifo_io_pop_valid;
   wire       [7:0]    len_pending_fifo_io_pop_payload;
   wire       [3:0]    len_pending_fifo_io_occupancy;
   wire       [3:0]    len_pending_fifo_io_availability;
+  wire                trans_pending_fifo_io_push_ready;
+  wire                trans_pending_fifo_io_pop_valid;
+  wire       [29:0]   trans_pending_fifo_io_pop_payload;
+  wire       [3:0]    trans_pending_fifo_io_occupancy;
+  wire       [3:0]    trans_pending_fifo_io_availability;
   wire       [29:0]   _zz_aligned_address;
-  wire       [31:0]   _zz_when_BDMAs2m_l99;
-  wire       [31:0]   _zz_when_BDMAs2m_l99_1;
+  wire       [31:0]   _zz_when_BDMAs2m_l102;
+  wire       [31:0]   _zz_when_BDMAs2m_l102_1;
   wire       [31:0]   _zz_trans_bytes_cnt;
   wire       [29:0]   _zz_s2m_aw_len;
   wire       [31:0]   _zz_s2m_aw_len_1;
   wire       [31:0]   _zz_s2m_aw_len_2;
   wire       [31:0]   _zz_s2m_aw_len_3;
   wire       [31:0]   _zz_cch_address;
-  wire       [31:0]   _zz_when_BDMAs2m_l130;
-  wire       [31:0]   _zz_when_BDMAs2m_l130_1;
-  wire       [19:0]   _zz_when_BDMAs2m_l134;
-  wire       [31:0]   _zz_when_BDMAs2m_l134_1;
-  wire       [31:0]   _zz_when_BDMAs2m_l134_2;
-  wire       [29:0]   _zz_when_BDMAs2m_l134_3;
-  wire       [17:0]   _zz_when_BDMAs2m_l134_4;
+  wire       [31:0]   _zz_when_BDMAs2m_l133;
+  wire       [31:0]   _zz_when_BDMAs2m_l133_1;
+  wire       [19:0]   _zz_when_BDMAs2m_l137;
+  wire       [31:0]   _zz_when_BDMAs2m_l137_1;
+  wire       [31:0]   _zz_when_BDMAs2m_l137_2;
+  wire       [29:0]   _zz_when_BDMAs2m_l137_3;
+  wire       [17:0]   _zz_when_BDMAs2m_l137_4;
   wire       [31:0]   _zz_trans_bytes_cnt_1;
-  wire       [19:0]   _zz_when_BDMAs2m_l146;
-  wire       [31:0]   _zz_when_BDMAs2m_l146_1;
+  wire       [19:0]   _zz_when_BDMAs2m_l149;
+  wire       [31:0]   _zz_when_BDMAs2m_l149_1;
   wire       [31:0]   _zz_trans_bytes_cnt_2;
   wire       [31:0]   _zz_trans_bytes_cnt_3;
   wire       [31:0]   _zz_trans_bytes_cnt_4;
@@ -1686,13 +1538,18 @@ module BDMAs2m (
   wire       [31:0]   _zz_s2m_aw_len_5;
   wire       [31:0]   _zz_s2m_aw_len_6;
   wire       [31:0]   _zz_s2m_aw_len_7;
-  wire       [1:0]    _zz_io_push_payload;
-  wire       [126:0]  _zz_s2m_w_data;
-  wire       [5:0]    _zz_s2m_w_data_1;
-  wire       [126:0]  _zz_s2m_w_data_2;
-  wire       [5:0]    _zz_s2m_w_data_3;
-  wire       [10:0]   _zz_s2m_w_strb;
-  wire       [10:0]   _zz_s2m_w_strb_1;
+  wire       [1:0]    _zz_s2m_w_final_mask;
+  wire       [2:0]    _zz_s2m_w_final_mask_1;
+  wire       [2:0]    _zz_s2m_w_final_mask_2;
+  wire       [94:0]   _zz_s2m_axis_data;
+  wire       [5:0]    _zz_s2m_axis_data_1;
+  wire       [6:0]    _zz_s2m_axis_strb_keep;
+  wire       [126:0]  _zz_s2m_axis_data_2;
+  wire       [5:0]    _zz_s2m_axis_data_3;
+  wire       [10:0]   _zz_s2m_axis_strb_keep_1;
+  wire       [126:0]  _zz_s2m_axis_data_4;
+  wire       [5:0]    _zz_s2m_axis_data_5;
+  wire       [10:0]   _zz_s2m_axis_strb_keep_2;
   reg        `BDMAcchStates_binary_sequential_type s2m_cch_state;
   reg        `BDMAs2mStates_binary_sequential_type s2m_w_state;
   reg                 cch_ready;
@@ -1706,51 +1563,60 @@ module BDMAs2m (
   reg                 s2m_aw_halt_exec;
   wire       [31:0]   aligned_address;
   reg                 cycle_finished;
+  reg        [1:0]    s2m_bytes_shift;
+  reg        [1:0]    s2m_mask_shift;
   wire                s2m_cch_fire;
-  wire                when_BDMAs2m_l83;
+  wire                when_BDMAs2m_l86;
   wire                s2m_aw_fifo_io_push_fire;
   wire                s2m_aw_fifo_io_push_fire_1;
-  wire                when_BDMAs2m_l99;
-  wire                when_BDMAs2m_l113;
+  wire                when_BDMAs2m_l102;
+  wire                when_BDMAs2m_l116;
   wire                s2m_aw_fifo_io_push_fire_2;
   wire                s2m_aw_fifo_io_push_fire_3;
-  wire                when_BDMAs2m_l130;
-  wire                when_BDMAs2m_l134;
-  wire                when_BDMAs2m_l146;
-  wire                when_BDMAs2m_l158;
+  wire                when_BDMAs2m_l133;
+  wire                when_BDMAs2m_l137;
+  wire                when_BDMAs2m_l149;
+  wire                when_BDMAs2m_l161;
   wire                dma_aw_fire;
-  wire                dma_aw_fire_1;
   wire       [3:0]    strb_full;
   reg                 pending_valid;
-  reg        [1:0]    bytes_shift_pending;
-  reg        [3:0]    strb_mask_pending;
   reg        [7:0]    len_pending;
-  wire                dma_aw_fire_2;
+  reg        [29:0]   trans_pending;
+  wire                dma_aw_fire_1;
   wire                _zz_dma_aw_valid;
-  wire                s2m_aw_finish;
-  reg        [7:0]    s2m_axis_len;
-  reg        [3:0]    s2m_strb_mask;
-  reg        [1:0]    s2m_bytes_shift;
-  reg                 s2m_axis_last;
+  wire                aw_finish;
+  reg                 s2m_axis_valve;
+  reg        [31:0]   s2m_axis_data;
+  reg        [31:0]   s2m_axis_residual_data;
+  reg        [3:0]    s2m_axis_strb_keep;
+  reg        [3:0]    s2m_axis_residual_strb_keep;
+  reg        [29:0]   s2m_axis_trans_bytes;
+  reg                 s2m_axis_req;
+  reg                 s2m_axis_first;
+  reg                 s2m_axis_last_cycle;
+  reg                 s2m_axis_final_last;
   reg                 s2m_axis_leak;
-  reg        [31:0]   w_residual_data;
-  reg        [3:0]    w_residual_strb;
+  reg        [7:0]    s2m_w_len;
+  reg                 s2m_w_last;
   reg        [31:0]   s2m_w_data;
   reg        [3:0]    s2m_w_strb;
   reg                 s2m_w_valid;
-  reg                 s2m_w_last;
-  reg                 s2m_w_final;
+  reg        [3:0]    s2m_w_final_mask;
   reg                 pending_fifo_pop_ready;
-  reg                 stream_data_valve;
+  wire                dma_aw_fire_2;
   wire                len_pending_fifo_io_pop_fire;
-  wire                when_BDMAs2m_l263;
-  wire                when_BDMAs2m_l292;
-  wire                when_BDMAs2m_l297;
   wire                s2m_data_stream_fire;
+  wire                when_BDMAs2m_l271;
+  wire                when_BDMAs2m_l274;
+  wire                when_BDMAs2m_l326;
+  wire                when_BDMAs2m_l331;
+  wire                when_BDMAs2m_l345;
+  wire                when_BDMAs2m_l349;
+  wire                when_BDMAs2m_l357;
   wire                s2m_data_stream_fire_1;
-  wire                when_BDMAs2m_l336;
-  wire                when_BDMAs2m_l379;
-  wire                when_BDMAs2m_l381;
+  wire                when_BDMAs2m_l371;
+  wire                when_BDMAs2m_l401;
+  wire                when_BDMAs2m_l403;
   `ifndef SYNTHESIS
   reg [39:0] s2m_state_string;
   reg [71:0] s2m_cch_state_string;
@@ -1759,24 +1625,24 @@ module BDMAs2m (
 
 
   assign _zz_aligned_address = (cch_address >>> 2);
-  assign _zz_when_BDMAs2m_l99 = (_zz_when_BDMAs2m_l99_1 + (cch_address & 32'h00000003));
-  assign _zz_when_BDMAs2m_l99_1 = {2'd0, cch_total_bytes};
+  assign _zz_when_BDMAs2m_l102 = (_zz_when_BDMAs2m_l102_1 + (cch_address & 32'h00000003));
+  assign _zz_when_BDMAs2m_l102_1 = {2'd0, cch_total_bytes};
   assign _zz_trans_bytes_cnt = (32'h00000040 - (cch_address & 32'h00000003));
   assign _zz_s2m_aw_len = (_zz_s2m_aw_len_1 >>> 2);
   assign _zz_s2m_aw_len_1 = (_zz_s2m_aw_len_2 - 32'h00000001);
   assign _zz_s2m_aw_len_2 = (_zz_s2m_aw_len_3 + (cch_address & 32'h00000003));
   assign _zz_s2m_aw_len_3 = {2'd0, trans_bytes_cnt};
   assign _zz_cch_address = {2'd0, trans_bytes_cnt};
-  assign _zz_when_BDMAs2m_l130 = (_zz_when_BDMAs2m_l130_1 + (cch_address & 32'h00000003));
-  assign _zz_when_BDMAs2m_l130_1 = {2'd0, cch_total_bytes};
-  assign _zz_when_BDMAs2m_l134 = (_zz_when_BDMAs2m_l134_1 >>> 12);
-  assign _zz_when_BDMAs2m_l134_1 = ((cch_address & 32'h00000fff) + _zz_when_BDMAs2m_l134_2);
-  assign _zz_when_BDMAs2m_l134_3 = (cch_total_bytes & 30'h00000fff);
-  assign _zz_when_BDMAs2m_l134_2 = {2'd0, _zz_when_BDMAs2m_l134_3};
-  assign _zz_when_BDMAs2m_l134_4 = ((cch_total_bytes & 30'h00000fff) >>> 12);
+  assign _zz_when_BDMAs2m_l133 = (_zz_when_BDMAs2m_l133_1 + (cch_address & 32'h00000003));
+  assign _zz_when_BDMAs2m_l133_1 = {2'd0, cch_total_bytes};
+  assign _zz_when_BDMAs2m_l137 = (_zz_when_BDMAs2m_l137_1 >>> 12);
+  assign _zz_when_BDMAs2m_l137_1 = ((cch_address & 32'h00000fff) + _zz_when_BDMAs2m_l137_2);
+  assign _zz_when_BDMAs2m_l137_3 = (cch_total_bytes & 30'h00000fff);
+  assign _zz_when_BDMAs2m_l137_2 = {2'd0, _zz_when_BDMAs2m_l137_3};
+  assign _zz_when_BDMAs2m_l137_4 = ((cch_total_bytes & 30'h00000fff) >>> 12);
   assign _zz_trans_bytes_cnt_1 = (32'h00001000 - (cch_address & 32'h00000fff));
-  assign _zz_when_BDMAs2m_l146 = (_zz_when_BDMAs2m_l146_1 >>> 12);
-  assign _zz_when_BDMAs2m_l146_1 = ((cch_address & 32'h00000fff) + 32'h00000040);
+  assign _zz_when_BDMAs2m_l149 = (_zz_when_BDMAs2m_l149_1 >>> 12);
+  assign _zz_when_BDMAs2m_l149_1 = ((cch_address & 32'h00000fff) + 32'h00000040);
   assign _zz_trans_bytes_cnt_2 = (_zz_trans_bytes_cnt_3 & 32'h00000fff);
   assign _zz_trans_bytes_cnt_3 = (32'h00001000 - cch_address);
   assign _zz_trans_bytes_cnt_4 = (32'h00000040 - (cch_address & 32'h00000003));
@@ -1784,13 +1650,18 @@ module BDMAs2m (
   assign _zz_s2m_aw_len_5 = (_zz_s2m_aw_len_6 - 32'h00000001);
   assign _zz_s2m_aw_len_6 = (_zz_s2m_aw_len_7 + (cch_address & 32'h00000003));
   assign _zz_s2m_aw_len_7 = {2'd0, trans_bytes_cnt};
-  assign _zz_io_push_payload = (trans_bytes_cnt[1 : 0] + cch_address[1 : 0]);
-  assign _zz_s2m_w_data = ({63'd0,{32'h0,w_residual_data}} <<< _zz_s2m_w_data_1);
-  assign _zz_s2m_w_data_1 = (4'b1000 * s2m_bytes_shift);
-  assign _zz_s2m_w_data_2 = ({63'd0,{s2m_data_stream_payload_data,w_residual_data}} <<< _zz_s2m_w_data_3);
-  assign _zz_s2m_w_data_3 = (4'b1000 * s2m_bytes_shift);
-  assign _zz_s2m_w_strb = ({3'd0,{s2m_data_stream_payload_keep_,w_residual_strb}} <<< s2m_bytes_shift);
-  assign _zz_s2m_w_strb_1 = ({3'd0,{s2m_data_stream_payload_keep_,w_residual_strb}} <<< s2m_bytes_shift);
+  assign _zz_s2m_w_final_mask_1 = (3'b100 - _zz_s2m_w_final_mask_2);
+  assign _zz_s2m_w_final_mask = _zz_s2m_w_final_mask_1[1:0];
+  assign _zz_s2m_w_final_mask_2 = {1'd0, s2m_mask_shift};
+  assign _zz_s2m_axis_data = ({63'd0,s2m_data_stream_payload_data} <<< _zz_s2m_axis_data_1);
+  assign _zz_s2m_axis_data_1 = (4'b1000 * s2m_bytes_shift);
+  assign _zz_s2m_axis_strb_keep = ({3'd0,s2m_data_stream_payload_keep_} <<< s2m_bytes_shift);
+  assign _zz_s2m_axis_data_2 = ({63'd0,{32'h0,s2m_axis_residual_data}} <<< _zz_s2m_axis_data_3);
+  assign _zz_s2m_axis_data_3 = (4'b1000 * s2m_bytes_shift);
+  assign _zz_s2m_axis_strb_keep_1 = ({3'd0,{4'b0000,s2m_axis_residual_strb_keep}} <<< s2m_bytes_shift);
+  assign _zz_s2m_axis_data_4 = ({63'd0,{s2m_data_stream_payload_data,s2m_axis_residual_data}} <<< _zz_s2m_axis_data_5);
+  assign _zz_s2m_axis_data_5 = (4'b1000 * s2m_bytes_shift);
+  assign _zz_s2m_axis_strb_keep_2 = ({3'd0,{s2m_data_stream_payload_keep_,s2m_axis_residual_strb_keep}} <<< s2m_bytes_shift);
   StreamFifo s2m_aw_fifo (
     .io_push_valid            (s2m_aw_valid                      ), //i
     .io_push_ready            (s2m_aw_fifo_io_push_ready         ), //o
@@ -1812,33 +1683,20 @@ module BDMAs2m (
     .clk                      (clk                               ), //i
     .resetn                   (resetn                            )  //i
   );
-  StreamFifo_1 low_addr_fifo (
-    .io_push_valid      (s2m_aw_valid                   ), //i
-    .io_push_ready      (low_addr_fifo_io_push_ready    ), //o
-    .io_push_payload    (low_addr_fifo_io_push_payload  ), //i
-    .io_pop_valid       (low_addr_fifo_io_pop_valid     ), //o
-    .io_pop_ready       (dma_aw_fire                    ), //i
-    .io_pop_payload     (low_addr_fifo_io_pop_payload   ), //o
-    .io_flush           (1'b0                           ), //i
-    .io_occupancy       (low_addr_fifo_io_occupancy     ), //o
-    .io_availability    (low_addr_fifo_io_availability  ), //o
-    .clk                (clk                            ), //i
-    .resetn             (resetn                         )  //i
+  StreamFifo_1 s2m_trans_bytes_fifo (
+    .io_push_valid      (s2m_aw_valid                          ), //i
+    .io_push_ready      (s2m_trans_bytes_fifo_io_push_ready    ), //o
+    .io_push_payload    (trans_bytes_cnt                       ), //i
+    .io_pop_valid       (s2m_trans_bytes_fifo_io_pop_valid     ), //o
+    .io_pop_ready       (dma_aw_fire                           ), //i
+    .io_pop_payload     (s2m_trans_bytes_fifo_io_pop_payload   ), //o
+    .io_flush           (1'b0                                  ), //i
+    .io_occupancy       (s2m_trans_bytes_fifo_io_occupancy     ), //o
+    .io_availability    (s2m_trans_bytes_fifo_io_availability  ), //o
+    .clk                (clk                                   ), //i
+    .resetn             (resetn                                )  //i
   );
-  StreamFifo_1 low_bytes_fifo (
-    .io_push_valid      (s2m_aw_valid                    ), //i
-    .io_push_ready      (low_bytes_fifo_io_push_ready    ), //o
-    .io_push_payload    (low_bytes_fifo_io_push_payload  ), //i
-    .io_pop_valid       (low_bytes_fifo_io_pop_valid     ), //o
-    .io_pop_ready       (dma_aw_fire_1                   ), //i
-    .io_pop_payload     (low_bytes_fifo_io_pop_payload   ), //o
-    .io_flush           (1'b0                            ), //i
-    .io_occupancy       (low_bytes_fifo_io_occupancy     ), //o
-    .io_availability    (low_bytes_fifo_io_availability  ), //o
-    .clk                (clk                             ), //i
-    .resetn             (resetn                          )  //i
-  );
-  StreamFifo_3 s2m_w_fifo (
+  StreamFifo_2 s2m_w_fifo (
     .io_push_valid           (s2m_w_valid                     ), //i
     .io_push_ready           (s2m_w_fifo_io_push_ready        ), //o
     .io_push_payload_data    (s2m_w_data                      ), //i
@@ -1855,33 +1713,7 @@ module BDMAs2m (
     .clk                     (clk                             ), //i
     .resetn                  (resetn                          )  //i
   );
-  StreamFifo_4 bytes_shift_pending_fifo (
-    .io_push_valid      (pending_valid                             ), //i
-    .io_push_ready      (bytes_shift_pending_fifo_io_push_ready    ), //o
-    .io_push_payload    (bytes_shift_pending                       ), //i
-    .io_pop_valid       (bytes_shift_pending_fifo_io_pop_valid     ), //o
-    .io_pop_ready       (pending_fifo_pop_ready                    ), //i
-    .io_pop_payload     (bytes_shift_pending_fifo_io_pop_payload   ), //o
-    .io_flush           (1'b0                                      ), //i
-    .io_occupancy       (bytes_shift_pending_fifo_io_occupancy     ), //o
-    .io_availability    (bytes_shift_pending_fifo_io_availability  ), //o
-    .clk                (clk                                       ), //i
-    .resetn             (resetn                                    )  //i
-  );
-  StreamFifo_5 strb_mask_pending_fifo (
-    .io_push_valid      (pending_valid                           ), //i
-    .io_push_ready      (strb_mask_pending_fifo_io_push_ready    ), //o
-    .io_push_payload    (strb_mask_pending                       ), //i
-    .io_pop_valid       (strb_mask_pending_fifo_io_pop_valid     ), //o
-    .io_pop_ready       (pending_fifo_pop_ready                  ), //i
-    .io_pop_payload     (strb_mask_pending_fifo_io_pop_payload   ), //o
-    .io_flush           (1'b0                                    ), //i
-    .io_occupancy       (strb_mask_pending_fifo_io_occupancy     ), //o
-    .io_availability    (strb_mask_pending_fifo_io_availability  ), //o
-    .clk                (clk                                     ), //i
-    .resetn             (resetn                                  )  //i
-  );
-  StreamFifo_6 len_pending_fifo (
+  StreamFifo_3 len_pending_fifo (
     .io_push_valid      (pending_valid                     ), //i
     .io_push_ready      (len_pending_fifo_io_push_ready    ), //o
     .io_push_payload    (len_pending                       ), //i
@@ -1894,10 +1726,24 @@ module BDMAs2m (
     .clk                (clk                               ), //i
     .resetn             (resetn                            )  //i
   );
+  StreamFifo_4 trans_pending_fifo (
+    .io_push_valid      (pending_valid                       ), //i
+    .io_push_ready      (trans_pending_fifo_io_push_ready    ), //o
+    .io_push_payload    (trans_pending                       ), //i
+    .io_pop_valid       (trans_pending_fifo_io_pop_valid     ), //o
+    .io_pop_ready       (pending_fifo_pop_ready              ), //i
+    .io_pop_payload     (trans_pending_fifo_io_pop_payload   ), //o
+    .io_flush           (1'b0                                ), //i
+    .io_occupancy       (trans_pending_fifo_io_occupancy     ), //o
+    .io_availability    (trans_pending_fifo_io_availability  ), //o
+    .clk                (clk                                 ), //i
+    .resetn             (resetn                              )  //i
+  );
   `ifndef SYNTHESIS
   always @(*) begin
     case(s2m_state)
       `BDMAs2mStates_binary_sequential_IDLE : s2m_state_string = "IDLE ";
+      `BDMAs2mStates_binary_sequential_REQ : s2m_state_string = "REQ  ";
       `BDMAs2mStates_binary_sequential_BURST : s2m_state_string = "BURST";
       `BDMAs2mStates_binary_sequential_DROP : s2m_state_string = "DROP ";
       default : s2m_state_string = "?????";
@@ -1915,6 +1761,7 @@ module BDMAs2m (
   always @(*) begin
     case(s2m_w_state)
       `BDMAs2mStates_binary_sequential_IDLE : s2m_w_state_string = "IDLE ";
+      `BDMAs2mStates_binary_sequential_REQ : s2m_w_state_string = "REQ  ";
       `BDMAs2mStates_binary_sequential_BURST : s2m_w_state_string = "BURST";
       `BDMAs2mStates_binary_sequential_DROP : s2m_w_state_string = "DROP ";
       default : s2m_w_state_string = "?????";
@@ -1924,24 +1771,21 @@ module BDMAs2m (
 
   assign aligned_address = {_zz_aligned_address,2'b00};
   assign s2m_cch_fire = (s2m_cch_valid && s2m_cch_ready);
-  assign when_BDMAs2m_l83 = (cch_total_bytes == 30'h0);
+  assign when_BDMAs2m_l86 = (cch_total_bytes == 30'h0);
   assign s2m_aw_fifo_io_push_fire = (s2m_aw_valid && s2m_aw_fifo_io_push_ready);
   assign s2m_aw_fifo_io_push_fire_1 = (s2m_aw_valid && s2m_aw_fifo_io_push_ready);
-  assign when_BDMAs2m_l99 = ((_zz_when_BDMAs2m_l99 <= 32'h00000040) || 1'b0);
-  assign when_BDMAs2m_l113 = (cch_total_bytes == 30'h0);
+  assign when_BDMAs2m_l102 = ((_zz_when_BDMAs2m_l102 <= 32'h00000040) || 1'b0);
+  assign when_BDMAs2m_l116 = (cch_total_bytes == 30'h0);
   assign s2m_aw_fifo_io_push_fire_2 = (s2m_aw_valid && s2m_aw_fifo_io_push_ready);
   assign s2m_aw_fifo_io_push_fire_3 = (s2m_aw_valid && s2m_aw_fifo_io_push_ready);
-  assign when_BDMAs2m_l130 = ((_zz_when_BDMAs2m_l130 <= 32'h00000040) || 1'b0);
-  assign when_BDMAs2m_l134 = ((_zz_when_BDMAs2m_l134 != 20'h0) || (_zz_when_BDMAs2m_l134_4 != 18'h0));
-  assign when_BDMAs2m_l146 = (_zz_when_BDMAs2m_l146 != 20'h0);
-  assign when_BDMAs2m_l158 = (s2m_cch_payload_desc_reset && cycle_finished);
+  assign when_BDMAs2m_l133 = ((_zz_when_BDMAs2m_l133 <= 32'h00000040) || 1'b0);
+  assign when_BDMAs2m_l137 = ((_zz_when_BDMAs2m_l137 != 20'h0) || (_zz_when_BDMAs2m_l137_4 != 18'h0));
+  assign when_BDMAs2m_l149 = (_zz_when_BDMAs2m_l149 != 20'h0);
+  assign when_BDMAs2m_l161 = (s2m_cch_payload_desc_reset && cycle_finished);
   assign s2m_cch_ready = cch_ready;
-  assign low_addr_fifo_io_push_payload = cch_address[1 : 0];
   assign dma_aw_fire = (dma_aw_valid && dma_aw_ready);
-  assign low_bytes_fifo_io_push_payload = ((~ _zz_io_push_payload) + 2'b01);
-  assign dma_aw_fire_1 = (dma_aw_valid && dma_aw_ready);
   assign strb_full = 4'b1111;
-  assign dma_aw_fire_2 = (dma_aw_valid && dma_aw_ready);
+  assign dma_aw_fire_1 = (dma_aw_valid && dma_aw_ready);
   assign _zz_dma_aw_valid = (! (4'b1000 <= len_pending_fifo_io_occupancy));
   assign s2m_aw_fifo_io_pop_ready = (dma_aw_ready && _zz_dma_aw_valid);
   assign dma_aw_valid = (s2m_aw_fifo_io_pop_valid && _zz_dma_aw_valid);
@@ -1950,22 +1794,27 @@ module BDMAs2m (
   assign dma_aw_payload_len = s2m_aw_fifo_io_pop_payload_len;
   assign dma_aw_payload_size = s2m_aw_fifo_io_pop_payload_size;
   assign dma_aw_payload_burst = s2m_aw_fifo_io_pop_payload_burst;
-  assign s2m_aw_finish = ((s2m_cch_state == `BDMAcchStates_binary_sequential_HALT) && (! len_pending_fifo_io_pop_valid));
+  assign aw_finish = (((s2m_cch_state == `BDMAcchStates_binary_sequential_HALT) && (! len_pending_fifo_io_pop_valid)) && (! s2m_aw_fifo_io_pop_valid));
+  assign dma_aw_fire_2 = (dma_aw_valid && dma_aw_ready);
   assign len_pending_fifo_io_pop_fire = (len_pending_fifo_io_pop_valid && pending_fifo_pop_ready);
-  assign when_BDMAs2m_l263 = (s2m_w_final && s2m_w_fifo_io_push_ready);
-  assign when_BDMAs2m_l292 = (s2m_data_stream_payload_last && (s2m_axis_len == 8'h01));
-  assign when_BDMAs2m_l297 = (s2m_axis_len == 8'h0);
   assign s2m_data_stream_fire = (s2m_data_stream_valid && s2m_data_stream_ready);
+  assign when_BDMAs2m_l271 = (s2m_data_stream_fire || s2m_axis_final_last);
+  assign when_BDMAs2m_l274 = (s2m_axis_first == 1'b0);
+  assign when_BDMAs2m_l326 = (s2m_data_stream_payload_last || s2m_axis_final_last);
+  assign when_BDMAs2m_l331 = (s2m_axis_trans_bytes <= 30'h00000004);
+  assign when_BDMAs2m_l345 = (s2m_axis_req || s2m_axis_last_cycle);
+  assign when_BDMAs2m_l349 = ((s2m_axis_last_cycle && (s2m_w_len == 8'h0)) && aw_finish);
+  assign when_BDMAs2m_l357 = (s2m_w_len == 8'h0);
   assign s2m_data_stream_fire_1 = (s2m_data_stream_valid && s2m_data_stream_ready);
-  assign when_BDMAs2m_l336 = (s2m_axis_last || (s2m_data_stream_fire_1 && s2m_data_stream_payload_last));
-  assign s2m_data_stream_ready = ((stream_data_valve && (6'h02 < s2m_w_fifo_io_availability)) || s2m_axis_leak);
+  assign when_BDMAs2m_l371 = (s2m_axis_final_last || (s2m_data_stream_payload_last && s2m_data_stream_fire_1));
+  assign s2m_data_stream_ready = ((s2m_axis_valve && (6'h02 < s2m_w_fifo_io_availability)) || s2m_axis_leak);
   assign dma_b_ready = 1'b1;
   assign dma_w_valid = s2m_w_fifo_io_pop_valid;
   assign dma_w_payload_data = s2m_w_fifo_io_pop_payload_data;
   assign dma_w_payload_strb = s2m_w_fifo_io_pop_payload_strb;
   assign dma_w_payload_last = s2m_w_fifo_io_pop_payload_last;
-  assign when_BDMAs2m_l379 = (s2m_cch_state == `BDMAcchStates_binary_sequential_IDLE);
-  assign when_BDMAs2m_l381 = ((s2m_w_state == `BDMAs2mStates_binary_sequential_IDLE) && s2m_aw_finish);
+  assign when_BDMAs2m_l401 = (s2m_cch_state == `BDMAcchStates_binary_sequential_IDLE);
+  assign when_BDMAs2m_l403 = ((s2m_w_state == `BDMAs2mStates_binary_sequential_DROP) && aw_finish);
   assign s2m_intr = cycle_finished;
   assign s2m_state = s2m_w_state;
   always @(posedge clk) begin
@@ -1976,20 +1825,30 @@ module BDMAs2m (
       s2m_aw_valid <= 1'b0;
       s2m_aw_halt_exec <= 1'b0;
       cycle_finished <= 1'b0;
+      s2m_bytes_shift <= 2'b00;
+      s2m_mask_shift <= 2'b00;
       pending_valid <= 1'b0;
-      s2m_axis_last <= 1'b0;
+      s2m_axis_valve <= 1'b0;
+      s2m_axis_strb_keep <= 4'b0000;
+      s2m_axis_residual_strb_keep <= 4'b0000;
+      s2m_axis_trans_bytes <= 30'h0;
+      s2m_axis_req <= 1'b0;
+      s2m_axis_first <= 1'b0;
+      s2m_axis_last_cycle <= 1'b0;
+      s2m_axis_final_last <= 1'b0;
       s2m_axis_leak <= 1'b0;
-      w_residual_strb <= 4'b0000;
-      s2m_w_valid <= 1'b0;
       s2m_w_last <= 1'b0;
-      s2m_w_final <= 1'b0;
+      s2m_w_strb <= 4'b0000;
+      s2m_w_valid <= 1'b0;
+      s2m_w_final_mask <= 4'b0000;
       pending_fifo_pop_ready <= 1'b0;
-      stream_data_valve <= 1'b0;
     end else begin
       case(s2m_cch_state)
         `BDMAcchStates_binary_sequential_IDLE : begin
           if(s2m_cch_fire) begin
             cch_ready <= 1'b0;
+            s2m_bytes_shift <= s2m_cch_payload_desc_start_addr[1 : 0];
+            s2m_mask_shift <= (s2m_cch_payload_desc_start_addr[1 : 0] + s2m_cch_payload_desc_total_bytes[1 : 0]);
             case(s2m_cch_payload_desc_burst)
               2'b00 : begin
                 s2m_cch_state <= `BDMAcchStates_binary_sequential_FIXED_REQ;
@@ -2003,7 +1862,7 @@ module BDMAs2m (
           end
         end
         `BDMAcchStates_binary_sequential_FIXED_REQ : begin
-          if(when_BDMAs2m_l83) begin
+          if(when_BDMAs2m_l86) begin
             s2m_cch_state <= `BDMAcchStates_binary_sequential_HALT;
           end else begin
             if(s2m_aw_fifo_io_push_fire) begin
@@ -2021,7 +1880,7 @@ module BDMAs2m (
           end
         end
         `BDMAcchStates_binary_sequential_INCR_REQ : begin
-          if(when_BDMAs2m_l113) begin
+          if(when_BDMAs2m_l116) begin
             s2m_cch_state <= `BDMAcchStates_binary_sequential_HALT;
           end else begin
             if(s2m_aw_fifo_io_push_fire_2) begin
@@ -2039,71 +1898,110 @@ module BDMAs2m (
           end
         end
         default : begin
-          if(when_BDMAs2m_l158) begin
+          if(when_BDMAs2m_l161) begin
             s2m_cch_state <= `BDMAcchStates_binary_sequential_IDLE;
+            s2m_bytes_shift <= 2'b00;
           end
         end
       endcase
-      if(dma_aw_fire_2) begin
+      if(dma_aw_fire_1) begin
         pending_valid <= 1'b1;
       end else begin
         pending_valid <= 1'b0;
       end
       case(s2m_w_state)
         `BDMAs2mStates_binary_sequential_IDLE : begin
+          if(dma_aw_fire_2) begin
+            s2m_w_state <= `BDMAs2mStates_binary_sequential_REQ;
+            s2m_w_final_mask <= (strb_full >>> _zz_s2m_w_final_mask);
+          end
+          s2m_axis_residual_strb_keep <= 4'b0000;
+          s2m_axis_strb_keep <= 4'b0000;
+          s2m_axis_first <= 1'b0;
+          s2m_axis_trans_bytes <= 30'h0;
+          s2m_axis_last_cycle <= 1'b0;
+          s2m_axis_final_last <= 1'b0;
+        end
+        `BDMAs2mStates_binary_sequential_REQ : begin
           if(len_pending_fifo_io_pop_fire) begin
+            s2m_axis_trans_bytes <= (s2m_axis_trans_bytes + trans_pending_fifo_io_pop_payload);
             pending_fifo_pop_ready <= 1'b0;
             s2m_w_state <= `BDMAs2mStates_binary_sequential_BURST;
-            stream_data_valve <= 1'b1;
+            s2m_axis_valve <= (! s2m_axis_final_last);
           end else begin
             pending_fifo_pop_ready <= 1'b1;
-            stream_data_valve <= 1'b0;
+            s2m_axis_valve <= 1'b0;
           end
-          s2m_axis_last <= 1'b0;
           s2m_w_valid <= 1'b0;
           s2m_w_last <= 1'b0;
+          s2m_axis_req <= 1'b0;
         end
         `BDMAs2mStates_binary_sequential_BURST : begin
-          if(when_BDMAs2m_l263) begin
-            s2m_w_valid <= 1'b1;
-            s2m_w_last <= 1'b1;
-            s2m_w_state <= (s2m_aw_finish ? `BDMAs2mStates_binary_sequential_DROP : `BDMAs2mStates_binary_sequential_IDLE);
-          end else begin
-            if(s2m_data_stream_fire) begin
-              s2m_w_valid <= 1'b1;
-              w_residual_strb <= s2m_data_stream_payload_keep_;
-              s2m_axis_last <= s2m_data_stream_payload_last;
-              if(when_BDMAs2m_l292) begin
-                s2m_w_final <= 1'b1;
-              end
-              if(when_BDMAs2m_l297) begin
-                s2m_w_valid <= 1'b1;
-                s2m_w_last <= 1'b1;
-                s2m_w_state <= (s2m_aw_finish ? `BDMAs2mStates_binary_sequential_DROP : `BDMAs2mStates_binary_sequential_IDLE);
-                stream_data_valve <= 1'b0;
-              end
+          if(when_BDMAs2m_l271) begin
+            s2m_axis_first <= 1'b1;
+            s2m_axis_req <= 1'b1;
+            if(when_BDMAs2m_l274) begin
+              s2m_axis_strb_keep <= _zz_s2m_axis_strb_keep[3:0];
             end else begin
-              s2m_w_valid <= 1'b0;
+              if(s2m_axis_final_last) begin
+                s2m_axis_strb_keep <= _zz_s2m_axis_strb_keep_1[7 : 4];
+              end else begin
+                s2m_axis_strb_keep <= _zz_s2m_axis_strb_keep_2[7 : 4];
+              end
             end
+            if(s2m_axis_final_last) begin
+              s2m_axis_residual_strb_keep <= 4'b0000;
+            end else begin
+              s2m_axis_residual_strb_keep <= s2m_data_stream_payload_keep_;
+              s2m_axis_trans_bytes <= (s2m_axis_trans_bytes - 30'h00000004);
+            end
+            if(when_BDMAs2m_l326) begin
+              s2m_axis_last_cycle <= 1'b1;
+              s2m_axis_final_last <= 1'b1;
+              s2m_axis_valve <= 1'b0;
+            end else begin
+              if(when_BDMAs2m_l331) begin
+                s2m_axis_valve <= 1'b0;
+                s2m_axis_last_cycle <= aw_finish;
+              end else begin
+                s2m_axis_last_cycle <= 1'b0;
+              end
+            end
+          end else begin
+            s2m_axis_req <= 1'b0;
+          end
+          if(when_BDMAs2m_l345) begin
+            s2m_w_valid <= 1'b1;
+            if(when_BDMAs2m_l349) begin
+              s2m_w_strb <= (s2m_axis_strb_keep & s2m_w_final_mask);
+            end else begin
+              s2m_w_strb <= s2m_axis_strb_keep;
+            end
+            if(when_BDMAs2m_l357) begin
+              s2m_w_last <= 1'b1;
+              s2m_w_state <= (aw_finish ? `BDMAs2mStates_binary_sequential_DROP : `BDMAs2mStates_binary_sequential_REQ);
+              pending_fifo_pop_ready <= (! aw_finish);
+            end else begin
+              s2m_w_last <= 1'b0;
+            end
+          end else begin
+            s2m_w_valid <= 1'b0;
           end
         end
         default : begin
-          if(when_BDMAs2m_l336) begin
+          s2m_w_valid <= 1'b0;
+          if(when_BDMAs2m_l371) begin
             s2m_w_state <= `BDMAs2mStates_binary_sequential_IDLE;
             s2m_axis_leak <= 1'b0;
           end else begin
             s2m_axis_leak <= 1'b1;
           end
-          s2m_axis_last <= 1'b0;
-          s2m_w_final <= 1'b0;
-          w_residual_strb <= 4'b0000;
-          s2m_w_valid <= 1'b0;
         end
       endcase
-      if(when_BDMAs2m_l379) begin
+      if(when_BDMAs2m_l401) begin
         cycle_finished <= 1'b0;
       end else begin
-        if(when_BDMAs2m_l381) begin
+        if(when_BDMAs2m_l403) begin
           cycle_finished <= 1'b1;
         end
       end
@@ -2121,12 +2019,12 @@ module BDMAs2m (
         end
       end
       `BDMAcchStates_binary_sequential_FIXED_REQ : begin
-        if(!when_BDMAs2m_l83) begin
+        if(!when_BDMAs2m_l86) begin
           if(s2m_aw_fifo_io_push_fire) begin
             cch_total_bytes <= (cch_total_bytes - trans_bytes_cnt);
           end
         end
-        if(when_BDMAs2m_l99) begin
+        if(when_BDMAs2m_l102) begin
           trans_bytes_cnt <= cch_total_bytes;
         end else begin
           trans_bytes_cnt <= _zz_trans_bytes_cnt[29:0];
@@ -2134,20 +2032,20 @@ module BDMAs2m (
         s2m_aw_len <= _zz_s2m_aw_len[7:0];
       end
       `BDMAcchStates_binary_sequential_INCR_REQ : begin
-        if(!when_BDMAs2m_l113) begin
+        if(!when_BDMAs2m_l116) begin
           if(s2m_aw_fifo_io_push_fire_2) begin
             cch_address <= (cch_address + _zz_cch_address);
             cch_total_bytes <= (cch_total_bytes - trans_bytes_cnt);
           end
         end
-        if(when_BDMAs2m_l130) begin
-          if(when_BDMAs2m_l134) begin
+        if(when_BDMAs2m_l133) begin
+          if(when_BDMAs2m_l137) begin
             trans_bytes_cnt <= _zz_trans_bytes_cnt_1[29:0];
           end else begin
             trans_bytes_cnt <= cch_total_bytes;
           end
         end else begin
-          if(when_BDMAs2m_l146) begin
+          if(when_BDMAs2m_l149) begin
             trans_bytes_cnt <= _zz_trans_bytes_cnt_2[29:0];
           end else begin
             trans_bytes_cnt <= _zz_trans_bytes_cnt_4[29:0];
@@ -2158,33 +2056,41 @@ module BDMAs2m (
       default : begin
       end
     endcase
-    if(dma_aw_fire_2) begin
-      bytes_shift_pending <= low_addr_fifo_io_pop_payload;
-      strb_mask_pending <= (strb_full >>> low_bytes_fifo_io_pop_payload);
+    if(dma_aw_fire_1) begin
+      trans_pending <= s2m_trans_bytes_fifo_io_pop_payload;
       len_pending <= dma_aw_payload_len;
     end
     case(s2m_w_state)
       `BDMAs2mStates_binary_sequential_IDLE : begin
+      end
+      `BDMAs2mStates_binary_sequential_REQ : begin
         if(len_pending_fifo_io_pop_fire) begin
-          s2m_bytes_shift <= bytes_shift_pending_fifo_io_pop_payload;
-          s2m_strb_mask <= strb_mask_pending_fifo_io_pop_payload;
-          s2m_axis_len <= len_pending_fifo_io_pop_payload;
+          s2m_w_len <= len_pending_fifo_io_pop_payload;
         end
       end
       `BDMAs2mStates_binary_sequential_BURST : begin
-        if(when_BDMAs2m_l263) begin
-          s2m_w_data <= _zz_s2m_w_data[63 : 32];
-          s2m_w_strb <= s2m_strb_mask;
-        end else begin
-          if(s2m_data_stream_fire) begin
-            s2m_axis_len <= (s2m_axis_len - 8'h01);
-            w_residual_data <= s2m_data_stream_payload_data;
-            s2m_w_data <= _zz_s2m_w_data_2[63 : 32];
-            if(when_BDMAs2m_l297) begin
-              s2m_w_strb <= (s2m_strb_mask & _zz_s2m_w_strb[7 : 4]);
+        if(when_BDMAs2m_l271) begin
+          if(when_BDMAs2m_l274) begin
+            s2m_axis_data <= _zz_s2m_axis_data[31:0];
+          end else begin
+            if(s2m_axis_final_last) begin
+              s2m_axis_data <= _zz_s2m_axis_data_2[63 : 32];
             end else begin
-              s2m_w_strb <= _zz_s2m_w_strb_1[7 : 4];
+              s2m_axis_data <= _zz_s2m_axis_data_4[63 : 32];
             end
+          end
+          if(s2m_axis_final_last) begin
+            s2m_axis_residual_data <= 32'h0;
+          end else begin
+            s2m_axis_residual_data <= s2m_data_stream_payload_data;
+          end
+        end
+        if(when_BDMAs2m_l345) begin
+          s2m_w_len <= (s2m_w_len - 8'h01);
+          if(when_BDMAs2m_l349) begin
+            s2m_w_data <= s2m_axis_data;
+          end else begin
+            s2m_w_data <= s2m_axis_data;
           end
         end
       end
@@ -2196,175 +2102,9 @@ module BDMAs2m (
 
 endmodule
 
-module StreamFifo_17 (
-  input               io_push_valid,
-  output              io_push_ready,
-  input      [31:0]   io_push_payload_data,
-  input      [3:0]    io_push_payload_id,
-  input      [3:0]    io_push_payload_strb,
-  input      [3:0]    io_push_payload_keep_,
-  input               io_push_payload_last,
-  output              io_pop_valid,
-  input               io_pop_ready,
-  output     [31:0]   io_pop_payload_data,
-  output     [3:0]    io_pop_payload_id,
-  output     [3:0]    io_pop_payload_strb,
-  output     [3:0]    io_pop_payload_keep_,
-  output              io_pop_payload_last,
-  input               io_flush,
-  output     [3:0]    io_occupancy,
-  output     [3:0]    io_availability,
-  input               clk,
-  input               resetn
-);
-  reg        [44:0]   _zz_logic_ram_port0;
-  wire       [2:0]    _zz_logic_pushPtr_valueNext;
-  wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
-  wire       [2:0]    _zz_logic_popPtr_valueNext;
-  wire       [0:0]    _zz_logic_popPtr_valueNext_1;
-  wire                _zz_logic_ram_port;
-  wire                _zz__zz_io_pop_payload_data;
-  wire       [44:0]   _zz_logic_ram_port_1;
-  wire       [2:0]    _zz_io_availability;
-  reg                 _zz_1;
-  reg                 logic_pushPtr_willIncrement;
-  reg                 logic_pushPtr_willClear;
-  reg        [2:0]    logic_pushPtr_valueNext;
-  reg        [2:0]    logic_pushPtr_value;
-  wire                logic_pushPtr_willOverflowIfInc;
-  wire                logic_pushPtr_willOverflow;
-  reg                 logic_popPtr_willIncrement;
-  reg                 logic_popPtr_willClear;
-  reg        [2:0]    logic_popPtr_valueNext;
-  reg        [2:0]    logic_popPtr_value;
-  wire                logic_popPtr_willOverflowIfInc;
-  wire                logic_popPtr_willOverflow;
-  wire                logic_ptrMatch;
-  reg                 logic_risingOccupancy;
-  wire                logic_pushing;
-  wire                logic_popping;
-  wire                logic_empty;
-  wire                logic_full;
-  reg                 _zz_io_pop_valid;
-  wire       [44:0]   _zz_io_pop_payload_data;
-  wire                when_Stream_l933;
-  wire       [2:0]    logic_ptrDif;
-  reg [44:0] logic_ram [0:7];
+//StreamFifo_4 replaced by StreamFifo_4
 
-  assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
-  assign _zz_logic_pushPtr_valueNext = {2'd0, _zz_logic_pushPtr_valueNext_1};
-  assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
-  assign _zz_logic_popPtr_valueNext = {2'd0, _zz_logic_popPtr_valueNext_1};
-  assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
-  assign _zz__zz_io_pop_payload_data = 1'b1;
-  assign _zz_logic_ram_port_1 = {io_push_payload_last,{io_push_payload_keep_,{io_push_payload_strb,{io_push_payload_id,io_push_payload_data}}}};
-  always @(posedge clk) begin
-    if(_zz__zz_io_pop_payload_data) begin
-      _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
-    end
-  end
-
-  always @(posedge clk) begin
-    if(_zz_1) begin
-      logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
-    end
-  end
-
-  always @(*) begin
-    _zz_1 = 1'b0;
-    if(logic_pushing) begin
-      _zz_1 = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_pushPtr_willIncrement = 1'b0;
-    if(logic_pushing) begin
-      logic_pushPtr_willIncrement = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_pushPtr_willClear = 1'b0;
-    if(io_flush) begin
-      logic_pushPtr_willClear = 1'b1;
-    end
-  end
-
-  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 3'b111);
-  assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
-  always @(*) begin
-    logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
-    if(logic_pushPtr_willClear) begin
-      logic_pushPtr_valueNext = 3'b000;
-    end
-  end
-
-  always @(*) begin
-    logic_popPtr_willIncrement = 1'b0;
-    if(logic_popping) begin
-      logic_popPtr_willIncrement = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_popPtr_willClear = 1'b0;
-    if(io_flush) begin
-      logic_popPtr_willClear = 1'b1;
-    end
-  end
-
-  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 3'b111);
-  assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
-  always @(*) begin
-    logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
-    if(logic_popPtr_willClear) begin
-      logic_popPtr_valueNext = 3'b000;
-    end
-  end
-
-  assign logic_ptrMatch = (logic_pushPtr_value == logic_popPtr_value);
-  assign logic_pushing = (io_push_valid && io_push_ready);
-  assign logic_popping = (io_pop_valid && io_pop_ready);
-  assign logic_empty = (logic_ptrMatch && (! logic_risingOccupancy));
-  assign logic_full = (logic_ptrMatch && logic_risingOccupancy);
-  assign io_push_ready = (! logic_full);
-  assign io_pop_valid = ((! logic_empty) && (! (_zz_io_pop_valid && (! logic_full))));
-  assign _zz_io_pop_payload_data = _zz_logic_ram_port0;
-  assign io_pop_payload_data = _zz_io_pop_payload_data[31 : 0];
-  assign io_pop_payload_id = _zz_io_pop_payload_data[35 : 32];
-  assign io_pop_payload_strb = _zz_io_pop_payload_data[39 : 36];
-  assign io_pop_payload_keep_ = _zz_io_pop_payload_data[43 : 40];
-  assign io_pop_payload_last = _zz_io_pop_payload_data[44];
-  assign when_Stream_l933 = (logic_pushing != logic_popping);
-  assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
-  assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
-  assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
-  always @(posedge clk) begin
-    if(!resetn) begin
-      logic_pushPtr_value <= 3'b000;
-      logic_popPtr_value <= 3'b000;
-      logic_risingOccupancy <= 1'b0;
-      _zz_io_pop_valid <= 1'b0;
-    end else begin
-      logic_pushPtr_value <= logic_pushPtr_valueNext;
-      logic_popPtr_value <= logic_popPtr_valueNext;
-      _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
-      if(when_Stream_l933) begin
-        logic_risingOccupancy <= logic_pushing;
-      end
-      if(io_flush) begin
-        logic_risingOccupancy <= 1'b0;
-      end
-    end
-  end
-
-
-endmodule
-
-//StreamFifo_1 replaced by StreamFifo_1
-
-module StreamFifo_15 (
+module StreamFifo_9 (
   input               io_push_valid,
   output              io_push_ready,
   input      [3:0]    io_push_payload,
@@ -2544,15 +2284,9 @@ module StreamFifo_15 (
 
 endmodule
 
-//StreamFifo_5 replaced by StreamFifo_5
+//StreamFifo_3 replaced by StreamFifo_3
 
-//StreamFifo_5 replaced by StreamFifo_5
-
-//StreamFifo_6 replaced by StreamFifo_6
-
-//StreamFifo_4 replaced by StreamFifo_4
-
-module StreamFifo_10 (
+module StreamFifo_7 (
   input               io_push_valid,
   output              io_push_ready,
   input      [31:0]   io_push_payload_data,
@@ -2568,31 +2302,31 @@ module StreamFifo_10 (
   output     [3:0]    io_pop_payload_keep_,
   output              io_pop_payload_last,
   input               io_flush,
-  output     [5:0]    io_occupancy,
-  output     [5:0]    io_availability,
+  output     [3:0]    io_occupancy,
+  output     [3:0]    io_availability,
   input               clk,
   input               resetn
 );
   reg        [44:0]   _zz_logic_ram_port0;
-  wire       [4:0]    _zz_logic_pushPtr_valueNext;
+  wire       [2:0]    _zz_logic_pushPtr_valueNext;
   wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
-  wire       [4:0]    _zz_logic_popPtr_valueNext;
+  wire       [2:0]    _zz_logic_popPtr_valueNext;
   wire       [0:0]    _zz_logic_popPtr_valueNext_1;
   wire                _zz_logic_ram_port;
   wire                _zz__zz_io_pop_payload_data;
   wire       [44:0]   _zz_logic_ram_port_1;
-  wire       [4:0]    _zz_io_availability;
+  wire       [2:0]    _zz_io_availability;
   reg                 _zz_1;
   reg                 logic_pushPtr_willIncrement;
   reg                 logic_pushPtr_willClear;
-  reg        [4:0]    logic_pushPtr_valueNext;
-  reg        [4:0]    logic_pushPtr_value;
+  reg        [2:0]    logic_pushPtr_valueNext;
+  reg        [2:0]    logic_pushPtr_value;
   wire                logic_pushPtr_willOverflowIfInc;
   wire                logic_pushPtr_willOverflow;
   reg                 logic_popPtr_willIncrement;
   reg                 logic_popPtr_willClear;
-  reg        [4:0]    logic_popPtr_valueNext;
-  reg        [4:0]    logic_popPtr_value;
+  reg        [2:0]    logic_popPtr_valueNext;
+  reg        [2:0]    logic_popPtr_value;
   wire                logic_popPtr_willOverflowIfInc;
   wire                logic_popPtr_willOverflow;
   wire                logic_ptrMatch;
@@ -2604,13 +2338,13 @@ module StreamFifo_10 (
   reg                 _zz_io_pop_valid;
   wire       [44:0]   _zz_io_pop_payload_data;
   wire                when_Stream_l933;
-  wire       [4:0]    logic_ptrDif;
-  reg [44:0] logic_ram [0:31];
+  wire       [2:0]    logic_ptrDif;
+  reg [44:0] logic_ram [0:7];
 
   assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
-  assign _zz_logic_pushPtr_valueNext = {4'd0, _zz_logic_pushPtr_valueNext_1};
+  assign _zz_logic_pushPtr_valueNext = {2'd0, _zz_logic_pushPtr_valueNext_1};
   assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
-  assign _zz_logic_popPtr_valueNext = {4'd0, _zz_logic_popPtr_valueNext_1};
+  assign _zz_logic_popPtr_valueNext = {2'd0, _zz_logic_popPtr_valueNext_1};
   assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz__zz_io_pop_payload_data = 1'b1;
   assign _zz_logic_ram_port_1 = {io_push_payload_last,{io_push_payload_keep_,{io_push_payload_strb,{io_push_payload_id,io_push_payload_data}}}};
@@ -2647,12 +2381,12 @@ module StreamFifo_10 (
     end
   end
 
-  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 5'h1f);
+  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 3'b111);
   assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
   always @(*) begin
     logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
     if(logic_pushPtr_willClear) begin
-      logic_pushPtr_valueNext = 5'h0;
+      logic_pushPtr_valueNext = 3'b000;
     end
   end
 
@@ -2670,12 +2404,12 @@ module StreamFifo_10 (
     end
   end
 
-  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 5'h1f);
+  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 3'b111);
   assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
   always @(*) begin
     logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
     if(logic_popPtr_willClear) begin
-      logic_popPtr_valueNext = 5'h0;
+      logic_popPtr_valueNext = 3'b000;
     end
   end
 
@@ -2698,8 +2432,8 @@ module StreamFifo_10 (
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
   always @(posedge clk) begin
     if(!resetn) begin
-      logic_pushPtr_value <= 5'h0;
-      logic_popPtr_value <= 5'h0;
+      logic_pushPtr_value <= 3'b000;
+      logic_popPtr_value <= 3'b000;
       logic_risingOccupancy <= 1'b0;
       _zz_io_pop_valid <= 1'b0;
     end else begin
@@ -2720,11 +2454,189 @@ endmodule
 
 //StreamFifo_1 replaced by StreamFifo_1
 
-//StreamFifo_1 replaced by StreamFifo_1
-
 //StreamFifo replaced by StreamFifo
 
-module StreamFifo_6 (
+module StreamFifo_4 (
+  input               io_push_valid,
+  output              io_push_ready,
+  input      [29:0]   io_push_payload,
+  output              io_pop_valid,
+  input               io_pop_ready,
+  output     [29:0]   io_pop_payload,
+  input               io_flush,
+  output reg [3:0]    io_occupancy,
+  output reg [3:0]    io_availability,
+  input               clk,
+  input               resetn
+);
+  reg        [29:0]   _zz_logic_ram_port0;
+  wire       [3:0]    _zz_logic_pushPtr_valueNext;
+  wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
+  wire       [3:0]    _zz_logic_popPtr_valueNext;
+  wire       [0:0]    _zz_logic_popPtr_valueNext_1;
+  wire                _zz_logic_ram_port;
+  wire                _zz_io_pop_payload;
+  wire       [29:0]   _zz_logic_ram_port_1;
+  wire       [3:0]    _zz_io_occupancy;
+  wire       [3:0]    _zz_io_availability;
+  wire       [3:0]    _zz_io_availability_1;
+  wire       [3:0]    _zz_io_availability_2;
+  reg                 _zz_1;
+  reg                 logic_pushPtr_willIncrement;
+  reg                 logic_pushPtr_willClear;
+  reg        [3:0]    logic_pushPtr_valueNext;
+  reg        [3:0]    logic_pushPtr_value;
+  wire                logic_pushPtr_willOverflowIfInc;
+  wire                logic_pushPtr_willOverflow;
+  reg                 logic_popPtr_willIncrement;
+  reg                 logic_popPtr_willClear;
+  reg        [3:0]    logic_popPtr_valueNext;
+  reg        [3:0]    logic_popPtr_value;
+  wire                logic_popPtr_willOverflowIfInc;
+  wire                logic_popPtr_willOverflow;
+  wire                logic_ptrMatch;
+  reg                 logic_risingOccupancy;
+  wire                logic_pushing;
+  wire                logic_popping;
+  wire                logic_empty;
+  wire                logic_full;
+  reg                 _zz_io_pop_valid;
+  wire                when_Stream_l933;
+  wire       [3:0]    logic_ptrDif;
+  reg [29:0] logic_ram [0:11];
+
+  assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
+  assign _zz_logic_pushPtr_valueNext = {3'd0, _zz_logic_pushPtr_valueNext_1};
+  assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
+  assign _zz_logic_popPtr_valueNext = {3'd0, _zz_logic_popPtr_valueNext_1};
+  assign _zz_io_occupancy = (4'b1100 + logic_ptrDif);
+  assign _zz_io_availability = (4'b1100 + _zz_io_availability_1);
+  assign _zz_io_availability_1 = (logic_popPtr_value - logic_pushPtr_value);
+  assign _zz_io_availability_2 = (logic_popPtr_value - logic_pushPtr_value);
+  assign _zz_io_pop_payload = 1'b1;
+  assign _zz_logic_ram_port_1 = io_push_payload;
+  always @(posedge clk) begin
+    if(_zz_io_pop_payload) begin
+      _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
+    end
+  end
+
+  always @(posedge clk) begin
+    if(_zz_1) begin
+      logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
+    end
+  end
+
+  always @(*) begin
+    _zz_1 = 1'b0;
+    if(logic_pushing) begin
+      _zz_1 = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_pushPtr_willIncrement = 1'b0;
+    if(logic_pushing) begin
+      logic_pushPtr_willIncrement = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_pushPtr_willClear = 1'b0;
+    if(io_flush) begin
+      logic_pushPtr_willClear = 1'b1;
+    end
+  end
+
+  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 4'b1011);
+  assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
+  always @(*) begin
+    if(logic_pushPtr_willOverflow) begin
+      logic_pushPtr_valueNext = 4'b0000;
+    end else begin
+      logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
+    end
+    if(logic_pushPtr_willClear) begin
+      logic_pushPtr_valueNext = 4'b0000;
+    end
+  end
+
+  always @(*) begin
+    logic_popPtr_willIncrement = 1'b0;
+    if(logic_popping) begin
+      logic_popPtr_willIncrement = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_popPtr_willClear = 1'b0;
+    if(io_flush) begin
+      logic_popPtr_willClear = 1'b1;
+    end
+  end
+
+  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 4'b1011);
+  assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
+  always @(*) begin
+    if(logic_popPtr_willOverflow) begin
+      logic_popPtr_valueNext = 4'b0000;
+    end else begin
+      logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
+    end
+    if(logic_popPtr_willClear) begin
+      logic_popPtr_valueNext = 4'b0000;
+    end
+  end
+
+  assign logic_ptrMatch = (logic_pushPtr_value == logic_popPtr_value);
+  assign logic_pushing = (io_push_valid && io_push_ready);
+  assign logic_popping = (io_pop_valid && io_pop_ready);
+  assign logic_empty = (logic_ptrMatch && (! logic_risingOccupancy));
+  assign logic_full = (logic_ptrMatch && logic_risingOccupancy);
+  assign io_push_ready = (! logic_full);
+  assign io_pop_valid = ((! logic_empty) && (! (_zz_io_pop_valid && (! logic_full))));
+  assign io_pop_payload = _zz_logic_ram_port0;
+  assign when_Stream_l933 = (logic_pushing != logic_popping);
+  assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
+  always @(*) begin
+    if(logic_ptrMatch) begin
+      io_occupancy = (logic_risingOccupancy ? 4'b1100 : 4'b0000);
+    end else begin
+      io_occupancy = ((logic_popPtr_value < logic_pushPtr_value) ? logic_ptrDif : _zz_io_occupancy);
+    end
+  end
+
+  always @(*) begin
+    if(logic_ptrMatch) begin
+      io_availability = (logic_risingOccupancy ? 4'b0000 : 4'b1100);
+    end else begin
+      io_availability = ((logic_popPtr_value < logic_pushPtr_value) ? _zz_io_availability : _zz_io_availability_2);
+    end
+  end
+
+  always @(posedge clk) begin
+    if(!resetn) begin
+      logic_pushPtr_value <= 4'b0000;
+      logic_popPtr_value <= 4'b0000;
+      logic_risingOccupancy <= 1'b0;
+      _zz_io_pop_valid <= 1'b0;
+    end else begin
+      logic_pushPtr_value <= logic_pushPtr_valueNext;
+      logic_popPtr_value <= logic_popPtr_valueNext;
+      _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
+      if(when_Stream_l933) begin
+        logic_risingOccupancy <= logic_pushing;
+      end
+      if(io_flush) begin
+        logic_risingOccupancy <= 1'b0;
+      end
+    end
+  end
+
+
+endmodule
+
+module StreamFifo_3 (
   input               io_push_valid,
   output              io_push_ready,
   input      [7:0]    io_push_payload,
@@ -2904,365 +2816,7 @@ module StreamFifo_6 (
 
 endmodule
 
-module StreamFifo_5 (
-  input               io_push_valid,
-  output              io_push_ready,
-  input      [3:0]    io_push_payload,
-  output              io_pop_valid,
-  input               io_pop_ready,
-  output     [3:0]    io_pop_payload,
-  input               io_flush,
-  output reg [3:0]    io_occupancy,
-  output reg [3:0]    io_availability,
-  input               clk,
-  input               resetn
-);
-  reg        [3:0]    _zz_logic_ram_port0;
-  wire       [3:0]    _zz_logic_pushPtr_valueNext;
-  wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
-  wire       [3:0]    _zz_logic_popPtr_valueNext;
-  wire       [0:0]    _zz_logic_popPtr_valueNext_1;
-  wire                _zz_logic_ram_port;
-  wire                _zz_io_pop_payload;
-  wire       [3:0]    _zz_io_occupancy;
-  wire       [3:0]    _zz_io_availability;
-  wire       [3:0]    _zz_io_availability_1;
-  wire       [3:0]    _zz_io_availability_2;
-  reg                 _zz_1;
-  reg                 logic_pushPtr_willIncrement;
-  reg                 logic_pushPtr_willClear;
-  reg        [3:0]    logic_pushPtr_valueNext;
-  reg        [3:0]    logic_pushPtr_value;
-  wire                logic_pushPtr_willOverflowIfInc;
-  wire                logic_pushPtr_willOverflow;
-  reg                 logic_popPtr_willIncrement;
-  reg                 logic_popPtr_willClear;
-  reg        [3:0]    logic_popPtr_valueNext;
-  reg        [3:0]    logic_popPtr_value;
-  wire                logic_popPtr_willOverflowIfInc;
-  wire                logic_popPtr_willOverflow;
-  wire                logic_ptrMatch;
-  reg                 logic_risingOccupancy;
-  wire                logic_pushing;
-  wire                logic_popping;
-  wire                logic_empty;
-  wire                logic_full;
-  reg                 _zz_io_pop_valid;
-  wire                when_Stream_l933;
-  wire       [3:0]    logic_ptrDif;
-  reg [3:0] logic_ram [0:11];
-
-  assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
-  assign _zz_logic_pushPtr_valueNext = {3'd0, _zz_logic_pushPtr_valueNext_1};
-  assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
-  assign _zz_logic_popPtr_valueNext = {3'd0, _zz_logic_popPtr_valueNext_1};
-  assign _zz_io_occupancy = (4'b1100 + logic_ptrDif);
-  assign _zz_io_availability = (4'b1100 + _zz_io_availability_1);
-  assign _zz_io_availability_1 = (logic_popPtr_value - logic_pushPtr_value);
-  assign _zz_io_availability_2 = (logic_popPtr_value - logic_pushPtr_value);
-  assign _zz_io_pop_payload = 1'b1;
-  always @(posedge clk) begin
-    if(_zz_io_pop_payload) begin
-      _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
-    end
-  end
-
-  always @(posedge clk) begin
-    if(_zz_1) begin
-      logic_ram[logic_pushPtr_value] <= io_push_payload;
-    end
-  end
-
-  always @(*) begin
-    _zz_1 = 1'b0;
-    if(logic_pushing) begin
-      _zz_1 = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_pushPtr_willIncrement = 1'b0;
-    if(logic_pushing) begin
-      logic_pushPtr_willIncrement = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_pushPtr_willClear = 1'b0;
-    if(io_flush) begin
-      logic_pushPtr_willClear = 1'b1;
-    end
-  end
-
-  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 4'b1011);
-  assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
-  always @(*) begin
-    if(logic_pushPtr_willOverflow) begin
-      logic_pushPtr_valueNext = 4'b0000;
-    end else begin
-      logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
-    end
-    if(logic_pushPtr_willClear) begin
-      logic_pushPtr_valueNext = 4'b0000;
-    end
-  end
-
-  always @(*) begin
-    logic_popPtr_willIncrement = 1'b0;
-    if(logic_popping) begin
-      logic_popPtr_willIncrement = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_popPtr_willClear = 1'b0;
-    if(io_flush) begin
-      logic_popPtr_willClear = 1'b1;
-    end
-  end
-
-  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 4'b1011);
-  assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
-  always @(*) begin
-    if(logic_popPtr_willOverflow) begin
-      logic_popPtr_valueNext = 4'b0000;
-    end else begin
-      logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
-    end
-    if(logic_popPtr_willClear) begin
-      logic_popPtr_valueNext = 4'b0000;
-    end
-  end
-
-  assign logic_ptrMatch = (logic_pushPtr_value == logic_popPtr_value);
-  assign logic_pushing = (io_push_valid && io_push_ready);
-  assign logic_popping = (io_pop_valid && io_pop_ready);
-  assign logic_empty = (logic_ptrMatch && (! logic_risingOccupancy));
-  assign logic_full = (logic_ptrMatch && logic_risingOccupancy);
-  assign io_push_ready = (! logic_full);
-  assign io_pop_valid = ((! logic_empty) && (! (_zz_io_pop_valid && (! logic_full))));
-  assign io_pop_payload = _zz_logic_ram_port0;
-  assign when_Stream_l933 = (logic_pushing != logic_popping);
-  assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
-  always @(*) begin
-    if(logic_ptrMatch) begin
-      io_occupancy = (logic_risingOccupancy ? 4'b1100 : 4'b0000);
-    end else begin
-      io_occupancy = ((logic_popPtr_value < logic_pushPtr_value) ? logic_ptrDif : _zz_io_occupancy);
-    end
-  end
-
-  always @(*) begin
-    if(logic_ptrMatch) begin
-      io_availability = (logic_risingOccupancy ? 4'b0000 : 4'b1100);
-    end else begin
-      io_availability = ((logic_popPtr_value < logic_pushPtr_value) ? _zz_io_availability : _zz_io_availability_2);
-    end
-  end
-
-  always @(posedge clk) begin
-    if(!resetn) begin
-      logic_pushPtr_value <= 4'b0000;
-      logic_popPtr_value <= 4'b0000;
-      logic_risingOccupancy <= 1'b0;
-      _zz_io_pop_valid <= 1'b0;
-    end else begin
-      logic_pushPtr_value <= logic_pushPtr_valueNext;
-      logic_popPtr_value <= logic_popPtr_valueNext;
-      _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
-      if(when_Stream_l933) begin
-        logic_risingOccupancy <= logic_pushing;
-      end
-      if(io_flush) begin
-        logic_risingOccupancy <= 1'b0;
-      end
-    end
-  end
-
-
-endmodule
-
-module StreamFifo_4 (
-  input               io_push_valid,
-  output              io_push_ready,
-  input      [1:0]    io_push_payload,
-  output              io_pop_valid,
-  input               io_pop_ready,
-  output     [1:0]    io_pop_payload,
-  input               io_flush,
-  output reg [3:0]    io_occupancy,
-  output reg [3:0]    io_availability,
-  input               clk,
-  input               resetn
-);
-  reg        [1:0]    _zz_logic_ram_port0;
-  wire       [3:0]    _zz_logic_pushPtr_valueNext;
-  wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
-  wire       [3:0]    _zz_logic_popPtr_valueNext;
-  wire       [0:0]    _zz_logic_popPtr_valueNext_1;
-  wire                _zz_logic_ram_port;
-  wire                _zz_io_pop_payload;
-  wire       [1:0]    _zz_logic_ram_port_1;
-  wire       [3:0]    _zz_io_occupancy;
-  wire       [3:0]    _zz_io_availability;
-  wire       [3:0]    _zz_io_availability_1;
-  wire       [3:0]    _zz_io_availability_2;
-  reg                 _zz_1;
-  reg                 logic_pushPtr_willIncrement;
-  reg                 logic_pushPtr_willClear;
-  reg        [3:0]    logic_pushPtr_valueNext;
-  reg        [3:0]    logic_pushPtr_value;
-  wire                logic_pushPtr_willOverflowIfInc;
-  wire                logic_pushPtr_willOverflow;
-  reg                 logic_popPtr_willIncrement;
-  reg                 logic_popPtr_willClear;
-  reg        [3:0]    logic_popPtr_valueNext;
-  reg        [3:0]    logic_popPtr_value;
-  wire                logic_popPtr_willOverflowIfInc;
-  wire                logic_popPtr_willOverflow;
-  wire                logic_ptrMatch;
-  reg                 logic_risingOccupancy;
-  wire                logic_pushing;
-  wire                logic_popping;
-  wire                logic_empty;
-  wire                logic_full;
-  reg                 _zz_io_pop_valid;
-  wire                when_Stream_l933;
-  wire       [3:0]    logic_ptrDif;
-  reg [1:0] logic_ram [0:11];
-
-  assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
-  assign _zz_logic_pushPtr_valueNext = {3'd0, _zz_logic_pushPtr_valueNext_1};
-  assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
-  assign _zz_logic_popPtr_valueNext = {3'd0, _zz_logic_popPtr_valueNext_1};
-  assign _zz_io_occupancy = (4'b1100 + logic_ptrDif);
-  assign _zz_io_availability = (4'b1100 + _zz_io_availability_1);
-  assign _zz_io_availability_1 = (logic_popPtr_value - logic_pushPtr_value);
-  assign _zz_io_availability_2 = (logic_popPtr_value - logic_pushPtr_value);
-  assign _zz_io_pop_payload = 1'b1;
-  assign _zz_logic_ram_port_1 = io_push_payload;
-  always @(posedge clk) begin
-    if(_zz_io_pop_payload) begin
-      _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
-    end
-  end
-
-  always @(posedge clk) begin
-    if(_zz_1) begin
-      logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
-    end
-  end
-
-  always @(*) begin
-    _zz_1 = 1'b0;
-    if(logic_pushing) begin
-      _zz_1 = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_pushPtr_willIncrement = 1'b0;
-    if(logic_pushing) begin
-      logic_pushPtr_willIncrement = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_pushPtr_willClear = 1'b0;
-    if(io_flush) begin
-      logic_pushPtr_willClear = 1'b1;
-    end
-  end
-
-  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 4'b1011);
-  assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
-  always @(*) begin
-    if(logic_pushPtr_willOverflow) begin
-      logic_pushPtr_valueNext = 4'b0000;
-    end else begin
-      logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
-    end
-    if(logic_pushPtr_willClear) begin
-      logic_pushPtr_valueNext = 4'b0000;
-    end
-  end
-
-  always @(*) begin
-    logic_popPtr_willIncrement = 1'b0;
-    if(logic_popping) begin
-      logic_popPtr_willIncrement = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_popPtr_willClear = 1'b0;
-    if(io_flush) begin
-      logic_popPtr_willClear = 1'b1;
-    end
-  end
-
-  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 4'b1011);
-  assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
-  always @(*) begin
-    if(logic_popPtr_willOverflow) begin
-      logic_popPtr_valueNext = 4'b0000;
-    end else begin
-      logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
-    end
-    if(logic_popPtr_willClear) begin
-      logic_popPtr_valueNext = 4'b0000;
-    end
-  end
-
-  assign logic_ptrMatch = (logic_pushPtr_value == logic_popPtr_value);
-  assign logic_pushing = (io_push_valid && io_push_ready);
-  assign logic_popping = (io_pop_valid && io_pop_ready);
-  assign logic_empty = (logic_ptrMatch && (! logic_risingOccupancy));
-  assign logic_full = (logic_ptrMatch && logic_risingOccupancy);
-  assign io_push_ready = (! logic_full);
-  assign io_pop_valid = ((! logic_empty) && (! (_zz_io_pop_valid && (! logic_full))));
-  assign io_pop_payload = _zz_logic_ram_port0;
-  assign when_Stream_l933 = (logic_pushing != logic_popping);
-  assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
-  always @(*) begin
-    if(logic_ptrMatch) begin
-      io_occupancy = (logic_risingOccupancy ? 4'b1100 : 4'b0000);
-    end else begin
-      io_occupancy = ((logic_popPtr_value < logic_pushPtr_value) ? logic_ptrDif : _zz_io_occupancy);
-    end
-  end
-
-  always @(*) begin
-    if(logic_ptrMatch) begin
-      io_availability = (logic_risingOccupancy ? 4'b0000 : 4'b1100);
-    end else begin
-      io_availability = ((logic_popPtr_value < logic_pushPtr_value) ? _zz_io_availability : _zz_io_availability_2);
-    end
-  end
-
-  always @(posedge clk) begin
-    if(!resetn) begin
-      logic_pushPtr_value <= 4'b0000;
-      logic_popPtr_value <= 4'b0000;
-      logic_risingOccupancy <= 1'b0;
-      _zz_io_pop_valid <= 1'b0;
-    end else begin
-      logic_pushPtr_value <= logic_pushPtr_valueNext;
-      logic_popPtr_value <= logic_popPtr_valueNext;
-      _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
-      if(when_Stream_l933) begin
-        logic_risingOccupancy <= logic_pushing;
-      end
-      if(io_flush) begin
-        logic_risingOccupancy <= 1'b0;
-      end
-    end
-  end
-
-
-endmodule
-
-module StreamFifo_3 (
+module StreamFifo_2 (
   input               io_push_valid,
   output              io_push_ready,
   input      [31:0]   io_push_payload_data,
@@ -3422,29 +2976,27 @@ module StreamFifo_3 (
 
 endmodule
 
-//StreamFifo_1 replaced by StreamFifo_1
-
 module StreamFifo_1 (
   input               io_push_valid,
   output              io_push_ready,
-  input      [1:0]    io_push_payload,
+  input      [29:0]   io_push_payload,
   output              io_pop_valid,
   input               io_pop_ready,
-  output     [1:0]    io_pop_payload,
+  output     [29:0]   io_pop_payload,
   input               io_flush,
   output     [3:0]    io_occupancy,
   output     [3:0]    io_availability,
   input               clk,
   input               resetn
 );
-  reg        [1:0]    _zz_logic_ram_port0;
+  reg        [29:0]   _zz_logic_ram_port0;
   wire       [2:0]    _zz_logic_pushPtr_valueNext;
   wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
   wire       [2:0]    _zz_logic_popPtr_valueNext;
   wire       [0:0]    _zz_logic_popPtr_valueNext_1;
   wire                _zz_logic_ram_port;
   wire                _zz_io_pop_payload;
-  wire       [1:0]    _zz_logic_ram_port_1;
+  wire       [29:0]   _zz_logic_ram_port_1;
   wire       [2:0]    _zz_io_availability;
   reg                 _zz_1;
   reg                 logic_pushPtr_willIncrement;
@@ -3468,7 +3020,7 @@ module StreamFifo_1 (
   reg                 _zz_io_pop_valid;
   wire                when_Stream_l933;
   wire       [2:0]    logic_ptrDif;
-  reg [1:0] logic_ram [0:7];
+  reg [29:0] logic_ram [0:7];
 
   assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
   assign _zz_logic_pushPtr_valueNext = {2'd0, _zz_logic_pushPtr_valueNext_1};

@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : BDMAs2m
-// Git hash  : 83ded16dbfdb45394bc0b96144b62f6ee7135636
+// Git hash  : fefcfcbf4ea4b5320f476681f83c9c8cbd19c743
 
 
 `define BDMAs2mStates_binary_sequential_type [1:0]
@@ -110,8 +110,9 @@ module BDMAs2m (
   wire       [31:0]   _zz_s2m_aw_len_5;
   wire       [31:0]   _zz_s2m_aw_len_6;
   wire       [31:0]   _zz_s2m_aw_len_7;
-  wire       [2:0]    _zz_s2m_w_final_mask;
+  wire       [1:0]    _zz_s2m_w_final_mask;
   wire       [2:0]    _zz_s2m_w_final_mask_1;
+  wire       [2:0]    _zz_s2m_w_final_mask_2;
   wire       [94:0]   _zz_s2m_axis_data;
   wire       [5:0]    _zz_s2m_axis_data_1;
   wire       [6:0]    _zz_s2m_axis_strb_keep;
@@ -221,8 +222,9 @@ module BDMAs2m (
   assign _zz_s2m_aw_len_5 = (_zz_s2m_aw_len_6 - 32'h00000001);
   assign _zz_s2m_aw_len_6 = (_zz_s2m_aw_len_7 + (cch_address & 32'h00000003));
   assign _zz_s2m_aw_len_7 = {2'd0, trans_bytes_cnt};
-  assign _zz_s2m_w_final_mask = (3'b100 - _zz_s2m_w_final_mask_1);
-  assign _zz_s2m_w_final_mask_1 = {1'd0, s2m_mask_shift};
+  assign _zz_s2m_w_final_mask_1 = (3'b100 - _zz_s2m_w_final_mask_2);
+  assign _zz_s2m_w_final_mask = _zz_s2m_w_final_mask_1[1:0];
+  assign _zz_s2m_w_final_mask_2 = {1'd0, s2m_mask_shift};
   assign _zz_s2m_axis_data = ({63'd0,s2m_data_stream_payload_data} <<< _zz_s2m_axis_data_1);
   assign _zz_s2m_axis_data_1 = (4'b1000 * s2m_bytes_shift);
   assign _zz_s2m_axis_strb_keep = ({3'd0,s2m_data_stream_payload_keep_} <<< s2m_bytes_shift);

@@ -2,6 +2,7 @@ package utils.common.Mux
 
 import spinal.core._
 import spinal.lib._
+import spinal.lib.bus.misc.BusSlaveFactory
 
 class FlowDeMux[T <: Data](dataType: T, portCount:Int) extends Component {
     val io = new Bundle{
@@ -19,6 +20,11 @@ class FlowDeMux[T <: Data](dataType: T, portCount:Int) extends Component {
             io.outputs(idx).valid := io.input.valid
             io.outputs(idx).payload := io.input.payload
         }
+    }
+
+    def driveFrom(busCtrl: BusSlaveFactory, baseAddress: BigInt, bitOffset: Int = 0): Area = new Area {
+        busCtrl.driveAndRead(io.select, address = baseAddress, bitOffset = bitOffset,
+            documentation = s"FlowDeMux Port Select Register. (${log2Up(portCount)} bits)") init(0)
     }
 }
 

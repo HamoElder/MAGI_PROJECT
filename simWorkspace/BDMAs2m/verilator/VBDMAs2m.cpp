@@ -447,8 +447,7 @@ VL_INLINE_OPT void VBDMAs2m::_sequent__TOP__6(VBDMAs2m__Syms* __restrict vlSymsp
             if (((IData)(vlTOPp->dma_aw_valid) & (IData)(vlTOPp->dma_aw_ready))) {
                 vlTOPp->__Vdly__BDMAs2m__DOT__s2m_w_state = 1U;
                 vlTOPp->__Vdly__BDMAs2m__DOT__s2m_w_final_mask 
-                    = (0xfU & (0xfU >> (7U & ((IData)(4U) 
-                                              - (IData)(vlTOPp->BDMAs2m__DOT__s2m_mask_shift)))));
+                    = (0xfU & (0xfU >> (3U & VL_NEGATE_I((IData)(vlTOPp->BDMAs2m__DOT__s2m_mask_shift)))));
             }
             vlTOPp->BDMAs2m__DOT__s2m_axis_residual_strb_keep = 0U;
             vlTOPp->__Vdly__BDMAs2m__DOT__s2m_axis_strb_keep = 0U;

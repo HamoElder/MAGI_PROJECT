@@ -10,9 +10,9 @@ object PhyTxStates extends SpinalEnum {
 
 case class PhyTx(config: PhyConfig) extends Component {
     val io = new Bundle{
-        val txStreamPop = slave Stream(PhyPayload(config))
+        val raw_phy_data = slave(Stream(PhyPayload(config)))
         val gmiiTx = master(GmiiTx(config.gmiiConfig))
-        val core_reset = in Bool()
+        val core_reset = in(Bool())
     }
     noIoPrefix()
     import PhyTxStates._
@@ -29,7 +29,7 @@ case class PhyTx(config: PhyConfig) extends Component {
     // Connections
     io.gmiiTx.ER := False
     io.gmiiTx.EN := tx_en
-    io.txStreamPop.ready := fifoCcPop_ready
+    io.raw_phy_data.ready := fifoCcPop_ready
     io.gmiiTx.TXD := tx_d
     val tx_counter = Reg(UInt(8 bits)) init(0)
     val tx_payload_counter = Reg(UInt(11 bits)) init(0)
@@ -42,7 +42,7 @@ case class PhyTx(config: PhyConfig) extends Component {
 
     switch(gmii_tx_states){
         is(IDLE){
-            when(io.txStreamPop.valid & ~io.core_reset){
+            when(io.raw_phy_data.valid & ~io.core_reset){
                 gmii_tx_states := READY
             }
             tx_counter := 0
@@ -64,8 +64,8 @@ case class PhyTx(config: PhyConfig) extends Component {
                 gmii_tx_states := PROCESS
                 fifoCcPop_ready := True
                 crc32_valid := True
-                tx_data := io.txStreamPop.data
-                tx_strb := io.txStreamPop.strb
+                tx_data := io.raw_phy_data.data
+                tx_strb := io.raw_phy_data.strb
                 tx_counter := 0
             }
         }
@@ -80,10 +80,10 @@ case class PhyTx(config: PhyConfig) extends Component {
                 fifoCcPop_ready := False
                 tx_counter := tx_counter + 1
             }.otherwise{
-                tx_data := io.txStreamPop.data
-                tx_strb := io.txStreamPop.strb
+                tx_data := io.raw_phy_data.data
+                tx_strb := io.raw_phy_data.strb
                 fifoCcPop_ready := True
-                when(io.txStreamPop.last){
+                when(io.raw_phy_data.last){
                     gmii_tx_states := LAST
                 }
                 tx_counter := 0

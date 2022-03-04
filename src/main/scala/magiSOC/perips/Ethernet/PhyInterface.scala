@@ -9,8 +9,8 @@ case class PhyConfig(
                         useStrb : Boolean = false
                     ){
     def bytePerWord: Int = dataWidth/8
-    def dataType = Bits(dataWidth bits)
-    def strbType = Bits(bytePerWord bits)
+    def dataType: Bits = Bits(dataWidth bits)
+    def strbType: Bits = Bits(bytePerWord bits)
 
     def gmiiDataWidth: Int = 8
     def gmiiConfig: GmiiParameter = GmiiParameter(gmiiDataWidth, withEr = true)
@@ -45,9 +45,9 @@ case class PhyInterface(config: PhyConfig) extends Component {
     val phy_rx = PhyRx(config)
 
     io.gmiiMaster.TX << phy_tx.io.gmiiTx
-    io.txStagingFifoCcPop.ready := phy_tx.io.txStreamPop.ready
-    phy_tx.io.txStreamPop.valid := io.txStagingFifoCcPop.valid
-    phy_tx.io.txStreamPop.payload := io.txStagingFifoCcPop.payload
+    io.txStagingFifoCcPop.ready := phy_tx.io.raw_phy_data.ready
+    phy_tx.io.raw_phy_data.valid := io.txStagingFifoCcPop.valid
+    phy_tx.io.raw_phy_data.payload := io.txStagingFifoCcPop.payload
     phy_tx.io.core_reset := core_reset
 
     phy_rx.io.gmiiRx << io.gmiiMaster.RX

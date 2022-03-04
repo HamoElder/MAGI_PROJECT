@@ -9,11 +9,11 @@ object PhyRxStates extends SpinalEnum {
 
 case class PhyRx(config: PhyConfig) extends Component {
     val io = new Bundle{
-        val rxStreamPush = master Stream(PhyPayload(config))
+        val rxStreamPush = master(Stream(PhyPayload(config)))
         val gmiiRx = master(GmiiRx(config.gmiiConfig))
-        val core_mac_addr = in Bits(48 bits)
-        val core_rx_full = in Bool()
-        val core_reset = in Bool()
+        val core_mac_addr = in(Bits(48 bits))
+        val core_rx_full = in(Bool())
+        val core_reset = in(Bool())
     }
     noIoPrefix()
     val rx_en = ~(io.core_reset | io.core_rx_full)

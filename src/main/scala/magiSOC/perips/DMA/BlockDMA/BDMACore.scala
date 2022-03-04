@@ -47,7 +47,6 @@ case class BDMAConfig(
     )
     def axi4AxFifoDepth: Int = 8
     def axi4WFifoDepth: Int = 2 * axi4MaxBurstLen
-    def axis4FifoDepth: Int = 32
     def axi4OutstandingDepth: Int = outStandingLen + 4
 
     def bytesCntWidth: Int = log2Up(bytesLimit)

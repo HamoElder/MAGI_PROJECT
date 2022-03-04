@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : BDMAm2s
-// Git hash  : 83ded16dbfdb45394bc0b96144b62f6ee7135636
+// Git hash  : fefcfcbf4ea4b5320f476681f83c9c8cbd19c743
 
 
 `define BDMAm2sStates_binary_sequential_type [1:0]
@@ -504,7 +504,7 @@ module BDMAm2s (
             if(m2s_r_last_cycle) begin
               pending_fifo_pop_ready <= (! ar_finish);
               m2s_r_state <= (ar_finish ? `BDMAm2sStates_binary_sequential_FINAL_1 : `BDMAm2sStates_binary_sequential_IDLE);
-              m2s_axis_last <= (ar_finish ? (m2s_axis_trans_bytes < 30'h00000004) : 1'b0);
+              m2s_axis_last <= (ar_finish && (m2s_axis_trans_bytes <= 30'h00000004));
             end
           end else begin
             m2s_axis_valid <= 1'b0;
