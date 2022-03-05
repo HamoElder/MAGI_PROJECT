@@ -21,7 +21,7 @@ case class BDMAConfig(
                          axis4IDEn      : Boolean = true,
                          axis4LastEn    : Boolean = true,
                          bytesLimit     : BigInt = 1 GiB,
-                         outStandingLen : Int     = 8,
+                         outStandingLen : Int     = 3,
                          endianness     : Endianness = LITTLE
                      ){
     def axi4Config: Axi4Config = Axi4Config(
@@ -46,8 +46,8 @@ case class BDMAConfig(
         useID = axis4IDEn, useStrb = axis4StrbEn, useKeep = axis4KeepEn, useLast = true
     )
     def axi4AxFifoDepth: Int = 8
-    def axi4WFifoDepth: Int = 2 * axi4MaxBurstLen
-    def axi4OutstandingDepth: Int = outStandingLen + 4
+    def axi4WFifoDepth: Int = axi4MaxBurstLen
+    def axi4OutstandingDepth: Int = outStandingLen + 2
 
     def bytesCntWidth: Int = log2Up(bytesLimit)
     def bytesCntDataType: UInt = UInt(bytesCntWidth bits)

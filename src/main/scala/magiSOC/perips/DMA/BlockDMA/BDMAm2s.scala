@@ -306,7 +306,7 @@ case class BDMAm2s(config: BDMAConfig) extends Component {
             m2s_r_first := False
             when(m2s_axis_trans_bytes =/= 0){
                 m2s_axis_trans_bytes := 0
-                m2s_axis_strb_keep := (keep_strb_full >> (config.axisConfig.bytePerWord - m2s_axis_trans_bytes(config.axi4LowAddrRange))).resized
+                m2s_axis_strb_keep := (keep_strb_full >> (config.axisConfig.bytePerWord - m2s_axis_trans_bytes(config.axi4LowAddrRange))(config.axi4LowAddrRange)).resized
                 m2s_axis_payload := ((m2s_axis_payload.getZero ## m2s_r_residual_payload) >> (8 * m2s_bytes_shift)).resized
                 m2s_axis_last := True
                 m2s_axis_valid := True

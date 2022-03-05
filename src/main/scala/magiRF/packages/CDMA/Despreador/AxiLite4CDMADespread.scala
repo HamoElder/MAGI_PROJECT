@@ -31,7 +31,7 @@ case class AxiLite4CDMADespread(config: AxiLite4CDMADespreadConfig) extends Comp
     }
     noIoPrefix()
     AxiLite4SpecRenamer(io.axil4Ctrl)
-    val rfClockDomain = ClockDomain(
+    val rfClockDomain: ClockDomain = ClockDomain(
         clock = io.rf_clk,
         reset = io.rf_resetn,
         config = ClockDomainConfig(

@@ -126,11 +126,11 @@ VL_MODULE(VBDMAm2s) {
         CData/*0:0*/ BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushPtr_willIncrement;
     };
     struct {
-        CData/*4:0*/ BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushPtr_valueNext;
-        CData/*4:0*/ BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushPtr_value;
+        CData/*2:0*/ BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushPtr_valueNext;
+        CData/*2:0*/ BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushPtr_value;
         CData/*0:0*/ BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_willIncrement;
-        CData/*4:0*/ BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_valueNext;
-        CData/*4:0*/ BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_value;
+        CData/*2:0*/ BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_valueNext;
+        CData/*2:0*/ BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_value;
         CData/*0:0*/ BDMAm2s__DOT__m2s_data_fifo__DOT__logic_ptrMatch;
         CData/*0:0*/ BDMAm2s__DOT__m2s_data_fifo__DOT__logic_risingOccupancy;
         CData/*0:0*/ BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushing;
@@ -197,7 +197,7 @@ VL_MODULE(VBDMAm2s) {
         QData/*44:0*/ BDMAm2s__DOT__m2s_data_fifo__DOT___zz_logic_ram_port0;
         QData/*48:0*/ BDMAm2s__DOT__m2s_ar_fifo__DOT__logic_ram[8];
         IData/*29:0*/ BDMAm2s__DOT__m2s_trans_bytes_fifo__DOT__logic_ram[8];
-        QData/*44:0*/ BDMAm2s__DOT__m2s_data_fifo__DOT__logic_ram[32];
+        QData/*44:0*/ BDMAm2s__DOT__m2s_data_fifo__DOT__logic_ram[8];
         CData/*7:0*/ BDMAm2s__DOT__len_pending_fifo__DOT__logic_ram[12];
         CData/*3:0*/ BDMAm2s__DOT__id_pending_fifo__DOT__logic_ram[12];
         IData/*29:0*/ BDMAm2s__DOT__trans_pending_fifo__DOT__logic_ram[12];
@@ -221,7 +221,7 @@ VL_MODULE(VBDMAm2s) {
     CData/*0:0*/ __Vdlyvset__BDMAm2s__DOT__m2s_ar_fifo__DOT__logic_ram__v0;
     CData/*2:0*/ __Vdlyvdim0__BDMAm2s__DOT__m2s_trans_bytes_fifo__DOT__logic_ram__v0;
     CData/*0:0*/ __Vdlyvset__BDMAm2s__DOT__m2s_trans_bytes_fifo__DOT__logic_ram__v0;
-    CData/*4:0*/ __Vdlyvdim0__BDMAm2s__DOT__m2s_data_fifo__DOT__logic_ram__v0;
+    CData/*2:0*/ __Vdlyvdim0__BDMAm2s__DOT__m2s_data_fifo__DOT__logic_ram__v0;
     CData/*0:0*/ __Vdlyvset__BDMAm2s__DOT__m2s_data_fifo__DOT__logic_ram__v0;
     CData/*3:0*/ __Vdlyvdim0__BDMAm2s__DOT__len_pending_fifo__DOT__logic_ram__v0;
     CData/*7:0*/ __Vdlyvval__BDMAm2s__DOT__len_pending_fifo__DOT__logic_ram__v0;

@@ -64,6 +64,22 @@ object CrcKind{
             outputReflected = true,
             finalXor = BigInt("FFFF", 16)
         )
+        val crc5Check = new CrcKind(
+            polynomial = BigInt("5", 16),
+            polynomialWidth = 5,
+            initValue = BigInt("1F", 16),
+            inputReflected = true,
+            outputReflected = false,
+            finalXor = BigInt("00", 16)
+        )
+        val crc16Check = new CrcKind(
+            polynomial = BigInt("8005", 16),
+            polynomialWidth = 16,
+            initValue = BigInt("FFFF", 16),
+            inputReflected = true,
+            outputReflected = false,
+            finalXor = BigInt("0000", 16)
+        )
     }
     val itu = new{
         val crc4 = new CrcKind(

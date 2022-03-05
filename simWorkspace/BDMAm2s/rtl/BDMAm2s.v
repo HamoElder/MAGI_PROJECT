@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : BDMAm2s
-// Git hash  : fefcfcbf4ea4b5320f476681f83c9c8cbd19c743
+// Git hash  : 222c5ee6dba0c343bb79144fda839f9d81a69efd
 
 
 `define BDMAm2sStates_binary_sequential_type [1:0]
@@ -70,8 +70,8 @@ module BDMAm2s (
   wire       [3:0]    m2s_data_fifo_io_pop_payload_strb;
   wire       [3:0]    m2s_data_fifo_io_pop_payload_keep_;
   wire                m2s_data_fifo_io_pop_payload_last;
-  wire       [5:0]    m2s_data_fifo_io_occupancy;
-  wire       [5:0]    m2s_data_fifo_io_availability;
+  wire       [3:0]    m2s_data_fifo_io_occupancy;
+  wire       [3:0]    m2s_data_fifo_io_availability;
   wire                len_pending_fifo_io_push_ready;
   wire                len_pending_fifo_io_pop_valid;
   wire       [7:0]    len_pending_fifo_io_pop_payload;
@@ -381,7 +381,7 @@ module BDMAm2s (
   assign when_BDMAm2s_l287 = ((! m2s_r_first) && (m2s_r_len == 8'h0));
   assign when_BDMAm2s_l293 = (m2s_r_len == 8'h0);
   assign when_BDMAm2s_l307 = (m2s_axis_trans_bytes != 30'h0);
-  assign dma_r_ready = ((6'h02 < m2s_data_fifo_io_availability) && m2s_r_valve);
+  assign dma_r_ready = ((4'b0010 < m2s_data_fifo_io_availability) && m2s_r_valve);
   assign m2s_data_stream_valid = m2s_data_fifo_io_pop_valid;
   assign m2s_data_stream_payload_data = m2s_data_fifo_io_pop_payload_data;
   assign m2s_data_stream_payload_id = m2s_data_fifo_io_pop_payload_id;
@@ -627,7 +627,7 @@ module BDMAm2s (
       end
       default : begin
         if(when_BDMAm2s_l307) begin
-          m2s_axis_strb_keep <= (keep_strb_full >>> _zz_m2s_axis_strb_keep_3);
+          m2s_axis_strb_keep <= (keep_strb_full >>> _zz_m2s_axis_strb_keep_3[1 : 0]);
           m2s_axis_payload <= _zz_m2s_axis_payload[31:0];
         end
       end
@@ -1193,31 +1193,31 @@ module StreamFifo_2 (
   output     [3:0]    io_pop_payload_keep_,
   output              io_pop_payload_last,
   input               io_flush,
-  output     [5:0]    io_occupancy,
-  output     [5:0]    io_availability,
+  output     [3:0]    io_occupancy,
+  output     [3:0]    io_availability,
   input               clk,
   input               reset
 );
   reg        [44:0]   _zz_logic_ram_port0;
-  wire       [4:0]    _zz_logic_pushPtr_valueNext;
+  wire       [2:0]    _zz_logic_pushPtr_valueNext;
   wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
-  wire       [4:0]    _zz_logic_popPtr_valueNext;
+  wire       [2:0]    _zz_logic_popPtr_valueNext;
   wire       [0:0]    _zz_logic_popPtr_valueNext_1;
   wire                _zz_logic_ram_port;
   wire                _zz__zz_io_pop_payload_data;
   wire       [44:0]   _zz_logic_ram_port_1;
-  wire       [4:0]    _zz_io_availability;
+  wire       [2:0]    _zz_io_availability;
   reg                 _zz_1;
   reg                 logic_pushPtr_willIncrement;
   reg                 logic_pushPtr_willClear;
-  reg        [4:0]    logic_pushPtr_valueNext;
-  reg        [4:0]    logic_pushPtr_value;
+  reg        [2:0]    logic_pushPtr_valueNext;
+  reg        [2:0]    logic_pushPtr_value;
   wire                logic_pushPtr_willOverflowIfInc;
   wire                logic_pushPtr_willOverflow;
   reg                 logic_popPtr_willIncrement;
   reg                 logic_popPtr_willClear;
-  reg        [4:0]    logic_popPtr_valueNext;
-  reg        [4:0]    logic_popPtr_value;
+  reg        [2:0]    logic_popPtr_valueNext;
+  reg        [2:0]    logic_popPtr_value;
   wire                logic_popPtr_willOverflowIfInc;
   wire                logic_popPtr_willOverflow;
   wire                logic_ptrMatch;
@@ -1229,13 +1229,13 @@ module StreamFifo_2 (
   reg                 _zz_io_pop_valid;
   wire       [44:0]   _zz_io_pop_payload_data;
   wire                when_Stream_l933;
-  wire       [4:0]    logic_ptrDif;
-  reg [44:0] logic_ram [0:31];
+  wire       [2:0]    logic_ptrDif;
+  reg [44:0] logic_ram [0:7];
 
   assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
-  assign _zz_logic_pushPtr_valueNext = {4'd0, _zz_logic_pushPtr_valueNext_1};
+  assign _zz_logic_pushPtr_valueNext = {2'd0, _zz_logic_pushPtr_valueNext_1};
   assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
-  assign _zz_logic_popPtr_valueNext = {4'd0, _zz_logic_popPtr_valueNext_1};
+  assign _zz_logic_popPtr_valueNext = {2'd0, _zz_logic_popPtr_valueNext_1};
   assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz__zz_io_pop_payload_data = 1'b1;
   assign _zz_logic_ram_port_1 = {io_push_payload_last,{io_push_payload_keep_,{io_push_payload_strb,{io_push_payload_id,io_push_payload_data}}}};
@@ -1272,12 +1272,12 @@ module StreamFifo_2 (
     end
   end
 
-  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 5'h1f);
+  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 3'b111);
   assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
   always @(*) begin
     logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
     if(logic_pushPtr_willClear) begin
-      logic_pushPtr_valueNext = 5'h0;
+      logic_pushPtr_valueNext = 3'b000;
     end
   end
 
@@ -1295,12 +1295,12 @@ module StreamFifo_2 (
     end
   end
 
-  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 5'h1f);
+  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 3'b111);
   assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
   always @(*) begin
     logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
     if(logic_popPtr_willClear) begin
-      logic_popPtr_valueNext = 5'h0;
+      logic_popPtr_valueNext = 3'b000;
     end
   end
 
@@ -1323,8 +1323,8 @@ module StreamFifo_2 (
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
   always @(posedge clk or posedge reset) begin
     if(reset) begin
-      logic_pushPtr_value <= 5'h0;
-      logic_popPtr_value <= 5'h0;
+      logic_pushPtr_value <= 3'b000;
+      logic_popPtr_value <= 3'b000;
       logic_risingOccupancy <= 1'b0;
       _zz_io_pop_valid <= 1'b0;
     end else begin

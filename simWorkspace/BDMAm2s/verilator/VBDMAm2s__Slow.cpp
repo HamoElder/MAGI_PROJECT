@@ -119,9 +119,8 @@ void VBDMAm2s::_settle__TOP__9(VBDMAm2s__Syms* __restrict vlSymsp) {
            & (IData)(vlTOPp->BDMAm2s__DOT__m2s_trans_bytes_fifo__DOT__logic_risingOccupancy));
     vlTOPp->dma_r_ready = ((2U < ((((~ (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_risingOccupancy)) 
                                     & (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_ptrMatch)) 
-                                   << 5U) | (0x1fU 
-                                             & ((IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_value) 
-                                                - (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushPtr_value))))) 
+                                   << 3U) | (7U & ((IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_value) 
+                                                   - (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushPtr_value))))) 
                            & (IData)(vlTOPp->BDMAm2s__DOT__m2s_r_valve));
     vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_full 
         = ((IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_ptrMatch) 
@@ -290,8 +289,8 @@ void VBDMAm2s::_settle__TOP__10(VBDMAm2s__Syms* __restrict vlSymsp) {
         = (7U & ((IData)(vlTOPp->BDMAm2s__DOT__m2s_trans_bytes_fifo__DOT__logic_pushPtr_value) 
                  + (IData)(vlTOPp->BDMAm2s__DOT__m2s_trans_bytes_fifo__DOT__logic_pushPtr_willIncrement)));
     vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushPtr_valueNext 
-        = (0x1fU & ((IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushPtr_value) 
-                    + (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushPtr_willIncrement)));
+        = (7U & ((IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushPtr_value) 
+                 + (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushPtr_willIncrement)));
     vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_willIncrement = 0U;
     if (vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popping) {
         vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_willIncrement = 1U;
@@ -321,8 +320,8 @@ void VBDMAm2s::_settle__TOP__10(VBDMAm2s__Syms* __restrict vlSymsp) {
         = (7U & ((IData)(vlTOPp->BDMAm2s__DOT__m2s_ar_fifo__DOT__logic_pushPtr_value) 
                  + (IData)(vlTOPp->BDMAm2s__DOT__m2s_ar_fifo__DOT__logic_pushPtr_willIncrement)));
     vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_valueNext 
-        = (0x1fU & ((IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_value) 
-                    + (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_willIncrement)));
+        = (7U & ((IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_value) 
+                 + (IData)(vlTOPp->BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_willIncrement)));
     vlTOPp->BDMAm2s__DOT__len_pending_fifo__DOT__logic_popPtr_valueNext 
         = (((0xbU == (IData)(vlTOPp->BDMAm2s__DOT__len_pending_fifo__DOT__logic_popPtr_value)) 
             & (IData)(vlTOPp->BDMAm2s__DOT__len_pending_fifo__DOT__logic_popPtr_willIncrement))
@@ -483,18 +482,18 @@ void VBDMAm2s::_ctor_var_reset() {
     BDMAm2s__DOT__m2s_data_fifo__DOT___zz_logic_ram_port0 = VL_RAND_RESET_Q(45);
     BDMAm2s__DOT__m2s_data_fifo__DOT___zz_1 = VL_RAND_RESET_I(1);
     BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
-    BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(5);
-    BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushPtr_value = VL_RAND_RESET_I(5);
+    BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(3);
+    BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushPtr_value = VL_RAND_RESET_I(3);
     BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
-    BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(5);
-    BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_value = VL_RAND_RESET_I(5);
+    BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(3);
+    BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popPtr_value = VL_RAND_RESET_I(3);
     BDMAm2s__DOT__m2s_data_fifo__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
     BDMAm2s__DOT__m2s_data_fifo__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
     BDMAm2s__DOT__m2s_data_fifo__DOT__logic_pushing = VL_RAND_RESET_I(1);
     BDMAm2s__DOT__m2s_data_fifo__DOT__logic_popping = VL_RAND_RESET_I(1);
     BDMAm2s__DOT__m2s_data_fifo__DOT__logic_full = VL_RAND_RESET_I(1);
     BDMAm2s__DOT__m2s_data_fifo__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
-    { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
+    { int __Vi0=0; for (; __Vi0<8; ++__Vi0) {
             BDMAm2s__DOT__m2s_data_fifo__DOT__logic_ram[__Vi0] = VL_RAND_RESET_Q(45);
     }}
     BDMAm2s__DOT__len_pending_fifo__DOT____Vxrand1 = VL_RAND_RESET_I(8);
