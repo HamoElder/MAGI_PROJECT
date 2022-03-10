@@ -1,11 +1,26 @@
 package magiRF.top.RFBench.Transmitter
 
+import magiRF.interface.misc.LVDS.LVDS
+import magiRF.modules.Modem.Misc.dataDivDynamic
 import magiRF.packages.Coder.Convolutional.Encoder.ConvEncoder
 import magiRF.packages.Scramble.Scrambler
-import magiRF.top.RFBench.Config.{codedDataType, codedDataWidth, conv_encoder_config, crc32_config, crc_data_width, method_width, phyDataType, phyDataWidth, phy_payload_lower_boundary, phy_payload_upper_boundary, rf_payload_upper_boundary, scrambler_poly, scrambler_reg_width, size_width}
+import magiRF.top.RFBench.Config.{codedDataType, codedDataWidth, conv_encoder_config, crc32_config, crc_data_width, genModulatorConfig, genModulatorDivConfig, iqWidth, method_width, modIQDataType, phyDataType, phyDataWidth, phy_payload_lower_boundary, phy_payload_upper_boundary, rf_payload_upper_boundary, scrambler_poly, scrambler_reg_width, size_width}
 import spinal.core._
 import spinal.lib._
+import utils.bus.IQBundle.IQBundle
 import utils.common.CRC.Crc
+
+case class PhyTxInterface() extends Bundle {
+    def interfaceWidth: Int = iqWidth / 2
+    def interfaceDataType: Bits = Bits(interfaceWidth bits)
+    val rx_if_frame = slave(LVDS(Bool()))
+    val rx_if_data  = slave(LVDS(interfaceDataType))
+    val rx_data_clk = slave(LVDS(Bool()))
+
+    val tx_if_frame = master(LVDS(Bool()))
+    val tx_fb_clk = master(LVDS(Bool()))
+    val tx_if_data = master(LVDS(interfaceDataType))
+}
 
 case class PhyTxCrc()extends Component{
     val io = new Bundle{
@@ -139,6 +154,50 @@ case class PhyTxScrambler() extends Component{
         }
     }
 
+}
+
+case class PhyModulator() extends Component{
+    val io = new Bundle{
+        val raw_data = slave(Stream(Fragment(codedDataType)))
+        val result_data = master(Stream(Fragment(codedDataType)))
+        val select = in(UInt(log2Up(genModulatorConfig.selectNum) bits))
+    }
+    noIoPrefix()
+    val mod_data_div = dataDivDynamic(genModulatorDivConfig)
+    object PhyTxModulatorStatus extends SpinalEnum {
+        val IDLE, HEADER, DATA = newElement()
+    }
+    val modulator_status = Reg(PhyTxModulatorStatus()) init(PhyTxModulatorStatus.IDLE)
+    switch(modulator_status){
+        is(PhyTxModulatorStatus.IDLE){
+
+        }
+        is(PhyTxModulatorStatus.HEADER){
+
+        }
+        is(PhyTxModulatorStatus.DATA){
+
+        }
+    }
+    mod_data_div.io.cnt_limit := codedDataWidth
+
+
+    mod_data_div.io.base_data << io.raw_data
+
+
+}
+
+
+case class PhyTxICFront() extends Component{
+    val io = new Bundle{
+        val raw_data = slave(Stream(Fragment(modIQDataType)))
+        val result_data = master(Stream(IQBundle(Bits(iqWidth bits))))
+    }
+    noIoPrefix()
+    io.raw_data.ready := io.result_data.ready
+    io.result_data.cha_i := io.raw_data.valid ? io.raw_data.cha_i.asBits | 0
+    io.result_data.cha_q := io.raw_data.valid ? io.raw_data.cha_q.asBits | 0
+    io.result_data.valid := io.raw_data.valid
 }
 
 

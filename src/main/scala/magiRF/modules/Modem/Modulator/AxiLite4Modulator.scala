@@ -17,7 +17,7 @@ case class AxiLite4ModulatorConfig(
                               modMethod          : Seq[ModExtension]    = null,
                               lookUpConfig       : Seq[lookUpModConfig] = null
                           ){
-    def baseDataType: UInt = UInt(baseDataWidth bits)
+    def baseDataType: Bits = Bits(baseDataWidth bits)
     def modDataType: SInt = SInt(modDataWidth bits)
     def addressWidth = 8
     def axiLite4Config: AxiLite4Config = AxiLite4Config(addressWidth, cfgDataWidth)

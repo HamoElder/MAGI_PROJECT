@@ -24,8 +24,8 @@ case class mQAMMod(config: modUnitConfig) extends Component {
     val data_div = unit_data.subdivideIn(2 slices)
 
     when(unit_valid){
-        io.mod_iq.cha_i := codeTableI(data_div(1).resized).resized
-        io.mod_iq.cha_q := codeTableQ(data_div(0).resized).resized
+        io.mod_iq.cha_i := codeTableI(data_div(1).asUInt.resized).resized
+        io.mod_iq.cha_q := codeTableQ(data_div(0).asUInt.resized).resized
         io.mod_iq.last := unit_last
         io.mod_iq.valid := True
     }.otherwise{

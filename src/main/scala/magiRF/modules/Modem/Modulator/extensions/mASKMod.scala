@@ -21,7 +21,7 @@ case class mASKMod(config: modUnitConfig) extends Component{
     when(unit_valid){
         io.mod_iq.valid := True
         io.mod_iq.last := unit_last
-        io.mod_iq.cha_i := codeTable(unit_data.resized).resized
+        io.mod_iq.cha_i := codeTable(unit_data.asUInt.resized).resized
     }.otherwise{
         io.mod_iq.valid := False
         io.mod_iq.last := False

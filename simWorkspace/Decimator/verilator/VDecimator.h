@@ -5,20 +5,21 @@
 // The class here is then constructed to instantiate the design.
 // See the Verilator manual for examples.
 
-#ifndef _VDecimator_H_
-#define _VDecimator_H_
+#ifndef _VDECIMATOR_H_
+#define _VDECIMATOR_H_  // guard
 
 #include "verilated.h"
+
+//==========
+
 class VDecimator__Syms;
-class VerilatedVcd;
+class VDecimator_VerilatedVcd;
+
 
 //----------
 
 VL_MODULE(VDecimator) {
   public:
-    // CELLS
-    // Public to allow access to /*verilator_public*/ items;
-    // otherwise the application code can consider these internals.
     
     // PORTS
     // The application code writes and reads these signals to
@@ -32,44 +33,33 @@ VL_MODULE(VDecimator) {
     
     // LOCAL SIGNALS
     // Internals; generally not touched by application code
-    VL_SIG8(Decimator__DOT___zz_cnt,2,0);
-    VL_SIG8(Decimator__DOT__cntDataType,2,0);
-    VL_SIG8(Decimator__DOT__cnt,2,0);
-    VL_SIG8(Decimator__DOT__out_valid_1,0,0);
-    VL_SIG8(Decimator__DOT__when_Decimator_l22,0,0);
-    //char	__VpadToAlign17[1];
-    VL_SIG16(Decimator__DOT__out_data,11,0);
+    CData/*2:0*/ Decimator__DOT___zz_cnt;
+    CData/*2:0*/ Decimator__DOT__cnt;
+    CData/*0:0*/ Decimator__DOT__out_valid_1;
+    SData/*11:0*/ Decimator__DOT__out_data;
     
     // LOCAL VARIABLES
     // Internals; generally not touched by application code
-    VL_SIG8(__Vclklast__TOP__clk,0,0);
-    VL_SIG8(__Vclklast__TOP__reset,0,0);
-    //char	__VpadToAlign26[2];
-    VL_SIG(__Vm_traceActivity,31,0);
+    CData/*0:0*/ __Vclklast__TOP__clk;
+    CData/*0:0*/ __Vclklast__TOP__reset;
+    IData/*31:0*/ __Vm_traceActivity;
     
     // INTERNAL VARIABLES
     // Internals; generally not touched by application code
-    //char	__VpadToAlign36[4];
-    VDecimator__Syms*	__VlSymsp;		// Symbol table
-    
-    // PARAMETERS
-    // Parameters marked /*verilator public*/ for use by application code
+    VDecimator__Syms* __VlSymsp;  // Symbol table
     
     // CONSTRUCTORS
   private:
-    VDecimator& operator= (const VDecimator&);	///< Copying not allowed
-    VDecimator(const VDecimator&);	///< Copying not allowed
+    VL_UNCOPYABLE(VDecimator);  ///< Copying not allowed
   public:
     /// Construct the model; called by application code
     /// The special name  may be used to make a wrapper with a
-    /// single model invisible WRT DPI scope names.
-    VDecimator(const char* name="TOP");
+    /// single model invisible with respect to DPI scope names.
+    VDecimator(const char* name = "TOP");
     /// Destroy the model; called (often implicitly) by application code
     ~VDecimator();
     /// Trace signals in the model; called by application code
-    void trace (VerilatedVcdC* tfp, int levels, int options=0);
-    
-    // USER METHODS
+    void trace(VerilatedVcdC* tfp, int levels, int options = 0);
     
     // API METHODS
     /// Evaluate the model.  Application must call when inputs change.
@@ -83,28 +73,35 @@ VL_MODULE(VDecimator) {
   public:
     void __Vconfigure(VDecimator__Syms* symsp, bool first);
   private:
-    static QData	_change_request(VDecimator__Syms* __restrict vlSymsp);
-    static QData	_change_request_1(VDecimator__Syms* __restrict vlSymsp);
-    void	_configure_coverage(VDecimator__Syms* __restrict vlSymsp, bool first);
-    void	_ctor_var_reset();
+    static QData _change_request(VDecimator__Syms* __restrict vlSymsp);
+    static QData _change_request_1(VDecimator__Syms* __restrict vlSymsp);
+    void _ctor_var_reset() VL_ATTR_COLD;
   public:
-    static void	_eval(VDecimator__Syms* __restrict vlSymsp);
-    static void	_eval_initial(VDecimator__Syms* __restrict vlSymsp);
-    static void	_eval_settle(VDecimator__Syms* __restrict vlSymsp);
-    static void	_sequent__TOP__1(VDecimator__Syms* __restrict vlSymsp);
-    static void	_sequent__TOP__2(VDecimator__Syms* __restrict vlSymsp);
-    static void	_settle__TOP__3(VDecimator__Syms* __restrict vlSymsp);
-    static void	traceChgThis(VDecimator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void	traceChgThis__2(VDecimator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void	traceChgThis__3(VDecimator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void	traceChgThis__4(VDecimator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void	traceFullThis(VDecimator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void	traceFullThis__1(VDecimator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void	traceInitThis(VDecimator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void	traceInitThis__1(VDecimator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void traceInit (VerilatedVcd* vcdp, void* userthis, uint32_t code);
-    static void traceFull (VerilatedVcd* vcdp, void* userthis, uint32_t code);
-    static void traceChg  (VerilatedVcd* vcdp, void* userthis, uint32_t code);
-} VL_ATTR_ALIGNED(128);
+    static void _eval(VDecimator__Syms* __restrict vlSymsp);
+  private:
+#ifdef VL_DEBUG
+    void _eval_debug_assertions();
+#endif  // VL_DEBUG
+  public:
+    static void _eval_initial(VDecimator__Syms* __restrict vlSymsp) VL_ATTR_COLD;
+    static void _eval_settle(VDecimator__Syms* __restrict vlSymsp) VL_ATTR_COLD;
+    static void _sequent__TOP__1(VDecimator__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__2(VDecimator__Syms* __restrict vlSymsp);
+    static void _settle__TOP__3(VDecimator__Syms* __restrict vlSymsp) VL_ATTR_COLD;
+    static void traceChgThis(VDecimator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__2(VDecimator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__3(VDecimator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__4(VDecimator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceFullThis(VDecimator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
+    static void traceFullThis__1(VDecimator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
+    static void traceInitThis(VDecimator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
+    static void traceInitThis__1(VDecimator__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
+    static void traceInit(VerilatedVcd* vcdp, void* userthis, uint32_t code);
+    static void traceFull(VerilatedVcd* vcdp, void* userthis, uint32_t code);
+    static void traceChg(VerilatedVcd* vcdp, void* userthis, uint32_t code);
+} VL_ATTR_ALIGNED(VL_CACHE_LINE_BYTES);
 
-#endif  /*guard*/
+//----------
+
+
+#endif  // guard

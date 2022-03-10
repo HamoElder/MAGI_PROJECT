@@ -22,7 +22,7 @@ case class modRTLConfig(
     require(hasMod || hasLookup, "Modulator RTL must have one mod method at least.")
     if(hasMod) require(modConfig.length == modMethod.length, "The size of config and method must be the same.")
 
-    def unitDataType: UInt = UInt(unitDataWidth bits)
+    def unitDataType: Bits = Bits(unitDataWidth bits)
     def modDataType: SInt = SInt(modDataWidth bits)
 
     def editNum: Int = if(hasLookup) lookUpConfig.map(i => {if(i.codeTableIQ == null) 1 else 0}).sum else 0

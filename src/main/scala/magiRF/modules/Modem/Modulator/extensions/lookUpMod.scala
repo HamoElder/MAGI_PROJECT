@@ -13,7 +13,7 @@ case class lookUpModConfig(
                               genFunc            : (Int, Int) => Seq[SInt] = null
                           ){
 //    require((iqWidth + tWidth) % 2 == 0, "iqWidth add tWidth must be the times of 2.")
-    def unitDataType: UInt = UInt(iqWidth + tWidth bits)
+    def unitDataType: Bits = Bits(iqWidth + tWidth bits)
     def modDataType: SInt = SInt(modDataWidth bits)
 
     def memorySize: Int = (1 << (iqWidth + tWidth))
@@ -65,7 +65,7 @@ case class lookUpMod(config: lookUpModConfig) extends Component {
 
         val iq_mod_div = code_map.readSync(
             enable  = ~io.w_en,
-            address = (unit_data @@ t_cnt).resized
+            address = (unit_data ## t_cnt).asUInt.resized
         ).subdivideIn(2 slices)
         when((unit_valid || t_cnt =/= 0) && ~io.w_en){
             io.data_flow.mod_iq.cha_i := iq_mod_div(1).resized
@@ -81,7 +81,7 @@ case class lookUpMod(config: lookUpModConfig) extends Component {
     }else{
         val iq_mod_div = code_map.readSync(
             enable  = ~io.w_en,
-            address = unit_data
+            address = unit_data.asUInt
         ).subdivideIn(2 slices)
 
         when(unit_valid && ~io.w_en){

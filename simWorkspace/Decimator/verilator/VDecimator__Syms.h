@@ -1,10 +1,11 @@
 // Verilated -*- C++ -*-
 // DESCRIPTION: Verilator output: Symbol table internal header
 //
-// Internal details; most calling programs do not need this header
+// Internal details; most calling programs do not need this header,
+// unless using verilator public meta comments.
 
-#ifndef _VDecimator__Syms_H_
-#define _VDecimator__Syms_H_
+#ifndef _VDECIMATOR__SYMS_H_
+#define _VDECIMATOR__SYMS_H_  // guard
 
 #include "verilated.h"
 
@@ -17,25 +18,20 @@ class VDecimator__Syms : public VerilatedSyms {
     
     // LOCAL STATE
     const char* __Vm_namep;
-    bool	__Vm_activity;		///< Used by trace routines to determine change occurred
-    bool	__Vm_didInit;
-    //char	__VpadToAlign10[6];
+    bool __Vm_activity;  ///< Used by trace routines to determine change occurred
+    bool __Vm_didInit;
     
     // SUBCELL STATE
     VDecimator*                    TOPp;
     
-    // COVERAGE
-    
-    // SCOPE NAMES
-    
     // CREATORS
     VDecimator__Syms(VDecimator* topp, const char* namep);
-    ~VDecimator__Syms() {};
+    ~VDecimator__Syms() {}
     
     // METHODS
     inline const char* name() { return __Vm_namep; }
-    inline bool getClearActivity() { bool r=__Vm_activity; __Vm_activity=false; return r;}
+    inline bool getClearActivity() { bool r=__Vm_activity; __Vm_activity=false; return r; }
     
-} VL_ATTR_ALIGNED(64);
+} VL_ATTR_ALIGNED(VL_CACHE_LINE_BYTES);
 
-#endif  /*guard*/
+#endif  // guard

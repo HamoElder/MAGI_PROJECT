@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : Decimator
-// Git hash  : b8bc632afebda2199fd2f2f17fdc0daeea256ecc
+// Git hash  : 61664472cf3f86fd764685245c89176f90ddeaa4
 
 
 
@@ -13,7 +13,6 @@ module Decimator (
   input               reset
 );
   wire       [2:0]    _zz_cnt;
-  wire       [2:0]    cntDataType;
   reg        [2:0]    cnt;
   reg        [11:0]   out_data;
   reg                 out_valid_1;

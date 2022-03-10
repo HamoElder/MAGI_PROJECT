@@ -20,7 +20,7 @@ case class mFSKMod(config: modUnitConfig) extends Component {
     val unit_last = RegNext(io.unit_data.last) init(False)
 
     when(unit_valid){
-        io.mod_iq.cha_i := codeTableI(unit_data.resized).resized
+        io.mod_iq.cha_i := codeTableI(unit_data.asUInt.resized).resized
         io.mod_iq.valid := True
         io.mod_iq.last := unit_last
     }.otherwise{

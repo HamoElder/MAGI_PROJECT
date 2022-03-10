@@ -23,7 +23,7 @@ case class modUnitConfig(
     assert(genFuncI != null || genFuncQ != null, "Either genFunc nor codeArray must be valuable(I CHANNEL).")
 //    assert(genFuncQ != null || codeArrayQ != null, "Either genFunc nor codeArray must be valuable(Q CHANNEL).")
 
-    def unitDataType: UInt = UInt(log2Up(mSize) bits)
+    def unitDataType: Bits = Bits(log2Up(mSize) bits)
     def modDataType: SInt = SInt(modDataWidth bits)
     def codeTableType: SInt = SInt(tableWidth bits)
     def peakValue: Int = (1 << (modDataWidth - 1)) - 1

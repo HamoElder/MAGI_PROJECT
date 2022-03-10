@@ -13,12 +13,13 @@ import spinal.core._
 import spinal.lib._
 import utils.bus.AxiLite.AxiLite4Config
 import utils.bus.AxiStream4.AxiStream4Config
+import utils.bus.IQBundle.IQBundle
 import utils.common.CRC.CrcKind
 
 /**
  * Frame Structure:
  *  ----------------------------------------------------------------------------------------------------------------------------------------
- * |  stf (64 bits) | ltf (64 bits) | modulator method (1 byte) | size (1 bytes) | payload(16-250 bytes) | crc (4 bytes) | padding (1 byte) |
+ * |          stf (16 bytes)        | modulator method (1 byte) | size (1 bytes) | payload(16-250 bytes) | crc (4 bytes) | padding (1 byte) |
  *  ----------------------------------------------------------------------------------------------------------------------------------------
  *  |                               |         BPSK   Uncoded  Scrambling         |             Coded   Configurable  Scrambling             |
  *  |             PLCP              |                    SIGNAL                  |                             DATA                         |
@@ -43,9 +44,13 @@ import utils.common.CRC.CrcKind
  */
 
 object Config {
+    /**
+     * Transmitter Parameter
+     */
     def iqWidth                   = 12
     def phyDataWidth              = 8
     def streamDataWidth           = 32
+    def modIQDataType: IQBundle[SInt] = IQBundle(SInt(iqWidth bits))
     def cfgDataWidth              = 32
     def code_rate                 = 2
     def codedDataWidth: Int       = code_rate * phyDataWidth
@@ -63,14 +68,14 @@ object Config {
 
     def phyDataType: Bits = Bits(phyDataWidth bits)
     def codedDataType: Bits = Bits(codedDataWidth bits)
-    val stf16: Array[Complex] = zcSeqGen(3, 16)
-    val stf: Array[Complex] = (stf16 ++ stf16 ++ stf16 ++ stf16)
+    val stf32: Array[Complex] = zcSeqGen(3, 32)
+    val stf: Array[Complex] = (stf32 ++ stf32 ++ stf32 ++ stf32)
 
-    val ltf32: Array[Complex] = zcSeqGen(5, 32)
-    val ltf: Array[Complex] = (ltf32 ++ ltf32)
+//    val ltf32: Array[Complex] = zcSeqGen(5, 32)
+//    val ltf: Array[Complex] = (ltf32 ++ ltf32)
 
-    def stf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, stf, scale = 128.0)
-    def ltf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, ltf, scale = 128.0)
+    def stf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, stf, scale = 0.55)
+//    def ltf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, ltf, scale = 0.6)
 
     def conv_encoder_config: ConvEncoderConfig = ConvEncoderConfig(phyDataWidth, 7, List(91, 121))
     def viterbi_decoder_config: ViterbiDecoderConfig = ViterbiDecoderConfig(7, 84, 1, List(91, 121))
@@ -155,8 +160,8 @@ object Config {
         mod_config = mod_config :+ modUnitConfig(modDataWidth, modDataWidth, 16, QAM16Table802_11, QAM16Table802_11)
         mod_method = mod_method :+ mQAMModExtension()
 
-        lookup_mod_config = lookup_mod_config :+ lookUpModConfig(modDataWidth, 8)
-        lookup_mod_config = lookup_mod_config :+ lookUpModConfig(modDataWidth, 4, 3)
+//        lookup_mod_config = lookup_mod_config :+ lookUpModConfig(modDataWidth, 8)
+//        lookup_mod_config = lookup_mod_config :+ lookUpModConfig(modDataWidth, 4, 3)
         modRTLConfig(unitDataWidth, modDataWidth, cfgDataWidth, mod_config, mod_method, lookup_mod_config)
     }
 }

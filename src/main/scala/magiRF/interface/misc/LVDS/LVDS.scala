@@ -12,5 +12,10 @@ case class LVDS[T <: Data](dataType: T) extends Bundle with IMasterSlave {
         out(p, n)
     }
 
+    def :=(that: LVDS[T]): Unit = {
+        this.p := that.p
+        this.n := that.n
+    }
+
     override type RefOwnerType = this.type
 }

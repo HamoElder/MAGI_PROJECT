@@ -9,8 +9,8 @@ case class dataDivConfig(
 							baseDataWidth      : Int,
 							unitDataWidth      : Int = 0
 						){
-	def baseDataType: UInt = UInt(baseDataWidth bits)
-	def unitDataType: UInt = if(unitDataWidth == 0) baseDataType else UInt(unitDataWidth bits)
+	def baseDataType: Bits = Bits(baseDataWidth bits)
+	def unitDataType: Bits = if(unitDataWidth == 0) baseDataType else Bits(unitDataWidth bits)
 	def cntType: UInt = UInt(cntWidth bits)
 
 	def cntWidth: Int = log2Up(baseDataWidth)
@@ -37,19 +37,23 @@ case class dataDivDynamic(config: dataDivConfig) extends Component {
 	val base_cnt = Reg(config.cntType) init (0)
 	val base_ready = (io.cnt_limit === base_cnt) && io.enable
 	val base_buffer = Reg(config.unitDataType) init (0)
+	val loaded = Reg(Bool()) init(False)
 
 	when(~io.enable) {
 		base_cnt := io.cnt_limit
 		unit_valid := False
+		loaded := False
 	}.elsewhen(io.base_data.fire) {
 		base_cnt := (base_cnt + io.cnt_step + config.cntInit).resized
 		base_buffer := io.base_data.fragment
 		base_last := io.base_data.last
 		unit_valid := True
+		loaded := True
 	}.elsewhen(base_cnt === io.cnt_limit) {
 		base_buffer := base_buffer |>> io.cnt_step
 		unit_valid := False
-	}.otherwise {
+		loaded := False
+	}.elsewhen(loaded) {
 		base_cnt := (base_cnt + io.cnt_step).resized
 		base_buffer := base_buffer |>> io.cnt_step
 		unit_valid := True

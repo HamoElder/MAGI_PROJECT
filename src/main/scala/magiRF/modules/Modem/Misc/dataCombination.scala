@@ -31,17 +31,21 @@ case class dataCombination(config: dataCombinationConfig) extends Component{
 
     val base_cnt = Reg(config.cntType) init(0)
 
-    val unit_data_buffer = RegNext(io.unit_data.payload) init(0)
+    val unit_data_buffer = RegNext(io.unit_data.fragment) init(0)
     val unit_data_valid = RegNext(io.unit_data.valid) init(False)
+    val unit_data_last = RegNext(io.unit_data.last) init(False)
 
     val base_data_buffer = Reg(config.baseDataType) init(0)
     val base_data_valid = Reg(Bool) init(False)
+    val base_data_last = Reg(Bool()) init(False)
 
     when(~io.enable){
         base_cnt := 0
         base_data_valid := False
+        base_data_last := False
     }.elsewhen(unit_data_valid){
         base_data_valid := (base_cnt === io.cnt_limit)
+        base_data_last := (base_cnt === io.cnt_limit)&&base_data_last
         base_cnt := (base_cnt === io.cnt_limit) ? U(0) | (base_cnt + io.cnt_step)
         base_data_buffer := ((base_data_buffer << io.cnt_step) | (unit_data_buffer).resized).resized
     }
@@ -51,8 +55,9 @@ case class dataCombination(config: dataCombinationConfig) extends Component{
 //        base_data_buffer := (base_data_buffer << io.cnt_step).resized
 //    }
 
-    io.base_data.payload := base_data_buffer
+    io.base_data.fragment := base_data_buffer
     io.base_data.valid := base_data_valid
+    io.base_data.last := base_data_last
 
     def driveFrom(busCtrl: BusSlaveFactory, baseAddress: BigInt, coreClockDomain: ClockDomain, rfClockDomain: ClockDomain): Area = new Area{
         val enable = cloneOf(io.enable)

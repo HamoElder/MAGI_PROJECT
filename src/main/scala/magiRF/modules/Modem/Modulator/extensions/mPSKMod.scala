@@ -19,7 +19,7 @@ case class mPSKMod(config: modUnitConfig) extends Component{
     val unit_data = RegNext(io.unit_data.payload) init(0)
     val unit_valid = RegNext(io.unit_data.valid) init(False)
     val unit_last = RegNext(io.unit_data.last) init(False)
-    val mod_iq = codeTable(unit_data.resized).subdivideIn(2 slices)
+    val mod_iq = codeTable(unit_data.asUInt.resized).subdivideIn(2 slices)
 
     when(unit_valid){
         io.mod_iq.cha_i := mod_iq(1)

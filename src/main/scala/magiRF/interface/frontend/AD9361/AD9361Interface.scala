@@ -6,34 +6,43 @@ import spinal.core._
 import spinal.lib._
 import utils.bus.IQBundle.IQBundle
 
-case class AD9361Bundle() extends Bundle {
+case class AD9361Bundle() extends Bundle with IMasterSlave {
     def iqWidth: Int = 12
     def dataType: Bits = Bits(iqWidth bits)
     def interfaceWidth: Int = iqWidth / 2
     def interfaceDataType: Bits = Bits(interfaceWidth bits)
 
-    val dac_data = slave(Stream(Vec(IQBundle(dataType), 2)))
-    val dac_t1_mod = in(Bool())
-    val adc_data = master(Flow(Vec(IQBundle(dataType), 2)))
-    val adc_r1_mod = in(Bool())
-    val adc_status = out(Bool())
+    val dac_data = Stream(Vec(IQBundle(dataType), 2))
+    val dac_t1_mod = Bool()
+    val adc_data = Flow(Vec(IQBundle(dataType), 2))
+    val adc_r1_mod = Bool()
+    val adc_error = Bool()
     /**
      * Physical Interface(Receive Channel)
      */
-    val rx_if_frame = slave(LVDS(Bool()))
-    val rx_if_data  = slave(LVDS(interfaceDataType))
-    val rx_data_clk = slave(LVDS(Bool()))
+    val rx_if_frame = LVDS(Bool())
+    val rx_if_data  = LVDS(interfaceDataType)
+    val rx_data_clk = LVDS(Bool())
     /**
      * Physical Interface(Transmit Channel)
      */
-    val tx_if_frame = master(LVDS(Bool()))
-    val tx_fb_clk = master(LVDS(Bool()))
-    val tx_if_data = master(LVDS(interfaceDataType))
+    val tx_if_frame = LVDS(Bool())
+    val tx_fb_clk = LVDS(Bool())
+    val tx_if_data = LVDS(interfaceDataType)
 
     /**
      * Internal Clock
      */
-    val data_clk = out(Bool())
+    val data_clk = Bool()
+
+    override def asMaster(): Unit = {
+        master(adc_data, tx_if_frame, tx_fb_clk, tx_if_data)
+        slave(dac_data, rx_if_frame, rx_if_data, rx_data_clk)
+        in(dac_t1_mod, adc_r1_mod)
+        out(adc_error, data_clk)
+    }
+
+    override type RefOwnerType = this.type
 }
 
 case class AD9361Interface() extends Component {
@@ -42,7 +51,7 @@ case class AD9361Interface() extends Component {
     def interfaceWidth: Int = iqWidth / 2
     def interfaceDataType: Bits = Bits(interfaceWidth bits)
 
-    val io = new AD9361Bundle()
+    val io = master(AD9361Bundle())
 
     noIoPrefix()
     val rx_clk_ibuf = IBUFGDS(io.rx_data_clk.p, io.rx_data_clk.n)
@@ -140,14 +149,14 @@ case class AD9361Interface() extends Component {
             io.adc_data.payload(0).cha_q := rx_data_q_r1
             io.adc_data.payload(1).cha_i := 0
             io.adc_data.payload(1).cha_q := 0
-            io.adc_status := ~rx_error_r1
+            io.adc_error := ~rx_error_r1
         }.otherwise{
             io.adc_data.valid := rx_valid_r2
             io.adc_data.payload(0).cha_i := rx_data_i0_r2
             io.adc_data.payload(0).cha_q := rx_data_q0_r2
             io.adc_data.payload(1).cha_i := rx_data_i1_r2
             io.adc_data.payload(1).cha_q := rx_data_q1_r2
-            io.adc_status := ~rx_error_r2
+            io.adc_error := ~rx_error_r2
         }
     }
 
