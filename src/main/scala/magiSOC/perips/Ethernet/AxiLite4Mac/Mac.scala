@@ -157,7 +157,7 @@ case class MacEth(p : MacEthParameter,
     }
 
     val txBackend = txClockDomain on new Area{
-        val aligner = MacTxAligner(dataWidth = p.phy.rxDataWidth)
+        val aligner = MacTxAligner(dataWidth = p.phy.txDataWidth)
         aligner.io.input << txFrontend.buffer.io.pop.stream
         aligner.io.enable := BufferCC(io.ctrl.tx.alignerEnable)
 

@@ -12,8 +12,8 @@ import spinal.lib._
 object PreambleExtenderSimApp extends App{
 
 
-    import magiRF.top.OAM_BETA.OAM_CDMA
-    val preamble_config = PreambleConfig(16, OAM_CDMA.stf)
+    import magiRF.top.OAM_BETA.Config
+    val preamble_config = PreambleConfig(16, Config.stf)
     SimConfig.withWave.doSim(new PreambleExtender(preamble_config)){ dut =>
         dut.clockDomain.forkStimulus(5)
         dut.io.raw_data.valid #= false

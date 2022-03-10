@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : AD9361Interface
-// Git hash  : 0cd018b79100e2862d569815e96aa168603c6c8b
+// Git hash  : b90f7fc9b0893d6f01a499c7804b365a21d113e6
 
 
 
@@ -120,15 +120,15 @@ module AD9361Interface (
   reg                 rxClockArea_rx_error_r1;
   reg        [11:0]   rxClockArea_rx_data_i_r1;
   reg        [11:0]   rxClockArea_rx_data_q_r1;
-  wire                when_AD9361Interface_l102;
+  wire                when_AD9361Interface_l108;
   reg                 rxClockArea_rx_error_r2;
   reg                 rxClockArea_rx_valid_r2;
   reg        [11:0]   rxClockArea_rx_data_i0_r2;
   reg        [11:0]   rxClockArea_rx_data_q0_r2;
   reg        [11:0]   rxClockArea_rx_data_i1_r2;
   reg        [11:0]   rxClockArea_rx_data_q1_r2;
-  wire                when_AD9361Interface_l118;
-  wire                when_AD9361Interface_l123;
+  wire                when_AD9361Interface_l124;
+  wire                when_AD9361Interface_l129;
   reg        [2:0]    txClockArea_tx_data_cnt;
   reg        [11:0]   txClockArea_tx_data_i0_d;
   reg        [11:0]   txClockArea_tx_data_q0_d;
@@ -139,7 +139,7 @@ module AD9361Interface (
   reg        [5:0]    txClockArea_tx_data_n;
   wire       [3:0]    txClockArea_tx_data_sel;
   wire                dac_data_fire;
-  wire                when_AD9361Interface_l177;
+  wire                when_AD9361Interface_l183;
   wire                txClockArea_tx_frame_buf;
   wire                txClockArea_tx_clk_buf;
 
@@ -462,9 +462,9 @@ module AD9361Interface (
   assign rxClockArea_rx_frame_p_s = rxClockArea_iddr_frame_Q1;
   assign rxClockArea_rx_frame_n_s = rxClockArea_iddr_frame_Q2;
   assign rxClockArea_rx_frame_comb = {rxClockArea_rx_frame_d,rxClockArea_rx_frame};
-  assign when_AD9361Interface_l102 = (rxClockArea_rx_frame_comb == 4'b1100);
-  assign when_AD9361Interface_l118 = (rxClockArea_rx_frame_comb == 4'b1111);
-  assign when_AD9361Interface_l123 = (rxClockArea_rx_frame_comb == 4'b0000);
+  assign when_AD9361Interface_l108 = (rxClockArea_rx_frame_comb == 4'b1100);
+  assign when_AD9361Interface_l124 = (rxClockArea_rx_frame_comb == 4'b1111);
+  assign when_AD9361Interface_l129 = (rxClockArea_rx_frame_comb == 4'b0000);
   always @(*) begin
     if(adc_r1_mod) begin
       adc_data_valid = rxClockArea_rx_valid_r1;
@@ -515,7 +515,7 @@ module AD9361Interface (
 
   assign txClockArea_tx_data_sel = {{txClockArea_tx_data_cnt[2],dac_t1_mod},txClockArea_tx_data_cnt[1 : 0]};
   assign dac_data_fire = (dac_data_valid && dac_data_ready);
-  assign when_AD9361Interface_l177 = txClockArea_tx_data_cnt[2];
+  assign when_AD9361Interface_l183 = txClockArea_tx_data_cnt[2];
   assign dac_data_ready = (txClockArea_tx_data_cnt == 3'b000);
   assign oDDR_1_D1 = txClockArea_tx_data_p[0];
   assign oDDR_1_D2 = txClockArea_tx_data_n[0];
@@ -579,7 +579,7 @@ module AD9361Interface (
       rxClockArea_rx_frame_d <= rxClockArea_rx_frame;
       rxClockArea_rx_data_d <= rxClockArea_rx_data;
       rxClockArea_rx_valid_r1 <= (rxClockArea_rx_frame_comb == 4'b1100);
-      if(when_AD9361Interface_l102) begin
+      if(when_AD9361Interface_l108) begin
         rxClockArea_rx_error_r1 <= (! ((rxClockArea_rx_frame_comb == 4'b1100) || (rxClockArea_rx_frame_comb == 4'b0011)));
       end
       rxClockArea_rx_error_r2 <= (! ((((rxClockArea_rx_frame_comb == 4'b1111) || (rxClockArea_rx_frame_comb == 4'b1100)) || (rxClockArea_rx_frame_comb == 4'b0000)) || (rxClockArea_rx_frame_comb == 4'b0011)));
@@ -591,7 +591,7 @@ module AD9361Interface (
         txClockArea_tx_data_i1_d <= dac_data_payload_1_cha_i;
         txClockArea_tx_data_q1_d <= dac_data_payload_1_cha_q;
       end else begin
-        if(when_AD9361Interface_l177) begin
+        if(when_AD9361Interface_l183) begin
           txClockArea_tx_data_cnt <= (txClockArea_tx_data_cnt + 3'b001);
         end
       end
@@ -599,20 +599,20 @@ module AD9361Interface (
   end
 
   always @(posedge bUFG_1_O) begin
-    if(when_AD9361Interface_l102) begin
+    if(when_AD9361Interface_l108) begin
       rxClockArea_rx_data_i_r1 <= {rxClockArea_rx_data_d[11 : 6],rxClockArea_rx_data[11 : 6]};
       rxClockArea_rx_data_q_r1 <= {rxClockArea_rx_data_d[5 : 0],rxClockArea_rx_data[5 : 0]};
     end
-    if(when_AD9361Interface_l118) begin
+    if(when_AD9361Interface_l124) begin
       rxClockArea_rx_data_i0_r2 <= {rxClockArea_rx_data_d[11 : 6],rxClockArea_rx_data[11 : 6]};
       rxClockArea_rx_data_q0_r2 <= {rxClockArea_rx_data_d[5 : 0],rxClockArea_rx_data[5 : 0]};
     end
-    if(when_AD9361Interface_l123) begin
+    if(when_AD9361Interface_l129) begin
       rxClockArea_rx_data_i1_r2 <= {rxClockArea_rx_data_d[11 : 6],rxClockArea_rx_data[11 : 6]};
       rxClockArea_rx_data_q1_r2 <= {rxClockArea_rx_data_d[5 : 0],rxClockArea_rx_data[5 : 0]};
     end
     if(!dac_data_fire) begin
-      if(when_AD9361Interface_l177) begin
+      if(when_AD9361Interface_l183) begin
         case(txClockArea_tx_data_sel)
           4'b1101 : begin
             txClockArea_tx_frame <= 1'b0;

@@ -119,7 +119,8 @@ object AxiLite4ModulatorSimApp extends App{
         aliteDrv.write(0x00, 0x1)
         dut.io.base_data.valid #= true
         for(idx <- 0 until 4096){
-            dut.io.base_data.payload #= idx
+            dut.io.base_data.fragment #= idx
+            dut.io.base_data.last.randomize()
             dut.clockDomain.waitSampling(1)
         }
         dut.io.base_data.valid #= false

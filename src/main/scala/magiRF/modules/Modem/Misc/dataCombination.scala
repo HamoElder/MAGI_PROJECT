@@ -19,8 +19,8 @@ case class dataCombinationConfig(
 
 case class dataCombination(config: dataCombinationConfig) extends Component{
     val io = new Bundle{
-        val unit_data = slave(Flow(config.unitDataType))
-        val base_data = master(Flow(config.baseDataType))
+        val unit_data = slave(Flow(Fragment(config.unitDataType)))
+        val base_data = master(Flow(Fragment(config.baseDataType)))
 
         val enable = in Bool()
         val cnt_step = in(config.cntType)

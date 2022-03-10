@@ -50,8 +50,8 @@ case class DemodulatorRTL(config: DemodulatorRTLConfig) extends Component{
 
     noIoPrefix()
 
-    val demod_data_iq_demux: Vec[Flow[IQBundle[SInt]]] = FlowDeMux(io.data_flow.mod_iq, io.select, config.selectNum)
-    var unit_data_seq: Seq[Flow[UInt]] = Seq[Flow[UInt]]()
+    val demod_data_iq_demux: Vec[Flow[Fragment[IQBundle[SInt]]]] = FlowDeMux(io.data_flow.mod_iq, io.select, config.selectNum)
+    var unit_data_seq: Seq[Flow[Fragment[UInt]]] = Seq[Flow[Fragment[UInt]]]()
 
     for(idx <- 0 until config.demodNum){
         val area = IQDemodExtension().applyIt(this, idx)

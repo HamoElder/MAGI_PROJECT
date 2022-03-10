@@ -18,23 +18,25 @@ case class mPSKMod(config: modUnitConfig) extends Component{
 
     val unit_data = RegNext(io.unit_data.payload) init(0)
     val unit_valid = RegNext(io.unit_data.valid) init(False)
-
+    val unit_last = RegNext(io.unit_data.last) init(False)
     val mod_iq = codeTable(unit_data.resized).subdivideIn(2 slices)
 
     when(unit_valid){
         io.mod_iq.cha_i := mod_iq(1)
         io.mod_iq.cha_q := mod_iq(0)
+        io.mod_iq.last := unit_last
         io.mod_iq.valid := True
     }.otherwise{
         io.mod_iq.cha_i := 0
         io.mod_iq.cha_q := 0
+        io.mod_iq.last := False
         io.mod_iq.valid := False
     }
 
 }
 
 object mPSKModBench {
-    def main(args: Array[String]) {
+    def main(args: Array[String]): Unit = {
         val ini_angle: Double  =  Math.PI * 5 / 4
         val direction : Boolean  = false
         def generateTableI(m_val: Int, peak: Int): Array[BigInt] = {

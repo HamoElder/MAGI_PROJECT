@@ -13,7 +13,7 @@ import spinal.lib._
 object ViterbiDecoderSimApp extends App{
 
 
-    import magiRF.top.OAM_BETA.OAM_CDMA
+//    import magiRF.top.OAM_BETA.OAM_CDMA
     val viterbi_decoder = ViterbiDecoderConfig(3, 16, 1, List(7, 5))
     SimConfig.withWave.doSim(new ViterbiDecoder(viterbi_decoder)){ dut =>
         dut.clockDomain.forkStimulus(5)

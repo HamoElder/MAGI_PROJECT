@@ -68,8 +68,8 @@ case class demodUnitConfig(
 }
 
 case class modUnitInterface[T <: Data, T1 <: Data](unitType: HardType[T], modType: T1) extends Bundle with IMasterSlave{
-    val unit_data = Flow(unitType)
-    val mod_iq = Flow(IQBundle(modType))
+    val unit_data = Flow(Fragment(unitType))
+    val mod_iq = Flow(Fragment(IQBundle(modType)))
 
     override def asMaster(): Unit = {
         slave(mod_iq)

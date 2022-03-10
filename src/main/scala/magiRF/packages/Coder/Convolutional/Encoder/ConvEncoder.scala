@@ -30,7 +30,7 @@ case class ConvEncoder(config: ConvEncoderConfig) extends Component{
 	val coded_data: Bits = Reg(config.codedDataType)
 	val coded_data_valid: Bool = Reg(Bool()) init(False)
 
-	val r_enc_buf: Bits = Reg(config.regDataType)
+	val r_enc_buf: Bits = Reg(config.regDataType) init(0)
 	val r_enc: Vec[Bits] = Vec(config.regDataType, config.dataWidth)
 	val code_vec: Vec[Bits] = Vec(config.rawDataType, config.codeRate)
 

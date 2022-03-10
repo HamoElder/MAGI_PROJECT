@@ -25,7 +25,7 @@ object mFSKModSimApp extends App{
         dut.io.unit_data.valid #= true
 
         for(idx <- 0 until 4096){
-            dut.io.unit_data.payload #= idx % 4
+            dut.io.unit_data.fragment #= idx % 4
             dut.clockDomain.waitSampling(1)
         }
         dut.io.unit_data.valid #= false

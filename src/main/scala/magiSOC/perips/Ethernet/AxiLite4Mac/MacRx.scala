@@ -5,18 +5,18 @@ import spinal.core._
 import spinal.lib._
 import utils.common.CRC.{Crc, CrcKind}
 
-case class MacRxPreamble(dataWidth : Int) extends Component{
-    val io = new Bundle {
-        val input = slave(Stream(Fragment(PhyRx(dataWidth))))
-        val output = master(Stream(Fragment(PhyRx(dataWidth))))
+case class MacRxPreamble(dataWidth: Int) extends Component{
+    val io = new Bundle{
+        val input: Stream[Fragment[PhyRx]] = slave(Stream(Fragment(PhyRx(dataWidth))))
+        val output: Stream[Fragment[PhyRx]] = master(Stream(Fragment(PhyRx(dataWidth))))
     }
-
-    val startDelimiter = 0xD5
-    val startDelimiterWidth = 8
-    val history = History(io.input, 0 until startDelimiterWidth/dataWidth, when = io.input.fire)
-    val historyDataCat = B(Cat(history.map(_.data).reverse))
-    val hit = history.map(_.valid).andR && historyDataCat === startDelimiter
-    val inFrame = RegInit(False)
+    noIoPrefix()
+    val startDelimiter = 0x5555D5
+    val startDelimiterWidth = 24
+    val history: Vec[Stream[Fragment[PhyRx]]] = History(io.input, 0 until startDelimiterWidth/dataWidth, when = io.input.fire)
+    val historyDataCat: Bits = B(Cat(history.map(_.data).reverse))
+    val hit: Bool = history.map(_.valid).andR && historyDataCat === startDelimiter
+    val inFrame: Bool = RegInit(False)
 
     io.output.valid := False
     io.output.payload  := io.input.payload
@@ -36,6 +36,45 @@ case class MacRxPreamble(dataWidth : Int) extends Component{
     }
 }
 
+case class MacRxFilter(dataWidth: Int) extends Component{
+    val io = new Bundle{
+        val input = slave(Stream(Fragment(PhyRx(dataWidth))))
+        val output = master(Stream(Fragment(PhyRx(dataWidth))))
+        val desc_address = in(Bits(48 bits))
+        val enable = in(Bool())
+    }
+    noIoPrefix()
+    val macAddressWidth = 48
+    val history: Vec[Stream[Fragment[PhyRx]]] = History(io.input, 0 until macAddressWidth/dataWidth, when = io.input.fire)
+    val historyDataCat: Bits = B(Cat(history.map(_.data).reverse))
+    val hit: Bool = history.map(_.valid).andR && historyDataCat === io.desc_address
+
+
+    io.output.valid := False
+    io.output.payload := io.input.payload
+
+    when(io.enable){
+        val inFrame: Bool = RegInit(False)
+        when(!inFrame){
+            when(hit){
+                inFrame := True
+            }
+        } otherwise {
+            when(io.input.valid) {
+                io.output.valid := True
+                when(io.output.ready && io.input.last){
+                    inFrame := False
+                }
+            }
+        }
+        io.input.ready := !inFrame || io.output.ready
+    }.otherwise{
+        io.input.ready := io.output.ready
+        io.output.valid := io.input.valid
+    }
+
+}
+
 
 case class MacRxChecker(dataWidth : Int) extends Component {
     val io = new Bundle {
@@ -48,12 +87,12 @@ case class MacRxChecker(dataWidth : Int) extends Component {
     crc.io.input.payload := io.input.data
     crc.io.flush := io.output.lastFire
 
-    val crcHit = crc.io.resultNext === 0x2144DF1C
+    val crcHit = crc.io.resultNext === io.input.data
 
     io.output.valid := io.input.valid
     io.output.last := io.input.last
     io.output.data := io.input.data
-    io.output.error := io.input.error | io.input.last && !crcHit
+    io.output.error := io.input.error | (io.input.last && !crcHit)
     io.input.ready := io.output.ready
 }
 
@@ -126,10 +165,10 @@ case class MacRxBuffer(pushCd : ClockDomain,
     pushToPop.io.input.valid := True
     pushToPop rework { pushToPop.pushArea.data init(0) }
 
-    def isFull(a: UInt, b: UInt) = a.msb =/= b.msb && a(ptrWidth - 2 downto 0) === b(ptrWidth - 2 downto 0)
-    def isEmpty(a: UInt, b: UInt) = a === b
+    def isFull(a: UInt, b: UInt): Bool = a.msb =/= b.msb && a(ptrWidth - 2 downto 0) === b(ptrWidth - 2 downto 0)
+    def isEmpty(a: UInt, b: UInt): Bool = a === b
 
-    val lengthWidth = log2Up(byteSize*8)
+    val lengthWidth: Int = log2Up(byteSize*8)
 
     val push = pushCd on new Area{
         val currentPtr, oldPtr = Reg(UInt(ptrWidth bits)) init(0)

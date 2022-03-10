@@ -16,12 +16,15 @@ case class mASKMod(config: modUnitConfig) extends Component{
 
     val unit_data = RegNext(io.unit_data.payload) init(0)
     val unit_valid = RegNext(io.unit_data.valid) init(False)
+    val unit_last = RegNext(io.unit_data.last) init(False)
 
     when(unit_valid){
         io.mod_iq.valid := True
+        io.mod_iq.last := unit_last
         io.mod_iq.cha_i := codeTable(unit_data.resized).resized
     }.otherwise{
         io.mod_iq.valid := False
+        io.mod_iq.last := False
         io.mod_iq.cha_i := 0
     }
     io.mod_iq.cha_q := 0

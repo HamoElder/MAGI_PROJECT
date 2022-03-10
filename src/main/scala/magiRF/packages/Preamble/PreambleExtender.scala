@@ -101,7 +101,7 @@ case class PreambleExtender(config: PreambleConfig) extends Component {
 
 object PreambleExtenderBench {
 	def main(args: Array[String]): Unit = {
-		import magiRF.top.OAM_BETA.OAM_CDMA
+//		import magiRF.top.OAM_BETA.Config
 		val preamble_config = PreambleConfig(16, IEEE802_11.ltf)
 		SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
 			targetDirectory = "rtl/PreambleExtender/PreambleExtender_802_11_ltf").generateSystemVerilog(new PreambleExtender(preamble_config)).printPruned()

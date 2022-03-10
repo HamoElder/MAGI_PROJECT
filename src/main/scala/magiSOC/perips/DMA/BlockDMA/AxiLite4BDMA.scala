@@ -76,7 +76,7 @@ case class AxiLite4BDMA(config: AxiLite4BDMAConfig) extends Component {
 
 object AxiLite4BDMABench{
     def main(args: Array[String]): Unit = {
-        val axil4_dma_config = AxiLite4BDMAConfig(axi4DataWidth = 32)
+        val axil4_dma_config = AxiLite4BDMAConfig(axi4DataWidth = 32, outStandingLen = 3)
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
             defaultClockDomainFrequency = FixedFrequency(100 MHz), targetDirectory = "rtl/AxiLite4BDMA").
             generateSystemVerilog(new AxiLite4BDMA(axil4_dma_config)).printPruned()

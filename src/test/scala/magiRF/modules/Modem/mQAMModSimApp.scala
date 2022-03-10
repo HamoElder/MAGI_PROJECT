@@ -34,10 +34,10 @@ object mQAMModSimApp extends App{
         dut.io.unit_data.valid #= true
 
         for(idx <- 0 until 255){
-            dut.io.unit_data.payload #= idx % 16
+            dut.io.unit_data.fragment #= idx % 16
             dut.clockDomain.waitSampling(1)
         }
-        dut.io.unit_data.payload #= 15
+        dut.io.unit_data.fragment #= 15
         dut.clockDomain.waitSampling(10)
         dut.io.unit_data.valid #= false
         dut.clockDomain.waitSampling(10000)

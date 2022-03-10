@@ -7,7 +7,7 @@ import utils.common.ClkCrossing.ClkCrossing
 
 case class dataDivConfig(
 							baseDataWidth      : Int,
-							unitDataWidth      : Int
+							unitDataWidth      : Int = 0
 						){
 	def baseDataType: UInt = UInt(baseDataWidth bits)
 	def unitDataType: UInt = if(unitDataWidth == 0) baseDataType else UInt(unitDataWidth bits)
@@ -21,18 +21,19 @@ case class dataDivConfig(
 
 case class dataDivDynamic(config: dataDivConfig) extends Component {
 	val io = new Bundle {
-		val base_data = slave(Stream(config.baseDataType))
+		val base_data = slave(Stream(Fragment(config.baseDataType)))
 		val enable = in Bool()
 
 		val cnt_step = in(config.cntType)
 		val cnt_limit = in(config.cntType)
 
-		val unit_data = master(Flow(config.unitDataType))
+		val unit_data = master(Flow(Fragment(config.unitDataType)))
 	}
 
 	noIoPrefix()
 
 	val unit_valid = Reg(Bool) init (False)
+	val base_last = Reg(Bool()) init(False)
 	val base_cnt = Reg(config.cntType) init (0)
 	val base_ready = (io.cnt_limit === base_cnt) && io.enable
 	val base_buffer = Reg(config.unitDataType) init (0)
@@ -42,7 +43,8 @@ case class dataDivDynamic(config: dataDivConfig) extends Component {
 		unit_valid := False
 	}.elsewhen(io.base_data.fire) {
 		base_cnt := (base_cnt + io.cnt_step + config.cntInit).resized
-		base_buffer := io.base_data.payload
+		base_buffer := io.base_data.fragment
+		base_last := io.base_data.last
 		unit_valid := True
 	}.elsewhen(base_cnt === io.cnt_limit) {
 		base_buffer := base_buffer |>> io.cnt_step
@@ -54,7 +56,8 @@ case class dataDivDynamic(config: dataDivConfig) extends Component {
 	}
 
 	io.base_data.ready := base_ready
-	io.unit_data.payload := base_buffer
+	io.unit_data.fragment := base_buffer
+	io.unit_data.last := base_last && (base_cnt === io.cnt_limit)
 	io.unit_data.valid := unit_valid
 
 	def driveFrom(busCtrl: BusSlaveFactory, baseAddress: BigInt, coreClockDomain: ClockDomain, rfClockDomain: ClockDomain): Area = new Area {

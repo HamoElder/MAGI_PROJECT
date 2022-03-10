@@ -12,9 +12,10 @@ object StreamPkgGenSimApp extends App{
         .doSim(new StreamPkgGen(pkg_gen_config)){ dut =>
             dut.clockDomain.forkStimulus(5)
             dut.io.raw_data.stream.valid #= false
+            dut.io.raw_data.stream.last #= false
             dut.io.pkg_data.ready #= true
             dut.clockDomain.waitSampling(1)
-            dut.io.slices_limit #=  8
+            dut.io.slices_limit #= 32
             for(idx <- 0 until 500){
                 dut.io.raw_data.stream.valid #= true
                 dut.io.pkg_data.ready #= true
@@ -25,7 +26,13 @@ object StreamPkgGenSimApp extends App{
                 dut.io.raw_data.stream.strb #= 15
                 dut.clockDomain.waitSampling(1)
             }
+            dut.io.raw_data.stream.last #= true
+            dut.io.raw_data.stream.valid #= true
+            dut.io.raw_data.stream.data #= 0x12345678
+            dut.io.raw_data.stream.strb #= 15
+            dut.clockDomain.waitSampling(1)
+            dut.io.raw_data.stream.last #= false
             dut.io.raw_data.stream.valid #= false
-            dut.clockDomain.waitSampling(10)
+            dut.clockDomain.waitSampling(50)
         }
 }

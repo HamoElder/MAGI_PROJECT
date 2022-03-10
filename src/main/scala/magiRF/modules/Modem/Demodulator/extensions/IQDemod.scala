@@ -15,6 +15,8 @@ case class IQDemod(config: demodUnitConfig) extends Component {
     val demod_data_q = if(config.codeTableQ != null && config.mValue > 2) RegNext(io.mod_iq.cha_q) init(0) else null
     val demod_valid_q = if(config.codeTableQ != null && config.mValue > 2) RegNext(io.mod_iq.valid) init(False) else null
 
+    val demod_last_iq = RegNext(io.mod_iq.last) init(False)
+
     val singleM: Int = if(config.codeTableQ != null && config.mValue > 2) log2Up(config.mSize) else config.mSize
     val unit_data_width: Int = if(config.codeTableQ != null && config.mValue > 2) config.mWidth / 2 else config.mWidth
 
@@ -32,13 +34,15 @@ case class IQDemod(config: demodUnitConfig) extends Component {
     val codeTable_q = if(config.codeTableQ != null && config.mValue > 2) RegNext(comp_cmp_q) init(0) else null
 
     val demod_valid = if(config.codeTableQ != null && config.mValue > 2) RegNext(demod_valid_i && demod_valid_q) init(False) else RegNext(demod_valid_i)
-
+    val demod_last = RegNext(demod_last_iq) init(False)
     val unit_data_i = Reg(UInt(unit_data_width bits))
     val unit_data_q = if(config.codeTableQ != null && config.mValue > 2) Reg(UInt(unit_data_width bits)) else null
     val unit_valid = Reg(Bool) init(False)
+    val unit_last = Reg(Bool()) init(False)
 
     when(demod_valid){
         unit_valid := True
+        unit_last := demod_last
         switch(compTable_i){
             for(idx <- 0 until singleM){
                 is((1 << idx) - 1){
@@ -51,7 +55,6 @@ case class IQDemod(config: demodUnitConfig) extends Component {
             switch(codeTable_q){
                 for(idx <- 0 until singleM){
                     is((1 << idx) - 1){
-
                         unit_data_q := config.codeTableQ._2(idx)
                     }
                 }
@@ -63,13 +66,15 @@ case class IQDemod(config: demodUnitConfig) extends Component {
             unit_data_q := 0
         }
         unit_valid := False
+        unit_last := False
     }
     if(config.codeTableQ != null && config.mValue > 2){
-        io.unit_data.payload :=  (unit_data_i ## unit_data_q).asUInt.resized
+        io.unit_data.fragment :=  (unit_data_i ## unit_data_q).asUInt.resized
     } else {
-        io.unit_data.payload := unit_data_i.resized
+        io.unit_data.fragment := unit_data_i.resized
     }
     io.unit_data.valid := unit_valid
+    io.unit_data.last := unit_last
 }
 
 object IQDemodBench{

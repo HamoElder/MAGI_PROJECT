@@ -101,6 +101,7 @@ object ModulatorRTLSimApp extends App{
     SimConfig.withWave.doSim(new ModulatorRTL(modulator_rtl_config)) { dut =>
         dut.clockDomain.forkStimulus(5)
         dut.io.data_flow.unit_data.valid #= false
+        dut.io.data_flow.unit_data.last #= false
         dut.io.select #= 1
         dut.io.w_en #= 0
         for(idx <- 0 until 2048){
@@ -112,7 +113,8 @@ object ModulatorRTLSimApp extends App{
         dut.clockDomain.waitSampling(1)
         dut.io.data_flow.unit_data.valid #= true
         for(idx <- 0 until 256){
-            dut.io.data_flow.unit_data.payload #= idx
+            dut.io.data_flow.unit_data.fragment #= idx
+            dut.io.data_flow.unit_data.last.randomize()
             dut.clockDomain.waitSampling(1)
         }
         dut.io.data_flow.unit_data.valid #= false

@@ -51,6 +51,7 @@ case class lookUpMod(config: lookUpModConfig) extends Component {
 
     val unit_data = RegNext(io.data_flow.unit_data.payload) init(0)
     val unit_valid = RegNext(io.data_flow.unit_data.valid) init(False)
+    val unit_last = RegNext(io.data_flow.unit_data.last) init(False)
     if(config.useTPlay){
         val t_cnt = Reg(config.cntDataType) init(0)
         val data_ready = Reg(Bool()) init(True)
@@ -70,10 +71,12 @@ case class lookUpMod(config: lookUpModConfig) extends Component {
             io.data_flow.mod_iq.cha_i := iq_mod_div(1).resized
             io.data_flow.mod_iq.cha_q := iq_mod_div(0).resized
             io.data_flow.mod_iq.valid := True
+            io.data_flow.mod_iq.last := unit_last
         }.otherwise{
             io.data_flow.mod_iq.cha_i := 0
             io.data_flow.mod_iq.cha_q := 0
             io.data_flow.mod_iq.valid := False
+            io.data_flow.mod_iq.last := False
         }
     }else{
         val iq_mod_div = code_map.readSync(
@@ -85,10 +88,12 @@ case class lookUpMod(config: lookUpModConfig) extends Component {
             io.data_flow.mod_iq.cha_i := iq_mod_div(1).resized
             io.data_flow.mod_iq.cha_q := iq_mod_div(0).resized
             io.data_flow.mod_iq.valid := True
+            io.data_flow.mod_iq.last := unit_last
         }.otherwise{
             io.data_flow.mod_iq.cha_i := 0
             io.data_flow.mod_iq.cha_q := 0
             io.data_flow.mod_iq.valid := False
+            io.data_flow.mod_iq.last := False
         }
     }
 

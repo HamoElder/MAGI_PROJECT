@@ -39,8 +39,8 @@ case class MacTxManagedStreamFifoCc[T <: Data](payloadType : HardType[T],
     pushToPop.io.input.valid := True
     pushToPop rework { pushToPop.pushArea.data init(0) }
 
-    def isFull(a: UInt, b: UInt) = a.msb =/= b.msb && a(ptrWidth - 2 downto 0) === b(ptrWidth - 2 downto 0)
-    def isEmpty(a: UInt, b: UInt) = a === b
+    def isFull(a: UInt, b: UInt): Bool = a.msb =/= b.msb && a(ptrWidth - 2 downto 0) === b(ptrWidth - 2 downto 0)
+    def isEmpty(a: UInt, b: UInt): Bool = a === b
 
     val push = pushCd on new Area {
         val currentPtr, oldPtr = Reg(UInt(ptrWidth bits)) init(0)
@@ -230,8 +230,6 @@ case class MacTxCrc(dataWidth : Int) extends Component{
     crc.io.input << io.input.toFlowFire.translateWith(io.input.data)
     crc.io.flush := io.output.lastFire
 
-
-
     io.output.last := False
     when(!emitCrc) {
         io.output.valid := io.input.valid
@@ -262,7 +260,6 @@ case class MacTxAligner(dataWidth : Int) extends Component{
 
     val alignWidth = 16
     assert(dataWidth <= alignWidth)
-
     val stateCount = alignWidth/dataWidth
     val state = Reg(UInt(log2Up(stateCount + 1) bits)) init(0)
 

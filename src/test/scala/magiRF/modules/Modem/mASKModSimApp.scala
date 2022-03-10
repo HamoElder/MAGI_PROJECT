@@ -28,7 +28,7 @@ object mASKModSimApp extends App{
         dut.io.unit_data.valid #= true
         //        dut.io.mod_i.ready #= true
         for(idx <- 0 until 255){
-            dut.io.unit_data.payload #= idx % 2
+            dut.io.unit_data.fragment #= idx % 2
             dut.io.unit_data.valid #= true
             //            dut.io.unit_data.valid.randomize()
             dut.clockDomain.waitSampling(1)

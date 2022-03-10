@@ -42,6 +42,7 @@ case class lookUpDemod(config: lookUpDemodConfig) extends Component {
     val demod_data_i: SInt = RegNext(io.data_flow.mod_iq.cha_i) init(0)
     val demod_data_q: SInt =  RegNext(io.data_flow.mod_iq.cha_q) init(0)
     val demod_valid_iq: Bool = RegNext(io.data_flow.mod_iq.valid && (~io.w_en)) init(False)
+    val demod_last_iq: Bool = RegNext(io.data_flow.mod_iq.last) init(False)
 
     val comp_mem_i: Vec[SInt] = Vec(Reg(config.compTableType), config.compTableSize)
     val comp_mem_q: Vec[SInt] = Vec(Reg(config.compTableType), config.compTableSize)
@@ -79,13 +80,15 @@ case class lookUpDemod(config: lookUpDemodConfig) extends Component {
     val compTable_q = RegNext(comp_cmp_q) init(0)
 
     val demod_valid = RegNext(demod_valid_iq) init(False)
-
+    val demod_last = RegNext(demod_last_iq) init(False)
     val unit_data_i = Reg(config.codeTableType)
     val unit_data_q = Reg(config.codeTableType)
     val unit_valid = Reg(Bool) init(False)
+    val unit_last = Reg(Bool()) init(False)
 
     when(demod_valid){
         unit_valid := True
+        unit_last := demod_last
         switch(compTable_i){
             for(idx <- 0 until config.codeTableSize){
                 is((1 << idx) - 1){
@@ -103,13 +106,14 @@ case class lookUpDemod(config: lookUpDemodConfig) extends Component {
         }
     }.otherwise{
         unit_valid := False
+        unit_last := False
         unit_data_i := 0
         unit_data_q := 0
     }
 
-    io.data_flow.unit_data.payload := ((unit_data_i << io.iq_shift) | unit_data_q.resized).resized
+    io.data_flow.unit_data.fragment := ((unit_data_i << io.iq_shift) | unit_data_q.resized).resized
     io.data_flow.unit_data.valid := unit_valid
-
+    io.data_flow.unit_data.last := unit_last
     def driveFrom(busCtrl: BusSlaveFactory, baseAddress: BigInt, coreClockDomain: ClockDomain, rfClockDomain: ClockDomain): Area = new Area {
         val w_en = cloneOf(io.w_en)
         val w_sel = cloneOf(io.w_sel)

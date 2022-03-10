@@ -7,11 +7,12 @@ import utils.bus.AxiLite.{AxiLite4, AxiLite4Config, AxiLite4SlaveFactory, AxiLit
 
 
 case class AxiLite4MacEthConfig(cfgDataWidth: Int,
-                                phyDataWidth: Int){
+                                phyDataWidth: Int,
+                                phyBufferSize: BigInt = 4 KiB){
     def addressWidth = 8
     def axiLite4Config: AxiLite4Config = AxiLite4Config(addressWidth, cfgDataWidth)
     def phyIoConfig: PhyParameter = PhyParameter(phyDataWidth, phyDataWidth)
-    def macEthConfig: MacEthParameter = MacEthParameter(phyIoConfig, cfgDataWidth, cfgDataWidth, 4 KiB, 4 KiB)
+    def macEthConfig: MacEthParameter = MacEthParameter(phyIoConfig, cfgDataWidth, cfgDataWidth, phyBufferSize, phyBufferSize)
     def gmiiConfig: GmiiParameter = GmiiParameter(phyDataWidth, withEr = true)
 
 }

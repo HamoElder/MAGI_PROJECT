@@ -50,7 +50,7 @@ case class ModulatorRTL(config: modRTLConfig) extends Component {
 
     val unit_data_demux = FlowDeMux(io.data_flow.unit_data, io.select, config.selectNum)
 
-    var mod_data_iq_seq = Seq[Flow[IQBundle[SInt]]]()
+    var mod_data_iq_seq = Seq[Flow[Fragment[IQBundle[SInt]]]]()
     for(extension <- config.modMethod.zipWithIndex){
         val area = extension._1.applyIt(this, extension._2)
         area.setName(extension._1.getName)

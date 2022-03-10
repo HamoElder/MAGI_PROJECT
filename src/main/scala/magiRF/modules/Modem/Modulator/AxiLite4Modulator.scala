@@ -28,10 +28,10 @@ case class AxiLite4ModulatorConfig(
 
 case class AxiLite4Modulator(config: AxiLite4ModulatorConfig) extends Component {
     val io = new Bundle{
-        val base_data = slave(Stream(config.baseDataType))
+        val base_data = slave(Stream(Fragment(config.baseDataType)))
         val axil4Ctrl = slave(AxiLite4(config.axiLite4Config))
 
-        val mod_iq = master(Flow(IQBundle(config.modDataType)))
+        val mod_iq = master(Flow(Fragment(IQBundle(config.modDataType))))
 
         val rf_clk = in Bool()
         val rf_resetn = in Bool()
@@ -49,14 +49,11 @@ case class AxiLite4Modulator(config: AxiLite4ModulatorConfig) extends Component 
     )
     val rfClockArea = new ClockingArea(rfClockDomain) {
         val mod_data_div = dataDivDynamic(config.divConfig)
-        mod_data_div.io.base_data.payload := io.base_data.payload
-        mod_data_div.io.base_data.valid := io.base_data.valid
-        io.base_data.ready := mod_data_div.io.base_data.ready
+        mod_data_div.io.base_data << io.base_data
 
         val mod_rtl = ModulatorRTL(config.modulatorRTLConfig)
         mod_rtl.io.data_flow.unit_data << mod_data_div.io.unit_data.resized
-        io.mod_iq.payload := mod_rtl.io.data_flow.mod_iq.payload
-        io.mod_iq.valid := mod_rtl.io.data_flow.mod_iq.valid
+        io.mod_iq << mod_rtl.io.data_flow.mod_iq
     }
 
     val axil4busCtrl = new AxiLite4SlaveFactory(io.axil4Ctrl).setName("")

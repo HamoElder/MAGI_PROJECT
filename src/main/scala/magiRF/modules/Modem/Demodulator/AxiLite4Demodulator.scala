@@ -30,8 +30,8 @@ case class AxiLite4DemodulatorConfig(
 case class AxiLite4Demodulator(config: AxiLite4DemodulatorConfig) extends Component {
     val io = new Bundle{
         val axil4Ctrl = slave(AxiLite4(config.axiLite4Config))
-        val mod_iq = slave(Flow(IQBundle(config.modDataType)))
-        val base_data = master(Flow(config.baseDataType))
+        val mod_iq = slave(Flow(Fragment(IQBundle(config.modDataType))))
+        val base_data = master(Flow(Fragment(config.baseDataType)))
 
         val rf_clk = in Bool()
         val rf_resetn = in Bool()

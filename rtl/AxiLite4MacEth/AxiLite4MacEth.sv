@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : AxiLite4MacEth
-// Git hash  : 222c5ee6dba0c343bb79144fda839f9d81a69efd
+// Git hash  : b90f7fc9b0893d6f01a499c7804b365a21d113e6
 
 
 `define push_State_binary_sequential_type [0:0]
@@ -345,14 +345,14 @@ module MacTxInterFrame (
   wire                counter_willOverflowIfInc;
   wire                counter_willOverflow;
   wire                io_input_fire;
-  wire                when_MacTx_l351;
+  wire                when_MacTx_l350;
   wire                _zz_io_input_ready;
 
   assign _zz_counter_valueNext_1 = counter_willIncrement;
   assign _zz_counter_valueNext = {3'd0, _zz_counter_valueNext_1};
   always @(*) begin
     counter_willIncrement = 1'b0;
-    if(when_MacTx_l351) begin
+    if(when_MacTx_l350) begin
       counter_willIncrement = 1'b1;
     end
   end
@@ -372,7 +372,7 @@ module MacTxInterFrame (
   end
 
   assign io_input_fire = (io_input_valid && io_input_ready);
-  assign when_MacTx_l351 = ((counter_value != 4'b0000) || (io_input_fire && io_input_payload_last));
+  assign when_MacTx_l350 = ((counter_value != 4'b0000) || (io_input_fire && io_input_payload_last));
   assign _zz_io_input_ready = (! (counter_value != 4'b0000));
   assign io_input_ready = (1'b1 && _zz_io_input_ready);
   assign io_output_valid = (io_input_valid && _zz_io_input_ready);
@@ -684,30 +684,30 @@ module MacTxHeader (
   input               txReset
 );
   reg        [3:0]    state;
-  wire                when_MacTx_l296;
-  wire                when_MacTx_l303;
+  wire                when_MacTx_l295;
+  wire                when_MacTx_l302;
   wire                io_output_fire;
   wire                io_input_fire;
-  wire                when_MacTx_l308;
+  wire                when_MacTx_l307;
 
   assign io_output_valid = io_input_valid;
   always @(*) begin
     io_output_payload_last = 1'b0;
-    if(when_MacTx_l296) begin
+    if(when_MacTx_l295) begin
       io_output_payload_last = io_input_payload_last;
     end
   end
 
   always @(*) begin
     io_input_ready = 1'b0;
-    if(when_MacTx_l296) begin
+    if(when_MacTx_l295) begin
       io_input_ready = io_output_ready;
     end
   end
 
-  assign when_MacTx_l296 = (state == 4'b1000);
+  assign when_MacTx_l295 = (state == 4'b1000);
   always @(*) begin
-    if(when_MacTx_l296) begin
+    if(when_MacTx_l295) begin
       io_output_payload_fragment_data = io_input_payload_fragment_data;
     end else begin
       io_output_payload_fragment_data = 8'h0;
@@ -715,26 +715,26 @@ module MacTxHeader (
       io_output_payload_fragment_data[2] = 1'b1;
       io_output_payload_fragment_data[4] = 1'b1;
       io_output_payload_fragment_data[6] = 1'b1;
-      if(when_MacTx_l303) begin
+      if(when_MacTx_l302) begin
         io_output_payload_fragment_data[7] = 1'b1;
       end
     end
   end
 
-  assign when_MacTx_l303 = (state == 4'b0111);
+  assign when_MacTx_l302 = (state == 4'b0111);
   assign io_output_fire = (io_output_valid && io_output_ready);
   assign io_input_fire = (io_input_valid && io_input_ready);
-  assign when_MacTx_l308 = (io_input_fire && io_input_payload_last);
+  assign when_MacTx_l307 = (io_input_fire && io_input_payload_last);
   always @(posedge phy_clk) begin
     if(!txReset) begin
       state <= 4'b0000;
     end else begin
-      if(!when_MacTx_l296) begin
+      if(!when_MacTx_l295) begin
         if(io_output_fire) begin
           state <= (state + 4'b0001);
         end
       end
-      if(when_MacTx_l308) begin
+      if(when_MacTx_l307) begin
         state <= 4'b0000;
       end
     end
@@ -883,19 +883,19 @@ module MacTxPadder (
   reg                 io_input_payload_first;
   wire                fill;
   wire                io_output_fire;
-  wire                when_MacTx_l325;
+  wire                when_MacTx_l324;
   wire                io_output_fire_1;
-  wire                when_MacTx_l328;
+  wire                when_MacTx_l327;
   wire                _zz_io_input_ready;
-  wire                when_MacTx_l332;
+  wire                when_MacTx_l331;
 
   assign ok = (counter == 6'h3b);
   assign io_input_fire = (io_input_valid && io_input_ready);
   assign fill = ((counter != 6'h0) && io_input_payload_first);
   assign io_output_fire = (io_output_valid && io_output_ready);
-  assign when_MacTx_l325 = ((! ok) && io_output_fire);
+  assign when_MacTx_l324 = ((! ok) && io_output_fire);
   assign io_output_fire_1 = (io_output_valid && io_output_ready);
-  assign when_MacTx_l328 = (io_output_fire_1 && io_output_payload_last);
+  assign when_MacTx_l327 = (io_output_fire_1 && io_output_payload_last);
   assign _zz_io_input_ready = (! fill);
   assign io_input_ready = (io_output_ready && _zz_io_input_ready);
   always @(*) begin
@@ -907,7 +907,7 @@ module MacTxPadder (
 
   always @(*) begin
     io_output_payload_last = io_input_payload_last;
-    if(when_MacTx_l332) begin
+    if(when_MacTx_l331) begin
       io_output_payload_last = 1'b0;
     end
     if(fill) begin
@@ -922,7 +922,7 @@ module MacTxPadder (
     end
   end
 
-  assign when_MacTx_l332 = (! ok);
+  assign when_MacTx_l331 = (! ok);
   always @(posedge phy_clk) begin
     if(!txReset) begin
       counter <= 6'h0;
@@ -931,10 +931,10 @@ module MacTxPadder (
       if(io_input_fire) begin
         io_input_payload_first <= io_input_payload_last;
       end
-      if(when_MacTx_l325) begin
+      if(when_MacTx_l324) begin
         counter <= (counter + 6'h01);
       end
-      if(when_MacTx_l328) begin
+      if(when_MacTx_l327) begin
         counter <= 6'h0;
       end
     end
@@ -975,39 +975,39 @@ module MacTxAligner (
   input               txReset
 );
   reg        [1:0]    state;
-  wire                when_MacTx_l270;
+  wire                when_MacTx_l269;
   wire                io_input_fire;
-  wire                when_MacTx_l278;
+  wire                when_MacTx_l277;
 
   always @(*) begin
     io_output_valid = io_input_valid;
-    if(when_MacTx_l270) begin
+    if(when_MacTx_l269) begin
       io_output_valid = 1'b0;
     end
   end
 
   always @(*) begin
     io_input_ready = io_output_ready;
-    if(when_MacTx_l270) begin
+    if(when_MacTx_l269) begin
       io_input_ready = 1'b1;
     end
   end
 
   assign io_output_payload_last = io_input_payload_last;
   assign io_output_payload_fragment_data = io_input_payload_fragment_data;
-  assign when_MacTx_l270 = (io_enable && (state != 2'b10));
+  assign when_MacTx_l269 = (io_enable && (state != 2'b10));
   assign io_input_fire = (io_input_valid && io_input_ready);
-  assign when_MacTx_l278 = (io_input_fire && io_input_payload_last);
+  assign when_MacTx_l277 = (io_input_fire && io_input_payload_last);
   always @(posedge phy_clk) begin
     if(!txReset) begin
       state <= 2'b00;
     end else begin
-      if(when_MacTx_l270) begin
+      if(when_MacTx_l269) begin
         if(io_input_valid) begin
           state <= (state + 2'b01);
         end
       end
-      if(when_MacTx_l278) begin
+      if(when_MacTx_l277) begin
         state <= 2'b00;
       end
     end
