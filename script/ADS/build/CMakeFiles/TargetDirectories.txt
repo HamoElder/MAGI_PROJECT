@@ -1,0 +1,12 @@
+/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles/rebuild_cache.dir
+/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles/edit_cache.dir
+/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles/GLAD.dir
+/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles/STB_IMAGE.dir
+/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/3rdParty/CMakeFiles/rebuild_cache.dir
+/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/3rdParty/CMakeFiles/edit_cache.dir
+/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/editor/CMakeFiles/rebuild_cache.dir
+/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/editor/CMakeFiles/edit_cache.dir
+/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/editor/CMakeFiles/ADS_EDITOR.dir
+/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/DI/CMakeFiles/rebuild_cache.dir
+/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/DI/CMakeFiles/edit_cache.dir
+/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/DI/CMakeFiles/ADS_DI.dir

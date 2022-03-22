@@ -1,10 +1,11 @@
 package magiRF.top.RFBench.Transmitter
 
 import magiRF.interface.misc.LVDS.LVDS
+import magiRF.modules.Filters.FIR.TransposeFIR
 import magiRF.modules.Modem.Misc.dataDivDynamic
 import magiRF.packages.Coder.Convolutional.Encoder.ConvEncoder
 import magiRF.packages.Scramble.Scrambler
-import magiRF.top.RFBench.Config.{codedDataType, codedDataWidth, conv_encoder_config, crc32_config, crc_data_width, genModulatorConfig, genModulatorDivConfig, iqWidth, method_width, modIQDataType, phyDataType, phyDataWidth, phy_payload_lower_boundary, phy_payload_upper_boundary, rf_payload_upper_boundary, scrambler_poly, scrambler_reg_width, size_width}
+import magiRF.top.RFBench.Config.{codedDataType, codedDataWidth, conv_encoder_config, crc32_config, crc_data_width, genModulatorConfig, genModulatorDivConfig, iqWidth, method_width, modIQDataType, oversampled_zeros, phyDataType, phyDataWidth, phy_payload_lower_boundary, phy_payload_upper_boundary, rf_payload_upper_boundary, scrambler_poly, scrambler_reg_width, size_width, srrcConfig, srrcTaps}
 import spinal.core._
 import spinal.lib._
 import utils.bus.IQBundle.IQBundle
@@ -180,11 +181,55 @@ case class PhyModulator() extends Component{
         }
     }
     mod_data_div.io.cnt_limit := codedDataWidth
-
-
     mod_data_div.io.base_data << io.raw_data
+}
 
 
+case class PhyTxOverSampling() extends Component{
+    val io = new Bundle{
+        val raw_data = slave(Stream(Fragment(modIQDataType)))
+        val result_data = master(Stream(Fragment(modIQDataType)))
+    }
+    noIoPrefix()
+    val cnt = Reg(UInt(log2Up(oversampled_zeros) bits)) init(0)
+    val raw_last = Reg(Bool()) init(False)
+    when(io.raw_data.fire){
+        raw_last := io.raw_data.last
+    }
+    when(io.result_data.fire){
+        cnt := (cnt === oversampled_zeros - 1) ? U(0) | cnt + 1
+    }
+    io.raw_data.ready := io.result_data.ready && (cnt === 0)
+    io.result_data.valid := io.raw_data.valid || (cnt =/= 0)
+    io.result_data.last := raw_last && (cnt === oversampled_zeros - 1)
+    io.result_data.cha_i := (cnt === 0) ? io.raw_data.cha_i | 0
+    io.result_data.cha_q := (cnt === 0) ? io.raw_data.cha_q | 0
+}
+
+
+case class PhyTxFilter() extends Component{
+    val io = new Bundle{
+        val raw_data = slave(Stream(Fragment(modIQDataType)))
+        val result_data = master(Stream(Fragment(modIQDataType)))
+    }
+    noIoPrefix()
+    val last_padding = Reg(Bool()) init(False)
+    when(io.raw_data.lastFire){
+        last_padding := True
+    }.elsewhen(io.result_data.lastFire){
+        last_padding := False
+    }
+    val fir_filter_iq = TransposeFIR(io.raw_data.cha_i.getBitsWidth, srrcTaps, 2, reloadableCoff = false)
+
+    io.raw_data.ready := (~last_padding) && io.result_data.ready
+    fir_filter_iq.io.raw_data.valid := io.raw_data.valid || last_padding
+    fir_filter_iq.io.raw_data.payload(0) := last_padding ? S(0) | io.raw_data.cha_i
+    fir_filter_iq.io.raw_data.payload(1) := last_padding ? S(0) | io.raw_data.cha_q
+
+    io.result_data.valid := fir_filter_iq.io.filtered_data.valid
+    io.result_data.cha_i := fir_filter_iq.io.filtered_data.payload(0).floor(7 bits)
+    io.result_data.cha_q := fir_filter_iq.io.filtered_data.payload(1).floor(7 bits)
+    io.result_data.last := Delay(io.raw_data.last, (srrcConfig.symbolSpan - 1)*srrcConfig.samplesPerSymbol + 1)
 }
 
 
@@ -251,5 +296,4 @@ case class PhyHeaderExtender() extends Component {
             }
         }
     }
-
 }

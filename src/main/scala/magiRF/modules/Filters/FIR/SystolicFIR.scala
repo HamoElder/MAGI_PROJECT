@@ -34,7 +34,7 @@ case class SystolicCore(dataWidth: Int, adderDataWidth: Int, coffDataWidth: Int)
 
 
 case class SystolicFIR(dataWidth: Int, filteredDataWidth: Int, H: List[Int], chaNum: Int) extends Component{
-    def coffDataWidth: Int = log2Up(H.map({Math.abs}).max + 1) + 1
+    def coffDataWidth: Int = log2Up(H.map({scala.math.abs}).max + 1) + 1
 
     val io = new Bundle{
         val raw_data = slave(Flow(Vec(SInt(dataWidth bits), chaNum)))
@@ -84,7 +84,7 @@ object SystolicFIRFilterSimApp extends App{
         for(idx <- 1 until 1024){
 //            valid_bool = !valid_bool
             dut.io.raw_data.valid #= true
-            dut.io.raw_data.payload(0) #= (20 * Math.sin(idx*2*Math.PI*3 / 1024) + 20 * Math.sin(idx*2*Math.PI*200 / 1024)).toInt
+            dut.io.raw_data.payload(0) #= (20 * scala.math.sin(idx*2*Math.PI*3 / 1024) + 20 * scala.math.sin(idx*2*Math.PI*200 / 1024)).toInt
 //            dut.io.raw_data.payload(1) #= idx
             dut.clockDomain.waitSampling(1)
         }

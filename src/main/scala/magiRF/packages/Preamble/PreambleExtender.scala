@@ -83,12 +83,13 @@ case class PreambleExtender(config: PreambleConfig) extends Component {
 				preamble_valid := False
 			}
 
-			when(io.raw_data.last && io.raw_data.fire){
+			when(io.raw_data.lastFire){
 				preamble_states := IDLE
 				preamble_last := True
 			}.otherwise{
 				preamble_last := False
 			}
+			cnt := 0
 		}
 	}
 	io.raw_data.ready := raw_ready && io.preamble_data.ready
