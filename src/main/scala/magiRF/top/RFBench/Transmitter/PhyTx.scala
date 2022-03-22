@@ -229,7 +229,7 @@ case class PhyTxFilter() extends Component{
     io.result_data.valid := fir_filter_iq.io.filtered_data.valid
     io.result_data.cha_i := fir_filter_iq.io.filtered_data.payload(0).floor(7 bits)
     io.result_data.cha_q := fir_filter_iq.io.filtered_data.payload(1).floor(7 bits)
-    io.result_data.last := Delay(io.raw_data.last, (srrcConfig.symbolSpan - 1)*srrcConfig.samplesPerSymbol + 1)
+    io.result_data.last := Delay(io.raw_data.last, (srrcConfig.symbolSpan - 1)*srrcConfig.samplesPerSymbol + 1, fir_filter_iq.io.raw_data.fire, False)
 }
 
 

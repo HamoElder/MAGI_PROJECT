@@ -13,6 +13,7 @@ object PreambleExtenderStates extends SpinalEnum(defaultEncoding=binarySequentia
 case class PreambleConfig(
                          iqWidth: Int,
 						 preamble: Array[Complex],
+						 repeat: Int = 8,
                          scale: Double = 1.0
                          ){
 	require(iqWidth > 0, "iqWidth must larger than 0")
@@ -20,7 +21,7 @@ case class PreambleConfig(
 	def dataLength: Int = preamble.length
 	def peakVal: Int = (1 << (iqWidth - 1)) - 1
 	def cntType: UInt = UInt(log2Up(dataLength) + 1 bits)
-
+	def repeatCntType: UInt = UInt(log2Up(repeat) bits)
 	def preambleI_payload: Seq[SInt] = for(idx <- 0 until dataLength) yield {
 		S((preamble(idx).re * peakVal * scale).toInt, iqWidth bits)
 	}
@@ -40,7 +41,7 @@ case class PreambleExtender(config: PreambleConfig) extends Component {
 	val I_mem: Mem[SInt] = Mem(config.dataType, initialContent = config.preambleI_payload).addAttribute("rom_style", "block")
 	val Q_mem: Mem[SInt] = Mem(config.dataType, initialContent = config.preambleQ_payload).addAttribute("rom_style", "block")
 	val cnt: UInt = Reg(config.cntType) init(0)
-
+	val repeatCnt = Reg(config.repeatCntType) init(0)
 	val raw_ready = Reg(Bool()) init(False)
 	val preamble_data_i = Reg(config.dataType)
 	val preamble_data_q = Reg(config.dataType)
@@ -52,6 +53,7 @@ case class PreambleExtender(config: PreambleConfig) extends Component {
 	switch(preamble_states){
 		is(IDLE){
 			cnt := 0
+			repeatCnt := 0
 			raw_ready := False
 			preamble_valid := False
 			preamble_last := False
@@ -64,14 +66,17 @@ case class PreambleExtender(config: PreambleConfig) extends Component {
 		}
 		is(PREAMBLE){
 			when(io.preamble_data.ready){
-				cnt := cnt + 1
+				cnt := (cnt === config.dataLength) ? U(0) | cnt + 1
 			}
 			preamble_data_i := I_mem.readSync(cnt.resized)
 			preamble_data_q := Q_mem.readSync(cnt.resized)
 			preamble_valid := True
-			when(cnt >= config.dataLength){
-				raw_ready := True
-				preamble_states := DATA
+			when(cnt === config.dataLength){
+				repeatCnt := repeatCnt + 1
+				when(repeatCnt === config.repeat - 1){
+					raw_ready := True
+					preamble_states := DATA
+				}
 			}
 		}
 		is(DATA){
@@ -89,7 +94,6 @@ case class PreambleExtender(config: PreambleConfig) extends Component {
 			}.otherwise{
 				preamble_last := False
 			}
-			cnt := 0
 		}
 	}
 	io.raw_data.ready := raw_ready && io.preamble_data.ready

@@ -73,6 +73,7 @@ void VTXSim::_ctor_var_reset() {
     TXSim__DOT__phy_tx_oversampling_result_data_valid = VL_RAND_RESET_I(1);
     TXSim__DOT__phy_tx_oversampling_result_data_payload_last = VL_RAND_RESET_I(1);
     TXSim__DOT__streamFifo_13_io_pop_valid = VL_RAND_RESET_I(1);
+    TXSim__DOT__phy_tx_filter_raw_data_ready = VL_RAND_RESET_I(1);
     TXSim__DOT__stf_preamble_adder_raw_data_ready = VL_RAND_RESET_I(1);
     TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
     TXSim__DOT__stf_preamble_adder_preamble_data_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
@@ -373,7 +374,6 @@ void VTXSim::_ctor_var_reset() {
     TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_payload_0 = VL_RAND_RESET_I(12);
     TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_payload_1 = VL_RAND_RESET_I(12);
     TXSim__DOT__phy_tx_filter__DOT__last_padding = VL_RAND_RESET_I(1);
-    TXSim__DOT__phy_tx_filter__DOT__when_PhyTx_l217 = VL_RAND_RESET_I(1);
     TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_1 = VL_RAND_RESET_I(1);
     TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_2 = VL_RAND_RESET_I(1);
     TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_3 = VL_RAND_RESET_I(1);
@@ -500,19 +500,22 @@ void VTXSim::_ctor_var_reset() {
     TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_131__DOT__previous_adder_data = VL_RAND_RESET_I(19);
     TXSim__DOT__stf_preamble_adder__DOT___zz_I_mem_port0 = VL_RAND_RESET_I(12);
     TXSim__DOT__stf_preamble_adder__DOT___zz_Q_mem_port0 = VL_RAND_RESET_I(12);
-    TXSim__DOT__stf_preamble_adder__DOT__cnt = VL_RAND_RESET_I(8);
+    TXSim__DOT__stf_preamble_adder__DOT___zz_cnt = VL_RAND_RESET_I(7);
+    TXSim__DOT__stf_preamble_adder__DOT__cnt = VL_RAND_RESET_I(7);
+    TXSim__DOT__stf_preamble_adder__DOT__repeatCnt = VL_RAND_RESET_I(3);
     TXSim__DOT__stf_preamble_adder__DOT__raw_ready = VL_RAND_RESET_I(1);
     TXSim__DOT__stf_preamble_adder__DOT__preamble_data_i = VL_RAND_RESET_I(12);
     TXSim__DOT__stf_preamble_adder__DOT__preamble_data_q = VL_RAND_RESET_I(12);
     TXSim__DOT__stf_preamble_adder__DOT__preamble_valid = VL_RAND_RESET_I(1);
     TXSim__DOT__stf_preamble_adder__DOT__preamble_last = VL_RAND_RESET_I(1);
     TXSim__DOT__stf_preamble_adder__DOT__preamble_states = VL_RAND_RESET_I(2);
-    TXSim__DOT__stf_preamble_adder__DOT__when_PreambleExtender_l72 = VL_RAND_RESET_I(1);
+    TXSim__DOT__stf_preamble_adder__DOT__when_PreambleExtender_l74 = VL_RAND_RESET_I(1);
+    TXSim__DOT__stf_preamble_adder__DOT__when_PreambleExtender_l76 = VL_RAND_RESET_I(1);
     TXSim__DOT__stf_preamble_adder__DOT__raw_data_fire = VL_RAND_RESET_I(1);
-    { int __Vi0=0; for (; __Vi0<128; ++__Vi0) {
+    { int __Vi0=0; for (; __Vi0<64; ++__Vi0) {
             TXSim__DOT__stf_preamble_adder__DOT__I_mem[__Vi0] = VL_RAND_RESET_I(12);
     }}
-    { int __Vi0=0; for (; __Vi0<128; ++__Vi0) {
+    { int __Vi0=0; for (; __Vi0<64; ++__Vi0) {
             TXSim__DOT__stf_preamble_adder__DOT__Q_mem[__Vi0] = VL_RAND_RESET_I(12);
     }}
     TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(25);
@@ -528,17 +531,17 @@ void VTXSim::_ctor_var_reset() {
     TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_pushing = VL_RAND_RESET_I(1);
     TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_popping = VL_RAND_RESET_I(1);
     TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_full = VL_RAND_RESET_I(1);
-    TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
-    { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
-            TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(25);
-    }}
-    TXSim__DOT__stf_preamble_adder_preamble_data_queueWithAvailability__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(25);
     _ctor_var_reset_1();
 }
 
 void VTXSim::_ctor_var_reset_1() {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_ctor_var_reset_1\n"); );
     // Body
+    TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
+    { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
+            TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(25);
+    }}
+    TXSim__DOT__stf_preamble_adder_preamble_data_queueWithAvailability__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(25);
     TXSim__DOT__stf_preamble_adder_preamble_data_queueWithAvailability__DOT___zz_1 = VL_RAND_RESET_I(1);
     TXSim__DOT__stf_preamble_adder_preamble_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
     TXSim__DOT__stf_preamble_adder_preamble_data_queueWithAvailability__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(5);
@@ -599,7 +602,8 @@ void VTXSim::_ctor_var_reset_1() {
     __Vdly__TXSim__DOT__mod_data_div__DOT__base_cnt = VL_RAND_RESET_I(4);
     __Vdly__TXSim__DOT__mod_data_div__DOT__base_buffer = VL_RAND_RESET_I(16);
     __Vdly__TXSim__DOT__phy_tx_oversampling__DOT__cnt = VL_RAND_RESET_I(3);
-    __Vdly__TXSim__DOT__stf_preamble_adder__DOT__cnt = VL_RAND_RESET_I(8);
+    __Vdly__TXSim__DOT__stf_preamble_adder__DOT__cnt = VL_RAND_RESET_I(7);
+    __Vdly__TXSim__DOT__stf_preamble_adder__DOT__repeatCnt = VL_RAND_RESET_I(3);
     __Vdly__TXSim__DOT__stf_preamble_adder__DOT__preamble_states = VL_RAND_RESET_I(2);
     __Vdly__TXSim__DOT__stream_package_gen__DOT__strb_buf = VL_RAND_RESET_I(4);
     __Vdly__TXSim__DOT__stream_package_gen__DOT__split_core__DOT__data_buf = VL_RAND_RESET_I(32);

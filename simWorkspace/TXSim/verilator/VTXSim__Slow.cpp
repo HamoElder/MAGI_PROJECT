@@ -49,7 +49,7 @@ void VTXSim::_initial__TOP__1(VTXSim__Syms* __restrict vlSymsp) {
     __Vtemp1[9U] = 0x2e765f74U;
     __Vtemp1[0xaU] = 0x5853696dU;
     __Vtemp1[0xbU] = 0x54U;
-    VL_READMEM_N(false, 12, 128, 0, VL_CVT_PACK_STR_NW(12, __Vtemp1)
+    VL_READMEM_N(false, 12, 64, 0, VL_CVT_PACK_STR_NW(12, __Vtemp1)
                  , vlTOPp->TXSim__DOT__stf_preamble_adder__DOT__I_mem
                  , 0, ~VL_ULL(0));
     __Vtemp2[0U] = 0x2e62696eU;
@@ -64,13 +64,13 @@ void VTXSim::_initial__TOP__1(VTXSim__Syms* __restrict vlSymsp) {
     __Vtemp2[9U] = 0x2e765f74U;
     __Vtemp2[0xaU] = 0x5853696dU;
     __Vtemp2[0xbU] = 0x54U;
-    VL_READMEM_N(false, 12, 128, 0, VL_CVT_PACK_STR_NW(12, __Vtemp2)
+    VL_READMEM_N(false, 12, 64, 0, VL_CVT_PACK_STR_NW(12, __Vtemp2)
                  , vlTOPp->TXSim__DOT__stf_preamble_adder__DOT__Q_mem
                  , 0, ~VL_ULL(0));
 }
 
-void VTXSim::_settle__TOP__21(VTXSim__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_settle__TOP__21\n"); );
+void VTXSim::_settle__TOP__22(VTXSim__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_settle__TOP__22\n"); );
     VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->TXSim__DOT__writeJoinEvent_valid = ((IData)(vlTOPp->axil4Ctrl_awvalid) 
@@ -208,15 +208,14 @@ void VTXSim::_settle__TOP__21(VTXSim__Syms* __restrict vlSymsp) {
                             >> 3U)));
     vlTOPp->TXSim__DOT__phy_tx_crc__DOT__when_PhyTx_l39 
         = (1U & (~ (IData)(vlTOPp->TXSim__DOT__phy_tx_crc__DOT__emitCrc)));
+    vlTOPp->TXSim__DOT__stf_preamble_adder__DOT__when_PreambleExtender_l76 
+        = (5U == (IData)(vlTOPp->TXSim__DOT__stf_preamble_adder__DOT__repeatCnt));
     vlTOPp->TXSim__DOT__phy_tx_crc_result_data_payload_last = 0U;
     if (vlTOPp->TXSim__DOT__phy_tx_crc__DOT__emitCrc) {
         if ((3U == (IData)(vlTOPp->TXSim__DOT__phy_tx_crc__DOT__counter))) {
             vlTOPp->TXSim__DOT__phy_tx_crc_result_data_payload_last = 1U;
         }
     }
-    vlTOPp->TXSim__DOT__phy_tx_oversampling_raw_data_ready 
-        = ((~ (IData)(vlTOPp->TXSim__DOT__phy_tx_filter__DOT__last_padding)) 
-           & (0U == (IData)(vlTOPp->TXSim__DOT__phy_tx_oversampling__DOT__cnt)));
     vlTOPp->TXSim__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_ptrMatch 
         = ((IData)(vlTOPp->TXSim__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_pushPtr_value) 
            == (IData)(vlTOPp->TXSim__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_popPtr_value));
@@ -229,12 +228,12 @@ void VTXSim::_settle__TOP__21(VTXSim__Syms* __restrict vlSymsp) {
     vlTOPp->TXSim__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_ptrMatch 
         = ((IData)(vlTOPp->TXSim__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
            == (IData)(vlTOPp->TXSim__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popPtr_value));
-    vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_ptrMatch 
-        = ((IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
-           == (IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_popPtr_value));
     vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_ptrMatch 
         = ((IData)(vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
            == (IData)(vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_value));
+    vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_ptrMatch 
+        = ((IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
+           == (IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_popPtr_value));
     vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_ptrMatch 
         = ((IData)(vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
            == (IData)(vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_value));
@@ -253,8 +252,10 @@ void VTXSim::_settle__TOP__21(VTXSim__Syms* __restrict vlSymsp) {
     vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_ptrMatch 
         = ((IData)(vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_pushPtr_value) 
            == (IData)(vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_popPtr_value));
-    vlTOPp->TXSim__DOT__stf_preamble_adder__DOT__when_PreambleExtender_l72 
-        = (0x80U <= (IData)(vlTOPp->TXSim__DOT__stf_preamble_adder__DOT__cnt));
+    vlTOPp->TXSim__DOT__stf_preamble_adder__DOT___zz_cnt 
+        = (0x7fU & ((IData)(1U) + (IData)(vlTOPp->TXSim__DOT__stf_preamble_adder__DOT__cnt)));
+    vlTOPp->TXSim__DOT__stf_preamble_adder__DOT__when_PreambleExtender_l74 
+        = (0x40U == (IData)(vlTOPp->TXSim__DOT__stf_preamble_adder__DOT__cnt));
     vlTOPp->TXSim__DOT__mod_data_div__DOT___zz_base_cnt 
         = (0xfU & ((IData)(vlTOPp->TXSim__DOT__mod_data_div__DOT__base_cnt) 
                    + (IData)(vlTOPp->TXSim__DOT__clkCrossing_9__DOT__area_clkO_buf1)));
@@ -330,8 +331,8 @@ void VTXSim::_settle__TOP__21(VTXSim__Syms* __restrict vlSymsp) {
            & (7U == (IData)(vlTOPp->TXSim__DOT__phy_tx_oversampling__DOT__cnt)));
 }
 
-void VTXSim::_settle__TOP__22(VTXSim__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_settle__TOP__22\n"); );
+void VTXSim::_settle__TOP__23(VTXSim__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_settle__TOP__23\n"); );
     VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_payload_0 
@@ -511,12 +512,12 @@ void VTXSim::_settle__TOP__22(VTXSim__Syms* __restrict vlSymsp) {
     vlTOPp->TXSim__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_full 
         = ((IData)(vlTOPp->TXSim__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
            & (IData)(vlTOPp->TXSim__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_risingOccupancy));
-    vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_full 
-        = ((IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
-           & (IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_risingOccupancy));
     vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_full 
         = ((IData)(vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
            & (IData)(vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_risingOccupancy));
+    vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_full 
+        = ((IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
+           & (IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_risingOccupancy));
     vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_full 
         = ((IData)(vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
            & (IData)(vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_risingOccupancy));
@@ -635,8 +636,8 @@ void VTXSim::_settle__TOP__22(VTXSim__Syms* __restrict vlSymsp) {
            & (IData)(vlTOPp->TXSim__DOT__mod_data_div_unit_data_payload_last));
 }
 
-void VTXSim::_settle__TOP__23(VTXSim__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_settle__TOP__23\n"); );
+void VTXSim::_settle__TOP__24(VTXSim__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_settle__TOP__24\n"); );
     VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->TXSim__DOT__phy_tx_crc__DOT__crc_1__DOT__state_2 
@@ -688,11 +689,6 @@ void VTXSim::_settle__TOP__23(VTXSim__Syms* __restrict vlSymsp) {
                      & (~ (IData)(vlTOPp->TXSim__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_risingOccupancy)))) 
                  & (~ ((IData)(vlTOPp->TXSim__DOT__phy_tx_front_result_data_queueWithAvailability__DOT___zz_io_pop_valid) 
                        & (~ (IData)(vlTOPp->TXSim__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_full))))));
-    vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability_io_pop_valid 
-        = (1U & ((~ ((IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
-                     & (~ (IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_risingOccupancy)))) 
-                 & (~ ((IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT___zz_io_pop_valid) 
-                       & (~ (IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_full))))));
     vlTOPp->TXSim__DOT__phy_tx_scrambler_raw_data_ready = 0U;
     if ((0U != (IData)(vlTOPp->TXSim__DOT__phy_tx_scrambler__DOT__scrambler_status))) {
         if ((1U == (IData)(vlTOPp->TXSim__DOT__phy_tx_scrambler__DOT__scrambler_status))) {
@@ -705,6 +701,14 @@ void VTXSim::_settle__TOP__23(VTXSim__Syms* __restrict vlSymsp) {
                      & (~ (IData)(vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_risingOccupancy)))) 
                  & (~ ((IData)(vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT___zz_io_pop_valid) 
                        & (~ (IData)(vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_full))))));
+    vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability_io_pop_valid 
+        = (1U & ((~ ((IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
+                     & (~ (IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_risingOccupancy)))) 
+                 & (~ ((IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT___zz_io_pop_valid) 
+                       & (~ (IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_full))))));
+    vlTOPp->TXSim__DOT__phy_tx_filter_raw_data_ready 
+        = (1U & ((~ (IData)(vlTOPp->TXSim__DOT__phy_tx_filter__DOT__last_padding)) 
+                 & (~ (IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_full))));
     vlTOPp->TXSim__DOT__phy_tx_crc_raw_data_ready = 
         (1U & ((~ (IData)(vlTOPp->TXSim__DOT__phy_tx_crc__DOT__emitCrc)) 
                & (~ (IData)(vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_full))));
@@ -810,10 +814,6 @@ void VTXSim::_settle__TOP__23(VTXSim__Syms* __restrict vlSymsp) {
     vlTOPp->TXSim__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popping 
         = ((IData)(vlTOPp->TXSim__DOT__phy_tx_front_result_data_queueWithAvailability_io_pop_valid) 
            & (IData)(vlTOPp->result_data_ready));
-    vlTOPp->TXSim__DOT__stf_preamble_adder_raw_data_valid 
-        = ((IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability_io_pop_valid) 
-           & (~ ((IData)(vlTOPp->TXSim__DOT__pipeline_halt) 
-                 >> 8U)));
     vlTOPp->TXSim__DOT__mod_data_div__DOT__base_data_fire 
         = (((IData)(vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability_io_pop_valid) 
             & (~ ((IData)(vlTOPp->TXSim__DOT__pipeline_halt) 
@@ -823,6 +823,13 @@ void VTXSim::_settle__TOP__23(VTXSim__Syms* __restrict vlSymsp) {
            & ((IData)(vlTOPp->TXSim__DOT__mod_data_div__DOT__base_ready) 
               & (~ ((IData)(vlTOPp->TXSim__DOT__pipeline_halt) 
                     >> 6U))));
+    vlTOPp->TXSim__DOT__stf_preamble_adder_raw_data_valid 
+        = ((IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability_io_pop_valid) 
+           & (~ ((IData)(vlTOPp->TXSim__DOT__pipeline_halt) 
+                 >> 8U)));
+    vlTOPp->TXSim__DOT__phy_tx_oversampling_raw_data_ready 
+        = ((IData)(vlTOPp->TXSim__DOT__phy_tx_filter_raw_data_ready) 
+           & (0U == (IData)(vlTOPp->TXSim__DOT__phy_tx_oversampling__DOT__cnt)));
     vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popping 
         = ((IData)(vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability_io_pop_valid) 
            & ((~ (IData)(vlTOPp->TXSim__DOT__phy_tx_encoder__DOT__emitEncoding)) 
@@ -836,16 +843,16 @@ void VTXSim::_settle__TOP__23(VTXSim__Syms* __restrict vlSymsp) {
     if (vlTOPp->TXSim__DOT__streamFifo_12__DOT__logic_pushing) {
         vlTOPp->TXSim__DOT__streamFifo_12__DOT___zz_1 = 1U;
     }
+}
+
+void VTXSim::_settle__TOP__25(VTXSim__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_settle__TOP__25\n"); );
+    VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
     vlTOPp->TXSim__DOT__streamFifo_12__DOT__logic_pushPtr_willIncrement = 0U;
     if (vlTOPp->TXSim__DOT__streamFifo_12__DOT__logic_pushing) {
         vlTOPp->TXSim__DOT__streamFifo_12__DOT__logic_pushPtr_willIncrement = 1U;
     }
-}
-
-void VTXSim::_settle__TOP__24(VTXSim__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_settle__TOP__24\n"); );
-    VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
     vlTOPp->TXSim__DOT__streamFifo_12__DOT__logic_popping 
         = ((IData)(vlTOPp->TXSim__DOT__streamFifo_12_io_pop_valid) 
            & ((IData)(vlTOPp->TXSim__DOT__phy_header_extender_raw_data_ready) 
@@ -910,11 +917,6 @@ void VTXSim::_settle__TOP__24(VTXSim__Syms* __restrict vlSymsp) {
     if (vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_pushing) {
         vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_pushPtr_willIncrement = 1U;
     }
-    vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_popping 
-        = ((IData)(vlTOPp->TXSim__DOT__streamFifo_13_io_pop_valid) 
-           & ((IData)(vlTOPp->TXSim__DOT__phy_tx_oversampling_raw_data_ready) 
-              & (~ ((IData)(vlTOPp->TXSim__DOT__pipeline_halt) 
-                    >> 7U))));
     vlTOPp->TXSim__DOT__phy_tx_oversampling_raw_data_valid 
         = ((IData)(vlTOPp->TXSim__DOT__streamFifo_13_io_pop_valid) 
            & (~ ((IData)(vlTOPp->TXSim__DOT__pipeline_halt) 
@@ -958,13 +960,18 @@ void VTXSim::_settle__TOP__24(VTXSim__Syms* __restrict vlSymsp) {
     if (vlTOPp->TXSim__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popping) {
         vlTOPp->TXSim__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 1U;
     }
-    vlTOPp->TXSim__DOT__stf_preamble_adder__DOT__raw_data_fire 
-        = ((IData)(vlTOPp->TXSim__DOT__stf_preamble_adder_raw_data_valid) 
-           & (IData)(vlTOPp->TXSim__DOT__stf_preamble_adder_raw_data_ready));
     vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 0U;
     if (vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popping) {
         vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 1U;
     }
+    vlTOPp->TXSim__DOT__stf_preamble_adder__DOT__raw_data_fire 
+        = ((IData)(vlTOPp->TXSim__DOT__stf_preamble_adder_raw_data_valid) 
+           & (IData)(vlTOPp->TXSim__DOT__stf_preamble_adder_raw_data_ready));
+    vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_popping 
+        = ((IData)(vlTOPp->TXSim__DOT__streamFifo_13_io_pop_valid) 
+           & ((IData)(vlTOPp->TXSim__DOT__phy_tx_oversampling_raw_data_ready) 
+              & (~ ((IData)(vlTOPp->TXSim__DOT__pipeline_halt) 
+                    >> 7U))));
     vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 0U;
     if (vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popping) {
         vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 1U;
@@ -1041,10 +1048,6 @@ void VTXSim::_settle__TOP__24(VTXSim__Syms* __restrict vlSymsp) {
     vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_pushPtr_valueNext 
         = (0x1fU & ((IData)(vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_pushPtr_value) 
                     + (IData)(vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_pushPtr_willIncrement)));
-    vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_popPtr_willIncrement = 0U;
-    if (vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_popping) {
-        vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_popPtr_willIncrement = 1U;
-    }
     vlTOPp->TXSim__DOT__phy_tx_oversampling_result_data_valid 
         = ((IData)(vlTOPp->TXSim__DOT__phy_tx_oversampling_raw_data_valid) 
            | (0U != (IData)(vlTOPp->TXSim__DOT__phy_tx_oversampling__DOT__cnt)));
@@ -1063,8 +1066,8 @@ void VTXSim::_settle__TOP__24(VTXSim__Syms* __restrict vlSymsp) {
                      << 1U)) | (IData)(vlTOPp->TXSim__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_2));
 }
 
-void VTXSim::_settle__TOP__25(VTXSim__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_settle__TOP__25\n"); );
+void VTXSim::_settle__TOP__26(VTXSim__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_settle__TOP__26\n"); );
     VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->TXSim__DOT__phy_header_extender_result_data_queueWithAvailability__DOT___zz_1 = 0U;
@@ -1091,6 +1094,10 @@ void VTXSim::_settle__TOP__25(VTXSim__Syms* __restrict vlSymsp) {
     vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext 
         = (0x1fU & ((IData)(vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
                     + (IData)(vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
+    vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_popPtr_willIncrement = 0U;
+    if (vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_popping) {
+        vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_popPtr_willIncrement = 1U;
+    }
     vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext 
         = (0x1fU & ((IData)(vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
                     + (IData)(vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
@@ -1144,13 +1151,6 @@ void VTXSim::_settle__TOP__25(VTXSim__Syms* __restrict vlSymsp) {
     vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushing 
         = ((IData)(vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_valid) 
            & (~ (IData)(vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_full)));
-    vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_popPtr_valueNext 
-        = (0x1fU & ((IData)(vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_popPtr_value) 
-                    + (IData)(vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_popPtr_willIncrement)));
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__when_PhyTx_l217 
-        = (((IData)(vlTOPp->TXSim__DOT__phy_tx_oversampling_result_data_valid) 
-            & (~ (IData)(vlTOPp->TXSim__DOT__phy_tx_filter__DOT__last_padding))) 
-           & (IData)(vlTOPp->TXSim__DOT__phy_tx_oversampling_result_data_payload_last));
     vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid 
         = ((IData)(vlTOPp->TXSim__DOT__phy_tx_oversampling_result_data_valid) 
            | (IData)(vlTOPp->TXSim__DOT__phy_tx_filter__DOT__last_padding));
@@ -1179,6 +1179,9 @@ void VTXSim::_settle__TOP__25(VTXSim__Syms* __restrict vlSymsp) {
     if (vlTOPp->TXSim__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushing) {
         vlTOPp->TXSim__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 1U;
     }
+    vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_popPtr_valueNext 
+        = (0x1fU & ((IData)(vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_popPtr_value) 
+                    + (IData)(vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_popPtr_willIncrement)));
     vlTOPp->TXSim__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_pushPtr_valueNext 
         = (((0x85U == (IData)(vlTOPp->TXSim__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_pushPtr_value)) 
             & (IData)(vlTOPp->TXSim__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_pushPtr_willIncrement))
@@ -1339,8 +1342,8 @@ void VTXSim::_settle__TOP__25(VTXSim__Syms* __restrict vlSymsp) {
                                                                                 >> 0x1fU)))))))))))))))))))))));
 }
 
-void VTXSim::_settle__TOP__26(VTXSim__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_settle__TOP__26\n"); );
+void VTXSim::_settle__TOP__27(VTXSim__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_settle__TOP__27\n"); );
     VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->TXSim__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_7 
@@ -1535,8 +1538,8 @@ void VTXSim::_settle__TOP__26(VTXSim__Syms* __restrict vlSymsp) {
                      << 1U)) | (IData)(vlTOPp->TXSim__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_5));
 }
 
-void VTXSim::_settle__TOP__27(VTXSim__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_settle__TOP__27\n"); );
+void VTXSim::_settle__TOP__28(VTXSim__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_settle__TOP__28\n"); );
     VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->TXSim__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_6 
@@ -1628,12 +1631,12 @@ void VTXSim::_eval_settle(VTXSim__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_eval_settle\n"); );
     VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->_settle__TOP__21(vlSymsp);
-    vlTOPp->__Vm_traceActivity = (1U | vlTOPp->__Vm_traceActivity);
     vlTOPp->_settle__TOP__22(vlSymsp);
+    vlTOPp->__Vm_traceActivity = (1U | vlTOPp->__Vm_traceActivity);
     vlTOPp->_settle__TOP__23(vlSymsp);
     vlTOPp->_settle__TOP__24(vlSymsp);
     vlTOPp->_settle__TOP__25(vlSymsp);
     vlTOPp->_settle__TOP__26(vlSymsp);
     vlTOPp->_settle__TOP__27(vlSymsp);
+    vlTOPp->_settle__TOP__28(vlSymsp);
 }

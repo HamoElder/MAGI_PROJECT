@@ -93,6 +93,7 @@ VL_MODULE(VTXSim) {
         CData/*0:0*/ TXSim__DOT__phy_tx_oversampling_result_data_valid;
         CData/*0:0*/ TXSim__DOT__phy_tx_oversampling_result_data_payload_last;
         CData/*0:0*/ TXSim__DOT__streamFifo_13_io_pop_valid;
+        CData/*0:0*/ TXSim__DOT__phy_tx_filter_raw_data_ready;
         CData/*0:0*/ TXSim__DOT__stf_preamble_adder_raw_data_ready;
         CData/*0:0*/ TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability_io_pop_valid;
         CData/*0:0*/ TXSim__DOT__stf_preamble_adder_preamble_data_queueWithAvailability_io_pop_valid;
@@ -123,9 +124,9 @@ VL_MODULE(VTXSim) {
         CData/*0:0*/ TXSim__DOT__phy_tx_padder__DOT__when_PhyTx_l71;
         CData/*0:0*/ TXSim__DOT__stream_package_gen_pkg_data_fifo__DOT___zz_1;
         CData/*0:0*/ TXSim__DOT__stream_package_gen_pkg_data_fifo__DOT__logic_pushPtr_willIncrement;
-        CData/*0:0*/ TXSim__DOT__stream_package_gen_pkg_data_fifo__DOT__logic_popPtr_willIncrement;
     };
     struct {
+        CData/*0:0*/ TXSim__DOT__stream_package_gen_pkg_data_fifo__DOT__logic_popPtr_willIncrement;
         CData/*0:0*/ TXSim__DOT__stream_package_gen_pkg_data_fifo__DOT__logic_ptrMatch;
         CData/*0:0*/ TXSim__DOT__stream_package_gen_pkg_data_fifo__DOT__logic_risingOccupancy;
         CData/*0:0*/ TXSim__DOT__stream_package_gen_pkg_data_fifo__DOT__logic_pushing;
@@ -189,9 +190,9 @@ VL_MODULE(VTXSim) {
         CData/*4:0*/ TXSim__DOT__phy_tx_encoder_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext;
         CData/*4:0*/ TXSim__DOT__phy_tx_encoder_result_data_queueWithAvailability__DOT__logic_popPtr_value;
         CData/*0:0*/ TXSim__DOT__phy_tx_encoder_result_data_queueWithAvailability__DOT__logic_ptrMatch;
-        CData/*0:0*/ TXSim__DOT__phy_tx_encoder_result_data_queueWithAvailability__DOT__logic_risingOccupancy;
     };
     struct {
+        CData/*0:0*/ TXSim__DOT__phy_tx_encoder_result_data_queueWithAvailability__DOT__logic_risingOccupancy;
         CData/*0:0*/ TXSim__DOT__phy_tx_encoder_result_data_queueWithAvailability__DOT__logic_pushing;
         CData/*0:0*/ TXSim__DOT__phy_tx_encoder_result_data_queueWithAvailability__DOT__logic_popping;
         CData/*0:0*/ TXSim__DOT__phy_tx_encoder_result_data_queueWithAvailability__DOT__logic_full;
@@ -255,9 +256,9 @@ VL_MODULE(VTXSim) {
         CData/*0:0*/ TXSim__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_6;
         CData/*0:0*/ TXSim__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_7;
         CData/*0:0*/ TXSim__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_8;
-        CData/*0:0*/ TXSim__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_9;
     };
     struct {
+        CData/*0:0*/ TXSim__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_9;
         CData/*0:0*/ TXSim__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_10;
         CData/*0:0*/ TXSim__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_11;
         CData/*0:0*/ TXSim__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_12;
@@ -321,9 +322,9 @@ VL_MODULE(VTXSim) {
         CData/*0:0*/ TXSim__DOT__streamFifo_13__DOT__logic_pushPtr_willIncrement;
         CData/*4:0*/ TXSim__DOT__streamFifo_13__DOT__logic_pushPtr_valueNext;
         CData/*4:0*/ TXSim__DOT__streamFifo_13__DOT__logic_pushPtr_value;
-        CData/*0:0*/ TXSim__DOT__streamFifo_13__DOT__logic_popPtr_willIncrement;
     };
     struct {
+        CData/*0:0*/ TXSim__DOT__streamFifo_13__DOT__logic_popPtr_willIncrement;
         CData/*4:0*/ TXSim__DOT__streamFifo_13__DOT__logic_popPtr_valueNext;
         CData/*4:0*/ TXSim__DOT__streamFifo_13__DOT__logic_popPtr_value;
         CData/*0:0*/ TXSim__DOT__streamFifo_13__DOT__logic_ptrMatch;
@@ -334,7 +335,6 @@ VL_MODULE(VTXSim) {
         CData/*0:0*/ TXSim__DOT__streamFifo_13__DOT___zz_io_pop_valid;
         CData/*0:0*/ TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid;
         CData/*0:0*/ TXSim__DOT__phy_tx_filter__DOT__last_padding;
-        CData/*0:0*/ TXSim__DOT__phy_tx_filter__DOT__when_PhyTx_l217;
         CData/*0:0*/ TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_1;
         CData/*0:0*/ TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_2;
         CData/*0:0*/ TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_3;
@@ -395,12 +395,15 @@ VL_MODULE(VTXSim) {
         CData/*6:0*/ TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_30;
         CData/*6:0*/ TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_31;
         CData/*6:0*/ TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_32;
-        CData/*7:0*/ TXSim__DOT__stf_preamble_adder__DOT__cnt;
+        CData/*6:0*/ TXSim__DOT__stf_preamble_adder__DOT___zz_cnt;
+        CData/*6:0*/ TXSim__DOT__stf_preamble_adder__DOT__cnt;
+        CData/*2:0*/ TXSim__DOT__stf_preamble_adder__DOT__repeatCnt;
         CData/*0:0*/ TXSim__DOT__stf_preamble_adder__DOT__raw_ready;
         CData/*0:0*/ TXSim__DOT__stf_preamble_adder__DOT__preamble_valid;
         CData/*0:0*/ TXSim__DOT__stf_preamble_adder__DOT__preamble_last;
         CData/*1:0*/ TXSim__DOT__stf_preamble_adder__DOT__preamble_states;
-        CData/*0:0*/ TXSim__DOT__stf_preamble_adder__DOT__when_PreambleExtender_l72;
+        CData/*0:0*/ TXSim__DOT__stf_preamble_adder__DOT__when_PreambleExtender_l74;
+        CData/*0:0*/ TXSim__DOT__stf_preamble_adder__DOT__when_PreambleExtender_l76;
         CData/*0:0*/ TXSim__DOT__stf_preamble_adder__DOT__raw_data_fire;
         CData/*0:0*/ TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT___zz_1;
         CData/*0:0*/ TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement;
@@ -451,11 +454,11 @@ VL_MODULE(VTXSim) {
         CData/*0:0*/ TXSim__DOT__clkCrossing_8__DOT__area_clkO_buf0;
         CData/*0:0*/ TXSim__DOT__clkCrossing_8__DOT__area_clkO_buf1;
         CData/*3:0*/ TXSim__DOT__clkCrossing_9__DOT__area_clkI_reg;
+    };
+    struct {
         CData/*3:0*/ TXSim__DOT__clkCrossing_9__DOT__area_clkO_buf0;
         CData/*3:0*/ TXSim__DOT__clkCrossing_9__DOT__area_clkO_buf1;
         CData/*3:0*/ TXSim__DOT__clkCrossing_10__DOT__area_clkI_reg;
-    };
-    struct {
         CData/*3:0*/ TXSim__DOT__clkCrossing_10__DOT__area_clkO_buf0;
         CData/*3:0*/ TXSim__DOT__clkCrossing_10__DOT__area_clkO_buf1;
         CData/*1:0*/ TXSim__DOT__clkCrossing_11__DOT__area_clkI_reg;
@@ -517,11 +520,11 @@ VL_MODULE(VTXSim) {
         IData/*18:0*/ TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_78__DOT__previous_adder_data;
         IData/*18:0*/ TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_79__DOT__previous_adder_data;
         IData/*18:0*/ TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_80__DOT__previous_adder_data;
+    };
+    struct {
         IData/*18:0*/ TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_81__DOT__previous_adder_data;
         IData/*18:0*/ TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_82__DOT__previous_adder_data;
         IData/*18:0*/ TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_83__DOT__previous_adder_data;
-    };
-    struct {
         IData/*18:0*/ TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_84__DOT__previous_adder_data;
         IData/*18:0*/ TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_85__DOT__previous_adder_data;
         IData/*18:0*/ TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_86__DOT__previous_adder_data;
@@ -582,12 +585,12 @@ VL_MODULE(VTXSim) {
         IData/*16:0*/ TXSim__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_ram[32];
         IData/*16:0*/ TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_ram[32];
         IData/*24:0*/ TXSim__DOT__streamFifo_13__DOT__logic_ram[32];
-        SData/*11:0*/ TXSim__DOT__stf_preamble_adder__DOT__I_mem[128];
-        SData/*11:0*/ TXSim__DOT__stf_preamble_adder__DOT__Q_mem[128];
-        IData/*24:0*/ TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_ram[32];
-        IData/*24:0*/ TXSim__DOT__stf_preamble_adder_preamble_data_queueWithAvailability__DOT__logic_ram[32];
+        SData/*11:0*/ TXSim__DOT__stf_preamble_adder__DOT__I_mem[64];
     };
     struct {
+        SData/*11:0*/ TXSim__DOT__stf_preamble_adder__DOT__Q_mem[64];
+        IData/*24:0*/ TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_ram[32];
+        IData/*24:0*/ TXSim__DOT__stf_preamble_adder_preamble_data_queueWithAvailability__DOT__logic_ram[32];
         IData/*23:0*/ TXSim__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_ram[32];
     };
     
@@ -601,7 +604,8 @@ VL_MODULE(VTXSim) {
     CData/*1:0*/ __Vdly__TXSim__DOT__phy_tx_scrambler__DOT__scrambler_status;
     CData/*3:0*/ __Vdly__TXSim__DOT__mod_data_div__DOT__base_cnt;
     CData/*2:0*/ __Vdly__TXSim__DOT__phy_tx_oversampling__DOT__cnt;
-    CData/*7:0*/ __Vdly__TXSim__DOT__stf_preamble_adder__DOT__cnt;
+    CData/*6:0*/ __Vdly__TXSim__DOT__stf_preamble_adder__DOT__cnt;
+    CData/*2:0*/ __Vdly__TXSim__DOT__stf_preamble_adder__DOT__repeatCnt;
     CData/*1:0*/ __Vdly__TXSim__DOT__stf_preamble_adder__DOT__preamble_states;
     CData/*3:0*/ __Vdly__TXSim__DOT__stream_package_gen__DOT__strb_buf;
     CData/*0:0*/ __Vdlyvset__TXSim__DOT__stream_package_gen_pkg_data_fifo__DOT__logic_ram__v0;
@@ -682,8 +686,8 @@ VL_MODULE(VTXSim) {
     static QData _change_request(VTXSim__Syms* __restrict vlSymsp);
     static QData _change_request_1(VTXSim__Syms* __restrict vlSymsp);
   public:
-    static void _combo__TOP__30(VTXSim__Syms* __restrict vlSymsp);
-    static void _combo__TOP__33(VTXSim__Syms* __restrict vlSymsp);
+    static void _combo__TOP__31(VTXSim__Syms* __restrict vlSymsp);
+    static void _combo__TOP__34(VTXSim__Syms* __restrict vlSymsp);
   private:
     void _ctor_var_reset() VL_ATTR_COLD;
     void _ctor_var_reset_1() VL_ATTR_COLD;
@@ -708,37 +712,39 @@ VL_MODULE(VTXSim) {
     static void _sequent__TOP__18(VTXSim__Syms* __restrict vlSymsp);
     static void _sequent__TOP__19(VTXSim__Syms* __restrict vlSymsp);
     static void _sequent__TOP__20(VTXSim__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__28(VTXSim__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__21(VTXSim__Syms* __restrict vlSymsp);
     static void _sequent__TOP__29(VTXSim__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__31(VTXSim__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__30(VTXSim__Syms* __restrict vlSymsp);
     static void _sequent__TOP__32(VTXSim__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__33(VTXSim__Syms* __restrict vlSymsp);
     static void _sequent__TOP__4(VTXSim__Syms* __restrict vlSymsp);
     static void _sequent__TOP__5(VTXSim__Syms* __restrict vlSymsp);
     static void _sequent__TOP__6(VTXSim__Syms* __restrict vlSymsp);
-    static void _settle__TOP__21(VTXSim__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _settle__TOP__22(VTXSim__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _settle__TOP__23(VTXSim__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _settle__TOP__24(VTXSim__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _settle__TOP__25(VTXSim__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _settle__TOP__26(VTXSim__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _settle__TOP__27(VTXSim__Syms* __restrict vlSymsp) VL_ATTR_COLD;
+    static void _settle__TOP__28(VTXSim__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void traceChgThis(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__10(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void traceChgThis__12(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__11(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__13(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__14(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__15(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__16(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void traceChgThis__18(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__17(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__19(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__2(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__20(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__21(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void traceChgThis__23(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__22(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__24(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
-    static void traceChgThis__26(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__25(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__27(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__28(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
+    static void traceChgThis__29(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__3(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__4(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__5(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
@@ -746,10 +752,10 @@ VL_MODULE(VTXSim) {
     static void traceChgThis__9(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceFullThis(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
     static void traceFullThis__1(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
-    static void traceFullThis__11(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
-    static void traceFullThis__17(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
-    static void traceFullThis__22(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
-    static void traceFullThis__25(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
+    static void traceFullThis__12(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
+    static void traceFullThis__18(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
+    static void traceFullThis__23(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
+    static void traceFullThis__26(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
     static void traceFullThis__6(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
     static void traceFullThis__8(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;
     static void traceInitThis(VTXSim__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code) VL_ATTR_COLD;

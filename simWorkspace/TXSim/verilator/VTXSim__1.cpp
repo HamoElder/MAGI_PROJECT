@@ -9,6 +9,52 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__17(VTXSim__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_sequent__TOP__17\n"); );
     VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
+    if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_126__DOT__previous_adder_data = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_126__DOT__previous_adder_data 
+                = (0x7ffffU & (VL_MULS_III(19,19,19, 
+                                           (0x7ffffU 
+                                            & VL_EXTENDS_II(19,12, (IData)(vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_payload_1))), 
+                                           (0x7ffffU 
+                                            & VL_EXTENDS_II(19,7, (IData)(vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_26)))) 
+                               + vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_125__DOT__previous_adder_data));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_93__DOT__previous_adder_data = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_93__DOT__previous_adder_data 
+                = (0x7ffffU & (VL_MULS_III(19,19,19, 
+                                           (0x7ffffU 
+                                            & VL_EXTENDS_II(19,12, (IData)(vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_payload_0))), 
+                                           (0x7ffffU 
+                                            & VL_EXTENDS_II(19,7, (IData)(vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_26)))) 
+                               + vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_92__DOT__previous_adder_data));
+        }
+    }
+    vlTOPp->TXSim__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_pushPtr_valueNext 
+        = (((0x85U == (IData)(vlTOPp->TXSim__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_pushPtr_value)) 
+            & (IData)(vlTOPp->TXSim__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_pushPtr_willIncrement))
+            ? 0U : (0xffU & ((IData)(vlTOPp->TXSim__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_pushPtr_value) 
+                             + (IData)(vlTOPp->TXSim__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_pushPtr_willIncrement))));
+    vlTOPp->TXSim__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext 
+        = (0x1fU & ((IData)(vlTOPp->TXSim__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
+                    + (IData)(vlTOPp->TXSim__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement)));
+    vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT___zz_1 = 0U;
+    if (vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushing) {
+        vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT___zz_1 = 1U;
+    }
+    vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 0U;
+    if (vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushing) {
+        vlTOPp->TXSim__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 1U;
+    }
+    vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT___zz_1 = 0U;
+    if (vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushing) {
+        vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT___zz_1 = 1U;
+    }
     vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 0U;
     if (vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushing) {
         vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 1U;
@@ -30,6 +76,14 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__17(VTXSim__Syms* __restrict vlSymsp) {
         = ((0x80U & ((IData)(vlTOPp->TXSim__DOT__phy_tx_encoder__DOT__phy_tx_encoder_raw_data_payload_fragment) 
                      << 1U)) | (0x7fU & ((IData)(vlTOPp->TXSim__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_5) 
                                          >> 1U)));
+    if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_20 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_20 
+                = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_19;
+        }
+    }
     if (vlTOPp->reset) {
         vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_125__DOT__previous_adder_data = 0U;
     } else {
@@ -243,6 +297,14 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__18(VTXSim__Syms* __restrict vlSymsp) {
     VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_19 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_19 
+                = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_18;
+        }
+    }
+    if (vlTOPp->reset) {
         vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_124__DOT__previous_adder_data = 0U;
     } else {
         if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
@@ -266,6 +328,14 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__18(VTXSim__Syms* __restrict vlSymsp) {
                                            (0x7ffffU 
                                             & VL_EXTENDS_II(19,7, (IData)(vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_24)))) 
                                + vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_90__DOT__previous_adder_data));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_18 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_18 
+                = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_17;
         }
     }
     if (vlTOPp->reset) {
@@ -295,6 +365,14 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__18(VTXSim__Syms* __restrict vlSymsp) {
         }
     }
     if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_17 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_17 
+                = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_16;
+        }
+    }
+    if (vlTOPp->reset) {
         vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_122__DOT__previous_adder_data = 0U;
     } else {
         if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
@@ -318,6 +396,14 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__18(VTXSim__Syms* __restrict vlSymsp) {
                                            (0x7ffffU 
                                             & VL_EXTENDS_II(19,7, (IData)(vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_22)))) 
                                + vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_88__DOT__previous_adder_data));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_16 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_16 
+                = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_15;
         }
     }
     if (vlTOPp->reset) {
@@ -347,6 +433,14 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__18(VTXSim__Syms* __restrict vlSymsp) {
         }
     }
     if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_15 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_15 
+                = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_14;
+        }
+    }
+    if (vlTOPp->reset) {
         vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_120__DOT__previous_adder_data = 0U;
     } else {
         if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
@@ -370,6 +464,14 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__18(VTXSim__Syms* __restrict vlSymsp) {
                                            (0x7ffffU 
                                             & VL_EXTENDS_II(19,7, (IData)(vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_20)))) 
                                + vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_86__DOT__previous_adder_data));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_14 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_14 
+                = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_13;
         }
     }
     if (vlTOPp->reset) {
@@ -399,6 +501,14 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__18(VTXSim__Syms* __restrict vlSymsp) {
         }
     }
     if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_13 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_13 
+                = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_12;
+        }
+    }
+    if (vlTOPp->reset) {
         vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_118__DOT__previous_adder_data = 0U;
     } else {
         if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
@@ -425,6 +535,14 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__18(VTXSim__Syms* __restrict vlSymsp) {
         }
     }
     if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_12 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_12 
+                = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_11;
+        }
+    }
+    if (vlTOPp->reset) {
         vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_117__DOT__previous_adder_data = 0U;
     } else {
         if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
@@ -448,6 +566,20 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__18(VTXSim__Syms* __restrict vlSymsp) {
                                            (0x7ffffU 
                                             & VL_EXTENDS_II(19,7, (IData)(vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_17)))) 
                                + vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_83__DOT__previous_adder_data));
+        }
+    }
+}
+
+VL_INLINE_OPT void VTXSim::_sequent__TOP__19(VTXSim__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_sequent__TOP__19\n"); );
+    VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
+    if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_11 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_11 
+                = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_10;
         }
     }
     if (vlTOPp->reset) {
@@ -477,6 +609,14 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__18(VTXSim__Syms* __restrict vlSymsp) {
         }
     }
     if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_10 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_10 
+                = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_9;
+        }
+    }
+    if (vlTOPp->reset) {
         vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_115__DOT__previous_adder_data = 0U;
     } else {
         if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
@@ -500,6 +640,14 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__18(VTXSim__Syms* __restrict vlSymsp) {
                                            (0x7ffffU 
                                             & VL_EXTENDS_II(19,7, (IData)(vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_15)))) 
                                + vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_81__DOT__previous_adder_data));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_9 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_9 
+                = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_8;
         }
     }
     if (vlTOPp->reset) {
@@ -528,12 +676,14 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__18(VTXSim__Syms* __restrict vlSymsp) {
                                + vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_80__DOT__previous_adder_data));
         }
     }
-}
-
-VL_INLINE_OPT void VTXSim::_sequent__TOP__19(VTXSim__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_sequent__TOP__19\n"); );
-    VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
+    if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_8 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_8 
+                = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_7;
+        }
+    }
     if (vlTOPp->reset) {
         vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_113__DOT__previous_adder_data = 0U;
     } else {
@@ -558,6 +708,14 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__19(VTXSim__Syms* __restrict vlSymsp) {
                                            (0x7ffffU 
                                             & VL_EXTENDS_II(19,7, (IData)(vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_13)))) 
                                + vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_79__DOT__previous_adder_data));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_7 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_7 
+                = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_6;
         }
     }
     if (vlTOPp->reset) {
@@ -587,6 +745,14 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__19(VTXSim__Syms* __restrict vlSymsp) {
         }
     }
     if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_6 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_6 
+                = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_5;
+        }
+    }
+    if (vlTOPp->reset) {
         vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_111__DOT__previous_adder_data = 0U;
     } else {
         if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
@@ -610,6 +776,14 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__19(VTXSim__Syms* __restrict vlSymsp) {
                                            (0x7ffffU 
                                             & VL_EXTENDS_II(19,7, (IData)(vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_11)))) 
                                + vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_77__DOT__previous_adder_data));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_5 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_5 
+                = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_4;
         }
     }
     if (vlTOPp->reset) {
@@ -639,6 +813,14 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__19(VTXSim__Syms* __restrict vlSymsp) {
         }
     }
     if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_4 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_4 
+                = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_3;
+        }
+    }
+    if (vlTOPp->reset) {
         vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_109__DOT__previous_adder_data = 0U;
     } else {
         if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
@@ -662,6 +844,20 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__19(VTXSim__Syms* __restrict vlSymsp) {
                                            (0x7ffffU 
                                             & VL_EXTENDS_II(19,7, (IData)(vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_9)))) 
                                + vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_75__DOT__previous_adder_data));
+        }
+    }
+}
+
+VL_INLINE_OPT void VTXSim::_sequent__TOP__20(VTXSim__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_sequent__TOP__20\n"); );
+    VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
+    if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_3 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_3 
+                = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_2;
         }
     }
     if (vlTOPp->reset) {
@@ -691,6 +887,14 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__19(VTXSim__Syms* __restrict vlSymsp) {
         }
     }
     if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_2 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_2 
+                = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_1;
+        }
+    }
+    if (vlTOPp->reset) {
         vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_107__DOT__previous_adder_data = 0U;
     } else {
         if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
@@ -714,6 +918,14 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__19(VTXSim__Syms* __restrict vlSymsp) {
                                            (0x7ffffU 
                                             & VL_EXTENDS_II(19,7, (IData)(vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_7)))) 
                                + vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_73__DOT__previous_adder_data));
+        }
+    }
+    if (vlTOPp->reset) {
+        vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_1 = 0U;
+    } else {
+        if (vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) {
+            vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_1 
+                = vlTOPp->TXSim__DOT__phy_tx_oversampling_result_data_payload_last;
         }
     }
     if (vlTOPp->reset) {
@@ -742,6 +954,9 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__19(VTXSim__Syms* __restrict vlSymsp) {
                                + vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_72__DOT__previous_adder_data));
         }
     }
+    vlTOPp->TXSim__DOT__phy_tx_oversampling_result_data_payload_last 
+        = ((IData)(vlTOPp->TXSim__DOT__phy_tx_oversampling__DOT__raw_last) 
+           & (7U == (IData)(vlTOPp->TXSim__DOT__phy_tx_oversampling__DOT__cnt)));
     if (vlTOPp->reset) {
         vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_105__DOT__previous_adder_data = 0U;
     } else {
@@ -820,12 +1035,6 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__19(VTXSim__Syms* __restrict vlSymsp) {
                                + vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_69__DOT__previous_adder_data));
         }
     }
-}
-
-VL_INLINE_OPT void VTXSim::_sequent__TOP__20(VTXSim__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_sequent__TOP__20\n"); );
-    VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
     if (vlTOPp->reset) {
         vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_102__DOT__previous_adder_data = 0U;
     } else {
@@ -918,6 +1127,12 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__20(VTXSim__Syms* __restrict vlSymsp) {
             vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_66__DOT__previous_adder_data = 0U;
         }
     }
+}
+
+VL_INLINE_OPT void VTXSim::_sequent__TOP__21(VTXSim__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_sequent__TOP__21\n"); );
+    VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
     vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid 
         = ((IData)(vlTOPp->TXSim__DOT__phy_tx_oversampling_result_data_valid) 
            | (IData)(vlTOPp->TXSim__DOT__phy_tx_filter__DOT__last_padding));
@@ -937,8 +1152,8 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__20(VTXSim__Syms* __restrict vlSymsp) {
                     + (IData)(vlTOPp->TXSim__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement)));
 }
 
-VL_INLINE_OPT void VTXSim::_sequent__TOP__28(VTXSim__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_sequent__TOP__28\n"); );
+VL_INLINE_OPT void VTXSim::_sequent__TOP__29(VTXSim__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_sequent__TOP__29\n"); );
     VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->TXSim__DOT__phy_tx_encoder_result_data_queueWithAvailability__DOT___zz_logic_ram_port0 
@@ -961,8 +1176,6 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__28(VTXSim__Syms* __restrict vlSymsp) {
     vlTOPp->TXSim__DOT__clkCrossing_11__DOT__area_clkO_buf1 
         = vlTOPp->TXSim__DOT__clkCrossing_11__DOT__area_clkO_buf0;
     vlTOPp->TXSim__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_31 = 1U;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_25 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_24;
     vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT___zz_logic_ram_port0 
         = vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_ram
         [vlTOPp->TXSim__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext];
@@ -1043,14 +1256,12 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__28(VTXSim__Syms* __restrict vlSymsp) {
     }
 }
 
-VL_INLINE_OPT void VTXSim::_sequent__TOP__29(VTXSim__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_sequent__TOP__29\n"); );
+VL_INLINE_OPT void VTXSim::_sequent__TOP__30(VTXSim__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_sequent__TOP__30\n"); );
     VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->TXSim__DOT__clkCrossing_11__DOT__area_clkO_buf0 
         = vlTOPp->TXSim__DOT__clkCrossing_11__DOT__area_clkI_reg;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_24 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_23;
     vlTOPp->TXSim__DOT__clkCrossing_9__DOT__area_clkO_buf0 
         = vlTOPp->TXSim__DOT__clkCrossing_9__DOT__area_clkI_reg;
     vlTOPp->TXSim__DOT__clkCrossing_10__DOT__area_clkO_buf0 
@@ -1059,62 +1270,16 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__29(VTXSim__Syms* __restrict vlSymsp) {
         = vlTOPp->TXSim__DOT__clkCrossing_8__DOT__area_clkI_reg;
     vlTOPp->TXSim__DOT__clkCrossing_11__DOT__area_clkI_reg 
         = vlTOPp->TXSim__DOT__mod_rtl_bridge_select_driver;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_23 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_22;
     vlTOPp->TXSim__DOT__clkCrossing_9__DOT__area_clkI_reg 
         = vlTOPp->TXSim__DOT__data_div_bridge_cnt_step_driver;
     vlTOPp->TXSim__DOT__clkCrossing_10__DOT__area_clkI_reg 
         = vlTOPp->TXSim__DOT__data_div_bridge_cnt_limit_driver;
     vlTOPp->TXSim__DOT__clkCrossing_8__DOT__area_clkI_reg 
         = vlTOPp->TXSim__DOT__data_div_bridge_enable_driver;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_22 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_21;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_21 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_20;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_20 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_19;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_19 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_18;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_18 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_17;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_17 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_16;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_16 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_15;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_15 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_14;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_14 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_13;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_13 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_12;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_12 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_11;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_11 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_10;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_10 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_9;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_9 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_8;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_8 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_7;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_7 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_6;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_6 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_5;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_5 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_4;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_4 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_3;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_3 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_2;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_2 
-        = vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_1;
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_1 
-        = vlTOPp->TXSim__DOT__phy_tx_oversampling_result_data_payload_last;
 }
 
-VL_INLINE_OPT void VTXSim::_combo__TOP__30(VTXSim__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_combo__TOP__30\n"); );
+VL_INLINE_OPT void VTXSim::_combo__TOP__31(VTXSim__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_combo__TOP__31\n"); );
     VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->TXSim__DOT__writeJoinEvent_valid = ((IData)(vlTOPp->axil4Ctrl_awvalid) 
@@ -1142,8 +1307,8 @@ VL_INLINE_OPT void VTXSim::_combo__TOP__30(VTXSim__Syms* __restrict vlSymsp) {
                     + (IData)(vlTOPp->TXSim__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
 }
 
-VL_INLINE_OPT void VTXSim::_sequent__TOP__31(VTXSim__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_sequent__TOP__31\n"); );
+VL_INLINE_OPT void VTXSim::_sequent__TOP__32(VTXSim__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_sequent__TOP__32\n"); );
     VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->TXSim__DOT__phy_tx_encoder_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext 
@@ -1304,9 +1469,6 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__31(VTXSim__Syms* __restrict vlSymsp) {
         = (((IData)(vlTOPp->TXSim__DOT__clkCrossing_10__DOT__area_clkO_buf1) 
             == (IData)(vlTOPp->TXSim__DOT__mod_data_div__DOT__base_cnt)) 
            & (IData)(vlTOPp->TXSim__DOT__clkCrossing_8__DOT__area_clkO_buf1));
-    vlTOPp->TXSim__DOT__phy_tx_oversampling_result_data_payload_last 
-        = ((IData)(vlTOPp->TXSim__DOT__phy_tx_oversampling__DOT__raw_last) 
-           & (7U == (IData)(vlTOPp->TXSim__DOT__phy_tx_oversampling__DOT__cnt)));
     vlTOPp->TXSim__DOT__streamFifo_13__DOT___zz_1 = 0U;
     if (vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_pushing) {
         vlTOPp->TXSim__DOT__streamFifo_13__DOT___zz_1 = 1U;
@@ -1391,19 +1553,15 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__31(VTXSim__Syms* __restrict vlSymsp) {
             }
         }
     }
-}
-
-VL_INLINE_OPT void VTXSim::_sequent__TOP__32(VTXSim__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_sequent__TOP__32\n"); );
-    VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
-    vlTOPp->TXSim__DOT__phy_tx_filter__DOT__when_PhyTx_l217 
-        = (((IData)(vlTOPp->TXSim__DOT__phy_tx_oversampling_result_data_valid) 
-            & (~ (IData)(vlTOPp->TXSim__DOT__phy_tx_filter__DOT__last_padding))) 
-           & (IData)(vlTOPp->TXSim__DOT__phy_tx_oversampling_result_data_payload_last));
     vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_pushPtr_valueNext 
         = (0x1fU & ((IData)(vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_pushPtr_value) 
                     + (IData)(vlTOPp->TXSim__DOT__streamFifo_13__DOT__logic_pushPtr_willIncrement)));
+}
+
+VL_INLINE_OPT void VTXSim::_sequent__TOP__33(VTXSim__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_sequent__TOP__33\n"); );
+    VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
     vlTOPp->TXSim__DOT__phy_tx_crc__DOT__crc_1__DOT__state_3 
         = ((vlTOPp->TXSim__DOT__phy_tx_crc__DOT__crc_1__DOT__state_2 
             << 1U) ^ ((1U & (((IData)(vlTOPp->TXSim__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
@@ -1570,8 +1728,8 @@ VL_INLINE_OPT void VTXSim::_sequent__TOP__32(VTXSim__Syms* __restrict vlSymsp) {
                                                                                 >> 0x1fU)))))))))))))))))))))));
 }
 
-VL_INLINE_OPT void VTXSim::_combo__TOP__33(VTXSim__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_combo__TOP__33\n"); );
+VL_INLINE_OPT void VTXSim::_combo__TOP__34(VTXSim__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTXSim::_combo__TOP__34\n"); );
     VTXSim* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->TXSim__DOT__writeJoinEvent_fire = ((IData)(vlTOPp->TXSim__DOT__writeJoinEvent_valid) 
@@ -1604,21 +1762,22 @@ void VTXSim::_eval(VTXSim__Syms* __restrict vlSymsp) {
         vlTOPp->_sequent__TOP__18(vlSymsp);
         vlTOPp->_sequent__TOP__19(vlSymsp);
         vlTOPp->_sequent__TOP__20(vlSymsp);
+        vlTOPp->_sequent__TOP__21(vlSymsp);
     }
     if (((IData)(vlTOPp->clk) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk)))) {
-        vlTOPp->_sequent__TOP__28(vlSymsp);
-        vlTOPp->__Vm_traceActivity = (8U | vlTOPp->__Vm_traceActivity);
         vlTOPp->_sequent__TOP__29(vlSymsp);
+        vlTOPp->__Vm_traceActivity = (8U | vlTOPp->__Vm_traceActivity);
+        vlTOPp->_sequent__TOP__30(vlSymsp);
     }
-    vlTOPp->_combo__TOP__30(vlSymsp);
+    vlTOPp->_combo__TOP__31(vlSymsp);
     vlTOPp->__Vm_traceActivity = (0x10U | vlTOPp->__Vm_traceActivity);
     if ((((IData)(vlTOPp->clk) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk))) 
          | ((IData)(vlTOPp->reset) & (~ (IData)(vlTOPp->__Vclklast__TOP__reset))))) {
-        vlTOPp->_sequent__TOP__31(vlSymsp);
-        vlTOPp->__Vm_traceActivity = (0x20U | vlTOPp->__Vm_traceActivity);
         vlTOPp->_sequent__TOP__32(vlSymsp);
+        vlTOPp->__Vm_traceActivity = (0x20U | vlTOPp->__Vm_traceActivity);
+        vlTOPp->_sequent__TOP__33(vlSymsp);
     }
-    vlTOPp->_combo__TOP__33(vlSymsp);
+    vlTOPp->_combo__TOP__34(vlSymsp);
     // Final
     vlTOPp->__Vclklast__TOP__clk = vlTOPp->clk;
     vlTOPp->__Vclklast__TOP__reset = vlTOPp->reset;

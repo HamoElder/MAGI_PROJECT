@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : RFBenchTop
-// Git hash  : b03532a3540adade55d3760a0a41dab3f5658c6b
+// Git hash  : f2de38abf7571057636a8c0dcb31a9f8ff374112
 
 
 `define PhyTxHeaderStatus_binary_sequential_type [1:0]
@@ -2097,23 +2097,23 @@ module PreambleExtender (
   reg        [11:0]   _zz_I_mem_port1;
   reg        [11:0]   _zz_Q_mem_port0;
   reg        [11:0]   _zz_Q_mem_port1;
-  wire       [6:0]    _zz_I_mem_port;
+  wire       [8:0]    _zz_I_mem_port;
   wire                _zz_I_mem_port_1;
-  wire       [6:0]    _zz_Q_mem_port;
+  wire       [8:0]    _zz_Q_mem_port;
   wire                _zz_Q_mem_port_1;
-  wire       [6:0]    _zz_I_mem_port_2;
+  wire       [8:0]    _zz_I_mem_port_2;
   wire                _zz_I_mem_port_3;
-  wire       [6:0]    _zz_Q_mem_port_2;
+  wire       [8:0]    _zz_Q_mem_port_2;
   wire                _zz_Q_mem_port_3;
-  wire       [6:0]    _zz_preamble_data_i_2;
+  wire       [8:0]    _zz_preamble_data_i_2;
   wire                _zz_preamble_data_i_3;
-  wire       [6:0]    _zz_preamble_data_q_2;
+  wire       [8:0]    _zz_preamble_data_q_2;
   wire                _zz_preamble_data_q_3;
-  wire       [6:0]    _zz_preamble_data_i_4;
+  wire       [8:0]    _zz_preamble_data_i_4;
   wire                _zz_preamble_data_i_5;
-  wire       [6:0]    _zz_preamble_data_q_4;
+  wire       [8:0]    _zz_preamble_data_q_4;
   wire                _zz_preamble_data_q_5;
-  reg        [7:0]    cnt;
+  reg        [9:0]    cnt;
   reg                 raw_ready;
   reg        [11:0]   preamble_data_i;
   reg        [11:0]   preamble_data_q;
@@ -2121,10 +2121,10 @@ module PreambleExtender (
   reg                 preamble_last;
   reg        `PreambleExtenderStates_binary_sequential_type preamble_states;
   wire                when_PreambleExtender_l58;
-  wire       [7:0]    _zz_preamble_data_i;
-  wire       [7:0]    _zz_preamble_data_q;
-  wire       [7:0]    _zz_preamble_data_i_1;
-  wire       [7:0]    _zz_preamble_data_q_1;
+  wire       [9:0]    _zz_preamble_data_i;
+  wire       [9:0]    _zz_preamble_data_q;
+  wire       [9:0]    _zz_preamble_data_i_1;
+  wire       [9:0]    _zz_preamble_data_q_1;
   wire                when_PreambleExtender_l72;
   wire                raw_data_fire;
   wire                raw_data_fire_1;
@@ -2133,13 +2133,13 @@ module PreambleExtender (
   reg [63:0] preamble_states_string;
   `endif
 
-  (* rom_style = "block" *) reg [11:0] I_mem [0:127];
-  (* rom_style = "block" *) reg [11:0] Q_mem [0:127];
+  (* rom_style = "block" *) reg [11:0] I_mem [0:511];
+  (* rom_style = "block" *) reg [11:0] Q_mem [0:511];
 
-  assign _zz_preamble_data_i_2 = _zz_preamble_data_i[6:0];
-  assign _zz_preamble_data_q_2 = _zz_preamble_data_q[6:0];
-  assign _zz_preamble_data_i_4 = _zz_preamble_data_i_1[6:0];
-  assign _zz_preamble_data_q_4 = _zz_preamble_data_q_1[6:0];
+  assign _zz_preamble_data_i_2 = _zz_preamble_data_i[8:0];
+  assign _zz_preamble_data_q_2 = _zz_preamble_data_q[8:0];
+  assign _zz_preamble_data_i_4 = _zz_preamble_data_i_1[8:0];
+  assign _zz_preamble_data_q_4 = _zz_preamble_data_q_1[8:0];
   assign _zz_preamble_data_i_3 = 1'b1;
   assign _zz_preamble_data_i_5 = 1'b1;
   assign _zz_preamble_data_q_3 = 1'b1;
@@ -2190,7 +2190,7 @@ module PreambleExtender (
   assign _zz_preamble_data_q = cnt;
   assign _zz_preamble_data_i_1 = cnt;
   assign _zz_preamble_data_q_1 = cnt;
-  assign when_PreambleExtender_l72 = (8'h80 <= cnt);
+  assign when_PreambleExtender_l72 = (10'h200 <= cnt);
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
   assign raw_data_fire_1 = (raw_data_valid && raw_data_ready);
   assign when_PreambleExtender_l86 = (raw_data_fire_1 && raw_data_payload_last);
@@ -2201,7 +2201,7 @@ module PreambleExtender (
   assign preamble_data_payload_last = preamble_last;
   always @(posedge O) begin
     if(!resetn) begin
-      cnt <= 8'h0;
+      cnt <= 10'h0;
       raw_ready <= 1'b0;
       preamble_valid <= 1'b0;
       preamble_last <= 1'b0;
@@ -2209,18 +2209,18 @@ module PreambleExtender (
     end else begin
       case(preamble_states)
         `PreambleExtenderStates_binary_sequential_IDLE : begin
-          cnt <= 8'h0;
+          cnt <= 10'h0;
           raw_ready <= 1'b0;
           preamble_valid <= 1'b0;
           preamble_last <= 1'b0;
           if(when_PreambleExtender_l58) begin
-            cnt <= (cnt + 8'h01);
+            cnt <= (cnt + 10'h001);
             preamble_states <= `PreambleExtenderStates_binary_sequential_PREAMBLE;
           end
         end
         `PreambleExtenderStates_binary_sequential_PREAMBLE : begin
           if(preamble_data_ready) begin
-            cnt <= (cnt + 8'h01);
+            cnt <= (cnt + 10'h001);
           end
           preamble_valid <= 1'b1;
           if(when_PreambleExtender_l72) begin
@@ -2240,7 +2240,7 @@ module PreambleExtender (
           end else begin
             preamble_last <= 1'b0;
           end
-          cnt <= 8'h0;
+          cnt <= 10'h0;
         end
       endcase
     end
@@ -2362,31 +2362,81 @@ module PhyTxFilter (
   end
 
   always @(posedge O) begin
-    raw_data_payload_last_delay_1 <= raw_data_payload_last;
-    raw_data_payload_last_delay_2 <= raw_data_payload_last_delay_1;
-    raw_data_payload_last_delay_3 <= raw_data_payload_last_delay_2;
-    raw_data_payload_last_delay_4 <= raw_data_payload_last_delay_3;
-    raw_data_payload_last_delay_5 <= raw_data_payload_last_delay_4;
-    raw_data_payload_last_delay_6 <= raw_data_payload_last_delay_5;
-    raw_data_payload_last_delay_7 <= raw_data_payload_last_delay_6;
-    raw_data_payload_last_delay_8 <= raw_data_payload_last_delay_7;
-    raw_data_payload_last_delay_9 <= raw_data_payload_last_delay_8;
-    raw_data_payload_last_delay_10 <= raw_data_payload_last_delay_9;
-    raw_data_payload_last_delay_11 <= raw_data_payload_last_delay_10;
-    raw_data_payload_last_delay_12 <= raw_data_payload_last_delay_11;
-    raw_data_payload_last_delay_13 <= raw_data_payload_last_delay_12;
-    raw_data_payload_last_delay_14 <= raw_data_payload_last_delay_13;
-    raw_data_payload_last_delay_15 <= raw_data_payload_last_delay_14;
-    raw_data_payload_last_delay_16 <= raw_data_payload_last_delay_15;
-    raw_data_payload_last_delay_17 <= raw_data_payload_last_delay_16;
-    raw_data_payload_last_delay_18 <= raw_data_payload_last_delay_17;
-    raw_data_payload_last_delay_19 <= raw_data_payload_last_delay_18;
-    raw_data_payload_last_delay_20 <= raw_data_payload_last_delay_19;
-    raw_data_payload_last_delay_21 <= raw_data_payload_last_delay_20;
-    raw_data_payload_last_delay_22 <= raw_data_payload_last_delay_21;
-    raw_data_payload_last_delay_23 <= raw_data_payload_last_delay_22;
-    raw_data_payload_last_delay_24 <= raw_data_payload_last_delay_23;
-    raw_data_payload_last_delay_25 <= raw_data_payload_last_delay_24;
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_1 <= raw_data_payload_last;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_2 <= raw_data_payload_last_delay_1;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_3 <= raw_data_payload_last_delay_2;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_4 <= raw_data_payload_last_delay_3;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_5 <= raw_data_payload_last_delay_4;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_6 <= raw_data_payload_last_delay_5;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_7 <= raw_data_payload_last_delay_6;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_8 <= raw_data_payload_last_delay_7;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_9 <= raw_data_payload_last_delay_8;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_10 <= raw_data_payload_last_delay_9;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_11 <= raw_data_payload_last_delay_10;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_12 <= raw_data_payload_last_delay_11;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_13 <= raw_data_payload_last_delay_12;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_14 <= raw_data_payload_last_delay_13;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_15 <= raw_data_payload_last_delay_14;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_16 <= raw_data_payload_last_delay_15;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_17 <= raw_data_payload_last_delay_16;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_18 <= raw_data_payload_last_delay_17;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_19 <= raw_data_payload_last_delay_18;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_20 <= raw_data_payload_last_delay_19;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_21 <= raw_data_payload_last_delay_20;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_22 <= raw_data_payload_last_delay_21;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_23 <= raw_data_payload_last_delay_22;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_24 <= raw_data_payload_last_delay_23;
+    end
+    if(fir_filter_iq_raw_data_valid) begin
+      raw_data_payload_last_delay_25 <= raw_data_payload_last_delay_24;
+    end
   end
 
 

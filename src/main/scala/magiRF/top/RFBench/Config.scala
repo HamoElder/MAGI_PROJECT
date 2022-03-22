@@ -96,13 +96,12 @@ object Config {
     def srrcConfig: SquareRootRaisedCosineFilterParams = SquareRootRaisedCosineFilterParams(128.0, 0.3, 4, oversampled_zeros)
     def srrcTaps: List[Int] = SquareRootRaisedCosineTaps(srrcConfig).toList
 
-    val stf32: Array[Complex] = zcSeqGen(3, 32)
-    val stf: Array[Complex] = (stf32 ++ stf32 ++ stf32 ++ stf32)
-
+    val stf64: Array[Complex] = zcSeqGen(3, 64)
+    val stf_repeat_times = 6
     //    val ltf32: Array[Complex] = zcSeqGen(5, 32)
     //    val ltf: Array[Complex] = (ltf32 ++ ltf32)
 
-    def stf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, stf, scale = 0.55)
+    def stf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, stf64, stf_repeat_times, scale = 0.55)
     //    def ltf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, ltf, scale = 0.6)
 
     def conv_encoder_config: ConvEncoderConfig = ConvEncoderConfig(phyDataWidth, 7, List(91, 121))
