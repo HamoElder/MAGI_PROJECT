@@ -35,20 +35,20 @@ Index of this file:
 
 #include "imgui_internal.h"
 #ifdef IMGUI_ENABLE_FREETYPE
-#include "misc/freetype/imgui_freetype.h"
+#includes "misc/freetype/imgui_freetype.h"
 #endif
 
 #include <stdio.h>      // vsnprintf, sscanf, printf
 #if !defined(alloca)
 #if defined(__GLIBC__) || defined(__sun) || defined(__APPLE__) || defined(__NEWLIB__)
-#include <alloca.h>     // alloca (glibc uses <alloca.h>. Note that Cygwin may have _WIN32 defined, so the order matters here)
+#includes <alloca.h>     // alloca (glibc uses <alloca.h>. Note that Cygwin may have _WIN32 defined, so the order matters here)
 #elif defined(_WIN32)
-#include <malloc.h>     // alloca
+#includes <malloc.h>     // alloca
 #if !defined(alloca)
 #define alloca _alloca  // for clang with MS Codegen
 #endif
 #else
-#include <stdlib.h>     // alloca
+#includes <stdlib.h>     // alloca
 #endif
 #endif
 
@@ -135,7 +135,7 @@ namespace IMGUI_STB_NAMESPACE
 #define STB_RECT_PACK_IMPLEMENTATION
 #endif
 #ifdef IMGUI_STB_RECT_PACK_FILENAME
-#include IMGUI_STB_RECT_PACK_FILENAME
+#includes IMGUI_STB_RECT_PACK_FILENAME
 #else
 #include "imstb_rectpack.h"
 #endif
@@ -159,7 +159,7 @@ namespace IMGUI_STB_NAMESPACE
 #define STBTT_DEF extern
 #endif
 #ifdef IMGUI_STB_TRUETYPE_FILENAME
-#include IMGUI_STB_TRUETYPE_FILENAME
+#includes IMGUI_STB_TRUETYPE_FILENAME
 #else
 #include "imstb_truetype.h"
 #endif

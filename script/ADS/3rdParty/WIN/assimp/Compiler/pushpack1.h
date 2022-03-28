@@ -2,7 +2,7 @@
 
 // ===============================================================================
 // May be included multiple times - sets structure packing to 1 
-// for all supported compilers. #include <poppack1.h> reverts the changes.
+// for all supported compilers. #includes <poppack1.h> reverts the changes.
 //
 // Currently this works on the following compilers:
 // MSVC 7,8,9

@@ -27,7 +27,7 @@ extern "C" {
 
 #include <DeckLinkAPI.h>
 #ifdef _WIN32
-#include <DeckLinkAPI_i.c>
+#includes <DeckLinkAPI_i.c>
 #else
 /* The file provided by the SDK is known to be missing prototypes, which doesn't
    cause issues with GCC since the warning doesn't apply to C++ files.  However

@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_CHECK_C
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 
-# The include file search paths:
+# The includes file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH
   "configuration"
   "../include"

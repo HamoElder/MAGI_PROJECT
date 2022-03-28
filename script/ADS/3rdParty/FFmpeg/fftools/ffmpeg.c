@@ -34,10 +34,10 @@
 #include <stdint.h>
 
 #if HAVE_IO_H
-#include <io.h>
+#includes <io.h>
 #endif
 #if HAVE_UNISTD_H
-#include <unistd.h>
+#includes <unistd.h>
 #endif
 
 #include "libavformat/avformat.h"
@@ -71,32 +71,32 @@
 # include "libavfilter/buffersink.h"
 
 #if HAVE_SYS_RESOURCE_H
-#include <sys/time.h>
-#include <sys/types.h>
-#include <sys/resource.h>
+#includes <sys/time.h>
+#includes <sys/types.h>
+#includes <sys/resource.h>
 #elif HAVE_GETPROCESSTIMES
-#include <windows.h>
+#includes <windows.h>
 #endif
 #if HAVE_GETPROCESSMEMORYINFO
-#include <windows.h>
-#include <psapi.h>
+#includes <windows.h>
+#includes <psapi.h>
 #endif
 #if HAVE_SETCONSOLECTRLHANDLER
-#include <windows.h>
+#includes <windows.h>
 #endif
 
 
 #if HAVE_SYS_SELECT_H
-#include <sys/select.h>
+#includes <sys/select.h>
 #endif
 
 #if HAVE_TERMIOS_H
-#include <fcntl.h>
-#include <sys/ioctl.h>
-#include <sys/time.h>
-#include <termios.h>
+#includes <fcntl.h>
+#includes <sys/ioctl.h>
+#includes <sys/time.h>
+#includes <termios.h>
 #elif HAVE_KBHIT
-#include <conio.h>
+#includes <conio.h>
 #endif
 
 #include <time.h>

@@ -38,7 +38,7 @@
 #include "imgui.h"
 #include "imgui_impl_opengl2.h"
 #if defined(_MSC_VER) && _MSC_VER <= 1500 // MSVC 2008 or earlier
-#include <stddef.h>     // intptr_t
+#includes <stddef.h>     // intptr_t
 #else
 #include <stdint.h>     // intptr_t
 #endif
@@ -52,7 +52,7 @@
 #endif
 #if defined(__APPLE__)
 #define GL_SILENCE_DEPRECATION
-#include <OpenGL/gl.h>
+#includes <OpenGL/gl.h>
 #else
 #include <GL/gl.h>
 #endif

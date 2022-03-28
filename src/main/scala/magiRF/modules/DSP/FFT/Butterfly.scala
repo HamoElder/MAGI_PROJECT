@@ -304,10 +304,3 @@ object Switch{
     (switcher.io.out1, switcher.io.out2, switcher.io.out3, switcher.io.out4)
   }
 }
-
-object ButterflyBench{
-  def main(args: Array[String]): Unit ={
-    SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
-      targetDirectory = "rtl").generateSystemVerilog(new R2Butterfly(SFix(8 exp , -2 exp))).printPruned().printUnused()
-  }
-}

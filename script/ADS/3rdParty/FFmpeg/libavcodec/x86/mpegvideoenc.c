@@ -48,7 +48,7 @@ DECLARE_ALIGNED(16, static const uint16_t, inv_zigzag_direct16)[64] = {
 #define COMPILE_TEMPLATE_SSSE3  0
 #define RENAME(a)      a ## _mmx
 #define RENAME_FDCT(a) a ## _mmx
-#include "mpegvideoenc_template.c"
+#includes "mpegvideoenc_template.c"
 #endif /* HAVE_MMX_INLINE */
 
 #if HAVE_MMXEXT_INLINE
@@ -62,7 +62,7 @@ DECLARE_ALIGNED(16, static const uint16_t, inv_zigzag_direct16)[64] = {
 #undef RENAME_FDCT
 #define RENAME(a)      a ## _mmxext
 #define RENAME_FDCT(a) a ## _mmxext
-#include "mpegvideoenc_template.c"
+#includes "mpegvideoenc_template.c"
 #endif /* HAVE_MMXEXT_INLINE */
 
 #if HAVE_SSE2_INLINE
@@ -76,7 +76,7 @@ DECLARE_ALIGNED(16, static const uint16_t, inv_zigzag_direct16)[64] = {
 #undef RENAME_FDCT
 #define RENAME(a)      a ## _sse2
 #define RENAME_FDCT(a) a ## _sse2
-#include "mpegvideoenc_template.c"
+#includes "mpegvideoenc_template.c"
 #endif /* HAVE_SSE2_INLINE */
 
 #if HAVE_SSSE3_INLINE
@@ -90,7 +90,7 @@ DECLARE_ALIGNED(16, static const uint16_t, inv_zigzag_direct16)[64] = {
 #undef RENAME_FDCT
 #define RENAME(a)      a ## _ssse3
 #define RENAME_FDCT(a) a ## _sse2
-#include "mpegvideoenc_template.c"
+#includes "mpegvideoenc_template.c"
 #endif /* HAVE_SSSE3_INLINE */
 
 #endif /* HAVE_6REGS */

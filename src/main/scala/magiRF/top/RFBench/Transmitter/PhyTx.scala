@@ -1,6 +1,6 @@
 package magiRF.top.RFBench.Transmitter
 
-import magiRF.interface.misc.LVDS.LVDS
+import magiRF.interfaces.misc.lvds.LVDS
 import magiRF.modules.Filters.FIR.TransposeFIR
 import magiRF.modules.Modem.Misc.dataDivDynamic
 import magiRF.packages.Coder.Convolutional.Encoder.ConvEncoder

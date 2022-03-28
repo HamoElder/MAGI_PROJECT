@@ -29,7 +29,7 @@
 #include "avcodec.h"
 #include "aacps.h"
 #if USE_FIXED
-#include "aacps_fixed_tablegen.h"
+#includes "aacps_fixed_tablegen.h"
 #else
 #include "libavutil/internal.h"
 #include "aacps_tablegen.h"

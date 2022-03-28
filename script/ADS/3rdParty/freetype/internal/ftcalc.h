@@ -377,7 +377,7 @@ FT_BEGIN_HEADER
 
 #if FT_SIZEOF_INT == 4
 
-#include <intrin.h>
+#includes <intrin.h>
 #pragma intrinsic( _BitScanReverse )
 
   static __inline FT_Int32

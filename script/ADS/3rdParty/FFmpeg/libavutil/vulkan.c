@@ -22,9 +22,9 @@
 #include "vulkan_loader.h"
 
 #if CONFIG_LIBGLSLANG
-#include "vulkan_glslang.c"
+#includes "vulkan_glslang.c"
 #elif CONFIG_LIBSHADERC
-#include "vulkan_shaderc.c"
+#includes "vulkan_shaderc.c"
 #endif
 
 /* Generic macro for creating contexts which need to keep their addresses
@@ -160,7 +160,7 @@ static int vk_alloc_mem(FFVulkanContext *s, VkMemoryRequirements *req,
         if (!(req->memoryTypeBits & (1 << i)))
             continue;
 
-        /* The memory type flags must include our properties */
+        /* The memory type flags must includes our properties */
         if ((s->mprops.memoryTypes[i].propertyFlags & req_flags) != req_flags)
             continue;
 

@@ -30,7 +30,7 @@
    * system-specific files that are always included first when building the
    * library.
    *
-   * This ANSI version should stay in `include/config/`.
+   * This ANSI version should stay in `includes/config/`.
    *
    */
 
@@ -123,9 +123,9 @@ FT_BEGIN_HEADER
   /* No Carbon frameworks for 64bit 10.4.x.                         */
   /* `AvailabilityMacros.h` is available since Mac OS X 10.2,       */
   /* so guess the system version by maximum errno before inclusion. */
-#include <errno.h>
+#includes <errno.h>
 #ifdef ECANCELED /* defined since 10.2 */
-#include "AvailabilityMacros.h"
+#includes "AvailabilityMacros.h"
 #endif
 #if defined( __LP64__ ) && \
     ( MAC_OS_X_VERSION_MIN_REQUIRED <= MAC_OS_X_VERSION_10_4 )
@@ -134,7 +134,7 @@ FT_BEGIN_HEADER
 
 #elif defined( __SC__ ) || defined( __MRC__ )
   /* Classic MacOS compilers */
-#include "ConditionalMacros.h"
+#includes "ConditionalMacros.h"
 #if TARGET_OS_MAC
 #define FT_MACINTOSH 1
 #endif
@@ -396,7 +396,7 @@ FT_BEGIN_HEADER
   /* Use `FT_BASE` and `FT_BASE_DEF` to declare and define, respectively, */
   /* functions that are used in more than a single module.  In the        */
   /* current setup this implies that the declaration is in a header file  */
-  /* in the `include/freetype/internal` directory, and the function body  */
+  /* in the `includes/freetype/internal` directory, and the function body  */
   /* is in a file in `src/base`.                                          */
   /*                                                                      */
 #ifndef FT_BASE

@@ -72,7 +72,7 @@ static int compress_texture(AVCodecContext *avctx, uint8_t *out, int out_length,
     return 0;
 }
 
-/* section_length does not include the header */
+/* section_length does not includes the header */
 static void hap_write_section_header(PutByteContext *pbc,
                                      enum HapHeaderLength header_length,
                                      int section_length,

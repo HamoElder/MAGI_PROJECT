@@ -39,7 +39,7 @@ FT_BEGIN_HEADER
    *
    * - You can put a copy of this file in your build directory, more
    *   precisely in `$BUILD/freetype/config/ftoption.h`, where `$BUILD` is
-   *   the name of a directory that is included _before_ the FreeType include
+   *   the name of a directory that is included _before_ the FreeType includes
    *   path during compilation.
    *
    *   The default FreeType Makefiles and Jamfiles use the build directory
@@ -52,7 +52,7 @@ FT_BEGIN_HEADER
    *
    *   ```
    *     #define FT_CONFIG_OPTIONS_H  <myftoptions.h>
-   *     #include <freetype/config/ftheader.h>
+   *     #includes <freetype/config/ftheader.h>
    *   ```
    *
    *   will use `$BUILD/myftoptions.h` instead of this file for macro
@@ -369,7 +369,7 @@ FT_BEGIN_HEADER
    *
    *   Enable extra Mac fonts support on non-Mac platforms (e.g., GNU/Linux).
    *
-   *   Resource forks which include fonts data are stored sometimes in
+   *   Resource forks which includes fonts data are stored sometimes in
    *   locations which users or developers don't expected.  In some cases,
    *   resource forks start with some offset from the head of a file.  In
    *   other cases, the actual resource fork is stored in file different from
@@ -699,7 +699,7 @@ FT_BEGIN_HEADER
 
   /**************************************************************************
    *
-   * Define `TT_CONFIG_OPTION_GX_VAR_SUPPORT` if you want to include support
+   * Define `TT_CONFIG_OPTION_GX_VAR_SUPPORT` if you want to includes support
    * for Apple's distortable font technology ('fvar', 'gvar', 'cvar', and
    * 'avar' tables).  Tagged 'Font Variations', this is now part of OpenType
    * also.  This has many similarities to Type~1 Multiple Masters support.
@@ -709,7 +709,7 @@ FT_BEGIN_HEADER
 
   /**************************************************************************
    *
-   * Define `TT_CONFIG_OPTION_BDF` if you want to include support for an
+   * Define `TT_CONFIG_OPTION_BDF` if you want to includes support for an
    * embedded 'BDF~' table within SFNT-based bitmap formats.
    */
 #define TT_CONFIG_OPTION_BDF

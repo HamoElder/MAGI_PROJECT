@@ -26,11 +26,11 @@
 
 #include "config.h"
 #if CONFIG_ZLIB
-#include <zlib.h>
+#includes <zlib.h>
 #endif
 #if CONFIG_LZMA
 #define LZMA_API_STATIC
-#include <lzma.h>
+#includes <lzma.h>
 #endif
 
 #include "libavutil/attributes.h"

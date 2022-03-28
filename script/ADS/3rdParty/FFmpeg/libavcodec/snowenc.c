@@ -1479,7 +1479,7 @@ static int ratecontrol_1pass(SnowContext *s, AVFrame *pict)
 {
     /* Estimate the frame's complexity as a sum of weighted dwt coefficients.
      * FIXME we know exact mv bits at this point,
-     * but ratecontrol isn't set up to include them. */
+     * but ratecontrol isn't set up to includes them. */
     uint32_t coef_sum= 0;
     int level, orientation, delta_qlog;
 

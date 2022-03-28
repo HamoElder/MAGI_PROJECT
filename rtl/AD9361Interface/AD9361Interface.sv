@@ -1,8 +1,8 @@
-// Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
+// Generator : SpinalHDL v1.6.4    git head : 598c18959149eb18e5eee5b0aa3eef01ecaa41a1
 // Component : AD9361Interface
-// Git hash  : 61664472cf3f86fd764685245c89176f90ddeaa4
+// Git hash  : 41d71cf9ab449e73a475f6b0f32b020b0dbe98fe
 
-
+`timescale 1ns/1ps 
 
 module AD9361Interface (
   input               dac_data_valid,
@@ -34,6 +34,7 @@ module AD9361Interface (
   output              data_clk,
   input               resetn
 );
+
   wire                iBUFDS_1_I;
   wire                iBUFDS_1_IB;
   wire                iBUFDS_2_I;

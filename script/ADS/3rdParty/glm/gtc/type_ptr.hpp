@@ -19,8 +19,8 @@
 ///
 /// Example:
 /// @code
-/// #include <glm/glm.hpp>
-/// #include <glm/gtc/type_ptr.hpp>
+/// #includes <glm/glm.hpp>
+/// #includes <glm/gtc/type_ptr.hpp>
 ///
 /// glm::vec3 aVector(3);
 /// glm::mat4 someMatrix(1.0);

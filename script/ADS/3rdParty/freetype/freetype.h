@@ -22,10 +22,10 @@
 
 #ifndef FT_FREETYPE_H
 #error "`ft2build.h' hasn't been included yet!"
-#error "Please always use macros to include FreeType header files."
+#error "Please always use macros to includes FreeType header files."
 #error "Example:"
-#error "  #include <ft2build.h>"
-#error "  #include FT_FREETYPE_H"
+#error "  #includes <ft2build.h>"
+#error "  #includes FT_FREETYPE_H"
 #endif
 
 
@@ -48,20 +48,20 @@ FT_BEGIN_HEADER
    *   FreeType's header inclusion scheme
    *
    * @abstract:
-   *   How client applications should include FreeType header files.
+   *   How client applications should includes FreeType header files.
    *
    * @description:
    *   To be as flexible as possible (and for historical reasons), FreeType
    *   uses a very special inclusion scheme to load header files, for example
    *
    *   ```
-   *     #include <ft2build.h>
+   *     #includes <ft2build.h>
    *
-   *     #include FT_FREETYPE_H
-   *     #include FT_OUTLINE_H
+   *     #includes FT_FREETYPE_H
+   *     #includes FT_OUTLINE_H
    *   ```
    *
-   *   A compiler and its preprocessor only needs an include path to find the
+   *   A compiler and its preprocessor only needs an includes path to find the
    *   file `ft2build.h`; the exact locations and names of the other FreeType
    *   header files are hidden by @header_file_macros, loaded by
    *   `ft2build.h`.  The API documentation always gives the header macro
@@ -635,7 +635,7 @@ FT_BEGIN_HEADER
    *
    *   FT_ENCODING_UNICODE ::
    *     The Unicode character set.  This value covers all versions of the
-   *     Unicode repertoire, including ASCII and Latin-1.  Most fonts include
+   *     Unicode repertoire, including ASCII and Latin-1.  Most fonts includes
    *     a Unicode charmap, but not all of them.
    *
    *     For example, if you want to access Unicode value U+1F028 (and the

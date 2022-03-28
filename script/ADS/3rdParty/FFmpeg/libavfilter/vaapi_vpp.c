@@ -320,7 +320,7 @@ static void vaapi_vpp_fill_colour_standard(VAAPIColourProperties *props,
             if (props->color_primaries != AVCOL_PRI_UNSPECIFIED)
                 score += (props->color_primaries != t->color_primaries);
 
-            // Only include choices which matched something.
+            // Only includes choices which matched something.
             if (score < worst_score &&
                 (best_score == -1 || score < best_score)) {
                 best_score    = score;

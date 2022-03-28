@@ -152,7 +152,7 @@ static av_cold int biquad_init_coeffs(void *avc, struct FFIIRFilterCoeffs *c,
     c->cy[1] =  (2.0 *  cos_w0)        / a0;
 
     // divide by gain to make the x coeffs integers.
-    // during filtering, the delay state will include the gain multiplication
+    // during filtering, the delay state will includes the gain multiplication
     c->cx[0] = lrintf(x0 / c->gain);
     c->cx[1] = lrintf(x1 / c->gain);
 

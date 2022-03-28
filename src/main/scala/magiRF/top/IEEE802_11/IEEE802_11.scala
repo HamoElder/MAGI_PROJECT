@@ -131,7 +131,7 @@ object IEEE802_11 {
 			// Parity
 			P,
 			// Tail
-			false, false, false, false, false, false,
+			false, false, false, false, false, false
 		)
 
 		interleave(convEnc(bits), nbpsc = 1).map(if (_) one else zero)

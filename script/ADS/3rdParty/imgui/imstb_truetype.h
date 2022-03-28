@@ -84,7 +84,7 @@
 //   Include this file in whatever places need to refer to it. In ONE C/C++
 //   file, write:
 //      #define STB_TRUETYPE_IMPLEMENTATION
-//   before the #include of this file. This expands out the actual
+//   before the #includes of this file. This expands out the actual
 //   implementation into that C/C++ file.
 //
 //   To make the implementation private to the file that generates the implementation,
@@ -95,7 +95,7 @@
 //           stbtt_GetBakedQuad()                 -- compute quad to draw for a given char
 //
 //   Improved 3D API (more shippable):
-//           #include "stb_rect_pack.h"           -- optional, but you really want it
+//           #includes "stb_rect_pack.h"           -- optional, but you really want it
 //           stbtt_PackBegin()
 //           stbtt_PackSetOversampling()          -- for improved quality on small fonts
 //           stbtt_PackFontRanges()               -- pack and renders
@@ -278,8 +278,8 @@
 //  Incomplete text-in-3d-api example, which draws quads properly aligned to be lossless
 //
 #if 0
-#define STB_TRUETYPE_IMPLEMENTATION  // force following include to generate implementation
-#include "stb_truetype.h"
+#define STB_TRUETYPE_IMPLEMENTATION  // force following includes to generate implementation
+#includes "stb_truetype.h"
 
 unsigned char ttf_buffer[1<<20];
 unsigned char temp_bitmap[512*512];
@@ -326,9 +326,9 @@ void my_stbtt_print(float x, float y, char *text)
 // Complete program (this compiles): get a single bitmap, print as ASCII art
 //
 #if 0
-#include <stdio.h>
-#define STB_TRUETYPE_IMPLEMENTATION  // force following include to generate implementation
-#include "stb_truetype.h"
+#includes <stdio.h>
+#define STB_TRUETYPE_IMPLEMENTATION  // force following includes to generate implementation
+#includes "stb_truetype.h"
 
 char ttf_buffer[1<<25];
 
@@ -439,19 +439,19 @@ int main(int arg, char **argv)
 
    // e.g. #define your own STBTT_ifloor/STBTT_iceil() to avoid math.h
    #ifndef STBTT_ifloor
-   #include <math.h>
+   #includes <math.h>
    #define STBTT_ifloor(x)   ((int) floor(x))
    #define STBTT_iceil(x)    ((int) ceil(x))
    #endif
 
    #ifndef STBTT_sqrt
-   #include <math.h>
+   #includes <math.h>
    #define STBTT_sqrt(x)      sqrt(x)
    #define STBTT_pow(x,y)     pow(x,y)
    #endif
 
    #ifndef STBTT_fmod
-   #include <math.h>
+   #includes <math.h>
    #define STBTT_fmod(x,y)    fmod(x,y)
    #endif
 
@@ -462,19 +462,19 @@ int main(int arg, char **argv)
    #endif
 
    #ifndef STBTT_fabs
-   #include <math.h>
+   #includes <math.h>
    #define STBTT_fabs(x)      fabs(x)
    #endif
 
    // #define your own functions "STBTT_malloc" / "STBTT_free" to avoid malloc.h
    #ifndef STBTT_malloc
-   #include <stdlib.h>
+   #includes <stdlib.h>
    #define STBTT_malloc(x,u)  ((void)(u),malloc(x))
    #define STBTT_free(x,u)    ((void)(u),free(x))
    #endif
 
    #ifndef STBTT_assert
-   #include <assert.h>
+   #includes <assert.h>
    #define STBTT_assert(x)    assert(x)
    #endif
 
@@ -3733,7 +3733,7 @@ typedef int stbrp_coord;
 //                                                                                //
 //                                                                                //
 // if you get a compile warning due to these symbols being defined more than      //
-// once, move #include "stb_rect_pack.h" before #include "stb_truetype.h"         //
+// once, move #includes "stb_rect_pack.h" before #includes "stb_truetype.h"         //
 //                                                                                //
 ////////////////////////////////////////////////////////////////////////////////////
 

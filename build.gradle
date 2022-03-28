@@ -1,7 +1,7 @@
 plugins {
     id 'scala'
     // IDE usage
-    id 'eclipse'
+    // id 'eclipse'
     id 'idea'
 }
 
@@ -10,25 +10,65 @@ repositories {
 }
 
 dependencies {
-	implementation group: 'com.github.spinalhdl', name: 'spinalhdl-core_2.12', version: '1.6.0'
-	implementation group: 'com.github.spinalhdl', name: 'spinalhdl-lib_2.12', version: '1.6.0'
+	implementation group: 'com.github.spinalhdl', name: 'spinalhdl-core_2.11', version: '1.6.4'
+	implementation group: 'com.github.spinalhdl', name: 'spinalhdl-lib_2.11', version: '1.6.4'
 //    implementation group: 'org.scalanlp', name: 'breeze_2.12', version: '1.3'
-	scalaCompilerPlugins 'com.github.spinalhdl:spinalhdl-idsl-plugin_2.12:1.6.0'
+	scalaCompilerPlugins 'com.github.spinalhdl:spinalhdl-idsl-plugin_2.11:1.6.4'
 }
 
 sourceCompatibility = 8
+task AD9361InterfaceBench_sourceGenerator(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = "magiRF.interfaces.frontend.AD9361.AD9361InterfaceBench"
+}
 
-//task runVerilog(type: JavaExec) {
-//    classpath = sourceSets.main.runtimeClasspath
-//    main = "mylib.MyTopLevelVerilog"
-//}
-//
-//task runVhdl(type: JavaExec) {
-//    classpath = sourceSets.main.runtimeClasspath
-//    main = "mylib.MyTopLevelVhdl"
-//}
-//
+task CordicRotatorBench_sourceGenerator(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = "magiRF.modules.DSP.CORDIC.CordicRotatorBench"
+}
+
+task R2MDCBench_sourceGenerator(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = "magiRF.modules.DSP.FFT.R2MDCBench"
+}
+
+task R2MDC_FFTBench_sourceGenerator(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = "magiRF.modules.DSP.FFT.R2MDC_FFTBench"
+}
+
+task PowerAdjustorBench_sourceGenerator(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = "magiRF.modules.DSP.PowerAdjustor.PowerAdjustorBench"
+}
+
+task CICFilterBench_sourceGenerator(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = "magiRF.modules.Filters.CIC.CICFilterBench"
+}
+
+task DirectFIRFilterBench_sourceGenerator(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = "magiRF.modules.Filters.FIR.DirectFIRFilterBench"
+}
+
+
+task CICCombSimApp_runSimulation(type: JavaExec) {
+    classpath = sourceSets.test.runtimeClasspath
+    main = "magiRF.modules.Filters.CICCombSimApp"
+}
+
+task CICFilterSimApp_runSimulation(type: JavaExec) {
+    classpath = sourceSets.test.runtimeClasspath
+    main = "magiRF.modules.Filters.CICFilterSimApp"
+}
+
+task DirectFIRFilterSimApp_runSimulation(type: JavaExec) {
+    classpath = sourceSets.test.runtimeClasspath
+    main = "magiRF.modules.Filters.DirectFIRFilterSimApp"
+}
+
 task StreamPlayer_runSimulation(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
-    main = "utils.debuger.StreamPlayerSimApp"
+    main = "utils.debugger.StreamPlayerSimApp"
 }

@@ -144,7 +144,7 @@ gdigrab_region_wnd_init(AVFormatContext *s1, struct gdigrab *gdigrab)
         goto error;
     }
 
-    // Set the window shape to only include the border area
+    // Set the window shape to only includes the border area
     GetClientRect(hwnd, &rect);
     region = CreateRectRgn(0, 0,
             rect.right - rect.left, rect.bottom - rect.top);

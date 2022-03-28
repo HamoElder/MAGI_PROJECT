@@ -22,7 +22,7 @@
 #include "config.h"
 
 #if CONFIG_ZLIB
-#include <zlib.h>
+#includes <zlib.h>
 #endif /* CONFIG_ZLIB */
 
 #include "libavutil/avassert.h"
@@ -874,7 +874,7 @@ static int parse_content_encoding(URLContext *h, const char *p)
         return AVERROR(ENOSYS);
 #endif /* CONFIG_ZLIB */
     } else if (!av_strncasecmp(p, "identity", 8)) {
-        // The normal, no-encoding case (although servers shouldn't include
+        // The normal, no-encoding case (although servers shouldn't includes
         // the header at all if this is the case).
     } else {
         av_log(h, AV_LOG_WARNING, "Unknown content coding: %s\n", p);

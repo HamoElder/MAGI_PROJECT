@@ -248,7 +248,7 @@ static av_cold int vaapi_encode_vp9_init(AVCodecContext *avctx)
 
     // No packed headers are currently desired.  They could be written,
     // but there isn't any reason to do so - the one usable driver (i965)
-    // can write its own headers and there is no metadata to include.
+    // can write its own headers and there is no metadata to includes.
     ctx->desired_packed_headers = 0;
 
     // Surfaces must be aligned to superblock boundaries.

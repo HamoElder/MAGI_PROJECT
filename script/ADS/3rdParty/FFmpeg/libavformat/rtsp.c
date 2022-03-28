@@ -34,7 +34,7 @@
 #include "avio_internal.h"
 
 #if HAVE_POLL_H
-#include <poll.h>
+#includes <poll.h>
 #endif
 #include "internal.h"
 #include "network.h"
@@ -373,8 +373,8 @@ typedef struct SDPParseState {
     struct sockaddr_storage default_ip;
     int            default_ttl;
     int            skip_media;  ///< set if an unknown m= line occurs
-    int nb_default_include_source_addrs; /**< Number of source-specific multicast include source IP address (from SDP content) */
-    struct RTSPSource **default_include_source_addrs; /**< Source-specific multicast include source IP address (from SDP content) */
+    int nb_default_include_source_addrs; /**< Number of source-specific multicast includes source IP address (from SDP content) */
+    struct RTSPSource **default_include_source_addrs; /**< Source-specific multicast includes source IP address (from SDP content) */
     int nb_default_exclude_source_addrs; /**< Number of source-specific multicast exclude source IP address (from SDP content) */
     struct RTSPSource **default_exclude_source_addrs; /**< Source-specific multicast exclude source IP address (from SDP content) */
     int seen_rtpmap;
@@ -1327,7 +1327,7 @@ start:
  * @param s RTSP (de)muxer context
  * @param method the method for the request
  * @param url the target url for the request
- * @param headers extra header lines to include in the request
+ * @param headers extra header lines to includes in the request
  * @param send_content if non-null, the data to send as request body content
  * @param send_content_length the length of the send_content data, or 0 if
  *                            send_content is null

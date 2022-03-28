@@ -40,8 +40,9 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/3rdParty/cmake_install.cmake")
-  include("/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/editor/cmake_install.cmake")
-  include("/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/DI/cmake_install.cmake")
+  include("/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/editor/cmake_install.cmake")
+  include("/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/DI/cmake_install.cmake")
+  include("/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/FSR/cmake_install.cmake")
 
 endif()
 

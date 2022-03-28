@@ -45,7 +45,7 @@
 #include <math.h>
 
 #if ARCH_MIPS
-#include "mips/aacsbr_mips.h"
+#includes "mips/aacsbr_mips.h"
 #endif /* ARCH_MIPS */
 
 static VLC vlc_sbr[10];

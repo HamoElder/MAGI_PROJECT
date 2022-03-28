@@ -75,15 +75,20 @@ macro(makeLink src dest target)
   add_custom_command(TARGET ${target} POST_BUILD COMMAND ${CMAKE_COMMAND} -E create_symlink ${src} ${dest}  DEPENDS  ${dest} COMMENT "mklink ${src} -> ${dest}")
 endmacro()
 
-include_directories(${PROJECT_SOURCE_DIR}/include
+include_directories(${PROJECT_SOURCE_DIR}/includes
         ${PROJECT_SOURCE_DIR}/3rdParty
         ${EIGEN3_INCLUDE_DIR}
         )
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/3rdParty)
 include_directories(${IMGUI_INC_DIR})
-add_subdirectory(${PROJECT_SOURCE_DIR}/editor)
-add_subdirectory(${PROJECT_SOURCE_DIR}/DI)
+add_library(MAGI_ENGINE
+        ${PROJECT_SOURCE_DIR}/src/engine/shader.cpp
+        )
+set(LIBS ${LIBS} MAGI_ENGINE)
+add_subdirectory(App/editor)
+add_subdirectory(App/DI)
+add_subdirectory(App/FSR)
 # then create a project file per tutorial
 #foreach(CHAPTER ${CHAPTERS})
 #    foreach(DEMO ${${CHAPTER}})

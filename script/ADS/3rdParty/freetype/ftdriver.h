@@ -698,7 +698,7 @@ FT_BEGIN_HEADER
    *   The 'version' field gives a rough orientation only, since some
    *   applications provided certain features much earlier (as an example,
    *   Microsoft Reader used subpixel and Y-direction ClearType already in
-   *   Windows 2000).  Similarly, updates to a given framework might include
+   *   Windows 2000).  Similarly, updates to a given framework might includes
    *   improved hinting support.
    *
    *   ```

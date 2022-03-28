@@ -555,7 +555,7 @@ static int flic_decode_frame_15_16BPP(AVCodecContext *avctx,
         case FLI_256_COLOR:
         case FLI_COLOR:
             /* For some reason, it seems that non-palettized flics do
-             * include one of these chunks in their first frame.
+             * includes one of these chunks in their first frame.
              * Why I do not know, it seems rather extraneous. */
             ff_dlog(avctx,
                     "Unexpected Palette chunk %d in non-palettized FLC\n",
@@ -855,7 +855,7 @@ static int flic_decode_frame_24BPP(AVCodecContext *avctx,
         case FLI_256_COLOR:
         case FLI_COLOR:
             /* For some reason, it seems that non-palettized flics do
-             * include one of these chunks in their first frame.
+             * includes one of these chunks in their first frame.
              * Why I do not know, it seems rather extraneous. */
             ff_dlog(avctx,
                     "Unexpected Palette chunk %d in non-palettized FLC\n",

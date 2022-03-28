@@ -30,7 +30,7 @@
 #include "libavcodec/raw.h"
 #include "objidl.h"
 #include "shlwapi.h"
-// NB: technically, we should include dxva.h and use
+// NB: technically, we should includes dxva.h and use
 // DXVA_ExtendedFormat, but that type is not defined in
 // the MinGW headers. The DXVA2_ExtendedFormat and the
 // contents of its fields is identical to

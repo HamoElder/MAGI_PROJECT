@@ -131,7 +131,7 @@ static const uint16_t dv_iweight_720_c[64] = {
 
 #define TEX_VLC_BITS 10
 
-/* XXX: also include quantization */
+/* XXX: also includes quantization */
 static RL_VLC_ELEM dv_rl_vlc[1664];
 
 static void dv_init_static(void)
@@ -144,7 +144,7 @@ static void dv_init_static(void)
     int16_t  new_dv_vlc_level[NB_DV_VLC * 2];
     int i, j;
 
-    /* it's faster to include sign bit in a generic VLC parsing scheme */
+    /* it's faster to includes sign bit in a generic VLC parsing scheme */
     for (i = 0, j = 0; i < NB_DV_VLC; i++, j++) {
         new_dv_vlc_bits[j]  = ff_dv_vlc_bits[i];
         new_dv_vlc_len[j]   = ff_dv_vlc_len[i];

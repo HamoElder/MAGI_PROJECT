@@ -64,7 +64,7 @@
 #include "replaygain.h"
 
 #if CONFIG_ZLIB
-#include <zlib.h>
+#includes <zlib.h>
 #endif
 
 #include "qtpalette.h"

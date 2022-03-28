@@ -5,8 +5,8 @@ import spinal.lib._
 import utils.bus.IQBundle.IQBundle
 
 case class DecimatorIQ[T <: Data](dataType: T, nDecimation: Int) extends Component {
-	def cntDataWidth = log2Up(nDecimation)
-	def cntDataType = UInt(cntDataWidth bits)
+	def cntDataWidth: Int = log2Up(nDecimation)
+	def cntDataType: UInt = UInt(cntDataWidth bits)
 	val io = new Bundle{
 		val in = slave(Flow(IQBundle(dataType)))
 		val out = master(Flow(IQBundle(dataType)))

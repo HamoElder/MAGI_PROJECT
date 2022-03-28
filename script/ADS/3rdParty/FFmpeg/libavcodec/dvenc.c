@@ -460,7 +460,7 @@ static inline void dv_set_class_number_hd(DVVideoContext *s,
     bi->area_q[0] = 1;
 
     /* weigh AC components and store to save[] */
-    /* (i=0 is the DC component; we only include it to make the
+    /* (i=0 is the DC component; we only includes it to make the
        number of loop iterations even, for future possible SIMD optimization) */
     for (i = 0; i < 64; i += 2) {
         int level0, level1;

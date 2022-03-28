@@ -1,7 +1,7 @@
 package magiRF.top.RFBench.Transmitter
 
 
-import magiRF.interface.frontend.AD9361.{AD9361Bundle, AD9361Interface}
+import magiRF.interfaces.frontend.AD9361.{AD9361Bundle, AD9361Interface}
 import magiRF.modules.Modem.Misc.dataDivDynamic
 import magiRF.modules.Modem.Modulator.ModulatorRTL
 import magiRF.packages.PackageGen.StreamPkgGen

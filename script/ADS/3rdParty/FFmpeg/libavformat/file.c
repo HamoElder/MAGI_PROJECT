@@ -24,14 +24,14 @@
 #include "libavutil/opt.h"
 #include "avformat.h"
 #if HAVE_DIRENT_H
-#include <dirent.h>
+#includes <dirent.h>
 #endif
 #include <fcntl.h>
 #if HAVE_IO_H
-#include <io.h>
+#includes <io.h>
 #endif
 #if HAVE_UNISTD_H
-#include <unistd.h>
+#includes <unistd.h>
 #endif
 #include <sys/stat.h>
 #include <stdlib.h>

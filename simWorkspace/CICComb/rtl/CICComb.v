@@ -1,8 +1,8 @@
-// Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
+// Generator : SpinalHDL v1.6.4    git head : 598c18959149eb18e5eee5b0aa3eef01ecaa41a1
 // Component : CICComb
-// Git hash  : b8bc632afebda2199fd2f2f17fdc0daeea256ecc
+// Git hash  : 41d71cf9ab449e73a475f6b0f32b020b0dbe98fe
 
-
+`timescale 1ns/1ps 
 
 module CICComb (
   input               raw_data_valid,
@@ -12,6 +12,7 @@ module CICComb (
   input               clk,
   input               reset
 );
+
   wire       [16:0]   internal_data_vec_0;
   wire       [16:0]   internal_data_vec_1;
   wire       [16:0]   internal_data_vec_2;

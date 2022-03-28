@@ -12,6 +12,8 @@ case class VoltageMeterConfig(
     require(isPow2(slideWinSize) & slideWinSize >= 0, "The slide window size must be a power of 2 and equal or bigger than 0")
     def dataType: SInt = SInt(iqWidth bits)
     def shiftStep: Int = log2Up(slideWinSize)
+
+    override def equals(that: Any): Boolean = this == that
 }
 
 

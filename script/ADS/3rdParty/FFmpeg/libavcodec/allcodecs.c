@@ -773,7 +773,7 @@ extern const AVCodec ff_libwebp_anim_encoder;
 extern const AVCodec ff_libwebp_encoder;
 extern const AVCodec ff_libx262_encoder;
 #if CONFIG_LIBX264_ENCODER
-#include <x264.h>
+#includes <x264.h>
 #if X264_BUILD < 153
 #define LIBX264_CONST
 #else

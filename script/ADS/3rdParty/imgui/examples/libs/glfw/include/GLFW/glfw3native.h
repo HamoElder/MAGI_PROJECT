@@ -70,7 +70,7 @@ extern "C" {
  *  * `GLFW_EXPOSE_NATIVE_EGL`
  *
  *  These macros select which of the native access functions that are declared
- *  and which platform-specific headers to include.  It is then up your (by
+ *  and which platform-specific headers to includes.  It is then up your (by
  *  definition platform-specific) code to handle which of these should be
  *  defined.
  */
@@ -85,21 +85,21 @@ extern "C" {
  // example to allow applications to correctly declare a GL_ARB_debug_output
  // callback) but windows.h assumes no one will define APIENTRY before it does
  #undef APIENTRY
- #include <windows.h>
+ #includes <windows.h>
 #elif defined(GLFW_EXPOSE_NATIVE_COCOA)
- #include <ApplicationServices/ApplicationServices.h>
+ #includes <ApplicationServices/ApplicationServices.h>
  #if defined(__OBJC__)
   #import <Cocoa/Cocoa.h>
  #else
   typedef void* id;
  #endif
 #elif defined(GLFW_EXPOSE_NATIVE_X11)
- #include <X11/Xlib.h>
- #include <X11/extensions/Xrandr.h>
+ #includes <X11/Xlib.h>
+ #includes <X11/extensions/Xrandr.h>
 #elif defined(GLFW_EXPOSE_NATIVE_WAYLAND)
- #include <wayland-client.h>
+ #includes <wayland-client.h>
 #elif defined(GLFW_EXPOSE_NATIVE_MIR)
- #include <mir_toolkit/mir_client_library.h>
+ #includes <mir_toolkit/mir_client_library.h>
 #endif
 
 #if defined(GLFW_EXPOSE_NATIVE_WGL)
@@ -109,10 +109,10 @@ extern "C" {
  /* NSGL is declared by Cocoa.h */
 #endif
 #if defined(GLFW_EXPOSE_NATIVE_GLX)
- #include <GL/glx.h>
+ #includes <GL/glx.h>
 #endif
 #if defined(GLFW_EXPOSE_NATIVE_EGL)
- #include <EGL/egl.h>
+ #includes <EGL/egl.h>
 #endif
 
 

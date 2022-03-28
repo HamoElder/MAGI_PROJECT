@@ -16,10 +16,13 @@ case class CFOCorrectorConfig(
 
     def phaseRotatorConfig: PhaseRotatorConfig = PhaseRotatorConfig(iqWidth, iterations, dataResolutionWidth)
     def cfoEstimatorConfig: CFOEstimatorConfig = CFOEstimatorConfig(iqWidth, delayT, calcWinSize, iterations, dataResolutionWidth)
+
+    override def equals(that: Any): Boolean = this == that
 }
 
 case class CFOCorrector(config: CFOCorrectorConfig) extends Component(){
     val io = new Bundle{
+        val ref_data = slave(Flow(IQBundle(config.dataType)))
         val raw_data: Flow[IQBundle[SInt]] = slave(Flow(IQBundle(config.dataType)))
         val rotated_data: Flow[IQBundle[SInt]] = master(Flow(IQBundle(config.dataType)))
         val enable = in(Bool())
@@ -29,7 +32,7 @@ case class CFOCorrector(config: CFOCorrectorConfig) extends Component(){
     val phase_rotator = PhaseRotator(config.phaseRotatorConfig)
     phase_rotator.io.raw_data << io.raw_data
     io.rotated_data.valid := phase_rotator.io.rotated_data.valid
-    io.rotated_data.cha_i := -phase_rotator.io.rotated_data.cha_i
+    io.rotated_data.cha_i := phase_rotator.io.rotated_data.cha_i
     io.rotated_data.cha_q := phase_rotator.io.rotated_data.cha_q
 
     val cfo_estimator = CFOEstimator(config.cfoEstimatorConfig)

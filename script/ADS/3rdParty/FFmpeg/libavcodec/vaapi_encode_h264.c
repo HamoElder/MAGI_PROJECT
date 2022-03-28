@@ -1249,7 +1249,7 @@ static const AVOption vaapi_encode_h264_options[] = {
     { "aud", "Include AUD",
       OFFSET(aud), AV_OPT_TYPE_BOOL, { .i64 = 0 }, 0, 1, FLAGS },
 
-    { "sei", "Set SEI to include",
+    { "sei", "Set SEI to includes",
       OFFSET(sei), AV_OPT_TYPE_FLAGS,
       { .i64 = SEI_IDENTIFIER | SEI_TIMING | SEI_RECOVERY_POINT },
       0, INT_MAX, FLAGS, "sei" },

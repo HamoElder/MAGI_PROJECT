@@ -1676,7 +1676,7 @@ typedef struct AVCodecContext {
      * Header containing style information for text subtitles.
      * For SUBTITLE_ASS subtitle type, it should contain the whole ASS
      * [Script Info] and [V4+ Styles] section, plus the [Events] line and
-     * the Format line following. It shouldn't include any Dialogue line.
+     * the Format line following. It shouldn't includes any Dialogue line.
      * - encoding: Set/allocated/freed by user (before avcodec_open2())
      * - decoding: Set/allocated/freed by libavcodec (by avcodec_open2())
      */
@@ -2229,7 +2229,7 @@ typedef struct AVHWAccel {
  * as baseline profile actually conform to constrained baseline profile.
  *
  * @warning If the stream is actually not supported then the behaviour is
- *          undefined, and may include returning entirely incorrect output
+ *          undefined, and may includes returning entirely incorrect output
  *          while indicating success.
  */
 #define AV_HWACCEL_FLAG_ALLOW_PROFILE_MISMATCH (1 << 2)

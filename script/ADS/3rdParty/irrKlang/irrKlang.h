@@ -175,7 +175,7 @@
  * call IRefCounted::drop():
  *
  * \code
- * #include <irrKlang.h>
+ * #includes <irrKlang.h>
  *
  * // ...
  *
@@ -648,7 +648,7 @@
  *
  * \code
  * #define IRRKLANG_STATIC
- * #include <irrKlang.h>
+ * #includes <irrKlang.h>
  * \endcode
  *
  * Of course, IRRKLANG_STATIC can also simply be defined in the project/compiler settings instead of
@@ -829,8 +829,8 @@
  * To simply start the engine and play a mp3 file, use code like this:
  *
  * \code
- * #include <iostream>
- * #include <irrKlang.h>
+ * #includes <iostream>
+ * #includes <irrKlang.h>
  * #pragma comment(lib, "irrKlang.lib") // link with irrKlang.dll
  *
  * int main(int argc, const char** argv)
@@ -870,8 +870,8 @@
  * presses a key.
  *
  * \code
- * #include <iostream>
- * #include <irrKlang.h>
+ * #includes <iostream>
+ * #includes <irrKlang.h>
  * using namespace irrklang;
  *
  * #pragma comment(lib, "irrKlang.lib") // link with irrKlang.dll
@@ -1033,7 +1033,7 @@ namespace irrklang
 
 
 /*! \file irrKlang.h
-    \brief Main header file of the irrKlang sound library, the only file needed to include.
+    \brief Main header file of the irrKlang sound library, the only file needed to includes.
 */
 
 #endif

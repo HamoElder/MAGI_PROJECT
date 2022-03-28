@@ -10,6 +10,8 @@ case class AGCConfig(
                     ){
     val dataType = SInt(dataWidth bits)
     val RSSIDataType = UInt(2 * dataWidth bits)
+
+    override def equals(that: Any): Boolean = this == that
 }
 
 case class AGCCore[T <: SInt](dataType: T) extends Component {

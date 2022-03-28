@@ -17,8 +17,8 @@ case class PreambleDetectorConfig(
                                  ){
     def dataType: SInt = SInt(iqWidth bits)
     def gateThresholdWidth: Int = 2 * iqWidth
-    def gateThresholdDataType: SInt = SInt(gateThresholdWidth bits)
-    def corrResultDataType: SInt = gateThresholdDataType
+    def gateThresholdDataType: UInt = UInt(gateThresholdWidth bits)
+    def corrResultDataType: SInt = SInt(gateThresholdWidth bits)
     def useAutoCorr: Boolean = (refData == null)
     def autoCorrelatorConfig: AutoCorrelatorConfig = AutoCorrelatorConfig(iqWidth, delayT, slideWinSize, 2 * iqWidth)
     def crossCorrelatorConfig: CrossCorrelatorConfig = CrossCorrelatorConfig(iqWidth, refData, 2 * iqWidth)
@@ -28,7 +28,7 @@ case class PreambleDetectorConfig(
 
 case class PreambleDetector(config: PreambleDetectorConfig) extends Component{
     val io = new Bundle{
-        val gate_threshold = in(config.gateThresholdDataType)
+        val gate_threshold = if(config.usePowerMeter) null else in(config.gateThresholdDataType)
         val pkg_detected = out(Bool())
 
         val raw_data = slave(Flow(IQBundle(config.dataType)))
@@ -41,15 +41,18 @@ case class PreambleDetector(config: PreambleDetectorConfig) extends Component{
     val gate_pkg_det = Reg(Bool()) init(False)
 
     val prod_avg_mag = Reg(config.gateThresholdDataType) init(0)
-    val power_pkg_det = if(config.usePowerMeter) Reg(Bool()) init(False) else null
+
     if(config.usePowerMeter){
         val power_meter = PowerMeter(config.powerMeterConfig)
         power_meter.io.raw_data << io.raw_data
+        val power_meter_result = power_meter.io.power_result.cha_i.abs + power_meter.io.power_result.cha_q.abs
         when(power_meter.io.power_result.valid){
-            power_pkg_det := prod_avg_mag > ((power_meter.io.power_result.cha_i >> 1) + (power_meter.io.power_result.cha_i >> 2))
+            gate_pkg_det := prod_avg_mag > ((power_meter_result >> 1) + (power_meter_result >> 2))
         }.otherwise{
-            power_pkg_det := False
+            gate_pkg_det := False
         }
+    }else{
+        gate_pkg_det := prod_avg_mag > io.gate_threshold
     }
 
     if(config.useAutoCorr){
@@ -57,10 +60,9 @@ case class PreambleDetector(config: PreambleDetectorConfig) extends Component{
         auto_corr_core.io.raw_data << io.raw_data
 
         when(auto_corr_core.io.corr_result.valid){
-            gate_pkg_det := (auto_corr_core.io.corr_result.cha_i + auto_corr_core.io.corr_result.cha_q) > io.gate_threshold
-            prod_avg_mag := auto_corr_core.io.corr_result.cha_i
+            prod_avg_mag := (auto_corr_core.io.corr_result.cha_i.abs + auto_corr_core.io.corr_result.cha_q.abs)
         }.otherwise{
-            gate_pkg_det := False
+            prod_avg_mag := 0
         }
         io.raw_data_out << io.raw_data
         io.corr_result << auto_corr_core.io.corr_result
@@ -70,18 +72,13 @@ case class PreambleDetector(config: PreambleDetectorConfig) extends Component{
         cross_corr_core.io.raw_data << io.raw_data
 
         when(cross_corr_core.io.corr_result.valid){
-            gate_pkg_det := (cross_corr_core.io.corr_result.cha_i + cross_corr_core.io.corr_result.cha_q) > io.gate_threshold
+            prod_avg_mag := (cross_corr_core.io.corr_result.cha_i.abs + cross_corr_core.io.corr_result.cha_q.abs)
         }.otherwise{
-            gate_pkg_det := False
+            prod_avg_mag:= 0
         }
         io.raw_data_out << io.raw_data
     }
-    if(config.usePowerMeter){
-        io.pkg_detected := (gate_pkg_det && power_pkg_det)
-    }
-    else{
-        io.pkg_detected := gate_pkg_det
-    }
+    io.pkg_detected := gate_pkg_det
 }
 
 object PreambleDetectorBench {

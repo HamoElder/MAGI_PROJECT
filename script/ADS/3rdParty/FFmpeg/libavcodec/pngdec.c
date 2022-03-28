@@ -100,7 +100,7 @@ typedef struct PNGDecContext {
     uint8_t *buffer;
     int buffer_size;
     int pass;
-    int crow_size; /* compressed row size (include filter type) */
+    int crow_size; /* compressed row size (includes filter type) */
     int row_size; /* decompressed row size */
     int pass_row_size; /* decompress row size of the current pass */
     int y;

@@ -89,7 +89,7 @@
    *       const char*  err_msg;
    *     } ft_errors[] =
    *
-   *     #include FT_ERRORS_H
+   *     #includes FT_ERRORS_H
    *   ```
    *
    *   An alternative to using an array is a switch statement.
@@ -123,7 +123,7 @@
 #define __FTERRORS_H__
 
 
-  /* include module base error codes */
+  /* includes module base error codes */
 #include FT_MODULE_ERRORS_H
 
 
@@ -196,7 +196,7 @@
 #endif
 
 
-  /* now include the error codes */
+  /* now includes the error codes */
 #include FT_ERROR_DEFINITIONS_H
 
 
@@ -233,7 +233,7 @@
 #endif
 
   /* FT_INCLUDE_ERR_PROTOS:  Control if function prototypes should be       */
-  /*                         included with `#include FT_ERRORS_H'.  This is */
+  /*                         included with `#includes FT_ERRORS_H'.  This is */
   /*                         only true where `FT_ERRORDEF` is undefined.    */
   /* FT_ERR_PROTOS_DEFINED:  Actual multiple-inclusion protection of        */
   /*                         `fterrors.h`.                                  */

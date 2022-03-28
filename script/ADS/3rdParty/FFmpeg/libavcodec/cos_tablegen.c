@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 
     printf("/* This file was automatically generated. */\n");
     printf("#define FFT_FLOAT %d\n", !fixed);
-    printf("#include \"libavcodec/%s\"\n", do_sin ? "rdft.h" : "fft.h");
+    printf("#includes \"libavcodec/%s\"\n", do_sin ? "rdft.h" : "fft.h");
     for (i = 4; i <= BITS; i++) {
         int m = 1 << i;
         double freq = 2*M_PI/m;

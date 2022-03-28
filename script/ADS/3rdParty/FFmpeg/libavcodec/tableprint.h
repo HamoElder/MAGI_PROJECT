@@ -128,7 +128,7 @@ WRITE_2D_FUNC(float)
 static inline void write_fileheader(void)
 {
     printf("/* This file was automatically generated. */\n");
-    printf("#include <stdint.h>\n");
+    printf("#includes <stdint.h>\n");
 }
 
 #endif /* AVCODEC_TABLEPRINT_H */

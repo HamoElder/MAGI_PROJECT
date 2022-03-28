@@ -8,7 +8,8 @@ object ZadoffChuSeq {
 		val arr = new Array[Complex](length)
 
 		for(idx <- 0 until length){
-			arr(idx) = Complex(Math.cos(Math.PI* root * idx * (idx + (length % 2)) / length), -Math.sin(Math.PI* root * idx * (idx + (length % 2)) / length))
+			arr(idx) = Complex(scala.math.cos(scala.math.Pi* root * idx * (idx + (length % 2)) / length),
+				-scala.math.sin(scala.math.Pi* root * idx * (idx + (length % 2)) / length))
 
 		}
 		arr

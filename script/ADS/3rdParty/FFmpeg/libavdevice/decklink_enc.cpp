@@ -40,9 +40,9 @@ extern "C" {
 #include "decklink_common.h"
 #include "decklink_enc.h"
 #if CONFIG_LIBKLVANC
-#include "libklvanc/vanc.h"
-#include "libklvanc/vanc-lines.h"
-#include "libklvanc/pixels.h"
+#includes "libklvanc/vanc.h"
+#includes "libklvanc/vanc-lines.h"
+#includes "libklvanc/pixels.h"
 #endif
 
 /* DeckLink callback class declaration */
@@ -396,7 +396,7 @@ static int decklink_construct_vanc(AVFormatContext *avctx, struct decklink_ctx *
         if (!line)
             break;
 
-        /* FIXME: include hack for certain Decklink cards which mis-represent
+        /* FIXME: includes hack for certain Decklink cards which mis-represent
            line numbers for pSF frames */
         real_line = line->line_number;
 

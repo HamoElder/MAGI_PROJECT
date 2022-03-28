@@ -21,11 +21,12 @@ case class FFTConfig(
 
     def dataOutType: IQBundle[SInt] = IQBundle(SInt(dataLength bits))
 
-	def fftWnGen(k: Int, n: Int, radix: Int): Seq[Complex] = for(idx <- 0 until (FFTLength / radix) by Math.pow(radix, k).toInt)yield{
+	def fftWnGen(k: Int, n: Int, radix: Int): Seq[Complex] = for(idx <- 0 until (FFTLength / radix) by scala.math.pow(radix, k).toInt)yield{
 		val fix_raw = Complex(dataType)
-		fix_raw.re := Math.cos(-(n * idx * 2 * Math.PI) / FFTLength.toDouble)
-		fix_raw.im := Math.sin(-(n * idx * 2 * Math.PI) / FFTLength.toDouble)
+		fix_raw.re := scala.math.cos(-(n * idx * 2 * scala.math.Pi) / FFTLength.toDouble)
+		fix_raw.im := scala.math.sin(-(n * idx * 2 * scala.math.Pi) / FFTLength.toDouble)
 		fix_raw
 	}
 
+	override def equals(that: Any): Boolean = that == this
 }

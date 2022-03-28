@@ -47,7 +47,7 @@ static const uint16_t mpeg12_vlc_dc_chroma_code_reversed[12] = {
     0x0, 0x2, 0x1, 0x3, 0x7, 0xF, 0x1F, 0x3F, 0x7F, 0xFF, 0x1FF, 0x3FF
 };
 
-/* simple include everything table for dc, first byte is bits
+/* simple includes everything table for dc, first byte is bits
  * number next 3 are code */
 static uint32_t speedhq_lum_dc_uni[512];
 static uint32_t speedhq_chr_dc_uni[512];

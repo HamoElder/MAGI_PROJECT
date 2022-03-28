@@ -22,7 +22,7 @@
 /**
  * @file
  * internal header for RIFF based (de)muxers
- * do NOT include this in end user applications
+ * do NOT includes this in end user applications
  */
 
 #ifndef AVFORMAT_RIFF_H

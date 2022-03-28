@@ -8,13 +8,15 @@ case class AxiLite4CyclicPrefixConfig(
                                          dataWidth: Int,
                                          maxCpLength: Int,
                                          maxDataLength: Int,
-                                         cfgDataWidth: Int = 32,
+                                         cfgDataWidth: Int = 32
                                      ) {
     def addressWidth = 8
 
     def cpConfig: CpConfig = CpConfig(dataWidth, maxCpLength, maxDataLength)
 
     def axiLite4Config: AxiLite4Config = AxiLite4Config(addressWidth, cfgDataWidth)
+
+  override def equals(that: Any): Boolean = that == this
 }
 
 case class AxiLite4CyclicPrefix(config: AxiLite4CyclicPrefixConfig) extends Component {

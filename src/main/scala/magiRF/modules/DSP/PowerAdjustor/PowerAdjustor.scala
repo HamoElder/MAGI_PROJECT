@@ -15,6 +15,8 @@ case class PowerAdjustorConfig(
 	def dataInType: IQBundle[SInt] = IQBundle(SInt(dataInWidth bits))
 	def dataOutType: IQBundle[SInt] = IQBundle(SInt(dataOutWidth bits))
 	def ratioType: UInt = UInt(log2Up(ratio) bits)
+
+	override def equals(that: Any): Boolean = that == this
 }
 
 case class PowerAdjustor(config: PowerAdjustorConfig) extends Component{
@@ -43,8 +45,8 @@ case class PowerAdjustor(config: PowerAdjustorConfig) extends Component{
 
 	// Bus interface function module
 	def driveFrom(busCtrl: BusSlaveFactory, baseAddress: BigInt, coreClockDomain: ClockDomain, rfClockDomain: ClockDomain): Area = new Area {
-		val shift_bias = cloneOf(io.shift_bias)
-		val shift_dir = cloneOf(io.shift_dir)
+		val shift_bias: UInt = cloneOf(io.shift_bias)
+		val shift_dir: Bool = cloneOf(io.shift_dir)
 
 		busCtrl.driveAndRead(shift_bias, address = baseAddress + 0x00, bitOffset = 0,
 			documentation = "Power Adjustor Shift Value.") init(0)

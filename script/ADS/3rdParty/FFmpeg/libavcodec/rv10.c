@@ -46,7 +46,7 @@
 #define RV_GET_MINOR_VER(x) (((x) >> 20) & 0xFF)
 #define RV_GET_MICRO_VER(x) (((x) >> 12) & 0xFF)
 
-#define MAX_VLC_ENTRIES 1023 // Note: Does not include the skip entries.
+#define MAX_VLC_ENTRIES 1023 // Note: Does not includes the skip entries.
 #define DC_VLC_BITS        9
 
 typedef struct RVDecContext {

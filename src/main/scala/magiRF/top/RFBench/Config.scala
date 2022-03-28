@@ -2,13 +2,14 @@ package magiRF.top.RFBench
 
 import Misc.math.{Complex, RaisedCosineFilterParams, RaisedCosineTaps, SquareRootRaisedCosineFilterParams, SquareRootRaisedCosineTaps}
 import Misc.math.ZadoffChuSeq.zcSeqGen
+import magiRF.modules.DSP.PowerAdjustor.PowerAdjustorConfig
 import magiRF.modules.Modem.Misc.{dataDivConfig, modUnitConfig}
 import magiRF.modules.Modem.Modulator.modRTLConfig
 import magiRF.modules.Modem.Modulator.extensions.{ModExtension, lookUpModConfig, mPSKModExtension, mQAMModExtension}
 import magiRF.packages.Coder.Convolutional.Decoder.ViterbiDecoderConfig
 import magiRF.packages.Coder.Convolutional.Encoder.ConvEncoderConfig
 import magiRF.packages.PackageGen.{AxiLite4PackageGenConfig, StreamPkgGenConfig}
-import magiRF.packages.Preamble.PreambleConfig
+import magiRF.packages.Preamble.{PreambleConfig, PreambleDetectorConfig}
 import spinal.core._
 import spinal.lib._
 import utils.bus.AxiLite.AxiLite4Config
@@ -31,14 +32,14 @@ import utils.common.CRC.CrcKind
  * 1010_0101      =>     LookUpMethod
  * ENCODER FLOW:
  * Data From DMA(4 bytes) => StreamPkgGen (1 bytes) => PADDING => CRC => Convolutional Code (16 bits) => Puncturing
- * ||
- * \/
- * RF Interface <= Preambler Extend <= Filter <= Modulation(12 bits * 2) <= Scrambling <=  HeaderExtend
+ *                                                                                                          ||
+ *                                                                                                          \/
+ *             RF Interface <= Preambler Extend <= Filter <= Modulation(12 bits * 2) <= Scrambling <=  HeaderExtend
  *
  * DECODER FLOW:
  * RF Interface(12 bits * 2) => Preambler Detector => CFO Estimator => CFO Corrector => DeModulation(1 bits * 2)
- * ||
- * \/
+ *                                                                                                        ||
+ *                                                                                                        \/
  * Data To DMA <= StreamPkgComb <= CRC Checker <= Viterbi Decoder<= DePuncturing <= HeaderMessage <= Descrambling
  *
  */
@@ -93,15 +94,17 @@ object Config {
 
     def interConnectHaltThreshold = 18
 
+    def power_adjustor_ratio = 4
+
     def srrcConfig: SquareRootRaisedCosineFilterParams = SquareRootRaisedCosineFilterParams(128.0, 0.3, 4, oversampled_zeros)
     def srrcTaps: List[Int] = SquareRootRaisedCosineTaps(srrcConfig).toList
 
-    val stf64: Array[Complex] = zcSeqGen(3, 64)
+    val stf: Array[Complex] = zcSeqGen(2, 32)
     val stf_repeat_times = 6
     //    val ltf32: Array[Complex] = zcSeqGen(5, 32)
     //    val ltf: Array[Complex] = (ltf32 ++ ltf32)
 
-    def stf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, stf64, stf_repeat_times, scale = 0.55)
+    def stf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, stf, stf_repeat_times, scale = 0.55)
     //    def ltf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, ltf, scale = 0.6)
 
     def conv_encoder_config: ConvEncoderConfig = ConvEncoderConfig(phyDataWidth, 7, List(91, 121))
@@ -131,7 +134,7 @@ object Config {
 
         //        def grayEncode(n: Long): Long = n ^ (n >>> 1)
         def BPSKTable802_11_I(m_val: Int, peak: Int): Array[BigInt] = {
-            val ini_angle: Double = Math.PI
+            val ini_angle: Double = scala.math.Pi
             val direction: Boolean = false
             var codeTable = new Array[BigInt](m_val)
             var angle = ini_angle
@@ -205,4 +208,8 @@ object Config {
         //        lookup_mod_config = lookup_mod_config :+ lookUpModConfig(modDataWidth, 4, 3)
         modRTLConfig(unitDataWidth, modDataWidth, cfgDataWidth, mod_config, mod_method, lookup_mod_config)
     }
+
+    def power_adjustor_config: PowerAdjustorConfig = PowerAdjustorConfig(iqWidth, iqWidth, power_adjustor_ratio)
+    def preamble_config: PreambleDetectorConfig = PreambleDetectorConfig(12, stf.length, stf.length, usePowerMeter = false)
+//    def rx_cfo_congif = CFOConfig(iqWidth, stf.length, stf.length)
 }

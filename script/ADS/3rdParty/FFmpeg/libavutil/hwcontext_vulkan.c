@@ -20,9 +20,9 @@
 #define VK_ENABLE_BETA_EXTENSIONS
 
 #ifdef _WIN32
-#include <windows.h> /* Included to prevent conflicts with CreateSemaphore */
-#include <versionhelpers.h>
-#include "compat/w32dlfcn.h"
+#includes <windows.h> /* Included to prevent conflicts with CreateSemaphore */
+#includes <versionhelpers.h>
+#includes "compat/w32dlfcn.h"
 #else
 #include <dlfcn.h>
 #endif
@@ -42,18 +42,18 @@
 #include "vulkan_loader.h"
 
 #if CONFIG_LIBDRM
-#include <xf86drm.h>
-#include <drm_fourcc.h>
-#include "hwcontext_drm.h"
+#includes <xf86drm.h>
+#includes <drm_fourcc.h>
+#includes "hwcontext_drm.h"
 #if CONFIG_VAAPI
-#include <va/va_drmcommon.h>
-#include "hwcontext_vaapi.h"
+#includes <va/va_drmcommon.h>
+#includes "hwcontext_vaapi.h"
 #endif
 #endif
 
 #if CONFIG_CUDA
-#include "hwcontext_cuda_internal.h"
-#include "cuda_check.h"
+#includes "hwcontext_cuda_internal.h"
+#includes "cuda_check.h"
 #define CHECK_CU(x) FF_CUDA_CHECK_DL(cuda_cu, cu, x)
 #endif
 
@@ -1678,7 +1678,7 @@ static int alloc_mem(AVHWDeviceContext *ctx, VkMemoryRequirements *req,
         if (!(req->memoryTypeBits & (1 << i)))
             continue;
 
-        /* The memory type flags must include our properties */
+        /* The memory type flags must includes our properties */
         if ((type->propertyFlags & req_flags) != req_flags)
             continue;
 

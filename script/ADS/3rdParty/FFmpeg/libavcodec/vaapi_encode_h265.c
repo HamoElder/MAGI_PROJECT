@@ -1264,7 +1264,7 @@ static const AVOption vaapi_encode_h265_options[] = {
     { LEVEL("6.2", 186) },
 #undef LEVEL
 
-    { "sei", "Set SEI to include",
+    { "sei", "Set SEI to includes",
       OFFSET(sei), AV_OPT_TYPE_FLAGS,
       { .i64 = SEI_MASTERING_DISPLAY | SEI_CONTENT_LIGHT_LEVEL },
       0, INT_MAX, FLAGS, "sei" },

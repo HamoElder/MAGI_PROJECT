@@ -8,7 +8,7 @@
 //   bootstrap - vcpkg.bat
 //   vcpkg install allegro5 --triplet=x86-windows   ; for win32
 //   vcpkg install allegro5 --triplet=x64-windows   ; for win64
-//   vcpkg integrate install                        ; register include and libs in Visual Studio
+//   vcpkg integrate install                        ; register includes and libs in Visual Studio
 
 #include <stdint.h>
 #include <allegro5/allegro.h>
@@ -50,7 +50,7 @@ int main(int, char**)
     // - If the file cannot be loaded, the function will return NULL. Please handle those errors in your application (e.g. use an assertion, or display an error and quit).
     // - The fonts will be rasterized at a given size (w/ oversampling) and stored into a texture when calling ImFontAtlas::Build()/GetTexDataAsXXXX(), which ImGui_ImplXXXX_NewFrame below will call.
     // - Read 'docs/FONTS.md' for more instructions and details.
-    // - Remember that in C/C++ if you want to include a backslash \ in a string literal you need to write a double backslash \\ !
+    // - Remember that in C/C++ if you want to includes a backslash \ in a string literal you need to write a double backslash \\ !
     //io.Fonts->AddFontDefault();
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Roboto-Medium.ttf", 16.0f);
     //io.Fonts->AddFontFromFileTTF("../../misc/fonts/Cousine-Regular.ttf", 15.0f);

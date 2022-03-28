@@ -135,7 +135,7 @@ static int read_frame(BVID_DemuxContext *vid, AVIOContext *pb, AVPacket *pkt,
     if(!vidbuf_start)
         return AVERROR(ENOMEM);
 
-    // save the file position for the packet, include block type
+    // save the file position for the packet, includes block type
     position = avio_tell(pb) - 1;
 
     vidbuf_start[vidbuf_nbytes++] = block_type;

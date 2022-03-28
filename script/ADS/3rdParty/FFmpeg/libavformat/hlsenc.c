@@ -24,13 +24,13 @@
 #include <float.h>
 #include <stdint.h>
 #if HAVE_UNISTD_H
-#include <unistd.h>
+#includes <unistd.h>
 #endif
 
 #if CONFIG_GCRYPT
-#include <gcrypt.h>
+#includes <gcrypt.h>
 #elif CONFIG_OPENSSL
-#include <openssl/rand.h>
+#includes <openssl/rand.h>
 #endif
 
 #include "libavutil/avassert.h"
@@ -49,7 +49,7 @@
 #include "avio_internal.h"
 #include "avc.h"
 #if CONFIG_HTTP_PROTOCOL
-#include "http.h"
+#includes "http.h"
 #endif
 #include "hlsplaylist.h"
 #include "internal.h"
@@ -102,9 +102,9 @@ typedef enum HLSFlags {
     HLS_SPLIT_BY_TIME = (1 << 5),
     HLS_APPEND_LIST = (1 << 6),
     HLS_PROGRAM_DATE_TIME = (1 << 7),
-    HLS_SECOND_LEVEL_SEGMENT_INDEX = (1 << 8), // include segment index in segment filenames when use_localtime  e.g.: %%03d
-    HLS_SECOND_LEVEL_SEGMENT_DURATION = (1 << 9), // include segment duration (microsec) in segment filenames when use_localtime  e.g.: %%09t
-    HLS_SECOND_LEVEL_SEGMENT_SIZE = (1 << 10), // include segment size (bytes) in segment filenames when use_localtime  e.g.: %%014s
+    HLS_SECOND_LEVEL_SEGMENT_INDEX = (1 << 8), // includes segment index in segment filenames when use_localtime  e.g.: %%03d
+    HLS_SECOND_LEVEL_SEGMENT_DURATION = (1 << 9), // includes segment duration (microsec) in segment filenames when use_localtime  e.g.: %%09t
+    HLS_SECOND_LEVEL_SEGMENT_SIZE = (1 << 10), // includes segment size (bytes) in segment filenames when use_localtime  e.g.: %%014s
     HLS_TEMP_FILE = (1 << 11),
     HLS_PERIODIC_REKEY = (1 << 12),
     HLS_INDEPENDENT_SEGMENTS = (1 << 13),
@@ -3132,9 +3132,9 @@ static const AVOption options[] = {
     {"split_by_time", "split the hls segment by time which user set by hls_time", 0, AV_OPT_TYPE_CONST, {.i64 = HLS_SPLIT_BY_TIME }, 0, UINT_MAX,   E, "flags"},
     {"append_list", "append the new segments into old hls segment list", 0, AV_OPT_TYPE_CONST, {.i64 = HLS_APPEND_LIST }, 0, UINT_MAX,   E, "flags"},
     {"program_date_time", "add EXT-X-PROGRAM-DATE-TIME", 0, AV_OPT_TYPE_CONST, {.i64 = HLS_PROGRAM_DATE_TIME }, 0, UINT_MAX,   E, "flags"},
-    {"second_level_segment_index", "include segment index in segment filenames when use_localtime", 0, AV_OPT_TYPE_CONST, {.i64 = HLS_SECOND_LEVEL_SEGMENT_INDEX }, 0, UINT_MAX,   E, "flags"},
-    {"second_level_segment_duration", "include segment duration in segment filenames when use_localtime", 0, AV_OPT_TYPE_CONST, {.i64 = HLS_SECOND_LEVEL_SEGMENT_DURATION }, 0, UINT_MAX,   E, "flags"},
-    {"second_level_segment_size", "include segment size in segment filenames when use_localtime", 0, AV_OPT_TYPE_CONST, {.i64 = HLS_SECOND_LEVEL_SEGMENT_SIZE }, 0, UINT_MAX,   E, "flags"},
+    {"second_level_segment_index", "includes segment index in segment filenames when use_localtime", 0, AV_OPT_TYPE_CONST, {.i64 = HLS_SECOND_LEVEL_SEGMENT_INDEX }, 0, UINT_MAX,   E, "flags"},
+    {"second_level_segment_duration", "includes segment duration in segment filenames when use_localtime", 0, AV_OPT_TYPE_CONST, {.i64 = HLS_SECOND_LEVEL_SEGMENT_DURATION }, 0, UINT_MAX,   E, "flags"},
+    {"second_level_segment_size", "includes segment size in segment filenames when use_localtime", 0, AV_OPT_TYPE_CONST, {.i64 = HLS_SECOND_LEVEL_SEGMENT_SIZE }, 0, UINT_MAX,   E, "flags"},
     {"periodic_rekey", "reload keyinfo file periodically for re-keying", 0, AV_OPT_TYPE_CONST, {.i64 = HLS_PERIODIC_REKEY }, 0, UINT_MAX,   E, "flags"},
     {"independent_segments", "add EXT-X-INDEPENDENT-SEGMENTS, whenever applicable", 0, AV_OPT_TYPE_CONST, { .i64 = HLS_INDEPENDENT_SEGMENTS }, 0, UINT_MAX, E, "flags"},
     {"iframes_only", "add EXT-X-I-FRAMES-ONLY, whenever applicable", 0, AV_OPT_TYPE_CONST, { .i64 = HLS_I_FRAMES_ONLY }, 0, UINT_MAX, E, "flags"},

@@ -83,7 +83,7 @@ namespace irrklang
 			Defines the wchar_t-type.
 			In VS6, its not possible to tell
 			the standard compiler to treat wchar_t as a built-in type, and
-			sometimes we just don't want to include the huge stdlib.h or wchar.h,
+			sometimes we just don't want to includes the huge stdlib.h or wchar.h,
 			so we'll use this.
 		*/
 		typedef unsigned short wchar_t;

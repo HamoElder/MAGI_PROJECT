@@ -290,7 +290,7 @@ av_cold int ff_cfhd_init_vlcs(CFHDContext *s)
         new_cfhd_vlc_run[j]   = table_9_vlc_run[i];
         new_cfhd_vlc_level[j] = table_9_vlc_level[i];
 
-        /* Don't include the zero level nor escape bits */
+        /* Don't includes the zero level nor escape bits */
         if (table_9_vlc_level[i] &&
             new_cfhd_vlc_bits[j] != table_9_vlc_bits[NB_VLC_TABLE_9-1]) {
             new_cfhd_vlc_bits[j] <<= 1;
@@ -331,7 +331,7 @@ av_cold int ff_cfhd_init_vlcs(CFHDContext *s)
         new_cfhd_vlc_run[j]   = table_18_vlc_run[i];
         new_cfhd_vlc_level[j] = table_18_vlc_level[i];
 
-        /* Don't include the zero level nor escape bits */
+        /* Don't includes the zero level nor escape bits */
         if (table_18_vlc_level[i] &&
             new_cfhd_vlc_bits[j] != table_18_vlc_bits[NB_VLC_TABLE_18-1]) {
             new_cfhd_vlc_bits[j] <<= 1;

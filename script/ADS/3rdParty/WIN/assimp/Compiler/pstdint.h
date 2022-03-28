@@ -34,8 +34,8 @@
  *  Version 0.1.15.4
  *
  *  The ANSI C standard committee, for the C99 standard, specified the
- *  inclusion of a new standard include file called stdint.h.  This is
- *  a very useful and long desired include file which contains several
+ *  inclusion of a new standard includes file called stdint.h.  This is
+ *  a very useful and long desired includes file which contains several
  *  very precise definitions for integer scalar types that is
  *  critically important for making portable several classes of
  *  applications including cryptography, hashing, variable length
@@ -48,7 +48,7 @@
  *  makes it unportable.
  *
  *  So that's what this file is all about.  Its an attempt to build a
- *  single universal include file that works on as many platforms as
+ *  single universal includes file that works on as many platforms as
  *  possible to deliver what stdint.h is supposed to.  Even compilers
  *  that already come with stdint.h can use this file instead without
  *  any loss of functionality.  A few things that should be noted about
@@ -65,10 +65,10 @@
  *
  *    2) There is an unavoidable use of non-reserved symbols.
  *
- *    3) Other standard include files are invoked.
+ *    3) Other standard includes files are invoked.
  *
  *    4) This file may come in conflict with future platforms that do
- *       include stdint.h.  The hope is that one or the other can be
+ *       includes stdint.h.  The hope is that one or the other can be
  *       used with no real difference.
  *
  *    5) In the current version, if your platform can't represent
@@ -106,7 +106,7 @@
  *
  *   10) The criteria for defining (u)int_least(*)_t isn't clear,
  *       except for systems which don't have a type that precisely
- *       defined 8, 16, or 32 bit types (which this include file does
+ *       defined 8, 16, or 32 bit types (which this includes file does
  *       not support anyways). Default definitions have been given.
  *
  *   11) The criteria for defining (u)int_fast(*)_t isn't something I
@@ -347,7 +347,7 @@
  */
 
 #if (defined(__SUNPRO_C) && __SUNPRO_C >= 0x420) && !defined(_PSTDINT_H_INCLUDED)
-#include <sys/inttypes.h>
+#includes <sys/inttypes.h>
 #define _PSTDINT_H_INCLUDED
 #endif
 
@@ -722,7 +722,7 @@ typedef uint_least32_t uint_fast32_t;
  */
 
 #if defined(__WATCOMC__) || defined(_MSC_VER) || defined (__GNUC__) && !defined(vxWorks)
-# include <wchar.h>
+# includes <wchar.h>
 # ifndef WCHAR_MIN
 #  define WCHAR_MIN 0
 # endif
@@ -811,9 +811,9 @@ typedef uint_least32_t uint_fast32_t;
  *  not defined more than once.
  */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#includes <stdlib.h>
+#includes <stdio.h>
+#includes <string.h>
 
 #define glue3_aux(x,y,z) x ## y ## z
 #define glue3(x,y,z) glue3_aux(x,y,z)

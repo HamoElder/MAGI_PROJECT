@@ -1,8 +1,8 @@
-// Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
+// Generator : SpinalHDL v1.6.4    git head : 598c18959149eb18e5eee5b0aa3eef01ecaa41a1
 // Component : CICFilter
-// Git hash  : b8bc632afebda2199fd2f2f17fdc0daeea256ecc
+// Git hash  : 41d71cf9ab449e73a475f6b0f32b020b0dbe98fe
 
-
+`timescale 1ns/1ps 
 
 module CICFilter (
   input               raw_data_valid,
@@ -12,6 +12,7 @@ module CICFilter (
   input               clk,
   input               resetn
 );
+
   wire       [20:0]   decimator_1_in_payload;
   wire                integrator_result_data_valid;
   wire       [16:0]   integrator_result_data_payload;
@@ -22,28 +23,28 @@ module CICFilter (
   wire                _zz_in_valid;
 
   CICIntegrator integrator (
-    .raw_data_valid         (raw_data_valid                  ), //i
-    .raw_data_payload       (raw_data_payload                ), //i
-    .result_data_valid      (integrator_result_data_valid    ), //o
-    .result_data_payload    (integrator_result_data_payload  ), //o
-    .clk                    (clk                             ), //i
-    .resetn                 (resetn                          )  //i
+    .raw_data_valid         (raw_data_valid                        ), //i
+    .raw_data_payload       (raw_data_payload[11:0]                ), //i
+    .result_data_valid      (integrator_result_data_valid          ), //o
+    .result_data_payload    (integrator_result_data_payload[16:0]  ), //o
+    .clk                    (clk                                   ), //i
+    .resetn                 (resetn                                )  //i
   );
   Decimator decimator_1 (
-    .in_valid       (_zz_in_valid             ), //i
-    .in_payload     (decimator_1_in_payload   ), //i
-    .out_valid      (decimator_1_out_valid    ), //o
-    .out_payload    (decimator_1_out_payload  ), //o
-    .clk            (clk                      ), //i
-    .resetn         (resetn                   )  //i
+    .in_valid       (_zz_in_valid                   ), //i
+    .in_payload     (decimator_1_in_payload[20:0]   ), //i
+    .out_valid      (decimator_1_out_valid          ), //o
+    .out_payload    (decimator_1_out_payload[20:0]  ), //o
+    .clk            (clk                            ), //i
+    .resetn         (resetn                         )  //i
   );
   CICComb combor (
-    .raw_data_valid         (decimator_1_out_valid       ), //i
-    .raw_data_payload       (decimator_1_out_payload     ), //i
-    .result_data_valid      (combor_result_data_valid    ), //o
-    .result_data_payload    (combor_result_data_payload  ), //o
-    .clk                    (clk                         ), //i
-    .resetn                 (resetn                      )  //i
+    .raw_data_valid         (decimator_1_out_valid             ), //i
+    .raw_data_payload       (decimator_1_out_payload[20:0]     ), //i
+    .result_data_valid      (combor_result_data_valid          ), //o
+    .result_data_payload    (combor_result_data_payload[16:0]  ), //o
+    .clk                    (clk                               ), //i
+    .resetn                 (resetn                            )  //i
   );
   assign _zz_in_valid = integrator_result_data_valid;
   assign decimator_1_in_payload = {{4{integrator_result_data_payload[16]}}, integrator_result_data_payload};
@@ -60,6 +61,7 @@ module CICComb (
   input               clk,
   input               resetn
 );
+
   wire       [16:0]   internal_data_vec_0;
   wire       [16:0]   internal_data_vec_1;
   wire       [16:0]   internal_data_vec_2;
@@ -120,6 +122,7 @@ module Decimator (
   input               clk,
   input               resetn
 );
+
   wire       [2:0]    _zz_cnt;
   reg        [2:0]    cnt;
   reg        [20:0]   out_data;
@@ -169,6 +172,7 @@ module CICIntegrator (
   input               clk,
   input               resetn
 );
+
   wire       [4:0]    _zz_internal_en;
   wire       [16:0]   _zz_internal_data_vec_0;
   reg        [11:0]   raw_data_buf;

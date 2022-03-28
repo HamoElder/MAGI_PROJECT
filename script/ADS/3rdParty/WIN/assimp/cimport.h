@@ -184,7 +184,7 @@ ASSIMP_API const C_STRUCT aiScene* aiImportFileExWithProperties(
  *
  * @note This is a straightforward way to decode models from memory
  * buffers, but it doesn't handle model formats that spread their
- * data across multiple files or even directories. Examples include
+ * data across multiple files or even directories. Examples includes
  * OBJ or MD3, which outsource parts of their material info into
  * external scripts. If you need full functionality, provide
  * a custom IOSystem to make Assimp find these files and use
@@ -217,7 +217,7 @@ ASSIMP_API const C_STRUCT aiScene* aiImportFileFromMemory(
  *
  * @note This is a straightforward way to decode models from memory
  * buffers, but it doesn't handle model formats that spread their
- * data across multiple files or even directories. Examples include
+ * data across multiple files or even directories. Examples includes
  * OBJ or MD3, which outsource parts of their material info into
  * external scripts. If you need full functionality, provide
  * a custom IOSystem to make Assimp find these files and use
@@ -340,7 +340,7 @@ ASSIMP_API const char* aiGetErrorString();
 /** Returns whether a given file extension is supported by ASSIMP
  *
  * @param szExtension Extension for which the function queries support for.
- * Must include a leading dot '.'. Example: ".3ds", ".md3"
+ * Must includes a leading dot '.'. Example: ".3ds", ".md3"
  * @return AI_TRUE if the file extension is supported.
  */
 ASSIMP_API aiBool aiIsExtensionSupported(

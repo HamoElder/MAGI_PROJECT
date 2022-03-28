@@ -433,7 +433,7 @@ typedef struct RTSPState {
 #define RTSP_FLAG_SATIP_RAW   0x20   /**< Export SAT>IP stream as raw MPEG-TS */
 
 typedef struct RTSPSource {
-    char addr[128]; /**< Source-specific multicast include source IP address (from SDP content) */
+    char addr[128]; /**< Source-specific multicast includes source IP address (from SDP content) */
 } RTSPSource;
 
 /**
@@ -459,8 +459,8 @@ typedef struct RTSPStream {
     //@{
     int sdp_port;             /**< port (from SDP content) */
     struct sockaddr_storage sdp_ip; /**< IP address (from SDP content) */
-    int nb_include_source_addrs; /**< Number of source-specific multicast include source IP addresses (from SDP content) */
-    struct RTSPSource **include_source_addrs; /**< Source-specific multicast include source IP addresses (from SDP content) */
+    int nb_include_source_addrs; /**< Number of source-specific multicast includes source IP addresses (from SDP content) */
+    struct RTSPSource **include_source_addrs; /**< Source-specific multicast includes source IP addresses (from SDP content) */
     int nb_exclude_source_addrs; /**< Number of source-specific multicast exclude source IP addresses (from SDP content) */
     struct RTSPSource **exclude_source_addrs; /**< Source-specific multicast exclude source IP addresses (from SDP content) */
     int sdp_ttl;              /**< IP Time-To-Live (from SDP content) */
@@ -504,7 +504,7 @@ int ff_rtsp_send_cmd_async(AVFormatContext *s, const char *method,
  * @param s RTSP (de)muxer context
  * @param method the method for the request
  * @param url the target url for the request
- * @param headers extra header lines to include in the request
+ * @param headers extra header lines to includes in the request
  * @param reply pointer where the RTSP message header will be stored
  * @param content_ptr pointer where the RTSP message body, if any, will
  *                    be stored (length is in reply)

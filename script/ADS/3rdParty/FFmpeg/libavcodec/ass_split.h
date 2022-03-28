@@ -80,7 +80,7 @@ typedef struct {
     int   margin_v;
     char *effect;
     char *text;     /**< actual text which will be displayed as a subtitle,
-                         can include style override control codes (see
+                         can includes style override control codes (see
                          ff_ass_split_override_codes()) */
 } ASSDialog;
 

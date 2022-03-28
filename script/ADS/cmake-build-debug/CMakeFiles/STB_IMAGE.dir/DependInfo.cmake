@@ -1,21 +1,14 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
-  "CXX"
   )
-# The set of files for implicit dependencies of each language:
-set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/crystal/project/MAGI_PROJECT/script/ADS/src/stb/stb_image.cpp" "/home/crystal/project/MAGI_PROJECT/script/ADS/cmake-build-debug/CMakeFiles/STB_IMAGE.dir/src/stb/stb_image.cpp.o"
-  )
-set(CMAKE_CXX_COMPILER_ID "GNU")
 
-# The include file search paths:
-set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "configuration"
-  "../include"
-  "../3rdParty"
-  "/usr/include/eigen3"
-  "../3rdParty/imgui"
-  "../3rdParty/imgui/backends"
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/src/stb/stb_image.cpp" "CMakeFiles/STB_IMAGE.dir/src/stb/stb_image.cpp.o" "gcc" "CMakeFiles/STB_IMAGE.dir/src/stb/stb_image.cpp.o.d"
   )
 
 # Targets to which this target links.

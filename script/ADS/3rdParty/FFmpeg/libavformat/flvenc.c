@@ -703,7 +703,7 @@ static int flv_write_header(AVFormatContext *s)
     for (i = 0; i < s->nb_streams; i++)
         if (s->streams[i]->codecpar->codec_tag == 5) {
             avio_w8(pb, 8);     // message type
-            avio_wb24(pb, 0);   // include flags
+            avio_wb24(pb, 0);   // includes flags
             avio_wb24(pb, 0);   // time stamp
             avio_wb32(pb, 0);   // reserved
             avio_wb32(pb, 11);  // size

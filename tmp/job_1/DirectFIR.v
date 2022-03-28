@@ -1,8 +1,8 @@
-// Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
+// Generator : SpinalHDL v1.6.4    git head : 598c18959149eb18e5eee5b0aa3eef01ecaa41a1
 // Component : DirectFIR
-// Git hash  : 664a1f7772b4fc387f607a4a9afa4ff906ad7794
+// Git hash  : 41d71cf9ab449e73a475f6b0f32b020b0dbe98fe
 
-
+`timescale 1ns/1ps 
 
 module DirectFIR (
   input               raw_data_valid,
@@ -12,6 +12,7 @@ module DirectFIR (
   input               clk,
   input               reset
 );
+
   wire                directFIRCore_1_filtered_data_valid;
   wire       [28:0]   directFIRCore_1_filtered_data_payload;
   reg        [8:0]    coff_mem_0;
@@ -33,28 +34,28 @@ module DirectFIR (
   wire                filtered_valid_vec_0;
 
   DirectFIRCore directFIRCore_1 (
-    .raw_data_valid           (raw_data_valid                         ), //i
-    .raw_data_payload         (raw_data_payload_0                     ), //i
-    .coff_data_0              (coff_mem_0                             ), //i
-    .coff_data_1              (coff_mem_1                             ), //i
-    .coff_data_2              (coff_mem_2                             ), //i
-    .coff_data_3              (coff_mem_3                             ), //i
-    .coff_data_4              (coff_mem_4                             ), //i
-    .coff_data_5              (coff_mem_5                             ), //i
-    .coff_data_6              (coff_mem_6                             ), //i
-    .coff_data_7              (coff_mem_7                             ), //i
-    .coff_data_8              (coff_mem_8                             ), //i
-    .coff_data_9              (coff_mem_9                             ), //i
-    .coff_data_10             (coff_mem_10                            ), //i
-    .coff_data_11             (coff_mem_11                            ), //i
-    .coff_data_12             (coff_mem_12                            ), //i
-    .coff_data_13             (coff_mem_13                            ), //i
-    .coff_data_14             (coff_mem_14                            ), //i
-    .coff_data_15             (coff_mem_15                            ), //i
-    .filtered_data_valid      (directFIRCore_1_filtered_data_valid    ), //o
-    .filtered_data_payload    (directFIRCore_1_filtered_data_payload  ), //o
-    .clk                      (clk                                    ), //i
-    .reset                    (reset                                  )  //i
+    .raw_data_valid           (raw_data_valid                               ), //i
+    .raw_data_payload         (raw_data_payload_0[11:0]                     ), //i
+    .coff_data_0              (coff_mem_0[8:0]                              ), //i
+    .coff_data_1              (coff_mem_1[8:0]                              ), //i
+    .coff_data_2              (coff_mem_2[8:0]                              ), //i
+    .coff_data_3              (coff_mem_3[8:0]                              ), //i
+    .coff_data_4              (coff_mem_4[8:0]                              ), //i
+    .coff_data_5              (coff_mem_5[8:0]                              ), //i
+    .coff_data_6              (coff_mem_6[8:0]                              ), //i
+    .coff_data_7              (coff_mem_7[8:0]                              ), //i
+    .coff_data_8              (coff_mem_8[8:0]                              ), //i
+    .coff_data_9              (coff_mem_9[8:0]                              ), //i
+    .coff_data_10             (coff_mem_10[8:0]                             ), //i
+    .coff_data_11             (coff_mem_11[8:0]                             ), //i
+    .coff_data_12             (coff_mem_12[8:0]                             ), //i
+    .coff_data_13             (coff_mem_13[8:0]                             ), //i
+    .coff_data_14             (coff_mem_14[8:0]                             ), //i
+    .coff_data_15             (coff_mem_15[8:0]                             ), //i
+    .filtered_data_valid      (directFIRCore_1_filtered_data_valid          ), //o
+    .filtered_data_payload    (directFIRCore_1_filtered_data_payload[28:0]  ), //o
+    .clk                      (clk                                          ), //i
+    .reset                    (reset                                        )  //i
   );
   assign filtered_data_payload_0 = directFIRCore_1_filtered_data_payload;
   assign filtered_valid_vec_0 = directFIRCore_1_filtered_data_valid;
@@ -105,6 +106,7 @@ module DirectFIRCore (
   input               clk,
   input               reset
 );
+
   wire       [3:0]    _zz_internal_en;
   wire       [20:0]   _zz_mult_data_vec_0;
   wire       [20:0]   _zz_mult_data_vec_1;

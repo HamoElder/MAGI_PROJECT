@@ -84,7 +84,7 @@ object SystolicFIRFilterSimApp extends App{
         for(idx <- 1 until 1024){
 //            valid_bool = !valid_bool
             dut.io.raw_data.valid #= true
-            dut.io.raw_data.payload(0) #= (20 * scala.math.sin(idx*2*Math.PI*3 / 1024) + 20 * scala.math.sin(idx*2*Math.PI*200 / 1024)).toInt
+            dut.io.raw_data.payload(0) #= (20 * scala.math.sin(idx*2*scala.math.Pi*3 / 1024) + 20 * scala.math.sin(idx*2*scala.math.Pi*200 / 1024)).toInt
 //            dut.io.raw_data.payload(1) #= idx
             dut.clockDomain.waitSampling(1)
         }

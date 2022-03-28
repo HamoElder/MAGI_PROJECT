@@ -57,7 +57,7 @@ static uint8_t fcode_tab[MAX_MV * 2 + 1];
 static uint8_t uni_mpeg1_ac_vlc_len[64 * 64 * 2];
 static uint8_t uni_mpeg2_ac_vlc_len[64 * 64 * 2];
 
-/* simple include everything table for dc, first byte is bits
+/* simple includes everything table for dc, first byte is bits
  * number next 3 are code */
 static uint32_t mpeg1_lum_dc_uni[512];
 static uint32_t mpeg1_chr_dc_uni[512];

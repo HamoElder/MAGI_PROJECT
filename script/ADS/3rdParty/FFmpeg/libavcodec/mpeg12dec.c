@@ -1766,7 +1766,7 @@ static int mpeg_decode_slice(MpegEncContext *s, int mb_y,
     }
 
     if (avctx->hwaccel && avctx->hwaccel->decode_slice) {
-        const uint8_t *buf_end, *buf_start = *buf - 4; /* include start_code */
+        const uint8_t *buf_end, *buf_start = *buf - 4; /* includes start_code */
         int start_code = -1;
         buf_end = avpriv_find_start_code(buf_start + 2, *buf + buf_size, &start_code);
         if (buf_end < *buf + buf_size)

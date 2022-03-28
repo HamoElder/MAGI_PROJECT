@@ -42,11 +42,3 @@ case class Reorder(config: FFTConfig) extends Component {
     io.sorted.valid := RegNext(sorted_valid)
 }
 
-
-object ReorderBench{
-  def main(args: Array[String]): Unit ={
-    val fft_config = FFTConfig(8 exp, -2 exp)
-    SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
-      targetDirectory = "rtl").generateSystemVerilog(new Reorder(fft_config)).printPruned().printUnused()
-  }
-}

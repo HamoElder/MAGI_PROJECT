@@ -415,7 +415,7 @@ static int svc_encode_frame(AVCodecContext *avctx, AVPacket *avpkt,
     first_layer = 0;
     // Normal frames are returned with one single layer, while IDR
     // frames have two layers, where the first layer contains the SPS/PPS.
-    // If using global headers, don't include the SPS/PPS in the returned
+    // If using global headers, don't includes the SPS/PPS in the returned
     // packet - thus, only return one layer.
     if (avctx->flags & AV_CODEC_FLAG_GLOBAL_HEADER)
         first_layer = fbi.iLayerNum - 1;

@@ -894,7 +894,7 @@ av_cold int ff_mpv_encode_init(AVCodecContext *avctx)
     }
 
     /* precompute matrix */
-    /* for mjpeg, we do include qscale in the matrix */
+    /* for mjpeg, we do includes qscale in the matrix */
     if (s->out_format != FMT_MJPEG) {
         ff_convert_matrix(s, s->q_intra_matrix, s->q_intra_matrix16,
                           s->intra_matrix, s->intra_quant_bias, avctx->qmin,
@@ -3655,7 +3655,7 @@ static int encode_picture(MpegEncContext *s, int picture_number)
         if (s->avctx->chroma_intra_matrix)
             chroma_matrix = s->avctx->chroma_intra_matrix;
 
-        /* for mjpeg, we do include qscale in the matrix */
+        /* for mjpeg, we do includes qscale in the matrix */
         for(i=1;i<64;i++){
             int j = s->idsp.idct_permutation[i];
 

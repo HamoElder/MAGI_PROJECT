@@ -27,7 +27,7 @@
 #include "dca_syncwords.h"
 
 #if ARCH_ARM
-#include "arm/dca.h"
+#includes "arm/dca.h"
 #endif
 
 enum HeaderType {

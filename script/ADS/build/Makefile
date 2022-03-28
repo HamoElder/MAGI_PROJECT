@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named MAGI_Engine
+
+# Build rule for target.
+MAGI_Engine: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 MAGI_Engine
+.PHONY : MAGI_Engine
+
+# fast build rule for target.
+MAGI_Engine/fast:
+	$(MAKE) -f CMakeFiles/MAGI_Engine.dir/build.make CMakeFiles/MAGI_Engine.dir/build
+.PHONY : MAGI_Engine/fast
+
+#=============================================================================
 # Target rules for targets named GLAD
 
 # Build rule for target.
@@ -146,7 +159,7 @@ ADS_EDITOR: cmake_check_build_system
 
 # fast build rule for target.
 ADS_EDITOR/fast:
-	$(MAKE) -f editor/CMakeFiles/ADS_EDITOR.dir/build.make editor/CMakeFiles/ADS_EDITOR.dir/build
+	$(MAKE) -f App/editor/CMakeFiles/ADS_EDITOR.dir/build.make App/editor/CMakeFiles/ADS_EDITOR.dir/build
 .PHONY : ADS_EDITOR/fast
 
 #=============================================================================
@@ -159,8 +172,21 @@ ADS_DI: cmake_check_build_system
 
 # fast build rule for target.
 ADS_DI/fast:
-	$(MAKE) -f DI/CMakeFiles/ADS_DI.dir/build.make DI/CMakeFiles/ADS_DI.dir/build
+	$(MAKE) -f App/DI/CMakeFiles/ADS_DI.dir/build.make App/DI/CMakeFiles/ADS_DI.dir/build
 .PHONY : ADS_DI/fast
+
+#=============================================================================
+# Target rules for targets named FSR
+
+# Build rule for target.
+FSR: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 FSR
+.PHONY : FSR
+
+# fast build rule for target.
+FSR/fast:
+	$(MAKE) -f App/FSR/CMakeFiles/FSR.dir/build.make App/FSR/CMakeFiles/FSR.dir/build
+.PHONY : FSR/fast
 
 3rdParty/glad/glad.o: 3rdParty/glad/glad.c.o
 
@@ -188,6 +214,33 @@ ADS_DI/fast:
 3rdParty/glad/glad.c.s:
 	$(MAKE) -f CMakeFiles/GLAD.dir/build.make CMakeFiles/GLAD.dir/3rdParty/glad/glad.c.s
 .PHONY : 3rdParty/glad/glad.c.s
+
+src/engine/shader.o: src/engine/shader.cpp.o
+
+.PHONY : src/engine/shader.o
+
+# target to build an object file
+src/engine/shader.cpp.o:
+	$(MAKE) -f CMakeFiles/MAGI_Engine.dir/build.make CMakeFiles/MAGI_Engine.dir/src/engine/shader.cpp.o
+.PHONY : src/engine/shader.cpp.o
+
+src/engine/shader.i: src/engine/shader.cpp.i
+
+.PHONY : src/engine/shader.i
+
+# target to preprocess a source file
+src/engine/shader.cpp.i:
+	$(MAKE) -f CMakeFiles/MAGI_Engine.dir/build.make CMakeFiles/MAGI_Engine.dir/src/engine/shader.cpp.i
+.PHONY : src/engine/shader.cpp.i
+
+src/engine/shader.s: src/engine/shader.cpp.s
+
+.PHONY : src/engine/shader.s
+
+# target to generate assembly for a file
+src/engine/shader.cpp.s:
+	$(MAKE) -f CMakeFiles/MAGI_Engine.dir/build.make CMakeFiles/MAGI_Engine.dir/src/engine/shader.cpp.s
+.PHONY : src/engine/shader.cpp.s
 
 src/stb/stb_image.o: src/stb/stb_image.cpp.o
 
@@ -223,14 +276,19 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
+	@echo "... MAGI_Engine"
 	@echo "... edit_cache"
 	@echo "... GLAD"
 	@echo "... STB_IMAGE"
 	@echo "... ADS_EDITOR"
 	@echo "... ADS_DI"
+	@echo "... FSR"
 	@echo "... 3rdParty/glad/glad.o"
 	@echo "... 3rdParty/glad/glad.i"
 	@echo "... 3rdParty/glad/glad.s"
+	@echo "... src/engine/shader.o"
+	@echo "... src/engine/shader.i"
+	@echo "... src/engine/shader.s"
 	@echo "... src/stb/stb_image.o"
 	@echo "... src/stb/stb_image.i"
 	@echo "... src/stb/stb_image.s"

@@ -66,6 +66,8 @@ case class CordicConfig(
 		ram := cordicDoubleRamGen(iterations)(idx)
 		ram
 	}
+
+	override def equals(that: Any): Boolean = this == that
 }
 
 case class CordicIO(config: CordicConfig) extends Bundle with IMasterSlave {
@@ -293,7 +295,7 @@ object CordicRotatorBench {
 		/**
 		 * Get sequences of length n that go 1.0, 0.5, 0.25, ...
 		 */
-		def linearRam(n: Int):Seq[Double] = for (i <- 0 until n) yield Math.pow(2.0, -i)
+		def linearRam(n: Int):Seq[Double] = for (i <- 0 until n) yield scala.math.pow(2.0, -i)
 		/**
 		 * Get gain for n-stage CORDIC
 		 */
@@ -301,7 +303,7 @@ object CordicRotatorBench {
 		/**
 		 * Get sequences of length n that go atan(1), atan(0.5), atan(0.25), ...
 		 */
-		def arctanRam(n: Int):Seq[Double] = linearRam(n).map(Math.atan)
+		def arctanRam(n: Int):Seq[Double] = linearRam(n).map(scala.math.atan)
 		val cordic_config = CordicConfig(16 exp, -15 exp, 16, arctanRam, false)
 		SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
 			targetDirectory = "rtl/CordicRotator").generateSystemVerilog(new CordicRotator(cordic_config)).printPruned()

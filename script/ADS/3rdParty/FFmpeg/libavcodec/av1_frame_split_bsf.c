@@ -111,7 +111,7 @@ static int av1_frame_split_filter(AVBSFContext *ctx, AVPacket *out)
                 s->cur_frame++;
 
                 // split here unless it's the last frame, in which case
-                // include every trailing OBU
+                // includes every trailing OBU
                 if (s->cur_frame < s->nb_frames)
                     break;
             } else if (unit->type == AV1_OBU_FRAME_HEADER) {
@@ -129,7 +129,7 @@ static int av1_frame_split_filter(AVBSFContext *ctx, AVPacket *out)
                 s->cur_frame++;
 
                 // split here if show_existing_frame unless it's the last
-                // frame, in which case include every trailing OBU
+                // frame, in which case includes every trailing OBU
                 if (frame->show_existing_frame &&
                     s->cur_frame < s->nb_frames) {
                     s->cur_frame_idx = i + 1;
@@ -146,7 +146,7 @@ static int av1_frame_split_filter(AVBSFContext *ctx, AVPacket *out)
                 }
 
                 if ((group->tg_end == (frame->tile_cols * frame->tile_rows) - 1) &&
-                    // include every trailing OBU with the last frame
+                    // includes every trailing OBU with the last frame
                     s->cur_frame < s->nb_frames) {
                     s->cur_frame_idx = i + 1;
                     break;

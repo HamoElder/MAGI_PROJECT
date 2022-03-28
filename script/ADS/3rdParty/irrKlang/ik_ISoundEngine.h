@@ -196,7 +196,7 @@ namespace irrklang
 		\param memory Pointer to the memory to be treated as loaded sound file.
 		\param sizeInBytes Size of the memory chunk, in bytes.
 		\param soundName Name of the virtual sound file (e.g. "sounds/something.mp3"). You can also use this
-		name when calling play3D() or play2D(). Hint: If you include the extension of the original file
+		name when calling play3D() or play2D(). Hint: If you includes the extension of the original file
 		like .ogg, .mp3 or .wav at the end of the filename, irrKlang will be able to decide better what
 		file format it is and might be able to start playback faster.
 		\param copyMemory If set to true which is default, the memory block is copied 

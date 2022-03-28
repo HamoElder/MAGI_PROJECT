@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="ADS"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\cmake_modules\;CMake Files\configuration\;CMake Files\3rdParty\;CMake Files\App\;CMake Files\App\editor\;CMake Files\App\DI\;CMake Files\App\FSR\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="STB_IMAGE">
+				<Option output="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/libSTB_IMAGE.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/configuration"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/includes"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 STB_IMAGE"/>
+					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="STB_IMAGE/fast">
+				<Option output="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/libSTB_IMAGE.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/configuration"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/includes"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 STB_IMAGE/fast"/>
+					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="MAGI_ENGINE">
+				<Option output="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/libMAGI_ENGINE.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/configuration"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/includes"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 MAGI_ENGINE"/>
+					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="MAGI_ENGINE/fast">
+				<Option output="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/libMAGI_ENGINE.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/configuration"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/includes"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 MAGI_ENGINE/fast"/>
+					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="GLAD">
+				<Option output="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/libGLAD.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/configuration"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/includes"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 GLAD"/>
+					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="GLAD/fast">
+				<Option output="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/libGLAD.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/configuration"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/includes"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 GLAD/fast"/>
+					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ADS_EDITOR">
+				<Option output="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/bin/ADS_EDITOR/ADS_EDITOR" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/editor"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/configuration"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/includes"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/editor/Makefile&quot;  VERBOSE=1 ADS_EDITOR"/>
+					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/editor/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/editor/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/editor/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ADS_EDITOR/fast">
+				<Option output="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/bin/ADS_EDITOR/ADS_EDITOR" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/editor"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/configuration"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/includes"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/editor/Makefile&quot;  VERBOSE=1 ADS_EDITOR/fast"/>
+					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/editor/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/editor/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/editor/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ADS_DI">
+				<Option output="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/bin/ADS_DI/ADS_DI" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/DI"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/configuration"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/includes"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/DI/Makefile&quot;  VERBOSE=1 ADS_DI"/>
+					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/DI/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/DI/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/DI/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ADS_DI/fast">
+				<Option output="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/bin/ADS_DI/ADS_DI" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/DI"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/configuration"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/includes"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/DI/Makefile&quot;  VERBOSE=1 ADS_DI/fast"/>
+					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/DI/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/DI/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/DI/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FSR">
+				<Option output="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/bin/FSR/FSR" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/FSR"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/configuration"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/includes"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/App/FSR/includes"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/FSR/Makefile&quot;  VERBOSE=1 FSR"/>
+					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/FSR/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/FSR/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/FSR/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FSR/fast">
+				<Option output="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/bin/FSR/FSR" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/FSR"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/configuration"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/includes"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/App/FSR/includes"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/FSR/Makefile&quot;  VERBOSE=1 FSR/fast"/>
+					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/FSR/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/FSR/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/FSR/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/glad/glad.c">
+			<Option target="GLAD"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/glad/glad.h">
+			<Option target="GLAD"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends/imgui_impl_glfw.cpp">
+			<Option target="ADS_EDITOR"/>
+			<Option target="ADS_DI"/>
+			<Option target="FSR"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends/imgui_impl_glfw.h">
+			<Option target="ADS_EDITOR"/>
+			<Option target="ADS_DI"/>
+			<Option target="FSR"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends/imgui_impl_opengl3.cpp">
+			<Option target="ADS_EDITOR"/>
+			<Option target="ADS_DI"/>
+			<Option target="FSR"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends/imgui_impl_opengl3.h">
+			<Option target="ADS_EDITOR"/>
+			<Option target="ADS_DI"/>
+			<Option target="FSR"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/imgui.cpp">
+			<Option target="ADS_EDITOR"/>
+			<Option target="ADS_DI"/>
+			<Option target="FSR"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/imgui.h">
+			<Option target="ADS_EDITOR"/>
+			<Option target="ADS_DI"/>
+			<Option target="FSR"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/imgui_demo.cpp">
+			<Option target="ADS_EDITOR"/>
+			<Option target="ADS_DI"/>
+			<Option target="FSR"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/imgui_draw.cpp">
+			<Option target="ADS_EDITOR"/>
+			<Option target="ADS_DI"/>
+			<Option target="FSR"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/imgui_tables.cpp">
+			<Option target="ADS_EDITOR"/>
+			<Option target="ADS_DI"/>
+			<Option target="FSR"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/imgui_widgets.cpp">
+			<Option target="ADS_EDITOR"/>
+			<Option target="ADS_DI"/>
+			<Option target="FSR"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/App/DI/main.cpp">
+			<Option target="ADS_DI"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/App/FSR/main.cpp">
+			<Option target="FSR"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/App/FSR/src/EASUPass.cpp">
+			<Option target="FSR"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/App/editor/main.cpp">
+			<Option target="ADS_EDITOR"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/src/engine/shader.cpp">
+			<Option target="MAGI_ENGINE"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/src/stb/stb_image.cpp">
+			<Option target="STB_IMAGE"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake_modules/FindASSIMP.cmake">
+			<Option virtualFolder="CMake Files\cmake_modules\"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake_modules/FindEigen3.cmake">
+			<Option virtualFolder="CMake Files\cmake_modules\"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake_modules/FindGLFW3.cmake">
+			<Option virtualFolder="CMake Files\cmake_modules\"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake_modules/FindGLM.cmake">
+			<Option virtualFolder="CMake Files\cmake_modules\"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/configuration/root_directory.h.in">
+			<Option virtualFolder="CMake Files\configuration\"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\3rdParty\"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/App/editor/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\App\editor\"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/App/DI/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\App\DI\"/>
+		</Unit>
+		<Unit filename="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/App/FSR/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\App\FSR\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

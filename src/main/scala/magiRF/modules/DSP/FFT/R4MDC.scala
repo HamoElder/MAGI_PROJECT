@@ -38,16 +38,16 @@ case class R4MDC(config: FFTConfig) extends Component {
 		val wn2 = wnTable(idx, 2)(wnCtrl)
 		val wn3 = wnTable(idx, 1)(wnCtrl)
 		val wn4 = wnTable(idx, 3)(wnCtrl)
-		val r4bf = Butterfly(ShiftRegister(out0_buf(idx), (3 * config.FFTLength / Math.pow(4, idx + 1)).toInt),
-			ShiftRegister(out1_buf(idx), (2 * config.FFTLength / Math.pow(4, idx + 1)).toInt),
-			ShiftRegister(out2_buf(idx), (config.FFTLength / Math.pow(4, idx + 1)).toInt), out3_buf(idx),
+		val r4bf = Butterfly(ShiftRegister(out0_buf(idx), (3 * config.FFTLength / scala.math.pow(4, idx + 1)).toInt),
+			ShiftRegister(out1_buf(idx), (2 * config.FFTLength / scala.math.pow(4, idx + 1)).toInt),
+			ShiftRegister(out2_buf(idx), (config.FFTLength / scala.math.pow(4, idx + 1)).toInt), out3_buf(idx),
 			wn2,
 			wn3,
 			wn4)
 		val swCtrl1 = cnt(cntNum - 3 - 2 * idx)
 		val swCtrl0 = cnt(cntNum - 4 - 2 * idx)
-		val r4sw = Switch(r4bf._1, ShiftRegister(r4bf._2, (config.FFTLength / Math.pow(4, idx + 2)).toInt),
-			ShiftRegister(r4bf._3, (2 * config.FFTLength / Math.pow(4 , idx + 2)).toInt), ShiftRegister(r4bf._4, (3 * config.FFTLength / Math.pow(4 , idx + 2)).toInt), swCtrl0, swCtrl1)
+		val r4sw = Switch(r4bf._1, ShiftRegister(r4bf._2, (config.FFTLength / scala.math.pow(4, idx + 2)).toInt),
+			ShiftRegister(r4bf._3, (2 * config.FFTLength / scala.math.pow(4 , idx + 2)).toInt), ShiftRegister(r4bf._4, (3 * config.FFTLength / scala.math.pow(4 , idx + 2)).toInt), swCtrl0, swCtrl1)
 		out0_buf(idx + 1) := r4sw._1
 		out1_buf(idx + 1) := r4sw._2
 		out2_buf(idx + 1) := r4sw._3

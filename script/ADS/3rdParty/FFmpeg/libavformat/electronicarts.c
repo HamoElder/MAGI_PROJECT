@@ -699,7 +699,7 @@ static int ea_read_packet(AVFormatContext *s, AVPacket *pkt)
         case MADe_TAG:
             if (chunk_size > INT_MAX - 8)
                 return AVERROR_INVALIDDATA;
-            avio_seek(pb, -8, SEEK_CUR);    // include chunk preamble
+            avio_seek(pb, -8, SEEK_CUR);    // includes chunk preamble
             chunk_size += 8;
             goto get_video_packet;
 

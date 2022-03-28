@@ -22,7 +22,7 @@
 ;* 51, Inc., Foundation Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 ;******************************************************************************
 
-; add SECTION_RODATA and proper include before including this file!
+; add SECTION_RODATA and proper includes before including this file!
 
 %if ARCH_X86_64
 

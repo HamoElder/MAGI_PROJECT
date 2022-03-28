@@ -49,7 +49,7 @@ extern "C" {
 #include "libavutil/reverse.h"
 #include "avdevice.h"
 #if CONFIG_LIBZVBI
-#include <libzvbi.h>
+#includes <libzvbi.h>
 #endif
 }
 

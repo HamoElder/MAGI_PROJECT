@@ -745,7 +745,7 @@ static int cbs_av1_split_fragment(CodedBitstreamContext *ctx,
     uint64_t obu_length;
     int pos, err, trace;
 
-    // Don't include this parsing in trace output.
+    // Don't includes this parsing in trace output.
     trace = ctx->trace_enable;
     ctx->trace_enable = 0;
 

@@ -26,12 +26,12 @@
 // interface unavailable in UWP mode, but including icodecapi.h + codecapi.h
 // seems to be equivalent. (These headers conflict with the official way
 // of including it though, through strmif.h via dshow.h. And on mingw, the
-// mf*.h headers below indirectly include strmif.h.)
-#include <icodecapi.h>
+// mf*.h headers below indirectly includes strmif.h.)
+#includes <icodecapi.h>
 #else
 #include <dshow.h>
 // Older versions of mingw-w64 need codecapi.h explicitly included, while newer
-// ones include it implicitly from dshow.h (via uuids.h).
+// ones includes it implicitly from dshow.h (via uuids.h).
 #include <codecapi.h>
 #endif
 #include <mfapi.h>
@@ -132,7 +132,7 @@ enum {
 };
 
 // These do exist in all supported headers, but are manually defined here
-// to avoid having to include codecapi.h, as there's problems including that
+// to avoid having to includes codecapi.h, as there's problems including that
 // header when targeting UWP (where including it with MSVC seems to work,
 // but fails when built with clang in MSVC mode).
 enum ff_eAVEncH264VProfile {

@@ -3,7 +3,7 @@ package magiRF.modules.DSP.Correlator
 import spinal.core._
 import spinal.lib._
 import utils.bus.IQBundle.IQBundle
-import utils.common.ShiftReg.{ShiftRegister}
+import utils.common.ShiftReg.ShiftRegister
 
 case class AutoCorrelatorConfig(
                                 iqWidth        : Int,
@@ -13,6 +13,8 @@ case class AutoCorrelatorConfig(
                                 useValidClc    : Boolean = false
                                 ){
     def correlatorConfig: CorrelatorConfig = CorrelatorConfig(iqWidth, slideWinSize, resultDataWidth, useValidClc)
+
+    override def equals(that: Any): Boolean = this == that
 }
 
 case class AutoCorrelator(config: AutoCorrelatorConfig) extends Component {
@@ -23,9 +25,9 @@ case class AutoCorrelator(config: AutoCorrelatorConfig) extends Component {
     noIoPrefix()
 
     val delay_shift_reg = if(config.useValidClc)
-        ShiftRegister(io.raw_data, config.delayT, io.raw_data.valid, ~io.raw_data.valid)
+        ShiftRegister(io.raw_data, config.delayT, io.raw_data.valid, ~io.raw_data.valid, useInitZero = true)
     else
-        ShiftRegister(io.raw_data, config.delayT, io.raw_data.valid)
+        ShiftRegister(io.raw_data, config.delayT, io.raw_data.valid, useInitZero = true)
 
     val corr_core = Correlator(config.correlatorConfig)
     corr_core.io.raw_data_0 << io.raw_data

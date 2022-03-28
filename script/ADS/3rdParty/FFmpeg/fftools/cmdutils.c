@@ -57,11 +57,11 @@
 #include "libavcodec/bsf.h"
 #include "cmdutils.h"
 #if HAVE_SYS_RESOURCE_H
-#include <sys/time.h>
-#include <sys/resource.h>
+#includes <sys/time.h>
+#includes <sys/resource.h>
 #endif
 #ifdef _WIN32
-#include <windows.h>
+#includes <windows.h>
 #endif
 
 static int init_report(const char *env);
@@ -223,7 +223,7 @@ static const OptionDef *find_option(const OptionDef *po, const char *name)
  * by default. HAVE_COMMANDLINETOARGVW is true on cygwin, while
  * it doesn't provide the actual command line via GetCommandLineW(). */
 #if HAVE_COMMANDLINETOARGVW && defined(_WIN32)
-#include <shellapi.h>
+#includes <shellapi.h>
 /* Will be leaked on exit */
 static char** win32_argv_utf8 = NULL;
 static int win32_argc = 0;

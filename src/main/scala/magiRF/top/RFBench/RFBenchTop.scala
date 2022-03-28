@@ -1,5 +1,5 @@
 package magiRF.top.RFBench
-import magiRF.interface.frontend.AD9361.AD9361Interface
+import magiRF.interfaces.frontend.AD9361.AD9361Interface
 import magiRF.packages.PackageGen.StreamPkgGen
 import magiRF.top.RFBench.Config.{axiLite4_config, genPkgGenConfig, interfaceIQDataType, phyDataType, stream_config}
 import magiRF.top.RFBench.Transmitter.{PhyTxInterface, TX}

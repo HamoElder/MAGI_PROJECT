@@ -2122,7 +2122,7 @@ static int process_output_surface(AVCodecContext *avctx, AVPacket *pkt, NvencSur
         break;
     default:
         av_log(avctx, AV_LOG_ERROR, "Unknown picture type encountered, expect the output to be broken.\n");
-        av_log(avctx, AV_LOG_ERROR, "Please report this error and include as much information on how to reproduce it as possible.\n");
+        av_log(avctx, AV_LOG_ERROR, "Please report this error and includes as much information on how to reproduce it as possible.\n");
         res = AVERROR_EXTERNAL;
         goto error;
     }

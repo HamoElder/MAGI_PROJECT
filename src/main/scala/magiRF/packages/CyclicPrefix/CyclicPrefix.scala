@@ -13,13 +13,15 @@ object CpStates extends SpinalEnum {
 case class CpConfig(
                        dataWidth: Int,
                        maxCpLength: Int,
-                       maxDataLength: Int,
+                       maxDataLength: Int
                    ) {
     def dataType: Fragment[IQBundle[Bits]] = Fragment(IQBundle(Bits(dataWidth bits)))
 
     def cpType: UInt = UInt(log2Up(maxCpLength) + 1 bits)
 
     def cntType: UInt = UInt(log2Up(maxDataLength) + 1 bits)
+
+    override def equals(that: Any): Boolean = that == this
 }
 
 case class CyclicPrefix(config: CpConfig) extends Component(){

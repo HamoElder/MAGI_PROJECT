@@ -18,7 +18,7 @@
 
   /**************************************************************************
    *
-   * This file is automatically included by `ft2build.h`.  Do not include it
+   * This file is automatically included by `ft2build.h`.  Do not includes it
    * manually!
    *
    */

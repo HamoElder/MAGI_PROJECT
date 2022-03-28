@@ -54,7 +54,7 @@ extern "C" {
 
 // ---------------------------------------------------------------------------
 /** @brief Returns a string with legal copyright and licensing information
- *  about Assimp. The string may include multiple lines.
+ *  about Assimp. The string may includes multiple lines.
  *  @return Pointer to static string.
  */
 ASSIMP_API const char*  aiGetLegalString  (void);

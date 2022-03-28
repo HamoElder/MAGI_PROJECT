@@ -63,10 +63,10 @@
 #include "rmsipr.h"
 
 #if CONFIG_BZLIB
-#include <bzlib.h>
+#includes <bzlib.h>
 #endif
 #if CONFIG_ZLIB
-#include <zlib.h>
+#includes <zlib.h>
 #endif
 
 #include "qtpalette.h"
@@ -4267,7 +4267,7 @@ static int webm_dash_manifest_cues(AVFormatContext *s, int64_t init_range)
     av_dict_set_int(&s->streams[0]->metadata, CUES_END, cues_end, 0);
 
     // if the file has cues at the start, fix up the init range so that
-    // it does not include it
+    // it does not includes it
     if (cues_start <= init_range)
         av_dict_set_int(&s->streams[0]->metadata, INITIALIZATION_RANGE, cues_start - 1, 0);
 

@@ -9,7 +9,7 @@ case class AxiLite4OAMSpinorConfig(
                                   iqWidth: Int,
                                   eleNum: Int,
                                   modalNum: Int,
-                                  cfgDataWidth: Int = 32,
+                                  cfgDataWidth: Int = 32
                                   ){
     require(modalNum <= eleNum, "The num of Modal must equal or less than the num of Channels(Antenna elements).")
     def addressWidth = 8
@@ -18,6 +18,7 @@ case class AxiLite4OAMSpinorConfig(
     def modDataWidth: Int = iqWidth + iqWidth
     def modDataType: SInt = SInt(modDataWidth bits)
 
+    override def equals(that: Any): Boolean = that == this
 }
 
 
@@ -41,7 +42,7 @@ case class AxiLite4OAMSpinor(config: AxiLite4OAMSpinorConfig) extends Component{
         config = ClockDomainConfig(
             clockEdge = RISING,
             resetKind = SYNC,
-            resetActiveLevel = LOW,
+            resetActiveLevel = LOW
         )
     )
 

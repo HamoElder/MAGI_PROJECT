@@ -236,7 +236,7 @@ static int put_system_header(AVFormatContext *ctx, uint8_t *buf,
         for (i = 0; i < ctx->nb_streams; i++) {
             StreamInfo *stream = ctx->streams[i]->priv_data;
 
-            /* For VCDs, only include the stream info for the stream
+            /* For VCDs, only includes the stream info for the stream
              * that the pack which contains this system belongs to.
              * (see VCD standard p. IV-7) */
             if (!s->is_vcd || stream->id == only_for_stream_id ||
@@ -952,7 +952,7 @@ static void put_vcd_padding_sector(AVFormatContext *ctx)
     avio_write_marker(ctx->pb, AV_NOPTS_VALUE, AVIO_DATA_MARKER_FLUSH_POINT);
 
     /* increasing the packet number is correct. The SCR of the following packs
-     * is calculated from the packet_number and it has to include the padding
+     * is calculated from the packet_number and it has to includes the padding
      * sector (it represents the sector index, not the MPEG pack index)
      * (see VCD standard p. IV-6) */
     s->packet_number++;

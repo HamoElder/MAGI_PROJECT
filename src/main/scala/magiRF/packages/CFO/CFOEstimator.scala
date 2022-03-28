@@ -18,8 +18,8 @@ case class CFOEstimatorConfig(
     def dataType: SInt = SInt(iqWidth bits)
     def phiDataType: SFix = SFix(iqWidth - 1 exp, -dataResolutionWidth exp)
 
-    def linearRam(n: Int):Seq[Double] = for (i <- 0 until n) yield Math.pow(2.0, -i)
-    def arctanRam(n: Int):Seq[Double] = linearRam(n).map(Math.atan)
+    def linearRam(n: Int):Seq[Double] = for (i <- 0 until n) yield scala.math.pow(2.0, -i)
+    def arctanRam(n: Int):Seq[Double] = linearRam(n).map(scala.math.atan)
 
     def autoCorrelatorConfig: AutoCorrelatorConfig = AutoCorrelatorConfig(iqWidth, delayT, calcWinSize, iqWidth + calcWinSize, useValidClc = true)
     def cordicConfig: CordicConfig = CordicConfig(iqWidth - 1 exp, -dataResolutionWidth exp, iterations = iterations, arctanRam, usePipeline = true)
@@ -56,7 +56,8 @@ case class CFOEstimator(config : CFOEstimatorConfig) extends Component {
     io.delta_phi.valid := cordic_core.io.result.valid && (impulse_cnt === (config.cntLimit - 1))
 
     val scale_val: SFix = cordic_core.io.result.z * phi_scale
-    io.delta_phi.payload.raw := scale_val.raw.round(config.dataResolutionWidth).sat(config.iqWidth)
+//    io.delta_phi.payload.raw := scale_val.raw.round(config.dataResolutionWidth).sat(config.iqWidth)
+    io.delta_phi.payload.raw := 0
     when(io.rotated_data.valid){
         impulse_cnt := (impulse_cnt >= (config.cntLimit - 1))? U(0) | impulse_cnt + 1
     }.otherwise{

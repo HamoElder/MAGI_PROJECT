@@ -31,7 +31,7 @@ case class StreamPlayer(config: StreamPlayerConfig) extends Component {
 
 	val dataFifo: StreamFifo[Bits] = StreamFifo(
 		dataType = config.dataType,
-		depth = config.fifoDepth,
+		depth = config.fifoDepth
 	)
 
 	if(config.useDynamic){
@@ -43,6 +43,7 @@ case class StreamPlayer(config: StreamPlayerConfig) extends Component {
 	}
 	else{
 		val dataMem = Mem(config.dataType, initialContent = config.payloadList).addAttribute("rom_style", "block")
+
 		val cnt = Reg(config.cntType) init(0)
 		when(dataFifo.io.push.fire){
 			cnt := (cnt === config.dataSize - 1) ? U(0) | cnt + 1

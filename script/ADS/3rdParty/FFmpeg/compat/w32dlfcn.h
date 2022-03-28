@@ -20,10 +20,10 @@
 #define COMPAT_W32DLFCN_H
 
 #ifdef _WIN32
-#include <windows.h>
-#include "config.h"
+#includes <windows.h>
+#includes "config.h"
 #if (_WIN32_WINNT < 0x0602) || HAVE_WINRT
-#include "libavutil/wchar_filename.h"
+#includes "libavutil/wchar_filename.h"
 #endif
 /**
  * Safe function used to open dynamic libs. This attempts to improve program security

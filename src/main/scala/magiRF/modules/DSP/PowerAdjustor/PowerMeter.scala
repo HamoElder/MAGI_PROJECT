@@ -15,6 +15,7 @@ case class PowerMeterConfig(
     def shiftStep: Int = log2Up(slideWinSize)
     def shearSize: Int = iqWidth * 2 - iqWidth + shiftStep
 
+    override def equals(that: Any): Boolean = this == that
 }
 
 /**

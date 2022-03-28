@@ -4823,7 +4823,7 @@ static int mov_write_sidx_tags(AVIOContext *pb, MOVMuxContext *mov,
             if (tracks >= 0 && i != tracks)
                 continue;
             // When writing a sidx for the full file, entry is 0, but
-            // we want to include all tracks. ref_size is 0 in this case,
+            // we want to includes all tracks. ref_size is 0 in this case,
             // since we read it from frag_info instead.
             if (!track->entry && ref_size > 0)
                 continue;

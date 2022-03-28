@@ -1,4 +1,11 @@
-Cannot generate into /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug
-It is already used for project /home/crystal/project/MAGI_PROJECT/script/ADS
-
-Please either delete it manually or select another generation directory
+/snap/clion/184/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS
+-- Build type: Debug
+-- GLM_INCLUDE_DIR = /usr/include
+-- GLM included at /usr/include
+-- Found GLFW3 in /usr/include
+-- Found ASSIMP: /usr/lib/x86_64-linux-gnu/libassimp.so
+-- Found ASSIMP in /usr/include
+-- Found Eigen3 in /usr/local/include/eigen3
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug

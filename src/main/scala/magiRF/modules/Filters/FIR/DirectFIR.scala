@@ -40,7 +40,7 @@ case class DirectFIRCore(dataWidth: Int, filteredDataWidth: Int, coffDataWidth: 
 }
 
 case class DirectFIR(dataWidth: Int, filteredDataWidth: Int, H: List[Int],  chaNum: Int, reloadableCoff: Boolean = false) extends Component {
-    def coffDataWidth: Int = log2Up(H.map({Math.abs}).max + 1) + 1
+    def coffDataWidth: Int = log2Up(H.map({scala.math.abs}).max + 1) + 1
     def stages: Int = H.size
     def dataType: SInt = SInt(dataWidth bits)
     def filteredDataType: SInt = SInt(filteredDataWidth bits)
@@ -86,27 +86,5 @@ object DirectFIRFilterBench{
     def main(args: Array[String]): Unit ={
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
             targetDirectory = "rtl/DirectFIR").generateSystemVerilog(new DirectFIR(12, 29, List(6,0,-4,-3,5,6,-6,-13,7,44,64,44,7,-13,-6,6,5,-3,-4,0,6), chaNum = 1)).printUnused()
-    }
-}
-
-object DirectFIRFilterSimApp extends App{
-    import spinal.core.sim._
-
-    SimConfig.withWave.doSim(new DirectFIR(12, 29, List(11, 31, 63, 104, 152, 198, 235, 255, 255, 235, 198, 152, 104, 63, 31, 11), chaNum = 1)){ dut =>
-        dut.clockDomain.forkStimulus(5)
-        dut.io.raw_data.valid #= false
-        dut.io.raw_data.payload(0) #= 0
-        //        dut.io.raw_data.payload(1) #= 0
-        dut.clockDomain.waitSampling(10)
-        var valid_bool = false
-        for(idx <- 1 until 1024){
-            //            valid_bool = !valid_bool
-            dut.io.raw_data.valid #= true
-            dut.io.raw_data.payload(0) #= (20 * Math.sin(idx*2*Math.PI*3 / 1024) + 100 * Math.sin(idx*2*Math.PI*120 / 1024)).toInt
-            //            dut.io.raw_data.payload(1) #= idx
-            dut.clockDomain.waitSampling(1)
-        }
-        dut.io.raw_data.valid #= false
-        dut.clockDomain.waitSampling(100)
     }
 }

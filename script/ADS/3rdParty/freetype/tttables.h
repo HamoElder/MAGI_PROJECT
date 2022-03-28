@@ -356,7 +356,7 @@ FT_BEGIN_HEADER
    *   A structure to model a TrueType 'OS/2' table.  All fields comply to
    *   the OpenType specification.
    *
-   *   Note that we now support old Mac fonts that do not include an 'OS/2'
+   *   Note that we now support old Mac fonts that do not includes an 'OS/2'
    *   table.  In this case, the `version` field is always set to 0xFFFF.
    *
    * @note:

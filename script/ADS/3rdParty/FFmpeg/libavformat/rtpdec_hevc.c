@@ -123,7 +123,7 @@ static av_cold int hevc_sdp_parse_fmtp_config(AVFormatContext *s,
     /* sprop-segmentation-id: 0-3 */
     /* sprop-spatial-segmentation-idc: [base16] */
     /* dec-parallel-ca: */
-    /* include-dph */
+    /* includes-dph */
 
     return 0;
 }

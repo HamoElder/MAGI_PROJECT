@@ -426,7 +426,7 @@ public:
      *
      * @note This is a straightforward way to decode models from memory
      * buffers, but it doesn't handle model formats that spread their
-     * data across multiple files or even directories. Examples include
+     * data across multiple files or even directories. Examples includes
      * OBJ or MD3, which outsource parts of their material info into
      * external scripts. If you need full functionality, provide
      * a custom IOSystem to make Assimp find these files and use
@@ -523,7 +523,7 @@ public:
     /** Returns whether a given file extension is supported by ASSIMP.
      *
      * @param szExtension Extension to be checked.
-     *   Must include a trailing dot '.'. Example: ".3ds", ".md3".
+     *   Must includes a trailing dot '.'. Example: ".3ds", ".md3".
      *   Cases-insensitive.
      * @return true if the extension is supported, false otherwise */
     bool IsExtensionSupported(const char* szExtension) const;
@@ -563,7 +563,7 @@ public:
     // -------------------------------------------------------------------
     /** Get meta data for the importer corresponding to a specific index..
     *
-    *  For the declaration of #aiImporterDesc, include <assimp/importerdesc.h>.
+    *  For the declaration of #aiImporterDesc, includes <assimp/importerdesc.h>.
     *  @param index Index to query, must be within [0,GetImporterCount())
     *  @return Importer meta data structure, NULL if the index does not
     *     exist or if the importer doesn't offer meta information (

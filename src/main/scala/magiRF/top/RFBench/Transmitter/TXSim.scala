@@ -1,12 +1,12 @@
 package magiRF.top.RFBench.Transmitter
 
-import magiRF.interface.frontend.AD9361.{AD9361Bundle, AD9361Interface}
+import magiRF.interfaces.frontend.AD9361.{AD9361Bundle, AD9361Interface}
 import magiRF.modules.Modem.Misc.dataDivDynamic
 import magiRF.modules.Modem.Modulator.ModulatorRTL
 import magiRF.packages.PackageGen.StreamPkgGen
 import magiRF.packages.Preamble.PreambleExtender
 import magiRF.packages.Puncher.Puncturing
-import magiRF.top.RFBench.Config.{axiLite4_config, codedDataWidth, genModulatorConfig, genModulatorDivConfig, genPkgGenConfig, iqWidth, mask_seq_1_2, modIQDataType, phyDataType, phyDataWidth, rf_payload_upper_boundary, stf_preamble_config, stream_config}
+import magiRF.top.RFBench.Config.{axiLite4_config, codedDataWidth, genModulatorConfig, genModulatorDivConfig, genPkgGenConfig, interfaceIQDataType, iqWidth, mask_seq_1_2, modIQDataType, phyDataType, phyDataWidth, rf_payload_upper_boundary, stf_preamble_config, stream_config}
 import spinal.core._
 import spinal.lib._
 import utils.bus.AxiLite.{AxiLite4, AxiLite4SlaveFactory, AxiLite4SpecRenamer}
@@ -17,7 +17,7 @@ case class TXSim() extends Component{
     val io = new Bundle{
         val axil4Ctrl = slave(AxiLite4(axiLite4_config))
         val raw_data = slave(AxiStream4(stream_config))
-        val result_data = master(Stream(IQBundle(Bits(iqWidth bits))))
+        val result_data = master(Stream(interfaceIQDataType))
     }
     noIoPrefix()
     AxiStream4SpecRenamer(io.raw_data)

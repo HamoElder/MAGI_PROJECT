@@ -16,6 +16,8 @@ case class AxiLite4OAMUnspinorConfig(
     def iqDataType: SInt = SInt(iqWidth bits)
     def transDataWidth: Int = iqWidth + iqWidth
     def transDataType: SInt = SInt(transDataWidth bits)
+
+    override def equals(that: Any): Boolean = that == this
 }
 
 class AxiLite4OAMUnspinor(config: AxiLite4OAMUnspinorConfig) extends Component {
@@ -37,7 +39,7 @@ class AxiLite4OAMUnspinor(config: AxiLite4OAMUnspinorConfig) extends Component {
         config = ClockDomainConfig(
             clockEdge = RISING,
             resetKind = SYNC,
-            resetActiveLevel = LOW,
+            resetActiveLevel = LOW
         )
     )
 

@@ -31,9 +31,9 @@ case class R2MDC(config: FFTConfig) extends Component {
 	for(idx <- 0 until stages - 1){
 		val wnCtrl = cnt_p1(stages-2-idx downto 0)
 		val wn = wnTable(idx)(wnCtrl)
-		val r2bf = Butterfly(ShiftRegister(out0_buf(idx), (config.FFTLength / Math.pow(2, idx + 1)).toInt), out1_buf(idx), wn)
+		val r2bf = Butterfly(ShiftRegister(out0_buf(idx), (config.FFTLength / scala.math.pow(2, idx + 1)).toInt), out1_buf(idx), wn)
 		val swCtrl = cnt(stages - 2 - idx)
-		val r2sw = Switch(r2bf._1, ShiftRegister(r2bf._2, (config.FFTLength / Math.pow(2, idx + 2)).toInt), swCtrl)
+		val r2sw = Switch(r2bf._1, ShiftRegister(r2bf._2, (config.FFTLength / scala.math.pow(2, idx + 2)).toInt), swCtrl)
 		out0_buf(idx + 1) := r2sw._1
 		out1_buf(idx + 1) := r2sw._2
 	}

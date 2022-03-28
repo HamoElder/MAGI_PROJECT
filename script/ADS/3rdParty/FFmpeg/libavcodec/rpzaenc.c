@@ -437,9 +437,9 @@ static void update_block_in_prev_frame(const uint16_t *src_pixels,
  * the same run of 1-color blocks. The routine returns 1 if this
  * block can be part of the same 1-color block run.
 
- * If the routine returns 1, it also updates its arguments to include
+ * If the routine returns 1, it also updates its arguments to includes
  * the statistics of this block. Otherwise, the stats are unchanged
- * and don't include the current block.
+ * and don't includes the current block.
  */
 static int update_block_stats(RpzaContext *s, BlockInfo *bi, uint16_t *block,
                               uint8_t min_color[3], uint8_t max_color[3],
@@ -472,7 +472,7 @@ static int update_block_stats(RpzaContext *s, BlockInfo *bi, uint16_t *block,
     }
 
     /*
-       The *_blk variables will include the current block.
+       The *_blk variables will includes the current block.
        Initialize them based on the blocks so far.
      */
     min_color_blk[0] = min_color[0];
@@ -525,7 +525,7 @@ static int update_block_stats(RpzaContext *s, BlockInfo *bi, uint16_t *block,
 
     if (is_in_range) {
         /*
-           Set the output variables to include this block.
+           Set the output variables to includes this block.
          */
         min_color[0] = min_color_blk[0];
         min_color[1] = min_color_blk[1];

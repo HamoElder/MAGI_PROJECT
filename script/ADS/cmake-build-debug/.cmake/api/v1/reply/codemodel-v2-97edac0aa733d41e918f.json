@@ -1,0 +1,169 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4
+					],
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						3,
+						4,
+						5
+					]
+				},
+				{
+					"build" : "3rdParty",
+					"jsonFile" : "directory-3rdParty-Debug-a57902d5c933ba137f98.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "3rdParty"
+				},
+				{
+					"build" : "App/editor",
+					"jsonFile" : "directory-App.editor-Debug-9199e0d5c76496399f22.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "App/editor",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "App/DI",
+					"jsonFile" : "directory-App.DI-Debug-901e2b463494aabac2bd.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "App/DI",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "App/FSR",
+					"jsonFile" : "directory-App.FSR-Debug-a36fffe7a2f7e8192f27.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.0"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "App/FSR",
+					"targetIndexes" : 
+					[
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					],
+					"name" : "ADS",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 3,
+					"id" : "ADS_DI::@17a879ba64f5bbed19d5",
+					"jsonFile" : "target-ADS_DI-Debug-9af6c1f41b7216a7d679.json",
+					"name" : "ADS_DI",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "ADS_EDITOR::@ff97e2326450d6af194d",
+					"jsonFile" : "target-ADS_EDITOR-Debug-130f849a862a777d564a.json",
+					"name" : "ADS_EDITOR",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "FSR::@3753b2a158066ff1e06b",
+					"jsonFile" : "target-FSR-Debug-93f0cdb12b544c622630.json",
+					"name" : "FSR",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "GLAD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-GLAD-Debug-730882bebd9caafe82a5.json",
+					"name" : "GLAD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "MAGI_ENGINE::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MAGI_ENGINE-Debug-6e441e2f2f051955dd4c.json",
+					"name" : "MAGI_ENGINE",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "STB_IMAGE::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-STB_IMAGE-Debug-8703c252813bfc7f50c0.json",
+					"name" : "STB_IMAGE",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug",
+		"source" : "/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

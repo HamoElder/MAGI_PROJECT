@@ -13,6 +13,8 @@ case class CorrelatorConfig(
                                ){
     def dataType: SInt = SInt(iqWidth bits)
     def resultDataType: SInt = SInt(intermediateDataWidth bits)
+
+    override def equals(that: Any): Boolean = this == that
 }
 
 case class Correlator(config: CorrelatorConfig) extends Component{
@@ -32,10 +34,10 @@ case class Correlator(config: CorrelatorConfig) extends Component{
     val mul_q = RegNext(k1 - k2) init(0)
     val mul_data_valid = RegNext(io.raw_data_0.valid && io.raw_data_1.valid) init(False)
 
-    val slide_win_i = if(config.useValidClc) ShiftRegister(mul_i, config.slideWinSize, mul_data_valid, ~mul_data_valid)
-    else ShiftRegister(mul_i, config.slideWinSize, mul_data_valid)
-    val slide_win_q = if(config.useValidClc) ShiftRegister(mul_q, config.slideWinSize, mul_data_valid, ~mul_data_valid)
-    else ShiftRegister(mul_q, config.slideWinSize, mul_data_valid)
+    val slide_win_i = if(config.useValidClc) ShiftRegister(mul_i, config.slideWinSize, mul_data_valid, ~mul_data_valid, useInitZero = true)
+    else ShiftRegister(mul_i, config.slideWinSize, mul_data_valid, useInitZero = true)
+    val slide_win_q = if(config.useValidClc) ShiftRegister(mul_q, config.slideWinSize, mul_data_valid, ~mul_data_valid, useInitZero = true)
+    else ShiftRegister(mul_q, config.slideWinSize, mul_data_valid, useInitZero = true)
 
     val corr_result_valid = Reg(Bool()) init(False)
     when(mul_data_valid){
@@ -52,32 +54,4 @@ case class Correlator(config: CorrelatorConfig) extends Component{
     io.corr_result.cha_i := corr_val_i
     io.corr_result.cha_q := corr_val_q
     io.corr_result.valid := corr_result_valid
-}
-
-
-object CorrelatorSimApp extends App{
-    import spinal.core.sim._
-
-    val corrlator_config = CorrelatorConfig(16, 4, 32)
-    SimConfig.withWave.doSim(new Correlator(corrlator_config)){ dut =>
-        dut.clockDomain.forkStimulus(5)
-        dut.io.raw_data_0.valid #= false
-        dut.io.raw_data_1.valid #= false
-        dut.clockDomain.waitSampling(10)
-        for(idx <- 1 until 32767){
-            dut.io.raw_data_0.valid #= true
-            dut.io.raw_data_1.valid #= true
-
-            dut.io.raw_data_0.cha_i #= idx
-            dut.io.raw_data_0.cha_q #= idx
-
-            dut.io.raw_data_1.cha_i #= idx
-            dut.io.raw_data_1.cha_q #= idx
-            dut.clockDomain.waitSampling(1)
-        }
-        dut.clockDomain.waitSampling(1)
-        dut.io.raw_data_0.valid #= false
-        dut.io.raw_data_1.valid #= false
-        dut.clockDomain.waitSampling(1000)
-    }
 }

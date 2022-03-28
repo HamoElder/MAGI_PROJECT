@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
 // Component : TXSim
-// Git hash  : f2de38abf7571057636a8c0dcb31a9f8ff374112
+// Git hash  : 41d71cf9ab449e73a475f6b0f32b020b0dbe98fe
 
 
 `define PhyTxHeaderStatus_binary_sequential_type [1:0]
