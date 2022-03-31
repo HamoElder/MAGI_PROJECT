@@ -6,6 +6,7 @@ import magiRF.modules.DSP.PowerAdjustor.PowerAdjustorConfig
 import magiRF.modules.Modem.Misc.{dataDivConfig, modUnitConfig}
 import magiRF.modules.Modem.Modulator.modRTLConfig
 import magiRF.modules.Modem.Modulator.extensions.{ModExtension, lookUpModConfig, mPSKModExtension, mQAMModExtension}
+import magiRF.packages.CFO.CFOCorrectorConfig
 import magiRF.packages.Coder.Convolutional.Decoder.ViterbiDecoderConfig
 import magiRF.packages.Coder.Convolutional.Encoder.ConvEncoderConfig
 import magiRF.packages.PackageGen.{AxiLite4PackageGenConfig, StreamPkgGenConfig}
@@ -99,8 +100,8 @@ object Config {
     def srrcConfig: SquareRootRaisedCosineFilterParams = SquareRootRaisedCosineFilterParams(128.0, 0.3, 4, oversampled_zeros)
     def srrcTaps: List[Int] = SquareRootRaisedCosineTaps(srrcConfig).toList
 
-    val stf: Array[Complex] = zcSeqGen(2, 32)
-    val stf_repeat_times = 6
+    val stf: Array[Complex] = zcSeqGen(1, 32)
+    val stf_repeat_times = 10
     //    val ltf32: Array[Complex] = zcSeqGen(5, 32)
     //    val ltf: Array[Complex] = (ltf32 ++ ltf32)
 
@@ -211,5 +212,6 @@ object Config {
 
     def power_adjustor_config: PowerAdjustorConfig = PowerAdjustorConfig(iqWidth, iqWidth, power_adjustor_ratio)
     def preamble_config: PreambleDetectorConfig = PreambleDetectorConfig(12, stf.length, stf.length, usePowerMeter = false)
-//    def rx_cfo_congif = CFOConfig(iqWidth, stf.length, stf.length)
+    val dataResolutionWidth: Int = iqWidth
+    def rx_cfo_corrector_config: CFOCorrectorConfig = CFOCorrectorConfig(iqWidth, stf.length, stf.length, iqWidth, (stf_repeat_times / 2) & 0xfe, dataResolutionWidth)
 }

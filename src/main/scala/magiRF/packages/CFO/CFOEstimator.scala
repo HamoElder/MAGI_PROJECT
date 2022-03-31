@@ -27,6 +27,8 @@ case class CFOEstimatorConfig(
     def cntLimit: Int = calcWinSize + 2 * iqWidth + 2
     def cntWidth: Int = log2Up(cntLimit + 1)
     def cntDataType: UInt = UInt(cntWidth bits)
+    def scaleIspPow2: Boolean = isPow2(calcWinSize)
+    def scaleShift: Int = log2Up(calcWinSize)
 }
 
 
@@ -37,9 +39,6 @@ case class CFOEstimator(config : CFOEstimatorConfig) extends Component {
     }
     noIoPrefix()
 
-    val phi_scale: SFix = config.phiDataType
-    phi_scale := 1.0 / config.delayT
-
     val impulse_cnt = Reg(config.cntDataType) init(0)
     val auto_corr_core = AutoCorrelator(config.autoCorrelatorConfig)
     auto_corr_core.io.raw_data << io.rotated_data
@@ -49,16 +48,22 @@ case class CFOEstimator(config : CFOEstimatorConfig) extends Component {
     cordic_core.io.x_u := 0
 
     cordic_core.io.raw_data.x.raw := auto_corr_core.io.corr_result.cha_i.round((config.autoCorrelatorConfig.resultDataWidth - config.phiDataType.getBitsWidth))
-    cordic_core.io.raw_data.y.raw := -auto_corr_core.io.corr_result.cha_q.round((config.autoCorrelatorConfig.resultDataWidth - config.phiDataType.getBitsWidth))
+    cordic_core.io.raw_data.y.raw := auto_corr_core.io.corr_result.cha_q.round((config.autoCorrelatorConfig.resultDataWidth - config.phiDataType.getBitsWidth))
     cordic_core.io.raw_data.z.raw := 0
     cordic_core.io.raw_data.valid := auto_corr_core.io.corr_result.valid
 
     io.delta_phi.valid := cordic_core.io.result.valid && (impulse_cnt === (config.cntLimit - 1))
+    if(config.scaleIspPow2){
+        io.delta_phi.payload.raw := (cordic_core.io.result.z.raw |>> config.scaleShift).resized
+    }else{
+        val phi_scale: SFix = config.phiDataType
+        phi_scale := 1.0 / config.calcWinSize
+        val scale_val: SFix = cordic_core.io.result.z * phi_scale
+        io.delta_phi.payload.raw := scale_val.raw.round(config.dataResolutionWidth).sat(config.iqWidth)
+    }
 
-    val scale_val: SFix = cordic_core.io.result.z * phi_scale
-//    io.delta_phi.payload.raw := scale_val.raw.round(config.dataResolutionWidth).sat(config.iqWidth)
-    io.delta_phi.payload.raw := 0
-    when(io.rotated_data.valid){
+
+    when(auto_corr_core.io.corr_result.valid){
         impulse_cnt := (impulse_cnt >= (config.cntLimit - 1))? U(0) | impulse_cnt + 1
     }.otherwise{
         impulse_cnt := 0
@@ -67,7 +72,7 @@ case class CFOEstimator(config : CFOEstimatorConfig) extends Component {
 
 object CFOEstimatorBench{
     def main(args: Array[String]):Unit={
-        val cfo_estimator_config = CFOEstimatorConfig(16, 16, 16, 16)
+        val cfo_estimator_config = CFOEstimatorConfig(16, 16, 16, 16, 32)
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
             targetDirectory = "rtl/CFOEstimator").generateSystemVerilog(new CFOEstimator(cfo_estimator_config)).printPruned()
     }

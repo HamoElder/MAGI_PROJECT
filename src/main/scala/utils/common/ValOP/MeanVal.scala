@@ -7,7 +7,6 @@ import spinal.lib._
 case class MeanVal[T <: Data](dataType: T, vecSize: Int, useSign: Boolean, useCombLogic: Boolean) extends Component {
 //    val dataSize = if((size & 1) == 1) (size + 1) >> 1 else size >> 1
     val dataWidth = dataType.getBitsWidth
-    // TODO: Add limit.
     val io = new Bundle{
         val data = in(Vec(cloneOf(dataType), size = vecSize))
         val mean_val = out(cloneOf(dataType))

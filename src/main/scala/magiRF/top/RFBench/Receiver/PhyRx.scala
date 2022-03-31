@@ -2,7 +2,7 @@ package magiRF.top.RFBench.Receiver
 
 import magiRF.packages.CFO.CFOCorrector
 import magiRF.packages.Preamble.PreambleDetector
-import magiRF.top.RFBench.Config.{interfaceIQDataType, modIQDataType, preamble_config, stream_config}
+import magiRF.top.RFBench.Config.{interfaceIQDataType, modIQDataType, preamble_config, rx_cfo_corrector_config, stream_config}
 import spinal.core._
 import spinal.lib._
 import utils.bus.AxiStream4.AxiStream4
@@ -17,9 +17,11 @@ class PhyRxCFO() extends Component{
     val preamble_detector = PreambleDetector(preamble_config)
     preamble_detector.io.raw_data << io.raw_data
     preamble_detector.io.gate_threshold := io.gate_threshold
-//    val cfo_inst = CFOCorrector()
+    val cfo_inst = CFOCorrector(rx_cfo_corrector_config)
+    cfo_inst.io.enable := preamble_detector.io.pkg_detected
+    cfo_inst.io.raw_data << preamble_detector.io.raw_data_out
+    io.result_data << cfo_inst.io.rotated_data
 
-    io.result_data << preamble_detector.io.raw_data_out
 }
 
 

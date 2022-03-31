@@ -1,7 +1,7 @@
 VCFOCorrector__spinalWrapper.o: \
  ../verilator/VCFOCorrector__spinalWrapper.cpp \
- /snap/intellij-idea-community/352/jbr/include/jni.h \
- /snap/intellij-idea-community/352/jbr/include/linux/jni_md.h \
+ /usr/lib/jvm/java-11-openjdk-amd64/include/jni.h \
+ /usr/lib/jvm/java-11-openjdk-amd64/include/linux/jni_md.h \
  ../verilator/VCFOCorrector.h /usr/share/verilator/include/verilated.h \
  /usr/share/verilator/include/verilatedos.h \
  /usr/share/verilator/include/verilated_vcd_c.h \

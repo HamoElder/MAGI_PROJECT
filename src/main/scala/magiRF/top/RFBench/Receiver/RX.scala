@@ -7,7 +7,6 @@ import spinal.lib._
 import utils.bus.AxiStream4.{AxiStream4, AxiStream4SpecRenamer}
 import utils.bus.IQBundle.IQBundle
 
-
 class RX extends Component {
     val io = new Bundle{
         val raw_data = slave(Flow(interfaceIQDataType))

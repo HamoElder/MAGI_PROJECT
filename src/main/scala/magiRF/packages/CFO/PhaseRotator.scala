@@ -16,14 +16,14 @@ case class PhaseRotatorConfig(
     def phiDataType: SFix = SFix(iqWidth - 1 exp, -dataResolutionWidth exp)
     def linearRam(n: Int):Seq[Double] = for (i <- 0 until n) yield Math.pow(2.0, -i)
     def arctanRam(n: Int):Seq[Double] = linearRam(n).map(Math.atan)
-    def cordicConfig: CordicConfig = CordicConfig(iqWidth - 1 exp, -dataResolutionWidth exp, iterations = iterations, arctanRam, usePipeline = true)
+    def cordicConfig: CordicConfig = CordicConfig(iqWidth exp, -dataResolutionWidth exp, iterations = iterations, arctanRam, usePipeline = true)
 }
 
 case class PhaseRotator(config: PhaseRotatorConfig) extends Component {
     val io = new Bundle{
         val raw_data = slave(Flow(IQBundle(config.dataType)))
         val delta_phi = slave(Flow(config.phiDataType))
-        val rotated_data = master(Flow(IQBundle(config.dataType)))
+        val rotated_data: Flow[IQBundle[SInt]] = master(Flow(IQBundle(config.dataType)))
     }
     noIoPrefix()
 
@@ -32,7 +32,7 @@ case class PhaseRotator(config: PhaseRotatorConfig) extends Component {
     val xy_symbol = Reg(Bool()) init(False)
     val xy_symbol_delay = ShiftRegister(xy_symbol, config.iterations, enable = io.raw_data.valid, clear = ~io.raw_data.valid)
 
-    val phi = Reg(config.phiDataType)
+    val phi = Reg(config.phiDataType)  init(0)
     val phiNext = config.phiDataType
 
     val phiCorrect = Reg(config.phiDataType) init(0)
@@ -57,23 +57,20 @@ case class PhaseRotator(config: PhaseRotatorConfig) extends Component {
     when(io.raw_data.valid){
         phi := phiNext
         when(io.delta_phi.valid){
-            phiCorrect := phiCorrect + io.delta_phi.payload
+            phiCorrect := io.delta_phi.payload
         }
-    }.otherwise{
-        phi := 0
-        phiCorrect := 0
     }
 
     cordic_pipeline_core.io.rotate_mode := True
     cordic_pipeline_core.io.x_u := 0
 
     cordic_pipeline_core.io.raw_data.valid := io.raw_data.valid
-    cordic_pipeline_core.io.raw_data.x.raw := (io.raw_data.cha_i ## B(0, config.dataResolutionWidth bits)).asSInt
-    cordic_pipeline_core.io.raw_data.y.raw := (io.raw_data.cha_q ## B(0, config.dataResolutionWidth bits)).asSInt
+    cordic_pipeline_core.io.raw_data.x.raw := (io.raw_data.cha_i ## B(0, config.dataResolutionWidth bits)).asSInt.resized
+    cordic_pipeline_core.io.raw_data.y.raw := (io.raw_data.cha_q ## B(0, config.dataResolutionWidth bits)).asSInt.resized
     cordic_pipeline_core.io.raw_data.z := phi
 
-    val rotated_x_raw: SInt = cordic_pipeline_core.io.result.x.raw.round(config.dataResolutionWidth)
-    val rotated_y_raw: SInt = cordic_pipeline_core.io.result.y.raw.round(config.dataResolutionWidth)
+    val rotated_x_raw: SInt = cordic_pipeline_core.io.result.x.raw.round(config.dataResolutionWidth + 1)
+    val rotated_y_raw: SInt = cordic_pipeline_core.io.result.y.raw.round(config.dataResolutionWidth + 1)
 
     io.rotated_data.valid := cordic_pipeline_core.io.result.valid
     io.rotated_data.cha_i := xy_symbol_delay ? rotated_x_raw | -rotated_x_raw
