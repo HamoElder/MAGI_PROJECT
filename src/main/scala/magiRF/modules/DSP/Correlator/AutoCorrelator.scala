@@ -13,7 +13,6 @@ case class AutoCorrelatorConfig(
                                 useValidClc    : Boolean = false
                                 ){
     def correlatorConfig: CorrelatorConfig = CorrelatorConfig(iqWidth, slideWinSize, resultDataWidth, useValidClc)
-
     override def equals(that: Any): Boolean = this == that
 }
 

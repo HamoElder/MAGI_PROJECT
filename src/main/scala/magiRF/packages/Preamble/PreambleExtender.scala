@@ -12,16 +12,16 @@ object PreambleExtenderStates extends SpinalEnum(defaultEncoding=binarySequentia
 
 case class PreambleConfig(
                          iqWidth: Int,
-						 preamble: Array[Complex],
-						 repeat: Int = 8,
+												 preamble: Array[Complex],
+												 repeat: Int = 8,
                          scale: Double = 1.0
                          ){
 	require(iqWidth > 0, "iqWidth must larger than 0")
 	def dataType: SInt = SInt(iqWidth bits)
 	def dataLength: Int = preamble.length
 	def peakVal: Int = (1 << (iqWidth - 1)) - 1
-	def cntType: UInt = UInt(log2Up(dataLength) + 1 bits)
-	def repeatCntType: UInt = UInt(log2Up(repeat) bits)
+	def cntType: UInt = UInt(log2Up(dataLength) bits)
+	def repeatCntType: UInt = UInt(log2Up(repeat) + 1 bits)
 	def preambleI_payload: Seq[SInt] = for(idx <- 0 until dataLength) yield {
 		S((preamble(idx).re * peakVal * scale).toInt, iqWidth bits)
 	}
@@ -61,17 +61,17 @@ case class PreambleExtender(config: PreambleConfig) extends Component {
 				cnt := cnt + 1
 				preamble_states := PREAMBLE
 			}
-			preamble_data_i := I_mem.readSync(cnt.resized)
-			preamble_data_q := Q_mem.readSync(cnt.resized)
+			preamble_data_i := I_mem.readSync(cnt)
+			preamble_data_q := Q_mem.readSync(cnt)
 		}
 		is(PREAMBLE){
 			when(io.preamble_data.ready){
-				cnt := (cnt === config.dataLength) ? U(0) | cnt + 1
+				cnt := (cnt === config.dataLength - 1) ? U(0) | cnt + 1
 			}
-			preamble_data_i := I_mem.readSync(cnt.resized)
-			preamble_data_q := Q_mem.readSync(cnt.resized)
+			preamble_data_i := I_mem.readSync(cnt)
+			preamble_data_q := Q_mem.readSync(cnt)
 			preamble_valid := True
-			when(cnt === config.dataLength){
+			when(cnt === config.dataLength - 1){
 				repeatCnt := repeatCnt + 1
 				when(repeatCnt === config.repeat - 1){
 					raw_ready := True

@@ -31,6 +31,7 @@ case class CFOCorrector(config: CFOCorrectorConfig) extends Component(){
         val raw_data: Flow[IQBundle[SInt]] = slave(Flow(IQBundle(config.dataType)))
         val rotated_data: Flow[IQBundle[SInt]] = master(Flow(IQBundle(config.dataType)))
         val enable = in(Bool())
+        val phi_correct_valid = out(Bool())
     }
     noIoPrefix()
 
@@ -52,13 +53,13 @@ case class CFOCorrector(config: CFOCorrectorConfig) extends Component(){
     }
 
     val phase_rotator = PhaseRotator(config.phaseRotatorConfig)
-    phase_rotator.io.raw_data << io.raw_data.takeWhen(io.enable)
+    phase_rotator.io.raw_data << io.raw_data
     phase_rotator.io.delta_phi.valid := delta_phi_valid
     phase_rotator.io.delta_phi.payload.raw := -delta_phi_mean
     io.rotated_data.valid := phase_rotator.io.rotated_data.valid
     io.rotated_data.cha_i := phase_rotator.io.rotated_data.cha_i
     io.rotated_data.cha_q := phase_rotator.io.rotated_data.cha_q
-
+    io.phi_correct_valid := RegNext(delta_phi_valid) init(False)
 }
 
 object CFOCorrectorBench{

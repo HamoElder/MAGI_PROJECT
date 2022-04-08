@@ -1,8 +1,8 @@
-// Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
+// Generator : SpinalHDL v1.6.4    git head : 598c18959149eb18e5eee5b0aa3eef01ecaa41a1
 // Component : ZeroForcing
-// Git hash  : c25aef4ce126c6f2485d3659049da526d3e7b24f
+// Git hash  : 7ce20c2ff4009332a2c96be9ddbfa13c6df00a2a
 
-
+`timescale 1ns/1ps 
 
 module ZeroForcing (
   input               raw_data_valid,
@@ -16,6 +16,7 @@ module ZeroForcing (
   input               clk,
   input               reset
 );
+
   wire                cal_core_rotate_mode;
   wire       [15:0]   cal_core_raw_data_payload_x;
   wire       [15:0]   cal_core_raw_data_payload_y;
@@ -79,19 +80,19 @@ module ZeroForcing (
   assign _zz_mul_result = (- cal_core_result_payload_y);
   assign _zz_div_result = (- cal_core_result_payload_z);
   CordicRotator cal_core (
-    .rotate_mode           (cal_core_rotate_mode         ), //i
-    .x_u                   (2'b01                        ), //i
-    .raw_data_valid        (raw_data_valid               ), //i
-    .raw_data_ready        (cal_core_raw_data_ready      ), //o
-    .raw_data_payload_x    (cal_core_raw_data_payload_x  ), //i
-    .raw_data_payload_y    (cal_core_raw_data_payload_y  ), //i
-    .raw_data_payload_z    (cal_core_raw_data_payload_z  ), //i
-    .result_valid          (cal_core_result_valid        ), //o
-    .result_payload_x      (cal_core_result_payload_x    ), //o
-    .result_payload_y      (cal_core_result_payload_y    ), //o
-    .result_payload_z      (cal_core_result_payload_z    ), //o
-    .clk                   (clk                          ), //i
-    .reset                 (reset                        )  //i
+    .rotate_mode           (cal_core_rotate_mode               ), //i
+    .x_u                   (2'b01                              ), //i
+    .raw_data_valid        (raw_data_valid                     ), //i
+    .raw_data_ready        (cal_core_raw_data_ready            ), //o
+    .raw_data_payload_x    (cal_core_raw_data_payload_x[15:0]  ), //i
+    .raw_data_payload_y    (cal_core_raw_data_payload_y[15:0]  ), //i
+    .raw_data_payload_z    (cal_core_raw_data_payload_z[15:0]  ), //i
+    .result_valid          (cal_core_result_valid              ), //o
+    .result_payload_x      (cal_core_result_payload_x[15:0]    ), //o
+    .result_payload_y      (cal_core_result_payload_y[15:0]    ), //o
+    .result_payload_z      (cal_core_result_payload_z[15:0]    ), //o
+    .clk                   (clk                                ), //i
+    .reset                 (reset                              )  //i
   );
   assign cal_core_raw_data_payload_x = _zz_raw_data_payload_x;
   assign cal_core_raw_data_payload_y = (train_en ? ref_data : _zz_raw_data_payload_y);
@@ -155,6 +156,7 @@ module CordicRotator (
   input               clk,
   input               reset
 );
+
   wire       [15:0]   _zz__zz_result_payload_x_1;
   wire       [15:0]   _zz__zz_result_payload_x_1_1;
   wire       [15:0]   _zz__zz_result_payload_x_1_2;

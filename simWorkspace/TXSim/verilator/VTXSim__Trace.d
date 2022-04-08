@@ -1,5 +1,0 @@
-VTXSim__Trace.o: VTXSim__Trace.cpp \
- /usr/share/verilator/include/verilated_vcd_c.h \
- /usr/share/verilator/include/verilatedos.h \
- /usr/share/verilator/include/verilated.h VTXSim__Syms.h \
- /usr/share/verilator/include/verilated_heavy.h VTXSim.h

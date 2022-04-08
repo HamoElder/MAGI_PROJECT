@@ -159,7 +159,7 @@ public:
     uint32_t timeCheck;
     bool waveEnabled;
     VPreambleDetector top;
-    ISignalAccess *signalAccess[13];
+    ISignalAccess *signalAccess[10];
     #ifdef TRACE
 	  VerilatedVcdC tfp;
 	  #endif
@@ -171,7 +171,7 @@ public:
       timeCheck = 0;
       lastFlushAt = high_resolution_clock::now();
       waveEnabled = true;
-      signalAccess[0] = new IDataSignalAccess( top.gate_threshold );
+      signalAccess[0] = new CDataSignalAccess( top.min_plateau );
       signalAccess[1] = new CDataSignalAccess( top.pkg_detected );
       signalAccess[2] = new CDataSignalAccess( top.raw_data_valid );
       signalAccess[3] = new SDataSignalAccess( top.raw_data_payload_cha_i );
@@ -179,11 +179,8 @@ public:
       signalAccess[5] = new CDataSignalAccess( top.raw_data_out_valid );
       signalAccess[6] = new SDataSignalAccess( top.raw_data_out_payload_cha_i );
       signalAccess[7] = new SDataSignalAccess( top.raw_data_out_payload_cha_q );
-      signalAccess[8] = new CDataSignalAccess( top.corr_result_valid );
-      signalAccess[9] = new IDataSignalAccess( top.corr_result_payload_cha_i );
-      signalAccess[10] = new IDataSignalAccess( top.corr_result_payload_cha_q );
-      signalAccess[11] = new CDataSignalAccess( top.clk );
-      signalAccess[12] = new CDataSignalAccess( top.reset );
+      signalAccess[8] = new CDataSignalAccess( top.clk );
+      signalAccess[9] = new CDataSignalAccess( top.reset );
 
       #ifdef TRACE
       Verilated::traceEverOn(true);
@@ -194,7 +191,7 @@ public:
     }
 
     virtual ~Wrapper_1(){
-      for(int idx = 0;idx < 13;idx++){
+      for(int idx = 0;idx < 10;idx++){
           delete signalAccess[idx];
       }
 

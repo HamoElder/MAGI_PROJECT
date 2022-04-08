@@ -11,8 +11,8 @@ import utils.common.DataSplitUnite.StreamSplitUnite.StreamPayloadSplit
 case class StreamPkgGenConfig(
                                  rawDataWidth       : Int,
                                  pkgDataWidth       : Int,
-								 maxSlicesCnt       : Int,
-								 endianness         : Endianness = LITTLE
+																 maxSlicesCnt       : Int,
+																 endianness         : Endianness = LITTLE
                                  ) {
 	// use Little-endian: right shift
 	def rawDataType: Bits = Bits(rawDataWidth bits)
@@ -79,9 +79,9 @@ case class StreamPkgGen(config: StreamPkgGenConfig) extends Component {
 		val slices_cnt = cloneOf(io.slices_cnt)
 
 		busCtrl.driveAndRead(slices_limit, address = baseAddress + 0x00, bitOffset = 0,
-			documentation = "Slices Size Limit Per Package")
+			documentation = s"Slices Size Limit Per Package (${slices_limit.getBitsWidth} bits).")
 		busCtrl.read(slices_cnt, address = baseAddress + 0x04, bitOffset = 0,
-			documentation = "Slices Counter Indicator.")
+			documentation = s"Slices Counter Indicator (${slices_cnt.getBitsWidth bits}).")
 
 		io.slices_limit := ClkCrossing(coreClockDomain, rfClockDomain, slices_limit)
 		slices_cnt := ClkCrossing(rfClockDomain, coreClockDomain, io.slices_cnt)

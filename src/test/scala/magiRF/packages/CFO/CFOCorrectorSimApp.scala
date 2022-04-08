@@ -9,7 +9,7 @@ import magiRF.top.RFBench.Config.stf
 
 
 object CFOCorrectorSimApp extends App{
-    val cfo_corrector_config = CFOCorrectorConfig(12, 32, 32, 12, 2, 12)
+    val cfo_corrector_config = CFOCorrectorConfig(12, stf.length, stf.length, 12, 4, 12)
     SimConfig
         .withWave
         .allOptimisation
@@ -26,11 +26,11 @@ object CFOCorrectorSimApp extends App{
 //                dut.clockDomain.waitSampling(1)
 //            }
             dut.io.enable #= true
-            for(idx <- 0 until 512){
+            for(idx <- 0 until 2560){
                 dut.io.raw_data.valid #= true
-                val raw_data = stf(idx % 32) * 1024
-              val fs = Complex(scala.math.cos(2 * scala.math.Pi * 0.075 * idx / 32),
-                scala.math.sin(2 * scala.math.Pi * 0.075 * idx / 32))
+                val raw_data = stf(idx % stf.length) * 2047
+              val fs = Complex(scala.math.cos(2 * scala.math.Pi * 0.215 * idx / 32),
+                scala.math.sin(2 * scala.math.Pi * 0.215 * idx / 32))
                 val cfo_data = raw_data * fs
 //                dut.io.ref_data.cha_i #= raw_data.re.toInt
 //                dut.io.ref_data.cha_q #= raw_data.im.toInt

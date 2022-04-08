@@ -19,20 +19,19 @@ import utils.debugger.Ila
 
 case class TX() extends Component{
     val io = new Bundle{
-//        val axil4Ctrl = slave(AxiLite4(axiLite4_config))
         val raw_data = slave(Stream(Fragment(phyDataType)))
         val rf_data = master(Stream(interfaceIQDataType))
 
-        val enable = in Bool()
-        val cnt_step = in(genModulatorDivConfig.cntType)
-        val cnt_limit = in(genModulatorDivConfig.cntType)
+        val div_enable = in Bool()
+        val div_cnt_step = in(genModulatorDivConfig.cntType)
+        val div_cnt_limit = in(genModulatorDivConfig.cntType)
 
-        val w_en = if(genModulatorConfig.editable) in(genModulatorConfig.editSelectDataType) else null
-        val w_addr = if(genModulatorConfig.editable) in(Bits(genModulatorConfig.cfgDataWidth bits)) else null
-        val w_data = if(genModulatorConfig.editable) in(Bits(genModulatorConfig.cfgDataWidth bits)) else null
+        val mod_w_en = if(genModulatorConfig.editable) in(genModulatorConfig.editSelectDataType) else null
+        val mod_w_addr = if(genModulatorConfig.editable) in(Bits(genModulatorConfig.cfgDataWidth bits)) else null
+        val mod_w_data = if(genModulatorConfig.editable) in(Bits(genModulatorConfig.cfgDataWidth bits)) else null
         val mod_cnt_limit = if(genModulatorConfig.useTPlay) in(Bits(genModulatorConfig.cfgDataWidth bits)) else null
 
-        val select = in(UInt(log2Up(genModulatorConfig.selectNum) bits))
+        val mod_method_select = in(UInt(log2Up(genModulatorConfig.selectNum) bits))
     }
     noIoPrefix()
 
@@ -54,7 +53,7 @@ case class TX() extends Component{
     pipeline_halt(2) := puncher_to_header_extender_fifo._2< interConnectHaltThreshold
     val phy_header_extender = PhyHeaderExtender()
     phy_header_extender.io.raw_data << puncher_to_header_extender_fifo._1.haltWhen(pipeline_halt(3))
-    phy_header_extender.io.mod_method := io.select.asBits.resized
+    phy_header_extender.io.sdf_sequence := B"8'10101010"
     val header_extender_fifo_to_scrambler_fifo = phy_header_extender.io.result_data.queueWithAvailability(interConnectFifoDepth)
     pipeline_halt(3) := header_extender_fifo_to_scrambler_fifo._2 < interConnectHaltThreshold
     val phy_tx_scrambler = PhyTxScrambler()
@@ -82,61 +81,59 @@ case class TX() extends Component{
 
     io.rf_data << front_to_interface_fifo._1
 
-    mod_data_div.io.enable := io.enable
-    mod_data_div.io.cnt_step := io.cnt_step
-    mod_data_div.io.cnt_limit := io.cnt_limit
+    mod_data_div.io.enable := io.div_enable
+    mod_data_div.io.cnt_step := io.div_cnt_step
+    mod_data_div.io.cnt_limit := io.div_cnt_limit
 
-    mod_rtl.io.select := io.select
+    mod_rtl.io.select := io.mod_method_select
     if(genModulatorConfig.editable){
-        mod_rtl.io.w_en := io.w_en
-        mod_rtl.io.w_addr := io.w_addr
-        mod_rtl.io.w_data := io.w_data
+        mod_rtl.io.w_en := io.mod_w_en
+        mod_rtl.io.w_addr := io.mod_w_addr
+        mod_rtl.io.w_data := io.mod_w_data
     }
     if(genModulatorConfig.useTPlay){
         mod_rtl.io.cnt_limit := io.mod_cnt_limit
     }
 
     def driveFrom(busCtrl: BusSlaveFactory, baseAddress: BigInt, coreClockDomain: ClockDomain, rfClockDomain: ClockDomain): Area = new Area {
-        val enable = cloneOf(io.enable)
-        val cnt_step = cloneOf(io.cnt_step)
-        val cnt_limit = cloneOf(io.cnt_limit)
-        busCtrl.driveAndRead(enable, address = baseAddress + 0x00, bitOffset = 0,
-            documentation = "Data Divide Dynamic Module Enable.") init (False)
-        busCtrl.driveAndRead(cnt_step, address = baseAddress + 0x04, bitOffset = 0,
-            documentation = "Data Divide Dynamic Module Counter Step.") init (0)
-        busCtrl.driveAndRead(cnt_limit, address = baseAddress + 0x08, bitOffset = 0,
-            documentation = "Data Divide Dynamic Module Counter Max Value.") init (0)
-        io.enable := ClkCrossing(coreClockDomain, rfClockDomain, enable)
-        io.cnt_step := ClkCrossing(coreClockDomain, rfClockDomain, cnt_step)
-        io.cnt_limit := ClkCrossing(coreClockDomain, rfClockDomain, cnt_limit)
+        val div_enable = cloneOf(io.div_enable)
+        val div_cnt_step = cloneOf(io.div_cnt_step)
+        val div_cnt_limit = cloneOf(io.div_cnt_limit)
+        busCtrl.driveAndRead(div_enable, address = baseAddress + 0x00, bitOffset = 0,
+            documentation = "Data Divide Dynamic Module Enable (1 bits).") init (False)
+        busCtrl.driveAndRead(div_cnt_step, address = baseAddress + 0x04, bitOffset = 0,
+            documentation = s"Data Divide Dynamic Module Counter Step (${div_cnt_step.getBitsWidth} bits).") init (0)
+        busCtrl.driveAndRead(div_cnt_limit, address = baseAddress + 0x08, bitOffset = 0,
+            documentation = s"Data Divide Dynamic Module Counter Max Value (${div_cnt_limit.getBitsWidth} bits).") init (0)
+        io.div_enable := ClkCrossing(coreClockDomain, rfClockDomain, div_enable)
+        io.div_cnt_step := ClkCrossing(coreClockDomain, rfClockDomain, div_cnt_step)
+        io.div_cnt_limit := ClkCrossing(coreClockDomain, rfClockDomain, div_cnt_limit)
 
-        val select = cloneOf(io.select)
-        busCtrl.driveAndRead(select, address = baseAddress + 0x10, bitOffset = 0,
-            documentation = "Modulator RTL select.") init(0)
+        val mod_method_select = cloneOf(io.mod_method_select)
+        busCtrl.driveAndRead(mod_method_select, address = baseAddress + 0x10, bitOffset = 0,
+            documentation = s"Modulator RTL select (${mod_method_select.getBitsWidth} bits).") init(0)
+        io.mod_method_select := ClkCrossing(coreClockDomain, rfClockDomain, mod_method_select)
         if(genModulatorConfig.editable){
-            val w_en = cloneOf(io.w_en)
-            val w_addr = cloneOf(io.w_addr)
-            val w_data = cloneOf(io.w_data)
-            busCtrl.drive(w_en, address = baseAddress + 0x14, bitOffset = 0,
-                documentation = "Look Up Modulator Ram Write Enable.") init(genModulatorConfig.editNum)
-            busCtrl.drive(w_addr, address = baseAddress + 0x18, bitOffset = 0,
-                documentation = "Look Up Modulator Ram Write Address Set.") init(0)
-            busCtrl.drive(w_data, address = baseAddress + 0x1C, bitOffset = 0,
-                documentation = "Look Up Modulator Ram Write Data Set.") init(0)
-            io.w_en := ClkCrossing(coreClockDomain, rfClockDomain, w_en)
-            io.w_addr := ClkCrossing(coreClockDomain, rfClockDomain, w_addr)
-            io.w_data := ClkCrossing(coreClockDomain, rfClockDomain, w_data)
+            val mod_w_en = cloneOf(io.mod_w_en)
+            val mod_w_addr = cloneOf(io.mod_w_addr)
+            val mod_w_data = cloneOf(io.mod_w_data)
+            busCtrl.drive(mod_w_en, address = baseAddress + 0x14, bitOffset = 0,
+                documentation = "Look Up Modulator Ram Write Enable (1 bits).") init(genModulatorConfig.editNum)
+            busCtrl.drive(mod_w_addr, address = baseAddress + 0x18, bitOffset = 0,
+                documentation = s"Look Up Modulator Ram Write Address Set (${mod_w_addr.getBitsWidth} bits).") init(0)
+            busCtrl.drive(mod_w_data, address = baseAddress + 0x1C, bitOffset = 0,
+                documentation = s"Look Up Modulator Ram Write Data Set (${mod_w_data.getBitsWidth} bits).") init(0)
+            io.mod_w_en := ClkCrossing(coreClockDomain, rfClockDomain, mod_w_en)
+            io.mod_w_addr := ClkCrossing(coreClockDomain, rfClockDomain, mod_w_addr)
+            io.mod_w_data := ClkCrossing(coreClockDomain, rfClockDomain, mod_w_data)
         }
         if(genModulatorConfig.useTPlay){
             val mod_cnt_limit = cloneOf(io.mod_cnt_limit)
             busCtrl.drive(mod_cnt_limit, address = baseAddress + 0x20, bitOffset = 0,
-                documentation = "Look Up Modulator Play Mode T Limit.") init(0)
+                documentation = s"Look Up Modulator Play Mode T Limit (${mod_cnt_limit.getBitsWidth} bits).") init(0)
             io.mod_cnt_limit := ClkCrossing(coreClockDomain, rfClockDomain, mod_cnt_limit)
         }
-        io.select := ClkCrossing(coreClockDomain, rfClockDomain, select)
-
     }
-
 }
 
 object RFBenchTXBench {
@@ -145,6 +142,4 @@ object RFBenchTXBench {
             targetDirectory = "rtl/RFBenchTX").generateSystemVerilog(new TX()).printPruned()
     }
 }
-
-
 

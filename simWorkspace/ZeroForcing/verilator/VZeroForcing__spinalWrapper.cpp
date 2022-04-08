@@ -185,7 +185,7 @@ public:
       #ifdef TRACE
       Verilated::traceEverOn(true);
       top.trace(&tfp, 99);
-      tfp.open((std::string("/home/crystal/project/MAGI_PROJECT/./simWorkspace/ZeroForcing/") + name + ".vcd").c_str());
+      tfp.open((std::string("/home/missdown/IdeaProjects/MAGI_PROJECT/./simWorkspace/ZeroForcing/") + name + ".vcd").c_str());
       #endif
       this->name = name;
     }
@@ -200,7 +200,7 @@ public:
       tfp.close();
       #endif
       #ifdef COVERAGE
-      VerilatedCov::write((("/home/crystal/project/MAGI_PROJECT/./simWorkspace/ZeroForcing/") + name + ".dat").c_str());
+      VerilatedCov::write((("/home/missdown/IdeaProjects/MAGI_PROJECT/./simWorkspace/ZeroForcing/") + name + ".dat").c_str());
       #endif
     }
 

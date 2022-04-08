@@ -30,7 +30,7 @@ case class PhaseRotator(config: PhaseRotatorConfig) extends Component {
     val cordic_pipeline_core = CordicRotator(config.cordicConfig)
 
     val xy_symbol = Reg(Bool()) init(False)
-    val xy_symbol_delay = ShiftRegister(xy_symbol, config.iterations, enable = io.raw_data.valid, clear = ~io.raw_data.valid)
+    val xy_symbol_delay = ShiftRegister(xy_symbol, config.iterations, enable = io.raw_data.valid, clear = ~io.raw_data.valid, useInitZero=true)
 
     val phi = Reg(config.phiDataType)  init(0)
     val phiNext = config.phiDataType
@@ -44,10 +44,10 @@ case class PhaseRotator(config: PhaseRotatorConfig) extends Component {
     math_pi_2 := Math.PI / 2
     neg_math_pi_2 := -Math.PI / 2
 
-    when((phi + phiCorrect) > math_pi_2){
+    when((phi + phiCorrect) >= math_pi_2){
         phiNext := phi - math_pi + phiCorrect
         xy_symbol := ~xy_symbol
-    }.elsewhen((phi + phiCorrect) < neg_math_pi_2){
+    }.elsewhen((phi + phiCorrect) <= neg_math_pi_2){
         phiNext := phi + math_pi + phiCorrect
         xy_symbol := ~xy_symbol
     }.otherwise{
@@ -59,6 +59,9 @@ case class PhaseRotator(config: PhaseRotatorConfig) extends Component {
         when(io.delta_phi.valid){
             phiCorrect := io.delta_phi.payload
         }
+    }.otherwise{
+        phi := 0
+        phiCorrect := 0
     }
 
     cordic_pipeline_core.io.rotate_mode := True
@@ -73,8 +76,8 @@ case class PhaseRotator(config: PhaseRotatorConfig) extends Component {
     val rotated_y_raw: SInt = cordic_pipeline_core.io.result.y.raw.round(config.dataResolutionWidth + 1)
 
     io.rotated_data.valid := cordic_pipeline_core.io.result.valid
-    io.rotated_data.cha_i := xy_symbol_delay ? rotated_x_raw | -rotated_x_raw
-    io.rotated_data.cha_q := xy_symbol_delay ? rotated_y_raw | -rotated_y_raw
+    io.rotated_data.cha_i := xy_symbol_delay ? -rotated_x_raw | rotated_x_raw
+    io.rotated_data.cha_q := xy_symbol_delay ? -rotated_y_raw | rotated_y_raw
 
 }
 

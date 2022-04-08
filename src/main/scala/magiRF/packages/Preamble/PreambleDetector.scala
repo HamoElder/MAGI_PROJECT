@@ -12,16 +12,18 @@ case class PreambleDetectorConfig(
                                      iqWidth            : Int,
                                      delayT             : Int,
                                      slideWinSize       : Int,
+                                     plateauWinWidth    : Int,
                                      refData            : Array[Complex] = null,
                                      usePowerMeter      : Boolean        = false
                                  ){
     def dataType: SInt = SInt(iqWidth bits)
-    def gateThresholdWidth: Int = 2 * iqWidth
+    def gateThresholdWidth: Int = 3 * iqWidth
     def gateThresholdDataType: UInt = UInt(gateThresholdWidth bits)
     def corrResultDataType: SInt = SInt(gateThresholdWidth bits)
+    def plateauDataType: UInt = UInt(plateauWinWidth bits)
     def useAutoCorr: Boolean = (refData == null)
-    def autoCorrelatorConfig: AutoCorrelatorConfig = AutoCorrelatorConfig(iqWidth, delayT, slideWinSize, 2 * iqWidth)
-    def crossCorrelatorConfig: CrossCorrelatorConfig = CrossCorrelatorConfig(iqWidth, refData, 2 * iqWidth)
+    def autoCorrelatorConfig: AutoCorrelatorConfig = AutoCorrelatorConfig(iqWidth, delayT, slideWinSize, gateThresholdWidth)
+    def crossCorrelatorConfig: CrossCorrelatorConfig = CrossCorrelatorConfig(iqWidth, refData, gateThresholdWidth)
     def powerMeterConfig: PowerMeterConfig = PowerMeterConfig(iqWidth, slideWinSize)
 }
 
@@ -29,6 +31,7 @@ case class PreambleDetectorConfig(
 case class PreambleDetector(config: PreambleDetectorConfig) extends Component{
     val io = new Bundle{
         val gate_threshold = if(config.usePowerMeter) null else in(config.gateThresholdDataType)
+        val min_plateau = in(config.plateauDataType)
         val pkg_detected = out(Bool())
 
         val raw_data = slave(Flow(IQBundle(config.dataType)))
@@ -42,6 +45,8 @@ case class PreambleDetector(config: PreambleDetectorConfig) extends Component{
 
     val prod_avg_mag = Reg(config.gateThresholdDataType) init(0)
 
+    val plateau_cnt = Reg(config.plateauDataType) init(0)
+
     if(config.usePowerMeter){
         val power_meter = PowerMeter(config.powerMeterConfig)
         power_meter.io.raw_data << io.raw_data
@@ -53,6 +58,14 @@ case class PreambleDetector(config: PreambleDetectorConfig) extends Component{
         }
     }else{
         gate_pkg_det := prod_avg_mag > io.gate_threshold
+    }
+
+    when(gate_pkg_det){
+        when(plateau_cnt < config.plateauDataType.maxValue){
+            plateau_cnt := (plateau_cnt + 1)
+        }
+    }.otherwise{
+        plateau_cnt := 0
     }
 
     if(config.useAutoCorr){
@@ -78,12 +91,12 @@ case class PreambleDetector(config: PreambleDetectorConfig) extends Component{
         }
         io.raw_data_out << io.raw_data
     }
-    io.pkg_detected := gate_pkg_det
+    io.pkg_detected := (plateau_cnt >= io.min_plateau) && gate_pkg_det
 }
 
 object PreambleDetectorBench {
     def main(args: Array[String]): Unit = {
-        val preamble_config = PreambleDetectorConfig(12, 16, 32)
+        val preamble_config = PreambleDetectorConfig(12, 16, 32, 8)
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
             targetDirectory = "rtl/PreambleDetector/PreambleDetector_802_11_stf").generateSystemVerilog(new PreambleDetector(preamble_config)).printPruned()
     }

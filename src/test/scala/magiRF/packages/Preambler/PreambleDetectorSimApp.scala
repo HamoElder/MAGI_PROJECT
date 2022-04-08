@@ -9,12 +9,13 @@ import scala.util.Random
 
 object PreambleDetectorSimApp extends App{
 
-    val preamble_config = PreambleDetectorConfig(12, stf.length, stf.length, usePowerMeter = false)
+    val preamble_config = PreambleDetectorConfig(12, stf.length, stf.length, 8, stf, usePowerMeter = true)
 //    val preamble_config = PreambleDetectorConfig(16, 16, 32, stf.map(_*100))
     SimConfig.withWave.doSim(new PreambleDetector(preamble_config)){ dut =>
         dut.clockDomain.forkStimulus(5)
         dut.io.raw_data.valid #= false
-        dut.io.gate_threshold #= 4000000
+        dut.io.min_plateau #= 16
+//        dut.io.gate_threshold #= 4000000
         dut.clockDomain.waitSampling(10)
         for(idx <- 0 until 2600){
             dut.io.raw_data.valid #= true
@@ -24,8 +25,8 @@ object PreambleDetectorSimApp extends App{
         }
         for(idx <- 0 until 640){
             dut.io.raw_data.valid #= true
-            dut.io.raw_data.cha_i #= (stf(idx % 64).re * 256).toInt
-            dut.io.raw_data.cha_q #= (stf(idx % 64).im * 256).toInt
+            dut.io.raw_data.cha_i #= (stf(idx % 16).re * 1024).toInt
+            dut.io.raw_data.cha_q #= (stf(idx % 16).im * 1024).toInt
             dut.clockDomain.waitSampling(1)
         }
         for(idx <- 0 until 2600){

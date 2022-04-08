@@ -24,7 +24,7 @@ case class CFOEstimatorConfig(
     def autoCorrelatorConfig: AutoCorrelatorConfig = AutoCorrelatorConfig(iqWidth, delayT, calcWinSize, iqWidth + calcWinSize, useValidClc = true)
     def cordicConfig: CordicConfig = CordicConfig(iqWidth - 1 exp, -dataResolutionWidth exp, iterations = iterations, arctanRam, usePipeline = true)
 
-    def cntLimit: Int = calcWinSize + 2 * iqWidth + 2
+    def cntLimit: Int = delayT + 2
     def cntWidth: Int = log2Up(cntLimit + 1)
     def cntDataType: UInt = UInt(cntWidth bits)
     def scaleIspPow2: Boolean = isPow2(calcWinSize)
@@ -61,7 +61,6 @@ case class CFOEstimator(config : CFOEstimatorConfig) extends Component {
         val scale_val: SFix = cordic_core.io.result.z * phi_scale
         io.delta_phi.payload.raw := scale_val.raw.round(config.dataResolutionWidth).sat(config.iqWidth)
     }
-
 
     when(auto_corr_core.io.corr_result.valid){
         impulse_cnt := (impulse_cnt >= (config.cntLimit - 1))? U(0) | impulse_cnt + 1

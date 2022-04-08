@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.4    git head : 598c18959149eb18e5eee5b0aa3eef01ecaa41a1
 // Component : CFOCorrector
-// Git hash  : 6be8dabf8c1accc6c72f4cef9610ca5bac2b27e6
+// Git hash  : 7ce20c2ff4009332a2c96be9ddbfa13c6df00a2a
 
 `timescale 1ns/1ps 
 
@@ -26,8 +26,8 @@ module CFOCorrector (
   wire       [11:0]   phase_rotator_rotated_data_payload_cha_i;
   wire       [11:0]   phase_rotator_rotated_data_payload_cha_q;
   wire       [23:0]   _zz_delta_phi_mean;
-  wire       [22:0]   _zz_delta_phi_mean_1;
-  reg        [0:0]    mean_cnt;
+  wire       [21:0]   _zz_delta_phi_mean_1;
+  reg        [1:0]    mean_cnt;
   reg        [23:0]   delta_phi_mean;
   reg                 delta_phi_valid;
   wire                when_CFOCorrector_l45;
@@ -35,8 +35,8 @@ module CFOCorrector (
   wire       [11:0]   raw_data_takeWhen_payload_cha_i;
   wire       [11:0]   raw_data_takeWhen_payload_cha_q;
 
-  assign _zz_delta_phi_mean_1 = (cfo_estimator_delta_phi_payload >>> 1);
-  assign _zz_delta_phi_mean = {{1{_zz_delta_phi_mean_1[22]}}, _zz_delta_phi_mean_1};
+  assign _zz_delta_phi_mean_1 = (cfo_estimator_delta_phi_payload >>> 2);
+  assign _zz_delta_phi_mean = {{2{_zz_delta_phi_mean_1[21]}}, _zz_delta_phi_mean_1};
   CFOEstimator cfo_estimator (
     .rotated_data_valid            (raw_data_valid                         ), //i
     .rotated_data_payload_cha_i    (raw_data_payload_cha_i[11:0]           ), //i
@@ -68,19 +68,19 @@ module CFOCorrector (
   assign rotated_data_payload_cha_q = phase_rotator_rotated_data_payload_cha_q;
   always @(posedge clk or posedge reset) begin
     if(reset) begin
-      mean_cnt <= 1'b0;
+      mean_cnt <= 2'b00;
       delta_phi_mean <= 24'h0;
       delta_phi_valid <= 1'b0;
     end else begin
       if(when_CFOCorrector_l45) begin
-        mean_cnt <= 1'b0;
+        mean_cnt <= 2'b00;
         delta_phi_valid <= 1'b0;
         delta_phi_mean <= 24'h0;
       end else begin
         if(cfo_estimator_delta_phi_valid) begin
-          mean_cnt <= (mean_cnt + 1'b1);
+          mean_cnt <= (mean_cnt + 2'b01);
           delta_phi_mean <= ($signed(delta_phi_mean) + $signed(_zz_delta_phi_mean));
-          delta_phi_valid <= (mean_cnt == 1'b1);
+          delta_phi_valid <= (mean_cnt == 2'b11);
         end
       end
     end
@@ -231,7 +231,7 @@ module PhaseRotator (
   assign math_pi = 24'h003243;
   assign math_pi_2 = 24'h001921;
   assign neg_math_pi_2 = 24'hffe6df;
-  assign when_PhaseRotator_l47 = ($signed(math_pi_2) < $signed(_zz_when_PhaseRotator_l47));
+  assign when_PhaseRotator_l47 = ($signed(math_pi_2) <= $signed(_zz_when_PhaseRotator_l47));
   always @(*) begin
     if(when_PhaseRotator_l47) begin
       phiNext = ($signed(_zz_phiNext) + $signed(phiCorrect));
@@ -244,7 +244,7 @@ module PhaseRotator (
     end
   end
 
-  assign when_PhaseRotator_l50 = ($signed(_zz_when_PhaseRotator_l50) < $signed(neg_math_pi_2));
+  assign when_PhaseRotator_l50 = ($signed(_zz_when_PhaseRotator_l50) <= $signed(neg_math_pi_2));
   assign cordic_pipeline_core_raw_data_payload_x = {{1{_zz_raw_data_payload_x[23]}}, _zz_raw_data_payload_x};
   assign cordic_pipeline_core_raw_data_payload_y = {{1{_zz_raw_data_payload_y[23]}}, _zz_raw_data_payload_y};
   assign cordic_pipeline_core_raw_data_payload_z = {{1{phi[23]}}, phi};
@@ -333,8 +333,8 @@ module PhaseRotator (
 
   assign when_SInt_l137_1 = (|_zz_when_SInt_l137_1);
   assign rotated_data_valid = cordic_pipeline_core_result_valid;
-  assign rotated_data_payload_cha_i = (shiftRegister_4_output_1 ? rotated_x_raw : _zz_rotated_data_payload_cha_i);
-  assign rotated_data_payload_cha_q = (shiftRegister_4_output_1 ? rotated_y_raw : _zz_rotated_data_payload_cha_q);
+  assign rotated_data_payload_cha_i = (shiftRegister_4_output_1 ? _zz_rotated_data_payload_cha_i : rotated_x_raw);
+  assign rotated_data_payload_cha_q = (shiftRegister_4_output_1 ? _zz_rotated_data_payload_cha_q : rotated_y_raw);
   always @(posedge clk or posedge reset) begin
     if(reset) begin
       xy_symbol <= 1'b0;
@@ -353,6 +353,9 @@ module PhaseRotator (
         if(delta_phi_valid) begin
           phiCorrect <= delta_phi_payload;
         end
+      end else begin
+        phi <= 24'h0;
+        phiCorrect <= 24'h0;
       end
     end
   end
@@ -371,41 +374,41 @@ module CFOEstimator (
 );
 
   wire                auto_corr_core_corr_result_valid;
-  wire       [43:0]   auto_corr_core_corr_result_payload_cha_i;
-  wire       [43:0]   auto_corr_core_corr_result_payload_cha_q;
+  wire       [27:0]   auto_corr_core_corr_result_payload_cha_i;
+  wire       [27:0]   auto_corr_core_corr_result_payload_cha_q;
   wire                cordic_core_raw_data_ready;
   wire                cordic_core_result_valid;
   wire       [23:0]   cordic_core_result_payload_x;
   wire       [23:0]   cordic_core_result_payload_y;
   wire       [23:0]   cordic_core_result_payload_z;
-  wire       [44:0]   _zz__zz_when_SInt_l337_2;
-  wire       [44:0]   _zz__zz_when_SInt_l337_2_1;
-  wire       [19:0]   _zz_when_SInt_l191;
+  wire       [28:0]   _zz__zz_when_SInt_l337_2;
+  wire       [28:0]   _zz__zz_when_SInt_l337_2_1;
+  wire       [3:0]    _zz_when_SInt_l191;
   wire       [24:0]   _zz__zz_when_SInt_l130_3;
   wire       [24:0]   _zz__zz_when_SInt_l130_3_1;
-  wire       [44:0]   _zz__zz_when_SInt_l130;
-  wire       [44:0]   _zz__zz_when_SInt_l130_1;
-  wire       [44:0]   _zz__zz_when_SInt_l130_2;
+  wire       [28:0]   _zz__zz_when_SInt_l130;
+  wire       [28:0]   _zz__zz_when_SInt_l130_1;
+  wire       [28:0]   _zz__zz_when_SInt_l130_2;
   wire       [1:0]    _zz_when_SInt_l131;
   wire       [0:0]    _zz_when_SInt_l137;
-  wire       [44:0]   _zz__zz_when_SInt_l337_5;
-  wire       [44:0]   _zz__zz_when_SInt_l337_5_1;
-  wire       [19:0]   _zz_when_SInt_l191_1;
+  wire       [28:0]   _zz__zz_when_SInt_l337_5;
+  wire       [28:0]   _zz__zz_when_SInt_l337_5_1;
+  wire       [3:0]    _zz_when_SInt_l191_1;
   wire       [24:0]   _zz__zz_when_SInt_l130_7;
   wire       [24:0]   _zz__zz_when_SInt_l130_7_1;
-  wire       [44:0]   _zz__zz_when_SInt_l130_4;
-  wire       [44:0]   _zz__zz_when_SInt_l130_4_1;
-  wire       [44:0]   _zz__zz_when_SInt_l130_4_2;
+  wire       [28:0]   _zz__zz_when_SInt_l130_4;
+  wire       [28:0]   _zz__zz_when_SInt_l130_4_1;
+  wire       [28:0]   _zz__zz_when_SInt_l130_4_2;
   wire       [1:0]    _zz_when_SInt_l131_1;
   wire       [0:0]    _zz_when_SInt_l137_1;
-  wire       [5:0]    _zz_impulse_cnt;
-  reg        [5:0]    impulse_cnt;
+  wire       [4:0]    _zz_impulse_cnt;
+  reg        [4:0]    impulse_cnt;
   reg        [24:0]   _zz_when_SInt_l130;
-  wire       [43:0]   _zz_when_SInt_l130_1;
-  wire       [43:0]   _zz_when_SInt_l337;
-  wire       [43:0]   _zz_when_SInt_l337_1;
-  wire       [44:0]   _zz_when_SInt_l337_2;
-  wire       [43:0]   _zz_when_SInt_l130_2;
+  wire       [27:0]   _zz_when_SInt_l130_1;
+  wire       [27:0]   _zz_when_SInt_l337;
+  wire       [27:0]   _zz_when_SInt_l337_1;
+  wire       [28:0]   _zz_when_SInt_l337_2;
+  wire       [27:0]   _zz_when_SInt_l130_2;
   wire                when_SInt_l337;
   reg        [24:0]   _zz_when_SInt_l130_3;
   wire                when_SInt_l191;
@@ -414,11 +417,11 @@ module CFOEstimator (
   wire                when_SInt_l131;
   wire                when_SInt_l137;
   reg        [24:0]   _zz_when_SInt_l130_4;
-  wire       [43:0]   _zz_when_SInt_l130_5;
-  wire       [43:0]   _zz_when_SInt_l337_3;
-  wire       [43:0]   _zz_when_SInt_l337_4;
-  wire       [44:0]   _zz_when_SInt_l337_5;
-  wire       [43:0]   _zz_when_SInt_l130_6;
+  wire       [27:0]   _zz_when_SInt_l130_5;
+  wire       [27:0]   _zz_when_SInt_l337_3;
+  wire       [27:0]   _zz_when_SInt_l337_4;
+  wire       [28:0]   _zz_when_SInt_l337_5;
+  wire       [27:0]   _zz_when_SInt_l130_6;
   wire                when_SInt_l337_1;
   reg        [24:0]   _zz_when_SInt_l130_7;
   wire                when_SInt_l191_1;
@@ -427,34 +430,34 @@ module CFOEstimator (
   wire                when_SInt_l131_1;
   wire                when_SInt_l137_1;
 
-  assign _zz__zz_when_SInt_l337_2 = {_zz_when_SInt_l337_1[43],_zz_when_SInt_l337_1};
-  assign _zz__zz_when_SInt_l337_2_1 = {_zz_when_SInt_l337[43],_zz_when_SInt_l337};
-  assign _zz_when_SInt_l191 = _zz_when_SInt_l337_2[19 : 0];
-  assign _zz__zz_when_SInt_l130_3 = _zz_when_SInt_l337_2[44 : 20];
+  assign _zz__zz_when_SInt_l337_2 = {_zz_when_SInt_l337_1[27],_zz_when_SInt_l337_1};
+  assign _zz__zz_when_SInt_l337_2_1 = {_zz_when_SInt_l337[27],_zz_when_SInt_l337};
+  assign _zz_when_SInt_l191 = _zz_when_SInt_l337_2[3 : 0];
+  assign _zz__zz_when_SInt_l130_3 = _zz_when_SInt_l337_2[28 : 4];
   assign _zz__zz_when_SInt_l130_3_1 = 25'h0000001;
   assign _zz__zz_when_SInt_l130 = ($signed(_zz__zz_when_SInt_l130_1) + $signed(_zz__zz_when_SInt_l130_2));
-  assign _zz__zz_when_SInt_l130_1 = {_zz_when_SInt_l130_2[43],_zz_when_SInt_l130_2};
-  assign _zz__zz_when_SInt_l130_2 = {_zz_when_SInt_l130_1[43],_zz_when_SInt_l130_1};
+  assign _zz__zz_when_SInt_l130_1 = {_zz_when_SInt_l130_2[27],_zz_when_SInt_l130_2};
+  assign _zz__zz_when_SInt_l130_2 = {_zz_when_SInt_l130_1[27],_zz_when_SInt_l130_1};
   assign _zz_when_SInt_l131 = _zz_when_SInt_l130[24 : 23];
   assign _zz_when_SInt_l137 = _zz_when_SInt_l130[23 : 23];
-  assign _zz__zz_when_SInt_l337_5 = {_zz_when_SInt_l337_4[43],_zz_when_SInt_l337_4};
-  assign _zz__zz_when_SInt_l337_5_1 = {_zz_when_SInt_l337_3[43],_zz_when_SInt_l337_3};
-  assign _zz_when_SInt_l191_1 = _zz_when_SInt_l337_5[19 : 0];
-  assign _zz__zz_when_SInt_l130_7 = _zz_when_SInt_l337_5[44 : 20];
+  assign _zz__zz_when_SInt_l337_5 = {_zz_when_SInt_l337_4[27],_zz_when_SInt_l337_4};
+  assign _zz__zz_when_SInt_l337_5_1 = {_zz_when_SInt_l337_3[27],_zz_when_SInt_l337_3};
+  assign _zz_when_SInt_l191_1 = _zz_when_SInt_l337_5[3 : 0];
+  assign _zz__zz_when_SInt_l130_7 = _zz_when_SInt_l337_5[28 : 4];
   assign _zz__zz_when_SInt_l130_7_1 = 25'h0000001;
   assign _zz__zz_when_SInt_l130_4 = ($signed(_zz__zz_when_SInt_l130_4_1) + $signed(_zz__zz_when_SInt_l130_4_2));
-  assign _zz__zz_when_SInt_l130_4_1 = {_zz_when_SInt_l130_6[43],_zz_when_SInt_l130_6};
-  assign _zz__zz_when_SInt_l130_4_2 = {_zz_when_SInt_l130_5[43],_zz_when_SInt_l130_5};
+  assign _zz__zz_when_SInt_l130_4_1 = {_zz_when_SInt_l130_6[27],_zz_when_SInt_l130_6};
+  assign _zz__zz_when_SInt_l130_4_2 = {_zz_when_SInt_l130_5[27],_zz_when_SInt_l130_5};
   assign _zz_when_SInt_l131_1 = _zz_when_SInt_l130_4[24 : 23];
   assign _zz_when_SInt_l137_1 = _zz_when_SInt_l130_4[23 : 23];
-  assign _zz_impulse_cnt = (impulse_cnt + 6'h01);
+  assign _zz_impulse_cnt = (impulse_cnt + 5'h01);
   AutoCorrelator auto_corr_core (
     .raw_data_valid               (rotated_data_valid                              ), //i
     .raw_data_payload_cha_i       (rotated_data_payload_cha_i[11:0]                ), //i
     .raw_data_payload_cha_q       (rotated_data_payload_cha_q[11:0]                ), //i
     .corr_result_valid            (auto_corr_core_corr_result_valid                ), //o
-    .corr_result_payload_cha_i    (auto_corr_core_corr_result_payload_cha_i[43:0]  ), //o
-    .corr_result_payload_cha_q    (auto_corr_core_corr_result_payload_cha_q[43:0]  ), //o
+    .corr_result_payload_cha_i    (auto_corr_core_corr_result_payload_cha_i[27:0]  ), //o
+    .corr_result_payload_cha_q    (auto_corr_core_corr_result_payload_cha_q[27:0]  ), //o
     .clk                          (clk                                             ), //i
     .reset                        (reset                                           )  //i
   );
@@ -473,18 +476,18 @@ module CFOEstimator (
     .clk                   (clk                                 ), //i
     .reset                 (reset                               )  //i
   );
-  assign _zz_when_SInt_l130_1 = {{24'h0,1'b1},19'h0};
-  assign _zz_when_SInt_l337 = {25'h1ffffff,19'h0};
-  assign _zz_when_SInt_l337_1 = auto_corr_core_corr_result_payload_cha_i[43 : 0];
+  assign _zz_when_SInt_l130_1 = {{24'h0,1'b1},3'b000};
+  assign _zz_when_SInt_l337 = {25'h1ffffff,3'b000};
+  assign _zz_when_SInt_l337_1 = auto_corr_core_corr_result_payload_cha_i[27 : 0];
   assign _zz_when_SInt_l337_2 = ($signed(_zz__zz_when_SInt_l337_2) + $signed(_zz__zz_when_SInt_l337_2_1));
-  assign _zz_when_SInt_l130_2 = auto_corr_core_corr_result_payload_cha_i[43 : 0];
-  assign when_SInt_l337 = _zz_when_SInt_l337_2[44];
+  assign _zz_when_SInt_l130_2 = auto_corr_core_corr_result_payload_cha_i[27 : 0];
+  assign when_SInt_l337 = _zz_when_SInt_l337_2[28];
   assign when_SInt_l191 = (|_zz_when_SInt_l191);
   always @(*) begin
     if(when_SInt_l191) begin
       _zz_when_SInt_l130_3 = ($signed(_zz__zz_when_SInt_l130_3) + $signed(_zz__zz_when_SInt_l130_3_1));
     end else begin
-      _zz_when_SInt_l130_3 = _zz_when_SInt_l337_2[44 : 20];
+      _zz_when_SInt_l130_3 = _zz_when_SInt_l337_2[28 : 4];
     end
   end
 
@@ -492,7 +495,7 @@ module CFOEstimator (
     if(when_SInt_l337) begin
       _zz_when_SInt_l130 = _zz_when_SInt_l130_3;
     end else begin
-      _zz_when_SInt_l130 = (_zz__zz_when_SInt_l130 >>> 20);
+      _zz_when_SInt_l130 = (_zz__zz_when_SInt_l130 >>> 4);
     end
   end
 
@@ -515,18 +518,18 @@ module CFOEstimator (
   end
 
   assign when_SInt_l137 = (|_zz_when_SInt_l137);
-  assign _zz_when_SInt_l130_5 = {{24'h0,1'b1},19'h0};
-  assign _zz_when_SInt_l337_3 = {25'h1ffffff,19'h0};
-  assign _zz_when_SInt_l337_4 = auto_corr_core_corr_result_payload_cha_q[43 : 0];
+  assign _zz_when_SInt_l130_5 = {{24'h0,1'b1},3'b000};
+  assign _zz_when_SInt_l337_3 = {25'h1ffffff,3'b000};
+  assign _zz_when_SInt_l337_4 = auto_corr_core_corr_result_payload_cha_q[27 : 0];
   assign _zz_when_SInt_l337_5 = ($signed(_zz__zz_when_SInt_l337_5) + $signed(_zz__zz_when_SInt_l337_5_1));
-  assign _zz_when_SInt_l130_6 = auto_corr_core_corr_result_payload_cha_q[43 : 0];
-  assign when_SInt_l337_1 = _zz_when_SInt_l337_5[44];
+  assign _zz_when_SInt_l130_6 = auto_corr_core_corr_result_payload_cha_q[27 : 0];
+  assign when_SInt_l337_1 = _zz_when_SInt_l337_5[28];
   assign when_SInt_l191_1 = (|_zz_when_SInt_l191_1);
   always @(*) begin
     if(when_SInt_l191_1) begin
       _zz_when_SInt_l130_7 = ($signed(_zz__zz_when_SInt_l130_7) + $signed(_zz__zz_when_SInt_l130_7_1));
     end else begin
-      _zz_when_SInt_l130_7 = _zz_when_SInt_l337_5[44 : 20];
+      _zz_when_SInt_l130_7 = _zz_when_SInt_l337_5[28 : 4];
     end
   end
 
@@ -534,7 +537,7 @@ module CFOEstimator (
     if(when_SInt_l337_1) begin
       _zz_when_SInt_l130_4 = _zz_when_SInt_l130_7;
     end else begin
-      _zz_when_SInt_l130_4 = (_zz__zz_when_SInt_l130_4 >>> 20);
+      _zz_when_SInt_l130_4 = (_zz__zz_when_SInt_l130_4 >>> 4);
     end
   end
 
@@ -557,16 +560,16 @@ module CFOEstimator (
   end
 
   assign when_SInt_l137_1 = (|_zz_when_SInt_l137_1);
-  assign delta_phi_valid = (cordic_core_result_valid && (impulse_cnt == 6'h39));
-  assign delta_phi_payload = ($signed(cordic_core_result_payload_z) >>> 5);
+  assign delta_phi_valid = (cordic_core_result_valid && (impulse_cnt == 5'h11));
+  assign delta_phi_payload = ($signed(cordic_core_result_payload_z) >>> 4);
   always @(posedge clk or posedge reset) begin
     if(reset) begin
-      impulse_cnt <= 6'h0;
+      impulse_cnt <= 5'h0;
     end else begin
       if(auto_corr_core_corr_result_valid) begin
-        impulse_cnt <= ((6'h39 <= impulse_cnt) ? 6'h0 : _zz_impulse_cnt);
+        impulse_cnt <= ((5'h11 <= impulse_cnt) ? 5'h0 : _zz_impulse_cnt);
       end else begin
-        impulse_cnt <= 6'h0;
+        impulse_cnt <= 5'h0;
       end
     end
   end
@@ -597,8 +600,8 @@ module ShiftRegister_3 (
   reg                 shift_reg_11;
 
   assign output_1 = shift_reg_11;
-  always @(posedge clk) begin
-    if(clc) begin
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
       shift_reg_0 <= 1'b0;
       shift_reg_1 <= 1'b0;
       shift_reg_2 <= 1'b0;
@@ -612,19 +615,34 @@ module ShiftRegister_3 (
       shift_reg_10 <= 1'b0;
       shift_reg_11 <= 1'b0;
     end else begin
-      if(enable) begin
-        shift_reg_0 <= input_1;
-        shift_reg_1 <= shift_reg_0;
-        shift_reg_2 <= shift_reg_1;
-        shift_reg_3 <= shift_reg_2;
-        shift_reg_4 <= shift_reg_3;
-        shift_reg_5 <= shift_reg_4;
-        shift_reg_6 <= shift_reg_5;
-        shift_reg_7 <= shift_reg_6;
-        shift_reg_8 <= shift_reg_7;
-        shift_reg_9 <= shift_reg_8;
-        shift_reg_10 <= shift_reg_9;
-        shift_reg_11 <= shift_reg_10;
+      if(clc) begin
+        shift_reg_0 <= 1'b0;
+        shift_reg_1 <= 1'b0;
+        shift_reg_2 <= 1'b0;
+        shift_reg_3 <= 1'b0;
+        shift_reg_4 <= 1'b0;
+        shift_reg_5 <= 1'b0;
+        shift_reg_6 <= 1'b0;
+        shift_reg_7 <= 1'b0;
+        shift_reg_8 <= 1'b0;
+        shift_reg_9 <= 1'b0;
+        shift_reg_10 <= 1'b0;
+        shift_reg_11 <= 1'b0;
+      end else begin
+        if(enable) begin
+          shift_reg_0 <= input_1;
+          shift_reg_1 <= shift_reg_0;
+          shift_reg_2 <= shift_reg_1;
+          shift_reg_3 <= shift_reg_2;
+          shift_reg_4 <= shift_reg_3;
+          shift_reg_5 <= shift_reg_4;
+          shift_reg_6 <= shift_reg_5;
+          shift_reg_7 <= shift_reg_6;
+          shift_reg_8 <= shift_reg_7;
+          shift_reg_9 <= shift_reg_8;
+          shift_reg_10 <= shift_reg_9;
+          shift_reg_11 <= shift_reg_10;
+        end
       end
     end
   end
@@ -1773,8 +1791,8 @@ module AutoCorrelator (
   input      [11:0]   raw_data_payload_cha_i,
   input      [11:0]   raw_data_payload_cha_q,
   output              corr_result_valid,
-  output     [43:0]   corr_result_payload_cha_i,
-  output     [43:0]   corr_result_payload_cha_q,
+  output     [27:0]   corr_result_payload_cha_i,
+  output     [27:0]   corr_result_payload_cha_q,
   input               clk,
   input               reset
 );
@@ -1784,8 +1802,8 @@ module AutoCorrelator (
   wire       [11:0]   shiftRegister_4_output_payload_cha_i;
   wire       [11:0]   shiftRegister_4_output_payload_cha_q;
   wire                corr_core_corr_result_valid;
-  wire       [43:0]   corr_core_corr_result_payload_cha_i;
-  wire       [43:0]   corr_core_corr_result_payload_cha_q;
+  wire       [27:0]   corr_core_corr_result_payload_cha_i;
+  wire       [27:0]   corr_core_corr_result_payload_cha_q;
 
   ShiftRegister_2 shiftRegister_4 (
     .input_valid             (raw_data_valid                              ), //i
@@ -1807,8 +1825,8 @@ module AutoCorrelator (
     .raw_data_1_payload_cha_i     (shiftRegister_4_output_payload_cha_i[11:0]  ), //i
     .raw_data_1_payload_cha_q     (shiftRegister_4_output_payload_cha_q[11:0]  ), //i
     .corr_result_valid            (corr_core_corr_result_valid                 ), //o
-    .corr_result_payload_cha_i    (corr_core_corr_result_payload_cha_i[43:0]   ), //o
-    .corr_result_payload_cha_q    (corr_core_corr_result_payload_cha_q[43:0]   ), //o
+    .corr_result_payload_cha_i    (corr_core_corr_result_payload_cha_i[27:0]   ), //o
+    .corr_result_payload_cha_q    (corr_core_corr_result_payload_cha_q[27:0]   ), //o
     .clk                          (clk                                         ), //i
     .reset                        (reset                                       )  //i
   );
@@ -1827,8 +1845,8 @@ module Correlator (
   input      [11:0]   raw_data_1_payload_cha_i,
   input      [11:0]   raw_data_1_payload_cha_q,
   output              corr_result_valid,
-  output     [43:0]   corr_result_payload_cha_i,
-  output     [43:0]   corr_result_payload_cha_q,
+  output     [27:0]   corr_result_payload_cha_i,
+  output     [27:0]   corr_result_payload_cha_q,
   input               clk,
   input               reset
 );
@@ -1841,14 +1859,14 @@ module Correlator (
   wire       [23:0]   _zz__zz_corr_val_i_1;
   wire       [23:0]   _zz__zz_corr_val_q;
   wire       [23:0]   _zz__zz_corr_val_q_1;
-  wire       [43:0]   _zz_corr_val_i_1;
-  wire       [43:0]   _zz_corr_val_i_2;
-  wire       [43:0]   _zz_corr_val_i_3;
-  wire       [43:0]   _zz_corr_val_q_1;
-  wire       [43:0]   _zz_corr_val_q_2;
-  wire       [43:0]   _zz_corr_val_q_3;
-  reg        [43:0]   corr_val_i;
-  reg        [43:0]   corr_val_q;
+  wire       [27:0]   _zz_corr_val_i_1;
+  wire       [27:0]   _zz_corr_val_i_2;
+  wire       [27:0]   _zz_corr_val_i_3;
+  wire       [27:0]   _zz_corr_val_q_1;
+  wire       [27:0]   _zz_corr_val_q_2;
+  wire       [27:0]   _zz_corr_val_q_3;
+  reg        [27:0]   corr_val_i;
+  reg        [27:0]   corr_val_q;
   reg        [23:0]   _zz_corr_val_i;
   reg        [23:0]   _zz_corr_val_q;
   reg                 _zz_enable;
@@ -1859,11 +1877,11 @@ module Correlator (
   assign _zz__zz_corr_val_q = ($signed(raw_data_0_payload_cha_q) * $signed(raw_data_1_payload_cha_i));
   assign _zz__zz_corr_val_q_1 = ($signed(raw_data_0_payload_cha_i) * $signed(raw_data_1_payload_cha_q));
   assign _zz_corr_val_i_1 = ($signed(corr_val_i) - $signed(_zz_corr_val_i_2));
-  assign _zz_corr_val_i_2 = {{20{shiftRegister_4_output_1[23]}}, shiftRegister_4_output_1};
-  assign _zz_corr_val_i_3 = {{20{_zz_corr_val_i[23]}}, _zz_corr_val_i};
+  assign _zz_corr_val_i_2 = {{4{shiftRegister_4_output_1[23]}}, shiftRegister_4_output_1};
+  assign _zz_corr_val_i_3 = {{4{_zz_corr_val_i[23]}}, _zz_corr_val_i};
   assign _zz_corr_val_q_1 = ($signed(corr_val_q) - $signed(_zz_corr_val_q_2));
-  assign _zz_corr_val_q_2 = {{20{shiftRegister_5_output_1[23]}}, shiftRegister_5_output_1};
-  assign _zz_corr_val_q_3 = {{20{_zz_corr_val_q[23]}}, _zz_corr_val_q};
+  assign _zz_corr_val_q_2 = {{4{shiftRegister_5_output_1[23]}}, shiftRegister_5_output_1};
+  assign _zz_corr_val_q_3 = {{4{_zz_corr_val_q[23]}}, _zz_corr_val_q};
   ShiftRegister shiftRegister_4 (
     .input_1     (_zz_corr_val_i[23:0]            ), //i
     .output_1    (shiftRegister_4_output_1[23:0]  ), //o
@@ -1887,8 +1905,8 @@ module Correlator (
   assign corr_result_valid = _zz_corr_result_valid;
   always @(posedge clk or posedge reset) begin
     if(reset) begin
-      corr_val_i <= 44'h0;
-      corr_val_q <= 44'h0;
+      corr_val_i <= 28'h0;
+      corr_val_q <= 28'h0;
       _zz_corr_val_i <= 24'h0;
       _zz_corr_val_q <= 24'h0;
       _zz_enable <= 1'b0;
@@ -1903,8 +1921,8 @@ module Correlator (
         corr_val_q <= ($signed(_zz_corr_val_q_1) + $signed(_zz_corr_val_q_3));
       end else begin
         _zz_corr_result_valid <= 1'b0;
-        corr_val_i <= 44'h0;
-        corr_val_q <= 44'h0;
+        corr_val_i <= 28'h0;
+        corr_val_q <= 28'h0;
       end
     end
   end
@@ -1973,58 +1991,10 @@ module ShiftRegister_2 (
   reg                 shift_reg_15_valid;
   reg        [11:0]   shift_reg_15_payload_cha_i;
   reg        [11:0]   shift_reg_15_payload_cha_q;
-  reg                 shift_reg_16_valid;
-  reg        [11:0]   shift_reg_16_payload_cha_i;
-  reg        [11:0]   shift_reg_16_payload_cha_q;
-  reg                 shift_reg_17_valid;
-  reg        [11:0]   shift_reg_17_payload_cha_i;
-  reg        [11:0]   shift_reg_17_payload_cha_q;
-  reg                 shift_reg_18_valid;
-  reg        [11:0]   shift_reg_18_payload_cha_i;
-  reg        [11:0]   shift_reg_18_payload_cha_q;
-  reg                 shift_reg_19_valid;
-  reg        [11:0]   shift_reg_19_payload_cha_i;
-  reg        [11:0]   shift_reg_19_payload_cha_q;
-  reg                 shift_reg_20_valid;
-  reg        [11:0]   shift_reg_20_payload_cha_i;
-  reg        [11:0]   shift_reg_20_payload_cha_q;
-  reg                 shift_reg_21_valid;
-  reg        [11:0]   shift_reg_21_payload_cha_i;
-  reg        [11:0]   shift_reg_21_payload_cha_q;
-  reg                 shift_reg_22_valid;
-  reg        [11:0]   shift_reg_22_payload_cha_i;
-  reg        [11:0]   shift_reg_22_payload_cha_q;
-  reg                 shift_reg_23_valid;
-  reg        [11:0]   shift_reg_23_payload_cha_i;
-  reg        [11:0]   shift_reg_23_payload_cha_q;
-  reg                 shift_reg_24_valid;
-  reg        [11:0]   shift_reg_24_payload_cha_i;
-  reg        [11:0]   shift_reg_24_payload_cha_q;
-  reg                 shift_reg_25_valid;
-  reg        [11:0]   shift_reg_25_payload_cha_i;
-  reg        [11:0]   shift_reg_25_payload_cha_q;
-  reg                 shift_reg_26_valid;
-  reg        [11:0]   shift_reg_26_payload_cha_i;
-  reg        [11:0]   shift_reg_26_payload_cha_q;
-  reg                 shift_reg_27_valid;
-  reg        [11:0]   shift_reg_27_payload_cha_i;
-  reg        [11:0]   shift_reg_27_payload_cha_q;
-  reg                 shift_reg_28_valid;
-  reg        [11:0]   shift_reg_28_payload_cha_i;
-  reg        [11:0]   shift_reg_28_payload_cha_q;
-  reg                 shift_reg_29_valid;
-  reg        [11:0]   shift_reg_29_payload_cha_i;
-  reg        [11:0]   shift_reg_29_payload_cha_q;
-  reg                 shift_reg_30_valid;
-  reg        [11:0]   shift_reg_30_payload_cha_i;
-  reg        [11:0]   shift_reg_30_payload_cha_q;
-  reg                 shift_reg_31_valid;
-  reg        [11:0]   shift_reg_31_payload_cha_i;
-  reg        [11:0]   shift_reg_31_payload_cha_q;
 
-  assign output_valid = shift_reg_31_valid;
-  assign output_payload_cha_i = shift_reg_31_payload_cha_i;
-  assign output_payload_cha_q = shift_reg_31_payload_cha_q;
+  assign output_valid = shift_reg_15_valid;
+  assign output_payload_cha_i = shift_reg_15_payload_cha_i;
+  assign output_payload_cha_q = shift_reg_15_payload_cha_q;
   always @(posedge clk or posedge reset) begin
     if(reset) begin
       shift_reg_0_valid <= 1'b0;
@@ -2075,54 +2045,6 @@ module ShiftRegister_2 (
       shift_reg_15_valid <= 1'b0;
       shift_reg_15_payload_cha_i <= 12'h0;
       shift_reg_15_payload_cha_q <= 12'h0;
-      shift_reg_16_valid <= 1'b0;
-      shift_reg_16_payload_cha_i <= 12'h0;
-      shift_reg_16_payload_cha_q <= 12'h0;
-      shift_reg_17_valid <= 1'b0;
-      shift_reg_17_payload_cha_i <= 12'h0;
-      shift_reg_17_payload_cha_q <= 12'h0;
-      shift_reg_18_valid <= 1'b0;
-      shift_reg_18_payload_cha_i <= 12'h0;
-      shift_reg_18_payload_cha_q <= 12'h0;
-      shift_reg_19_valid <= 1'b0;
-      shift_reg_19_payload_cha_i <= 12'h0;
-      shift_reg_19_payload_cha_q <= 12'h0;
-      shift_reg_20_valid <= 1'b0;
-      shift_reg_20_payload_cha_i <= 12'h0;
-      shift_reg_20_payload_cha_q <= 12'h0;
-      shift_reg_21_valid <= 1'b0;
-      shift_reg_21_payload_cha_i <= 12'h0;
-      shift_reg_21_payload_cha_q <= 12'h0;
-      shift_reg_22_valid <= 1'b0;
-      shift_reg_22_payload_cha_i <= 12'h0;
-      shift_reg_22_payload_cha_q <= 12'h0;
-      shift_reg_23_valid <= 1'b0;
-      shift_reg_23_payload_cha_i <= 12'h0;
-      shift_reg_23_payload_cha_q <= 12'h0;
-      shift_reg_24_valid <= 1'b0;
-      shift_reg_24_payload_cha_i <= 12'h0;
-      shift_reg_24_payload_cha_q <= 12'h0;
-      shift_reg_25_valid <= 1'b0;
-      shift_reg_25_payload_cha_i <= 12'h0;
-      shift_reg_25_payload_cha_q <= 12'h0;
-      shift_reg_26_valid <= 1'b0;
-      shift_reg_26_payload_cha_i <= 12'h0;
-      shift_reg_26_payload_cha_q <= 12'h0;
-      shift_reg_27_valid <= 1'b0;
-      shift_reg_27_payload_cha_i <= 12'h0;
-      shift_reg_27_payload_cha_q <= 12'h0;
-      shift_reg_28_valid <= 1'b0;
-      shift_reg_28_payload_cha_i <= 12'h0;
-      shift_reg_28_payload_cha_q <= 12'h0;
-      shift_reg_29_valid <= 1'b0;
-      shift_reg_29_payload_cha_i <= 12'h0;
-      shift_reg_29_payload_cha_q <= 12'h0;
-      shift_reg_30_valid <= 1'b0;
-      shift_reg_30_payload_cha_i <= 12'h0;
-      shift_reg_30_payload_cha_q <= 12'h0;
-      shift_reg_31_valid <= 1'b0;
-      shift_reg_31_payload_cha_i <= 12'h0;
-      shift_reg_31_payload_cha_q <= 12'h0;
     end else begin
       if(clc) begin
         shift_reg_0_valid <= 1'b0;
@@ -2173,54 +2095,6 @@ module ShiftRegister_2 (
         shift_reg_15_valid <= 1'b0;
         shift_reg_15_payload_cha_i <= 12'h0;
         shift_reg_15_payload_cha_q <= 12'h0;
-        shift_reg_16_valid <= 1'b0;
-        shift_reg_16_payload_cha_i <= 12'h0;
-        shift_reg_16_payload_cha_q <= 12'h0;
-        shift_reg_17_valid <= 1'b0;
-        shift_reg_17_payload_cha_i <= 12'h0;
-        shift_reg_17_payload_cha_q <= 12'h0;
-        shift_reg_18_valid <= 1'b0;
-        shift_reg_18_payload_cha_i <= 12'h0;
-        shift_reg_18_payload_cha_q <= 12'h0;
-        shift_reg_19_valid <= 1'b0;
-        shift_reg_19_payload_cha_i <= 12'h0;
-        shift_reg_19_payload_cha_q <= 12'h0;
-        shift_reg_20_valid <= 1'b0;
-        shift_reg_20_payload_cha_i <= 12'h0;
-        shift_reg_20_payload_cha_q <= 12'h0;
-        shift_reg_21_valid <= 1'b0;
-        shift_reg_21_payload_cha_i <= 12'h0;
-        shift_reg_21_payload_cha_q <= 12'h0;
-        shift_reg_22_valid <= 1'b0;
-        shift_reg_22_payload_cha_i <= 12'h0;
-        shift_reg_22_payload_cha_q <= 12'h0;
-        shift_reg_23_valid <= 1'b0;
-        shift_reg_23_payload_cha_i <= 12'h0;
-        shift_reg_23_payload_cha_q <= 12'h0;
-        shift_reg_24_valid <= 1'b0;
-        shift_reg_24_payload_cha_i <= 12'h0;
-        shift_reg_24_payload_cha_q <= 12'h0;
-        shift_reg_25_valid <= 1'b0;
-        shift_reg_25_payload_cha_i <= 12'h0;
-        shift_reg_25_payload_cha_q <= 12'h0;
-        shift_reg_26_valid <= 1'b0;
-        shift_reg_26_payload_cha_i <= 12'h0;
-        shift_reg_26_payload_cha_q <= 12'h0;
-        shift_reg_27_valid <= 1'b0;
-        shift_reg_27_payload_cha_i <= 12'h0;
-        shift_reg_27_payload_cha_q <= 12'h0;
-        shift_reg_28_valid <= 1'b0;
-        shift_reg_28_payload_cha_i <= 12'h0;
-        shift_reg_28_payload_cha_q <= 12'h0;
-        shift_reg_29_valid <= 1'b0;
-        shift_reg_29_payload_cha_i <= 12'h0;
-        shift_reg_29_payload_cha_q <= 12'h0;
-        shift_reg_30_valid <= 1'b0;
-        shift_reg_30_payload_cha_i <= 12'h0;
-        shift_reg_30_payload_cha_q <= 12'h0;
-        shift_reg_31_valid <= 1'b0;
-        shift_reg_31_payload_cha_i <= 12'h0;
-        shift_reg_31_payload_cha_q <= 12'h0;
       end else begin
         if(enable) begin
           shift_reg_0_valid <= input_valid;
@@ -2271,54 +2145,6 @@ module ShiftRegister_2 (
           shift_reg_15_valid <= shift_reg_14_valid;
           shift_reg_15_payload_cha_i <= shift_reg_14_payload_cha_i;
           shift_reg_15_payload_cha_q <= shift_reg_14_payload_cha_q;
-          shift_reg_16_valid <= shift_reg_15_valid;
-          shift_reg_16_payload_cha_i <= shift_reg_15_payload_cha_i;
-          shift_reg_16_payload_cha_q <= shift_reg_15_payload_cha_q;
-          shift_reg_17_valid <= shift_reg_16_valid;
-          shift_reg_17_payload_cha_i <= shift_reg_16_payload_cha_i;
-          shift_reg_17_payload_cha_q <= shift_reg_16_payload_cha_q;
-          shift_reg_18_valid <= shift_reg_17_valid;
-          shift_reg_18_payload_cha_i <= shift_reg_17_payload_cha_i;
-          shift_reg_18_payload_cha_q <= shift_reg_17_payload_cha_q;
-          shift_reg_19_valid <= shift_reg_18_valid;
-          shift_reg_19_payload_cha_i <= shift_reg_18_payload_cha_i;
-          shift_reg_19_payload_cha_q <= shift_reg_18_payload_cha_q;
-          shift_reg_20_valid <= shift_reg_19_valid;
-          shift_reg_20_payload_cha_i <= shift_reg_19_payload_cha_i;
-          shift_reg_20_payload_cha_q <= shift_reg_19_payload_cha_q;
-          shift_reg_21_valid <= shift_reg_20_valid;
-          shift_reg_21_payload_cha_i <= shift_reg_20_payload_cha_i;
-          shift_reg_21_payload_cha_q <= shift_reg_20_payload_cha_q;
-          shift_reg_22_valid <= shift_reg_21_valid;
-          shift_reg_22_payload_cha_i <= shift_reg_21_payload_cha_i;
-          shift_reg_22_payload_cha_q <= shift_reg_21_payload_cha_q;
-          shift_reg_23_valid <= shift_reg_22_valid;
-          shift_reg_23_payload_cha_i <= shift_reg_22_payload_cha_i;
-          shift_reg_23_payload_cha_q <= shift_reg_22_payload_cha_q;
-          shift_reg_24_valid <= shift_reg_23_valid;
-          shift_reg_24_payload_cha_i <= shift_reg_23_payload_cha_i;
-          shift_reg_24_payload_cha_q <= shift_reg_23_payload_cha_q;
-          shift_reg_25_valid <= shift_reg_24_valid;
-          shift_reg_25_payload_cha_i <= shift_reg_24_payload_cha_i;
-          shift_reg_25_payload_cha_q <= shift_reg_24_payload_cha_q;
-          shift_reg_26_valid <= shift_reg_25_valid;
-          shift_reg_26_payload_cha_i <= shift_reg_25_payload_cha_i;
-          shift_reg_26_payload_cha_q <= shift_reg_25_payload_cha_q;
-          shift_reg_27_valid <= shift_reg_26_valid;
-          shift_reg_27_payload_cha_i <= shift_reg_26_payload_cha_i;
-          shift_reg_27_payload_cha_q <= shift_reg_26_payload_cha_q;
-          shift_reg_28_valid <= shift_reg_27_valid;
-          shift_reg_28_payload_cha_i <= shift_reg_27_payload_cha_i;
-          shift_reg_28_payload_cha_q <= shift_reg_27_payload_cha_q;
-          shift_reg_29_valid <= shift_reg_28_valid;
-          shift_reg_29_payload_cha_i <= shift_reg_28_payload_cha_i;
-          shift_reg_29_payload_cha_q <= shift_reg_28_payload_cha_q;
-          shift_reg_30_valid <= shift_reg_29_valid;
-          shift_reg_30_payload_cha_i <= shift_reg_29_payload_cha_i;
-          shift_reg_30_payload_cha_q <= shift_reg_29_payload_cha_q;
-          shift_reg_31_valid <= shift_reg_30_valid;
-          shift_reg_31_payload_cha_i <= shift_reg_30_payload_cha_i;
-          shift_reg_31_payload_cha_q <= shift_reg_30_payload_cha_q;
         end
       end
     end
@@ -2354,24 +2180,8 @@ module ShiftRegister (
   reg        [23:0]   shift_reg_13;
   reg        [23:0]   shift_reg_14;
   reg        [23:0]   shift_reg_15;
-  reg        [23:0]   shift_reg_16;
-  reg        [23:0]   shift_reg_17;
-  reg        [23:0]   shift_reg_18;
-  reg        [23:0]   shift_reg_19;
-  reg        [23:0]   shift_reg_20;
-  reg        [23:0]   shift_reg_21;
-  reg        [23:0]   shift_reg_22;
-  reg        [23:0]   shift_reg_23;
-  reg        [23:0]   shift_reg_24;
-  reg        [23:0]   shift_reg_25;
-  reg        [23:0]   shift_reg_26;
-  reg        [23:0]   shift_reg_27;
-  reg        [23:0]   shift_reg_28;
-  reg        [23:0]   shift_reg_29;
-  reg        [23:0]   shift_reg_30;
-  reg        [23:0]   shift_reg_31;
 
-  assign output_1 = shift_reg_31;
+  assign output_1 = shift_reg_15;
   always @(posedge clk or posedge reset) begin
     if(reset) begin
       shift_reg_0 <= 24'h0;
@@ -2390,22 +2200,6 @@ module ShiftRegister (
       shift_reg_13 <= 24'h0;
       shift_reg_14 <= 24'h0;
       shift_reg_15 <= 24'h0;
-      shift_reg_16 <= 24'h0;
-      shift_reg_17 <= 24'h0;
-      shift_reg_18 <= 24'h0;
-      shift_reg_19 <= 24'h0;
-      shift_reg_20 <= 24'h0;
-      shift_reg_21 <= 24'h0;
-      shift_reg_22 <= 24'h0;
-      shift_reg_23 <= 24'h0;
-      shift_reg_24 <= 24'h0;
-      shift_reg_25 <= 24'h0;
-      shift_reg_26 <= 24'h0;
-      shift_reg_27 <= 24'h0;
-      shift_reg_28 <= 24'h0;
-      shift_reg_29 <= 24'h0;
-      shift_reg_30 <= 24'h0;
-      shift_reg_31 <= 24'h0;
     end else begin
       if(clc) begin
         shift_reg_0 <= 24'h0;
@@ -2424,22 +2218,6 @@ module ShiftRegister (
         shift_reg_13 <= 24'h0;
         shift_reg_14 <= 24'h0;
         shift_reg_15 <= 24'h0;
-        shift_reg_16 <= 24'h0;
-        shift_reg_17 <= 24'h0;
-        shift_reg_18 <= 24'h0;
-        shift_reg_19 <= 24'h0;
-        shift_reg_20 <= 24'h0;
-        shift_reg_21 <= 24'h0;
-        shift_reg_22 <= 24'h0;
-        shift_reg_23 <= 24'h0;
-        shift_reg_24 <= 24'h0;
-        shift_reg_25 <= 24'h0;
-        shift_reg_26 <= 24'h0;
-        shift_reg_27 <= 24'h0;
-        shift_reg_28 <= 24'h0;
-        shift_reg_29 <= 24'h0;
-        shift_reg_30 <= 24'h0;
-        shift_reg_31 <= 24'h0;
       end else begin
         if(enable) begin
           shift_reg_0 <= input_1;
@@ -2458,22 +2236,6 @@ module ShiftRegister (
           shift_reg_13 <= shift_reg_12;
           shift_reg_14 <= shift_reg_13;
           shift_reg_15 <= shift_reg_14;
-          shift_reg_16 <= shift_reg_15;
-          shift_reg_17 <= shift_reg_16;
-          shift_reg_18 <= shift_reg_17;
-          shift_reg_19 <= shift_reg_18;
-          shift_reg_20 <= shift_reg_19;
-          shift_reg_21 <= shift_reg_20;
-          shift_reg_22 <= shift_reg_21;
-          shift_reg_23 <= shift_reg_22;
-          shift_reg_24 <= shift_reg_23;
-          shift_reg_25 <= shift_reg_24;
-          shift_reg_26 <= shift_reg_25;
-          shift_reg_27 <= shift_reg_26;
-          shift_reg_28 <= shift_reg_27;
-          shift_reg_29 <= shift_reg_28;
-          shift_reg_30 <= shift_reg_29;
-          shift_reg_31 <= shift_reg_30;
         end
       end
     end

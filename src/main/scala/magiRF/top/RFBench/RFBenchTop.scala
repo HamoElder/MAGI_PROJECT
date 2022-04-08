@@ -9,7 +9,7 @@ import utils.bus.AxiLite.{AxiLite4, AxiLite4SlaveFactory, AxiLite4SpecRenamer}
 import utils.bus.AxiStream4.{AxiStream4, AxiStream4SpecRenamer}
 import utils.debugger.Ila
 
-class RFBenchTop extends Component{
+case class RFBenchTop() extends Component{
     val io = new Bundle{
         val axil4Ctrl = slave(AxiLite4(axiLite4_config))
         val trans_data = slave(AxiStream4(stream_config))

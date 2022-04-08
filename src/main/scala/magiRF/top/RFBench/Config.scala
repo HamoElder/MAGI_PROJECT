@@ -2,6 +2,7 @@ package magiRF.top.RFBench
 
 import Misc.math.{Complex, RaisedCosineFilterParams, RaisedCosineTaps, SquareRootRaisedCosineFilterParams, SquareRootRaisedCosineTaps}
 import Misc.math.ZadoffChuSeq.zcSeqGen
+import magiRF.modules.DSP.Correlator.CrossCorrelatorConfig
 import magiRF.modules.DSP.PowerAdjustor.PowerAdjustorConfig
 import magiRF.modules.Modem.Misc.{dataDivConfig, modUnitConfig}
 import magiRF.modules.Modem.Modulator.modRTLConfig
@@ -21,9 +22,9 @@ import utils.common.CRC.CrcKind
 /**
  * Frame Structure:
  * ----------------------------------------------------------------------------------------------------------------------------------------
- * |          stf (16 bytes)        | modulator method (1 byte) | size (1 bytes) | payload(16-250 bytes) | crc (4 bytes) | padding (1 byte) |
+ * |         stf (20 bytes)        |     SDF (1 byte)     |    size (1 bytes)   | payload(16-255 bytes) | crc (4 bytes) | padding (1 byte) |
  * ----------------------------------------------------------------------------------------------------------------------------------------
- * |                               |         BPSK   Uncoded  Scrambling         |             Coded   Configurable  Scrambling             |
+ * |                               |         BPSK   Uncoded  UnScrambling       |             Coded   Configurable  Scrambling             |
  * |             PLCP              |                    SIGNAL                  |                             DATA                         |
  * ---------------------------------------------------------------------------------------------------------------------------------------
  * Modulator Method:
@@ -79,7 +80,7 @@ object Config {
 
     def size_width: BigInt = 1 Byte
 
-    def rf_payload_upper_boundary: BigInt = 250 Bytes
+    def rf_payload_upper_boundary: BigInt = 255 Bytes
 
     def rf_payload_lower_boundary: BigInt = 16 Bytes
 
@@ -97,16 +98,21 @@ object Config {
 
     def power_adjustor_ratio = 4
 
+    def dataResolutionWidth: Int = iqWidth
+
     def srrcConfig: SquareRootRaisedCosineFilterParams = SquareRootRaisedCosineFilterParams(128.0, 0.3, 4, oversampled_zeros)
     def srrcTaps: List[Int] = SquareRootRaisedCosineTaps(srrcConfig).toList
 
-    val stf: Array[Complex] = zcSeqGen(1, 32)
+    val stf: Array[Complex] = zcSeqGen(1, 16)
     val stf_repeat_times = 10
     //    val ltf32: Array[Complex] = zcSeqGen(5, 32)
     //    val ltf: Array[Complex] = (ltf32 ++ ltf32)
 
     def stf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, stf, stf_repeat_times, scale = 0.55)
     //    def ltf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, ltf, scale = 0.6)
+//    val sdf: Array[Complex] = zcSeqGen(1, 32)
+//    val sdf_repeat_times = 1
+//    def sdf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, sdf, sdf_repeat_times, scale = 0.55)
 
     def conv_encoder_config: ConvEncoderConfig = ConvEncoderConfig(phyDataWidth, 7, List(91, 121))
 
@@ -120,7 +126,7 @@ object Config {
 
     def axiLite4_config: AxiLite4Config = AxiLite4Config(cfgAddressWidth, cfgDataWidth)
 
-    def genPkgGenConfig: StreamPkgGenConfig = StreamPkgGenConfig(streamDataWidth, phyDataWidth, phy_payload_upper_boundary.toInt)
+    def genPkgGenConfig: StreamPkgGenConfig = StreamPkgGenConfig(streamDataWidth, phyDataWidth, phy_payload_upper_boundary.toInt, LITTLE)
 
     def genModulatorDivConfig: dataDivConfig = dataDivConfig(codedDataWidth, 0)
 
@@ -211,7 +217,11 @@ object Config {
     }
 
     def power_adjustor_config: PowerAdjustorConfig = PowerAdjustorConfig(iqWidth, iqWidth, power_adjustor_ratio)
-    def preamble_config: PreambleDetectorConfig = PreambleDetectorConfig(12, stf.length, stf.length, usePowerMeter = false)
-    val dataResolutionWidth: Int = iqWidth
-    def rx_cfo_corrector_config: CFOCorrectorConfig = CFOCorrectorConfig(iqWidth, stf.length, stf.length, iqWidth, (stf_repeat_times / 2) & 0xfe, dataResolutionWidth)
+    def preamble_config: PreambleDetectorConfig = PreambleDetectorConfig(12, stf.length, stf.length, 8, usePowerMeter = true)
+    def rx_coarse_cfo_corrector_config: CFOCorrectorConfig = CFOCorrectorConfig(iqWidth, stf.length, stf.length, iqWidth, (stf_repeat_times / 2) & 0xfe, dataResolutionWidth)
+    def header_corrector_out_width: Int = 3 * iqWidth
+    def header_corrector_out_datatype: SInt = SInt(header_corrector_out_width bits)
+    def header_corrector_win_limit: Int = 48
+    def header_corrector_win_cnt_datatype: UInt = UInt(header_corrector_win_limit bits)
+    def header_corrector_config: CrossCorrelatorConfig = CrossCorrelatorConfig(12, stf,  3 * iqWidth)
 }

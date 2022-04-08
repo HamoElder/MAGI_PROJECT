@@ -2,14 +2,10 @@
 // DESCRIPTION: Verilator output: Design implementation internals
 // See VZeroForcing.h for the primary calling header
 
-#include "VZeroForcing.h"      // For This
+#include "VZeroForcing.h"
 #include "VZeroForcing__Syms.h"
 
-//--------------------
-// STATIC VARIABLES
-
-
-//--------------------
+//==========
 
 VL_CTOR_IMP(VZeroForcing) {
     VZeroForcing__Syms* __restrict vlSymsp = __VlSymsp = new VZeroForcing__Syms(this, name());
@@ -29,129 +25,122 @@ VZeroForcing::~VZeroForcing() {
     delete __VlSymsp; __VlSymsp=NULL;
 }
 
-//--------------------
-// Internal Methods
-
 void VZeroForcing::_settle__TOP__1(VZeroForcing__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_PRINTF("    VZeroForcing::_settle__TOP__1\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VZeroForcing::_settle__TOP__1\n"); );
     VZeroForcing* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->raw_data_ready = 1U;
-}
-
-void VZeroForcing::_settle__TOP__9(VZeroForcing__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_PRINTF("    VZeroForcing::_settle__TOP__9\n"); );
-    VZeroForcing* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
-    vlTOPp->result_data_payload = (0xffffU & ((IData)(vlTOPp->ZeroForcing__DOT__train_en_delay_16)
-					       ? ((IData)(vlTOPp->ZeroForcing__DOT__x_sign)
-						   ? 
-						  VL_NEGATE_I((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_z))
-						   : (IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_z))
-					       : ((IData)(vlTOPp->ZeroForcing__DOT__x_sign)
-						   ? 
-						  VL_NEGATE_I((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_y))
-						   : (IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_y))));
-    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_117 
-	= (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_60)
-		  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_45) 
-			>> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_30) 
-				     >> 0xfU)));
-    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_114 
-	= (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_59)
-		  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_44) 
-			>> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_29) 
-				     >> 0xfU)));
-    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_111 
-	= (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_58)
-		  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_43) 
-			>> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_28) 
-				     >> 0xfU)));
-    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_108 
-	= (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_57)
-		  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_42) 
-			>> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_27) 
-				     >> 0xfU)));
-    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_105 
-	= (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_56)
-		  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_41) 
-			>> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_26) 
-				     >> 0xfU)));
-    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_102 
-	= (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_55)
-		  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_40) 
-			>> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_25) 
-				     >> 0xfU)));
-    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_99 
-	= (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_54)
-		  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_39) 
-			>> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_24) 
-				     >> 0xfU)));
-    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_96 
-	= (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_53)
-		  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_38) 
-			>> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_23) 
-				     >> 0xfU)));
-    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_93 
-	= (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_52)
-		  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_37) 
-			>> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_22) 
-				     >> 0xfU)));
-    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_90 
-	= (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_51)
-		  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_36) 
-			>> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_21) 
-				     >> 0xfU)));
-    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_87 
-	= (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_50)
-		  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_35) 
-			>> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_20) 
-				     >> 0xfU)));
-    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_84 
-	= (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_49)
-		  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_34) 
-			>> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_19) 
-				     >> 0xfU)));
-    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_81 
-	= (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_48)
-		  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_33) 
-			>> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_18) 
-				     >> 0xfU)));
-    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_78 
-	= (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_47)
-		  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_32) 
-			>> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_17) 
-				     >> 0xfU)));
-    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_75 
-	= (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_46)
-		  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_31) 
-			>> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_16) 
-				     >> 0xfU)));
     vlTOPp->result_data_valid = vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_valid_15;
+    vlTOPp->result_data_payload = (0xffffU & ((IData)(vlTOPp->ZeroForcing__DOT__train_en_delay_16)
+                                               ? ((IData)(vlTOPp->ZeroForcing__DOT__x_sign)
+                                                   ? 
+                                                  VL_NEGATE_I((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_z))
+                                                   : (IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_z))
+                                               : ((IData)(vlTOPp->ZeroForcing__DOT__x_sign)
+                                                   ? 
+                                                  VL_NEGATE_I((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_y))
+                                                   : (IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_y))));
+    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_117 
+        = (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_60)
+                  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_45) 
+                        >> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_30) 
+                                     >> 0xfU)));
+    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_114 
+        = (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_59)
+                  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_44) 
+                        >> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_29) 
+                                     >> 0xfU)));
+    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_111 
+        = (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_58)
+                  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_43) 
+                        >> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_28) 
+                                     >> 0xfU)));
+    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_108 
+        = (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_57)
+                  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_42) 
+                        >> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_27) 
+                                     >> 0xfU)));
+    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_105 
+        = (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_56)
+                  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_41) 
+                        >> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_26) 
+                                     >> 0xfU)));
+    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_102 
+        = (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_55)
+                  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_40) 
+                        >> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_25) 
+                                     >> 0xfU)));
+    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_99 
+        = (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_54)
+                  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_39) 
+                        >> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_24) 
+                                     >> 0xfU)));
+    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_96 
+        = (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_53)
+                  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_38) 
+                        >> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_23) 
+                                     >> 0xfU)));
+    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_93 
+        = (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_52)
+                  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_37) 
+                        >> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_22) 
+                                     >> 0xfU)));
+    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_90 
+        = (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_51)
+                  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_36) 
+                        >> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_21) 
+                                     >> 0xfU)));
+    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_87 
+        = (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_50)
+                  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_35) 
+                        >> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_20) 
+                                     >> 0xfU)));
+    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_84 
+        = (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_49)
+                  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_34) 
+                        >> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_19) 
+                                     >> 0xfU)));
+    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_81 
+        = (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_48)
+                  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_33) 
+                        >> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_18) 
+                                     >> 0xfU)));
+    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_78 
+        = (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_47)
+                  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_32) 
+                        >> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_17) 
+                                     >> 0xfU)));
+    vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_75 
+        = (1U & ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_46)
+                  ? (~ ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_31) 
+                        >> 0xfU)) : ((IData)(vlTOPp->ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_16) 
+                                     >> 0xfU)));
 }
 
 void VZeroForcing::_eval_initial(VZeroForcing__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_PRINTF("    VZeroForcing::_eval_initial\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VZeroForcing::_eval_initial\n"); );
     VZeroForcing* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
+    vlTOPp->__Vclklast__TOP__clk = (1U & (~ (IData)(vlTOPp->clk)));
+    vlTOPp->__Vclklast__TOP__reset = (1U & (~ (IData)(vlTOPp->reset)));
 }
 
 void VZeroForcing::final() {
-    VL_DEBUG_IF(VL_PRINTF("    VZeroForcing::final\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VZeroForcing::final\n"); );
     // Variables
     VZeroForcing__Syms* __restrict vlSymsp = this->__VlSymsp;
     VZeroForcing* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
 }
 
 void VZeroForcing::_eval_settle(VZeroForcing__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_PRINTF("    VZeroForcing::_eval_settle\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VZeroForcing::_eval_settle\n"); );
     VZeroForcing* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->_settle__TOP__1(vlSymsp);
-    vlTOPp->_settle__TOP__9(vlSymsp);
 }
 
 void VZeroForcing::_ctor_var_reset() {
-    VL_DEBUG_IF(VL_PRINTF("    VZeroForcing::_ctor_var_reset\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VZeroForcing::_ctor_var_reset\n"); );
     // Body
     raw_data_valid = VL_RAND_RESET_I(1);
     raw_data_ready = VL_RAND_RESET_I(1);
@@ -161,8 +150,8 @@ void VZeroForcing::_ctor_var_reset() {
     train_en = VL_RAND_RESET_I(1);
     result_data_valid = VL_RAND_RESET_I(1);
     result_data_payload = VL_RAND_RESET_I(16);
-    clk = VL_RAND_RESET_I(1);
-    reset = VL_RAND_RESET_I(1);
+    clk = 0;
+    reset = 0;
     ZeroForcing__DOT___zz_x_sign = VL_RAND_RESET_I(1);
     ZeroForcing__DOT___zz_x_sign_1 = VL_RAND_RESET_I(1);
     ZeroForcing__DOT___zz_x_sign_2 = VL_RAND_RESET_I(1);
@@ -303,11 +292,5 @@ void VZeroForcing::_ctor_var_reset() {
     ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_111 = VL_RAND_RESET_I(1);
     ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_114 = VL_RAND_RESET_I(1);
     ZeroForcing__DOT__cal_core__DOT___zz_result_payload_x_117 = VL_RAND_RESET_I(1);
-    __Vclklast__TOP__clk = VL_RAND_RESET_I(1);
-    __Vclklast__TOP__reset = VL_RAND_RESET_I(1);
-    __Vm_traceActivity = VL_RAND_RESET_I(32);
-}
-
-void VZeroForcing::_configure_coverage(VZeroForcing__Syms* __restrict vlSymsp, bool first) {
-    VL_DEBUG_IF(VL_PRINTF("    VZeroForcing::_configure_coverage\n"); );
+    __Vm_traceActivity = 0;
 }

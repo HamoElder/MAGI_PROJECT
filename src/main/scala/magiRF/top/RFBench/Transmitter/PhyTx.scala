@@ -253,7 +253,7 @@ case class PhyHeaderExtender() extends Component {
         val IDLE, HEADER, DATA = newElement()
     }
     val io = new Bundle{
-        val mod_method = in(Bits(8 bits))
+        val sdf_sequence = in(Bits(8 bits))
         val raw_data = slave(Stream(Fragment(codedDataType)))
         val result_data = master(Stream(Fragment(codedDataType)))
     }
@@ -281,7 +281,7 @@ case class PhyHeaderExtender() extends Component {
         }
         is(PhyTxHeaderStatus.HEADER){
             io.result_data.valid := True
-            io.result_data.fragment := io.mod_method ## (counter << 1).resize(size_width.toInt*8)
+            io.result_data.fragment := io.sdf_sequence ## (counter << 1).resize(size_width.toInt*8)
             when(io.result_data.ready){
                 header_status := PhyTxHeaderStatus.DATA
             }
