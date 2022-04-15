@@ -48,40 +48,25 @@ object ZeroForcingBench {
     }
 }
 
-object ZeroForcingSimApp extends App {
+object UnsignedDividerSimApp extends App {
     import spinal.core.sim._
 
     SimConfig.withWave.allOptimisation
-        .doSim(new ZeroForcing(3 exp, -12 exp, 16)) { dut =>
+        .doSim(new UnsignedDivider(16, 16, true)) { dut =>
             dut.clockDomain.forkStimulus(5)
-            dut.io.raw_data.valid #= false
-            dut.io.train_en #= false
+            dut.io.flush #= false
+            dut.io.cmd.valid #= false
+            dut.io.rsp.ready #= true
             dut.clockDomain.waitSampling(10)
 
-            /**
-             * Train
-             */
-            dut.io.train_en #= true
             for(idx <- 1 until 100){
-                dut.io.raw_data.payload #= (-idx << 6)
-                dut.io.ref_data #= ((1.5*idx).toInt << 6)
-                dut.io.raw_data.valid #= true
+                dut.io.cmd.numerator #= 12345
+                dut.io.cmd.denominator #= idx
+                dut.io.cmd.valid #= true
 //                dut.io.raw_data.valid.randomize()
                 dut.clockDomain.waitSampling(1)
             }
 
-            /**
-             * Eq
-             */
-            dut.io.train_en #= false
-            for(idx <- 1 until 100){
-                dut.io.raw_data.payload #= (idx << 6)
-                dut.io.scale #= (1 << 12) +  (1 << 11) + (1 << 10)
-                dut.io.raw_data.valid #= true
-//                dut.io.raw_data.valid.randomize()
-                dut.clockDomain.waitSampling(1)
-            }
-            dut.io.raw_data.valid #= false
             dut.clockDomain.waitSampling(50)
     }
 }

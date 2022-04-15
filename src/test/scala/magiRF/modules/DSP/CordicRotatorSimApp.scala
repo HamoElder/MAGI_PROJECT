@@ -13,7 +13,7 @@ object CordicRotatorSimApp extends App{
     /**
      * Get gain for n-stage CORDIC
      */
-    //		def gain(n: Int) = linear(n).map(x => sqrt(1 + x * x)).reduce(_ * _)
+    def gain(n: Int):Double = linearRam(n).map(x => Math.sqrt(1 + x * x)).product
     /**
      * Get sequences of length n that go atan(1), atan(0.5), atan(0.25), ...
      */
@@ -47,7 +47,7 @@ object CordicRotatorSimApp extends App{
             dut.clockDomain.waitSampling(1)
             for (idx <- 1 until 10){
                 dut.io.raw_data.x.raw #= (10 << 15)
-                dut.io.raw_data.y.raw #= (-idx << 15)
+                dut.io.raw_data.y.raw #= (-idx << 15) * 10
                 dut.io.raw_data.z.raw #= (0 << 13)
                 dut.clockDomain.waitSampling(1)
             }

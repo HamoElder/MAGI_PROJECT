@@ -4,20 +4,19 @@ package magiSOC.core.Trident
 import spinal.core._
 import spinal.lib._
 
-
-
 case class Fetch(implicit config: TridentRiscvConfig) extends Component{
     val io = new Bundle{
         val iCmd = master(Stream(CoreInstructionCmd()))
-        val iRsp = master(Stream(CoreInstructionRsp()))
-        val pcLoad = slave(Flow(pc))
+        val iRsp = slave(Stream(CoreInstructionRsp()))
+        val pcLoad = slave(Flow(UInt(config.pcWidth bits)))
+        val flush = in(Bool())
+        val halt = in(Bool())
+        val throwIt = in(Bool())
 
         val outInst = master(Stream(CoreFetchOutput()))
-        val flush = in(Bool())
     }
     noIoPrefix()
 
-    val halt = False
     val pc = Reg(UInt(config.pcWidth bits)) init(config.startAddress)
     val inc = RegInit(False)
     val pcNext = if(config.fastFetchCmdPcCalculation){
@@ -33,7 +32,7 @@ case class Fetch(implicit config: TridentRiscvConfig) extends Component{
     }
 
     val resetDone = RegNext(True) init(False)
-    io.iCmd.valid := resetDone  && !halt
+    io.iCmd.valid := resetDone && !io.halt
     io.iCmd.pc := pcNext
 
     when(io.iCmd.fire || io.pcLoad.fire){
@@ -46,9 +45,7 @@ case class Fetch(implicit config: TridentRiscvConfig) extends Component{
         inc := False
     }
 
-
-    val throwIt = False
-
+    val throwIt = io.throwIt
     when(io.flush){
         throwIt := True
     }

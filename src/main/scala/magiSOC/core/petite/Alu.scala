@@ -42,9 +42,6 @@ class Alu extends Component{
 }
 
 
-
-
-
 object AluMain{
     def main(args: Array[String]): Unit = {
         SpinalSystemVerilog(new Alu().setDefinitionName("TopLevel"))

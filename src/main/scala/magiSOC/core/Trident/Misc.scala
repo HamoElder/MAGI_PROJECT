@@ -2,6 +2,10 @@ package magiSOC.core.Trident
 
 import spinal.core._
 
+case class IrqUsage(isException: Boolean)
+
+
+
 object Misc{
     object PC extends SpinalEnum(binarySequential){
         val INC, BRA, J, JR = newElement()
@@ -93,6 +97,8 @@ object Misc{
         val alu = ALU()
         val wb  = WB()
         val rfen = Bool()
+        val execute0AluBypass  = Bool()
+        val execute1AluBypass  = Bool()
         val canInternalyStallWriteBack0 = Bool()
         val men  = Bool()
         val m  = M()
@@ -124,8 +130,8 @@ object Misc{
     def BASE_CSR_C           = M"------------------11------------"
     def BASE_CSR_I           = M"-----------------1--------------"
     def BASE_FENCEI          = M"000000000000000000010000000011--"
-    def MULX                 = M"0000001----------0-------0110011"
-    def DIVX                 = M"0000001----------1-------0110011"
+    def EXTEND_MULX          = M"0000001----------0-------0110011"
+    def EXTEND_DIVX          = M"0000001----------1-------0110011"
 
     object InstructionsCtrl{
         def apply(instruction : Bits) : InstructionsCtrl = {
@@ -138,8 +144,8 @@ object Misc{
             ctrl.alu := ALU.ADD
             ctrl.wb := WB.X
             ctrl.rfen := False
-//            ctrl.execute0AluBypass  := False
-//            ctrl.execute1AluBypass := False
+            ctrl.execute0AluBypass  := False
+            ctrl.execute1AluBypass := False
             ctrl.canInternalyStallWriteBack0 := False
             ctrl.men := False
             ctrl.m := M.XRD
@@ -178,8 +184,8 @@ object Misc{
                     ctrl.alu := ALU.ADD
                     ctrl.wb  := WB.ALU
                     ctrl.rfen := True
-//                    ctrl.execute0AluBypass := True
-//                    ctrl.execute1AluBypass := True
+                    ctrl.execute0AluBypass := True
+                    ctrl.execute1AluBypass := True
                 }
                 when(instruction === BASE_LUI){
                     ctrl.instVal := True
@@ -187,8 +193,8 @@ object Misc{
                     ctrl.alu := ALU.COPY
                     ctrl.wb  := WB.ALU
                     ctrl.rfen := True
-//                    ctrl.execute0AluBypass := True
-//                    ctrl.execute1AluBypass := True
+                    ctrl.execute0AluBypass := True
+                    ctrl.execute1AluBypass := True
                 }
                 when(instruction === BASE_OPX){
                     val isShift = instruction === BASE_OPX_SHIFT
@@ -200,8 +206,8 @@ object Misc{
                             ctrl.alu.assignFromBits((isShift && instruction(30)) ## instruction(14 downto 12))
                             ctrl.wb  := WB.ALU
                             ctrl.rfen := True
-//                            ctrl.execute0AluBypass := !isShift
-//                            ctrl.execute1AluBypass := True
+                            ctrl.execute0AluBypass := !isShift
+                            ctrl.execute1AluBypass := True
                             ctrl.useSrc0 := True
                         }
                     }otherwise{
@@ -213,8 +219,8 @@ object Misc{
                                 ctrl.alu.assignFromBits(instruction(30) ## instruction(14 downto 12))
                                 ctrl.wb  := WB.ALU
                                 ctrl.rfen := True
-//                                ctrl.execute0AluBypass := !isShift
-//                                ctrl.execute1AluBypass := True
+                                ctrl.execute0AluBypass := !isShift
+                                ctrl.execute1AluBypass := True
                                 ctrl.useSrc0 := True
                                 ctrl.useSrc1 := True
                             }
@@ -263,8 +269,26 @@ object Misc{
                     ctrl.rfen := True
                     ctrl.csr.assignFromBits(instruction(13 downto 12))
                 }
-                when(instruction === MULX){
-
+                when(instruction === EXTEND_MULX){
+                    ctrl.op0 := OP0.RS
+                    ctrl.op1 := OP1.RS
+                    ctrl.wb  := WB.ALU
+                    ctrl.rfen := True
+                    ctrl.execute0AluBypass := False
+                    ctrl.execute1AluBypass := False //instruction(14 downto 12) === B"000"
+                    ctrl.useSrc0 := True
+                    ctrl.useSrc1 := True
+                }
+                when(instruction === EXTEND_DIVX){
+                    ctrl.instVal := True
+                    ctrl.op0 := OP0.RS
+                    ctrl.op1 := OP1.RS
+                    ctrl.wb  := WB.ALU
+                    ctrl.rfen := True
+                    ctrl.execute0AluBypass := False
+                    ctrl.execute1AluBypass := True
+                    ctrl.useSrc0 := True
+                    ctrl.useSrc1 := True
                 }
             }
             ctrl
