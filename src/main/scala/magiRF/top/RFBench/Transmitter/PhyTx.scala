@@ -3,9 +3,10 @@ package magiRF.top.RFBench.Transmitter
 import magiRF.interfaces.misc.lvds.LVDS
 import magiRF.modules.Filters.FIR.TransposeFIR
 import magiRF.modules.Modem.Misc.dataDivDynamic
+import magiRF.modules.Modem.Modulator.extensions.mPSKMod
 import magiRF.packages.Coder.Convolutional.Encoder.ConvEncoder
 import magiRF.packages.Scramble.Scrambler
-import magiRF.top.RFBench.Config.{codedDataType, codedDataWidth, conv_encoder_config, crc32_config, crc_data_width, genModulatorConfig, genModulatorDivConfig, iqWidth, method_width, modIQDataType, oversampled_zeros, phyDataType, phyDataWidth, phy_payload_lower_boundary, phy_payload_upper_boundary, rf_payload_upper_boundary, scrambler_poly, scrambler_reg_width, size_width, srrcConfig, srrcTaps}
+import magiRF.top.RFBench.Config.{codedDataType, codedDataWidth, conv_encoder_config, crc32_config, crc_data_width, genModulatorConfig, genModulatorDivConfig, header_bpsk_mod_array, iqWidth, method_width, modIQDataType, oversampled_zeros, phyDataType, phyDataWidth, phy_payload_lower_boundary, phy_payload_upper_boundary, rf_payload_upper_boundary, scrambler_poly, scrambler_reg_width, sdf_i_array, sdf_size, size_width, srrcConfig, srrcTaps}
 import spinal.core._
 import spinal.lib._
 import utils.bus.IQBundle.IQBundle
@@ -246,54 +247,125 @@ case class PhyTxICFront() extends Component{
 }
 
 
-case class PhyHeaderExtender() extends Component {
-    def counterDataType: UInt = UInt(size_width*8 bits)
-    def payloadSizelimit: BigInt = phy_payload_upper_boundary + crc_data_width + method_width + size_width + 3
-    object PhyTxHeaderStatus extends SpinalEnum {
-        val IDLE, HEADER, DATA = newElement()
-    }
+
+case class PhyPkgInformationGen() extends Component{
+    def cntDataType: UInt = UInt(size_width* 8 bits)
+    def payloadSizeLimit: BigInt = phy_payload_upper_boundary + 2
     val io = new Bundle{
-        val sdf_sequence = in(Bits(8 bits))
-        val raw_data = slave(Stream(Fragment(codedDataType)))
-        val result_data = master(Stream(Fragment(codedDataType)))
+        val raw_data = slave(Stream(Fragment(phyDataType)))
+        val result_data = master(Stream(Fragment(phyDataType)))
+        val pkg_size = master(Stream(cntDataType))
     }
     noIoPrefix()
-    val counter = Reg(counterDataType) init(0)
-    val dataFifo = StreamFifo(Fragment(codedDataType), payloadSizelimit.toInt)
-    val emitHeader = RegInit(False) setWhen(io.raw_data.lastFire) clearWhen(io.result_data.lastFire)
-    dataFifo.io.push << io.raw_data.haltWhen(emitHeader)
-    when(io.result_data.lastFire){
-        counter := 0
+    val pkg_size_cnt = Reg(cntDataType) init(0)
+    val dataFifo = StreamFifo(Fragment(phyDataType), payloadSizeLimit.toInt)
+    val pkg_size_fifo = StreamFifo(cntDataType, 16)
+    dataFifo.io.push << io.raw_data.haltWhen(~pkg_size_fifo.io.push.ready)
+    io.result_data << dataFifo.io.pop
+    when(io.raw_data.lastFire){
+
     }.elsewhen(io.raw_data.fire){
-        counter := counter + 1
+        pkg_size_cnt := pkg_size_cnt + 1
+    }
+    val pkg_size_valid = Reg(Bool()) init(False)
+    val pkg_size_payload = Reg(cntDataType) init(0)
+    when(io.raw_data.lastFire){
+        pkg_size_valid := True
+        pkg_size_payload := pkg_size_cnt + 1
+        pkg_size_cnt := 0
+    }.elsewhen(io.raw_data.fire){
+        pkg_size_cnt := pkg_size_cnt  + 1
+        pkg_size_valid := False
+    }.otherwise{
+        pkg_size_valid := False
+    }
+    pkg_size_fifo.io.push.valid := pkg_size_valid
+    pkg_size_fifo.io.push.payload := pkg_size_payload
+
+    io.pkg_size << pkg_size_fifo.io.pop
+}
+
+case class PhyHeaderExtender() extends Component {
+    def cntDataType: UInt = UInt(5 bits)
+    def sizeDataType: UInt = UInt(size_width* 8 bits)
+    object PhyTxHeaderStatus extends SpinalEnum {
+        val IDLE, SDF, HEADER, DATA = newElement()
+    }
+    val io = new Bundle{
+        val mod_method = in(UInt(log2Up(genModulatorConfig.selectNum) bits))
+        val pkg_size = slave(Stream(sizeDataType))
+        val raw_data = slave(Stream(Fragment(modIQDataType)))
+        val result_data = master(Stream(Fragment(modIQDataType)))
+    }
+    noIoPrefix()
+
+    val header_status = Reg(PhyTxHeaderStatus) init(PhyTxHeaderStatus.IDLE)
+    val header_mod_array = Mem(modIQDataType.cha_i.clone(), 2)
+    for(idx <- 0 until 2){
+        header_mod_array(idx) := header_bpsk_mod_array(idx)
+    }
+    val sdf_i_vec = Vec(modIQDataType.cha_i.clone(), sdf_size)
+    for(idx <- 0 until sdf_size){
+        sdf_i_vec(idx) := sdf_i_array(idx)
     }
 
-    val header_status = Reg(PhyTxHeaderStatus()) init(PhyTxHeaderStatus.IDLE)
-    io.result_data.last := False
+    val counter = Reg(cntDataType) init(0)
+    val pkg_size_ready = Reg(Bool()) init(False)
+    val pkg_size_payload = Reg(sizeDataType)
+
+    io.raw_data.ready := False
     io.result_data.valid := False
-    io.result_data.fragment := 0
-    dataFifo.io.pop.ready := False
+    io.result_data.last := False
+    io.result_data.cha_i := 0
+    io.result_data.cha_q := 0
+
+    val method_size: Bits = io.mod_method ## pkg_size_payload
     switch(header_status){
         is(PhyTxHeaderStatus.IDLE){
-            when(emitHeader){
-                header_status := PhyTxHeaderStatus.HEADER
+            when(io.raw_data.valid && io.pkg_size.valid){
+                header_status := PhyTxHeaderStatus.SDF
+                pkg_size_ready := True
             }
+        }
+        is(PhyTxHeaderStatus.SDF){
+            when(io.pkg_size.fire){
+                pkg_size_payload := io.pkg_size.payload
+                pkg_size_ready := False
+            }
+            when(io.result_data.fire){
+                when(counter === 5){
+                    header_status := PhyTxHeaderStatus.HEADER
+                    counter := 9
+                }.otherwise{
+                    counter := counter + 1
+                }
+            }
+            io.result_data.cha_i := sdf_i_vec(counter.resized)
+            io.result_data.valid := True
         }
         is(PhyTxHeaderStatus.HEADER){
-            io.result_data.valid := True
-            io.result_data.fragment := io.sdf_sequence ## (counter << 1).resize(size_width.toInt*8)
-            when(io.result_data.ready){
-                header_status := PhyTxHeaderStatus.DATA
+            when(io.result_data.fire){
+                when(counter === 0){
+                    header_status := PhyTxHeaderStatus.DATA
+                    counter := 0
+                }.otherwise{
+                    counter := counter - 1
+                }
             }
+            io.result_data.cha_i := header_mod_array(method_size(counter.resized).asUInt)
+            io.result_data.valid := True
         }
         is(PhyTxHeaderStatus.DATA){
-            dataFifo.io.pop.ready :=  io.result_data.ready
-            io.result_data.valid := dataFifo.io.pop.valid
-            io.result_data.fragment := dataFifo.io.pop.fragment
-            io.result_data.last := dataFifo.io.pop.last
             when(io.result_data.lastFire){
                 header_status := PhyTxHeaderStatus.IDLE
             }
+            io.result_data.valid := io.raw_data.valid
+            io.result_data.payload := io.raw_data.payload
+            io.result_data.last := io.raw_data.last
+
+            io.raw_data.ready := io.result_data.ready
         }
     }
+
+    io.pkg_size.ready := pkg_size_ready
 }

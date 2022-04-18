@@ -21,22 +21,22 @@ import utils.common.CRC.CrcKind
 
 /**
  * Frame Structure:
- * ----------------------------------------------------------------------------------------------------------------------------------------
- * |         stf (20 bytes)        |     SDF (1 byte)     |    size (1 bytes)   | payload(16-255 bytes) | crc (4 bytes) | padding (1 byte) |
- * ----------------------------------------------------------------------------------------------------------------------------------------
- * |                               |         BPSK   Uncoded  UnScrambling       |             Coded   Configurable  Scrambling             |
- * |             PLCP              |                    SIGNAL                  |                             DATA                         |
- * ---------------------------------------------------------------------------------------------------------------------------------------
+ * ----------------------------------------------------------------------------------------------------------------------------------------------
+ * |         stf (20 bytes)        | SDF (6 bit) | Method (2 bits) | size (1 bytes) | payload(16-255 bytes) | crc (4 bytes) | padding (1 byte) |
+ * ----------------------------------------------------------------------------------------------------------------------------------------------
+ * |                               |            BPSK   Uncoded  UnScrambling          |             Coded   Configurable  Scrambling             |
+ * |             PLCP              |                       SIGNAL                     |                             DATA                         |
+ * ----------------------------------------------------------------------------------------------------------------------------------------------
  * Modulator Method:
- * 0101_0101      =>     BPSK
- * 1010_1010      =>     QPSK
- * 0101_1010      =>     16QAM
- * 1010_0101      =>     LookUpMethod
+ * 00      =>     BPSK
+ * 01      =>     QPSK
+ * 10      =>     16QAM
+ * 11      =>     LookUpMethod
  * ENCODER FLOW:
  * Data From DMA(4 bytes) => StreamPkgGen (1 bytes) => PADDING => CRC => Convolutional Code (16 bits) => Puncturing
  *                                                                                                          ||
  *                                                                                                          \/
- *             RF Interface <= Preambler Extend <= Filter <= Modulation(12 bits * 2) <= Scrambling <=  HeaderExtend
+ *             RF Interface <= Preambler Extend <= Filter <= HeaderExtend <= Modulation(12 bits * 2) <=  Scrambling
  *
  * DECODER FLOW:
  * RF Interface(12 bits * 2) => Preambler Detector => CFO Estimator => CFO Corrector => DeModulation(1 bits * 2)
@@ -110,9 +110,26 @@ object Config {
 
     def stf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, stf, stf_repeat_times, scale = 0.55)
     //    def ltf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, ltf, scale = 0.6)
-//    val sdf: Array[Complex] = zcSeqGen(1, 32)
-//    val sdf_repeat_times = 1
-//    def sdf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, sdf, sdf_repeat_times, scale = 0.55)
+
+    def sdf_size: Int = 6
+    def header_bpsk_mod_array: Array[Int] = {
+        def grayEncode(n: Int): Int = n ^ (n >>> 1)
+
+        def BPSKTable802_11_I(m_val: Int, peak: Int): Array[Int] = {
+            val ini_angle: Double = scala.math.Pi
+            val direction: Boolean = false
+            var codeTable = new Array[Int](m_val)
+            var angle = ini_angle
+            for (idx <- 0 until m_val) {
+                codeTable(grayEncode(idx)) = ((peak * Math.cos(angle)).round).toInt
+                angle = if (direction) angle + 2 * Math.PI / m_val else angle - 2 * Math.PI / m_val
+            }
+            codeTable
+        }
+        BPSKTable802_11_I(2, (scala.math.pow(2, iqWidth - 1) - 1).toInt)
+    }
+    def sdf_i_array: Array[Int] = Array[Int](header_bpsk_mod_array(0), header_bpsk_mod_array(1),
+        header_bpsk_mod_array(0), header_bpsk_mod_array(1), header_bpsk_mod_array(0), header_bpsk_mod_array(1))
 
     def conv_encoder_config: ConvEncoderConfig = ConvEncoderConfig(phyDataWidth, 7, List(91, 121))
 

@@ -63,7 +63,7 @@ case class R2MDC(config: FFTConfig) extends Component {
 
 object R2MDCBench{
 	def main(args: Array[String]): Unit ={
-		val fft_config = FFTConfig(12 exp, -11 exp, 2048)
+		val fft_config = FFTConfig(12 exp, -11 exp, 64)
 		SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
 			targetDirectory = "rtl/R2MDC").generateSystemVerilog(new R2MDC(fft_config)).printPruned().printUnused()
 	}

@@ -179,10 +179,10 @@ public:
       signalAccess[5] = new CDataSignalAccess( top.rf_data_ready );
       signalAccess[6] = new SDataSignalAccess( top.rf_data_payload_cha_i );
       signalAccess[7] = new SDataSignalAccess( top.rf_data_payload_cha_q );
-      signalAccess[8] = new CDataSignalAccess( top.enable );
-      signalAccess[9] = new CDataSignalAccess( top.cnt_step );
-      signalAccess[10] = new CDataSignalAccess( top.cnt_limit );
-      signalAccess[11] = new CDataSignalAccess( top.select_1 );
+      signalAccess[8] = new CDataSignalAccess( top.div_enable );
+      signalAccess[9] = new CDataSignalAccess( top.div_cnt_step );
+      signalAccess[10] = new CDataSignalAccess( top.div_cnt_limit );
+      signalAccess[11] = new CDataSignalAccess( top.mod_method_select );
       signalAccess[12] = new CDataSignalAccess( top.clk );
       signalAccess[13] = new CDataSignalAccess( top.reset );
 

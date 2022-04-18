@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.4    git head : 598c18959149eb18e5eee5b0aa3eef01ecaa41a1
 // Component : TX
-// Git hash  : 7ce20c2ff4009332a2c96be9ddbfa13c6df00a2a
+// Git hash  : a56428541ec2887602f54ea433a81addc291a333
 
 `timescale 1ns/1ps 
 
@@ -13,33 +13,44 @@ module TX (
   input               rf_data_ready,
   output     [11:0]   rf_data_payload_cha_i,
   output     [11:0]   rf_data_payload_cha_q,
-  input               enable,
-  input      [3:0]    cnt_step,
-  input      [3:0]    cnt_limit,
-  input      [1:0]    select_1,
+  input               div_enable,
+  input      [3:0]    div_cnt_step,
+  input      [3:0]    div_cnt_limit,
+  input      [1:0]    mod_method_select,
   input               clk,
   input               reset
 );
 
+  wire                phy_tx_information_gen_raw_data_valid;
+  wire                phy_tx_information_gen_result_data_queueWithAvailability_io_pop_ready;
   wire                phy_tx_padder_raw_data_valid;
   wire                phy_tx_padder_result_data_queueWithAvailability_io_pop_ready;
   wire                phy_tx_crc_raw_data_valid;
   wire                phy_tx_crc_result_data_queueWithAvailability_io_pop_ready;
   wire                phy_tx_encoder_raw_data_valid;
   wire                phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_ready;
-  wire       [7:0]    phy_header_extender_mod_method;
-  wire                phy_header_extender_raw_data_valid;
-  wire                phy_header_extender_result_data_queueWithAvailability_io_pop_ready;
   wire                phy_tx_scrambler_raw_data_valid;
   wire                phy_tx_scrambler_result_data_queueWithAvailability_io_pop_ready;
   wire                mod_data_div_base_data_valid;
   wire       [7:0]    mod_rtl_data_flow_unit_data_payload_fragment;
   wire                mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_ready;
+  wire                phy_header_extender_raw_data_valid;
+  wire                phy_header_extender_result_data_queueWithAvailability_io_pop_ready;
   wire                phy_tx_oversampling_raw_data_valid;
   wire                phy_tx_filter_result_data_queueWithAvailability_io_pop_ready;
-  wire                sdf_preamble_adder_raw_data_valid;
-  wire                sdf_preamble_adder_preamble_data_queueWithAvailability_io_pop_ready;
   wire                stf_preamble_adder_raw_data_valid;
+  wire                phy_tx_information_gen_raw_data_ready;
+  wire                phy_tx_information_gen_result_data_valid;
+  wire                phy_tx_information_gen_result_data_payload_last;
+  wire       [7:0]    phy_tx_information_gen_result_data_payload_fragment;
+  wire                phy_tx_information_gen_pkg_size_valid;
+  wire       [7:0]    phy_tx_information_gen_pkg_size_payload;
+  wire                phy_tx_information_gen_result_data_queueWithAvailability_io_push_ready;
+  wire                phy_tx_information_gen_result_data_queueWithAvailability_io_pop_valid;
+  wire                phy_tx_information_gen_result_data_queueWithAvailability_io_pop_payload_last;
+  wire       [7:0]    phy_tx_information_gen_result_data_queueWithAvailability_io_pop_payload_fragment;
+  wire       [5:0]    phy_tx_information_gen_result_data_queueWithAvailability_io_occupancy;
+  wire       [5:0]    phy_tx_information_gen_result_data_queueWithAvailability_io_availability;
   wire                phy_tx_padder_raw_data_ready;
   wire                phy_tx_padder_result_data_valid;
   wire                phy_tx_padder_result_data_payload_last;
@@ -74,16 +85,6 @@ module TX (
   wire       [15:0]   phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_payload_fragment;
   wire       [5:0]    phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_occupancy;
   wire       [5:0]    phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_availability;
-  wire                phy_header_extender_raw_data_ready;
-  wire                phy_header_extender_result_data_valid;
-  wire                phy_header_extender_result_data_payload_last;
-  wire       [15:0]   phy_header_extender_result_data_payload_fragment;
-  wire                phy_header_extender_result_data_queueWithAvailability_io_push_ready;
-  wire                phy_header_extender_result_data_queueWithAvailability_io_pop_valid;
-  wire                phy_header_extender_result_data_queueWithAvailability_io_pop_payload_last;
-  wire       [15:0]   phy_header_extender_result_data_queueWithAvailability_io_pop_payload_fragment;
-  wire       [5:0]    phy_header_extender_result_data_queueWithAvailability_io_occupancy;
-  wire       [5:0]    phy_header_extender_result_data_queueWithAvailability_io_availability;
   wire                phy_tx_scrambler_raw_data_ready;
   wire                phy_tx_scrambler_result_data_valid;
   wire                phy_tx_scrambler_result_data_payload_last;
@@ -109,6 +110,19 @@ module TX (
   wire       [11:0]   mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_payload_fragment_cha_q;
   wire       [5:0]    mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_occupancy;
   wire       [5:0]    mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_availability;
+  wire                phy_header_extender_pkg_size_ready;
+  wire                phy_header_extender_raw_data_ready;
+  wire                phy_header_extender_result_data_valid;
+  wire                phy_header_extender_result_data_payload_last;
+  wire       [11:0]   phy_header_extender_result_data_payload_fragment_cha_i;
+  wire       [11:0]   phy_header_extender_result_data_payload_fragment_cha_q;
+  wire                phy_header_extender_result_data_queueWithAvailability_io_push_ready;
+  wire                phy_header_extender_result_data_queueWithAvailability_io_pop_valid;
+  wire                phy_header_extender_result_data_queueWithAvailability_io_pop_payload_last;
+  wire       [11:0]   phy_header_extender_result_data_queueWithAvailability_io_pop_payload_fragment_cha_i;
+  wire       [11:0]   phy_header_extender_result_data_queueWithAvailability_io_pop_payload_fragment_cha_q;
+  wire       [5:0]    phy_header_extender_result_data_queueWithAvailability_io_occupancy;
+  wire       [5:0]    phy_header_extender_result_data_queueWithAvailability_io_availability;
   wire                phy_tx_oversampling_raw_data_ready;
   wire                phy_tx_oversampling_result_data_valid;
   wire                phy_tx_oversampling_result_data_payload_last;
@@ -126,18 +140,6 @@ module TX (
   wire       [11:0]   phy_tx_filter_result_data_queueWithAvailability_io_pop_payload_fragment_cha_q;
   wire       [5:0]    phy_tx_filter_result_data_queueWithAvailability_io_occupancy;
   wire       [5:0]    phy_tx_filter_result_data_queueWithAvailability_io_availability;
-  wire                sdf_preamble_adder_raw_data_ready;
-  wire                sdf_preamble_adder_preamble_data_valid;
-  wire                sdf_preamble_adder_preamble_data_payload_last;
-  wire       [11:0]   sdf_preamble_adder_preamble_data_payload_fragment_cha_i;
-  wire       [11:0]   sdf_preamble_adder_preamble_data_payload_fragment_cha_q;
-  wire                sdf_preamble_adder_preamble_data_queueWithAvailability_io_push_ready;
-  wire                sdf_preamble_adder_preamble_data_queueWithAvailability_io_pop_valid;
-  wire                sdf_preamble_adder_preamble_data_queueWithAvailability_io_pop_payload_last;
-  wire       [11:0]   sdf_preamble_adder_preamble_data_queueWithAvailability_io_pop_payload_fragment_cha_i;
-  wire       [11:0]   sdf_preamble_adder_preamble_data_queueWithAvailability_io_pop_payload_fragment_cha_q;
-  wire       [5:0]    sdf_preamble_adder_preamble_data_queueWithAvailability_io_occupancy;
-  wire       [5:0]    sdf_preamble_adder_preamble_data_queueWithAvailability_io_availability;
   wire                stf_preamble_adder_raw_data_ready;
   wire                stf_preamble_adder_preamble_data_valid;
   wire                stf_preamble_adder_preamble_data_payload_last;
@@ -153,16 +155,15 @@ module TX (
   wire       [11:0]   phy_tx_front_result_data_queueWithAvailability_io_pop_payload_cha_q;
   wire       [5:0]    phy_tx_front_result_data_queueWithAvailability_io_occupancy;
   wire       [5:0]    phy_tx_front_result_data_queueWithAvailability_io_availability;
-  wire       [1:0]    _zz_mod_method;
   reg        [8:0]    pipeline_halt;
   wire                _zz_raw_data_ready;
   wire                _zz_io_pop_ready;
   wire                _zz_io_pop_ready_1;
+  wire                _zz_io_pop_ready_2;
   wire                phy_tx_puncher_punched_data_toStream_valid;
   wire                phy_tx_puncher_punched_data_toStream_ready;
   wire                phy_tx_puncher_punched_data_toStream_payload_last;
   wire       [15:0]   phy_tx_puncher_punched_data_toStream_payload_fragment;
-  wire                _zz_io_pop_ready_2;
   wire                _zz_io_pop_ready_3;
   wire                _zz_io_pop_ready_4;
   wire                _zz_data_flow_unit_data_valid;
@@ -176,20 +177,49 @@ module TX (
   wire                _zz_io_pop_ready_6;
   wire                _zz_io_pop_ready_7;
 
-  assign _zz_mod_method = select_1;
-  PhyTxPadder phy_tx_padder (
-    .raw_data_valid                  (phy_tx_padder_raw_data_valid                                   ), //i
-    .raw_data_ready                  (phy_tx_padder_raw_data_ready                                   ), //o
-    .raw_data_payload_last           (raw_data_payload_last                                          ), //i
-    .raw_data_payload_fragment       (raw_data_payload_fragment[7:0]                                 ), //i
-    .result_data_valid               (phy_tx_padder_result_data_valid                                ), //o
-    .result_data_ready               (phy_tx_padder_result_data_queueWithAvailability_io_push_ready  ), //i
-    .result_data_payload_last        (phy_tx_padder_result_data_payload_last                         ), //o
-    .result_data_payload_fragment    (phy_tx_padder_result_data_payload_fragment[7:0]                ), //o
-    .clk                             (clk                                                            ), //i
-    .reset                           (reset                                                          )  //i
+  PhyPkgInformationGen phy_tx_information_gen (
+    .raw_data_valid                  (phy_tx_information_gen_raw_data_valid                                   ), //i
+    .raw_data_ready                  (phy_tx_information_gen_raw_data_ready                                   ), //o
+    .raw_data_payload_last           (raw_data_payload_last                                                   ), //i
+    .raw_data_payload_fragment       (raw_data_payload_fragment[7:0]                                          ), //i
+    .result_data_valid               (phy_tx_information_gen_result_data_valid                                ), //o
+    .result_data_ready               (phy_tx_information_gen_result_data_queueWithAvailability_io_push_ready  ), //i
+    .result_data_payload_last        (phy_tx_information_gen_result_data_payload_last                         ), //o
+    .result_data_payload_fragment    (phy_tx_information_gen_result_data_payload_fragment[7:0]                ), //o
+    .pkg_size_valid                  (phy_tx_information_gen_pkg_size_valid                                   ), //o
+    .pkg_size_ready                  (phy_header_extender_pkg_size_ready                                      ), //i
+    .pkg_size_payload                (phy_tx_information_gen_pkg_size_payload[7:0]                            ), //o
+    .clk                             (clk                                                                     ), //i
+    .reset                           (reset                                                                   )  //i
   );
-  StreamFifo_1 phy_tx_padder_result_data_queueWithAvailability (
+  StreamFifo_2 phy_tx_information_gen_result_data_queueWithAvailability (
+    .io_push_valid               (phy_tx_information_gen_result_data_valid                                               ), //i
+    .io_push_ready               (phy_tx_information_gen_result_data_queueWithAvailability_io_push_ready                 ), //o
+    .io_push_payload_last        (phy_tx_information_gen_result_data_payload_last                                        ), //i
+    .io_push_payload_fragment    (phy_tx_information_gen_result_data_payload_fragment[7:0]                               ), //i
+    .io_pop_valid                (phy_tx_information_gen_result_data_queueWithAvailability_io_pop_valid                  ), //o
+    .io_pop_ready                (phy_tx_information_gen_result_data_queueWithAvailability_io_pop_ready                  ), //i
+    .io_pop_payload_last         (phy_tx_information_gen_result_data_queueWithAvailability_io_pop_payload_last           ), //o
+    .io_pop_payload_fragment     (phy_tx_information_gen_result_data_queueWithAvailability_io_pop_payload_fragment[7:0]  ), //o
+    .io_flush                    (1'b0                                                                                   ), //i
+    .io_occupancy                (phy_tx_information_gen_result_data_queueWithAvailability_io_occupancy[5:0]             ), //o
+    .io_availability             (phy_tx_information_gen_result_data_queueWithAvailability_io_availability[5:0]          ), //o
+    .clk                         (clk                                                                                    ), //i
+    .reset                       (reset                                                                                  )  //i
+  );
+  PhyTxPadder phy_tx_padder (
+    .raw_data_valid                  (phy_tx_padder_raw_data_valid                                                           ), //i
+    .raw_data_ready                  (phy_tx_padder_raw_data_ready                                                           ), //o
+    .raw_data_payload_last           (phy_tx_information_gen_result_data_queueWithAvailability_io_pop_payload_last           ), //i
+    .raw_data_payload_fragment       (phy_tx_information_gen_result_data_queueWithAvailability_io_pop_payload_fragment[7:0]  ), //i
+    .result_data_valid               (phy_tx_padder_result_data_valid                                                        ), //o
+    .result_data_ready               (phy_tx_padder_result_data_queueWithAvailability_io_push_ready                          ), //i
+    .result_data_payload_last        (phy_tx_padder_result_data_payload_last                                                 ), //o
+    .result_data_payload_fragment    (phy_tx_padder_result_data_payload_fragment[7:0]                                        ), //o
+    .clk                             (clk                                                                                    ), //i
+    .reset                           (reset                                                                                  )  //i
+  );
+  StreamFifo_2 phy_tx_padder_result_data_queueWithAvailability (
     .io_push_valid               (phy_tx_padder_result_data_valid                                               ), //i
     .io_push_ready               (phy_tx_padder_result_data_queueWithAvailability_io_push_ready                 ), //o
     .io_push_payload_last        (phy_tx_padder_result_data_payload_last                                        ), //i
@@ -216,7 +246,7 @@ module TX (
     .clk                             (clk                                                                           ), //i
     .reset                           (reset                                                                         )  //i
   );
-  StreamFifo_1 phy_tx_crc_result_data_queueWithAvailability (
+  StreamFifo_2 phy_tx_crc_result_data_queueWithAvailability (
     .io_push_valid               (phy_tx_crc_result_data_valid                                               ), //i
     .io_push_ready               (phy_tx_crc_result_data_queueWithAvailability_io_push_ready                 ), //o
     .io_push_payload_last        (phy_tx_crc_result_data_payload_last                                        ), //i
@@ -254,7 +284,7 @@ module TX (
     .clk                              (clk                                                 ), //i
     .reset                            (reset                                               )  //i
   );
-  StreamFifo_3 phy_tx_puncher_punched_data_toStream_queueWithAvailability (
+  StreamFifo_5 phy_tx_puncher_punched_data_toStream_queueWithAvailability (
     .io_push_valid               (phy_tx_puncher_punched_data_toStream_valid                                                ), //i
     .io_push_ready               (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_push_ready                  ), //o
     .io_push_payload_last        (phy_tx_puncher_punched_data_toStream_payload_last                                         ), //i
@@ -269,47 +299,19 @@ module TX (
     .clk                         (clk                                                                                       ), //i
     .reset                       (reset                                                                                     )  //i
   );
-  PhyHeaderExtender phy_header_extender (
-    .mod_method                      (phy_header_extender_mod_method[7:0]                                                       ), //i
-    .raw_data_valid                  (phy_header_extender_raw_data_valid                                                        ), //i
-    .raw_data_ready                  (phy_header_extender_raw_data_ready                                                        ), //o
+  PhyTxScrambler phy_tx_scrambler (
+    .raw_data_valid                  (phy_tx_scrambler_raw_data_valid                                                           ), //i
+    .raw_data_ready                  (phy_tx_scrambler_raw_data_ready                                                           ), //o
     .raw_data_payload_last           (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_payload_last            ), //i
     .raw_data_payload_fragment       (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_payload_fragment[15:0]  ), //i
-    .result_data_valid               (phy_header_extender_result_data_valid                                                     ), //o
-    .result_data_ready               (phy_header_extender_result_data_queueWithAvailability_io_push_ready                       ), //i
-    .result_data_payload_last        (phy_header_extender_result_data_payload_last                                              ), //o
-    .result_data_payload_fragment    (phy_header_extender_result_data_payload_fragment[15:0]                                    ), //o
+    .result_data_valid               (phy_tx_scrambler_result_data_valid                                                        ), //o
+    .result_data_ready               (phy_tx_scrambler_result_data_queueWithAvailability_io_push_ready                          ), //i
+    .result_data_payload_last        (phy_tx_scrambler_result_data_payload_last                                                 ), //o
+    .result_data_payload_fragment    (phy_tx_scrambler_result_data_payload_fragment[15:0]                                       ), //o
     .clk                             (clk                                                                                       ), //i
     .reset                           (reset                                                                                     )  //i
   );
-  StreamFifo_3 phy_header_extender_result_data_queueWithAvailability (
-    .io_push_valid               (phy_header_extender_result_data_valid                                                ), //i
-    .io_push_ready               (phy_header_extender_result_data_queueWithAvailability_io_push_ready                  ), //o
-    .io_push_payload_last        (phy_header_extender_result_data_payload_last                                         ), //i
-    .io_push_payload_fragment    (phy_header_extender_result_data_payload_fragment[15:0]                               ), //i
-    .io_pop_valid                (phy_header_extender_result_data_queueWithAvailability_io_pop_valid                   ), //o
-    .io_pop_ready                (phy_header_extender_result_data_queueWithAvailability_io_pop_ready                   ), //i
-    .io_pop_payload_last         (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_last            ), //o
-    .io_pop_payload_fragment     (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_fragment[15:0]  ), //o
-    .io_flush                    (1'b0                                                                                 ), //i
-    .io_occupancy                (phy_header_extender_result_data_queueWithAvailability_io_occupancy[5:0]              ), //o
-    .io_availability             (phy_header_extender_result_data_queueWithAvailability_io_availability[5:0]           ), //o
-    .clk                         (clk                                                                                  ), //i
-    .reset                       (reset                                                                                )  //i
-  );
-  PhyTxScrambler phy_tx_scrambler (
-    .raw_data_valid                  (phy_tx_scrambler_raw_data_valid                                                      ), //i
-    .raw_data_ready                  (phy_tx_scrambler_raw_data_ready                                                      ), //o
-    .raw_data_payload_last           (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_last            ), //i
-    .raw_data_payload_fragment       (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_fragment[15:0]  ), //i
-    .result_data_valid               (phy_tx_scrambler_result_data_valid                                                   ), //o
-    .result_data_ready               (phy_tx_scrambler_result_data_queueWithAvailability_io_push_ready                     ), //i
-    .result_data_payload_last        (phy_tx_scrambler_result_data_payload_last                                            ), //o
-    .result_data_payload_fragment    (phy_tx_scrambler_result_data_payload_fragment[15:0]                                  ), //o
-    .clk                             (clk                                                                                  ), //i
-    .reset                           (reset                                                                                )  //i
-  );
-  StreamFifo_3 phy_tx_scrambler_result_data_queueWithAvailability (
+  StreamFifo_5 phy_tx_scrambler_result_data_queueWithAvailability (
     .io_push_valid               (phy_tx_scrambler_result_data_valid                                                ), //i
     .io_push_ready               (phy_tx_scrambler_result_data_queueWithAvailability_io_push_ready                  ), //o
     .io_push_payload_last        (phy_tx_scrambler_result_data_payload_last                                         ), //i
@@ -329,9 +331,9 @@ module TX (
     .base_data_ready               (mod_data_div_base_data_ready                                                      ), //o
     .base_data_payload_last        (phy_tx_scrambler_result_data_queueWithAvailability_io_pop_payload_last            ), //i
     .base_data_payload_fragment    (phy_tx_scrambler_result_data_queueWithAvailability_io_pop_payload_fragment[15:0]  ), //i
-    .enable                        (enable                                                                            ), //i
-    .cnt_step                      (cnt_step[3:0]                                                                     ), //i
-    .cnt_limit                     (cnt_limit[3:0]                                                                    ), //i
+    .enable                        (div_enable                                                                        ), //i
+    .cnt_step                      (div_cnt_step[3:0]                                                                 ), //i
+    .cnt_limit                     (div_cnt_limit[3:0]                                                                ), //i
     .unit_data_valid               (mod_data_div_unit_data_valid                                                      ), //o
     .unit_data_payload_last        (mod_data_div_unit_data_payload_last                                               ), //o
     .unit_data_payload_fragment    (mod_data_div_unit_data_payload_fragment[15:0]                                     ), //o
@@ -346,11 +348,11 @@ module TX (
     .data_flow_mod_iq_payload_last              (mod_rtl_data_flow_mod_iq_payload_last                  ), //o
     .data_flow_mod_iq_payload_fragment_cha_i    (mod_rtl_data_flow_mod_iq_payload_fragment_cha_i[11:0]  ), //o
     .data_flow_mod_iq_payload_fragment_cha_q    (mod_rtl_data_flow_mod_iq_payload_fragment_cha_q[11:0]  ), //o
-    .select_1                                   (select_1[1:0]                                          ), //i
+    .select_1                                   (mod_method_select[1:0]                                 ), //i
     .clk                                        (clk                                                    ), //i
     .reset                                      (reset                                                  )  //i
   );
-  StreamFifo_6 mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability (
+  StreamFifo_7 mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability (
     .io_push_valid                     (mod_rtl_data_flow_mod_iq_toStream_valid                                                      ), //i
     .io_push_ready                     (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_push_ready                        ), //o
     .io_push_payload_last              (mod_rtl_data_flow_mod_iq_toStream_payload_last                                               ), //i
@@ -367,19 +369,54 @@ module TX (
     .clk                               (clk                                                                                          ), //i
     .reset                             (reset                                                                                        )  //i
   );
-  PhyTxOverSampling phy_tx_oversampling (
-    .raw_data_valid                        (phy_tx_oversampling_raw_data_valid                                                           ), //i
-    .raw_data_ready                        (phy_tx_oversampling_raw_data_ready                                                           ), //o
+  PhyHeaderExtender phy_header_extender (
+    .mod_method                            (mod_method_select[1:0]                                                                       ), //i
+    .pkg_size_valid                        (phy_tx_information_gen_pkg_size_valid                                                        ), //i
+    .pkg_size_ready                        (phy_header_extender_pkg_size_ready                                                           ), //o
+    .pkg_size_payload                      (phy_tx_information_gen_pkg_size_payload[7:0]                                                 ), //i
+    .raw_data_valid                        (phy_header_extender_raw_data_valid                                                           ), //i
+    .raw_data_ready                        (phy_header_extender_raw_data_ready                                                           ), //o
     .raw_data_payload_last                 (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_payload_last                  ), //i
     .raw_data_payload_fragment_cha_i       (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_payload_fragment_cha_i[11:0]  ), //i
     .raw_data_payload_fragment_cha_q       (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_payload_fragment_cha_q[11:0]  ), //i
-    .result_data_valid                     (phy_tx_oversampling_result_data_valid                                                        ), //o
-    .result_data_ready                     (phy_tx_filter_raw_data_ready                                                                 ), //i
-    .result_data_payload_last              (phy_tx_oversampling_result_data_payload_last                                                 ), //o
-    .result_data_payload_fragment_cha_i    (phy_tx_oversampling_result_data_payload_fragment_cha_i[11:0]                                 ), //o
-    .result_data_payload_fragment_cha_q    (phy_tx_oversampling_result_data_payload_fragment_cha_q[11:0]                                 ), //o
+    .result_data_valid                     (phy_header_extender_result_data_valid                                                        ), //o
+    .result_data_ready                     (phy_header_extender_result_data_queueWithAvailability_io_push_ready                          ), //i
+    .result_data_payload_last              (phy_header_extender_result_data_payload_last                                                 ), //o
+    .result_data_payload_fragment_cha_i    (phy_header_extender_result_data_payload_fragment_cha_i[11:0]                                 ), //o
+    .result_data_payload_fragment_cha_q    (phy_header_extender_result_data_payload_fragment_cha_q[11:0]                                 ), //o
     .clk                                   (clk                                                                                          ), //i
     .reset                                 (reset                                                                                        )  //i
+  );
+  StreamFifo_7 phy_header_extender_result_data_queueWithAvailability (
+    .io_push_valid                     (phy_header_extender_result_data_valid                                                      ), //i
+    .io_push_ready                     (phy_header_extender_result_data_queueWithAvailability_io_push_ready                        ), //o
+    .io_push_payload_last              (phy_header_extender_result_data_payload_last                                               ), //i
+    .io_push_payload_fragment_cha_i    (phy_header_extender_result_data_payload_fragment_cha_i[11:0]                               ), //i
+    .io_push_payload_fragment_cha_q    (phy_header_extender_result_data_payload_fragment_cha_q[11:0]                               ), //i
+    .io_pop_valid                      (phy_header_extender_result_data_queueWithAvailability_io_pop_valid                         ), //o
+    .io_pop_ready                      (phy_header_extender_result_data_queueWithAvailability_io_pop_ready                         ), //i
+    .io_pop_payload_last               (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_last                  ), //o
+    .io_pop_payload_fragment_cha_i     (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_fragment_cha_i[11:0]  ), //o
+    .io_pop_payload_fragment_cha_q     (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_fragment_cha_q[11:0]  ), //o
+    .io_flush                          (1'b0                                                                                       ), //i
+    .io_occupancy                      (phy_header_extender_result_data_queueWithAvailability_io_occupancy[5:0]                    ), //o
+    .io_availability                   (phy_header_extender_result_data_queueWithAvailability_io_availability[5:0]                 ), //o
+    .clk                               (clk                                                                                        ), //i
+    .reset                             (reset                                                                                      )  //i
+  );
+  PhyTxOverSampling phy_tx_oversampling (
+    .raw_data_valid                        (phy_tx_oversampling_raw_data_valid                                                         ), //i
+    .raw_data_ready                        (phy_tx_oversampling_raw_data_ready                                                         ), //o
+    .raw_data_payload_last                 (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_last                  ), //i
+    .raw_data_payload_fragment_cha_i       (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_fragment_cha_i[11:0]  ), //i
+    .raw_data_payload_fragment_cha_q       (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_fragment_cha_q[11:0]  ), //i
+    .result_data_valid                     (phy_tx_oversampling_result_data_valid                                                      ), //o
+    .result_data_ready                     (phy_tx_filter_raw_data_ready                                                               ), //i
+    .result_data_payload_last              (phy_tx_oversampling_result_data_payload_last                                               ), //o
+    .result_data_payload_fragment_cha_i    (phy_tx_oversampling_result_data_payload_fragment_cha_i[11:0]                               ), //o
+    .result_data_payload_fragment_cha_q    (phy_tx_oversampling_result_data_payload_fragment_cha_q[11:0]                               ), //o
+    .clk                                   (clk                                                                                        ), //i
+    .reset                                 (reset                                                                                      )  //i
   );
   PhyTxFilter phy_tx_filter (
     .raw_data_valid                        (phy_tx_oversampling_result_data_valid                          ), //i
@@ -395,7 +432,7 @@ module TX (
     .clk                                   (clk                                                            ), //i
     .reset                                 (reset                                                          )  //i
   );
-  StreamFifo_6 phy_tx_filter_result_data_queueWithAvailability (
+  StreamFifo_7 phy_tx_filter_result_data_queueWithAvailability (
     .io_push_valid                     (phy_tx_filter_result_data_valid                                                      ), //i
     .io_push_ready                     (phy_tx_filter_result_data_queueWithAvailability_io_push_ready                        ), //o
     .io_push_payload_last              (phy_tx_filter_result_data_payload_last                                               ), //i
@@ -412,50 +449,19 @@ module TX (
     .clk                               (clk                                                                                  ), //i
     .reset                             (reset                                                                                )  //i
   );
-  PreambleExtender sdf_preamble_adder (
-    .raw_data_valid                          (sdf_preamble_adder_raw_data_valid                                                    ), //i
-    .raw_data_ready                          (sdf_preamble_adder_raw_data_ready                                                    ), //o
+  PreambleExtender stf_preamble_adder (
+    .raw_data_valid                          (stf_preamble_adder_raw_data_valid                                                    ), //i
+    .raw_data_ready                          (stf_preamble_adder_raw_data_ready                                                    ), //o
     .raw_data_payload_last                   (phy_tx_filter_result_data_queueWithAvailability_io_pop_payload_last                  ), //i
     .raw_data_payload_fragment_cha_i         (phy_tx_filter_result_data_queueWithAvailability_io_pop_payload_fragment_cha_i[11:0]  ), //i
     .raw_data_payload_fragment_cha_q         (phy_tx_filter_result_data_queueWithAvailability_io_pop_payload_fragment_cha_q[11:0]  ), //i
-    .preamble_data_valid                     (sdf_preamble_adder_preamble_data_valid                                               ), //o
-    .preamble_data_ready                     (sdf_preamble_adder_preamble_data_queueWithAvailability_io_push_ready                 ), //i
-    .preamble_data_payload_last              (sdf_preamble_adder_preamble_data_payload_last                                        ), //o
-    .preamble_data_payload_fragment_cha_i    (sdf_preamble_adder_preamble_data_payload_fragment_cha_i[11:0]                        ), //o
-    .preamble_data_payload_fragment_cha_q    (sdf_preamble_adder_preamble_data_payload_fragment_cha_q[11:0]                        ), //o
+    .preamble_data_valid                     (stf_preamble_adder_preamble_data_valid                                               ), //o
+    .preamble_data_ready                     (phy_tx_front_raw_data_ready                                                          ), //i
+    .preamble_data_payload_last              (stf_preamble_adder_preamble_data_payload_last                                        ), //o
+    .preamble_data_payload_fragment_cha_i    (stf_preamble_adder_preamble_data_payload_fragment_cha_i[11:0]                        ), //o
+    .preamble_data_payload_fragment_cha_q    (stf_preamble_adder_preamble_data_payload_fragment_cha_q[11:0]                        ), //o
     .clk                                     (clk                                                                                  ), //i
     .reset                                   (reset                                                                                )  //i
-  );
-  StreamFifo_6 sdf_preamble_adder_preamble_data_queueWithAvailability (
-    .io_push_valid                     (sdf_preamble_adder_preamble_data_valid                                                      ), //i
-    .io_push_ready                     (sdf_preamble_adder_preamble_data_queueWithAvailability_io_push_ready                        ), //o
-    .io_push_payload_last              (sdf_preamble_adder_preamble_data_payload_last                                               ), //i
-    .io_push_payload_fragment_cha_i    (sdf_preamble_adder_preamble_data_payload_fragment_cha_i[11:0]                               ), //i
-    .io_push_payload_fragment_cha_q    (sdf_preamble_adder_preamble_data_payload_fragment_cha_q[11:0]                               ), //i
-    .io_pop_valid                      (sdf_preamble_adder_preamble_data_queueWithAvailability_io_pop_valid                         ), //o
-    .io_pop_ready                      (sdf_preamble_adder_preamble_data_queueWithAvailability_io_pop_ready                         ), //i
-    .io_pop_payload_last               (sdf_preamble_adder_preamble_data_queueWithAvailability_io_pop_payload_last                  ), //o
-    .io_pop_payload_fragment_cha_i     (sdf_preamble_adder_preamble_data_queueWithAvailability_io_pop_payload_fragment_cha_i[11:0]  ), //o
-    .io_pop_payload_fragment_cha_q     (sdf_preamble_adder_preamble_data_queueWithAvailability_io_pop_payload_fragment_cha_q[11:0]  ), //o
-    .io_flush                          (1'b0                                                                                        ), //i
-    .io_occupancy                      (sdf_preamble_adder_preamble_data_queueWithAvailability_io_occupancy[5:0]                    ), //o
-    .io_availability                   (sdf_preamble_adder_preamble_data_queueWithAvailability_io_availability[5:0]                 ), //o
-    .clk                               (clk                                                                                         ), //i
-    .reset                             (reset                                                                                       )  //i
-  );
-  PreambleExtender_1 stf_preamble_adder (
-    .raw_data_valid                          (stf_preamble_adder_raw_data_valid                                                           ), //i
-    .raw_data_ready                          (stf_preamble_adder_raw_data_ready                                                           ), //o
-    .raw_data_payload_last                   (sdf_preamble_adder_preamble_data_queueWithAvailability_io_pop_payload_last                  ), //i
-    .raw_data_payload_fragment_cha_i         (sdf_preamble_adder_preamble_data_queueWithAvailability_io_pop_payload_fragment_cha_i[11:0]  ), //i
-    .raw_data_payload_fragment_cha_q         (sdf_preamble_adder_preamble_data_queueWithAvailability_io_pop_payload_fragment_cha_q[11:0]  ), //i
-    .preamble_data_valid                     (stf_preamble_adder_preamble_data_valid                                                      ), //o
-    .preamble_data_ready                     (phy_tx_front_raw_data_ready                                                                 ), //i
-    .preamble_data_payload_last              (stf_preamble_adder_preamble_data_payload_last                                               ), //o
-    .preamble_data_payload_fragment_cha_i    (stf_preamble_adder_preamble_data_payload_fragment_cha_i[11:0]                               ), //o
-    .preamble_data_payload_fragment_cha_q    (stf_preamble_adder_preamble_data_payload_fragment_cha_q[11:0]                               ), //o
-    .clk                                     (clk                                                                                         ), //i
-    .reset                                   (reset                                                                                       )  //i
   );
   PhyTxICFront phy_tx_front (
     .raw_data_valid                     (stf_preamble_adder_preamble_data_valid                         ), //i
@@ -468,7 +474,7 @@ module TX (
     .result_data_payload_cha_i          (phy_tx_front_result_data_payload_cha_i[11:0]                   ), //o
     .result_data_payload_cha_q          (phy_tx_front_result_data_payload_cha_q[11:0]                   )  //o
   );
-  StreamFifo_9 phy_tx_front_result_data_queueWithAvailability (
+  StreamFifo_10 phy_tx_front_result_data_queueWithAvailability (
     .io_push_valid            (phy_tx_front_result_data_valid                                             ), //i
     .io_push_ready            (phy_tx_front_result_data_queueWithAvailability_io_push_ready               ), //o
     .io_push_payload_cha_i    (phy_tx_front_result_data_payload_cha_i[11:0]                               ), //i
@@ -484,37 +490,36 @@ module TX (
     .reset                    (reset                                                                      )  //i
   );
   assign _zz_raw_data_ready = (! pipeline_halt[0]);
-  assign raw_data_ready = (phy_tx_padder_raw_data_ready && _zz_raw_data_ready);
-  assign phy_tx_padder_raw_data_valid = (raw_data_valid && _zz_raw_data_ready);
+  assign raw_data_ready = (phy_tx_information_gen_raw_data_ready && _zz_raw_data_ready);
+  assign phy_tx_information_gen_raw_data_valid = (raw_data_valid && _zz_raw_data_ready);
   always @(*) begin
-    pipeline_halt[0] = (phy_tx_padder_result_data_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[1] = (phy_tx_crc_result_data_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[2] = (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[3] = (phy_header_extender_result_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[0] = (phy_tx_information_gen_result_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[1] = (phy_tx_padder_result_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[2] = (phy_tx_crc_result_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[3] = (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_availability < 6'h12);
     pipeline_halt[4] = (phy_tx_scrambler_result_data_queueWithAvailability_io_availability < 6'h12);
     pipeline_halt[5] = (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[6] = (phy_tx_filter_result_data_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[7] = (sdf_preamble_adder_preamble_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[6] = (phy_header_extender_result_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[7] = (phy_tx_filter_result_data_queueWithAvailability_io_availability < 6'h12);
     pipeline_halt[8] = (phy_tx_front_result_data_queueWithAvailability_io_availability < 6'h12);
   end
 
   assign _zz_io_pop_ready = (! pipeline_halt[1]);
-  assign phy_tx_padder_result_data_queueWithAvailability_io_pop_ready = (phy_tx_crc_raw_data_ready && _zz_io_pop_ready);
-  assign phy_tx_crc_raw_data_valid = (phy_tx_padder_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready);
+  assign phy_tx_information_gen_result_data_queueWithAvailability_io_pop_ready = (phy_tx_padder_raw_data_ready && _zz_io_pop_ready);
+  assign phy_tx_padder_raw_data_valid = (phy_tx_information_gen_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready);
   assign _zz_io_pop_ready_1 = (! pipeline_halt[2]);
-  assign phy_tx_crc_result_data_queueWithAvailability_io_pop_ready = (phy_tx_encoder_raw_data_ready && _zz_io_pop_ready_1);
-  assign phy_tx_encoder_raw_data_valid = (phy_tx_crc_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_1);
+  assign phy_tx_padder_result_data_queueWithAvailability_io_pop_ready = (phy_tx_crc_raw_data_ready && _zz_io_pop_ready_1);
+  assign phy_tx_crc_raw_data_valid = (phy_tx_padder_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_1);
+  assign _zz_io_pop_ready_2 = (! pipeline_halt[3]);
+  assign phy_tx_crc_result_data_queueWithAvailability_io_pop_ready = (phy_tx_encoder_raw_data_ready && _zz_io_pop_ready_2);
+  assign phy_tx_encoder_raw_data_valid = (phy_tx_crc_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_2);
   assign phy_tx_puncher_punched_data_toStream_valid = phy_tx_puncher_punched_data_valid;
   assign phy_tx_puncher_punched_data_toStream_payload_last = phy_tx_puncher_punched_data_payload_last;
   assign phy_tx_puncher_punched_data_toStream_payload_fragment = phy_tx_puncher_punched_data_payload_fragment;
   assign phy_tx_puncher_punched_data_toStream_ready = phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_push_ready;
-  assign _zz_io_pop_ready_2 = (! pipeline_halt[3]);
-  assign phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_ready = (phy_header_extender_raw_data_ready && _zz_io_pop_ready_2);
-  assign phy_header_extender_raw_data_valid = (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_2);
-  assign phy_header_extender_mod_method = {6'd0, _zz_mod_method};
   assign _zz_io_pop_ready_3 = (! pipeline_halt[4]);
-  assign phy_header_extender_result_data_queueWithAvailability_io_pop_ready = (phy_tx_scrambler_raw_data_ready && _zz_io_pop_ready_3);
-  assign phy_tx_scrambler_raw_data_valid = (phy_header_extender_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_3);
+  assign phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_ready = (phy_tx_scrambler_raw_data_ready && _zz_io_pop_ready_3);
+  assign phy_tx_scrambler_raw_data_valid = (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_3);
   assign _zz_io_pop_ready_4 = (! pipeline_halt[5]);
   assign phy_tx_scrambler_result_data_queueWithAvailability_io_pop_ready = (mod_data_div_base_data_ready && _zz_io_pop_ready_4);
   assign mod_data_div_base_data_valid = (phy_tx_scrambler_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_4);
@@ -527,21 +532,21 @@ module TX (
   assign mod_rtl_data_flow_mod_iq_toStream_payload_fragment_cha_q = mod_rtl_data_flow_mod_iq_payload_fragment_cha_q;
   assign mod_rtl_data_flow_mod_iq_toStream_ready = mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_push_ready;
   assign _zz_io_pop_ready_5 = (! pipeline_halt[6]);
-  assign mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_ready = (phy_tx_oversampling_raw_data_ready && _zz_io_pop_ready_5);
-  assign phy_tx_oversampling_raw_data_valid = (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_5);
+  assign mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_ready = (phy_header_extender_raw_data_ready && _zz_io_pop_ready_5);
+  assign phy_header_extender_raw_data_valid = (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_5);
   assign _zz_io_pop_ready_6 = (! pipeline_halt[7]);
-  assign phy_tx_filter_result_data_queueWithAvailability_io_pop_ready = (sdf_preamble_adder_raw_data_ready && _zz_io_pop_ready_6);
-  assign sdf_preamble_adder_raw_data_valid = (phy_tx_filter_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_6);
+  assign phy_header_extender_result_data_queueWithAvailability_io_pop_ready = (phy_tx_oversampling_raw_data_ready && _zz_io_pop_ready_6);
+  assign phy_tx_oversampling_raw_data_valid = (phy_header_extender_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_6);
   assign _zz_io_pop_ready_7 = (! pipeline_halt[8]);
-  assign sdf_preamble_adder_preamble_data_queueWithAvailability_io_pop_ready = (stf_preamble_adder_raw_data_ready && _zz_io_pop_ready_7);
-  assign stf_preamble_adder_raw_data_valid = (sdf_preamble_adder_preamble_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_7);
+  assign phy_tx_filter_result_data_queueWithAvailability_io_pop_ready = (stf_preamble_adder_raw_data_ready && _zz_io_pop_ready_7);
+  assign stf_preamble_adder_raw_data_valid = (phy_tx_filter_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_7);
   assign rf_data_valid = phy_tx_front_result_data_queueWithAvailability_io_pop_valid;
   assign rf_data_payload_cha_i = phy_tx_front_result_data_queueWithAvailability_io_pop_payload_cha_i;
   assign rf_data_payload_cha_q = phy_tx_front_result_data_queueWithAvailability_io_pop_payload_cha_q;
 
 endmodule
 
-module StreamFifo_9 (
+module StreamFifo_10 (
   input               io_push_valid,
   output              io_push_ready,
   input      [11:0]   io_push_payload_cha_i,
@@ -719,7 +724,7 @@ module PhyTxICFront (
 
 endmodule
 
-module PreambleExtender_1 (
+module PreambleExtender (
   input               raw_data_valid,
   output              raw_data_ready,
   input               raw_data_payload_last,
@@ -741,24 +746,16 @@ module PreambleExtender_1 (
   reg        [11:0]   _zz_I_mem_port1;
   reg        [11:0]   _zz_Q_mem_port0;
   reg        [11:0]   _zz_Q_mem_port1;
-  wire       [3:0]    _zz_I_mem_port;
+  wire                _zz_I_mem_port;
+  wire                _zz_Q_mem_port;
   wire                _zz_I_mem_port_1;
-  wire       [3:0]    _zz_Q_mem_port;
   wire                _zz_Q_mem_port_1;
-  wire       [3:0]    _zz_I_mem_port_2;
-  wire                _zz_I_mem_port_3;
-  wire       [3:0]    _zz_Q_mem_port_2;
-  wire                _zz_Q_mem_port_3;
-  wire       [3:0]    _zz_preamble_data_i_2;
-  wire                _zz_preamble_data_i_3;
-  wire       [3:0]    _zz_preamble_data_q_2;
-  wire                _zz_preamble_data_q_3;
-  wire       [4:0]    _zz_cnt;
-  wire       [3:0]    _zz_preamble_data_i_4;
-  wire                _zz_preamble_data_i_5;
-  wire       [3:0]    _zz_preamble_data_q_4;
-  wire                _zz_preamble_data_q_5;
-  reg        [4:0]    cnt;
+  wire                _zz_preamble_data_i;
+  wire                _zz_preamble_data_q;
+  wire       [3:0]    _zz_cnt;
+  wire                _zz_preamble_data_i_1;
+  wire                _zz_preamble_data_q_1;
+  reg        [3:0]    cnt;
   reg        [4:0]    repeatCnt;
   reg                 raw_ready;
   reg        [11:0]   preamble_data_i;
@@ -767,10 +764,6 @@ module PreambleExtender_1 (
   reg                 preamble_last;
   reg        [1:0]    preamble_states;
   wire                when_PreambleExtender_l60;
-  wire       [4:0]    _zz_preamble_data_i;
-  wire       [4:0]    _zz_preamble_data_q;
-  wire       [4:0]    _zz_preamble_data_i_1;
-  wire       [4:0]    _zz_preamble_data_q_1;
   wire                when_PreambleExtender_l74;
   wire                when_PreambleExtender_l76;
   wire                raw_data_fire;
@@ -783,27 +776,23 @@ module PreambleExtender_1 (
   (* rom_style = "block" *) reg [11:0] I_mem [0:15];
   (* rom_style = "block" *) reg [11:0] Q_mem [0:15];
 
-  assign _zz_preamble_data_i_2 = _zz_preamble_data_i[3:0];
-  assign _zz_preamble_data_q_2 = _zz_preamble_data_q[3:0];
-  assign _zz_preamble_data_i_4 = _zz_preamble_data_i_1[3:0];
-  assign _zz_preamble_data_q_4 = _zz_preamble_data_q_1[3:0];
-  assign _zz_cnt = (cnt + 5'h01);
-  assign _zz_preamble_data_i_3 = 1'b1;
-  assign _zz_preamble_data_i_5 = 1'b1;
-  assign _zz_preamble_data_q_3 = 1'b1;
-  assign _zz_preamble_data_q_5 = 1'b1;
+  assign _zz_cnt = (cnt + 4'b0001);
+  assign _zz_preamble_data_i = 1'b1;
+  assign _zz_preamble_data_i_1 = 1'b1;
+  assign _zz_preamble_data_q = 1'b1;
+  assign _zz_preamble_data_q_1 = 1'b1;
   initial begin
     $readmemb("/home/missdown/IdeaProjects/MAGI_PROJECT/./simWorkspace/TX/rtl/TX.v_toplevel_stf_preamble_adder_I_mem.bin",I_mem);
   end
   always @(posedge clk) begin
-    if(_zz_preamble_data_i_3) begin
-      _zz_I_mem_port0 <= I_mem[_zz_preamble_data_i_2];
+    if(_zz_preamble_data_i) begin
+      _zz_I_mem_port0 <= I_mem[cnt];
     end
   end
 
   always @(posedge clk) begin
-    if(_zz_preamble_data_i_5) begin
-      _zz_I_mem_port1 <= I_mem[_zz_preamble_data_i_4];
+    if(_zz_preamble_data_i_1) begin
+      _zz_I_mem_port1 <= I_mem[cnt];
     end
   end
 
@@ -811,14 +800,14 @@ module PreambleExtender_1 (
     $readmemb("/home/missdown/IdeaProjects/MAGI_PROJECT/./simWorkspace/TX/rtl/TX.v_toplevel_stf_preamble_adder_Q_mem.bin",Q_mem);
   end
   always @(posedge clk) begin
-    if(_zz_preamble_data_q_3) begin
-      _zz_Q_mem_port0 <= Q_mem[_zz_preamble_data_q_2];
+    if(_zz_preamble_data_q) begin
+      _zz_Q_mem_port0 <= Q_mem[cnt];
     end
   end
 
   always @(posedge clk) begin
-    if(_zz_preamble_data_q_5) begin
-      _zz_Q_mem_port1 <= Q_mem[_zz_preamble_data_q_4];
+    if(_zz_preamble_data_q_1) begin
+      _zz_Q_mem_port1 <= Q_mem[cnt];
     end
   end
 
@@ -834,11 +823,7 @@ module PreambleExtender_1 (
   `endif
 
   assign when_PreambleExtender_l60 = (raw_data_valid && preamble_data_ready);
-  assign _zz_preamble_data_i = cnt;
-  assign _zz_preamble_data_q = cnt;
-  assign _zz_preamble_data_i_1 = cnt;
-  assign _zz_preamble_data_q_1 = cnt;
-  assign when_PreambleExtender_l74 = (cnt == 5'h10);
+  assign when_PreambleExtender_l74 = (cnt == 4'b1111);
   assign when_PreambleExtender_l76 = (repeatCnt == 5'h09);
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
   assign raw_data_fire_1 = (raw_data_valid && raw_data_ready);
@@ -850,7 +835,7 @@ module PreambleExtender_1 (
   assign preamble_data_payload_last = preamble_last;
   always @(posedge clk or posedge reset) begin
     if(reset) begin
-      cnt <= 5'h0;
+      cnt <= 4'b0000;
       repeatCnt <= 5'h0;
       raw_ready <= 1'b0;
       preamble_valid <= 1'b0;
@@ -859,19 +844,19 @@ module PreambleExtender_1 (
     end else begin
       case(preamble_states)
         PreambleExtenderStates_IDLE : begin
-          cnt <= 5'h0;
+          cnt <= 4'b0000;
           repeatCnt <= 5'h0;
           raw_ready <= 1'b0;
           preamble_valid <= 1'b0;
           preamble_last <= 1'b0;
           if(when_PreambleExtender_l60) begin
-            cnt <= (cnt + 5'h01);
+            cnt <= (cnt + 4'b0001);
             preamble_states <= PreambleExtenderStates_PREAMBLE;
           end
         end
         PreambleExtenderStates_PREAMBLE : begin
           if(preamble_data_ready) begin
-            cnt <= ((cnt == 5'h10) ? 5'h0 : _zz_cnt);
+            cnt <= ((cnt == 4'b1111) ? 4'b0000 : _zz_cnt);
           end
           preamble_valid <= 1'b1;
           if(when_PreambleExtender_l74) begin
@@ -921,211 +906,7 @@ module PreambleExtender_1 (
 
 endmodule
 
-//StreamFifo_6 replaced by StreamFifo_6
-
-module PreambleExtender (
-  input               raw_data_valid,
-  output              raw_data_ready,
-  input               raw_data_payload_last,
-  input      [11:0]   raw_data_payload_fragment_cha_i,
-  input      [11:0]   raw_data_payload_fragment_cha_q,
-  output              preamble_data_valid,
-  input               preamble_data_ready,
-  output              preamble_data_payload_last,
-  output     [11:0]   preamble_data_payload_fragment_cha_i,
-  output     [11:0]   preamble_data_payload_fragment_cha_q,
-  input               clk,
-  input               reset
-);
-  localparam PreambleExtenderStates_IDLE = 2'd0;
-  localparam PreambleExtenderStates_PREAMBLE = 2'd1;
-  localparam PreambleExtenderStates_DATA = 2'd2;
-
-  reg        [11:0]   _zz_I_mem_port0;
-  reg        [11:0]   _zz_I_mem_port1;
-  reg        [11:0]   _zz_Q_mem_port0;
-  reg        [11:0]   _zz_Q_mem_port1;
-  wire       [4:0]    _zz_I_mem_port;
-  wire                _zz_I_mem_port_1;
-  wire       [4:0]    _zz_Q_mem_port;
-  wire                _zz_Q_mem_port_1;
-  wire       [4:0]    _zz_I_mem_port_2;
-  wire                _zz_I_mem_port_3;
-  wire       [4:0]    _zz_Q_mem_port_2;
-  wire                _zz_Q_mem_port_3;
-  wire       [4:0]    _zz_preamble_data_i_2;
-  wire                _zz_preamble_data_i_3;
-  wire       [4:0]    _zz_preamble_data_q_2;
-  wire                _zz_preamble_data_q_3;
-  wire       [5:0]    _zz_cnt;
-  wire       [4:0]    _zz_preamble_data_i_4;
-  wire                _zz_preamble_data_i_5;
-  wire       [4:0]    _zz_preamble_data_q_4;
-  wire                _zz_preamble_data_q_5;
-  reg        [5:0]    cnt;
-  reg        [0:0]    repeatCnt;
-  reg                 raw_ready;
-  reg        [11:0]   preamble_data_i;
-  reg        [11:0]   preamble_data_q;
-  reg                 preamble_valid;
-  reg                 preamble_last;
-  reg        [1:0]    preamble_states;
-  wire                when_PreambleExtender_l60;
-  wire       [5:0]    _zz_preamble_data_i;
-  wire       [5:0]    _zz_preamble_data_q;
-  wire       [5:0]    _zz_preamble_data_i_1;
-  wire       [5:0]    _zz_preamble_data_q_1;
-  wire                when_PreambleExtender_l74;
-  wire                when_PreambleExtender_l76;
-  wire                raw_data_fire;
-  wire                raw_data_fire_1;
-  wire                when_PreambleExtender_l91;
-  `ifndef SYNTHESIS
-  reg [63:0] preamble_states_string;
-  `endif
-
-  (* rom_style = "block" *) reg [11:0] I_mem [0:31];
-  (* rom_style = "block" *) reg [11:0] Q_mem [0:31];
-
-  assign _zz_preamble_data_i_2 = _zz_preamble_data_i[4:0];
-  assign _zz_preamble_data_q_2 = _zz_preamble_data_q[4:0];
-  assign _zz_preamble_data_i_4 = _zz_preamble_data_i_1[4:0];
-  assign _zz_preamble_data_q_4 = _zz_preamble_data_q_1[4:0];
-  assign _zz_cnt = (cnt + 6'h01);
-  assign _zz_preamble_data_i_3 = 1'b1;
-  assign _zz_preamble_data_i_5 = 1'b1;
-  assign _zz_preamble_data_q_3 = 1'b1;
-  assign _zz_preamble_data_q_5 = 1'b1;
-  initial begin
-    $readmemb("/home/missdown/IdeaProjects/MAGI_PROJECT/./simWorkspace/TX/rtl/TX.v_toplevel_sdf_preamble_adder_I_mem.bin",I_mem);
-  end
-  always @(posedge clk) begin
-    if(_zz_preamble_data_i_3) begin
-      _zz_I_mem_port0 <= I_mem[_zz_preamble_data_i_2];
-    end
-  end
-
-  always @(posedge clk) begin
-    if(_zz_preamble_data_i_5) begin
-      _zz_I_mem_port1 <= I_mem[_zz_preamble_data_i_4];
-    end
-  end
-
-  initial begin
-    $readmemb("/home/missdown/IdeaProjects/MAGI_PROJECT/./simWorkspace/TX/rtl/TX.v_toplevel_sdf_preamble_adder_Q_mem.bin",Q_mem);
-  end
-  always @(posedge clk) begin
-    if(_zz_preamble_data_q_3) begin
-      _zz_Q_mem_port0 <= Q_mem[_zz_preamble_data_q_2];
-    end
-  end
-
-  always @(posedge clk) begin
-    if(_zz_preamble_data_q_5) begin
-      _zz_Q_mem_port1 <= Q_mem[_zz_preamble_data_q_4];
-    end
-  end
-
-  `ifndef SYNTHESIS
-  always @(*) begin
-    case(preamble_states)
-      PreambleExtenderStates_IDLE : preamble_states_string = "IDLE    ";
-      PreambleExtenderStates_PREAMBLE : preamble_states_string = "PREAMBLE";
-      PreambleExtenderStates_DATA : preamble_states_string = "DATA    ";
-      default : preamble_states_string = "????????";
-    endcase
-  end
-  `endif
-
-  assign when_PreambleExtender_l60 = (raw_data_valid && preamble_data_ready);
-  assign _zz_preamble_data_i = cnt;
-  assign _zz_preamble_data_q = cnt;
-  assign _zz_preamble_data_i_1 = cnt;
-  assign _zz_preamble_data_q_1 = cnt;
-  assign when_PreambleExtender_l74 = (cnt == 6'h20);
-  assign when_PreambleExtender_l76 = (repeatCnt == 1'b0);
-  assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign raw_data_fire_1 = (raw_data_valid && raw_data_ready);
-  assign when_PreambleExtender_l91 = (raw_data_fire_1 && raw_data_payload_last);
-  assign raw_data_ready = (raw_ready && preamble_data_ready);
-  assign preamble_data_valid = preamble_valid;
-  assign preamble_data_payload_fragment_cha_i = preamble_data_i;
-  assign preamble_data_payload_fragment_cha_q = preamble_data_q;
-  assign preamble_data_payload_last = preamble_last;
-  always @(posedge clk or posedge reset) begin
-    if(reset) begin
-      cnt <= 6'h0;
-      repeatCnt <= 1'b0;
-      raw_ready <= 1'b0;
-      preamble_valid <= 1'b0;
-      preamble_last <= 1'b0;
-      preamble_states <= PreambleExtenderStates_IDLE;
-    end else begin
-      case(preamble_states)
-        PreambleExtenderStates_IDLE : begin
-          cnt <= 6'h0;
-          repeatCnt <= 1'b0;
-          raw_ready <= 1'b0;
-          preamble_valid <= 1'b0;
-          preamble_last <= 1'b0;
-          if(when_PreambleExtender_l60) begin
-            cnt <= (cnt + 6'h01);
-            preamble_states <= PreambleExtenderStates_PREAMBLE;
-          end
-        end
-        PreambleExtenderStates_PREAMBLE : begin
-          if(preamble_data_ready) begin
-            cnt <= ((cnt == 6'h20) ? 6'h0 : _zz_cnt);
-          end
-          preamble_valid <= 1'b1;
-          if(when_PreambleExtender_l74) begin
-            repeatCnt <= (repeatCnt + 1'b1);
-            if(when_PreambleExtender_l76) begin
-              raw_ready <= 1'b1;
-              preamble_states <= PreambleExtenderStates_DATA;
-            end
-          end
-        end
-        default : begin
-          if(raw_data_fire) begin
-            preamble_valid <= 1'b1;
-          end else begin
-            preamble_valid <= 1'b0;
-          end
-          if(when_PreambleExtender_l91) begin
-            preamble_states <= PreambleExtenderStates_IDLE;
-            preamble_last <= 1'b1;
-          end else begin
-            preamble_last <= 1'b0;
-          end
-        end
-      endcase
-    end
-  end
-
-  always @(posedge clk) begin
-    case(preamble_states)
-      PreambleExtenderStates_IDLE : begin
-        preamble_data_i <= _zz_I_mem_port0;
-        preamble_data_q <= _zz_Q_mem_port0;
-      end
-      PreambleExtenderStates_PREAMBLE : begin
-        preamble_data_i <= _zz_I_mem_port1;
-        preamble_data_q <= _zz_Q_mem_port1;
-      end
-      default : begin
-        if(raw_data_fire) begin
-          preamble_data_i <= raw_data_payload_fragment_cha_i;
-          preamble_data_q <= raw_data_payload_fragment_cha_q;
-        end
-      end
-    endcase
-  end
-
-
-endmodule
-
-//StreamFifo_6 replaced by StreamFifo_6
+//StreamFifo_7 replaced by StreamFifo_7
 
 module PhyTxFilter (
   input               raw_data_valid,
@@ -1152,9 +933,9 @@ module PhyTxFilter (
   wire       [11:0]   _zz_raw_data_payload_1;
   reg                 last_padding;
   wire                raw_data_fire;
-  wire                when_PhyTx_l217;
+  wire                when_PhyTx_l218;
   wire                result_data_fire;
-  wire                when_PhyTx_l219;
+  wire                when_PhyTx_l220;
   reg                 raw_data_payload_last_delay_1;
   reg                 raw_data_payload_last_delay_2;
   reg                 raw_data_payload_last_delay_3;
@@ -1194,9 +975,9 @@ module PhyTxFilter (
     .reset                      (reset                                        )  //i
   );
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign when_PhyTx_l217 = (raw_data_fire && raw_data_payload_last);
+  assign when_PhyTx_l218 = (raw_data_fire && raw_data_payload_last);
   assign result_data_fire = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l219 = (result_data_fire && result_data_payload_last);
+  assign when_PhyTx_l220 = (result_data_fire && result_data_payload_last);
   assign raw_data_ready = ((! last_padding) && result_data_ready);
   assign fir_filter_iq_raw_data_valid = (raw_data_valid || last_padding);
   assign fir_filter_iq_raw_data_payload_0 = (last_padding ? _zz_raw_data_payload_0 : raw_data_payload_fragment_cha_i);
@@ -1234,10 +1015,10 @@ module PhyTxFilter (
       raw_data_payload_last_delay_24 <= 1'b0;
       raw_data_payload_last_delay_25 <= 1'b0;
     end else begin
-      if(when_PhyTx_l217) begin
+      if(when_PhyTx_l218) begin
         last_padding <= 1'b1;
       end else begin
-        if(when_PhyTx_l219) begin
+        if(when_PhyTx_l220) begin
           last_padding <= 1'b0;
         end
       end
@@ -1372,7 +1153,276 @@ module PhyTxOverSampling (
 
 endmodule
 
-module StreamFifo_6 (
+//StreamFifo_7 replaced by StreamFifo_7
+
+module PhyHeaderExtender (
+  input      [1:0]    mod_method,
+  input               pkg_size_valid,
+  output              pkg_size_ready,
+  input      [7:0]    pkg_size_payload,
+  input               raw_data_valid,
+  output reg          raw_data_ready,
+  input               raw_data_payload_last,
+  input      [11:0]   raw_data_payload_fragment_cha_i,
+  input      [11:0]   raw_data_payload_fragment_cha_q,
+  output reg          result_data_valid,
+  input               result_data_ready,
+  output reg          result_data_payload_last,
+  output reg [11:0]   result_data_payload_fragment_cha_i,
+  output reg [11:0]   result_data_payload_fragment_cha_q,
+  input               clk,
+  input               reset
+);
+  localparam PhyTxHeaderStatus_IDLE = 2'd0;
+  localparam PhyTxHeaderStatus_SDF = 2'd1;
+  localparam PhyTxHeaderStatus_HEADER = 2'd2;
+  localparam PhyTxHeaderStatus_DATA = 2'd3;
+
+  wire       [11:0]   _zz_header_mod_array_port2;
+  wire       [0:0]    _zz_header_mod_array_port;
+  wire       [11:0]   _zz_header_mod_array_port_1;
+  wire       [11:0]   _zz_header_mod_array_port_2;
+  wire                _zz_header_mod_array_port_3;
+  wire       [0:0]    _zz_header_mod_array_port_4;
+  wire       [11:0]   _zz_header_mod_array_port_5;
+  wire       [11:0]   _zz_header_mod_array_port_6;
+  wire                _zz_header_mod_array_port_7;
+  reg        [11:0]   _zz_result_data_payload_fragment_cha_i_1;
+  wire       [2:0]    _zz_result_data_payload_fragment_cha_i_2;
+  wire       [3:0]    _zz__zz_result_data_payload_fragment_cha_i;
+  reg        [1:0]    header_status;
+  wire       [11:0]   sdf_i_vec_0;
+  wire       [11:0]   sdf_i_vec_1;
+  wire       [11:0]   sdf_i_vec_2;
+  wire       [11:0]   sdf_i_vec_3;
+  wire       [11:0]   sdf_i_vec_4;
+  wire       [11:0]   sdf_i_vec_5;
+  reg        [4:0]    counter;
+  reg                 pkg_size_ready_1;
+  reg        [7:0]    pkg_size_payload_1;
+  wire       [9:0]    method_size;
+  wire                when_PhyTx_l325;
+  wire                pkg_size_fire;
+  wire                result_data_fire;
+  wire                when_PhyTx_l336;
+  wire                result_data_fire_1;
+  wire                when_PhyTx_l348;
+  wire       [0:0]    _zz_result_data_payload_fragment_cha_i;
+  wire                result_data_fire_2;
+  wire                when_PhyTx_l359;
+  `ifndef SYNTHESIS
+  reg [47:0] header_status_string;
+  `endif
+
+  (* ram_style = "distributed" *) reg [11:0] header_mod_array [0:1];
+
+  assign _zz_header_mod_array_port_2 = 12'h801;
+  assign _zz_header_mod_array_port_6 = 12'h7ff;
+  assign _zz_result_data_payload_fragment_cha_i_2 = counter[2:0];
+  assign _zz__zz_result_data_payload_fragment_cha_i = counter[3:0];
+  assign _zz_header_mod_array_port = 1'b0;
+  assign _zz_header_mod_array_port_1 = _zz_header_mod_array_port_2;
+  assign _zz_header_mod_array_port_3 = 1'b1;
+  assign _zz_header_mod_array_port_4 = 1'b1;
+  assign _zz_header_mod_array_port_5 = _zz_header_mod_array_port_6;
+  assign _zz_header_mod_array_port_7 = 1'b1;
+  always @(posedge clk) begin
+    if(_zz_header_mod_array_port_3) begin
+      header_mod_array[_zz_header_mod_array_port] <= _zz_header_mod_array_port_1;
+    end
+  end
+
+  always @(posedge clk) begin
+    if(_zz_header_mod_array_port_7) begin
+      header_mod_array[_zz_header_mod_array_port_4] <= _zz_header_mod_array_port_5;
+    end
+  end
+
+  assign _zz_header_mod_array_port2 = header_mod_array[_zz_result_data_payload_fragment_cha_i];
+  always @(*) begin
+    case(_zz_result_data_payload_fragment_cha_i_2)
+      3'b000 : _zz_result_data_payload_fragment_cha_i_1 = sdf_i_vec_0;
+      3'b001 : _zz_result_data_payload_fragment_cha_i_1 = sdf_i_vec_1;
+      3'b010 : _zz_result_data_payload_fragment_cha_i_1 = sdf_i_vec_2;
+      3'b011 : _zz_result_data_payload_fragment_cha_i_1 = sdf_i_vec_3;
+      3'b100 : _zz_result_data_payload_fragment_cha_i_1 = sdf_i_vec_4;
+      default : _zz_result_data_payload_fragment_cha_i_1 = sdf_i_vec_5;
+    endcase
+  end
+
+  `ifndef SYNTHESIS
+  always @(*) begin
+    case(header_status)
+      PhyTxHeaderStatus_IDLE : header_status_string = "IDLE  ";
+      PhyTxHeaderStatus_SDF : header_status_string = "SDF   ";
+      PhyTxHeaderStatus_HEADER : header_status_string = "HEADER";
+      PhyTxHeaderStatus_DATA : header_status_string = "DATA  ";
+      default : header_status_string = "??????";
+    endcase
+  end
+  `endif
+
+  assign sdf_i_vec_0 = 12'h801;
+  assign sdf_i_vec_1 = 12'h7ff;
+  assign sdf_i_vec_2 = 12'h801;
+  assign sdf_i_vec_3 = 12'h7ff;
+  assign sdf_i_vec_4 = 12'h801;
+  assign sdf_i_vec_5 = 12'h7ff;
+  always @(*) begin
+    raw_data_ready = 1'b0;
+    case(header_status)
+      PhyTxHeaderStatus_IDLE : begin
+      end
+      PhyTxHeaderStatus_SDF : begin
+      end
+      PhyTxHeaderStatus_HEADER : begin
+      end
+      default : begin
+        raw_data_ready = result_data_ready;
+      end
+    endcase
+  end
+
+  always @(*) begin
+    result_data_valid = 1'b0;
+    case(header_status)
+      PhyTxHeaderStatus_IDLE : begin
+      end
+      PhyTxHeaderStatus_SDF : begin
+        result_data_valid = 1'b1;
+      end
+      PhyTxHeaderStatus_HEADER : begin
+        result_data_valid = 1'b1;
+      end
+      default : begin
+        result_data_valid = raw_data_valid;
+      end
+    endcase
+  end
+
+  always @(*) begin
+    result_data_payload_last = 1'b0;
+    case(header_status)
+      PhyTxHeaderStatus_IDLE : begin
+      end
+      PhyTxHeaderStatus_SDF : begin
+      end
+      PhyTxHeaderStatus_HEADER : begin
+      end
+      default : begin
+        result_data_payload_last = raw_data_payload_last;
+      end
+    endcase
+  end
+
+  always @(*) begin
+    result_data_payload_fragment_cha_i = 12'h0;
+    case(header_status)
+      PhyTxHeaderStatus_IDLE : begin
+      end
+      PhyTxHeaderStatus_SDF : begin
+        result_data_payload_fragment_cha_i = _zz_result_data_payload_fragment_cha_i_1;
+      end
+      PhyTxHeaderStatus_HEADER : begin
+        result_data_payload_fragment_cha_i = _zz_header_mod_array_port2;
+      end
+      default : begin
+        result_data_payload_fragment_cha_i = raw_data_payload_fragment_cha_i;
+      end
+    endcase
+  end
+
+  always @(*) begin
+    result_data_payload_fragment_cha_q = 12'h0;
+    case(header_status)
+      PhyTxHeaderStatus_IDLE : begin
+      end
+      PhyTxHeaderStatus_SDF : begin
+      end
+      PhyTxHeaderStatus_HEADER : begin
+      end
+      default : begin
+        result_data_payload_fragment_cha_q = raw_data_payload_fragment_cha_q;
+      end
+    endcase
+  end
+
+  assign method_size = {mod_method,pkg_size_payload_1};
+  assign when_PhyTx_l325 = (raw_data_valid && pkg_size_valid);
+  assign pkg_size_fire = (pkg_size_valid && pkg_size_ready);
+  assign result_data_fire = (result_data_valid && result_data_ready);
+  assign when_PhyTx_l336 = (counter == 5'h05);
+  assign result_data_fire_1 = (result_data_valid && result_data_ready);
+  assign when_PhyTx_l348 = (counter == 5'h0);
+  assign _zz_result_data_payload_fragment_cha_i = method_size[_zz__zz_result_data_payload_fragment_cha_i];
+  assign result_data_fire_2 = (result_data_valid && result_data_ready);
+  assign when_PhyTx_l359 = (result_data_fire_2 && result_data_payload_last);
+  assign pkg_size_ready = pkg_size_ready_1;
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      header_status <= PhyTxHeaderStatus_IDLE;
+      counter <= 5'h0;
+      pkg_size_ready_1 <= 1'b0;
+    end else begin
+      case(header_status)
+        PhyTxHeaderStatus_IDLE : begin
+          if(when_PhyTx_l325) begin
+            header_status <= PhyTxHeaderStatus_SDF;
+            pkg_size_ready_1 <= 1'b1;
+          end
+        end
+        PhyTxHeaderStatus_SDF : begin
+          if(pkg_size_fire) begin
+            pkg_size_ready_1 <= 1'b0;
+          end
+          if(result_data_fire) begin
+            if(when_PhyTx_l336) begin
+              header_status <= PhyTxHeaderStatus_HEADER;
+              counter <= 5'h09;
+            end else begin
+              counter <= (counter + 5'h01);
+            end
+          end
+        end
+        PhyTxHeaderStatus_HEADER : begin
+          if(result_data_fire_1) begin
+            if(when_PhyTx_l348) begin
+              header_status <= PhyTxHeaderStatus_DATA;
+              counter <= 5'h0;
+            end else begin
+              counter <= (counter - 5'h01);
+            end
+          end
+        end
+        default : begin
+          if(when_PhyTx_l359) begin
+            header_status <= PhyTxHeaderStatus_IDLE;
+          end
+        end
+      endcase
+    end
+  end
+
+  always @(posedge clk) begin
+    case(header_status)
+      PhyTxHeaderStatus_IDLE : begin
+      end
+      PhyTxHeaderStatus_SDF : begin
+        if(pkg_size_fire) begin
+          pkg_size_payload_1 <= pkg_size_payload;
+        end
+      end
+      PhyTxHeaderStatus_HEADER : begin
+      end
+      default : begin
+      end
+    endcase
+  end
+
+
+endmodule
+
+module StreamFifo_7 (
   input               io_push_valid,
   output              io_push_ready,
   input               io_push_payload_last,
@@ -1740,7 +1790,7 @@ module dataDivDynamic (
 
 endmodule
 
-//StreamFifo_3 replaced by StreamFifo_3
+//StreamFifo_5 replaced by StreamFifo_5
 
 module PhyTxScrambler (
   input               raw_data_valid,
@@ -1764,7 +1814,7 @@ module PhyTxScrambler (
   wire       [15:0]   scrambler_1_scram_data_payload;
   reg        [1:0]    scrambler_status;
   wire                raw_data_fire;
-  wire                when_PhyTx_l143;
+  wire                when_PhyTx_l144;
   wire                raw_data_fire_1;
   `ifndef SYNTHESIS
   reg [79:0] scrambler_status_string;
@@ -1856,7 +1906,7 @@ module PhyTxScrambler (
   end
 
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign when_PhyTx_l143 = (raw_data_fire && raw_data_payload_last);
+  assign when_PhyTx_l144 = (raw_data_fire && raw_data_payload_last);
   assign raw_data_fire_1 = (raw_data_valid && raw_data_ready);
   always @(posedge clk or posedge reset) begin
     if(reset) begin
@@ -1869,7 +1919,7 @@ module PhyTxScrambler (
           end
         end
         PhyTxScramblerStatus_SCRAMBLING : begin
-          if(when_PhyTx_l143) begin
+          if(when_PhyTx_l144) begin
             scrambler_status <= PhyTxScramblerStatus_FINAL_1;
           end
         end
@@ -1883,190 +1933,7 @@ module PhyTxScrambler (
 
 endmodule
 
-//StreamFifo_3 replaced by StreamFifo_3
-
-module PhyHeaderExtender (
-  input      [7:0]    mod_method,
-  input               raw_data_valid,
-  output              raw_data_ready,
-  input               raw_data_payload_last,
-  input      [15:0]   raw_data_payload_fragment,
-  output reg          result_data_valid,
-  input               result_data_ready,
-  output reg          result_data_payload_last,
-  output reg [15:0]   result_data_payload_fragment,
-  input               clk,
-  input               reset
-);
-  localparam PhyTxHeaderStatus_IDLE = 2'd0;
-  localparam PhyTxHeaderStatus_HEADER = 2'd1;
-  localparam PhyTxHeaderStatus_DATA = 2'd2;
-
-  wire                dataFifo_io_push_valid;
-  reg                 dataFifo_io_pop_ready;
-  wire                dataFifo_io_push_ready;
-  wire                dataFifo_io_pop_valid;
-  wire                dataFifo_io_pop_payload_last;
-  wire       [15:0]   dataFifo_io_pop_payload_fragment;
-  wire       [7:0]    dataFifo_io_occupancy;
-  wire       [7:0]    dataFifo_io_availability;
-  wire       [7:0]    _zz_result_data_payload_fragment;
-  wire       [8:0]    _zz_result_data_payload_fragment_1;
-  reg        [7:0]    counter;
-  reg                 emitHeader;
-  wire                raw_data_fire;
-  wire                when_PhyTx_l263;
-  wire                result_data_fire;
-  wire                when_PhyTx_l263_1;
-  wire                _zz_raw_data_ready;
-  wire                result_data_fire_1;
-  wire                when_PhyTx_l265;
-  wire                raw_data_fire_1;
-  reg        [1:0]    header_status;
-  wire                result_data_fire_2;
-  wire                when_PhyTx_l294;
-  `ifndef SYNTHESIS
-  reg [47:0] header_status_string;
-  `endif
-
-
-  assign _zz_result_data_payload_fragment_1 = ({1'd0,counter} <<< 1);
-  assign _zz_result_data_payload_fragment = _zz_result_data_payload_fragment_1[7:0];
-  StreamFifo dataFifo (
-    .io_push_valid               (dataFifo_io_push_valid                  ), //i
-    .io_push_ready               (dataFifo_io_push_ready                  ), //o
-    .io_push_payload_last        (raw_data_payload_last                   ), //i
-    .io_push_payload_fragment    (raw_data_payload_fragment[15:0]         ), //i
-    .io_pop_valid                (dataFifo_io_pop_valid                   ), //o
-    .io_pop_ready                (dataFifo_io_pop_ready                   ), //i
-    .io_pop_payload_last         (dataFifo_io_pop_payload_last            ), //o
-    .io_pop_payload_fragment     (dataFifo_io_pop_payload_fragment[15:0]  ), //o
-    .io_flush                    (1'b0                                    ), //i
-    .io_occupancy                (dataFifo_io_occupancy[7:0]              ), //o
-    .io_availability             (dataFifo_io_availability[7:0]           ), //o
-    .clk                         (clk                                     ), //i
-    .reset                       (reset                                   )  //i
-  );
-  `ifndef SYNTHESIS
-  always @(*) begin
-    case(header_status)
-      PhyTxHeaderStatus_IDLE : header_status_string = "IDLE  ";
-      PhyTxHeaderStatus_HEADER : header_status_string = "HEADER";
-      PhyTxHeaderStatus_DATA : header_status_string = "DATA  ";
-      default : header_status_string = "??????";
-    endcase
-  end
-  `endif
-
-  assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign when_PhyTx_l263 = (raw_data_fire && raw_data_payload_last);
-  assign result_data_fire = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l263_1 = (result_data_fire && result_data_payload_last);
-  assign _zz_raw_data_ready = (! emitHeader);
-  assign raw_data_ready = (dataFifo_io_push_ready && _zz_raw_data_ready);
-  assign dataFifo_io_push_valid = (raw_data_valid && _zz_raw_data_ready);
-  assign result_data_fire_1 = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l265 = (result_data_fire_1 && result_data_payload_last);
-  assign raw_data_fire_1 = (raw_data_valid && raw_data_ready);
-  always @(*) begin
-    result_data_payload_last = 1'b0;
-    case(header_status)
-      PhyTxHeaderStatus_IDLE : begin
-      end
-      PhyTxHeaderStatus_HEADER : begin
-      end
-      default : begin
-        result_data_payload_last = dataFifo_io_pop_payload_last;
-      end
-    endcase
-  end
-
-  always @(*) begin
-    result_data_valid = 1'b0;
-    case(header_status)
-      PhyTxHeaderStatus_IDLE : begin
-      end
-      PhyTxHeaderStatus_HEADER : begin
-        result_data_valid = 1'b1;
-      end
-      default : begin
-        result_data_valid = dataFifo_io_pop_valid;
-      end
-    endcase
-  end
-
-  always @(*) begin
-    result_data_payload_fragment = 16'h0;
-    case(header_status)
-      PhyTxHeaderStatus_IDLE : begin
-      end
-      PhyTxHeaderStatus_HEADER : begin
-        result_data_payload_fragment = {mod_method,_zz_result_data_payload_fragment};
-      end
-      default : begin
-        result_data_payload_fragment = dataFifo_io_pop_payload_fragment;
-      end
-    endcase
-  end
-
-  always @(*) begin
-    dataFifo_io_pop_ready = 1'b0;
-    case(header_status)
-      PhyTxHeaderStatus_IDLE : begin
-      end
-      PhyTxHeaderStatus_HEADER : begin
-      end
-      default : begin
-        dataFifo_io_pop_ready = result_data_ready;
-      end
-    endcase
-  end
-
-  assign result_data_fire_2 = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l294 = (result_data_fire_2 && result_data_payload_last);
-  always @(posedge clk or posedge reset) begin
-    if(reset) begin
-      counter <= 8'h0;
-      emitHeader <= 1'b0;
-      header_status <= PhyTxHeaderStatus_IDLE;
-    end else begin
-      if(when_PhyTx_l263) begin
-        emitHeader <= 1'b1;
-      end
-      if(when_PhyTx_l263_1) begin
-        emitHeader <= 1'b0;
-      end
-      if(when_PhyTx_l265) begin
-        counter <= 8'h0;
-      end else begin
-        if(raw_data_fire_1) begin
-          counter <= (counter + 8'h01);
-        end
-      end
-      case(header_status)
-        PhyTxHeaderStatus_IDLE : begin
-          if(emitHeader) begin
-            header_status <= PhyTxHeaderStatus_HEADER;
-          end
-        end
-        PhyTxHeaderStatus_HEADER : begin
-          if(result_data_ready) begin
-            header_status <= PhyTxHeaderStatus_DATA;
-          end
-        end
-        default : begin
-          if(when_PhyTx_l294) begin
-            header_status <= PhyTxHeaderStatus_IDLE;
-          end
-        end
-      endcase
-    end
-  end
-
-
-endmodule
-
-module StreamFifo_3 (
+module StreamFifo_5 (
   input               io_push_valid,
   output              io_push_ready,
   input               io_push_payload_last,
@@ -2289,9 +2156,9 @@ module PhyTxEncoder (
   wire       [15:0]   phy_tx_encoder_coded_data_payload_fragment;
   reg                 emitEncoding;
   wire                raw_data_fire;
-  wire                when_PhyTx_l95;
+  wire                when_PhyTx_l96;
   wire                phy_tx_encoder_raw_data_fire;
-  wire                when_PhyTx_l95_1;
+  wire                when_PhyTx_l96_1;
   wire                phy_tx_encoder_coded_data_toStream_valid;
   wire                phy_tx_encoder_coded_data_toStream_ready;
   wire                phy_tx_encoder_coded_data_toStream_payload_last;
@@ -2311,9 +2178,9 @@ module PhyTxEncoder (
     .reset                          (reset                                             )  //i
   );
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign when_PhyTx_l95 = (raw_data_fire && raw_data_payload_last);
+  assign when_PhyTx_l96 = (raw_data_fire && raw_data_payload_last);
   assign phy_tx_encoder_raw_data_fire = (phy_tx_encoder_raw_data_valid && phy_tx_encoder_raw_data_ready);
-  assign when_PhyTx_l95_1 = (phy_tx_encoder_raw_data_fire && phy_tx_encoder_raw_data_payload_last);
+  assign when_PhyTx_l96_1 = (phy_tx_encoder_raw_data_fire && phy_tx_encoder_raw_data_payload_last);
   always @(*) begin
     if(emitEncoding) begin
       raw_data_ready = 1'b0;
@@ -2357,10 +2224,10 @@ module PhyTxEncoder (
     if(reset) begin
       emitEncoding <= 1'b0;
     end else begin
-      if(when_PhyTx_l95) begin
+      if(when_PhyTx_l96) begin
         emitEncoding <= 1'b1;
       end
-      if(when_PhyTx_l95_1) begin
+      if(when_PhyTx_l96_1) begin
         emitEncoding <= 1'b0;
       end
     end
@@ -2369,7 +2236,7 @@ module PhyTxEncoder (
 
 endmodule
 
-//StreamFifo_1 replaced by StreamFifo_1
+//StreamFifo_2 replaced by StreamFifo_2
 
 module PhyTxCrc (
   input               raw_data_valid,
@@ -2390,14 +2257,14 @@ module PhyTxCrc (
   reg        [7:0]    _zz_result_data_payload_fragment;
   reg                 emitCrc;
   wire                raw_data_fire;
-  wire                when_PhyTx_l32;
+  wire                when_PhyTx_l33;
   wire                result_data_fire;
-  wire                when_PhyTx_l32_1;
+  wire                when_PhyTx_l33_1;
   reg        [1:0]    counter;
   wire                raw_data_fire_1;
   wire                result_data_fire_1;
-  wire                when_PhyTx_l39;
-  wire                when_PhyTx_l47;
+  wire                when_PhyTx_l40;
+  wire                when_PhyTx_l48;
 
   Crc crc_1 (
     .flush            (crc_1_flush                     ), //i
@@ -2418,24 +2285,24 @@ module PhyTxCrc (
   end
 
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign when_PhyTx_l32 = (raw_data_fire && raw_data_payload_last);
+  assign when_PhyTx_l33 = (raw_data_fire && raw_data_payload_last);
   assign result_data_fire = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l32_1 = (result_data_fire && result_data_payload_last);
+  assign when_PhyTx_l33_1 = (result_data_fire && result_data_payload_last);
   assign raw_data_fire_1 = (raw_data_valid && raw_data_ready);
   assign result_data_fire_1 = (result_data_valid && result_data_ready);
   assign crc_1_flush = (result_data_fire_1 && result_data_payload_last);
   always @(*) begin
     result_data_payload_last = 1'b0;
-    if(!when_PhyTx_l39) begin
-      if(when_PhyTx_l47) begin
+    if(!when_PhyTx_l40) begin
+      if(when_PhyTx_l48) begin
         result_data_payload_last = 1'b1;
       end
     end
   end
 
-  assign when_PhyTx_l39 = (! emitCrc);
+  assign when_PhyTx_l40 = (! emitCrc);
   always @(*) begin
-    if(when_PhyTx_l39) begin
+    if(when_PhyTx_l40) begin
       result_data_valid = raw_data_valid;
     end else begin
       result_data_valid = 1'b1;
@@ -2443,7 +2310,7 @@ module PhyTxCrc (
   end
 
   always @(*) begin
-    if(when_PhyTx_l39) begin
+    if(when_PhyTx_l40) begin
       result_data_payload_fragment = raw_data_payload_fragment;
     end else begin
       result_data_payload_fragment = _zz_result_data_payload_fragment;
@@ -2451,27 +2318,27 @@ module PhyTxCrc (
   end
 
   always @(*) begin
-    if(when_PhyTx_l39) begin
+    if(when_PhyTx_l40) begin
       raw_data_ready = result_data_ready;
     end else begin
       raw_data_ready = 1'b0;
     end
   end
 
-  assign when_PhyTx_l47 = (counter == 2'b11);
+  assign when_PhyTx_l48 = (counter == 2'b11);
   always @(posedge clk or posedge reset) begin
     if(reset) begin
       emitCrc <= 1'b0;
       counter <= 2'b00;
     end else begin
-      if(when_PhyTx_l32) begin
+      if(when_PhyTx_l33) begin
         emitCrc <= 1'b1;
       end
-      if(when_PhyTx_l32_1) begin
+      if(when_PhyTx_l33_1) begin
         emitCrc <= 1'b0;
       end
-      if(!when_PhyTx_l39) begin
-        if(when_PhyTx_l47) begin
+      if(!when_PhyTx_l40) begin
+        if(when_PhyTx_l48) begin
           if(result_data_ready) begin
             emitCrc <= 1'b0;
           end
@@ -2486,7 +2353,88 @@ module PhyTxCrc (
 
 endmodule
 
-module StreamFifo_1 (
+//StreamFifo_2 replaced by StreamFifo_2
+
+module PhyTxPadder (
+  input               raw_data_valid,
+  output              raw_data_ready,
+  input               raw_data_payload_last,
+  input      [7:0]    raw_data_payload_fragment,
+  output reg          result_data_valid,
+  input               result_data_ready,
+  output reg          result_data_payload_last,
+  output reg [7:0]    result_data_payload_fragment,
+  input               clk,
+  input               reset
+);
+
+  reg        [2:0]    counter;
+  wire                ok;
+  wire                raw_data_fire;
+  reg                 raw_data_payload_first;
+  wire                fill;
+  wire                result_data_fire;
+  wire                when_PhyTx_l72;
+  wire                result_data_fire_1;
+  wire                when_PhyTx_l75;
+  wire                _zz_raw_data_ready;
+  wire                when_PhyTx_l79;
+
+  assign ok = (counter == 3'b111);
+  assign raw_data_fire = (raw_data_valid && raw_data_ready);
+  assign fill = ((counter != 3'b000) && raw_data_payload_first);
+  assign result_data_fire = (result_data_valid && result_data_ready);
+  assign when_PhyTx_l72 = ((! ok) && result_data_fire);
+  assign result_data_fire_1 = (result_data_valid && result_data_ready);
+  assign when_PhyTx_l75 = (result_data_fire_1 && result_data_payload_last);
+  assign _zz_raw_data_ready = (! fill);
+  assign raw_data_ready = (result_data_ready && _zz_raw_data_ready);
+  always @(*) begin
+    result_data_valid = (raw_data_valid && _zz_raw_data_ready);
+    if(fill) begin
+      result_data_valid = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    result_data_payload_last = raw_data_payload_last;
+    if(when_PhyTx_l79) begin
+      result_data_payload_last = 1'b0;
+    end
+    if(fill) begin
+      result_data_payload_last = ok;
+    end
+  end
+
+  always @(*) begin
+    result_data_payload_fragment = raw_data_payload_fragment;
+    if(fill) begin
+      result_data_payload_fragment = 8'h0;
+    end
+  end
+
+  assign when_PhyTx_l79 = (! ok);
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      counter <= 3'b000;
+      raw_data_payload_first <= 1'b1;
+    end else begin
+      if(raw_data_fire) begin
+        raw_data_payload_first <= raw_data_payload_last;
+      end
+      if(when_PhyTx_l72) begin
+        counter <= (counter + 3'b001);
+      end
+      if(when_PhyTx_l75) begin
+        counter <= 3'b000;
+      end
+    end
+  end
+
+
+endmodule
+
+module StreamFifo_2 (
   input               io_push_valid,
   output              io_push_ready,
   input               io_push_payload_last,
@@ -2644,78 +2592,109 @@ module StreamFifo_1 (
 
 endmodule
 
-module PhyTxPadder (
+module PhyPkgInformationGen (
   input               raw_data_valid,
   output              raw_data_ready,
   input               raw_data_payload_last,
   input      [7:0]    raw_data_payload_fragment,
-  output reg          result_data_valid,
+  output              result_data_valid,
   input               result_data_ready,
-  output reg          result_data_payload_last,
-  output reg [7:0]    result_data_payload_fragment,
+  output              result_data_payload_last,
+  output     [7:0]    result_data_payload_fragment,
+  output              pkg_size_valid,
+  input               pkg_size_ready,
+  output     [7:0]    pkg_size_payload,
   input               clk,
   input               reset
 );
 
-  reg        [2:0]    counter;
-  wire                ok;
-  wire                raw_data_fire;
-  reg                 raw_data_payload_first;
-  wire                fill;
-  wire                result_data_fire;
-  wire                when_PhyTx_l71;
-  wire                result_data_fire_1;
-  wire                when_PhyTx_l74;
+  wire                dataFifo_io_push_valid;
+  wire                dataFifo_io_push_ready;
+  wire                dataFifo_io_pop_valid;
+  wire                dataFifo_io_pop_payload_last;
+  wire       [7:0]    dataFifo_io_pop_payload_fragment;
+  wire       [7:0]    dataFifo_io_occupancy;
+  wire       [7:0]    dataFifo_io_availability;
+  wire                pkg_size_fifo_io_push_ready;
+  wire                pkg_size_fifo_io_pop_valid;
+  wire       [7:0]    pkg_size_fifo_io_pop_payload;
+  wire       [4:0]    pkg_size_fifo_io_occupancy;
+  wire       [4:0]    pkg_size_fifo_io_availability;
+  reg        [7:0]    pkg_size_cnt;
   wire                _zz_raw_data_ready;
-  wire                when_PhyTx_l78;
+  wire                raw_data_fire;
+  wire                when_PhyTx_l265;
+  wire                raw_data_fire_1;
+  reg                 pkg_size_valid_1;
+  reg        [7:0]    pkg_size_payload_1;
+  wire                raw_data_fire_2;
+  wire                when_PhyTx_l272;
+  wire                raw_data_fire_3;
 
-  assign ok = (counter == 3'b111);
+  StreamFifo dataFifo (
+    .io_push_valid               (dataFifo_io_push_valid                 ), //i
+    .io_push_ready               (dataFifo_io_push_ready                 ), //o
+    .io_push_payload_last        (raw_data_payload_last                  ), //i
+    .io_push_payload_fragment    (raw_data_payload_fragment[7:0]         ), //i
+    .io_pop_valid                (dataFifo_io_pop_valid                  ), //o
+    .io_pop_ready                (result_data_ready                      ), //i
+    .io_pop_payload_last         (dataFifo_io_pop_payload_last           ), //o
+    .io_pop_payload_fragment     (dataFifo_io_pop_payload_fragment[7:0]  ), //o
+    .io_flush                    (1'b0                                   ), //i
+    .io_occupancy                (dataFifo_io_occupancy[7:0]             ), //o
+    .io_availability             (dataFifo_io_availability[7:0]          ), //o
+    .clk                         (clk                                    ), //i
+    .reset                       (reset                                  )  //i
+  );
+  StreamFifo_1 pkg_size_fifo (
+    .io_push_valid      (pkg_size_valid_1                    ), //i
+    .io_push_ready      (pkg_size_fifo_io_push_ready         ), //o
+    .io_push_payload    (pkg_size_payload_1[7:0]             ), //i
+    .io_pop_valid       (pkg_size_fifo_io_pop_valid          ), //o
+    .io_pop_ready       (pkg_size_ready                      ), //i
+    .io_pop_payload     (pkg_size_fifo_io_pop_payload[7:0]   ), //o
+    .io_flush           (1'b0                                ), //i
+    .io_occupancy       (pkg_size_fifo_io_occupancy[4:0]     ), //o
+    .io_availability    (pkg_size_fifo_io_availability[4:0]  ), //o
+    .clk                (clk                                 ), //i
+    .reset              (reset                               )  //i
+  );
+  assign _zz_raw_data_ready = (! (! pkg_size_fifo_io_push_ready));
+  assign raw_data_ready = (dataFifo_io_push_ready && _zz_raw_data_ready);
+  assign dataFifo_io_push_valid = (raw_data_valid && _zz_raw_data_ready);
+  assign result_data_valid = dataFifo_io_pop_valid;
+  assign result_data_payload_last = dataFifo_io_pop_payload_last;
+  assign result_data_payload_fragment = dataFifo_io_pop_payload_fragment;
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign fill = ((counter != 3'b000) && raw_data_payload_first);
-  assign result_data_fire = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l71 = ((! ok) && result_data_fire);
-  assign result_data_fire_1 = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l74 = (result_data_fire_1 && result_data_payload_last);
-  assign _zz_raw_data_ready = (! fill);
-  assign raw_data_ready = (result_data_ready && _zz_raw_data_ready);
-  always @(*) begin
-    result_data_valid = (raw_data_valid && _zz_raw_data_ready);
-    if(fill) begin
-      result_data_valid = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    result_data_payload_last = raw_data_payload_last;
-    if(when_PhyTx_l78) begin
-      result_data_payload_last = 1'b0;
-    end
-    if(fill) begin
-      result_data_payload_last = ok;
-    end
-  end
-
-  always @(*) begin
-    result_data_payload_fragment = raw_data_payload_fragment;
-    if(fill) begin
-      result_data_payload_fragment = 8'h0;
-    end
-  end
-
-  assign when_PhyTx_l78 = (! ok);
+  assign when_PhyTx_l265 = (raw_data_fire && raw_data_payload_last);
+  assign raw_data_fire_1 = (raw_data_valid && raw_data_ready);
+  assign raw_data_fire_2 = (raw_data_valid && raw_data_ready);
+  assign when_PhyTx_l272 = (raw_data_fire_2 && raw_data_payload_last);
+  assign raw_data_fire_3 = (raw_data_valid && raw_data_ready);
+  assign pkg_size_valid = pkg_size_fifo_io_pop_valid;
+  assign pkg_size_payload = pkg_size_fifo_io_pop_payload;
   always @(posedge clk or posedge reset) begin
     if(reset) begin
-      counter <= 3'b000;
-      raw_data_payload_first <= 1'b1;
+      pkg_size_cnt <= 8'h0;
+      pkg_size_valid_1 <= 1'b0;
+      pkg_size_payload_1 <= 8'h0;
     end else begin
-      if(raw_data_fire) begin
-        raw_data_payload_first <= raw_data_payload_last;
+      if(!when_PhyTx_l265) begin
+        if(raw_data_fire_1) begin
+          pkg_size_cnt <= (pkg_size_cnt + 8'h01);
+        end
       end
-      if(when_PhyTx_l71) begin
-        counter <= (counter + 3'b001);
-      end
-      if(when_PhyTx_l74) begin
-        counter <= 3'b000;
+      if(when_PhyTx_l272) begin
+        pkg_size_valid_1 <= 1'b1;
+        pkg_size_payload_1 <= (pkg_size_cnt + 8'h01);
+        pkg_size_cnt <= 8'h0;
+      end else begin
+        if(raw_data_fire_3) begin
+          pkg_size_cnt <= (pkg_size_cnt + 8'h01);
+          pkg_size_valid_1 <= 1'b0;
+        end else begin
+          pkg_size_valid_1 <= 1'b0;
+        end
       end
     end
   end
@@ -4065,192 +4044,6 @@ module Scrambler (
 
 endmodule
 
-module StreamFifo (
-  input               io_push_valid,
-  output              io_push_ready,
-  input               io_push_payload_last,
-  input      [15:0]   io_push_payload_fragment,
-  output              io_pop_valid,
-  input               io_pop_ready,
-  output              io_pop_payload_last,
-  output     [15:0]   io_pop_payload_fragment,
-  input               io_flush,
-  output reg [7:0]    io_occupancy,
-  output reg [7:0]    io_availability,
-  input               clk,
-  input               reset
-);
-
-  reg        [16:0]   _zz_logic_ram_port0;
-  wire       [7:0]    _zz_logic_pushPtr_valueNext;
-  wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
-  wire       [7:0]    _zz_logic_popPtr_valueNext;
-  wire       [0:0]    _zz_logic_popPtr_valueNext_1;
-  wire                _zz_logic_ram_port;
-  wire                _zz__zz_io_pop_payload_last;
-  wire       [16:0]   _zz_logic_ram_port_1;
-  wire       [7:0]    _zz_io_occupancy;
-  wire       [7:0]    _zz_io_availability;
-  wire       [7:0]    _zz_io_availability_1;
-  wire       [7:0]    _zz_io_availability_2;
-  reg                 _zz_1;
-  reg                 logic_pushPtr_willIncrement;
-  reg                 logic_pushPtr_willClear;
-  reg        [7:0]    logic_pushPtr_valueNext;
-  reg        [7:0]    logic_pushPtr_value;
-  wire                logic_pushPtr_willOverflowIfInc;
-  wire                logic_pushPtr_willOverflow;
-  reg                 logic_popPtr_willIncrement;
-  reg                 logic_popPtr_willClear;
-  reg        [7:0]    logic_popPtr_valueNext;
-  reg        [7:0]    logic_popPtr_value;
-  wire                logic_popPtr_willOverflowIfInc;
-  wire                logic_popPtr_willOverflow;
-  wire                logic_ptrMatch;
-  reg                 logic_risingOccupancy;
-  wire                logic_pushing;
-  wire                logic_popping;
-  wire                logic_empty;
-  wire                logic_full;
-  reg                 _zz_io_pop_valid;
-  wire       [16:0]   _zz_io_pop_payload_last;
-  wire                when_Stream_l954;
-  wire       [7:0]    logic_ptrDif;
-  reg [16:0] logic_ram [0:135];
-
-  assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
-  assign _zz_logic_pushPtr_valueNext = {7'd0, _zz_logic_pushPtr_valueNext_1};
-  assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
-  assign _zz_logic_popPtr_valueNext = {7'd0, _zz_logic_popPtr_valueNext_1};
-  assign _zz_io_occupancy = (8'h88 + logic_ptrDif);
-  assign _zz_io_availability = (8'h88 + _zz_io_availability_1);
-  assign _zz_io_availability_1 = (logic_popPtr_value - logic_pushPtr_value);
-  assign _zz_io_availability_2 = (logic_popPtr_value - logic_pushPtr_value);
-  assign _zz__zz_io_pop_payload_last = 1'b1;
-  assign _zz_logic_ram_port_1 = {io_push_payload_fragment,io_push_payload_last};
-  always @(posedge clk) begin
-    if(_zz__zz_io_pop_payload_last) begin
-      _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
-    end
-  end
-
-  always @(posedge clk) begin
-    if(_zz_1) begin
-      logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
-    end
-  end
-
-  always @(*) begin
-    _zz_1 = 1'b0;
-    if(logic_pushing) begin
-      _zz_1 = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_pushPtr_willIncrement = 1'b0;
-    if(logic_pushing) begin
-      logic_pushPtr_willIncrement = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_pushPtr_willClear = 1'b0;
-    if(io_flush) begin
-      logic_pushPtr_willClear = 1'b1;
-    end
-  end
-
-  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 8'h87);
-  assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
-  always @(*) begin
-    if(logic_pushPtr_willOverflow) begin
-      logic_pushPtr_valueNext = 8'h0;
-    end else begin
-      logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
-    end
-    if(logic_pushPtr_willClear) begin
-      logic_pushPtr_valueNext = 8'h0;
-    end
-  end
-
-  always @(*) begin
-    logic_popPtr_willIncrement = 1'b0;
-    if(logic_popping) begin
-      logic_popPtr_willIncrement = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_popPtr_willClear = 1'b0;
-    if(io_flush) begin
-      logic_popPtr_willClear = 1'b1;
-    end
-  end
-
-  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 8'h87);
-  assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
-  always @(*) begin
-    if(logic_popPtr_willOverflow) begin
-      logic_popPtr_valueNext = 8'h0;
-    end else begin
-      logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
-    end
-    if(logic_popPtr_willClear) begin
-      logic_popPtr_valueNext = 8'h0;
-    end
-  end
-
-  assign logic_ptrMatch = (logic_pushPtr_value == logic_popPtr_value);
-  assign logic_pushing = (io_push_valid && io_push_ready);
-  assign logic_popping = (io_pop_valid && io_pop_ready);
-  assign logic_empty = (logic_ptrMatch && (! logic_risingOccupancy));
-  assign logic_full = (logic_ptrMatch && logic_risingOccupancy);
-  assign io_push_ready = (! logic_full);
-  assign io_pop_valid = ((! logic_empty) && (! (_zz_io_pop_valid && (! logic_full))));
-  assign _zz_io_pop_payload_last = _zz_logic_ram_port0;
-  assign io_pop_payload_last = _zz_io_pop_payload_last[0];
-  assign io_pop_payload_fragment = _zz_io_pop_payload_last[16 : 1];
-  assign when_Stream_l954 = (logic_pushing != logic_popping);
-  assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
-  always @(*) begin
-    if(logic_ptrMatch) begin
-      io_occupancy = (logic_risingOccupancy ? 8'h88 : 8'h0);
-    end else begin
-      io_occupancy = ((logic_popPtr_value < logic_pushPtr_value) ? logic_ptrDif : _zz_io_occupancy);
-    end
-  end
-
-  always @(*) begin
-    if(logic_ptrMatch) begin
-      io_availability = (logic_risingOccupancy ? 8'h0 : 8'h88);
-    end else begin
-      io_availability = ((logic_popPtr_value < logic_pushPtr_value) ? _zz_io_availability : _zz_io_availability_2);
-    end
-  end
-
-  always @(posedge clk or posedge reset) begin
-    if(reset) begin
-      logic_pushPtr_value <= 8'h0;
-      logic_popPtr_value <= 8'h0;
-      logic_risingOccupancy <= 1'b0;
-      _zz_io_pop_valid <= 1'b0;
-    end else begin
-      logic_pushPtr_value <= logic_pushPtr_valueNext;
-      logic_popPtr_value <= logic_popPtr_valueNext;
-      _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
-      if(when_Stream_l954) begin
-        logic_risingOccupancy <= logic_pushing;
-      end
-      if(io_flush) begin
-        logic_risingOccupancy <= 1'b0;
-      end
-    end
-  end
-
-
-endmodule
-
 module ConvEncoder (
   input               tail_bits_valid,
   input      [6:0]    tail_bits_payload,
@@ -4479,6 +4272,345 @@ module Crc (
         if(input_valid) begin
           state <= state_8;
         end
+      end
+    end
+  end
+
+
+endmodule
+
+module StreamFifo_1 (
+  input               io_push_valid,
+  output              io_push_ready,
+  input      [7:0]    io_push_payload,
+  output              io_pop_valid,
+  input               io_pop_ready,
+  output     [7:0]    io_pop_payload,
+  input               io_flush,
+  output     [4:0]    io_occupancy,
+  output     [4:0]    io_availability,
+  input               clk,
+  input               reset
+);
+
+  reg        [7:0]    _zz_logic_ram_port0;
+  wire       [3:0]    _zz_logic_pushPtr_valueNext;
+  wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
+  wire       [3:0]    _zz_logic_popPtr_valueNext;
+  wire       [0:0]    _zz_logic_popPtr_valueNext_1;
+  wire                _zz_logic_ram_port;
+  wire                _zz_io_pop_payload;
+  wire       [7:0]    _zz_logic_ram_port_1;
+  wire       [3:0]    _zz_io_availability;
+  reg                 _zz_1;
+  reg                 logic_pushPtr_willIncrement;
+  reg                 logic_pushPtr_willClear;
+  reg        [3:0]    logic_pushPtr_valueNext;
+  reg        [3:0]    logic_pushPtr_value;
+  wire                logic_pushPtr_willOverflowIfInc;
+  wire                logic_pushPtr_willOverflow;
+  reg                 logic_popPtr_willIncrement;
+  reg                 logic_popPtr_willClear;
+  reg        [3:0]    logic_popPtr_valueNext;
+  reg        [3:0]    logic_popPtr_value;
+  wire                logic_popPtr_willOverflowIfInc;
+  wire                logic_popPtr_willOverflow;
+  wire                logic_ptrMatch;
+  reg                 logic_risingOccupancy;
+  wire                logic_pushing;
+  wire                logic_popping;
+  wire                logic_empty;
+  wire                logic_full;
+  reg                 _zz_io_pop_valid;
+  wire                when_Stream_l954;
+  wire       [3:0]    logic_ptrDif;
+  reg [7:0] logic_ram [0:15];
+
+  assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
+  assign _zz_logic_pushPtr_valueNext = {3'd0, _zz_logic_pushPtr_valueNext_1};
+  assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
+  assign _zz_logic_popPtr_valueNext = {3'd0, _zz_logic_popPtr_valueNext_1};
+  assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
+  assign _zz_io_pop_payload = 1'b1;
+  assign _zz_logic_ram_port_1 = io_push_payload;
+  always @(posedge clk) begin
+    if(_zz_io_pop_payload) begin
+      _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
+    end
+  end
+
+  always @(posedge clk) begin
+    if(_zz_1) begin
+      logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
+    end
+  end
+
+  always @(*) begin
+    _zz_1 = 1'b0;
+    if(logic_pushing) begin
+      _zz_1 = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_pushPtr_willIncrement = 1'b0;
+    if(logic_pushing) begin
+      logic_pushPtr_willIncrement = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_pushPtr_willClear = 1'b0;
+    if(io_flush) begin
+      logic_pushPtr_willClear = 1'b1;
+    end
+  end
+
+  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 4'b1111);
+  assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
+  always @(*) begin
+    logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
+    if(logic_pushPtr_willClear) begin
+      logic_pushPtr_valueNext = 4'b0000;
+    end
+  end
+
+  always @(*) begin
+    logic_popPtr_willIncrement = 1'b0;
+    if(logic_popping) begin
+      logic_popPtr_willIncrement = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_popPtr_willClear = 1'b0;
+    if(io_flush) begin
+      logic_popPtr_willClear = 1'b1;
+    end
+  end
+
+  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 4'b1111);
+  assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
+  always @(*) begin
+    logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
+    if(logic_popPtr_willClear) begin
+      logic_popPtr_valueNext = 4'b0000;
+    end
+  end
+
+  assign logic_ptrMatch = (logic_pushPtr_value == logic_popPtr_value);
+  assign logic_pushing = (io_push_valid && io_push_ready);
+  assign logic_popping = (io_pop_valid && io_pop_ready);
+  assign logic_empty = (logic_ptrMatch && (! logic_risingOccupancy));
+  assign logic_full = (logic_ptrMatch && logic_risingOccupancy);
+  assign io_push_ready = (! logic_full);
+  assign io_pop_valid = ((! logic_empty) && (! (_zz_io_pop_valid && (! logic_full))));
+  assign io_pop_payload = _zz_logic_ram_port0;
+  assign when_Stream_l954 = (logic_pushing != logic_popping);
+  assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
+  assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
+  assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      logic_pushPtr_value <= 4'b0000;
+      logic_popPtr_value <= 4'b0000;
+      logic_risingOccupancy <= 1'b0;
+      _zz_io_pop_valid <= 1'b0;
+    end else begin
+      logic_pushPtr_value <= logic_pushPtr_valueNext;
+      logic_popPtr_value <= logic_popPtr_valueNext;
+      _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
+      if(when_Stream_l954) begin
+        logic_risingOccupancy <= logic_pushing;
+      end
+      if(io_flush) begin
+        logic_risingOccupancy <= 1'b0;
+      end
+    end
+  end
+
+
+endmodule
+
+module StreamFifo (
+  input               io_push_valid,
+  output              io_push_ready,
+  input               io_push_payload_last,
+  input      [7:0]    io_push_payload_fragment,
+  output              io_pop_valid,
+  input               io_pop_ready,
+  output              io_pop_payload_last,
+  output     [7:0]    io_pop_payload_fragment,
+  input               io_flush,
+  output reg [7:0]    io_occupancy,
+  output reg [7:0]    io_availability,
+  input               clk,
+  input               reset
+);
+
+  reg        [8:0]    _zz_logic_ram_port0;
+  wire       [7:0]    _zz_logic_pushPtr_valueNext;
+  wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
+  wire       [7:0]    _zz_logic_popPtr_valueNext;
+  wire       [0:0]    _zz_logic_popPtr_valueNext_1;
+  wire                _zz_logic_ram_port;
+  wire                _zz__zz_io_pop_payload_last;
+  wire       [8:0]    _zz_logic_ram_port_1;
+  wire       [7:0]    _zz_io_occupancy;
+  wire       [7:0]    _zz_io_availability;
+  wire       [7:0]    _zz_io_availability_1;
+  wire       [7:0]    _zz_io_availability_2;
+  reg                 _zz_1;
+  reg                 logic_pushPtr_willIncrement;
+  reg                 logic_pushPtr_willClear;
+  reg        [7:0]    logic_pushPtr_valueNext;
+  reg        [7:0]    logic_pushPtr_value;
+  wire                logic_pushPtr_willOverflowIfInc;
+  wire                logic_pushPtr_willOverflow;
+  reg                 logic_popPtr_willIncrement;
+  reg                 logic_popPtr_willClear;
+  reg        [7:0]    logic_popPtr_valueNext;
+  reg        [7:0]    logic_popPtr_value;
+  wire                logic_popPtr_willOverflowIfInc;
+  wire                logic_popPtr_willOverflow;
+  wire                logic_ptrMatch;
+  reg                 logic_risingOccupancy;
+  wire                logic_pushing;
+  wire                logic_popping;
+  wire                logic_empty;
+  wire                logic_full;
+  reg                 _zz_io_pop_valid;
+  wire       [8:0]    _zz_io_pop_payload_last;
+  wire                when_Stream_l954;
+  wire       [7:0]    logic_ptrDif;
+  reg [8:0] logic_ram [0:128];
+
+  assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
+  assign _zz_logic_pushPtr_valueNext = {7'd0, _zz_logic_pushPtr_valueNext_1};
+  assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
+  assign _zz_logic_popPtr_valueNext = {7'd0, _zz_logic_popPtr_valueNext_1};
+  assign _zz_io_occupancy = (8'h81 + logic_ptrDif);
+  assign _zz_io_availability = (8'h81 + _zz_io_availability_1);
+  assign _zz_io_availability_1 = (logic_popPtr_value - logic_pushPtr_value);
+  assign _zz_io_availability_2 = (logic_popPtr_value - logic_pushPtr_value);
+  assign _zz__zz_io_pop_payload_last = 1'b1;
+  assign _zz_logic_ram_port_1 = {io_push_payload_fragment,io_push_payload_last};
+  always @(posedge clk) begin
+    if(_zz__zz_io_pop_payload_last) begin
+      _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
+    end
+  end
+
+  always @(posedge clk) begin
+    if(_zz_1) begin
+      logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
+    end
+  end
+
+  always @(*) begin
+    _zz_1 = 1'b0;
+    if(logic_pushing) begin
+      _zz_1 = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_pushPtr_willIncrement = 1'b0;
+    if(logic_pushing) begin
+      logic_pushPtr_willIncrement = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_pushPtr_willClear = 1'b0;
+    if(io_flush) begin
+      logic_pushPtr_willClear = 1'b1;
+    end
+  end
+
+  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 8'h80);
+  assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
+  always @(*) begin
+    if(logic_pushPtr_willOverflow) begin
+      logic_pushPtr_valueNext = 8'h0;
+    end else begin
+      logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
+    end
+    if(logic_pushPtr_willClear) begin
+      logic_pushPtr_valueNext = 8'h0;
+    end
+  end
+
+  always @(*) begin
+    logic_popPtr_willIncrement = 1'b0;
+    if(logic_popping) begin
+      logic_popPtr_willIncrement = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_popPtr_willClear = 1'b0;
+    if(io_flush) begin
+      logic_popPtr_willClear = 1'b1;
+    end
+  end
+
+  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 8'h80);
+  assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
+  always @(*) begin
+    if(logic_popPtr_willOverflow) begin
+      logic_popPtr_valueNext = 8'h0;
+    end else begin
+      logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
+    end
+    if(logic_popPtr_willClear) begin
+      logic_popPtr_valueNext = 8'h0;
+    end
+  end
+
+  assign logic_ptrMatch = (logic_pushPtr_value == logic_popPtr_value);
+  assign logic_pushing = (io_push_valid && io_push_ready);
+  assign logic_popping = (io_pop_valid && io_pop_ready);
+  assign logic_empty = (logic_ptrMatch && (! logic_risingOccupancy));
+  assign logic_full = (logic_ptrMatch && logic_risingOccupancy);
+  assign io_push_ready = (! logic_full);
+  assign io_pop_valid = ((! logic_empty) && (! (_zz_io_pop_valid && (! logic_full))));
+  assign _zz_io_pop_payload_last = _zz_logic_ram_port0;
+  assign io_pop_payload_last = _zz_io_pop_payload_last[0];
+  assign io_pop_payload_fragment = _zz_io_pop_payload_last[8 : 1];
+  assign when_Stream_l954 = (logic_pushing != logic_popping);
+  assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
+  always @(*) begin
+    if(logic_ptrMatch) begin
+      io_occupancy = (logic_risingOccupancy ? 8'h81 : 8'h0);
+    end else begin
+      io_occupancy = ((logic_popPtr_value < logic_pushPtr_value) ? logic_ptrDif : _zz_io_occupancy);
+    end
+  end
+
+  always @(*) begin
+    if(logic_ptrMatch) begin
+      io_availability = (logic_risingOccupancy ? 8'h0 : 8'h81);
+    end else begin
+      io_availability = ((logic_popPtr_value < logic_pushPtr_value) ? _zz_io_availability : _zz_io_availability_2);
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      logic_pushPtr_value <= 8'h0;
+      logic_popPtr_value <= 8'h0;
+      logic_risingOccupancy <= 1'b0;
+      _zz_io_pop_valid <= 1'b0;
+    end else begin
+      logic_pushPtr_value <= logic_pushPtr_valueNext;
+      logic_popPtr_value <= logic_popPtr_valueNext;
+      _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
+      if(when_Stream_l954) begin
+        logic_risingOccupancy <= logic_pushing;
+      end
+      if(io_flush) begin
+        logic_risingOccupancy <= 1'b0;
       end
     end
   end

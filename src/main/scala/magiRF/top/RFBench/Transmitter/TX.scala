@@ -35,49 +35,54 @@ case class TX() extends Component{
     }
     noIoPrefix()
 
-    val pipeline_halt = Bits(8 bits)
-
+    val pipeline_halt = Bits(9 bits)
+    val phy_tx_information_gen = PhyPkgInformationGen()
+    phy_tx_information_gen.io.raw_data << io.raw_data.haltWhen(pipeline_halt(0))
+    val information_to_padder_fifo = phy_tx_information_gen.io.result_data.queueWithAvailability(interConnectFifoDepth)
+    pipeline_halt(0) := information_to_padder_fifo._2 < interConnectHaltThreshold
     val phy_tx_padder = PhyTxPadder()
-    phy_tx_padder.io.raw_data << io.raw_data.haltWhen(pipeline_halt(0))
+    phy_tx_padder.io.raw_data << information_to_padder_fifo._1.haltWhen(pipeline_halt(1))
     val padder_to_crc_fifo = phy_tx_padder.io.result_data.queueWithAvailability(interConnectFifoDepth)
-    pipeline_halt(0) := padder_to_crc_fifo._2 < interConnectHaltThreshold
+    pipeline_halt(1) := padder_to_crc_fifo._2 < interConnectHaltThreshold
     val phy_tx_crc = PhyTxCrc()
-    phy_tx_crc.io.raw_data << padder_to_crc_fifo._1.haltWhen(pipeline_halt(1))
+    phy_tx_crc.io.raw_data << padder_to_crc_fifo._1.haltWhen(pipeline_halt(2))
     val crc_to_encoder_fifo = phy_tx_crc.io.result_data.queueWithAvailability(interConnectFifoDepth)
-    pipeline_halt(1) := crc_to_encoder_fifo._2 < interConnectHaltThreshold
+    pipeline_halt(2) := crc_to_encoder_fifo._2 < interConnectHaltThreshold
     val phy_tx_encoder = PhyTxEncoder()
-    phy_tx_encoder.io.raw_data << crc_to_encoder_fifo._1.haltWhen(pipeline_halt(2))
+    phy_tx_encoder.io.raw_data << crc_to_encoder_fifo._1.haltWhen(pipeline_halt(3))
     val phy_tx_puncher = Puncturing(codedDataWidth, mask_seq_1_2)
     phy_tx_puncher.io.raw_data << phy_tx_encoder.io.result_data
-    val puncher_to_header_extender_fifo = phy_tx_puncher.io.punched_data.toStream.queueWithAvailability(interConnectFifoDepth)
-    pipeline_halt(2) := puncher_to_header_extender_fifo._2< interConnectHaltThreshold
-    val phy_header_extender = PhyHeaderExtender()
-    phy_header_extender.io.raw_data << puncher_to_header_extender_fifo._1.haltWhen(pipeline_halt(3))
-    phy_header_extender.io.sdf_sequence := B"8'10101010"
-    val header_extender_fifo_to_scrambler_fifo = phy_header_extender.io.result_data.queueWithAvailability(interConnectFifoDepth)
-    pipeline_halt(3) := header_extender_fifo_to_scrambler_fifo._2 < interConnectHaltThreshold
+    val puncher_to_scrambling_fifo = phy_tx_puncher.io.punched_data.toStream.queueWithAvailability(interConnectFifoDepth)
+    pipeline_halt(3) := puncher_to_scrambling_fifo._2< interConnectHaltThreshold
     val phy_tx_scrambler = PhyTxScrambler()
-    phy_tx_scrambler.io.raw_data << header_extender_fifo_to_scrambler_fifo._1.haltWhen(pipeline_halt(4))
+    phy_tx_scrambler.io.raw_data << puncher_to_scrambling_fifo._1.haltWhen(pipeline_halt(4))
     val scrambler_to_mod_data_div_fifo = phy_tx_scrambler.io.result_data.queueWithAvailability(interConnectFifoDepth)
     pipeline_halt(4) := scrambler_to_mod_data_div_fifo._2 < interConnectHaltThreshold
     val mod_data_div = dataDivDynamic(genModulatorDivConfig)
     mod_data_div.io.base_data << scrambler_to_mod_data_div_fifo._1.haltWhen(pipeline_halt(5))
     val mod_rtl = ModulatorRTL(genModulatorConfig)
     mod_rtl.io.data_flow.unit_data << mod_data_div.io.unit_data.resized
-    val mod_rtl_to_tx_oversampling_fifo = mod_rtl.io.data_flow.mod_iq.toStream.queueWithAvailability(interConnectFifoDepth)
-    pipeline_halt(5) := mod_rtl_to_tx_oversampling_fifo._2 < interConnectHaltThreshold
+    val mod_rtl_to_header_extender_fifo = mod_rtl.io.data_flow.mod_iq.toStream.queueWithAvailability(interConnectFifoDepth)
+    pipeline_halt(5) := mod_rtl_to_header_extender_fifo._2 < interConnectHaltThreshold
+    val phy_header_extender = PhyHeaderExtender()
+    phy_header_extender.io.raw_data << mod_rtl_to_header_extender_fifo._1.haltWhen(pipeline_halt(6))
+    phy_header_extender.io.pkg_size << phy_tx_information_gen.io.pkg_size
+    phy_header_extender.io.mod_method := io.mod_method_select
+
+    val header_extender_to_oversampling_fifo = phy_header_extender.io.result_data.queueWithAvailability(interConnectFifoDepth)
+    pipeline_halt(6) := header_extender_to_oversampling_fifo._2 < interConnectHaltThreshold
     val phy_tx_oversampling = PhyTxOverSampling()
-    phy_tx_oversampling.io.raw_data << mod_rtl_to_tx_oversampling_fifo._1.haltWhen(pipeline_halt(6))
+    phy_tx_oversampling.io.raw_data << header_extender_to_oversampling_fifo._1.haltWhen(pipeline_halt(7))
     val phy_tx_filter = PhyTxFilter()
     phy_tx_filter.io.raw_data << phy_tx_oversampling.io.result_data
     val tx_filter_to_preamble_adder_fifo = phy_tx_filter.io.result_data.queueWithAvailability(interConnectFifoDepth)
-    pipeline_halt(6) := tx_filter_to_preamble_adder_fifo._2 < interConnectHaltThreshold
+    pipeline_halt(7) := tx_filter_to_preamble_adder_fifo._2 < interConnectHaltThreshold
     val stf_preamble_adder = PreambleExtender(stf_preamble_config)
-    stf_preamble_adder.io.raw_data << tx_filter_to_preamble_adder_fifo._1.haltWhen(pipeline_halt(7))
+    stf_preamble_adder.io.raw_data << tx_filter_to_preamble_adder_fifo._1.haltWhen(pipeline_halt(8))
     val phy_tx_front = PhyTxICFront()
     phy_tx_front.io.raw_data << stf_preamble_adder.io.preamble_data
     val front_to_interface_fifo = phy_tx_front.io.result_data.queueWithAvailability(interConnectFifoDepth)
-    pipeline_halt(7) := front_to_interface_fifo._2 < interConnectHaltThreshold
+    pipeline_halt(8) := front_to_interface_fifo._2 < interConnectHaltThreshold
 
     io.rf_data << front_to_interface_fifo._1
 
@@ -134,6 +139,8 @@ case class TX() extends Component{
             io.mod_cnt_limit := ClkCrossing(coreClockDomain, rfClockDomain, mod_cnt_limit)
         }
     }
+
+
 }
 
 object RFBenchTXBench {
