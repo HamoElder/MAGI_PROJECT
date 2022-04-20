@@ -7,7 +7,7 @@
 #ifndef _VPREAMBLEDETECTOR__SYMS_H_
 #define _VPREAMBLEDETECTOR__SYMS_H_  // guard
 
-#include "verilated_heavy.h"
+#include "verilated.h"
 
 // INCLUDE MODULE CLASSES
 #include "VPreambleDetector.h"

@@ -6,7 +6,7 @@ import magiRF.modules.Modem.Misc.dataDivDynamic
 import magiRF.modules.Modem.Modulator.extensions.mPSKMod
 import magiRF.packages.Coder.Convolutional.Encoder.ConvEncoder
 import magiRF.packages.Scramble.Scrambler
-import magiRF.top.RFBench.Config.{codedDataType, codedDataWidth, conv_encoder_config, crc32_config, crc_data_width, genModulatorConfig, genModulatorDivConfig, header_bpsk_mod_array, iqWidth, method_width, modIQDataType, oversampled_zeros, phyDataType, phyDataWidth, phy_payload_lower_boundary, phy_payload_upper_boundary, rf_payload_upper_boundary, scrambler_poly, scrambler_reg_width, sdf_i_array, sdf_size, size_width, srrcConfig, srrcTaps}
+import magiRF.top.RFBench.Config.{codedDataType, codedDataWidth, conv_encoder_config, crc32_config, crc_data_width, filter_cut_off_width, genModulatorConfig, genModulatorDivConfig, header_bpsk_mod_array, iqWidth, modIQDataType, mod_method_type, mod_method_width, oversampled_zeros, phyDataType, phyDataWidth, phy_payload_lower_boundary, phy_payload_upper_boundary, rf_payload_upper_boundary, scrambler_poly, scrambler_reg_width, sdf_i_array, sdf_size, size_width, srrcConfig, srrcTaps}
 import spinal.core._
 import spinal.lib._
 import utils.bus.IQBundle.IQBundle
@@ -158,32 +158,6 @@ case class PhyTxScrambler() extends Component{
 
 }
 
-case class PhyModulator() extends Component{
-    val io = new Bundle{
-        val raw_data = slave(Stream(Fragment(codedDataType)))
-        val result_data = master(Stream(Fragment(codedDataType)))
-        val select = in(UInt(log2Up(genModulatorConfig.selectNum) bits))
-    }
-    noIoPrefix()
-    val mod_data_div = dataDivDynamic(genModulatorDivConfig)
-    object PhyTxModulatorStatus extends SpinalEnum {
-        val IDLE, HEADER, DATA = newElement()
-    }
-    val modulator_status = Reg(PhyTxModulatorStatus()) init(PhyTxModulatorStatus.IDLE)
-    switch(modulator_status){
-        is(PhyTxModulatorStatus.IDLE){
-
-        }
-        is(PhyTxModulatorStatus.HEADER){
-
-        }
-        is(PhyTxModulatorStatus.DATA){
-
-        }
-    }
-    mod_data_div.io.cnt_limit := codedDataWidth
-    mod_data_div.io.base_data << io.raw_data
-}
 
 
 case class PhyTxOverSampling() extends Component{
@@ -228,8 +202,8 @@ case class PhyTxFilter() extends Component{
     fir_filter_iq.io.raw_data.payload(1) := last_padding ? S(0) | io.raw_data.cha_q
 
     io.result_data.valid := fir_filter_iq.io.filtered_data.valid
-    io.result_data.cha_i := fir_filter_iq.io.filtered_data.payload(0).floor(7 bits)
-    io.result_data.cha_q := fir_filter_iq.io.filtered_data.payload(1).floor(7 bits)
+    io.result_data.cha_i := fir_filter_iq.io.filtered_data.payload(0).floor(filter_cut_off_width bits)
+    io.result_data.cha_q := fir_filter_iq.io.filtered_data.payload(1).floor(filter_cut_off_width bits)
     io.result_data.last := Delay(io.raw_data.last, (srrcConfig.symbolSpan - 1)*srrcConfig.samplesPerSymbol + 1, fir_filter_iq.io.raw_data.fire, False)
 }
 
@@ -292,7 +266,7 @@ case class PhyHeaderExtender() extends Component {
         val IDLE, SDF, HEADER, DATA = newElement()
     }
     val io = new Bundle{
-        val mod_method = in(UInt(log2Up(genModulatorConfig.selectNum) bits))
+        val mod_method = in(mod_method_type)
         val pkg_size = slave(Stream(sizeDataType))
         val raw_data = slave(Stream(Fragment(modIQDataType)))
         val result_data = master(Stream(Fragment(modIQDataType)))
@@ -304,7 +278,7 @@ case class PhyHeaderExtender() extends Component {
     for(idx <- 0 until 2){
         header_mod_array(idx) := header_bpsk_mod_array(idx)
     }
-    val sdf_i_vec = Vec(modIQDataType.cha_i.clone(), sdf_size)
+    val sdf_i_vec = Vec(cloneOf(modIQDataType.cha_i), sdf_size)
     for(idx <- 0 until sdf_size){
         sdf_i_vec(idx) := sdf_i_array(idx)
     }
@@ -333,9 +307,9 @@ case class PhyHeaderExtender() extends Component {
                 pkg_size_ready := False
             }
             when(io.result_data.fire){
-                when(counter === 5){
+                when(counter === sdf_size - 1){
                     header_status := PhyTxHeaderStatus.HEADER
-                    counter := 9
+                    counter := (size_width * 8 + mod_method_width) - 1
                 }.otherwise{
                     counter := counter + 1
                 }

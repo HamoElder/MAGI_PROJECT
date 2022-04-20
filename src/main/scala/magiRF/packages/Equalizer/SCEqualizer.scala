@@ -12,56 +12,37 @@ case class SCEqualizer(
                           iterations: Int
                       ) extends Component{
     def dataWidth: Int = dataTypePeak.value - dataTypeResolution.value + 1
-    def chaSize: Int = refSeqArray.length
+    def seqSize: Int = refSeqArray.length
     def dataType: SInt = SInt(dataWidth bits)
-    def cntDataWidth: Int = log2Up(chaSize)
+    def cntDataWidth: Int = log2Up(seqSize)
     def cntDataType: UInt = UInt(cntDataWidth bits)
     val io = new Bundle{
-        val raw_data = slave(Stream(Fragment(IQBundle(dataType))))
-        val equalized_data = master(Flow(Fragment(IQBundle(dataType))))
+        val raw_data = slave(Flow(IQBundle(dataType)))
+        val equalized_data = master(Flow(IQBundle(dataType)))
+        val train_en = in(Bool())
+        val train_finish = out(Bool())
     }
     noIoPrefix()
 
     val cha_i_scale = Reg(dataType)
     val cha_q_scale = Reg(dataType)
 
-}
+    val cha_i_ref = Vec(Reg(dataType), seqSize)
+    val cha_q_ref = Vec(Reg(dataType), seqSize)
+
+    for(idx <- 0 until seqSize){
+        cha_i_ref(idx) := refSeqArray(idx).re.toInt
+        cha_q_ref(idx) := refSeqArray(idx).im.toInt
+    }
+
+    val cnt = Reg(cntDataType) init(0)
+    when(io.train_en){
+
+    }.elsewhen(io.raw_data.fire){
+        cnt := cnt + 1
+    }.otherwise{
+
+    }
 
 
-object ZeroForcingSimApp extends App {
-    import spinal.core.sim._
-
-    SimConfig.withWave.allOptimisation
-        .doSim(new ZeroForcing(3 exp, -12 exp, 16)) { dut =>
-            dut.clockDomain.forkStimulus(5)
-            dut.io.raw_data.valid #= false
-            dut.io.train_en #= false
-            dut.clockDomain.waitSampling(10)
-
-            /**
-             * Train
-             */
-            dut.io.train_en #= true
-            for(idx <- 1 until 100){
-                dut.io.raw_data.payload #= (-idx << 6)
-                dut.io.ref_data #= ((1.5*idx).toInt << 6)
-                dut.io.raw_data.valid #= true
-                //                dut.io.raw_data.valid.randomize()
-                dut.clockDomain.waitSampling(1)
-            }
-
-            /**
-             * Eq
-             */
-            dut.io.train_en #= false
-            for(idx <- 1 until 100){
-                dut.io.raw_data.payload #= (idx << 6)
-                dut.io.scale #= (1 << 12) +  (1 << 11) + (1 << 10)
-                dut.io.raw_data.valid #= true
-                //                dut.io.raw_data.valid.randomize()
-                dut.clockDomain.waitSampling(1)
-            }
-            dut.io.raw_data.valid #= false
-            dut.clockDomain.waitSampling(50)
-        }
 }

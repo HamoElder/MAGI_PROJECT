@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.4    git head : 598c18959149eb18e5eee5b0aa3eef01ecaa41a1
 // Component : TX
-// Git hash  : a56428541ec2887602f54ea433a81addc291a333
+// Git hash  : e8efb225eaee335c55f2fe9a41a836040a0bb18f
 
 `timescale 1ns/1ps 
 

@@ -40,8 +40,8 @@ case class PowerMeter(config: PowerMeterConfig) extends Component {
     val power_cal_q = RegNext(sq_q) >> config.shiftStep
 
     val power_cal_valid = RegNext(io.raw_data.valid) init(False)
-    val slide_win_i = ShiftRegister(power_cal_i, config.slideWinSize, power_cal_valid)
-    val slide_win_q = ShiftRegister(power_cal_q, config.slideWinSize, power_cal_valid)
+    val slide_win_i = ShiftRegister(power_cal_i, config.slideWinSize, power_cal_valid, useInitZero = true)
+    val slide_win_q = ShiftRegister(power_cal_q, config.slideWinSize, power_cal_valid, useInitZero = true)
 
     val power_result_valid = Reg(Bool()) init(False)
     when(power_cal_valid){

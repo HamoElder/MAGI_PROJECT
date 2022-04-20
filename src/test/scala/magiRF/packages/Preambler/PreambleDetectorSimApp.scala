@@ -9,7 +9,7 @@ import scala.util.Random
 
 object PreambleDetectorSimApp extends App{
 
-    val preamble_config = PreambleDetectorConfig(12, stf.length, stf.length, 8, stf, usePowerMeter = true)
+    val preamble_config = PreambleDetectorConfig(12, stf.length, stf.length, 8, usePowerMeter = true)
 //    val preamble_config = PreambleDetectorConfig(16, 16, 32, stf.map(_*100))
     SimConfig.withWave.doSim(new PreambleDetector(preamble_config)){ dut =>
         dut.clockDomain.forkStimulus(5)

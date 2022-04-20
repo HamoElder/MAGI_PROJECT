@@ -159,7 +159,7 @@ public:
     uint32_t timeCheck;
     bool waveEnabled;
     VPreambleDetector top;
-    ISignalAccess *signalAccess[10];
+    ISignalAccess *signalAccess[13];
     #ifdef TRACE
 	  VerilatedVcdC tfp;
 	  #endif
@@ -179,8 +179,11 @@ public:
       signalAccess[5] = new CDataSignalAccess( top.raw_data_out_valid );
       signalAccess[6] = new SDataSignalAccess( top.raw_data_out_payload_cha_i );
       signalAccess[7] = new SDataSignalAccess( top.raw_data_out_payload_cha_q );
-      signalAccess[8] = new CDataSignalAccess( top.clk );
-      signalAccess[9] = new CDataSignalAccess( top.reset );
+      signalAccess[8] = new CDataSignalAccess( top.corr_result_valid );
+      signalAccess[9] = new QDataSignalAccess( top.corr_result_payload_cha_i );
+      signalAccess[10] = new QDataSignalAccess( top.corr_result_payload_cha_q );
+      signalAccess[11] = new CDataSignalAccess( top.clk );
+      signalAccess[12] = new CDataSignalAccess( top.reset );
 
       #ifdef TRACE
       Verilated::traceEverOn(true);
@@ -191,7 +194,7 @@ public:
     }
 
     virtual ~Wrapper_1(){
-      for(int idx = 0;idx < 10;idx++){
+      for(int idx = 0;idx < 13;idx++){
           delete signalAccess[idx];
       }
 

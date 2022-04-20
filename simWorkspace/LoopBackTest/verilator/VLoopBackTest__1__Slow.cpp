@@ -5,10 +5,165 @@
 #include "VLoopBackTest.h"
 #include "VLoopBackTest__Syms.h"
 
-void VLoopBackTest::_settle__TOP__43(VLoopBackTest__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VLoopBackTest::_settle__TOP__43\n"); );
+void VLoopBackTest::_settle__TOP__49(VLoopBackTest__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VLoopBackTest::_settle__TOP__49\n"); );
     VLoopBackTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_popPtr_willIncrement = 0U;
+    if (vlTOPp->LoopBackTest__DOT__transmitter__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_popping) {
+        vlTOPp->LoopBackTest__DOT__transmitter__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_popPtr_willIncrement = 1U;
+    }
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_oversampling_result_data_valid 
+        = ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_oversampling_raw_data_valid) 
+           | (0U != (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_oversampling__DOT__cnt)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc__DOT__crc_1__DOT__state_5 
+        = ((vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc__DOT__crc_1__DOT__state_4 
+            << 1U) ^ ((1U & (((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
+                              >> 5U) ^ (vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc__DOT__crc_1__DOT__state_4 
+                                        >> 0x1fU)))
+                       ? 0x4c11db7U : 0U));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_3 
+        = ((0x80U & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__phy_tx_encoder_raw_data_payload_fragment) 
+                     << 4U)) | (0x7fU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_2) 
+                                         >> 1U)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_2 
+        = ((0xfeU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_1) 
+                     << 1U)) | (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_2));
+    vlTOPp->LoopBackTest__DOT__axi4_stream_fifo__DOT__logic_popPtr_valueNext 
+        = (0xffU & ((IData)(vlTOPp->LoopBackTest__DOT__axi4_stream_fifo__DOT__logic_popPtr_value) 
+                    + (IData)(vlTOPp->LoopBackTest__DOT__axi4_stream_fifo__DOT__logic_popPtr_willIncrement)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_popPtr_valueNext 
+        = (0xfU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_popPtr_value) 
+                   + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_popPtr_willIncrement)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_valueNext 
+        = (((0x80U == (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_value)) 
+            & (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_willIncrement))
+            ? 0U : (0xffU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_value) 
+                             + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_willIncrement))));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext 
+        = (0x1fU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
+                    + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement)));
+    vlTOPp->LoopBackTest__DOT__trans_fifo__DOT__logic_popPtr_valueNext 
+        = (0xffU & ((IData)(vlTOPp->LoopBackTest__DOT__trans_fifo__DOT__logic_popPtr_value) 
+                    + (IData)(vlTOPp->LoopBackTest__DOT__trans_fifo__DOT__logic_popPtr_willIncrement)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT___zz_1 = 0U;
+    if (vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushing) {
+        vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT___zz_1 = 1U;
+    }
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_willIncrement = 0U;
+    if (vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushing) {
+        vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_willIncrement = 1U;
+    }
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext 
+        = (0x1fU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
+                    + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 0U;
+    if (vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popping) {
+        vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 1U;
+    }
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext 
+        = (0x1fU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
+                    + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext 
+        = (0x1fU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
+                    + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
+    vlTOPp->LoopBackTest__DOT__trans_to_recv_fifo__DOT__logic_pushPtr_valueNext 
+        = (0x3ffU & ((IData)(vlTOPp->LoopBackTest__DOT__trans_to_recv_fifo__DOT__logic_pushPtr_value) 
+                     + (IData)(vlTOPp->LoopBackTest__DOT__trans_to_recv_fifo__DOT__logic_pushPtr_willIncrement)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__when_PhyTx_l96_1 
+        = ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__phy_tx_encoder_raw_data_valid) 
+           & (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__emitEncoding));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext 
+        = (0x1fU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
+                    + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushing 
+        = ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_valid) 
+           & (~ (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_full)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_popPtr_valueNext 
+        = (0x1fU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_popPtr_value) 
+                    + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushing 
+        = ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_valid) 
+           & (~ (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_full)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext 
+        = (0x1fU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
+                    + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushing 
+        = ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_valid) 
+           & (~ (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_full)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext 
+        = (0x1fU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
+                    + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder__DOT__when_PhyTx_l72 
+        = ((7U != (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder__DOT__counter)) 
+           & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_valid) 
+              & (~ (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_full))));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushing 
+        = ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_valid) 
+           & (~ (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_full)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_popPtr_valueNext 
+        = (0x1fU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_popPtr_value) 
+                    + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid 
+        = ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_oversampling_result_data_valid) 
+           | (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__last_padding));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc__DOT__crc_1__DOT__state_6 
+        = ((vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc__DOT__crc_1__DOT__state_5 
+            << 1U) ^ ((1U & (((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
+                              >> 6U) ^ (vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc__DOT__crc_1__DOT__state_5 
+                                        >> 0x1fU)))
+                       ? 0x4c11db7U : 0U));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_4 
+        = ((0x80U & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__phy_tx_encoder_raw_data_payload_fragment) 
+                     << 3U)) | (0x7fU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_3) 
+                                         >> 1U)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_3 
+        = (1U & (((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_2) 
+                  >> 6U) ^ ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_2) 
+                            >> 3U)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_valueNext 
+        = (((0x80U == (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_value)) 
+            & (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_willIncrement))
+            ? 0U : (0xffU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_value) 
+                             + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_willIncrement))));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext 
+        = (0x1fU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
+                    + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT___zz_1 = 0U;
+    if (vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushing) {
+        vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT___zz_1 = 1U;
+    }
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 0U;
+    if (vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushing) {
+        vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 1U;
+    }
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT___zz_1 = 0U;
+    if (vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushing) {
+        vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT___zz_1 = 1U;
+    }
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 0U;
+    if (vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushing) {
+        vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 1U;
+    }
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT___zz_1 = 0U;
+    if (vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushing) {
+        vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT___zz_1 = 1U;
+    }
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 0U;
+    if (vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushing) {
+        vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 1U;
+    }
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_1 = 0U;
+    if (vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushing) {
+        vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_1 = 1U;
+    }
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 0U;
+    if (vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushing) {
+        vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 1U;
+    }
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_pushing 
+        = ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid) 
+           & (~ (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_full)));
     vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc__DOT__crc_1__DOT__state_7 
         = ((vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc__DOT__crc_1__DOT__state_6 
             << 1U) ^ ((1U & (((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
@@ -22,15 +177,18 @@ void VLoopBackTest::_settle__TOP__43(VLoopBackTest__Syms* __restrict vlSymsp) {
     vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_3 
         = ((0xfeU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_2) 
                      << 1U)) | (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_3));
-    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext 
-        = (0x1fU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
-                    + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement)));
-    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext 
-        = (0x1fU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
-                    + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext 
+        = (0x1fU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
+                    + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement)));
     vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext 
         = (0x1fU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
                     + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext 
+        = (0x1fU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
+                    + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement)));
+    vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext 
+        = (0x1fU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
+                    + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement)));
     vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT___zz_1 = 0U;
     if (vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_pushing) {
         vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT___zz_1 = 1U;
@@ -56,6 +214,12 @@ void VLoopBackTest::_settle__TOP__43(VLoopBackTest__Syms* __restrict vlSymsp) {
     vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext 
         = (0x1fU & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
                     + (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement)));
+}
+
+void VLoopBackTest::_settle__TOP__50(VLoopBackTest__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VLoopBackTest::_settle__TOP__50\n"); );
+    VLoopBackTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
     vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc__DOT__crc_1__DOT___zz_resultNext_2 
         = ((0x100000U & ((~ (vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc__DOT__crc_1__DOT__state_8 
                              >> 0xbU)) << 0x14U)) | 
@@ -235,12 +399,6 @@ void VLoopBackTest::_settle__TOP__43(VLoopBackTest__Syms* __restrict vlSymsp) {
                         ^ (0xffffff80U & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_7) 
                                           << 2U))) 
                        ^ (0xffffff80U & (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_7)))));
-}
-
-void VLoopBackTest::_settle__TOP__44(VLoopBackTest__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VLoopBackTest::_settle__TOP__44\n"); );
-    VLoopBackTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
     vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT__code_vec_1 
         = ((0xfeU & (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT__code_vec_1)) 
            | (1U & ((((((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_0) 
@@ -329,6 +487,12 @@ void VLoopBackTest::_settle__TOP__44(VLoopBackTest__Syms* __restrict vlSymsp) {
                         ^ (0xffffff80U & ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_7) 
                                           << 1U))) 
                        ^ (0xffffff80U & (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_7)))));
+}
+
+void VLoopBackTest::_settle__TOP__51(VLoopBackTest__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VLoopBackTest::_settle__TOP__51\n"); );
+    VLoopBackTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
     vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_5 
         = (1U & (((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_4) 
                   >> 6U) ^ ((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_4) 
@@ -426,15 +590,16 @@ void VLoopBackTest::_eval_settle(VLoopBackTest__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VLoopBackTest::_eval_settle\n"); );
     VLoopBackTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->_settle__TOP__37(vlSymsp);
-    vlTOPp->__Vm_traceActivity = (1U | vlTOPp->__Vm_traceActivity);
-    vlTOPp->_settle__TOP__38(vlSymsp);
-    vlTOPp->_settle__TOP__39(vlSymsp);
-    vlTOPp->_settle__TOP__40(vlSymsp);
-    vlTOPp->_settle__TOP__41(vlSymsp);
-    vlTOPp->_settle__TOP__42(vlSymsp);
     vlTOPp->_settle__TOP__43(vlSymsp);
+    vlTOPp->__Vm_traceActivity = (1U | vlTOPp->__Vm_traceActivity);
     vlTOPp->_settle__TOP__44(vlSymsp);
+    vlTOPp->_settle__TOP__45(vlSymsp);
+    vlTOPp->_settle__TOP__46(vlSymsp);
+    vlTOPp->_settle__TOP__47(vlSymsp);
+    vlTOPp->_settle__TOP__48(vlSymsp);
+    vlTOPp->_settle__TOP__49(vlSymsp);
+    vlTOPp->_settle__TOP__50(vlSymsp);
+    vlTOPp->_settle__TOP__51(vlSymsp);
 }
 
 void VLoopBackTest::_ctor_var_reset() {
@@ -532,13 +697,16 @@ void VLoopBackTest::_ctor_var_reset() {
     { int __Vi0=0; for (; __Vi0<256; ++__Vi0) {
             LoopBackTest__DOT__trans_fifo__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(9);
     }}
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_raw_data_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_raw_data_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_raw_data_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder_raw_data_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_raw_data_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_raw_data_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_raw_data_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_oversampling_raw_data_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__stf_preamble_adder_raw_data_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_raw_data_ready = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_raw_data_ready = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_payload_last = VL_RAND_RESET_I(1);
@@ -549,16 +717,17 @@ void VLoopBackTest::_ctor_var_reset() {
     LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_payload_last = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_raw_data_ready = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_payload_last = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_payload_fragment = VL_RAND_RESET_I(16);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_raw_data_ready = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__mod_data_div_unit_data_payload_last = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_raw_data_ready = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_payload_last = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_payload_fragment_cha_i = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_payload_fragment_cha_q = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_oversampling_raw_data_ready = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_oversampling_result_data_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_oversampling_result_data_payload_last = VL_RAND_RESET_I(1);
@@ -566,11 +735,71 @@ void VLoopBackTest::_ctor_var_reset() {
     LoopBackTest__DOT__transmitter__DOT__phy_tx_filter_result_data_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__stf_preamble_adder_raw_data_ready = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_front_result_data_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__pipeline_halt = VL_RAND_RESET_I(8);
+    LoopBackTest__DOT__transmitter__DOT__pipeline_halt = VL_RAND_RESET_I(9);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo_io_pop_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_fifo_io_pop_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_cnt = VL_RAND_RESET_I(8);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_valid_1 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_payload_1 = VL_RAND_RESET_I(8);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__when_PhyTx_l246 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__raw_data_fire_3 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT____Vxrand1 = VL_RAND_RESET_I(9);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(9);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT___zz_1 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(8);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_value = VL_RAND_RESET_I(8);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(8);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_value = VL_RAND_RESET_I(8);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushing = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popping = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_full = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
+    { int __Vi0=0; for (; __Vi0<129; ++__Vi0) {
+            LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(9);
+    }}
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT____Vlvbound2 = VL_RAND_RESET_I(9);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(8);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT___zz_1 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(4);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_pushPtr_value = VL_RAND_RESET_I(4);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(4);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_popPtr_value = VL_RAND_RESET_I(4);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_pushing = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_popping = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_full = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
+    { int __Vi0=0; for (; __Vi0<16; ++__Vi0) {
+            LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(8);
+    }}
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(9);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_1 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(5);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushPtr_value = VL_RAND_RESET_I(5);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(5);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popPtr_value = VL_RAND_RESET_I(5);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushing = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popping = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_full = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
+    { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
+            LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(9);
+    }}
     LoopBackTest__DOT__transmitter__DOT__phy_tx_padder__DOT__counter = VL_RAND_RESET_I(3);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_padder__DOT__raw_data_payload_first = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_padder__DOT__fill = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_padder__DOT__when_PhyTx_l71 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_padder__DOT__when_PhyTx_l72 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(9);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_1 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
@@ -591,7 +820,7 @@ void VLoopBackTest::_ctor_var_reset() {
     LoopBackTest__DOT__transmitter__DOT__phy_tx_crc__DOT__crc_1_result = VL_RAND_RESET_I(32);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_crc__DOT__emitCrc = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_crc__DOT__counter = VL_RAND_RESET_I(2);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_crc__DOT__when_PhyTx_l39 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_crc__DOT__when_PhyTx_l40 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_crc__DOT__crc_1__DOT___zz_result_2 = VL_RAND_RESET_I(21);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_crc__DOT__crc_1__DOT___zz_resultNext_2 = VL_RAND_RESET_I(21);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_crc__DOT__crc_1__DOT__state_8 = VL_RAND_RESET_I(32);
@@ -623,8 +852,8 @@ void VLoopBackTest::_ctor_var_reset() {
     LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__phy_tx_encoder_raw_data_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__phy_tx_encoder_raw_data_payload_fragment = VL_RAND_RESET_I(8);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__emitEncoding = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__when_PhyTx_l95 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__when_PhyTx_l95_1 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__when_PhyTx_l96 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__when_PhyTx_l96_1 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_0 = VL_RAND_RESET_I(8);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_1 = VL_RAND_RESET_I(8);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_2 = VL_RAND_RESET_I(8);
@@ -658,47 +887,6 @@ void VLoopBackTest::_ctor_var_reset() {
     LoopBackTest__DOT__transmitter__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
     { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
             LoopBackTest__DOT__transmitter__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(17);
-    }}
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo_io_pop_ready = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo_io_pop_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__counter = VL_RAND_RESET_I(8);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__emitHeader = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__header_status = VL_RAND_RESET_I(2);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT____Vxrand1 = VL_RAND_RESET_I(17);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(17);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT___zz_1 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(8);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_pushPtr_value = VL_RAND_RESET_I(8);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(8);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_popPtr_value = VL_RAND_RESET_I(8);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_pushing = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_popping = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_full = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
-    { int __Vi0=0; for (; __Vi0<136; ++__Vi0) {
-            LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(17);
-    }}
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT____Vlvbound2 = VL_RAND_RESET_I(17);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(17);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT___zz_1 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(5);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushPtr_value = VL_RAND_RESET_I(5);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(5);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_value = VL_RAND_RESET_I(5);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushing = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popping = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_full = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
-    { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
-            LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(17);
     }}
     LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_1_init_state_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_1_scram_data_ready = VL_RAND_RESET_I(1);
@@ -797,6 +985,35 @@ void VLoopBackTest::_ctor_var_reset() {
     { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
             LoopBackTest__DOT__transmitter__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(25);
     }}
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT____Vxrand1 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT___zz_result_data_payload_fragment_cha_i_1 = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__header_status = VL_RAND_RESET_I(2);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__counter = VL_RAND_RESET_I(5);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__pkg_size_ready_1 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__pkg_size_payload_1 = VL_RAND_RESET_I(8);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__pkg_size_fire = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__when_PhyTx_l310 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__when_PhyTx_l322 = VL_RAND_RESET_I(1);
+    { int __Vi0=0; for (; __Vi0<2; ++__Vi0) {
+            LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__header_mod_array[__Vi0] = VL_RAND_RESET_I(12);
+    }}
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(25);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT___zz_1 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(5);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushPtr_value = VL_RAND_RESET_I(5);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(5);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_value = VL_RAND_RESET_I(5);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushing = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popping = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_full = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
+    { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
+            LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(25);
+    }}
     LoopBackTest__DOT__transmitter__DOT__phy_tx_oversampling__DOT___zz_cnt = VL_RAND_RESET_I(3);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_oversampling__DOT__cnt = VL_RAND_RESET_I(3);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_oversampling__DOT__raw_last = VL_RAND_RESET_I(1);
@@ -862,72 +1079,79 @@ void VLoopBackTest::_ctor_var_reset() {
     LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_30 = VL_RAND_RESET_I(7);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_31 = VL_RAND_RESET_I(7);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_32 = VL_RAND_RESET_I(7);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_66__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_67__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_68__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_69__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_70__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_71__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_72__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_73__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_74__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_75__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_76__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_77__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_78__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_79__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_80__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_81__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_82__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_83__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_84__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_85__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_86__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_87__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_88__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_89__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_90__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_91__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_92__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_93__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_94__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_95__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_96__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_97__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_98__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_99__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_100__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_101__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_102__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_103__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_104__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_105__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_106__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_107__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_108__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_109__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_110__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_111__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_112__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_113__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_114__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_115__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_116__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_117__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_118__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_119__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_120__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_121__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_122__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_123__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_124__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_125__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_126__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_127__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_128__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_129__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_130__DOT__previous_adder_data = VL_RAND_RESET_I(19);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_131__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_132__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_133__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_134__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_135__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_136__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_137__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_138__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_139__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_140__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_141__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_142__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_143__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_144__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_145__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_146__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_147__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_148__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_149__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_150__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_151__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_152__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_153__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_154__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_155__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_156__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_157__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_158__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_159__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_160__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_161__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_162__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_163__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_164__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_165__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_166__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_167__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_168__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_169__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_170__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_171__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_172__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_173__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_174__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_175__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_176__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_177__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_178__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_179__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_180__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_181__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_182__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    _ctor_var_reset_1();
+    _ctor_var_reset_2();
+}
+
+void VLoopBackTest::_ctor_var_reset_1() {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VLoopBackTest::_ctor_var_reset_1\n"); );
+    // Body
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_183__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_184__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_185__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_186__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_187__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_188__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_189__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_190__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_191__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_192__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_193__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_194__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_195__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_196__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    LoopBackTest__DOT__transmitter__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_197__DOT__previous_adder_data = VL_RAND_RESET_I(19);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(25);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT___zz_1 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
@@ -961,13 +1185,6 @@ void VLoopBackTest::_ctor_var_reset() {
     LoopBackTest__DOT__transmitter__DOT__stf_preamble_adder__DOT__when_PreambleExtender_l74 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__stf_preamble_adder__DOT__when_PreambleExtender_l76 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__stf_preamble_adder__DOT__raw_data_fire = VL_RAND_RESET_I(1);
-    _ctor_var_reset_1();
-    _ctor_var_reset_2();
-}
-
-void VLoopBackTest::_ctor_var_reset_1() {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VLoopBackTest::_ctor_var_reset_1\n"); );
-    // Body
     { int __Vi0=0; for (; __Vi0<16; ++__Vi0) {
             LoopBackTest__DOT__transmitter__DOT__stf_preamble_adder__DOT__I_mem[__Vi0] = VL_RAND_RESET_I(12);
     }}
@@ -1007,149 +1224,157 @@ void VLoopBackTest::_ctor_var_reset_1() {
     { int __Vi0=0; for (; __Vi0<1024; ++__Vi0) {
             LoopBackTest__DOT__trans_to_recv_fifo__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(24);
     }}
+    LoopBackTest__DOT__receiver__DOT__phy_rx_header_extender_sdf_not_found = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_power_adjustor__DOT__shifted_data_cha_i = VL_RAND_RESET_I(12);
     LoopBackTest__DOT__receiver__DOT__phy_rx_power_adjustor__DOT__shifted_data_cha_q = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__package_handling = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__pkg_handling_1 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__gate_pkg_det = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__prod_avg_mag = VL_RAND_RESET_Q(36);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__plateau_cnt = VL_RAND_RESET_I(8);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT___zz_gate_pkg_det = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1_power_result_valid_regNext = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__when_PreambleDetector_l67 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__raw_data_regNext_payload_cha_i = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__raw_data_regNext_payload_cha_q = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT___zz_power_val_i = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT___zz_power_val_q = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__power_val_cha_i = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__power_val_cha_q = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__power_val_i = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__power_val_q = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__sq_i_regNext = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__sq_q_regNext = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__power_cal_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__power_result_valid_1 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_0 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_1 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_2 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_3 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_4 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_5 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_6 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_7 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_8 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_9 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_10 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_11 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_12 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_13 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_14 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_15 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_0 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_1 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_2 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_3 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_4 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_5 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_6 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_7 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_8 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_9 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_10 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_11 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_12 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_13 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_14 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_15 = VL_RAND_RESET_I(20);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_0_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_0_payload_cha_i = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_0_payload_cha_q = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_1_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_1_payload_cha_i = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_1_payload_cha_q = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_2_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_2_payload_cha_i = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_2_payload_cha_q = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_3_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_3_payload_cha_i = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_3_payload_cha_q = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_4_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_4_payload_cha_i = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_4_payload_cha_q = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_5_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_5_payload_cha_i = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_5_payload_cha_q = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_6_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_6_payload_cha_i = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_6_payload_cha_q = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_7_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_7_payload_cha_i = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_7_payload_cha_q = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_8_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_8_payload_cha_i = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_8_payload_cha_q = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_9_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_9_payload_cha_i = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_9_payload_cha_q = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_10_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_10_payload_cha_i = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_10_payload_cha_q = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_11_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_11_payload_cha_i = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_11_payload_cha_q = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_12_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_12_payload_cha_i = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_12_payload_cha_q = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_13_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_13_payload_cha_i = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_13_payload_cha_q = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_14_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_14_payload_cha_i = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_14_payload_cha_q = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_15_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_15_payload_cha_i = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_15_payload_cha_q = VL_RAND_RESET_I(12);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT___zz_corr_val_i_1 = VL_RAND_RESET_Q(36);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT___zz_corr_val_q_1 = VL_RAND_RESET_Q(36);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__corr_val_i = VL_RAND_RESET_Q(36);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__corr_val_q = VL_RAND_RESET_Q(36);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT___zz_corr_val_i = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT___zz_corr_val_q = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT___zz_enable = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT___zz_corr_result_valid = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_0 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_1 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_2 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_3 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_4 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_5 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_6 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_7 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_8 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_9 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_10 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_11 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_12 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_13 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_14 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_15 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_0 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_1 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_2 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_3 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_4 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_5 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_6 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_7 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_8 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_9 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_10 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_11 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_12 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_13 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_14 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_preamble_detector__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_15 = VL_RAND_RESET_I(24);
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cfo_corrected = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__package_handling_regNext = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cfo_enable = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__pkg_detected_regNext = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__phase_corrected_1 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__prod_max = VL_RAND_RESET_Q(36);
-    VL_RAND_RESET_W(120, LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__prod_cnt);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__when_PhyRx_l49 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__gate_pkg_det = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__prod_avg_mag = VL_RAND_RESET_Q(36);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__plateau_cnt = VL_RAND_RESET_I(8);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT___zz_gate_pkg_det = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__when_PreambleDetector_l64 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT___zz_power_val_i = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT___zz_power_val_q = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__power_val_cha_i = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__power_val_cha_q = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__power_val_i = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__power_val_q = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__sq_i_regNext = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__sq_q_regNext = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__power_cal_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__power_result_valid_1 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_0 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_1 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_2 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_3 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_4 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_5 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_6 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_7 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_8 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_9 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_10 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_11 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_12 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_13 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_14 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_11__DOT__shift_reg_15 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_0 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_1 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_2 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_3 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_4 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_5 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_6 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_7 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_8 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_9 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_10 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_11 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_12 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_13 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_14 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__powerMeter_1__DOT__shiftRegister_12__DOT__shift_reg_15 = VL_RAND_RESET_I(20);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_0_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_0_payload_cha_i = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_0_payload_cha_q = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_1_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_1_payload_cha_i = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_1_payload_cha_q = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_2_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_2_payload_cha_i = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_2_payload_cha_q = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_3_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_3_payload_cha_i = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_3_payload_cha_q = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_4_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_4_payload_cha_i = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_4_payload_cha_q = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_5_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_5_payload_cha_i = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_5_payload_cha_q = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_6_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_6_payload_cha_i = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_6_payload_cha_q = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_7_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_7_payload_cha_i = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_7_payload_cha_q = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_8_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_8_payload_cha_i = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_8_payload_cha_q = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_9_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_9_payload_cha_i = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_9_payload_cha_q = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_10_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_10_payload_cha_i = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_10_payload_cha_q = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_11_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_11_payload_cha_i = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_11_payload_cha_q = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_12_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_12_payload_cha_i = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_12_payload_cha_q = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_13_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_13_payload_cha_i = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_13_payload_cha_q = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_14_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_14_payload_cha_i = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_14_payload_cha_q = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_15_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_15_payload_cha_i = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__shiftRegister_11__DOT__shift_reg_15_payload_cha_q = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT___zz_corr_val_i_1 = VL_RAND_RESET_Q(36);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT___zz_corr_val_q_1 = VL_RAND_RESET_Q(36);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__corr_val_i = VL_RAND_RESET_Q(36);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__corr_val_q = VL_RAND_RESET_Q(36);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT___zz_corr_val_i = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT___zz_corr_val_q = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT___zz_enable = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT___zz_corr_result_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_0 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_1 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_2 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_3 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_4 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_5 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_6 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_7 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_8 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_9 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_10 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_11 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_12 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_13 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_14 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_15 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_0 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_1 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_2 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_3 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_4 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_5 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_6 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_7 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_8 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_9 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_10 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_11 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_12 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_13 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_14 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__autoCorrelator_2__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_15 = VL_RAND_RESET_I(24);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__prod_cnt = VL_RAND_RESET_I(5);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__when_PhyRx_l86 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__when_PhyRx_l89 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__when_PhyRx_l85 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__cfo_estimator_delta_phi_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator_rotated_data_payload_cha_i = VL_RAND_RESET_I(12);
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator_rotated_data_payload_cha_q = VL_RAND_RESET_I(12);
@@ -1333,6 +1558,7 @@ void VLoopBackTest::_ctor_var_reset_1() {
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__cfo_estimator__DOT__cordic_core__DOT___zz_result_payload_x_79 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__cfo_estimator__DOT__cordic_core__DOT___zz_result_payload_x_82 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__cfo_estimator__DOT__cordic_core__DOT___zz_result_payload_x_85 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT___zz_when_PhaseRotator_l47 = VL_RAND_RESET_I(24);
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT___zz_when_PhaseRotator_l50 = VL_RAND_RESET_I(24);
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT___zz___05Fzz_when_SInt_l337_2 = VL_RAND_RESET_I(26);
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT___zz___05Fzz_when_SInt_l337_5 = VL_RAND_RESET_I(26);
@@ -1422,160 +1648,4 @@ void VLoopBackTest::_ctor_var_reset_1() {
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__cordic_pipeline_core__DOT___zz_result_payload_x_70 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__cordic_pipeline_core__DOT___zz_result_payload_x_73 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__cordic_pipeline_core__DOT___zz_result_payload_x_76 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__cordic_pipeline_core__DOT___zz_result_payload_x_79 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__cordic_pipeline_core__DOT___zz_result_payload_x_82 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__cordic_pipeline_core__DOT___zz_result_payload_x_85 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__shiftRegister_11__DOT__shift_reg_0 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__shiftRegister_11__DOT__shift_reg_1 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__shiftRegister_11__DOT__shift_reg_2 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__shiftRegister_11__DOT__shift_reg_3 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__shiftRegister_11__DOT__shift_reg_4 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__shiftRegister_11__DOT__shift_reg_5 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__shiftRegister_11__DOT__shift_reg_6 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__shiftRegister_11__DOT__shift_reg_7 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__shiftRegister_11__DOT__shift_reg_8 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__shiftRegister_11__DOT__shift_reg_9 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__shiftRegister_11__DOT__shift_reg_10 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__shiftRegister_11__DOT__shift_reg_11 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT___zz_I_mem_port0 = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT___zz_Q_mem_port0 = VL_RAND_RESET_I(12);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT___zz_cnt = VL_RAND_RESET_I(5);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__cnt = VL_RAND_RESET_I(5);
-    { int __Vi0=0; for (; __Vi0<16; ++__Vi0) {
-            LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__I_mem[__Vi0] = VL_RAND_RESET_I(12);
-    }}
-    { int __Vi0=0; for (; __Vi0<16; ++__Vi0) {
-            LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__Q_mem[__Vi0] = VL_RAND_RESET_I(12);
-    }}
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT___zz_corr_val_i_1 = VL_RAND_RESET_Q(36);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT___zz_corr_val_q_1 = VL_RAND_RESET_Q(36);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__corr_val_i = VL_RAND_RESET_Q(36);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__corr_val_q = VL_RAND_RESET_Q(36);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT___zz_corr_val_i = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT___zz_corr_val_q = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT___zz_enable = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT___zz_corr_result_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_0 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_1 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_2 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_3 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_4 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_5 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_6 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_7 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_8 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_9 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_10 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_11 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_12 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_13 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_14 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_15 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_11__DOT__shift_reg_16 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_0 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_1 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_2 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_3 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_4 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_5 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_6 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_7 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_8 = VL_RAND_RESET_I(24);
-}
-
-void VLoopBackTest::_ctor_var_reset_2() {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VLoopBackTest::_ctor_var_reset_2\n"); );
-    // Body
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_9 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_10 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_11 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_12 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_13 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_14 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_15 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__corr_core__DOT__shiftRegister_12__DOT__shift_reg_16 = VL_RAND_RESET_I(24);
-    LoopBackTest__DOT__clkCrossing_9__DOT__area_clkI_reg = VL_RAND_RESET_I(7);
-    LoopBackTest__DOT__clkCrossing_9__DOT__area_clkO_buf0 = VL_RAND_RESET_I(7);
-    LoopBackTest__DOT__clkCrossing_9__DOT__area_clkO_buf1 = VL_RAND_RESET_I(7);
-    LoopBackTest__DOT__clkCrossing_10__DOT__area_clkI_reg = VL_RAND_RESET_I(7);
-    LoopBackTest__DOT__clkCrossing_10__DOT__area_clkO_buf0 = VL_RAND_RESET_I(7);
-    LoopBackTest__DOT__clkCrossing_10__DOT__area_clkO_buf1 = VL_RAND_RESET_I(7);
-    LoopBackTest__DOT__clkCrossing_11__DOT__area_clkI_reg = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__clkCrossing_11__DOT__area_clkO_buf0 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__clkCrossing_11__DOT__area_clkO_buf1 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__clkCrossing_12__DOT__area_clkI_reg = VL_RAND_RESET_I(4);
-    LoopBackTest__DOT__clkCrossing_12__DOT__area_clkO_buf0 = VL_RAND_RESET_I(4);
-    LoopBackTest__DOT__clkCrossing_12__DOT__area_clkO_buf1 = VL_RAND_RESET_I(4);
-    LoopBackTest__DOT__clkCrossing_13__DOT__area_clkI_reg = VL_RAND_RESET_I(4);
-    LoopBackTest__DOT__clkCrossing_13__DOT__area_clkO_buf0 = VL_RAND_RESET_I(4);
-    LoopBackTest__DOT__clkCrossing_13__DOT__area_clkO_buf1 = VL_RAND_RESET_I(4);
-    LoopBackTest__DOT__clkCrossing_14__DOT__area_clkI_reg = VL_RAND_RESET_I(2);
-    LoopBackTest__DOT__clkCrossing_14__DOT__area_clkO_buf0 = VL_RAND_RESET_I(2);
-    LoopBackTest__DOT__clkCrossing_14__DOT__area_clkO_buf1 = VL_RAND_RESET_I(2);
-    LoopBackTest__DOT__clkCrossing_15__DOT__area_clkI_reg = VL_RAND_RESET_I(2);
-    LoopBackTest__DOT__clkCrossing_15__DOT__area_clkO_buf0 = VL_RAND_RESET_I(2);
-    LoopBackTest__DOT__clkCrossing_15__DOT__area_clkO_buf1 = VL_RAND_RESET_I(2);
-    LoopBackTest__DOT__clkCrossing_16__DOT__area_clkI_reg = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__clkCrossing_16__DOT__area_clkO_buf0 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__clkCrossing_16__DOT__area_clkO_buf1 = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__clkCrossing_17__DOT__area_clkI_reg = VL_RAND_RESET_I(8);
-    LoopBackTest__DOT__clkCrossing_17__DOT__area_clkO_buf0 = VL_RAND_RESET_I(8);
-    LoopBackTest__DOT__clkCrossing_17__DOT__area_clkO_buf1 = VL_RAND_RESET_I(8);
-    __Vdly__LoopBackTest__DOT__stream_package_gen__DOT__split_core__DOT__cnt = VL_RAND_RESET_I(3);
-    __Vdly__LoopBackTest__DOT__transmitter__DOT__phy_tx_padder__DOT__counter = VL_RAND_RESET_I(3);
-    __Vdly__LoopBackTest__DOT__transmitter__DOT__phy_tx_crc__DOT__counter = VL_RAND_RESET_I(2);
-    __Vdly__LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__header_status = VL_RAND_RESET_I(2);
-    __Vdly__LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__counter = VL_RAND_RESET_I(8);
-    __Vdly__LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_status = VL_RAND_RESET_I(2);
-    __Vdly__LoopBackTest__DOT__transmitter__DOT__mod_data_div__DOT__base_cnt = VL_RAND_RESET_I(4);
-    __Vdly__LoopBackTest__DOT__transmitter__DOT__mod_data_div__DOT__base_buffer = VL_RAND_RESET_I(16);
-    __Vdly__LoopBackTest__DOT__transmitter__DOT__phy_tx_oversampling__DOT__cnt = VL_RAND_RESET_I(3);
-    __Vdly__LoopBackTest__DOT__transmitter__DOT__stf_preamble_adder__DOT__cnt = VL_RAND_RESET_I(4);
-    __Vdly__LoopBackTest__DOT__transmitter__DOT__stf_preamble_adder__DOT__repeatCnt = VL_RAND_RESET_I(5);
-    __Vdly__LoopBackTest__DOT__transmitter__DOT__stf_preamble_adder__DOT__preamble_states = VL_RAND_RESET_I(2);
-    VL_RAND_RESET_W(120, __Vdly__LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__prod_cnt);
-    __Vdly__LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__preamble_detector__DOT__plateau_cnt = VL_RAND_RESET_I(8);
-    __Vdly__LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__delta_phi_mean = VL_RAND_RESET_I(24);
-    __Vdly__LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__mean_cnt = VL_RAND_RESET_I(2);
-    __Vdly__LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__xy_symbol = VL_RAND_RESET_I(1);
-    __Vdly__LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__cnt = VL_RAND_RESET_I(5);
-    __Vdlyvdim0__LoopBackTest__DOT__axi4_stream_fifo__DOT__logic_ram__v0 = 0;
-    __Vdlyvval__LoopBackTest__DOT__axi4_stream_fifo__DOT__logic_ram__v0 = VL_RAND_RESET_Q(41);
-    __Vdlyvset__LoopBackTest__DOT__axi4_stream_fifo__DOT__logic_ram__v0 = 0;
-    __Vdly__LoopBackTest__DOT__stream_package_gen__DOT__strb_buf = VL_RAND_RESET_I(4);
-    __Vdly__LoopBackTest__DOT__stream_package_gen__DOT__split_core__DOT__data_buf = VL_RAND_RESET_I(32);
-    __Vdlyvdim0__LoopBackTest__DOT__trans_fifo__DOT__logic_ram__v0 = 0;
-    __Vdlyvval__LoopBackTest__DOT__trans_fifo__DOT__logic_ram__v0 = VL_RAND_RESET_I(9);
-    __Vdlyvset__LoopBackTest__DOT__trans_fifo__DOT__logic_ram__v0 = 0;
-    __Vdlyvdim0__LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_ram__v0 = 0;
-    __Vdlyvval__LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_ram__v0 = VL_RAND_RESET_I(9);
-    __Vdlyvset__LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_ram__v0 = 0;
-    __Vdlyvdim0__LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_ram__v0 = 0;
-    __Vdlyvval__LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_ram__v0 = VL_RAND_RESET_I(9);
-    __Vdlyvset__LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_ram__v0 = 0;
-    __Vdlyvdim0__LoopBackTest__DOT__transmitter__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_ram__v0 = 0;
-    __Vdlyvval__LoopBackTest__DOT__transmitter__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_ram__v0 = VL_RAND_RESET_I(17);
-    __Vdlyvset__LoopBackTest__DOT__transmitter__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_ram__v0 = 0;
-    __Vdlyvdim0__LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_ram__v0 = 0;
-    __Vdlyvval__LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_ram__v0 = VL_RAND_RESET_I(17);
-    __Vdlyvset__LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT__dataFifo__DOT__logic_ram__v0 = 0;
-    __Vdlyvdim0__LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_ram__v0 = 0;
-    __Vdlyvval__LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_ram__v0 = VL_RAND_RESET_I(17);
-    __Vdlyvset__LoopBackTest__DOT__transmitter__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_ram__v0 = 0;
-    __Vdlyvdim0__LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_ram__v0 = 0;
-    __Vdlyvval__LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_ram__v0 = VL_RAND_RESET_I(17);
-    __Vdlyvset__LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_ram__v0 = 0;
-    __Vdlyvdim0__LoopBackTest__DOT__transmitter__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_ram__v0 = 0;
-    __Vdlyvval__LoopBackTest__DOT__transmitter__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_ram__v0 = VL_RAND_RESET_I(25);
-    __Vdlyvset__LoopBackTest__DOT__transmitter__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_ram__v0 = 0;
-    __Vdlyvdim0__LoopBackTest__DOT__transmitter__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_ram__v0 = 0;
-    __Vdlyvval__LoopBackTest__DOT__transmitter__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_ram__v0 = VL_RAND_RESET_I(25);
-    __Vdlyvset__LoopBackTest__DOT__transmitter__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_ram__v0 = 0;
-    __Vdlyvdim0__LoopBackTest__DOT__transmitter__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_ram__v0 = 0;
-    __Vdlyvval__LoopBackTest__DOT__transmitter__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_ram__v0 = VL_RAND_RESET_I(24);
-    __Vdlyvset__LoopBackTest__DOT__transmitter__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_ram__v0 = 0;
-    __Vdlyvdim0__LoopBackTest__DOT__trans_to_recv_fifo__DOT__logic_ram__v0 = 0;
-    __Vdlyvval__LoopBackTest__DOT__trans_to_recv_fifo__DOT__logic_ram__v0 = VL_RAND_RESET_I(24);
-    __Vdlyvset__LoopBackTest__DOT__trans_to_recv_fifo__DOT__logic_ram__v0 = 0;
-    __Vm_traceActivity = 0;
 }

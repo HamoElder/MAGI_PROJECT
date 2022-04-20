@@ -7,7 +7,7 @@ import magiRF.modules.Modem.Modulator.ModulatorRTL
 import magiRF.packages.PackageGen.StreamPkgGen
 import magiRF.packages.Preamble.PreambleExtender
 import magiRF.packages.Puncher.Puncturing
-import magiRF.top.RFBench.Config.{axiLite4_config, codedDataWidth, genModulatorConfig, genModulatorDivConfig, genPkgGenConfig, interConnectFifoDepth, interConnectHaltThreshold, interfaceIQDataType, mask_seq_1_2, modIQDataType, phyDataType, phyDataWidth, rf_payload_upper_boundary, stf_preamble_config, stream_config}
+import magiRF.top.RFBench.Config.{axiLite4_config, codedDataWidth, genModulatorConfig, genModulatorDivConfig, genPkgGenConfig, interConnectFifoDepth, interConnectHaltThreshold, interfaceIQDataType, mask_seq_1_2, modIQDataType, mod_method_type, phyDataType, phyDataWidth, rf_payload_upper_boundary, stf_preamble_config, stream_config}
 import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
@@ -31,7 +31,7 @@ case class TX() extends Component{
         val mod_w_data = if(genModulatorConfig.editable) in(Bits(genModulatorConfig.cfgDataWidth bits)) else null
         val mod_cnt_limit = if(genModulatorConfig.useTPlay) in(Bits(genModulatorConfig.cfgDataWidth bits)) else null
 
-        val mod_method_select = in(UInt(log2Up(genModulatorConfig.selectNum) bits))
+        val mod_method_select = in(mod_method_type)
     }
     noIoPrefix()
 

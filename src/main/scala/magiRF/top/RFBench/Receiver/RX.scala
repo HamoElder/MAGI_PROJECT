@@ -17,25 +17,38 @@ case class RX() extends Component {
         val result_data = master(Flow(modIQDataType))
         val min_plateau = in(preamble_config.plateauDataType)
         val gate_threshold = if(preamble_config.usePowerMeter) null else in(preamble_config.gateThresholdDataType)
-//        val result_data = master(AxiStream4(stream_config))
     }
     noIoPrefix()
 //    AxiStream4SpecRenamer(io.result_data)
+    val phy_rx_reset = Bool()
     val datatype_convert = PhyRxInterfaceIQ2modIQ()
     datatype_convert.io.raw_data << io.raw_data
     val phy_rx_power_adjustor = PowerAdjustor(power_adjustor_config)
     phy_rx_power_adjustor.io.shift_bias := io.pa_shift_bias
     phy_rx_power_adjustor.io.shift_dir := io.pa_shift_dir
     phy_rx_power_adjustor.io.raw_data << datatype_convert.io.result_data
-    val phy_rx_cfo = new PhyRxCFO()
+    val phy_rx_preamble_detector = new PhyRxPreambleDetector()
     if(!preamble_config.usePowerMeter) {
-        phy_rx_cfo.io.gate_threshold := io.gate_threshold
+        phy_rx_preamble_detector.io.gate_threshold := io.gate_threshold
     }
-    phy_rx_cfo.io.min_plateau := io.min_plateau
-    phy_rx_cfo.io.pkg_drop := False
-    phy_rx_cfo.io.raw_data << phy_rx_power_adjustor.io.adjusted_data
-    io.result_data << phy_rx_cfo.io.result_data
+    phy_rx_preamble_detector.io.min_plateau := io.min_plateau
+    phy_rx_preamble_detector.io.detector_reset := phy_rx_reset
+    phy_rx_preamble_detector.io.raw_data << phy_rx_power_adjustor.io.adjusted_data
+    val phy_rx_cfo = PhyRxCFO()
+    phy_rx_cfo.io.raw_data << phy_rx_preamble_detector.io.result_data
+    phy_rx_cfo.io.cfo_reset := phy_rx_reset
+    phy_rx_cfo.io.pkg_detected := phy_rx_preamble_detector.io.pkg_handling
+    val phy_rx_filter = PhyRxFilter()
+    phy_rx_filter.io.raw_data << phy_rx_cfo.io.result_data
+    val phy_rx_decimator = PhyRxDecimator()
+    phy_rx_decimator.io.raw_data << phy_rx_filter.io.result_data
+    phy_rx_decimator.io.enable := phy_rx_cfo.io.phase_corrected
+    val phy_rx_header_extender = PhyRxHeaderExtender()
+    phy_rx_header_extender.io.raw_data << phy_rx_decimator.io.result_data
+    phy_rx_header_extender.io.header_extender_reset := False
+    io.result_data << phy_rx_header_extender.io.result_data
 
+    phy_rx_reset := phy_rx_header_extender.io.sdf_not_found
     def driveFrom(busCtrl: BusSlaveFactory, baseAddress: BigInt, coreClockDomain: ClockDomain, rfClockDomain: ClockDomain): Area = new Area {
         val pa_shift_bias = cloneOf(io.pa_shift_bias)
         val pa_shift_dir = cloneOf(io.pa_shift_dir)
@@ -58,4 +71,3 @@ case class RX() extends Component {
 
     }
 }
-

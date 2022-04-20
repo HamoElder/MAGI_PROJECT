@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.4    git head : 598c18959149eb18e5eee5b0aa3eef01ecaa41a1
 // Component : LoopBackTest
-// Git hash  : 7ce20c2ff4009332a2c96be9ddbfa13c6df00a2a
+// Git hash  : e8efb225eaee335c55f2fe9a41a836040a0bb18f
 
 `timescale 1ns/1ps 
 
@@ -126,7 +126,7 @@ module LoopBackTest (
   wire       [7:0]    receiver_bridge_min_plateau;
   reg        [7:0]    receiver_bridge_min_plateau_driver;
 
-  StreamFifo_9 axi4_stream_fifo (
+  StreamFifo_11 axi4_stream_fifo (
     .io_push_valid            (trans_data_tvalid                           ), //i
     .io_push_ready            (axi4_stream_fifo_io_push_ready              ), //o
     .io_push_payload_data     (trans_data_tdata[31:0]                      ), //i
@@ -160,7 +160,7 @@ module LoopBackTest (
     .clk                          (clk                                                ), //i
     .reset                        (reset                                              )  //i
   );
-  StreamFifo_10 trans_fifo (
+  StreamFifo_12 trans_fifo (
     .io_push_valid               (stream_package_gen_pkg_data_valid                  ), //i
     .io_push_ready               (trans_fifo_io_push_ready                           ), //o
     .io_push_payload_last        (stream_package_gen_pkg_data_payload_last           ), //i
@@ -191,7 +191,7 @@ module LoopBackTest (
     .clk                          (clk                                      ), //i
     .reset                        (reset                                    )  //i
   );
-  StreamFifo_11 trans_to_recv_fifo (
+  StreamFifo_13 trans_to_recv_fifo (
     .io_push_valid            (transmitter_rf_data_valid                      ), //i
     .io_push_ready            (trans_to_recv_fifo_io_push_ready               ), //o
     .io_push_payload_cha_i    (transmitter_rf_data_payload_cha_i[11:0]        ), //i
@@ -580,9 +580,28 @@ module RX (
   wire                phy_rx_power_adjustor_adjusted_data_valid;
   wire       [11:0]   phy_rx_power_adjustor_adjusted_data_payload_cha_i;
   wire       [11:0]   phy_rx_power_adjustor_adjusted_data_payload_cha_q;
+  wire                phy_rx_preamble_detector_result_data_valid;
+  wire       [11:0]   phy_rx_preamble_detector_result_data_payload_cha_i;
+  wire       [11:0]   phy_rx_preamble_detector_result_data_payload_cha_q;
+  wire                phy_rx_preamble_detector_pkg_handling;
   wire                phy_rx_cfo_result_data_valid;
   wire       [11:0]   phy_rx_cfo_result_data_payload_cha_i;
   wire       [11:0]   phy_rx_cfo_result_data_payload_cha_q;
+  wire                phy_rx_cfo_phase_corrected;
+  wire                phy_rx_filter_result_data_valid;
+  wire       [11:0]   phy_rx_filter_result_data_payload_cha_i;
+  wire       [11:0]   phy_rx_filter_result_data_payload_cha_q;
+  wire                phy_rx_decimator_result_data_valid;
+  wire       [11:0]   phy_rx_decimator_result_data_payload_cha_i;
+  wire       [11:0]   phy_rx_decimator_result_data_payload_cha_q;
+  wire                phy_rx_header_extender_result_data_valid;
+  wire       [11:0]   phy_rx_header_extender_result_data_payload_cha_i;
+  wire       [11:0]   phy_rx_header_extender_result_data_payload_cha_q;
+  wire                phy_rx_header_extender_sdf_not_found;
+  wire                phy_rx_header_extender_header_message_valid;
+  wire       [7:0]    phy_rx_header_extender_header_message_payload_pkg_size;
+  wire       [1:0]    phy_rx_header_extender_header_message_payload_demod_method;
+  wire                phy_rx_reset;
 
   PhyRxInterfaceIQ2modIQ datatype_convert (
     .raw_data_valid               (raw_data_valid                                    ), //i
@@ -604,25 +623,76 @@ module RX (
     .clk                            (clk                                                      ), //i
     .reset                          (reset                                                    )  //i
   );
-  PhyRxCFO phy_rx_cfo (
-    .raw_data_valid               (phy_rx_power_adjustor_adjusted_data_valid                ), //i
-    .raw_data_payload_cha_i       (phy_rx_power_adjustor_adjusted_data_payload_cha_i[11:0]  ), //i
-    .raw_data_payload_cha_q       (phy_rx_power_adjustor_adjusted_data_payload_cha_q[11:0]  ), //i
-    .result_data_valid            (phy_rx_cfo_result_data_valid                             ), //o
-    .result_data_payload_cha_i    (phy_rx_cfo_result_data_payload_cha_i[11:0]               ), //o
-    .result_data_payload_cha_q    (phy_rx_cfo_result_data_payload_cha_q[11:0]               ), //o
-    .min_plateau                  (min_plateau[7:0]                                         ), //i
-    .pkg_drop                     (1'b0                                                     ), //i
-    .clk                          (clk                                                      ), //i
-    .reset                        (reset                                                    )  //i
+  PhyRxPreambleDetector phy_rx_preamble_detector (
+    .raw_data_valid               (phy_rx_power_adjustor_adjusted_data_valid                 ), //i
+    .raw_data_payload_cha_i       (phy_rx_power_adjustor_adjusted_data_payload_cha_i[11:0]   ), //i
+    .raw_data_payload_cha_q       (phy_rx_power_adjustor_adjusted_data_payload_cha_q[11:0]   ), //i
+    .result_data_valid            (phy_rx_preamble_detector_result_data_valid                ), //o
+    .result_data_payload_cha_i    (phy_rx_preamble_detector_result_data_payload_cha_i[11:0]  ), //o
+    .result_data_payload_cha_q    (phy_rx_preamble_detector_result_data_payload_cha_q[11:0]  ), //o
+    .min_plateau                  (min_plateau[7:0]                                          ), //i
+    .detector_reset               (phy_rx_reset                                              ), //i
+    .pkg_handling                 (phy_rx_preamble_detector_pkg_handling                     ), //o
+    .clk                          (clk                                                       ), //i
+    .reset                        (reset                                                     )  //i
   );
-  assign result_data_valid = phy_rx_cfo_result_data_valid;
-  assign result_data_payload_cha_i = phy_rx_cfo_result_data_payload_cha_i;
-  assign result_data_payload_cha_q = phy_rx_cfo_result_data_payload_cha_q;
+  PhyRxCFO phy_rx_cfo (
+    .raw_data_valid               (phy_rx_preamble_detector_result_data_valid                ), //i
+    .raw_data_payload_cha_i       (phy_rx_preamble_detector_result_data_payload_cha_i[11:0]  ), //i
+    .raw_data_payload_cha_q       (phy_rx_preamble_detector_result_data_payload_cha_q[11:0]  ), //i
+    .result_data_valid            (phy_rx_cfo_result_data_valid                              ), //o
+    .result_data_payload_cha_i    (phy_rx_cfo_result_data_payload_cha_i[11:0]                ), //o
+    .result_data_payload_cha_q    (phy_rx_cfo_result_data_payload_cha_q[11:0]                ), //o
+    .cfo_reset                    (phy_rx_reset                                              ), //i
+    .pkg_detected                 (phy_rx_preamble_detector_pkg_handling                     ), //i
+    .phase_corrected              (phy_rx_cfo_phase_corrected                                ), //o
+    .clk                          (clk                                                       ), //i
+    .reset                        (reset                                                     )  //i
+  );
+  PhyRxFilter phy_rx_filter (
+    .raw_data_valid               (phy_rx_cfo_result_data_valid                   ), //i
+    .raw_data_payload_cha_i       (phy_rx_cfo_result_data_payload_cha_i[11:0]     ), //i
+    .raw_data_payload_cha_q       (phy_rx_cfo_result_data_payload_cha_q[11:0]     ), //i
+    .result_data_valid            (phy_rx_filter_result_data_valid                ), //o
+    .result_data_payload_cha_i    (phy_rx_filter_result_data_payload_cha_i[11:0]  ), //o
+    .result_data_payload_cha_q    (phy_rx_filter_result_data_payload_cha_q[11:0]  ), //o
+    .clk                          (clk                                            ), //i
+    .reset                        (reset                                          )  //i
+  );
+  PhyRxDecimator phy_rx_decimator (
+    .raw_data_valid               (phy_rx_filter_result_data_valid                   ), //i
+    .raw_data_payload_cha_i       (phy_rx_filter_result_data_payload_cha_i[11:0]     ), //i
+    .raw_data_payload_cha_q       (phy_rx_filter_result_data_payload_cha_q[11:0]     ), //i
+    .result_data_valid            (phy_rx_decimator_result_data_valid                ), //o
+    .result_data_payload_cha_i    (phy_rx_decimator_result_data_payload_cha_i[11:0]  ), //o
+    .result_data_payload_cha_q    (phy_rx_decimator_result_data_payload_cha_q[11:0]  ), //o
+    .enable                       (phy_rx_cfo_phase_corrected                        ), //i
+    .clk                          (clk                                               ), //i
+    .reset                        (reset                                             )  //i
+  );
+  PhyRxHeaderExtender phy_rx_header_extender (
+    .raw_data_valid                         (phy_rx_decimator_result_data_valid                               ), //i
+    .raw_data_payload_cha_i                 (phy_rx_decimator_result_data_payload_cha_i[11:0]                 ), //i
+    .raw_data_payload_cha_q                 (phy_rx_decimator_result_data_payload_cha_q[11:0]                 ), //i
+    .result_data_valid                      (phy_rx_header_extender_result_data_valid                         ), //o
+    .result_data_payload_cha_i              (phy_rx_header_extender_result_data_payload_cha_i[11:0]           ), //o
+    .result_data_payload_cha_q              (phy_rx_header_extender_result_data_payload_cha_q[11:0]           ), //o
+    .sdf_not_found                          (phy_rx_header_extender_sdf_not_found                             ), //o
+    .header_extender_reset                  (1'b0                                                             ), //i
+    .header_message_valid                   (phy_rx_header_extender_header_message_valid                      ), //o
+    .header_message_payload_pkg_size        (phy_rx_header_extender_header_message_payload_pkg_size[7:0]      ), //o
+    .header_message_payload_demod_method    (phy_rx_header_extender_header_message_payload_demod_method[1:0]  ), //o
+    .clk                                    (clk                                                              ), //i
+    .reset                                  (reset                                                            )  //i
+  );
+  assign result_data_valid = phy_rx_header_extender_result_data_valid;
+  assign result_data_payload_cha_i = phy_rx_header_extender_result_data_payload_cha_i;
+  assign result_data_payload_cha_q = phy_rx_header_extender_result_data_payload_cha_q;
+  assign phy_rx_reset = phy_rx_header_extender_sdf_not_found;
 
 endmodule
 
-module StreamFifo_11 (
+module StreamFifo_13 (
   input               io_push_valid,
   output              io_push_ready,
   input      [11:0]   io_push_payload_cha_i,
@@ -797,23 +867,36 @@ module TX (
   input               reset
 );
 
+  wire                phy_tx_information_gen_raw_data_valid;
+  wire                phy_tx_information_gen_result_data_queueWithAvailability_io_pop_ready;
   wire                phy_tx_padder_raw_data_valid;
   wire                phy_tx_padder_result_data_queueWithAvailability_io_pop_ready;
   wire                phy_tx_crc_raw_data_valid;
   wire                phy_tx_crc_result_data_queueWithAvailability_io_pop_ready;
   wire                phy_tx_encoder_raw_data_valid;
   wire                phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_ready;
-  wire       [7:0]    phy_header_extender_mod_method;
-  wire                phy_header_extender_raw_data_valid;
-  wire                phy_header_extender_result_data_queueWithAvailability_io_pop_ready;
   wire                phy_tx_scrambler_raw_data_valid;
   wire                phy_tx_scrambler_result_data_queueWithAvailability_io_pop_ready;
   wire                mod_data_div_base_data_valid;
   wire       [7:0]    mod_rtl_data_flow_unit_data_payload_fragment;
   wire                mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_ready;
+  wire                phy_header_extender_raw_data_valid;
+  wire                phy_header_extender_result_data_queueWithAvailability_io_pop_ready;
   wire                phy_tx_oversampling_raw_data_valid;
   wire                phy_tx_filter_result_data_queueWithAvailability_io_pop_ready;
   wire                stf_preamble_adder_raw_data_valid;
+  wire                phy_tx_information_gen_raw_data_ready;
+  wire                phy_tx_information_gen_result_data_valid;
+  wire                phy_tx_information_gen_result_data_payload_last;
+  wire       [7:0]    phy_tx_information_gen_result_data_payload_fragment;
+  wire                phy_tx_information_gen_pkg_size_valid;
+  wire       [7:0]    phy_tx_information_gen_pkg_size_payload;
+  wire                phy_tx_information_gen_result_data_queueWithAvailability_io_push_ready;
+  wire                phy_tx_information_gen_result_data_queueWithAvailability_io_pop_valid;
+  wire                phy_tx_information_gen_result_data_queueWithAvailability_io_pop_payload_last;
+  wire       [7:0]    phy_tx_information_gen_result_data_queueWithAvailability_io_pop_payload_fragment;
+  wire       [5:0]    phy_tx_information_gen_result_data_queueWithAvailability_io_occupancy;
+  wire       [5:0]    phy_tx_information_gen_result_data_queueWithAvailability_io_availability;
   wire                phy_tx_padder_raw_data_ready;
   wire                phy_tx_padder_result_data_valid;
   wire                phy_tx_padder_result_data_payload_last;
@@ -848,16 +931,6 @@ module TX (
   wire       [15:0]   phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_payload_fragment;
   wire       [5:0]    phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_occupancy;
   wire       [5:0]    phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_availability;
-  wire                phy_header_extender_raw_data_ready;
-  wire                phy_header_extender_result_data_valid;
-  wire                phy_header_extender_result_data_payload_last;
-  wire       [15:0]   phy_header_extender_result_data_payload_fragment;
-  wire                phy_header_extender_result_data_queueWithAvailability_io_push_ready;
-  wire                phy_header_extender_result_data_queueWithAvailability_io_pop_valid;
-  wire                phy_header_extender_result_data_queueWithAvailability_io_pop_payload_last;
-  wire       [15:0]   phy_header_extender_result_data_queueWithAvailability_io_pop_payload_fragment;
-  wire       [5:0]    phy_header_extender_result_data_queueWithAvailability_io_occupancy;
-  wire       [5:0]    phy_header_extender_result_data_queueWithAvailability_io_availability;
   wire                phy_tx_scrambler_raw_data_ready;
   wire                phy_tx_scrambler_result_data_valid;
   wire                phy_tx_scrambler_result_data_payload_last;
@@ -883,6 +956,19 @@ module TX (
   wire       [11:0]   mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_payload_fragment_cha_q;
   wire       [5:0]    mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_occupancy;
   wire       [5:0]    mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_availability;
+  wire                phy_header_extender_pkg_size_ready;
+  wire                phy_header_extender_raw_data_ready;
+  wire                phy_header_extender_result_data_valid;
+  wire                phy_header_extender_result_data_payload_last;
+  wire       [11:0]   phy_header_extender_result_data_payload_fragment_cha_i;
+  wire       [11:0]   phy_header_extender_result_data_payload_fragment_cha_q;
+  wire                phy_header_extender_result_data_queueWithAvailability_io_push_ready;
+  wire                phy_header_extender_result_data_queueWithAvailability_io_pop_valid;
+  wire                phy_header_extender_result_data_queueWithAvailability_io_pop_payload_last;
+  wire       [11:0]   phy_header_extender_result_data_queueWithAvailability_io_pop_payload_fragment_cha_i;
+  wire       [11:0]   phy_header_extender_result_data_queueWithAvailability_io_pop_payload_fragment_cha_q;
+  wire       [5:0]    phy_header_extender_result_data_queueWithAvailability_io_occupancy;
+  wire       [5:0]    phy_header_extender_result_data_queueWithAvailability_io_availability;
   wire                phy_tx_oversampling_raw_data_ready;
   wire                phy_tx_oversampling_result_data_valid;
   wire                phy_tx_oversampling_result_data_payload_last;
@@ -915,16 +1001,15 @@ module TX (
   wire       [11:0]   phy_tx_front_result_data_queueWithAvailability_io_pop_payload_cha_q;
   wire       [5:0]    phy_tx_front_result_data_queueWithAvailability_io_occupancy;
   wire       [5:0]    phy_tx_front_result_data_queueWithAvailability_io_availability;
-  wire       [1:0]    _zz_mod_method;
-  reg        [7:0]    pipeline_halt;
+  reg        [8:0]    pipeline_halt;
   wire                _zz_raw_data_ready;
   wire                _zz_io_pop_ready;
   wire                _zz_io_pop_ready_1;
+  wire                _zz_io_pop_ready_2;
   wire                phy_tx_puncher_punched_data_toStream_valid;
   wire                phy_tx_puncher_punched_data_toStream_ready;
   wire                phy_tx_puncher_punched_data_toStream_payload_last;
   wire       [15:0]   phy_tx_puncher_punched_data_toStream_payload_fragment;
-  wire                _zz_io_pop_ready_2;
   wire                _zz_io_pop_ready_3;
   wire                _zz_io_pop_ready_4;
   wire                _zz_data_flow_unit_data_valid;
@@ -936,21 +1021,51 @@ module TX (
   wire       [11:0]   mod_rtl_data_flow_mod_iq_toStream_payload_fragment_cha_q;
   wire                _zz_io_pop_ready_5;
   wire                _zz_io_pop_ready_6;
+  wire                _zz_io_pop_ready_7;
 
-  assign _zz_mod_method = mod_method_select;
-  PhyTxPadder phy_tx_padder (
-    .raw_data_valid                  (phy_tx_padder_raw_data_valid                                   ), //i
-    .raw_data_ready                  (phy_tx_padder_raw_data_ready                                   ), //o
-    .raw_data_payload_last           (raw_data_payload_last                                          ), //i
-    .raw_data_payload_fragment       (raw_data_payload_fragment[7:0]                                 ), //i
-    .result_data_valid               (phy_tx_padder_result_data_valid                                ), //o
-    .result_data_ready               (phy_tx_padder_result_data_queueWithAvailability_io_push_ready  ), //i
-    .result_data_payload_last        (phy_tx_padder_result_data_payload_last                         ), //o
-    .result_data_payload_fragment    (phy_tx_padder_result_data_payload_fragment[7:0]                ), //o
-    .clk                             (clk                                                            ), //i
-    .reset                           (reset                                                          )  //i
+  PhyPkgInformationGen phy_tx_information_gen (
+    .raw_data_valid                  (phy_tx_information_gen_raw_data_valid                                   ), //i
+    .raw_data_ready                  (phy_tx_information_gen_raw_data_ready                                   ), //o
+    .raw_data_payload_last           (raw_data_payload_last                                                   ), //i
+    .raw_data_payload_fragment       (raw_data_payload_fragment[7:0]                                          ), //i
+    .result_data_valid               (phy_tx_information_gen_result_data_valid                                ), //o
+    .result_data_ready               (phy_tx_information_gen_result_data_queueWithAvailability_io_push_ready  ), //i
+    .result_data_payload_last        (phy_tx_information_gen_result_data_payload_last                         ), //o
+    .result_data_payload_fragment    (phy_tx_information_gen_result_data_payload_fragment[7:0]                ), //o
+    .pkg_size_valid                  (phy_tx_information_gen_pkg_size_valid                                   ), //o
+    .pkg_size_ready                  (phy_header_extender_pkg_size_ready                                      ), //i
+    .pkg_size_payload                (phy_tx_information_gen_pkg_size_payload[7:0]                            ), //o
+    .clk                             (clk                                                                     ), //i
+    .reset                           (reset                                                                   )  //i
   );
-  StreamFifo_1 phy_tx_padder_result_data_queueWithAvailability (
+  StreamFifo_2 phy_tx_information_gen_result_data_queueWithAvailability (
+    .io_push_valid               (phy_tx_information_gen_result_data_valid                                               ), //i
+    .io_push_ready               (phy_tx_information_gen_result_data_queueWithAvailability_io_push_ready                 ), //o
+    .io_push_payload_last        (phy_tx_information_gen_result_data_payload_last                                        ), //i
+    .io_push_payload_fragment    (phy_tx_information_gen_result_data_payload_fragment[7:0]                               ), //i
+    .io_pop_valid                (phy_tx_information_gen_result_data_queueWithAvailability_io_pop_valid                  ), //o
+    .io_pop_ready                (phy_tx_information_gen_result_data_queueWithAvailability_io_pop_ready                  ), //i
+    .io_pop_payload_last         (phy_tx_information_gen_result_data_queueWithAvailability_io_pop_payload_last           ), //o
+    .io_pop_payload_fragment     (phy_tx_information_gen_result_data_queueWithAvailability_io_pop_payload_fragment[7:0]  ), //o
+    .io_flush                    (1'b0                                                                                   ), //i
+    .io_occupancy                (phy_tx_information_gen_result_data_queueWithAvailability_io_occupancy[5:0]             ), //o
+    .io_availability             (phy_tx_information_gen_result_data_queueWithAvailability_io_availability[5:0]          ), //o
+    .clk                         (clk                                                                                    ), //i
+    .reset                       (reset                                                                                  )  //i
+  );
+  PhyTxPadder phy_tx_padder (
+    .raw_data_valid                  (phy_tx_padder_raw_data_valid                                                           ), //i
+    .raw_data_ready                  (phy_tx_padder_raw_data_ready                                                           ), //o
+    .raw_data_payload_last           (phy_tx_information_gen_result_data_queueWithAvailability_io_pop_payload_last           ), //i
+    .raw_data_payload_fragment       (phy_tx_information_gen_result_data_queueWithAvailability_io_pop_payload_fragment[7:0]  ), //i
+    .result_data_valid               (phy_tx_padder_result_data_valid                                                        ), //o
+    .result_data_ready               (phy_tx_padder_result_data_queueWithAvailability_io_push_ready                          ), //i
+    .result_data_payload_last        (phy_tx_padder_result_data_payload_last                                                 ), //o
+    .result_data_payload_fragment    (phy_tx_padder_result_data_payload_fragment[7:0]                                        ), //o
+    .clk                             (clk                                                                                    ), //i
+    .reset                           (reset                                                                                  )  //i
+  );
+  StreamFifo_2 phy_tx_padder_result_data_queueWithAvailability (
     .io_push_valid               (phy_tx_padder_result_data_valid                                               ), //i
     .io_push_ready               (phy_tx_padder_result_data_queueWithAvailability_io_push_ready                 ), //o
     .io_push_payload_last        (phy_tx_padder_result_data_payload_last                                        ), //i
@@ -977,7 +1092,7 @@ module TX (
     .clk                             (clk                                                                           ), //i
     .reset                           (reset                                                                         )  //i
   );
-  StreamFifo_1 phy_tx_crc_result_data_queueWithAvailability (
+  StreamFifo_2 phy_tx_crc_result_data_queueWithAvailability (
     .io_push_valid               (phy_tx_crc_result_data_valid                                               ), //i
     .io_push_ready               (phy_tx_crc_result_data_queueWithAvailability_io_push_ready                 ), //o
     .io_push_payload_last        (phy_tx_crc_result_data_payload_last                                        ), //i
@@ -1015,7 +1130,7 @@ module TX (
     .clk                              (clk                                                 ), //i
     .reset                            (reset                                               )  //i
   );
-  StreamFifo_3 phy_tx_puncher_punched_data_toStream_queueWithAvailability (
+  StreamFifo_5 phy_tx_puncher_punched_data_toStream_queueWithAvailability (
     .io_push_valid               (phy_tx_puncher_punched_data_toStream_valid                                                ), //i
     .io_push_ready               (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_push_ready                  ), //o
     .io_push_payload_last        (phy_tx_puncher_punched_data_toStream_payload_last                                         ), //i
@@ -1030,47 +1145,19 @@ module TX (
     .clk                         (clk                                                                                       ), //i
     .reset                       (reset                                                                                     )  //i
   );
-  PhyHeaderExtender phy_header_extender (
-    .mod_method                      (phy_header_extender_mod_method[7:0]                                                       ), //i
-    .raw_data_valid                  (phy_header_extender_raw_data_valid                                                        ), //i
-    .raw_data_ready                  (phy_header_extender_raw_data_ready                                                        ), //o
+  PhyTxScrambler phy_tx_scrambler (
+    .raw_data_valid                  (phy_tx_scrambler_raw_data_valid                                                           ), //i
+    .raw_data_ready                  (phy_tx_scrambler_raw_data_ready                                                           ), //o
     .raw_data_payload_last           (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_payload_last            ), //i
     .raw_data_payload_fragment       (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_payload_fragment[15:0]  ), //i
-    .result_data_valid               (phy_header_extender_result_data_valid                                                     ), //o
-    .result_data_ready               (phy_header_extender_result_data_queueWithAvailability_io_push_ready                       ), //i
-    .result_data_payload_last        (phy_header_extender_result_data_payload_last                                              ), //o
-    .result_data_payload_fragment    (phy_header_extender_result_data_payload_fragment[15:0]                                    ), //o
+    .result_data_valid               (phy_tx_scrambler_result_data_valid                                                        ), //o
+    .result_data_ready               (phy_tx_scrambler_result_data_queueWithAvailability_io_push_ready                          ), //i
+    .result_data_payload_last        (phy_tx_scrambler_result_data_payload_last                                                 ), //o
+    .result_data_payload_fragment    (phy_tx_scrambler_result_data_payload_fragment[15:0]                                       ), //o
     .clk                             (clk                                                                                       ), //i
     .reset                           (reset                                                                                     )  //i
   );
-  StreamFifo_3 phy_header_extender_result_data_queueWithAvailability (
-    .io_push_valid               (phy_header_extender_result_data_valid                                                ), //i
-    .io_push_ready               (phy_header_extender_result_data_queueWithAvailability_io_push_ready                  ), //o
-    .io_push_payload_last        (phy_header_extender_result_data_payload_last                                         ), //i
-    .io_push_payload_fragment    (phy_header_extender_result_data_payload_fragment[15:0]                               ), //i
-    .io_pop_valid                (phy_header_extender_result_data_queueWithAvailability_io_pop_valid                   ), //o
-    .io_pop_ready                (phy_header_extender_result_data_queueWithAvailability_io_pop_ready                   ), //i
-    .io_pop_payload_last         (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_last            ), //o
-    .io_pop_payload_fragment     (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_fragment[15:0]  ), //o
-    .io_flush                    (1'b0                                                                                 ), //i
-    .io_occupancy                (phy_header_extender_result_data_queueWithAvailability_io_occupancy[5:0]              ), //o
-    .io_availability             (phy_header_extender_result_data_queueWithAvailability_io_availability[5:0]           ), //o
-    .clk                         (clk                                                                                  ), //i
-    .reset                       (reset                                                                                )  //i
-  );
-  PhyTxScrambler phy_tx_scrambler (
-    .raw_data_valid                  (phy_tx_scrambler_raw_data_valid                                                      ), //i
-    .raw_data_ready                  (phy_tx_scrambler_raw_data_ready                                                      ), //o
-    .raw_data_payload_last           (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_last            ), //i
-    .raw_data_payload_fragment       (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_fragment[15:0]  ), //i
-    .result_data_valid               (phy_tx_scrambler_result_data_valid                                                   ), //o
-    .result_data_ready               (phy_tx_scrambler_result_data_queueWithAvailability_io_push_ready                     ), //i
-    .result_data_payload_last        (phy_tx_scrambler_result_data_payload_last                                            ), //o
-    .result_data_payload_fragment    (phy_tx_scrambler_result_data_payload_fragment[15:0]                                  ), //o
-    .clk                             (clk                                                                                  ), //i
-    .reset                           (reset                                                                                )  //i
-  );
-  StreamFifo_3 phy_tx_scrambler_result_data_queueWithAvailability (
+  StreamFifo_5 phy_tx_scrambler_result_data_queueWithAvailability (
     .io_push_valid               (phy_tx_scrambler_result_data_valid                                                ), //i
     .io_push_ready               (phy_tx_scrambler_result_data_queueWithAvailability_io_push_ready                  ), //o
     .io_push_payload_last        (phy_tx_scrambler_result_data_payload_last                                         ), //i
@@ -1111,7 +1198,7 @@ module TX (
     .clk                                        (clk                                                    ), //i
     .reset                                      (reset                                                  )  //i
   );
-  StreamFifo_6 mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability (
+  StreamFifo_7 mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability (
     .io_push_valid                     (mod_rtl_data_flow_mod_iq_toStream_valid                                                      ), //i
     .io_push_ready                     (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_push_ready                        ), //o
     .io_push_payload_last              (mod_rtl_data_flow_mod_iq_toStream_payload_last                                               ), //i
@@ -1128,19 +1215,54 @@ module TX (
     .clk                               (clk                                                                                          ), //i
     .reset                             (reset                                                                                        )  //i
   );
-  PhyTxOverSampling phy_tx_oversampling (
-    .raw_data_valid                        (phy_tx_oversampling_raw_data_valid                                                           ), //i
-    .raw_data_ready                        (phy_tx_oversampling_raw_data_ready                                                           ), //o
+  PhyHeaderExtender phy_header_extender (
+    .mod_method                            (mod_method_select[1:0]                                                                       ), //i
+    .pkg_size_valid                        (phy_tx_information_gen_pkg_size_valid                                                        ), //i
+    .pkg_size_ready                        (phy_header_extender_pkg_size_ready                                                           ), //o
+    .pkg_size_payload                      (phy_tx_information_gen_pkg_size_payload[7:0]                                                 ), //i
+    .raw_data_valid                        (phy_header_extender_raw_data_valid                                                           ), //i
+    .raw_data_ready                        (phy_header_extender_raw_data_ready                                                           ), //o
     .raw_data_payload_last                 (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_payload_last                  ), //i
     .raw_data_payload_fragment_cha_i       (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_payload_fragment_cha_i[11:0]  ), //i
     .raw_data_payload_fragment_cha_q       (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_payload_fragment_cha_q[11:0]  ), //i
-    .result_data_valid                     (phy_tx_oversampling_result_data_valid                                                        ), //o
-    .result_data_ready                     (phy_tx_filter_raw_data_ready                                                                 ), //i
-    .result_data_payload_last              (phy_tx_oversampling_result_data_payload_last                                                 ), //o
-    .result_data_payload_fragment_cha_i    (phy_tx_oversampling_result_data_payload_fragment_cha_i[11:0]                                 ), //o
-    .result_data_payload_fragment_cha_q    (phy_tx_oversampling_result_data_payload_fragment_cha_q[11:0]                                 ), //o
+    .result_data_valid                     (phy_header_extender_result_data_valid                                                        ), //o
+    .result_data_ready                     (phy_header_extender_result_data_queueWithAvailability_io_push_ready                          ), //i
+    .result_data_payload_last              (phy_header_extender_result_data_payload_last                                                 ), //o
+    .result_data_payload_fragment_cha_i    (phy_header_extender_result_data_payload_fragment_cha_i[11:0]                                 ), //o
+    .result_data_payload_fragment_cha_q    (phy_header_extender_result_data_payload_fragment_cha_q[11:0]                                 ), //o
     .clk                                   (clk                                                                                          ), //i
     .reset                                 (reset                                                                                        )  //i
+  );
+  StreamFifo_7 phy_header_extender_result_data_queueWithAvailability (
+    .io_push_valid                     (phy_header_extender_result_data_valid                                                      ), //i
+    .io_push_ready                     (phy_header_extender_result_data_queueWithAvailability_io_push_ready                        ), //o
+    .io_push_payload_last              (phy_header_extender_result_data_payload_last                                               ), //i
+    .io_push_payload_fragment_cha_i    (phy_header_extender_result_data_payload_fragment_cha_i[11:0]                               ), //i
+    .io_push_payload_fragment_cha_q    (phy_header_extender_result_data_payload_fragment_cha_q[11:0]                               ), //i
+    .io_pop_valid                      (phy_header_extender_result_data_queueWithAvailability_io_pop_valid                         ), //o
+    .io_pop_ready                      (phy_header_extender_result_data_queueWithAvailability_io_pop_ready                         ), //i
+    .io_pop_payload_last               (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_last                  ), //o
+    .io_pop_payload_fragment_cha_i     (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_fragment_cha_i[11:0]  ), //o
+    .io_pop_payload_fragment_cha_q     (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_fragment_cha_q[11:0]  ), //o
+    .io_flush                          (1'b0                                                                                       ), //i
+    .io_occupancy                      (phy_header_extender_result_data_queueWithAvailability_io_occupancy[5:0]                    ), //o
+    .io_availability                   (phy_header_extender_result_data_queueWithAvailability_io_availability[5:0]                 ), //o
+    .clk                               (clk                                                                                        ), //i
+    .reset                             (reset                                                                                      )  //i
+  );
+  PhyTxOverSampling phy_tx_oversampling (
+    .raw_data_valid                        (phy_tx_oversampling_raw_data_valid                                                         ), //i
+    .raw_data_ready                        (phy_tx_oversampling_raw_data_ready                                                         ), //o
+    .raw_data_payload_last                 (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_last                  ), //i
+    .raw_data_payload_fragment_cha_i       (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_fragment_cha_i[11:0]  ), //i
+    .raw_data_payload_fragment_cha_q       (phy_header_extender_result_data_queueWithAvailability_io_pop_payload_fragment_cha_q[11:0]  ), //i
+    .result_data_valid                     (phy_tx_oversampling_result_data_valid                                                      ), //o
+    .result_data_ready                     (phy_tx_filter_raw_data_ready                                                               ), //i
+    .result_data_payload_last              (phy_tx_oversampling_result_data_payload_last                                               ), //o
+    .result_data_payload_fragment_cha_i    (phy_tx_oversampling_result_data_payload_fragment_cha_i[11:0]                               ), //o
+    .result_data_payload_fragment_cha_q    (phy_tx_oversampling_result_data_payload_fragment_cha_q[11:0]                               ), //o
+    .clk                                   (clk                                                                                        ), //i
+    .reset                                 (reset                                                                                      )  //i
   );
   PhyTxFilter phy_tx_filter (
     .raw_data_valid                        (phy_tx_oversampling_result_data_valid                          ), //i
@@ -1156,7 +1278,7 @@ module TX (
     .clk                                   (clk                                                            ), //i
     .reset                                 (reset                                                          )  //i
   );
-  StreamFifo_6 phy_tx_filter_result_data_queueWithAvailability (
+  StreamFifo_7 phy_tx_filter_result_data_queueWithAvailability (
     .io_push_valid                     (phy_tx_filter_result_data_valid                                                      ), //i
     .io_push_ready                     (phy_tx_filter_result_data_queueWithAvailability_io_push_ready                        ), //o
     .io_push_payload_last              (phy_tx_filter_result_data_payload_last                                               ), //i
@@ -1198,7 +1320,7 @@ module TX (
     .result_data_payload_cha_i          (phy_tx_front_result_data_payload_cha_i[11:0]                   ), //o
     .result_data_payload_cha_q          (phy_tx_front_result_data_payload_cha_q[11:0]                   )  //o
   );
-  StreamFifo_8 phy_tx_front_result_data_queueWithAvailability (
+  StreamFifo_10 phy_tx_front_result_data_queueWithAvailability (
     .io_push_valid            (phy_tx_front_result_data_valid                                             ), //i
     .io_push_ready            (phy_tx_front_result_data_queueWithAvailability_io_push_ready               ), //o
     .io_push_payload_cha_i    (phy_tx_front_result_data_payload_cha_i[11:0]                               ), //i
@@ -1214,36 +1336,36 @@ module TX (
     .reset                    (reset                                                                      )  //i
   );
   assign _zz_raw_data_ready = (! pipeline_halt[0]);
-  assign raw_data_ready = (phy_tx_padder_raw_data_ready && _zz_raw_data_ready);
-  assign phy_tx_padder_raw_data_valid = (raw_data_valid && _zz_raw_data_ready);
+  assign raw_data_ready = (phy_tx_information_gen_raw_data_ready && _zz_raw_data_ready);
+  assign phy_tx_information_gen_raw_data_valid = (raw_data_valid && _zz_raw_data_ready);
   always @(*) begin
-    pipeline_halt[0] = (phy_tx_padder_result_data_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[1] = (phy_tx_crc_result_data_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[2] = (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[3] = (phy_header_extender_result_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[0] = (phy_tx_information_gen_result_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[1] = (phy_tx_padder_result_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[2] = (phy_tx_crc_result_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[3] = (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_availability < 6'h12);
     pipeline_halt[4] = (phy_tx_scrambler_result_data_queueWithAvailability_io_availability < 6'h12);
     pipeline_halt[5] = (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[6] = (phy_tx_filter_result_data_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[7] = (phy_tx_front_result_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[6] = (phy_header_extender_result_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[7] = (phy_tx_filter_result_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[8] = (phy_tx_front_result_data_queueWithAvailability_io_availability < 6'h12);
   end
 
   assign _zz_io_pop_ready = (! pipeline_halt[1]);
-  assign phy_tx_padder_result_data_queueWithAvailability_io_pop_ready = (phy_tx_crc_raw_data_ready && _zz_io_pop_ready);
-  assign phy_tx_crc_raw_data_valid = (phy_tx_padder_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready);
+  assign phy_tx_information_gen_result_data_queueWithAvailability_io_pop_ready = (phy_tx_padder_raw_data_ready && _zz_io_pop_ready);
+  assign phy_tx_padder_raw_data_valid = (phy_tx_information_gen_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready);
   assign _zz_io_pop_ready_1 = (! pipeline_halt[2]);
-  assign phy_tx_crc_result_data_queueWithAvailability_io_pop_ready = (phy_tx_encoder_raw_data_ready && _zz_io_pop_ready_1);
-  assign phy_tx_encoder_raw_data_valid = (phy_tx_crc_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_1);
+  assign phy_tx_padder_result_data_queueWithAvailability_io_pop_ready = (phy_tx_crc_raw_data_ready && _zz_io_pop_ready_1);
+  assign phy_tx_crc_raw_data_valid = (phy_tx_padder_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_1);
+  assign _zz_io_pop_ready_2 = (! pipeline_halt[3]);
+  assign phy_tx_crc_result_data_queueWithAvailability_io_pop_ready = (phy_tx_encoder_raw_data_ready && _zz_io_pop_ready_2);
+  assign phy_tx_encoder_raw_data_valid = (phy_tx_crc_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_2);
   assign phy_tx_puncher_punched_data_toStream_valid = phy_tx_puncher_punched_data_valid;
   assign phy_tx_puncher_punched_data_toStream_payload_last = phy_tx_puncher_punched_data_payload_last;
   assign phy_tx_puncher_punched_data_toStream_payload_fragment = phy_tx_puncher_punched_data_payload_fragment;
   assign phy_tx_puncher_punched_data_toStream_ready = phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_push_ready;
-  assign _zz_io_pop_ready_2 = (! pipeline_halt[3]);
-  assign phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_ready = (phy_header_extender_raw_data_ready && _zz_io_pop_ready_2);
-  assign phy_header_extender_raw_data_valid = (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_2);
-  assign phy_header_extender_mod_method = {6'd0, _zz_mod_method};
   assign _zz_io_pop_ready_3 = (! pipeline_halt[4]);
-  assign phy_header_extender_result_data_queueWithAvailability_io_pop_ready = (phy_tx_scrambler_raw_data_ready && _zz_io_pop_ready_3);
-  assign phy_tx_scrambler_raw_data_valid = (phy_header_extender_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_3);
+  assign phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_ready = (phy_tx_scrambler_raw_data_ready && _zz_io_pop_ready_3);
+  assign phy_tx_scrambler_raw_data_valid = (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_3);
   assign _zz_io_pop_ready_4 = (! pipeline_halt[5]);
   assign phy_tx_scrambler_result_data_queueWithAvailability_io_pop_ready = (mod_data_div_base_data_ready && _zz_io_pop_ready_4);
   assign mod_data_div_base_data_valid = (phy_tx_scrambler_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_4);
@@ -1256,18 +1378,21 @@ module TX (
   assign mod_rtl_data_flow_mod_iq_toStream_payload_fragment_cha_q = mod_rtl_data_flow_mod_iq_payload_fragment_cha_q;
   assign mod_rtl_data_flow_mod_iq_toStream_ready = mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_push_ready;
   assign _zz_io_pop_ready_5 = (! pipeline_halt[6]);
-  assign mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_ready = (phy_tx_oversampling_raw_data_ready && _zz_io_pop_ready_5);
-  assign phy_tx_oversampling_raw_data_valid = (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_5);
+  assign mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_ready = (phy_header_extender_raw_data_ready && _zz_io_pop_ready_5);
+  assign phy_header_extender_raw_data_valid = (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_5);
   assign _zz_io_pop_ready_6 = (! pipeline_halt[7]);
-  assign phy_tx_filter_result_data_queueWithAvailability_io_pop_ready = (stf_preamble_adder_raw_data_ready && _zz_io_pop_ready_6);
-  assign stf_preamble_adder_raw_data_valid = (phy_tx_filter_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_6);
+  assign phy_header_extender_result_data_queueWithAvailability_io_pop_ready = (phy_tx_oversampling_raw_data_ready && _zz_io_pop_ready_6);
+  assign phy_tx_oversampling_raw_data_valid = (phy_header_extender_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_6);
+  assign _zz_io_pop_ready_7 = (! pipeline_halt[8]);
+  assign phy_tx_filter_result_data_queueWithAvailability_io_pop_ready = (stf_preamble_adder_raw_data_ready && _zz_io_pop_ready_7);
+  assign stf_preamble_adder_raw_data_valid = (phy_tx_filter_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_7);
   assign rf_data_valid = phy_tx_front_result_data_queueWithAvailability_io_pop_valid;
   assign rf_data_payload_cha_i = phy_tx_front_result_data_queueWithAvailability_io_pop_payload_cha_i;
   assign rf_data_payload_cha_q = phy_tx_front_result_data_queueWithAvailability_io_pop_payload_cha_q;
 
 endmodule
 
-module StreamFifo_10 (
+module StreamFifo_12 (
   input               io_push_valid,
   output              io_push_ready,
   input               io_push_payload_last,
@@ -1501,7 +1626,7 @@ module StreamPkgGen (
 
 endmodule
 
-module StreamFifo_9 (
+module StreamFifo_11 (
   input               io_push_valid,
   output              io_push_ready,
   input      [31:0]   io_push_payload_data,
@@ -1665,6 +1790,278 @@ module StreamFifo_9 (
 
 endmodule
 
+module PhyRxHeaderExtender (
+  input               raw_data_valid,
+  input      [11:0]   raw_data_payload_cha_i,
+  input      [11:0]   raw_data_payload_cha_q,
+  output              result_data_valid,
+  output     [11:0]   result_data_payload_cha_i,
+  output     [11:0]   result_data_payload_cha_q,
+  output reg          sdf_not_found,
+  input               header_extender_reset,
+  output              header_message_valid,
+  output     [7:0]    header_message_payload_pkg_size,
+  output     [1:0]    header_message_payload_demod_method,
+  input               clk,
+  input               reset
+);
+  localparam PhyRxHeaderStatus_SDF = 2'd0;
+  localparam PhyRxHeaderStatus_METHOD = 2'd1;
+  localparam PhyRxHeaderStatus_SIZE = 2'd2;
+  localparam PhyRxHeaderStatus_DATA = 2'd3;
+
+  wire       [11:0]   _zz_raw_data_i_bpsk_demoded;
+  wire       [0:0]    _zz_demod_method;
+  wire       [2:0]    _zz_pkg_size;
+  reg        [3:0]    cnt;
+  reg        [7:0]    sdf_i_win;
+  reg        [7:0]    sdf_i_ref;
+  reg                 by_pass_enable;
+  wire                raw_data_i_bpsk_demoded;
+  reg        [7:0]    pkg_size;
+  reg        [1:0]    demod_method;
+  reg        [1:0]    header_status;
+  reg                 message_valid;
+  reg        [5:0]    timeout;
+  wire                when_PhyRx_l197;
+  wire                when_PhyRx_l204;
+  wire                when_PhyRx_l212;
+  wire                when_PhyRx_l223;
+  wire                raw_data_takeWhen_valid;
+  wire       [11:0]   raw_data_takeWhen_payload_cha_i;
+  wire       [11:0]   raw_data_takeWhen_payload_cha_q;
+  reg                 raw_data_takeWhen_regNext_valid;
+  reg        [11:0]   raw_data_takeWhen_regNext_payload_cha_i;
+  reg        [11:0]   raw_data_takeWhen_regNext_payload_cha_q;
+  `ifndef SYNTHESIS
+  reg [47:0] header_status_string;
+  `endif
+
+  function [7:0] zz_sdf_i_ref(input dummy);
+    begin
+      zz_sdf_i_ref[0] = 1'b0;
+      zz_sdf_i_ref[1] = 1'b1;
+      zz_sdf_i_ref[2] = 1'b0;
+      zz_sdf_i_ref[3] = 1'b0;
+      zz_sdf_i_ref[4] = 1'b1;
+      zz_sdf_i_ref[5] = 1'b1;
+      zz_sdf_i_ref[6] = 1'b0;
+      zz_sdf_i_ref[7] = 1'b0;
+    end
+  endfunction
+  wire [7:0] _zz_1;
+
+  assign _zz_raw_data_i_bpsk_demoded = 12'h0;
+  assign _zz_demod_method = cnt[0:0];
+  assign _zz_pkg_size = cnt[2:0];
+  `ifndef SYNTHESIS
+  always @(*) begin
+    case(header_status)
+      PhyRxHeaderStatus_SDF : header_status_string = "SDF   ";
+      PhyRxHeaderStatus_METHOD : header_status_string = "METHOD";
+      PhyRxHeaderStatus_SIZE : header_status_string = "SIZE  ";
+      PhyRxHeaderStatus_DATA : header_status_string = "DATA  ";
+      default : header_status_string = "??????";
+    endcase
+  end
+  `endif
+
+  assign _zz_1 = zz_sdf_i_ref(1'b0);
+  always @(*) sdf_i_ref = _zz_1;
+  assign raw_data_i_bpsk_demoded = ($signed(_zz_raw_data_i_bpsk_demoded) <= $signed(raw_data_payload_cha_i));
+  always @(*) begin
+    sdf_not_found = 1'b0;
+    case(header_status)
+      PhyRxHeaderStatus_SDF : begin
+        if(raw_data_valid) begin
+          if(when_PhyRx_l204) begin
+            sdf_not_found = 1'b1;
+          end
+        end
+      end
+      PhyRxHeaderStatus_METHOD : begin
+      end
+      PhyRxHeaderStatus_SIZE : begin
+      end
+      default : begin
+      end
+    endcase
+  end
+
+  assign when_PhyRx_l197 = (sdf_i_win == sdf_i_ref);
+  assign when_PhyRx_l204 = (timeout == 6'h3f);
+  assign when_PhyRx_l212 = (cnt == 4'b0000);
+  assign when_PhyRx_l223 = (cnt == 4'b0000);
+  assign raw_data_takeWhen_valid = (raw_data_valid && by_pass_enable);
+  assign raw_data_takeWhen_payload_cha_i = raw_data_payload_cha_i;
+  assign raw_data_takeWhen_payload_cha_q = raw_data_payload_cha_q;
+  assign result_data_valid = raw_data_takeWhen_regNext_valid;
+  assign result_data_payload_cha_i = raw_data_takeWhen_regNext_payload_cha_i;
+  assign result_data_payload_cha_q = raw_data_takeWhen_regNext_payload_cha_q;
+  assign header_message_payload_pkg_size = pkg_size;
+  assign header_message_payload_demod_method = demod_method;
+  assign header_message_valid = message_valid;
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      cnt <= 4'b0000;
+      sdf_i_win <= 8'h0;
+      by_pass_enable <= 1'b0;
+      header_status <= PhyRxHeaderStatus_SDF;
+      message_valid <= 1'b0;
+      timeout <= 6'h0;
+      raw_data_takeWhen_regNext_valid <= 1'b0;
+    end else begin
+      if(header_extender_reset) begin
+        sdf_i_win <= 8'h0;
+      end else begin
+        if(raw_data_valid) begin
+          sdf_i_win[0] <= raw_data_i_bpsk_demoded;
+          sdf_i_win[1] <= sdf_i_win[0];
+          sdf_i_win[2] <= sdf_i_win[1];
+          sdf_i_win[3] <= sdf_i_win[2];
+          sdf_i_win[4] <= sdf_i_win[3];
+          sdf_i_win[5] <= sdf_i_win[4];
+          sdf_i_win[6] <= sdf_i_win[5];
+          sdf_i_win[7] <= sdf_i_win[6];
+        end
+      end
+      case(header_status)
+        PhyRxHeaderStatus_SDF : begin
+          if(when_PhyRx_l197) begin
+            header_status <= PhyRxHeaderStatus_METHOD;
+          end
+          cnt <= 4'b0001;
+          by_pass_enable <= 1'b0;
+          if(raw_data_valid) begin
+            timeout <= (timeout + 6'h01);
+          end
+        end
+        PhyRxHeaderStatus_METHOD : begin
+          timeout <= 6'h0;
+          if(raw_data_valid) begin
+            if(when_PhyRx_l212) begin
+              header_status <= PhyRxHeaderStatus_SIZE;
+              cnt <= 4'b0111;
+            end else begin
+              cnt <= (cnt - 4'b0001);
+            end
+          end
+        end
+        PhyRxHeaderStatus_SIZE : begin
+          if(raw_data_valid) begin
+            if(when_PhyRx_l223) begin
+              header_status <= PhyRxHeaderStatus_DATA;
+              message_valid <= 1'b1;
+            end else begin
+              cnt <= (cnt - 4'b0001);
+            end
+          end
+        end
+        default : begin
+          if(header_extender_reset) begin
+            header_status <= PhyRxHeaderStatus_SDF;
+          end
+          message_valid <= 1'b0;
+          by_pass_enable <= 1'b1;
+        end
+      endcase
+      raw_data_takeWhen_regNext_valid <= raw_data_takeWhen_valid;
+    end
+  end
+
+  always @(posedge clk) begin
+    case(header_status)
+      PhyRxHeaderStatus_SDF : begin
+      end
+      PhyRxHeaderStatus_METHOD : begin
+        if(raw_data_valid) begin
+          demod_method[_zz_demod_method] <= raw_data_i_bpsk_demoded;
+        end
+      end
+      PhyRxHeaderStatus_SIZE : begin
+        if(raw_data_valid) begin
+          pkg_size[_zz_pkg_size] <= raw_data_i_bpsk_demoded;
+        end
+      end
+      default : begin
+      end
+    endcase
+    raw_data_takeWhen_regNext_payload_cha_i <= raw_data_takeWhen_payload_cha_i;
+    raw_data_takeWhen_regNext_payload_cha_q <= raw_data_takeWhen_payload_cha_q;
+  end
+
+
+endmodule
+
+module PhyRxDecimator (
+  input               raw_data_valid,
+  input      [11:0]   raw_data_payload_cha_i,
+  input      [11:0]   raw_data_payload_cha_q,
+  output              result_data_valid,
+  output     [11:0]   result_data_payload_cha_i,
+  output     [11:0]   result_data_payload_cha_q,
+  input               enable,
+  input               clk,
+  input               reset
+);
+
+  wire                decimator_out_valid;
+  wire       [11:0]   decimator_out_payload_cha_i;
+  wire       [11:0]   decimator_out_payload_cha_q;
+  wire                raw_data_takeWhen_valid;
+  wire       [11:0]   raw_data_takeWhen_payload_cha_i;
+  wire       [11:0]   raw_data_takeWhen_payload_cha_q;
+
+  DecimatorIQ decimator (
+    .in_valid             (raw_data_takeWhen_valid                ), //i
+    .in_payload_cha_i     (raw_data_takeWhen_payload_cha_i[11:0]  ), //i
+    .in_payload_cha_q     (raw_data_takeWhen_payload_cha_q[11:0]  ), //i
+    .out_valid            (decimator_out_valid                    ), //o
+    .out_payload_cha_i    (decimator_out_payload_cha_i[11:0]      ), //o
+    .out_payload_cha_q    (decimator_out_payload_cha_q[11:0]      ), //o
+    .clk                  (clk                                    ), //i
+    .reset                (reset                                  )  //i
+  );
+  assign raw_data_takeWhen_valid = (raw_data_valid && enable);
+  assign raw_data_takeWhen_payload_cha_i = raw_data_payload_cha_i;
+  assign raw_data_takeWhen_payload_cha_q = raw_data_payload_cha_q;
+  assign result_data_valid = decimator_out_valid;
+  assign result_data_payload_cha_i = decimator_out_payload_cha_i;
+  assign result_data_payload_cha_q = decimator_out_payload_cha_q;
+
+endmodule
+
+module PhyRxFilter (
+  input               raw_data_valid,
+  input      [11:0]   raw_data_payload_cha_i,
+  input      [11:0]   raw_data_payload_cha_q,
+  output              result_data_valid,
+  output     [11:0]   result_data_payload_cha_i,
+  output     [11:0]   result_data_payload_cha_q,
+  input               clk,
+  input               reset
+);
+
+  wire                fir_filter_iq_filtered_data_valid;
+  wire       [18:0]   fir_filter_iq_filtered_data_payload_0;
+  wire       [18:0]   fir_filter_iq_filtered_data_payload_1;
+
+  TransposeFIR fir_filter_iq (
+    .raw_data_valid             (raw_data_valid                               ), //i
+    .raw_data_payload_0         (raw_data_payload_cha_i[11:0]                 ), //i
+    .raw_data_payload_1         (raw_data_payload_cha_q[11:0]                 ), //i
+    .filtered_data_valid        (fir_filter_iq_filtered_data_valid            ), //o
+    .filtered_data_payload_0    (fir_filter_iq_filtered_data_payload_0[18:0]  ), //o
+    .filtered_data_payload_1    (fir_filter_iq_filtered_data_payload_1[18:0]  ), //o
+    .clk                        (clk                                          ), //i
+    .reset                      (reset                                        )  //i
+  );
+  assign result_data_valid = fir_filter_iq_filtered_data_valid;
+  assign result_data_payload_cha_i = (fir_filter_iq_filtered_data_payload_0 >>> 7);
+  assign result_data_payload_cha_q = (fir_filter_iq_filtered_data_payload_1 >>> 7);
+
+endmodule
+
 module PhyRxCFO (
   input               raw_data_valid,
   input      [11:0]   raw_data_payload_cha_i,
@@ -1672,20 +2069,13 @@ module PhyRxCFO (
   output              result_data_valid,
   output     [11:0]   result_data_payload_cha_i,
   output     [11:0]   result_data_payload_cha_q,
-  input      [7:0]    min_plateau,
-  input               pkg_drop,
+  input               cfo_reset,
+  input               pkg_detected,
+  output              phase_corrected,
   input               clk,
   input               reset
 );
 
-  wire                coarse_cfo_inst_enable;
-  wire                preamble_detector_pkg_detected;
-  wire                preamble_detector_raw_data_out_valid;
-  wire       [11:0]   preamble_detector_raw_data_out_payload_cha_i;
-  wire       [11:0]   preamble_detector_raw_data_out_payload_cha_q;
-  wire                preamble_detector_corr_result_valid;
-  wire       [35:0]   preamble_detector_corr_result_payload_cha_i;
-  wire       [35:0]   preamble_detector_corr_result_payload_cha_q;
   wire                coarse_cfo_inst_rotated_data_valid;
   wire       [11:0]   coarse_cfo_inst_rotated_data_payload_cha_i;
   wire       [11:0]   coarse_cfo_inst_rotated_data_payload_cha_q;
@@ -1693,41 +2083,125 @@ module PhyRxCFO (
   wire                cross_corr_core_corr_result_valid;
   wire       [35:0]   cross_corr_core_corr_result_payload_cha_i;
   wire       [35:0]   cross_corr_core_corr_result_payload_cha_q;
-  wire       [35:0]   _zz_when_PhyRx_l49;
-  wire       [35:0]   _zz_when_PhyRx_l49_1;
-  wire       [35:0]   _zz_when_PhyRx_l49_2;
-  wire       [35:0]   _zz_when_PhyRx_l49_3;
-  wire       [0:0]    _zz_when_PhyRx_l49_4;
-  wire       [35:0]   _zz_prod_max;
-  wire       [35:0]   _zz_prod_max_1;
-  wire       [35:0]   _zz_prod_max_2;
-  wire       [0:0]    _zz_prod_max_3;
-  wire       [35:0]   _zz_prod_max_4;
-  wire       [35:0]   _zz_prod_max_5;
-  wire       [35:0]   _zz_prod_max_6;
-  wire       [0:0]    _zz_prod_max_7;
-  reg                 package_handling;
   reg                 cfo_corrected;
-  wire                when_PhyRx_l38;
-  reg                 package_handling_regNext;
-  wire                when_PhyRx_l40;
+  reg                 cfo_enable;
+  wire                header_corrected;
+  wire                when_PhyRx_l60;
+  reg                 pkg_detected_regNext;
+  wire                when_PhyRx_l62;
+  reg                 phase_corrected_1;
   reg        [35:0]   prod_max;
-  reg        [119:0]  prod_cnt;
-  wire                when_PhyRx_l49;
+  reg        [4:0]    prod_cnt;
+  wire                when_PhyRx_l86;
+  wire                when_PhyRx_l89;
+  wire                when_PhyRx_l85;
 
-  assign _zz_when_PhyRx_l49 = (_zz_when_PhyRx_l49_1 + _zz_when_PhyRx_l49_3);
-  assign _zz_when_PhyRx_l49_1 = (cross_corr_core_corr_result_payload_cha_i[35] ? _zz_when_PhyRx_l49_2 : cross_corr_core_corr_result_payload_cha_i);
-  assign _zz_when_PhyRx_l49_2 = (~ cross_corr_core_corr_result_payload_cha_i);
-  assign _zz_when_PhyRx_l49_4 = cross_corr_core_corr_result_payload_cha_i[35];
-  assign _zz_when_PhyRx_l49_3 = {35'd0, _zz_when_PhyRx_l49_4};
-  assign _zz_prod_max = (cross_corr_core_corr_result_payload_cha_i[35] ? _zz_prod_max_1 : cross_corr_core_corr_result_payload_cha_i);
-  assign _zz_prod_max_1 = (~ cross_corr_core_corr_result_payload_cha_i);
-  assign _zz_prod_max_3 = cross_corr_core_corr_result_payload_cha_i[35];
-  assign _zz_prod_max_2 = {35'd0, _zz_prod_max_3};
-  assign _zz_prod_max_4 = (cross_corr_core_corr_result_payload_cha_i[35] ? _zz_prod_max_5 : cross_corr_core_corr_result_payload_cha_i);
-  assign _zz_prod_max_5 = (~ cross_corr_core_corr_result_payload_cha_i);
-  assign _zz_prod_max_7 = cross_corr_core_corr_result_payload_cha_i[35];
-  assign _zz_prod_max_6 = {35'd0, _zz_prod_max_7};
+  CFOCorrector coarse_cfo_inst (
+    .raw_data_valid                (raw_data_valid                                    ), //i
+    .raw_data_payload_cha_i        (raw_data_payload_cha_i[11:0]                      ), //i
+    .raw_data_payload_cha_q        (raw_data_payload_cha_q[11:0]                      ), //i
+    .rotated_data_valid            (coarse_cfo_inst_rotated_data_valid                ), //o
+    .rotated_data_payload_cha_i    (coarse_cfo_inst_rotated_data_payload_cha_i[11:0]  ), //o
+    .rotated_data_payload_cha_q    (coarse_cfo_inst_rotated_data_payload_cha_q[11:0]  ), //o
+    .enable                        (cfo_enable                                        ), //i
+    .phi_correct_valid             (coarse_cfo_inst_phi_correct_valid                 ), //o
+    .clk                           (clk                                               ), //i
+    .reset                         (reset                                             )  //i
+  );
+  CrossCorrelator cross_corr_core (
+    .raw_data_valid               (coarse_cfo_inst_rotated_data_valid                ), //i
+    .raw_data_payload_cha_i       (coarse_cfo_inst_rotated_data_payload_cha_i[11:0]  ), //i
+    .raw_data_payload_cha_q       (coarse_cfo_inst_rotated_data_payload_cha_q[11:0]  ), //i
+    .corr_result_valid            (cross_corr_core_corr_result_valid                 ), //o
+    .corr_result_payload_cha_i    (cross_corr_core_corr_result_payload_cha_i[35:0]   ), //o
+    .corr_result_payload_cha_q    (cross_corr_core_corr_result_payload_cha_q[35:0]   ), //o
+    .clk                          (clk                                               ), //i
+    .reset                        (reset                                             )  //i
+  );
+  assign header_corrected = 1'b0;
+  assign when_PhyRx_l60 = (cfo_reset || coarse_cfo_inst_phi_correct_valid);
+  assign when_PhyRx_l62 = (pkg_detected && (! pkg_detected_regNext));
+  assign when_PhyRx_l86 = (5'h16 <= prod_cnt);
+  assign when_PhyRx_l89 = ($signed(prod_max) < $signed(cross_corr_core_corr_result_payload_cha_i));
+  assign when_PhyRx_l85 = (cfo_corrected && (! phase_corrected_1));
+  assign phase_corrected = phase_corrected_1;
+  assign result_data_valid = coarse_cfo_inst_rotated_data_valid;
+  assign result_data_payload_cha_i = coarse_cfo_inst_rotated_data_payload_cha_i;
+  assign result_data_payload_cha_q = coarse_cfo_inst_rotated_data_payload_cha_q;
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      cfo_corrected <= 1'b0;
+      cfo_enable <= 1'b0;
+      phase_corrected_1 <= 1'b0;
+      prod_max <= 36'h0;
+      prod_cnt <= 5'h0;
+    end else begin
+      if(when_PhyRx_l60) begin
+        cfo_enable <= 1'b0;
+      end else begin
+        if(when_PhyRx_l62) begin
+          cfo_enable <= 1'b1;
+        end
+      end
+      if(cfo_reset) begin
+        cfo_corrected <= 1'b0;
+      end else begin
+        if(coarse_cfo_inst_phi_correct_valid) begin
+          cfo_corrected <= 1'b1;
+        end
+      end
+      if(cfo_reset) begin
+        phase_corrected_1 <= 1'b0;
+        prod_max <= 36'h0;
+        prod_cnt <= 5'h0;
+      end else begin
+        if(when_PhyRx_l85) begin
+          if(when_PhyRx_l86) begin
+            phase_corrected_1 <= 1'b1;
+          end else begin
+            if(when_PhyRx_l89) begin
+              prod_max <= cross_corr_core_corr_result_payload_cha_i;
+              prod_cnt <= 5'h0;
+            end else begin
+              prod_cnt <= (prod_cnt + 5'h01);
+            end
+            phase_corrected_1 <= 1'b0;
+          end
+        end
+      end
+    end
+  end
+
+  always @(posedge clk) begin
+    pkg_detected_regNext <= pkg_detected;
+  end
+
+
+endmodule
+
+module PhyRxPreambleDetector (
+  input               raw_data_valid,
+  input      [11:0]   raw_data_payload_cha_i,
+  input      [11:0]   raw_data_payload_cha_q,
+  output              result_data_valid,
+  output     [11:0]   result_data_payload_cha_i,
+  output     [11:0]   result_data_payload_cha_q,
+  input      [7:0]    min_plateau,
+  input               detector_reset,
+  output              pkg_handling,
+  input               clk,
+  input               reset
+);
+
+  wire                preamble_detector_pkg_detected;
+  wire                preamble_detector_raw_data_out_valid;
+  wire       [11:0]   preamble_detector_raw_data_out_payload_cha_i;
+  wire       [11:0]   preamble_detector_raw_data_out_payload_cha_q;
+  wire                preamble_detector_corr_result_valid;
+  wire       [35:0]   preamble_detector_corr_result_payload_cha_i;
+  wire       [35:0]   preamble_detector_corr_result_payload_cha_q;
+  reg                 pkg_handling_1;
+
   PreambleDetector preamble_detector (
     .min_plateau                   (min_plateau[7:0]                                    ), //i
     .pkg_detected                  (preamble_detector_pkg_detected                      ), //o
@@ -1743,70 +2217,22 @@ module PhyRxCFO (
     .clk                           (clk                                                 ), //i
     .reset                         (reset                                               )  //i
   );
-  CFOCorrector coarse_cfo_inst (
-    .raw_data_valid                (preamble_detector_raw_data_out_valid                ), //i
-    .raw_data_payload_cha_i        (preamble_detector_raw_data_out_payload_cha_i[11:0]  ), //i
-    .raw_data_payload_cha_q        (preamble_detector_raw_data_out_payload_cha_q[11:0]  ), //i
-    .rotated_data_valid            (coarse_cfo_inst_rotated_data_valid                  ), //o
-    .rotated_data_payload_cha_i    (coarse_cfo_inst_rotated_data_payload_cha_i[11:0]    ), //o
-    .rotated_data_payload_cha_q    (coarse_cfo_inst_rotated_data_payload_cha_q[11:0]    ), //o
-    .enable                        (coarse_cfo_inst_enable                              ), //i
-    .phi_correct_valid             (coarse_cfo_inst_phi_correct_valid                   ), //o
-    .clk                           (clk                                                 ), //i
-    .reset                         (reset                                               )  //i
-  );
-  CrossCorrelator cross_corr_core (
-    .raw_data_valid               (coarse_cfo_inst_rotated_data_valid                ), //i
-    .raw_data_payload_cha_i       (coarse_cfo_inst_rotated_data_payload_cha_i[11:0]  ), //i
-    .raw_data_payload_cha_q       (coarse_cfo_inst_rotated_data_payload_cha_q[11:0]  ), //i
-    .corr_result_valid            (cross_corr_core_corr_result_valid                 ), //o
-    .corr_result_payload_cha_i    (cross_corr_core_corr_result_payload_cha_i[35:0]   ), //o
-    .corr_result_payload_cha_q    (cross_corr_core_corr_result_payload_cha_q[35:0]   ), //o
-    .clk                          (clk                                               ), //i
-    .reset                        (reset                                             )  //i
-  );
-  assign coarse_cfo_inst_enable = (! cfo_corrected);
-  assign when_PhyRx_l38 = (pkg_drop || coarse_cfo_inst_phi_correct_valid);
-  assign when_PhyRx_l40 = (package_handling && (! package_handling_regNext));
-  assign when_PhyRx_l49 = (prod_max < _zz_when_PhyRx_l49);
-  assign result_data_valid = coarse_cfo_inst_rotated_data_valid;
-  assign result_data_payload_cha_i = coarse_cfo_inst_rotated_data_payload_cha_i;
-  assign result_data_payload_cha_q = coarse_cfo_inst_rotated_data_payload_cha_q;
+  assign pkg_handling = pkg_handling_1;
+  assign result_data_valid = preamble_detector_raw_data_out_valid;
+  assign result_data_payload_cha_i = preamble_detector_raw_data_out_payload_cha_i;
+  assign result_data_payload_cha_q = preamble_detector_raw_data_out_payload_cha_q;
   always @(posedge clk or posedge reset) begin
     if(reset) begin
-      package_handling <= 1'b0;
-      cfo_corrected <= 1'b1;
-      prod_max <= 36'h0;
-      prod_cnt <= 120'h0;
+      pkg_handling_1 <= 1'b0;
     end else begin
-      if(pkg_drop) begin
-        package_handling <= 1'b0;
+      if(detector_reset) begin
+        pkg_handling_1 <= 1'b0;
       end else begin
         if(preamble_detector_pkg_detected) begin
-          package_handling <= 1'b1;
-        end
-      end
-      if(when_PhyRx_l38) begin
-        cfo_corrected <= 1'b1;
-      end else begin
-        if(when_PhyRx_l40) begin
-          cfo_corrected <= 1'b0;
-        end
-      end
-      if(cross_corr_core_corr_result_valid) begin
-        if(when_PhyRx_l49) begin
-          prod_max <= (_zz_prod_max + _zz_prod_max_2);
-          prod_cnt <= 120'h0;
-        end else begin
-          prod_max <= (_zz_prod_max_4 + _zz_prod_max_6);
-          prod_cnt <= (prod_cnt + 120'h000000000000000000000000000001);
+          pkg_handling_1 <= 1'b1;
         end
       end
     end
-  end
-
-  always @(posedge clk) begin
-    package_handling_regNext <= package_handling;
   end
 
 
@@ -1869,7 +2295,7 @@ module PhyRxInterfaceIQ2modIQ (
 
 endmodule
 
-module StreamFifo_8 (
+module StreamFifo_10 (
   input               io_push_valid,
   output              io_push_ready,
   input      [11:0]   io_push_payload_cha_i,
@@ -2229,7 +2655,7 @@ module PreambleExtender (
 
 endmodule
 
-//StreamFifo_6 replaced by StreamFifo_6
+//StreamFifo_7 replaced by StreamFifo_7
 
 module PhyTxFilter (
   input               raw_data_valid,
@@ -2256,9 +2682,9 @@ module PhyTxFilter (
   wire       [11:0]   _zz_raw_data_payload_1;
   reg                 last_padding;
   wire                raw_data_fire;
-  wire                when_PhyTx_l217;
+  wire                when_PhyTx_l192;
   wire                result_data_fire;
-  wire                when_PhyTx_l219;
+  wire                when_PhyTx_l194;
   reg                 raw_data_payload_last_delay_1;
   reg                 raw_data_payload_last_delay_2;
   reg                 raw_data_payload_last_delay_3;
@@ -2298,9 +2724,9 @@ module PhyTxFilter (
     .reset                      (reset                                        )  //i
   );
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign when_PhyTx_l217 = (raw_data_fire && raw_data_payload_last);
+  assign when_PhyTx_l192 = (raw_data_fire && raw_data_payload_last);
   assign result_data_fire = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l219 = (result_data_fire && result_data_payload_last);
+  assign when_PhyTx_l194 = (result_data_fire && result_data_payload_last);
   assign raw_data_ready = ((! last_padding) && result_data_ready);
   assign fir_filter_iq_raw_data_valid = (raw_data_valid || last_padding);
   assign fir_filter_iq_raw_data_payload_0 = (last_padding ? _zz_raw_data_payload_0 : raw_data_payload_fragment_cha_i);
@@ -2338,10 +2764,10 @@ module PhyTxFilter (
       raw_data_payload_last_delay_24 <= 1'b0;
       raw_data_payload_last_delay_25 <= 1'b0;
     end else begin
-      if(when_PhyTx_l217) begin
+      if(when_PhyTx_l192) begin
         last_padding <= 1'b1;
       end else begin
-        if(when_PhyTx_l219) begin
+        if(when_PhyTx_l194) begin
           last_padding <= 1'b0;
         end
       end
@@ -2476,7 +2902,282 @@ module PhyTxOverSampling (
 
 endmodule
 
-module StreamFifo_6 (
+//StreamFifo_7 replaced by StreamFifo_7
+
+module PhyHeaderExtender (
+  input      [1:0]    mod_method,
+  input               pkg_size_valid,
+  output              pkg_size_ready,
+  input      [7:0]    pkg_size_payload,
+  input               raw_data_valid,
+  output reg          raw_data_ready,
+  input               raw_data_payload_last,
+  input      [11:0]   raw_data_payload_fragment_cha_i,
+  input      [11:0]   raw_data_payload_fragment_cha_q,
+  output reg          result_data_valid,
+  input               result_data_ready,
+  output reg          result_data_payload_last,
+  output reg [11:0]   result_data_payload_fragment_cha_i,
+  output reg [11:0]   result_data_payload_fragment_cha_q,
+  input               clk,
+  input               reset
+);
+  localparam PhyTxHeaderStatus_IDLE = 2'd0;
+  localparam PhyTxHeaderStatus_SDF = 2'd1;
+  localparam PhyTxHeaderStatus_HEADER = 2'd2;
+  localparam PhyTxHeaderStatus_DATA = 2'd3;
+
+  wire       [11:0]   _zz_header_mod_array_port2;
+  wire       [0:0]    _zz_header_mod_array_port;
+  wire       [11:0]   _zz_header_mod_array_port_1;
+  wire       [11:0]   _zz_header_mod_array_port_2;
+  wire                _zz_header_mod_array_port_3;
+  wire       [0:0]    _zz_header_mod_array_port_4;
+  wire       [11:0]   _zz_header_mod_array_port_5;
+  wire       [11:0]   _zz_header_mod_array_port_6;
+  wire                _zz_header_mod_array_port_7;
+  reg        [11:0]   _zz_result_data_payload_fragment_cha_i_1;
+  wire       [2:0]    _zz_result_data_payload_fragment_cha_i_2;
+  wire       [3:0]    _zz__zz_result_data_payload_fragment_cha_i;
+  reg        [1:0]    header_status;
+  wire       [11:0]   sdf_i_vec_0;
+  wire       [11:0]   sdf_i_vec_1;
+  wire       [11:0]   sdf_i_vec_2;
+  wire       [11:0]   sdf_i_vec_3;
+  wire       [11:0]   sdf_i_vec_4;
+  wire       [11:0]   sdf_i_vec_5;
+  wire       [11:0]   sdf_i_vec_6;
+  wire       [11:0]   sdf_i_vec_7;
+  reg        [4:0]    counter;
+  reg                 pkg_size_ready_1;
+  reg        [7:0]    pkg_size_payload_1;
+  wire       [9:0]    method_size;
+  wire                when_PhyTx_l299;
+  wire                pkg_size_fire;
+  wire                result_data_fire;
+  wire                when_PhyTx_l310;
+  wire                result_data_fire_1;
+  wire                when_PhyTx_l322;
+  wire       [0:0]    _zz_result_data_payload_fragment_cha_i;
+  wire                result_data_fire_2;
+  wire                when_PhyTx_l333;
+  `ifndef SYNTHESIS
+  reg [47:0] header_status_string;
+  `endif
+
+  (* ram_style = "distributed" *) reg [11:0] header_mod_array [0:1];
+
+  assign _zz_header_mod_array_port_2 = 12'h801;
+  assign _zz_header_mod_array_port_6 = 12'h7ff;
+  assign _zz_result_data_payload_fragment_cha_i_2 = counter[2:0];
+  assign _zz__zz_result_data_payload_fragment_cha_i = counter[3:0];
+  assign _zz_header_mod_array_port = 1'b0;
+  assign _zz_header_mod_array_port_1 = _zz_header_mod_array_port_2;
+  assign _zz_header_mod_array_port_3 = 1'b1;
+  assign _zz_header_mod_array_port_4 = 1'b1;
+  assign _zz_header_mod_array_port_5 = _zz_header_mod_array_port_6;
+  assign _zz_header_mod_array_port_7 = 1'b1;
+  always @(posedge clk) begin
+    if(_zz_header_mod_array_port_3) begin
+      header_mod_array[_zz_header_mod_array_port] <= _zz_header_mod_array_port_1;
+    end
+  end
+
+  always @(posedge clk) begin
+    if(_zz_header_mod_array_port_7) begin
+      header_mod_array[_zz_header_mod_array_port_4] <= _zz_header_mod_array_port_5;
+    end
+  end
+
+  assign _zz_header_mod_array_port2 = header_mod_array[_zz_result_data_payload_fragment_cha_i];
+  always @(*) begin
+    case(_zz_result_data_payload_fragment_cha_i_2)
+      3'b000 : _zz_result_data_payload_fragment_cha_i_1 = sdf_i_vec_0;
+      3'b001 : _zz_result_data_payload_fragment_cha_i_1 = sdf_i_vec_1;
+      3'b010 : _zz_result_data_payload_fragment_cha_i_1 = sdf_i_vec_2;
+      3'b011 : _zz_result_data_payload_fragment_cha_i_1 = sdf_i_vec_3;
+      3'b100 : _zz_result_data_payload_fragment_cha_i_1 = sdf_i_vec_4;
+      3'b101 : _zz_result_data_payload_fragment_cha_i_1 = sdf_i_vec_5;
+      3'b110 : _zz_result_data_payload_fragment_cha_i_1 = sdf_i_vec_6;
+      default : _zz_result_data_payload_fragment_cha_i_1 = sdf_i_vec_7;
+    endcase
+  end
+
+  `ifndef SYNTHESIS
+  always @(*) begin
+    case(header_status)
+      PhyTxHeaderStatus_IDLE : header_status_string = "IDLE  ";
+      PhyTxHeaderStatus_SDF : header_status_string = "SDF   ";
+      PhyTxHeaderStatus_HEADER : header_status_string = "HEADER";
+      PhyTxHeaderStatus_DATA : header_status_string = "DATA  ";
+      default : header_status_string = "??????";
+    endcase
+  end
+  `endif
+
+  assign sdf_i_vec_0 = 12'h801;
+  assign sdf_i_vec_1 = 12'h801;
+  assign sdf_i_vec_2 = 12'h7ff;
+  assign sdf_i_vec_3 = 12'h7ff;
+  assign sdf_i_vec_4 = 12'h801;
+  assign sdf_i_vec_5 = 12'h801;
+  assign sdf_i_vec_6 = 12'h7ff;
+  assign sdf_i_vec_7 = 12'h801;
+  always @(*) begin
+    raw_data_ready = 1'b0;
+    case(header_status)
+      PhyTxHeaderStatus_IDLE : begin
+      end
+      PhyTxHeaderStatus_SDF : begin
+      end
+      PhyTxHeaderStatus_HEADER : begin
+      end
+      default : begin
+        raw_data_ready = result_data_ready;
+      end
+    endcase
+  end
+
+  always @(*) begin
+    result_data_valid = 1'b0;
+    case(header_status)
+      PhyTxHeaderStatus_IDLE : begin
+      end
+      PhyTxHeaderStatus_SDF : begin
+        result_data_valid = 1'b1;
+      end
+      PhyTxHeaderStatus_HEADER : begin
+        result_data_valid = 1'b1;
+      end
+      default : begin
+        result_data_valid = raw_data_valid;
+      end
+    endcase
+  end
+
+  always @(*) begin
+    result_data_payload_last = 1'b0;
+    case(header_status)
+      PhyTxHeaderStatus_IDLE : begin
+      end
+      PhyTxHeaderStatus_SDF : begin
+      end
+      PhyTxHeaderStatus_HEADER : begin
+      end
+      default : begin
+        result_data_payload_last = raw_data_payload_last;
+      end
+    endcase
+  end
+
+  always @(*) begin
+    result_data_payload_fragment_cha_i = 12'h0;
+    case(header_status)
+      PhyTxHeaderStatus_IDLE : begin
+      end
+      PhyTxHeaderStatus_SDF : begin
+        result_data_payload_fragment_cha_i = _zz_result_data_payload_fragment_cha_i_1;
+      end
+      PhyTxHeaderStatus_HEADER : begin
+        result_data_payload_fragment_cha_i = _zz_header_mod_array_port2;
+      end
+      default : begin
+        result_data_payload_fragment_cha_i = raw_data_payload_fragment_cha_i;
+      end
+    endcase
+  end
+
+  always @(*) begin
+    result_data_payload_fragment_cha_q = 12'h0;
+    case(header_status)
+      PhyTxHeaderStatus_IDLE : begin
+      end
+      PhyTxHeaderStatus_SDF : begin
+      end
+      PhyTxHeaderStatus_HEADER : begin
+      end
+      default : begin
+        result_data_payload_fragment_cha_q = raw_data_payload_fragment_cha_q;
+      end
+    endcase
+  end
+
+  assign method_size = {mod_method,pkg_size_payload_1};
+  assign when_PhyTx_l299 = (raw_data_valid && pkg_size_valid);
+  assign pkg_size_fire = (pkg_size_valid && pkg_size_ready);
+  assign result_data_fire = (result_data_valid && result_data_ready);
+  assign when_PhyTx_l310 = (counter == 5'h07);
+  assign result_data_fire_1 = (result_data_valid && result_data_ready);
+  assign when_PhyTx_l322 = (counter == 5'h0);
+  assign _zz_result_data_payload_fragment_cha_i = method_size[_zz__zz_result_data_payload_fragment_cha_i];
+  assign result_data_fire_2 = (result_data_valid && result_data_ready);
+  assign when_PhyTx_l333 = (result_data_fire_2 && result_data_payload_last);
+  assign pkg_size_ready = pkg_size_ready_1;
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      header_status <= PhyTxHeaderStatus_IDLE;
+      counter <= 5'h0;
+      pkg_size_ready_1 <= 1'b0;
+    end else begin
+      case(header_status)
+        PhyTxHeaderStatus_IDLE : begin
+          if(when_PhyTx_l299) begin
+            header_status <= PhyTxHeaderStatus_SDF;
+            pkg_size_ready_1 <= 1'b1;
+          end
+        end
+        PhyTxHeaderStatus_SDF : begin
+          if(pkg_size_fire) begin
+            pkg_size_ready_1 <= 1'b0;
+          end
+          if(result_data_fire) begin
+            if(when_PhyTx_l310) begin
+              header_status <= PhyTxHeaderStatus_HEADER;
+              counter <= 5'h09;
+            end else begin
+              counter <= (counter + 5'h01);
+            end
+          end
+        end
+        PhyTxHeaderStatus_HEADER : begin
+          if(result_data_fire_1) begin
+            if(when_PhyTx_l322) begin
+              header_status <= PhyTxHeaderStatus_DATA;
+              counter <= 5'h0;
+            end else begin
+              counter <= (counter - 5'h01);
+            end
+          end
+        end
+        default : begin
+          if(when_PhyTx_l333) begin
+            header_status <= PhyTxHeaderStatus_IDLE;
+          end
+        end
+      endcase
+    end
+  end
+
+  always @(posedge clk) begin
+    case(header_status)
+      PhyTxHeaderStatus_IDLE : begin
+      end
+      PhyTxHeaderStatus_SDF : begin
+        if(pkg_size_fire) begin
+          pkg_size_payload_1 <= pkg_size_payload;
+        end
+      end
+      PhyTxHeaderStatus_HEADER : begin
+      end
+      default : begin
+      end
+    endcase
+  end
+
+
+endmodule
+
+module StreamFifo_7 (
   input               io_push_valid,
   output              io_push_ready,
   input               io_push_payload_last,
@@ -2844,7 +3545,7 @@ module dataDivDynamic (
 
 endmodule
 
-//StreamFifo_3 replaced by StreamFifo_3
+//StreamFifo_5 replaced by StreamFifo_5
 
 module PhyTxScrambler (
   input               raw_data_valid,
@@ -2868,7 +3569,7 @@ module PhyTxScrambler (
   wire       [15:0]   scrambler_1_scram_data_payload;
   reg        [1:0]    scrambler_status;
   wire                raw_data_fire;
-  wire                when_PhyTx_l143;
+  wire                when_PhyTx_l144;
   wire                raw_data_fire_1;
   `ifndef SYNTHESIS
   reg [79:0] scrambler_status_string;
@@ -2960,7 +3661,7 @@ module PhyTxScrambler (
   end
 
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign when_PhyTx_l143 = (raw_data_fire && raw_data_payload_last);
+  assign when_PhyTx_l144 = (raw_data_fire && raw_data_payload_last);
   assign raw_data_fire_1 = (raw_data_valid && raw_data_ready);
   always @(posedge clk or posedge reset) begin
     if(reset) begin
@@ -2973,7 +3674,7 @@ module PhyTxScrambler (
           end
         end
         PhyTxScramblerStatus_SCRAMBLING : begin
-          if(when_PhyTx_l143) begin
+          if(when_PhyTx_l144) begin
             scrambler_status <= PhyTxScramblerStatus_FINAL_1;
           end
         end
@@ -2987,190 +3688,7 @@ module PhyTxScrambler (
 
 endmodule
 
-//StreamFifo_3 replaced by StreamFifo_3
-
-module PhyHeaderExtender (
-  input      [7:0]    mod_method,
-  input               raw_data_valid,
-  output              raw_data_ready,
-  input               raw_data_payload_last,
-  input      [15:0]   raw_data_payload_fragment,
-  output reg          result_data_valid,
-  input               result_data_ready,
-  output reg          result_data_payload_last,
-  output reg [15:0]   result_data_payload_fragment,
-  input               clk,
-  input               reset
-);
-  localparam PhyTxHeaderStatus_IDLE = 2'd0;
-  localparam PhyTxHeaderStatus_HEADER = 2'd1;
-  localparam PhyTxHeaderStatus_DATA = 2'd2;
-
-  wire                dataFifo_io_push_valid;
-  reg                 dataFifo_io_pop_ready;
-  wire                dataFifo_io_push_ready;
-  wire                dataFifo_io_pop_valid;
-  wire                dataFifo_io_pop_payload_last;
-  wire       [15:0]   dataFifo_io_pop_payload_fragment;
-  wire       [7:0]    dataFifo_io_occupancy;
-  wire       [7:0]    dataFifo_io_availability;
-  wire       [7:0]    _zz_result_data_payload_fragment;
-  wire       [8:0]    _zz_result_data_payload_fragment_1;
-  reg        [7:0]    counter;
-  reg                 emitHeader;
-  wire                raw_data_fire;
-  wire                when_PhyTx_l263;
-  wire                result_data_fire;
-  wire                when_PhyTx_l263_1;
-  wire                _zz_raw_data_ready;
-  wire                result_data_fire_1;
-  wire                when_PhyTx_l265;
-  wire                raw_data_fire_1;
-  reg        [1:0]    header_status;
-  wire                result_data_fire_2;
-  wire                when_PhyTx_l294;
-  `ifndef SYNTHESIS
-  reg [47:0] header_status_string;
-  `endif
-
-
-  assign _zz_result_data_payload_fragment_1 = ({1'd0,counter} <<< 1);
-  assign _zz_result_data_payload_fragment = _zz_result_data_payload_fragment_1[7:0];
-  StreamFifo dataFifo (
-    .io_push_valid               (dataFifo_io_push_valid                  ), //i
-    .io_push_ready               (dataFifo_io_push_ready                  ), //o
-    .io_push_payload_last        (raw_data_payload_last                   ), //i
-    .io_push_payload_fragment    (raw_data_payload_fragment[15:0]         ), //i
-    .io_pop_valid                (dataFifo_io_pop_valid                   ), //o
-    .io_pop_ready                (dataFifo_io_pop_ready                   ), //i
-    .io_pop_payload_last         (dataFifo_io_pop_payload_last            ), //o
-    .io_pop_payload_fragment     (dataFifo_io_pop_payload_fragment[15:0]  ), //o
-    .io_flush                    (1'b0                                    ), //i
-    .io_occupancy                (dataFifo_io_occupancy[7:0]              ), //o
-    .io_availability             (dataFifo_io_availability[7:0]           ), //o
-    .clk                         (clk                                     ), //i
-    .reset                       (reset                                   )  //i
-  );
-  `ifndef SYNTHESIS
-  always @(*) begin
-    case(header_status)
-      PhyTxHeaderStatus_IDLE : header_status_string = "IDLE  ";
-      PhyTxHeaderStatus_HEADER : header_status_string = "HEADER";
-      PhyTxHeaderStatus_DATA : header_status_string = "DATA  ";
-      default : header_status_string = "??????";
-    endcase
-  end
-  `endif
-
-  assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign when_PhyTx_l263 = (raw_data_fire && raw_data_payload_last);
-  assign result_data_fire = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l263_1 = (result_data_fire && result_data_payload_last);
-  assign _zz_raw_data_ready = (! emitHeader);
-  assign raw_data_ready = (dataFifo_io_push_ready && _zz_raw_data_ready);
-  assign dataFifo_io_push_valid = (raw_data_valid && _zz_raw_data_ready);
-  assign result_data_fire_1 = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l265 = (result_data_fire_1 && result_data_payload_last);
-  assign raw_data_fire_1 = (raw_data_valid && raw_data_ready);
-  always @(*) begin
-    result_data_payload_last = 1'b0;
-    case(header_status)
-      PhyTxHeaderStatus_IDLE : begin
-      end
-      PhyTxHeaderStatus_HEADER : begin
-      end
-      default : begin
-        result_data_payload_last = dataFifo_io_pop_payload_last;
-      end
-    endcase
-  end
-
-  always @(*) begin
-    result_data_valid = 1'b0;
-    case(header_status)
-      PhyTxHeaderStatus_IDLE : begin
-      end
-      PhyTxHeaderStatus_HEADER : begin
-        result_data_valid = 1'b1;
-      end
-      default : begin
-        result_data_valid = dataFifo_io_pop_valid;
-      end
-    endcase
-  end
-
-  always @(*) begin
-    result_data_payload_fragment = 16'h0;
-    case(header_status)
-      PhyTxHeaderStatus_IDLE : begin
-      end
-      PhyTxHeaderStatus_HEADER : begin
-        result_data_payload_fragment = {mod_method,_zz_result_data_payload_fragment};
-      end
-      default : begin
-        result_data_payload_fragment = dataFifo_io_pop_payload_fragment;
-      end
-    endcase
-  end
-
-  always @(*) begin
-    dataFifo_io_pop_ready = 1'b0;
-    case(header_status)
-      PhyTxHeaderStatus_IDLE : begin
-      end
-      PhyTxHeaderStatus_HEADER : begin
-      end
-      default : begin
-        dataFifo_io_pop_ready = result_data_ready;
-      end
-    endcase
-  end
-
-  assign result_data_fire_2 = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l294 = (result_data_fire_2 && result_data_payload_last);
-  always @(posedge clk or posedge reset) begin
-    if(reset) begin
-      counter <= 8'h0;
-      emitHeader <= 1'b0;
-      header_status <= PhyTxHeaderStatus_IDLE;
-    end else begin
-      if(when_PhyTx_l263) begin
-        emitHeader <= 1'b1;
-      end
-      if(when_PhyTx_l263_1) begin
-        emitHeader <= 1'b0;
-      end
-      if(when_PhyTx_l265) begin
-        counter <= 8'h0;
-      end else begin
-        if(raw_data_fire_1) begin
-          counter <= (counter + 8'h01);
-        end
-      end
-      case(header_status)
-        PhyTxHeaderStatus_IDLE : begin
-          if(emitHeader) begin
-            header_status <= PhyTxHeaderStatus_HEADER;
-          end
-        end
-        PhyTxHeaderStatus_HEADER : begin
-          if(result_data_ready) begin
-            header_status <= PhyTxHeaderStatus_DATA;
-          end
-        end
-        default : begin
-          if(when_PhyTx_l294) begin
-            header_status <= PhyTxHeaderStatus_IDLE;
-          end
-        end
-      endcase
-    end
-  end
-
-
-endmodule
-
-module StreamFifo_3 (
+module StreamFifo_5 (
   input               io_push_valid,
   output              io_push_ready,
   input               io_push_payload_last,
@@ -3393,9 +3911,9 @@ module PhyTxEncoder (
   wire       [15:0]   phy_tx_encoder_coded_data_payload_fragment;
   reg                 emitEncoding;
   wire                raw_data_fire;
-  wire                when_PhyTx_l95;
+  wire                when_PhyTx_l96;
   wire                phy_tx_encoder_raw_data_fire;
-  wire                when_PhyTx_l95_1;
+  wire                when_PhyTx_l96_1;
   wire                phy_tx_encoder_coded_data_toStream_valid;
   wire                phy_tx_encoder_coded_data_toStream_ready;
   wire                phy_tx_encoder_coded_data_toStream_payload_last;
@@ -3415,9 +3933,9 @@ module PhyTxEncoder (
     .reset                          (reset                                             )  //i
   );
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign when_PhyTx_l95 = (raw_data_fire && raw_data_payload_last);
+  assign when_PhyTx_l96 = (raw_data_fire && raw_data_payload_last);
   assign phy_tx_encoder_raw_data_fire = (phy_tx_encoder_raw_data_valid && phy_tx_encoder_raw_data_ready);
-  assign when_PhyTx_l95_1 = (phy_tx_encoder_raw_data_fire && phy_tx_encoder_raw_data_payload_last);
+  assign when_PhyTx_l96_1 = (phy_tx_encoder_raw_data_fire && phy_tx_encoder_raw_data_payload_last);
   always @(*) begin
     if(emitEncoding) begin
       raw_data_ready = 1'b0;
@@ -3461,10 +3979,10 @@ module PhyTxEncoder (
     if(reset) begin
       emitEncoding <= 1'b0;
     end else begin
-      if(when_PhyTx_l95) begin
+      if(when_PhyTx_l96) begin
         emitEncoding <= 1'b1;
       end
-      if(when_PhyTx_l95_1) begin
+      if(when_PhyTx_l96_1) begin
         emitEncoding <= 1'b0;
       end
     end
@@ -3473,7 +3991,7 @@ module PhyTxEncoder (
 
 endmodule
 
-//StreamFifo_1 replaced by StreamFifo_1
+//StreamFifo_2 replaced by StreamFifo_2
 
 module PhyTxCrc (
   input               raw_data_valid,
@@ -3494,14 +4012,14 @@ module PhyTxCrc (
   reg        [7:0]    _zz_result_data_payload_fragment;
   reg                 emitCrc;
   wire                raw_data_fire;
-  wire                when_PhyTx_l32;
+  wire                when_PhyTx_l33;
   wire                result_data_fire;
-  wire                when_PhyTx_l32_1;
+  wire                when_PhyTx_l33_1;
   reg        [1:0]    counter;
   wire                raw_data_fire_1;
   wire                result_data_fire_1;
-  wire                when_PhyTx_l39;
-  wire                when_PhyTx_l47;
+  wire                when_PhyTx_l40;
+  wire                when_PhyTx_l48;
 
   Crc crc_1 (
     .flush            (crc_1_flush                     ), //i
@@ -3522,24 +4040,24 @@ module PhyTxCrc (
   end
 
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign when_PhyTx_l32 = (raw_data_fire && raw_data_payload_last);
+  assign when_PhyTx_l33 = (raw_data_fire && raw_data_payload_last);
   assign result_data_fire = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l32_1 = (result_data_fire && result_data_payload_last);
+  assign when_PhyTx_l33_1 = (result_data_fire && result_data_payload_last);
   assign raw_data_fire_1 = (raw_data_valid && raw_data_ready);
   assign result_data_fire_1 = (result_data_valid && result_data_ready);
   assign crc_1_flush = (result_data_fire_1 && result_data_payload_last);
   always @(*) begin
     result_data_payload_last = 1'b0;
-    if(!when_PhyTx_l39) begin
-      if(when_PhyTx_l47) begin
+    if(!when_PhyTx_l40) begin
+      if(when_PhyTx_l48) begin
         result_data_payload_last = 1'b1;
       end
     end
   end
 
-  assign when_PhyTx_l39 = (! emitCrc);
+  assign when_PhyTx_l40 = (! emitCrc);
   always @(*) begin
-    if(when_PhyTx_l39) begin
+    if(when_PhyTx_l40) begin
       result_data_valid = raw_data_valid;
     end else begin
       result_data_valid = 1'b1;
@@ -3547,7 +4065,7 @@ module PhyTxCrc (
   end
 
   always @(*) begin
-    if(when_PhyTx_l39) begin
+    if(when_PhyTx_l40) begin
       result_data_payload_fragment = raw_data_payload_fragment;
     end else begin
       result_data_payload_fragment = _zz_result_data_payload_fragment;
@@ -3555,27 +4073,27 @@ module PhyTxCrc (
   end
 
   always @(*) begin
-    if(when_PhyTx_l39) begin
+    if(when_PhyTx_l40) begin
       raw_data_ready = result_data_ready;
     end else begin
       raw_data_ready = 1'b0;
     end
   end
 
-  assign when_PhyTx_l47 = (counter == 2'b11);
+  assign when_PhyTx_l48 = (counter == 2'b11);
   always @(posedge clk or posedge reset) begin
     if(reset) begin
       emitCrc <= 1'b0;
       counter <= 2'b00;
     end else begin
-      if(when_PhyTx_l32) begin
+      if(when_PhyTx_l33) begin
         emitCrc <= 1'b1;
       end
-      if(when_PhyTx_l32_1) begin
+      if(when_PhyTx_l33_1) begin
         emitCrc <= 1'b0;
       end
-      if(!when_PhyTx_l39) begin
-        if(when_PhyTx_l47) begin
+      if(!when_PhyTx_l40) begin
+        if(when_PhyTx_l48) begin
           if(result_data_ready) begin
             emitCrc <= 1'b0;
           end
@@ -3590,7 +4108,88 @@ module PhyTxCrc (
 
 endmodule
 
-module StreamFifo_1 (
+//StreamFifo_2 replaced by StreamFifo_2
+
+module PhyTxPadder (
+  input               raw_data_valid,
+  output              raw_data_ready,
+  input               raw_data_payload_last,
+  input      [7:0]    raw_data_payload_fragment,
+  output reg          result_data_valid,
+  input               result_data_ready,
+  output reg          result_data_payload_last,
+  output reg [7:0]    result_data_payload_fragment,
+  input               clk,
+  input               reset
+);
+
+  reg        [2:0]    counter;
+  wire                ok;
+  wire                raw_data_fire;
+  reg                 raw_data_payload_first;
+  wire                fill;
+  wire                result_data_fire;
+  wire                when_PhyTx_l72;
+  wire                result_data_fire_1;
+  wire                when_PhyTx_l75;
+  wire                _zz_raw_data_ready;
+  wire                when_PhyTx_l79;
+
+  assign ok = (counter == 3'b111);
+  assign raw_data_fire = (raw_data_valid && raw_data_ready);
+  assign fill = ((counter != 3'b000) && raw_data_payload_first);
+  assign result_data_fire = (result_data_valid && result_data_ready);
+  assign when_PhyTx_l72 = ((! ok) && result_data_fire);
+  assign result_data_fire_1 = (result_data_valid && result_data_ready);
+  assign when_PhyTx_l75 = (result_data_fire_1 && result_data_payload_last);
+  assign _zz_raw_data_ready = (! fill);
+  assign raw_data_ready = (result_data_ready && _zz_raw_data_ready);
+  always @(*) begin
+    result_data_valid = (raw_data_valid && _zz_raw_data_ready);
+    if(fill) begin
+      result_data_valid = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    result_data_payload_last = raw_data_payload_last;
+    if(when_PhyTx_l79) begin
+      result_data_payload_last = 1'b0;
+    end
+    if(fill) begin
+      result_data_payload_last = ok;
+    end
+  end
+
+  always @(*) begin
+    result_data_payload_fragment = raw_data_payload_fragment;
+    if(fill) begin
+      result_data_payload_fragment = 8'h0;
+    end
+  end
+
+  assign when_PhyTx_l79 = (! ok);
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      counter <= 3'b000;
+      raw_data_payload_first <= 1'b1;
+    end else begin
+      if(raw_data_fire) begin
+        raw_data_payload_first <= raw_data_payload_last;
+      end
+      if(when_PhyTx_l72) begin
+        counter <= (counter + 3'b001);
+      end
+      if(when_PhyTx_l75) begin
+        counter <= 3'b000;
+      end
+    end
+  end
+
+
+endmodule
+
+module StreamFifo_2 (
   input               io_push_valid,
   output              io_push_ready,
   input               io_push_payload_last,
@@ -3748,78 +4347,109 @@ module StreamFifo_1 (
 
 endmodule
 
-module PhyTxPadder (
+module PhyPkgInformationGen (
   input               raw_data_valid,
   output              raw_data_ready,
   input               raw_data_payload_last,
   input      [7:0]    raw_data_payload_fragment,
-  output reg          result_data_valid,
+  output              result_data_valid,
   input               result_data_ready,
-  output reg          result_data_payload_last,
-  output reg [7:0]    result_data_payload_fragment,
+  output              result_data_payload_last,
+  output     [7:0]    result_data_payload_fragment,
+  output              pkg_size_valid,
+  input               pkg_size_ready,
+  output     [7:0]    pkg_size_payload,
   input               clk,
   input               reset
 );
 
-  reg        [2:0]    counter;
-  wire                ok;
-  wire                raw_data_fire;
-  reg                 raw_data_payload_first;
-  wire                fill;
-  wire                result_data_fire;
-  wire                when_PhyTx_l71;
-  wire                result_data_fire_1;
-  wire                when_PhyTx_l74;
+  wire                dataFifo_io_push_valid;
+  wire                dataFifo_io_push_ready;
+  wire                dataFifo_io_pop_valid;
+  wire                dataFifo_io_pop_payload_last;
+  wire       [7:0]    dataFifo_io_pop_payload_fragment;
+  wire       [7:0]    dataFifo_io_occupancy;
+  wire       [7:0]    dataFifo_io_availability;
+  wire                pkg_size_fifo_io_push_ready;
+  wire                pkg_size_fifo_io_pop_valid;
+  wire       [7:0]    pkg_size_fifo_io_pop_payload;
+  wire       [4:0]    pkg_size_fifo_io_occupancy;
+  wire       [4:0]    pkg_size_fifo_io_availability;
+  reg        [7:0]    pkg_size_cnt;
   wire                _zz_raw_data_ready;
-  wire                when_PhyTx_l78;
+  wire                raw_data_fire;
+  wire                when_PhyTx_l239;
+  wire                raw_data_fire_1;
+  reg                 pkg_size_valid_1;
+  reg        [7:0]    pkg_size_payload_1;
+  wire                raw_data_fire_2;
+  wire                when_PhyTx_l246;
+  wire                raw_data_fire_3;
 
-  assign ok = (counter == 3'b111);
+  StreamFifo dataFifo (
+    .io_push_valid               (dataFifo_io_push_valid                 ), //i
+    .io_push_ready               (dataFifo_io_push_ready                 ), //o
+    .io_push_payload_last        (raw_data_payload_last                  ), //i
+    .io_push_payload_fragment    (raw_data_payload_fragment[7:0]         ), //i
+    .io_pop_valid                (dataFifo_io_pop_valid                  ), //o
+    .io_pop_ready                (result_data_ready                      ), //i
+    .io_pop_payload_last         (dataFifo_io_pop_payload_last           ), //o
+    .io_pop_payload_fragment     (dataFifo_io_pop_payload_fragment[7:0]  ), //o
+    .io_flush                    (1'b0                                   ), //i
+    .io_occupancy                (dataFifo_io_occupancy[7:0]             ), //o
+    .io_availability             (dataFifo_io_availability[7:0]          ), //o
+    .clk                         (clk                                    ), //i
+    .reset                       (reset                                  )  //i
+  );
+  StreamFifo_1 pkg_size_fifo (
+    .io_push_valid      (pkg_size_valid_1                    ), //i
+    .io_push_ready      (pkg_size_fifo_io_push_ready         ), //o
+    .io_push_payload    (pkg_size_payload_1[7:0]             ), //i
+    .io_pop_valid       (pkg_size_fifo_io_pop_valid          ), //o
+    .io_pop_ready       (pkg_size_ready                      ), //i
+    .io_pop_payload     (pkg_size_fifo_io_pop_payload[7:0]   ), //o
+    .io_flush           (1'b0                                ), //i
+    .io_occupancy       (pkg_size_fifo_io_occupancy[4:0]     ), //o
+    .io_availability    (pkg_size_fifo_io_availability[4:0]  ), //o
+    .clk                (clk                                 ), //i
+    .reset              (reset                               )  //i
+  );
+  assign _zz_raw_data_ready = (! (! pkg_size_fifo_io_push_ready));
+  assign raw_data_ready = (dataFifo_io_push_ready && _zz_raw_data_ready);
+  assign dataFifo_io_push_valid = (raw_data_valid && _zz_raw_data_ready);
+  assign result_data_valid = dataFifo_io_pop_valid;
+  assign result_data_payload_last = dataFifo_io_pop_payload_last;
+  assign result_data_payload_fragment = dataFifo_io_pop_payload_fragment;
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign fill = ((counter != 3'b000) && raw_data_payload_first);
-  assign result_data_fire = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l71 = ((! ok) && result_data_fire);
-  assign result_data_fire_1 = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l74 = (result_data_fire_1 && result_data_payload_last);
-  assign _zz_raw_data_ready = (! fill);
-  assign raw_data_ready = (result_data_ready && _zz_raw_data_ready);
-  always @(*) begin
-    result_data_valid = (raw_data_valid && _zz_raw_data_ready);
-    if(fill) begin
-      result_data_valid = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    result_data_payload_last = raw_data_payload_last;
-    if(when_PhyTx_l78) begin
-      result_data_payload_last = 1'b0;
-    end
-    if(fill) begin
-      result_data_payload_last = ok;
-    end
-  end
-
-  always @(*) begin
-    result_data_payload_fragment = raw_data_payload_fragment;
-    if(fill) begin
-      result_data_payload_fragment = 8'h0;
-    end
-  end
-
-  assign when_PhyTx_l78 = (! ok);
+  assign when_PhyTx_l239 = (raw_data_fire && raw_data_payload_last);
+  assign raw_data_fire_1 = (raw_data_valid && raw_data_ready);
+  assign raw_data_fire_2 = (raw_data_valid && raw_data_ready);
+  assign when_PhyTx_l246 = (raw_data_fire_2 && raw_data_payload_last);
+  assign raw_data_fire_3 = (raw_data_valid && raw_data_ready);
+  assign pkg_size_valid = pkg_size_fifo_io_pop_valid;
+  assign pkg_size_payload = pkg_size_fifo_io_pop_payload;
   always @(posedge clk or posedge reset) begin
     if(reset) begin
-      counter <= 3'b000;
-      raw_data_payload_first <= 1'b1;
+      pkg_size_cnt <= 8'h0;
+      pkg_size_valid_1 <= 1'b0;
+      pkg_size_payload_1 <= 8'h0;
     end else begin
-      if(raw_data_fire) begin
-        raw_data_payload_first <= raw_data_payload_last;
+      if(!when_PhyTx_l239) begin
+        if(raw_data_fire_1) begin
+          pkg_size_cnt <= (pkg_size_cnt + 8'h01);
+        end
       end
-      if(when_PhyTx_l71) begin
-        counter <= (counter + 3'b001);
-      end
-      if(when_PhyTx_l74) begin
-        counter <= 3'b000;
+      if(when_PhyTx_l246) begin
+        pkg_size_valid_1 <= 1'b1;
+        pkg_size_payload_1 <= (pkg_size_cnt + 8'h01);
+        pkg_size_cnt <= 8'h0;
+      end else begin
+        if(raw_data_fire_3) begin
+          pkg_size_cnt <= (pkg_size_cnt + 8'h01);
+          pkg_size_valid_1 <= 1'b0;
+        end else begin
+          pkg_size_valid_1 <= 1'b0;
+        end
       end
     end
   end
@@ -3874,6 +4504,63 @@ module StreamPayloadSplit (
 
 
 endmodule
+
+module DecimatorIQ (
+  input               in_valid,
+  input      [11:0]   in_payload_cha_i,
+  input      [11:0]   in_payload_cha_q,
+  output              out_valid,
+  output     [11:0]   out_payload_cha_i,
+  output     [11:0]   out_payload_cha_q,
+  input               clk,
+  input               reset
+);
+
+  wire       [2:0]    _zz_cnt;
+  reg        [2:0]    cnt;
+  reg        [11:0]   out_data_cha_i;
+  reg        [11:0]   out_data_cha_q;
+  reg                 out_valid_1;
+  wire                when_DecimatorIQ_l23;
+
+  assign _zz_cnt = (cnt + 3'b001);
+  assign when_DecimatorIQ_l23 = (cnt == 3'b111);
+  assign out_payload_cha_i = out_data_cha_i;
+  assign out_payload_cha_q = out_data_cha_q;
+  assign out_valid = out_valid_1;
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      cnt <= 3'b000;
+      out_valid_1 <= 1'b0;
+    end else begin
+      if(in_valid) begin
+        cnt <= ((cnt == 3'b111) ? 3'b000 : _zz_cnt);
+      end
+      if(in_valid) begin
+        if(when_DecimatorIQ_l23) begin
+          out_valid_1 <= 1'b1;
+        end else begin
+          out_valid_1 <= 1'b0;
+        end
+      end else begin
+        out_valid_1 <= 1'b0;
+      end
+    end
+  end
+
+  always @(posedge clk) begin
+    if(in_valid) begin
+      if(when_DecimatorIQ_l23) begin
+        out_data_cha_i <= in_payload_cha_i;
+        out_data_cha_q <= in_payload_cha_q;
+      end
+    end
+  end
+
+
+endmodule
+
+//TransposeFIR replaced by TransposeFIR
 
 module CrossCorrelator (
   input               raw_data_valid,
@@ -4080,10 +4767,10 @@ module PreambleDetector (
   wire       [23:0]   _zz__zz_gate_pkg_det_8;
   wire       [0:0]    _zz__zz_gate_pkg_det_9;
   wire       [35:0]   _zz_gate_pkg_det_1;
-  wire       [22:0]   _zz_gate_pkg_det_2;
-  wire       [22:0]   _zz_gate_pkg_det_3;
-  wire       [22:0]   _zz_gate_pkg_det_4;
-  wire       [21:0]   _zz_gate_pkg_det_5;
+  wire       [26:0]   _zz_gate_pkg_det_2;
+  wire       [26:0]   _zz_gate_pkg_det_3;
+  wire       [26:0]   _zz_gate_pkg_det_4;
+  wire       [25:0]   _zz_gate_pkg_det_5;
   wire       [35:0]   _zz_prod_avg_mag;
   wire       [35:0]   _zz_prod_avg_mag_1;
   wire       [35:0]   _zz_prod_avg_mag_2;
@@ -4097,8 +4784,12 @@ module PreambleDetector (
   reg                 gate_pkg_det;
   reg        [35:0]   prod_avg_mag;
   reg        [7:0]    plateau_cnt;
-  wire       [23:0]   _zz_gate_pkg_det;
-  wire                when_PreambleDetector_l64;
+  reg        [23:0]   _zz_gate_pkg_det;
+  reg                 powerMeter_1_power_result_valid_regNext;
+  wire                when_PreambleDetector_l67;
+  reg                 raw_data_regNext_valid;
+  reg        [11:0]   raw_data_regNext_payload_cha_i;
+  reg        [11:0]   raw_data_regNext_payload_cha_q;
 
   assign _zz__zz_gate_pkg_det = (_zz__zz_gate_pkg_det_1 + _zz__zz_gate_pkg_det_3);
   assign _zz__zz_gate_pkg_det_1 = (powerMeter_1_power_result_payload_cha_i[23] ? _zz__zz_gate_pkg_det_2 : powerMeter_1_power_result_payload_cha_i);
@@ -4111,9 +4802,9 @@ module PreambleDetector (
   assign _zz__zz_gate_pkg_det_9 = powerMeter_1_power_result_payload_cha_q[23];
   assign _zz__zz_gate_pkg_det_8 = {23'd0, _zz__zz_gate_pkg_det_9};
   assign _zz_gate_pkg_det_2 = (_zz_gate_pkg_det_3 + _zz_gate_pkg_det_4);
-  assign _zz_gate_pkg_det_1 = {13'd0, _zz_gate_pkg_det_2};
-  assign _zz_gate_pkg_det_3 = (_zz_gate_pkg_det >>> 1);
-  assign _zz_gate_pkg_det_5 = (_zz_gate_pkg_det >>> 2);
+  assign _zz_gate_pkg_det_1 = {9'd0, _zz_gate_pkg_det_2};
+  assign _zz_gate_pkg_det_3 = ({3'd0,_zz_gate_pkg_det} <<< 3);
+  assign _zz_gate_pkg_det_5 = ({2'd0,_zz_gate_pkg_det} <<< 2);
   assign _zz_gate_pkg_det_4 = {1'd0, _zz_gate_pkg_det_5};
   assign _zz_prod_avg_mag = (_zz_prod_avg_mag_1 + _zz_prod_avg_mag_3);
   assign _zz_prod_avg_mag_1 = (autoCorrelator_2_corr_result_payload_cha_i[35] ? _zz_prod_avg_mag_2 : autoCorrelator_2_corr_result_payload_cha_i);
@@ -4145,11 +4836,10 @@ module PreambleDetector (
     .clk                          (clk                                               ), //i
     .reset                        (reset                                             )  //i
   );
-  assign _zz_gate_pkg_det = (_zz__zz_gate_pkg_det + _zz__zz_gate_pkg_det_5);
-  assign when_PreambleDetector_l64 = (plateau_cnt < 8'hff);
-  assign raw_data_out_valid = raw_data_valid;
-  assign raw_data_out_payload_cha_i = raw_data_payload_cha_i;
-  assign raw_data_out_payload_cha_q = raw_data_payload_cha_q;
+  assign when_PreambleDetector_l67 = (plateau_cnt < 8'hff);
+  assign raw_data_out_valid = raw_data_regNext_valid;
+  assign raw_data_out_payload_cha_i = raw_data_regNext_payload_cha_i;
+  assign raw_data_out_payload_cha_q = raw_data_regNext_payload_cha_q;
   assign corr_result_valid = autoCorrelator_2_corr_result_valid;
   assign corr_result_payload_cha_i = autoCorrelator_2_corr_result_payload_cha_i;
   assign corr_result_payload_cha_q = autoCorrelator_2_corr_result_payload_cha_q;
@@ -4159,14 +4849,19 @@ module PreambleDetector (
       gate_pkg_det <= 1'b0;
       prod_avg_mag <= 36'h0;
       plateau_cnt <= 8'h0;
+      _zz_gate_pkg_det <= 24'h0;
+      powerMeter_1_power_result_valid_regNext <= 1'b0;
+      raw_data_regNext_valid <= 1'b0;
     end else begin
-      if(powerMeter_1_power_result_valid) begin
+      _zz_gate_pkg_det <= (_zz__zz_gate_pkg_det + _zz__zz_gate_pkg_det_5);
+      powerMeter_1_power_result_valid_regNext <= powerMeter_1_power_result_valid;
+      if(powerMeter_1_power_result_valid_regNext) begin
         gate_pkg_det <= (_zz_gate_pkg_det_1 < prod_avg_mag);
       end else begin
         gate_pkg_det <= 1'b0;
       end
       if(gate_pkg_det) begin
-        if(when_PreambleDetector_l64) begin
+        if(when_PreambleDetector_l67) begin
           plateau_cnt <= (plateau_cnt + 8'h01);
         end
       end else begin
@@ -4177,7 +4872,13 @@ module PreambleDetector (
       end else begin
         prod_avg_mag <= 36'h0;
       end
+      raw_data_regNext_valid <= raw_data_valid;
     end
+  end
+
+  always @(posedge clk) begin
+    raw_data_regNext_payload_cha_i <= raw_data_payload_cha_i;
+    raw_data_regNext_payload_cha_q <= raw_data_payload_cha_q;
   end
 
 
@@ -4194,72 +4895,72 @@ module TransposeFIR (
   input               reset
 );
 
-  wire       [18:0]   transposeCore_66_next_adder_data;
-  wire       [18:0]   transposeCore_67_next_adder_data;
-  wire       [18:0]   transposeCore_68_next_adder_data;
-  wire       [18:0]   transposeCore_69_next_adder_data;
-  wire       [18:0]   transposeCore_70_next_adder_data;
-  wire       [18:0]   transposeCore_71_next_adder_data;
-  wire       [18:0]   transposeCore_72_next_adder_data;
-  wire       [18:0]   transposeCore_73_next_adder_data;
-  wire       [18:0]   transposeCore_74_next_adder_data;
-  wire       [18:0]   transposeCore_75_next_adder_data;
-  wire       [18:0]   transposeCore_76_next_adder_data;
-  wire       [18:0]   transposeCore_77_next_adder_data;
-  wire       [18:0]   transposeCore_78_next_adder_data;
-  wire       [18:0]   transposeCore_79_next_adder_data;
-  wire       [18:0]   transposeCore_80_next_adder_data;
-  wire       [18:0]   transposeCore_81_next_adder_data;
-  wire       [18:0]   transposeCore_82_next_adder_data;
-  wire       [18:0]   transposeCore_83_next_adder_data;
-  wire       [18:0]   transposeCore_84_next_adder_data;
-  wire       [18:0]   transposeCore_85_next_adder_data;
-  wire       [18:0]   transposeCore_86_next_adder_data;
-  wire       [18:0]   transposeCore_87_next_adder_data;
-  wire       [18:0]   transposeCore_88_next_adder_data;
-  wire       [18:0]   transposeCore_89_next_adder_data;
-  wire       [18:0]   transposeCore_90_next_adder_data;
-  wire       [18:0]   transposeCore_91_next_adder_data;
-  wire       [18:0]   transposeCore_92_next_adder_data;
-  wire       [18:0]   transposeCore_93_next_adder_data;
-  wire       [18:0]   transposeCore_94_next_adder_data;
-  wire       [18:0]   transposeCore_95_next_adder_data;
-  wire       [18:0]   transposeCore_96_next_adder_data;
-  wire       [18:0]   transposeCore_97_next_adder_data;
-  wire       [18:0]   transposeCore_98_next_adder_data;
-  wire       [18:0]   transposeCore_99_next_adder_data;
-  wire       [18:0]   transposeCore_100_next_adder_data;
-  wire       [18:0]   transposeCore_101_next_adder_data;
-  wire       [18:0]   transposeCore_102_next_adder_data;
-  wire       [18:0]   transposeCore_103_next_adder_data;
-  wire       [18:0]   transposeCore_104_next_adder_data;
-  wire       [18:0]   transposeCore_105_next_adder_data;
-  wire       [18:0]   transposeCore_106_next_adder_data;
-  wire       [18:0]   transposeCore_107_next_adder_data;
-  wire       [18:0]   transposeCore_108_next_adder_data;
-  wire       [18:0]   transposeCore_109_next_adder_data;
-  wire       [18:0]   transposeCore_110_next_adder_data;
-  wire       [18:0]   transposeCore_111_next_adder_data;
-  wire       [18:0]   transposeCore_112_next_adder_data;
-  wire       [18:0]   transposeCore_113_next_adder_data;
-  wire       [18:0]   transposeCore_114_next_adder_data;
-  wire       [18:0]   transposeCore_115_next_adder_data;
-  wire       [18:0]   transposeCore_116_next_adder_data;
-  wire       [18:0]   transposeCore_117_next_adder_data;
-  wire       [18:0]   transposeCore_118_next_adder_data;
-  wire       [18:0]   transposeCore_119_next_adder_data;
-  wire       [18:0]   transposeCore_120_next_adder_data;
-  wire       [18:0]   transposeCore_121_next_adder_data;
-  wire       [18:0]   transposeCore_122_next_adder_data;
-  wire       [18:0]   transposeCore_123_next_adder_data;
-  wire       [18:0]   transposeCore_124_next_adder_data;
-  wire       [18:0]   transposeCore_125_next_adder_data;
-  wire       [18:0]   transposeCore_126_next_adder_data;
-  wire       [18:0]   transposeCore_127_next_adder_data;
-  wire       [18:0]   transposeCore_128_next_adder_data;
-  wire       [18:0]   transposeCore_129_next_adder_data;
-  wire       [18:0]   transposeCore_130_next_adder_data;
-  wire       [18:0]   transposeCore_131_next_adder_data;
+  wire       [18:0]   transposeCore_132_next_adder_data;
+  wire       [18:0]   transposeCore_133_next_adder_data;
+  wire       [18:0]   transposeCore_134_next_adder_data;
+  wire       [18:0]   transposeCore_135_next_adder_data;
+  wire       [18:0]   transposeCore_136_next_adder_data;
+  wire       [18:0]   transposeCore_137_next_adder_data;
+  wire       [18:0]   transposeCore_138_next_adder_data;
+  wire       [18:0]   transposeCore_139_next_adder_data;
+  wire       [18:0]   transposeCore_140_next_adder_data;
+  wire       [18:0]   transposeCore_141_next_adder_data;
+  wire       [18:0]   transposeCore_142_next_adder_data;
+  wire       [18:0]   transposeCore_143_next_adder_data;
+  wire       [18:0]   transposeCore_144_next_adder_data;
+  wire       [18:0]   transposeCore_145_next_adder_data;
+  wire       [18:0]   transposeCore_146_next_adder_data;
+  wire       [18:0]   transposeCore_147_next_adder_data;
+  wire       [18:0]   transposeCore_148_next_adder_data;
+  wire       [18:0]   transposeCore_149_next_adder_data;
+  wire       [18:0]   transposeCore_150_next_adder_data;
+  wire       [18:0]   transposeCore_151_next_adder_data;
+  wire       [18:0]   transposeCore_152_next_adder_data;
+  wire       [18:0]   transposeCore_153_next_adder_data;
+  wire       [18:0]   transposeCore_154_next_adder_data;
+  wire       [18:0]   transposeCore_155_next_adder_data;
+  wire       [18:0]   transposeCore_156_next_adder_data;
+  wire       [18:0]   transposeCore_157_next_adder_data;
+  wire       [18:0]   transposeCore_158_next_adder_data;
+  wire       [18:0]   transposeCore_159_next_adder_data;
+  wire       [18:0]   transposeCore_160_next_adder_data;
+  wire       [18:0]   transposeCore_161_next_adder_data;
+  wire       [18:0]   transposeCore_162_next_adder_data;
+  wire       [18:0]   transposeCore_163_next_adder_data;
+  wire       [18:0]   transposeCore_164_next_adder_data;
+  wire       [18:0]   transposeCore_165_next_adder_data;
+  wire       [18:0]   transposeCore_166_next_adder_data;
+  wire       [18:0]   transposeCore_167_next_adder_data;
+  wire       [18:0]   transposeCore_168_next_adder_data;
+  wire       [18:0]   transposeCore_169_next_adder_data;
+  wire       [18:0]   transposeCore_170_next_adder_data;
+  wire       [18:0]   transposeCore_171_next_adder_data;
+  wire       [18:0]   transposeCore_172_next_adder_data;
+  wire       [18:0]   transposeCore_173_next_adder_data;
+  wire       [18:0]   transposeCore_174_next_adder_data;
+  wire       [18:0]   transposeCore_175_next_adder_data;
+  wire       [18:0]   transposeCore_176_next_adder_data;
+  wire       [18:0]   transposeCore_177_next_adder_data;
+  wire       [18:0]   transposeCore_178_next_adder_data;
+  wire       [18:0]   transposeCore_179_next_adder_data;
+  wire       [18:0]   transposeCore_180_next_adder_data;
+  wire       [18:0]   transposeCore_181_next_adder_data;
+  wire       [18:0]   transposeCore_182_next_adder_data;
+  wire       [18:0]   transposeCore_183_next_adder_data;
+  wire       [18:0]   transposeCore_184_next_adder_data;
+  wire       [18:0]   transposeCore_185_next_adder_data;
+  wire       [18:0]   transposeCore_186_next_adder_data;
+  wire       [18:0]   transposeCore_187_next_adder_data;
+  wire       [18:0]   transposeCore_188_next_adder_data;
+  wire       [18:0]   transposeCore_189_next_adder_data;
+  wire       [18:0]   transposeCore_190_next_adder_data;
+  wire       [18:0]   transposeCore_191_next_adder_data;
+  wire       [18:0]   transposeCore_192_next_adder_data;
+  wire       [18:0]   transposeCore_193_next_adder_data;
+  wire       [18:0]   transposeCore_194_next_adder_data;
+  wire       [18:0]   transposeCore_195_next_adder_data;
+  wire       [18:0]   transposeCore_196_next_adder_data;
+  wire       [18:0]   transposeCore_197_next_adder_data;
   reg        [6:0]    coff_mem_0;
   reg        [6:0]    coff_mem_1;
   reg        [6:0]    coff_mem_2;
@@ -4296,603 +4997,603 @@ module TransposeFIR (
   wire                filtered_data_valid_vec_0;
   wire                filtered_data_valid_vec_1;
 
-  TransposeCore transposeCore_66 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_0[6:0]                         ), //i
-    .adder_data         (19'h0                                   ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_66_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_132 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_0[6:0]                          ), //i
+    .adder_data         (19'h0                                    ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_132_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_67 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_1[6:0]                         ), //i
-    .adder_data         (transposeCore_66_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_67_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_133 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_1[6:0]                          ), //i
+    .adder_data         (transposeCore_132_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_133_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_68 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_2[6:0]                         ), //i
-    .adder_data         (transposeCore_67_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_68_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_134 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_2[6:0]                          ), //i
+    .adder_data         (transposeCore_133_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_134_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_69 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_3[6:0]                         ), //i
-    .adder_data         (transposeCore_68_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_69_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_135 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_3[6:0]                          ), //i
+    .adder_data         (transposeCore_134_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_135_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_70 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_4[6:0]                         ), //i
-    .adder_data         (transposeCore_69_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_70_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_136 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_4[6:0]                          ), //i
+    .adder_data         (transposeCore_135_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_136_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_71 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_5[6:0]                         ), //i
-    .adder_data         (transposeCore_70_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_71_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_137 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_5[6:0]                          ), //i
+    .adder_data         (transposeCore_136_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_137_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_72 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_6[6:0]                         ), //i
-    .adder_data         (transposeCore_71_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_72_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_138 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_6[6:0]                          ), //i
+    .adder_data         (transposeCore_137_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_138_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_73 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_7[6:0]                         ), //i
-    .adder_data         (transposeCore_72_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_73_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_139 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_7[6:0]                          ), //i
+    .adder_data         (transposeCore_138_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_139_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_74 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_8[6:0]                         ), //i
-    .adder_data         (transposeCore_73_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_74_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_140 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_8[6:0]                          ), //i
+    .adder_data         (transposeCore_139_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_140_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_75 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_9[6:0]                         ), //i
-    .adder_data         (transposeCore_74_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_75_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_141 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_9[6:0]                          ), //i
+    .adder_data         (transposeCore_140_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_141_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_76 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_10[6:0]                        ), //i
-    .adder_data         (transposeCore_75_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_76_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_142 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_10[6:0]                         ), //i
+    .adder_data         (transposeCore_141_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_142_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_77 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_11[6:0]                        ), //i
-    .adder_data         (transposeCore_76_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_77_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_143 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_11[6:0]                         ), //i
+    .adder_data         (transposeCore_142_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_143_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_78 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_12[6:0]                        ), //i
-    .adder_data         (transposeCore_77_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_78_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_144 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_12[6:0]                         ), //i
+    .adder_data         (transposeCore_143_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_144_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_79 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_13[6:0]                        ), //i
-    .adder_data         (transposeCore_78_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_79_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_145 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_13[6:0]                         ), //i
+    .adder_data         (transposeCore_144_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_145_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_80 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_14[6:0]                        ), //i
-    .adder_data         (transposeCore_79_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_80_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_146 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_14[6:0]                         ), //i
+    .adder_data         (transposeCore_145_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_146_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_81 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_15[6:0]                        ), //i
-    .adder_data         (transposeCore_80_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_81_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_147 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_15[6:0]                         ), //i
+    .adder_data         (transposeCore_146_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_147_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_82 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_16[6:0]                        ), //i
-    .adder_data         (transposeCore_81_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_82_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_148 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_16[6:0]                         ), //i
+    .adder_data         (transposeCore_147_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_148_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_83 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_17[6:0]                        ), //i
-    .adder_data         (transposeCore_82_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_83_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_149 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_17[6:0]                         ), //i
+    .adder_data         (transposeCore_148_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_149_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_84 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_18[6:0]                        ), //i
-    .adder_data         (transposeCore_83_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_84_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_150 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_18[6:0]                         ), //i
+    .adder_data         (transposeCore_149_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_150_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_85 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_19[6:0]                        ), //i
-    .adder_data         (transposeCore_84_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_85_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_151 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_19[6:0]                         ), //i
+    .adder_data         (transposeCore_150_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_151_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_86 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_20[6:0]                        ), //i
-    .adder_data         (transposeCore_85_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_86_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_152 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_20[6:0]                         ), //i
+    .adder_data         (transposeCore_151_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_152_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_87 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_21[6:0]                        ), //i
-    .adder_data         (transposeCore_86_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_87_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_153 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_21[6:0]                         ), //i
+    .adder_data         (transposeCore_152_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_153_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_88 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_22[6:0]                        ), //i
-    .adder_data         (transposeCore_87_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_88_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_154 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_22[6:0]                         ), //i
+    .adder_data         (transposeCore_153_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_154_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_89 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_23[6:0]                        ), //i
-    .adder_data         (transposeCore_88_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_89_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_155 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_23[6:0]                         ), //i
+    .adder_data         (transposeCore_154_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_155_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_90 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_24[6:0]                        ), //i
-    .adder_data         (transposeCore_89_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_90_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_156 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_24[6:0]                         ), //i
+    .adder_data         (transposeCore_155_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_156_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_91 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_25[6:0]                        ), //i
-    .adder_data         (transposeCore_90_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_91_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_157 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_25[6:0]                         ), //i
+    .adder_data         (transposeCore_156_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_157_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_92 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_26[6:0]                        ), //i
-    .adder_data         (transposeCore_91_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_92_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_158 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_26[6:0]                         ), //i
+    .adder_data         (transposeCore_157_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_158_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_93 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_27[6:0]                        ), //i
-    .adder_data         (transposeCore_92_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_93_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_159 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_27[6:0]                         ), //i
+    .adder_data         (transposeCore_158_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_159_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_94 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_28[6:0]                        ), //i
-    .adder_data         (transposeCore_93_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_94_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_160 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_28[6:0]                         ), //i
+    .adder_data         (transposeCore_159_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_160_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_95 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_29[6:0]                        ), //i
-    .adder_data         (transposeCore_94_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_95_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_161 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_29[6:0]                         ), //i
+    .adder_data         (transposeCore_160_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_161_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_96 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_30[6:0]                        ), //i
-    .adder_data         (transposeCore_95_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_96_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_162 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_30[6:0]                         ), //i
+    .adder_data         (transposeCore_161_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_162_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_97 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_31[6:0]                        ), //i
-    .adder_data         (transposeCore_96_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_97_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_163 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_31[6:0]                         ), //i
+    .adder_data         (transposeCore_162_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_163_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_98 (
-    .input_data         (raw_data_payload_0[11:0]                ), //i
-    .coff_data          (coff_mem_32[6:0]                        ), //i
-    .adder_data         (transposeCore_97_next_adder_data[18:0]  ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_98_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_164 (
+    .input_data         (raw_data_payload_0[11:0]                 ), //i
+    .coff_data          (coff_mem_32[6:0]                         ), //i
+    .adder_data         (transposeCore_163_next_adder_data[18:0]  ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_164_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_99 (
-    .input_data         (raw_data_payload_1[11:0]                ), //i
-    .coff_data          (coff_mem_0[6:0]                         ), //i
-    .adder_data         (19'h0                                   ), //i
-    .valid              (raw_data_valid                          ), //i
-    .next_adder_data    (transposeCore_99_next_adder_data[18:0]  ), //o
-    .clk                (clk                                     ), //i
-    .reset              (reset                                   )  //i
+  TransposeCore transposeCore_165 (
+    .input_data         (raw_data_payload_1[11:0]                 ), //i
+    .coff_data          (coff_mem_0[6:0]                          ), //i
+    .adder_data         (19'h0                                    ), //i
+    .valid              (raw_data_valid                           ), //i
+    .next_adder_data    (transposeCore_165_next_adder_data[18:0]  ), //o
+    .clk                (clk                                      ), //i
+    .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_100 (
+  TransposeCore transposeCore_166 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_1[6:0]                          ), //i
-    .adder_data         (transposeCore_99_next_adder_data[18:0]   ), //i
+    .adder_data         (transposeCore_165_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_100_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_166_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_101 (
+  TransposeCore transposeCore_167 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_2[6:0]                          ), //i
-    .adder_data         (transposeCore_100_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_166_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_101_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_167_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_102 (
+  TransposeCore transposeCore_168 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_3[6:0]                          ), //i
-    .adder_data         (transposeCore_101_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_167_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_102_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_168_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_103 (
+  TransposeCore transposeCore_169 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_4[6:0]                          ), //i
-    .adder_data         (transposeCore_102_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_168_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_103_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_169_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_104 (
+  TransposeCore transposeCore_170 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_5[6:0]                          ), //i
-    .adder_data         (transposeCore_103_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_169_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_104_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_170_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_105 (
+  TransposeCore transposeCore_171 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_6[6:0]                          ), //i
-    .adder_data         (transposeCore_104_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_170_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_105_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_171_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_106 (
+  TransposeCore transposeCore_172 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_7[6:0]                          ), //i
-    .adder_data         (transposeCore_105_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_171_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_106_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_172_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_107 (
+  TransposeCore transposeCore_173 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_8[6:0]                          ), //i
-    .adder_data         (transposeCore_106_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_172_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_107_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_173_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_108 (
+  TransposeCore transposeCore_174 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_9[6:0]                          ), //i
-    .adder_data         (transposeCore_107_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_173_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_108_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_174_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_109 (
+  TransposeCore transposeCore_175 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_10[6:0]                         ), //i
-    .adder_data         (transposeCore_108_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_174_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_109_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_175_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_110 (
+  TransposeCore transposeCore_176 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_11[6:0]                         ), //i
-    .adder_data         (transposeCore_109_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_175_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_110_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_176_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_111 (
+  TransposeCore transposeCore_177 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_12[6:0]                         ), //i
-    .adder_data         (transposeCore_110_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_176_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_111_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_177_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_112 (
+  TransposeCore transposeCore_178 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_13[6:0]                         ), //i
-    .adder_data         (transposeCore_111_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_177_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_112_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_178_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_113 (
+  TransposeCore transposeCore_179 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_14[6:0]                         ), //i
-    .adder_data         (transposeCore_112_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_178_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_113_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_179_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_114 (
+  TransposeCore transposeCore_180 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_15[6:0]                         ), //i
-    .adder_data         (transposeCore_113_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_179_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_114_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_180_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_115 (
+  TransposeCore transposeCore_181 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_16[6:0]                         ), //i
-    .adder_data         (transposeCore_114_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_180_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_115_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_181_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_116 (
+  TransposeCore transposeCore_182 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_17[6:0]                         ), //i
-    .adder_data         (transposeCore_115_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_181_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_116_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_182_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_117 (
+  TransposeCore transposeCore_183 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_18[6:0]                         ), //i
-    .adder_data         (transposeCore_116_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_182_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_117_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_183_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_118 (
+  TransposeCore transposeCore_184 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_19[6:0]                         ), //i
-    .adder_data         (transposeCore_117_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_183_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_118_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_184_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_119 (
+  TransposeCore transposeCore_185 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_20[6:0]                         ), //i
-    .adder_data         (transposeCore_118_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_184_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_119_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_185_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_120 (
+  TransposeCore transposeCore_186 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_21[6:0]                         ), //i
-    .adder_data         (transposeCore_119_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_185_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_120_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_186_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_121 (
+  TransposeCore transposeCore_187 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_22[6:0]                         ), //i
-    .adder_data         (transposeCore_120_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_186_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_121_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_187_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_122 (
+  TransposeCore transposeCore_188 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_23[6:0]                         ), //i
-    .adder_data         (transposeCore_121_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_187_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_122_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_188_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_123 (
+  TransposeCore transposeCore_189 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_24[6:0]                         ), //i
-    .adder_data         (transposeCore_122_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_188_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_123_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_189_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_124 (
+  TransposeCore transposeCore_190 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_25[6:0]                         ), //i
-    .adder_data         (transposeCore_123_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_189_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_124_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_190_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_125 (
+  TransposeCore transposeCore_191 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_26[6:0]                         ), //i
-    .adder_data         (transposeCore_124_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_190_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_125_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_191_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_126 (
+  TransposeCore transposeCore_192 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_27[6:0]                         ), //i
-    .adder_data         (transposeCore_125_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_191_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_126_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_192_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_127 (
+  TransposeCore transposeCore_193 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_28[6:0]                         ), //i
-    .adder_data         (transposeCore_126_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_192_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_127_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_193_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_128 (
+  TransposeCore transposeCore_194 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_29[6:0]                         ), //i
-    .adder_data         (transposeCore_127_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_193_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_128_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_194_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_129 (
+  TransposeCore transposeCore_195 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_30[6:0]                         ), //i
-    .adder_data         (transposeCore_128_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_194_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_129_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_195_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_130 (
+  TransposeCore transposeCore_196 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_31[6:0]                         ), //i
-    .adder_data         (transposeCore_129_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_195_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_130_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_196_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  TransposeCore transposeCore_131 (
+  TransposeCore transposeCore_197 (
     .input_data         (raw_data_payload_1[11:0]                 ), //i
     .coff_data          (coff_mem_32[6:0]                         ), //i
-    .adder_data         (transposeCore_130_next_adder_data[18:0]  ), //i
+    .adder_data         (transposeCore_196_next_adder_data[18:0]  ), //i
     .valid              (raw_data_valid                           ), //i
-    .next_adder_data    (transposeCore_131_next_adder_data[18:0]  ), //o
+    .next_adder_data    (transposeCore_197_next_adder_data[18:0]  ), //o
     .clk                (clk                                      ), //i
     .reset              (reset                                    )  //i
   );
-  assign filtered_data_payload_0 = transposeCore_98_next_adder_data;
+  assign filtered_data_payload_0 = transposeCore_164_next_adder_data;
   assign filtered_data_valid_vec_0 = raw_data_valid;
-  assign filtered_data_payload_1 = transposeCore_131_next_adder_data;
+  assign filtered_data_payload_1 = transposeCore_197_next_adder_data;
   assign filtered_data_valid_vec_1 = raw_data_valid;
   assign filtered_data_valid = (filtered_data_valid_vec_0 && filtered_data_valid_vec_1);
   always @(posedge clk) begin
@@ -5525,192 +6226,6 @@ module Scrambler (
 
 endmodule
 
-module StreamFifo (
-  input               io_push_valid,
-  output              io_push_ready,
-  input               io_push_payload_last,
-  input      [15:0]   io_push_payload_fragment,
-  output              io_pop_valid,
-  input               io_pop_ready,
-  output              io_pop_payload_last,
-  output     [15:0]   io_pop_payload_fragment,
-  input               io_flush,
-  output reg [7:0]    io_occupancy,
-  output reg [7:0]    io_availability,
-  input               clk,
-  input               reset
-);
-
-  reg        [16:0]   _zz_logic_ram_port0;
-  wire       [7:0]    _zz_logic_pushPtr_valueNext;
-  wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
-  wire       [7:0]    _zz_logic_popPtr_valueNext;
-  wire       [0:0]    _zz_logic_popPtr_valueNext_1;
-  wire                _zz_logic_ram_port;
-  wire                _zz__zz_io_pop_payload_last;
-  wire       [16:0]   _zz_logic_ram_port_1;
-  wire       [7:0]    _zz_io_occupancy;
-  wire       [7:0]    _zz_io_availability;
-  wire       [7:0]    _zz_io_availability_1;
-  wire       [7:0]    _zz_io_availability_2;
-  reg                 _zz_1;
-  reg                 logic_pushPtr_willIncrement;
-  reg                 logic_pushPtr_willClear;
-  reg        [7:0]    logic_pushPtr_valueNext;
-  reg        [7:0]    logic_pushPtr_value;
-  wire                logic_pushPtr_willOverflowIfInc;
-  wire                logic_pushPtr_willOverflow;
-  reg                 logic_popPtr_willIncrement;
-  reg                 logic_popPtr_willClear;
-  reg        [7:0]    logic_popPtr_valueNext;
-  reg        [7:0]    logic_popPtr_value;
-  wire                logic_popPtr_willOverflowIfInc;
-  wire                logic_popPtr_willOverflow;
-  wire                logic_ptrMatch;
-  reg                 logic_risingOccupancy;
-  wire                logic_pushing;
-  wire                logic_popping;
-  wire                logic_empty;
-  wire                logic_full;
-  reg                 _zz_io_pop_valid;
-  wire       [16:0]   _zz_io_pop_payload_last;
-  wire                when_Stream_l954;
-  wire       [7:0]    logic_ptrDif;
-  reg [16:0] logic_ram [0:135];
-
-  assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
-  assign _zz_logic_pushPtr_valueNext = {7'd0, _zz_logic_pushPtr_valueNext_1};
-  assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
-  assign _zz_logic_popPtr_valueNext = {7'd0, _zz_logic_popPtr_valueNext_1};
-  assign _zz_io_occupancy = (8'h88 + logic_ptrDif);
-  assign _zz_io_availability = (8'h88 + _zz_io_availability_1);
-  assign _zz_io_availability_1 = (logic_popPtr_value - logic_pushPtr_value);
-  assign _zz_io_availability_2 = (logic_popPtr_value - logic_pushPtr_value);
-  assign _zz__zz_io_pop_payload_last = 1'b1;
-  assign _zz_logic_ram_port_1 = {io_push_payload_fragment,io_push_payload_last};
-  always @(posedge clk) begin
-    if(_zz__zz_io_pop_payload_last) begin
-      _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
-    end
-  end
-
-  always @(posedge clk) begin
-    if(_zz_1) begin
-      logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
-    end
-  end
-
-  always @(*) begin
-    _zz_1 = 1'b0;
-    if(logic_pushing) begin
-      _zz_1 = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_pushPtr_willIncrement = 1'b0;
-    if(logic_pushing) begin
-      logic_pushPtr_willIncrement = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_pushPtr_willClear = 1'b0;
-    if(io_flush) begin
-      logic_pushPtr_willClear = 1'b1;
-    end
-  end
-
-  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 8'h87);
-  assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
-  always @(*) begin
-    if(logic_pushPtr_willOverflow) begin
-      logic_pushPtr_valueNext = 8'h0;
-    end else begin
-      logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
-    end
-    if(logic_pushPtr_willClear) begin
-      logic_pushPtr_valueNext = 8'h0;
-    end
-  end
-
-  always @(*) begin
-    logic_popPtr_willIncrement = 1'b0;
-    if(logic_popping) begin
-      logic_popPtr_willIncrement = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_popPtr_willClear = 1'b0;
-    if(io_flush) begin
-      logic_popPtr_willClear = 1'b1;
-    end
-  end
-
-  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 8'h87);
-  assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
-  always @(*) begin
-    if(logic_popPtr_willOverflow) begin
-      logic_popPtr_valueNext = 8'h0;
-    end else begin
-      logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
-    end
-    if(logic_popPtr_willClear) begin
-      logic_popPtr_valueNext = 8'h0;
-    end
-  end
-
-  assign logic_ptrMatch = (logic_pushPtr_value == logic_popPtr_value);
-  assign logic_pushing = (io_push_valid && io_push_ready);
-  assign logic_popping = (io_pop_valid && io_pop_ready);
-  assign logic_empty = (logic_ptrMatch && (! logic_risingOccupancy));
-  assign logic_full = (logic_ptrMatch && logic_risingOccupancy);
-  assign io_push_ready = (! logic_full);
-  assign io_pop_valid = ((! logic_empty) && (! (_zz_io_pop_valid && (! logic_full))));
-  assign _zz_io_pop_payload_last = _zz_logic_ram_port0;
-  assign io_pop_payload_last = _zz_io_pop_payload_last[0];
-  assign io_pop_payload_fragment = _zz_io_pop_payload_last[16 : 1];
-  assign when_Stream_l954 = (logic_pushing != logic_popping);
-  assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
-  always @(*) begin
-    if(logic_ptrMatch) begin
-      io_occupancy = (logic_risingOccupancy ? 8'h88 : 8'h0);
-    end else begin
-      io_occupancy = ((logic_popPtr_value < logic_pushPtr_value) ? logic_ptrDif : _zz_io_occupancy);
-    end
-  end
-
-  always @(*) begin
-    if(logic_ptrMatch) begin
-      io_availability = (logic_risingOccupancy ? 8'h0 : 8'h88);
-    end else begin
-      io_availability = ((logic_popPtr_value < logic_pushPtr_value) ? _zz_io_availability : _zz_io_availability_2);
-    end
-  end
-
-  always @(posedge clk or posedge reset) begin
-    if(reset) begin
-      logic_pushPtr_value <= 8'h0;
-      logic_popPtr_value <= 8'h0;
-      logic_risingOccupancy <= 1'b0;
-      _zz_io_pop_valid <= 1'b0;
-    end else begin
-      logic_pushPtr_value <= logic_pushPtr_valueNext;
-      logic_popPtr_value <= logic_popPtr_valueNext;
-      _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
-      if(when_Stream_l954) begin
-        logic_risingOccupancy <= logic_pushing;
-      end
-      if(io_flush) begin
-        logic_risingOccupancy <= 1'b0;
-      end
-    end
-  end
-
-
-endmodule
-
 module ConvEncoder (
   input               tail_bits_valid,
   input      [6:0]    tail_bits_payload,
@@ -5945,6 +6460,477 @@ module Crc (
 
 
 endmodule
+
+module StreamFifo_1 (
+  input               io_push_valid,
+  output              io_push_ready,
+  input      [7:0]    io_push_payload,
+  output              io_pop_valid,
+  input               io_pop_ready,
+  output     [7:0]    io_pop_payload,
+  input               io_flush,
+  output     [4:0]    io_occupancy,
+  output     [4:0]    io_availability,
+  input               clk,
+  input               reset
+);
+
+  reg        [7:0]    _zz_logic_ram_port0;
+  wire       [3:0]    _zz_logic_pushPtr_valueNext;
+  wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
+  wire       [3:0]    _zz_logic_popPtr_valueNext;
+  wire       [0:0]    _zz_logic_popPtr_valueNext_1;
+  wire                _zz_logic_ram_port;
+  wire                _zz_io_pop_payload;
+  wire       [7:0]    _zz_logic_ram_port_1;
+  wire       [3:0]    _zz_io_availability;
+  reg                 _zz_1;
+  reg                 logic_pushPtr_willIncrement;
+  reg                 logic_pushPtr_willClear;
+  reg        [3:0]    logic_pushPtr_valueNext;
+  reg        [3:0]    logic_pushPtr_value;
+  wire                logic_pushPtr_willOverflowIfInc;
+  wire                logic_pushPtr_willOverflow;
+  reg                 logic_popPtr_willIncrement;
+  reg                 logic_popPtr_willClear;
+  reg        [3:0]    logic_popPtr_valueNext;
+  reg        [3:0]    logic_popPtr_value;
+  wire                logic_popPtr_willOverflowIfInc;
+  wire                logic_popPtr_willOverflow;
+  wire                logic_ptrMatch;
+  reg                 logic_risingOccupancy;
+  wire                logic_pushing;
+  wire                logic_popping;
+  wire                logic_empty;
+  wire                logic_full;
+  reg                 _zz_io_pop_valid;
+  wire                when_Stream_l954;
+  wire       [3:0]    logic_ptrDif;
+  reg [7:0] logic_ram [0:15];
+
+  assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
+  assign _zz_logic_pushPtr_valueNext = {3'd0, _zz_logic_pushPtr_valueNext_1};
+  assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
+  assign _zz_logic_popPtr_valueNext = {3'd0, _zz_logic_popPtr_valueNext_1};
+  assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
+  assign _zz_io_pop_payload = 1'b1;
+  assign _zz_logic_ram_port_1 = io_push_payload;
+  always @(posedge clk) begin
+    if(_zz_io_pop_payload) begin
+      _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
+    end
+  end
+
+  always @(posedge clk) begin
+    if(_zz_1) begin
+      logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
+    end
+  end
+
+  always @(*) begin
+    _zz_1 = 1'b0;
+    if(logic_pushing) begin
+      _zz_1 = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_pushPtr_willIncrement = 1'b0;
+    if(logic_pushing) begin
+      logic_pushPtr_willIncrement = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_pushPtr_willClear = 1'b0;
+    if(io_flush) begin
+      logic_pushPtr_willClear = 1'b1;
+    end
+  end
+
+  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 4'b1111);
+  assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
+  always @(*) begin
+    logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
+    if(logic_pushPtr_willClear) begin
+      logic_pushPtr_valueNext = 4'b0000;
+    end
+  end
+
+  always @(*) begin
+    logic_popPtr_willIncrement = 1'b0;
+    if(logic_popping) begin
+      logic_popPtr_willIncrement = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_popPtr_willClear = 1'b0;
+    if(io_flush) begin
+      logic_popPtr_willClear = 1'b1;
+    end
+  end
+
+  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 4'b1111);
+  assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
+  always @(*) begin
+    logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
+    if(logic_popPtr_willClear) begin
+      logic_popPtr_valueNext = 4'b0000;
+    end
+  end
+
+  assign logic_ptrMatch = (logic_pushPtr_value == logic_popPtr_value);
+  assign logic_pushing = (io_push_valid && io_push_ready);
+  assign logic_popping = (io_pop_valid && io_pop_ready);
+  assign logic_empty = (logic_ptrMatch && (! logic_risingOccupancy));
+  assign logic_full = (logic_ptrMatch && logic_risingOccupancy);
+  assign io_push_ready = (! logic_full);
+  assign io_pop_valid = ((! logic_empty) && (! (_zz_io_pop_valid && (! logic_full))));
+  assign io_pop_payload = _zz_logic_ram_port0;
+  assign when_Stream_l954 = (logic_pushing != logic_popping);
+  assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
+  assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
+  assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      logic_pushPtr_value <= 4'b0000;
+      logic_popPtr_value <= 4'b0000;
+      logic_risingOccupancy <= 1'b0;
+      _zz_io_pop_valid <= 1'b0;
+    end else begin
+      logic_pushPtr_value <= logic_pushPtr_valueNext;
+      logic_popPtr_value <= logic_popPtr_valueNext;
+      _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
+      if(when_Stream_l954) begin
+        logic_risingOccupancy <= logic_pushing;
+      end
+      if(io_flush) begin
+        logic_risingOccupancy <= 1'b0;
+      end
+    end
+  end
+
+
+endmodule
+
+module StreamFifo (
+  input               io_push_valid,
+  output              io_push_ready,
+  input               io_push_payload_last,
+  input      [7:0]    io_push_payload_fragment,
+  output              io_pop_valid,
+  input               io_pop_ready,
+  output              io_pop_payload_last,
+  output     [7:0]    io_pop_payload_fragment,
+  input               io_flush,
+  output reg [7:0]    io_occupancy,
+  output reg [7:0]    io_availability,
+  input               clk,
+  input               reset
+);
+
+  reg        [8:0]    _zz_logic_ram_port0;
+  wire       [7:0]    _zz_logic_pushPtr_valueNext;
+  wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
+  wire       [7:0]    _zz_logic_popPtr_valueNext;
+  wire       [0:0]    _zz_logic_popPtr_valueNext_1;
+  wire                _zz_logic_ram_port;
+  wire                _zz__zz_io_pop_payload_last;
+  wire       [8:0]    _zz_logic_ram_port_1;
+  wire       [7:0]    _zz_io_occupancy;
+  wire       [7:0]    _zz_io_availability;
+  wire       [7:0]    _zz_io_availability_1;
+  wire       [7:0]    _zz_io_availability_2;
+  reg                 _zz_1;
+  reg                 logic_pushPtr_willIncrement;
+  reg                 logic_pushPtr_willClear;
+  reg        [7:0]    logic_pushPtr_valueNext;
+  reg        [7:0]    logic_pushPtr_value;
+  wire                logic_pushPtr_willOverflowIfInc;
+  wire                logic_pushPtr_willOverflow;
+  reg                 logic_popPtr_willIncrement;
+  reg                 logic_popPtr_willClear;
+  reg        [7:0]    logic_popPtr_valueNext;
+  reg        [7:0]    logic_popPtr_value;
+  wire                logic_popPtr_willOverflowIfInc;
+  wire                logic_popPtr_willOverflow;
+  wire                logic_ptrMatch;
+  reg                 logic_risingOccupancy;
+  wire                logic_pushing;
+  wire                logic_popping;
+  wire                logic_empty;
+  wire                logic_full;
+  reg                 _zz_io_pop_valid;
+  wire       [8:0]    _zz_io_pop_payload_last;
+  wire                when_Stream_l954;
+  wire       [7:0]    logic_ptrDif;
+  reg [8:0] logic_ram [0:128];
+
+  assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
+  assign _zz_logic_pushPtr_valueNext = {7'd0, _zz_logic_pushPtr_valueNext_1};
+  assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
+  assign _zz_logic_popPtr_valueNext = {7'd0, _zz_logic_popPtr_valueNext_1};
+  assign _zz_io_occupancy = (8'h81 + logic_ptrDif);
+  assign _zz_io_availability = (8'h81 + _zz_io_availability_1);
+  assign _zz_io_availability_1 = (logic_popPtr_value - logic_pushPtr_value);
+  assign _zz_io_availability_2 = (logic_popPtr_value - logic_pushPtr_value);
+  assign _zz__zz_io_pop_payload_last = 1'b1;
+  assign _zz_logic_ram_port_1 = {io_push_payload_fragment,io_push_payload_last};
+  always @(posedge clk) begin
+    if(_zz__zz_io_pop_payload_last) begin
+      _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
+    end
+  end
+
+  always @(posedge clk) begin
+    if(_zz_1) begin
+      logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
+    end
+  end
+
+  always @(*) begin
+    _zz_1 = 1'b0;
+    if(logic_pushing) begin
+      _zz_1 = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_pushPtr_willIncrement = 1'b0;
+    if(logic_pushing) begin
+      logic_pushPtr_willIncrement = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_pushPtr_willClear = 1'b0;
+    if(io_flush) begin
+      logic_pushPtr_willClear = 1'b1;
+    end
+  end
+
+  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 8'h80);
+  assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
+  always @(*) begin
+    if(logic_pushPtr_willOverflow) begin
+      logic_pushPtr_valueNext = 8'h0;
+    end else begin
+      logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
+    end
+    if(logic_pushPtr_willClear) begin
+      logic_pushPtr_valueNext = 8'h0;
+    end
+  end
+
+  always @(*) begin
+    logic_popPtr_willIncrement = 1'b0;
+    if(logic_popping) begin
+      logic_popPtr_willIncrement = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    logic_popPtr_willClear = 1'b0;
+    if(io_flush) begin
+      logic_popPtr_willClear = 1'b1;
+    end
+  end
+
+  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 8'h80);
+  assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
+  always @(*) begin
+    if(logic_popPtr_willOverflow) begin
+      logic_popPtr_valueNext = 8'h0;
+    end else begin
+      logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
+    end
+    if(logic_popPtr_willClear) begin
+      logic_popPtr_valueNext = 8'h0;
+    end
+  end
+
+  assign logic_ptrMatch = (logic_pushPtr_value == logic_popPtr_value);
+  assign logic_pushing = (io_push_valid && io_push_ready);
+  assign logic_popping = (io_pop_valid && io_pop_ready);
+  assign logic_empty = (logic_ptrMatch && (! logic_risingOccupancy));
+  assign logic_full = (logic_ptrMatch && logic_risingOccupancy);
+  assign io_push_ready = (! logic_full);
+  assign io_pop_valid = ((! logic_empty) && (! (_zz_io_pop_valid && (! logic_full))));
+  assign _zz_io_pop_payload_last = _zz_logic_ram_port0;
+  assign io_pop_payload_last = _zz_io_pop_payload_last[0];
+  assign io_pop_payload_fragment = _zz_io_pop_payload_last[8 : 1];
+  assign when_Stream_l954 = (logic_pushing != logic_popping);
+  assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
+  always @(*) begin
+    if(logic_ptrMatch) begin
+      io_occupancy = (logic_risingOccupancy ? 8'h81 : 8'h0);
+    end else begin
+      io_occupancy = ((logic_popPtr_value < logic_pushPtr_value) ? logic_ptrDif : _zz_io_occupancy);
+    end
+  end
+
+  always @(*) begin
+    if(logic_ptrMatch) begin
+      io_availability = (logic_risingOccupancy ? 8'h0 : 8'h81);
+    end else begin
+      io_availability = ((logic_popPtr_value < logic_pushPtr_value) ? _zz_io_availability : _zz_io_availability_2);
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      logic_pushPtr_value <= 8'h0;
+      logic_popPtr_value <= 8'h0;
+      logic_risingOccupancy <= 1'b0;
+      _zz_io_pop_valid <= 1'b0;
+    end else begin
+      logic_pushPtr_value <= logic_pushPtr_valueNext;
+      logic_popPtr_value <= logic_popPtr_valueNext;
+      _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
+      if(when_Stream_l954) begin
+        logic_risingOccupancy <= logic_pushing;
+      end
+      if(io_flush) begin
+        logic_risingOccupancy <= 1'b0;
+      end
+    end
+  end
+
+
+endmodule
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
+
+//TransposeCore replaced by TransposeCore
 
 module Correlator_2 (
   input               raw_data_0_valid,
@@ -8432,24 +9418,43 @@ module ShiftRegister_5 (
   reg        [19:0]   shift_reg_15;
 
   assign output_1 = shift_reg_15;
-  always @(posedge clk) begin
-    if(enable) begin
-      shift_reg_0 <= input_1;
-      shift_reg_1 <= shift_reg_0;
-      shift_reg_2 <= shift_reg_1;
-      shift_reg_3 <= shift_reg_2;
-      shift_reg_4 <= shift_reg_3;
-      shift_reg_5 <= shift_reg_4;
-      shift_reg_6 <= shift_reg_5;
-      shift_reg_7 <= shift_reg_6;
-      shift_reg_8 <= shift_reg_7;
-      shift_reg_9 <= shift_reg_8;
-      shift_reg_10 <= shift_reg_9;
-      shift_reg_11 <= shift_reg_10;
-      shift_reg_12 <= shift_reg_11;
-      shift_reg_13 <= shift_reg_12;
-      shift_reg_14 <= shift_reg_13;
-      shift_reg_15 <= shift_reg_14;
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      shift_reg_0 <= 20'h0;
+      shift_reg_1 <= 20'h0;
+      shift_reg_2 <= 20'h0;
+      shift_reg_3 <= 20'h0;
+      shift_reg_4 <= 20'h0;
+      shift_reg_5 <= 20'h0;
+      shift_reg_6 <= 20'h0;
+      shift_reg_7 <= 20'h0;
+      shift_reg_8 <= 20'h0;
+      shift_reg_9 <= 20'h0;
+      shift_reg_10 <= 20'h0;
+      shift_reg_11 <= 20'h0;
+      shift_reg_12 <= 20'h0;
+      shift_reg_13 <= 20'h0;
+      shift_reg_14 <= 20'h0;
+      shift_reg_15 <= 20'h0;
+    end else begin
+      if(enable) begin
+        shift_reg_0 <= input_1;
+        shift_reg_1 <= shift_reg_0;
+        shift_reg_2 <= shift_reg_1;
+        shift_reg_3 <= shift_reg_2;
+        shift_reg_4 <= shift_reg_3;
+        shift_reg_5 <= shift_reg_4;
+        shift_reg_6 <= shift_reg_5;
+        shift_reg_7 <= shift_reg_6;
+        shift_reg_8 <= shift_reg_7;
+        shift_reg_9 <= shift_reg_8;
+        shift_reg_10 <= shift_reg_9;
+        shift_reg_11 <= shift_reg_10;
+        shift_reg_12 <= shift_reg_11;
+        shift_reg_13 <= shift_reg_12;
+        shift_reg_14 <= shift_reg_13;
+        shift_reg_15 <= shift_reg_14;
+      end
     end
   end
 
