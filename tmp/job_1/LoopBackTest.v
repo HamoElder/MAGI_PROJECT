@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.4    git head : 598c18959149eb18e5eee5b0aa3eef01ecaa41a1
 // Component : LoopBackTest
-// Git hash  : e8efb225eaee335c55f2fe9a41a836040a0bb18f
+// Git hash  : b4854519b9981ad4d90b9c6743c51cbef5656810
 
 `timescale 1ns/1ps 
 
@@ -31,8 +31,8 @@ module LoopBackTest (
   input      [3:0]    trans_data_tkeep,
   input               trans_data_tlast,
   output              result_data_valid,
-  output     [11:0]   result_data_payload_cha_i,
-  output     [11:0]   result_data_payload_cha_q,
+  output              result_data_payload_last,
+  output     [7:0]    result_data_payload_fragment,
   input               clk,
   input               reset
 );
@@ -69,8 +69,8 @@ module LoopBackTest (
   wire       [10:0]   trans_to_recv_fifo_io_occupancy;
   wire       [10:0]   trans_to_recv_fifo_io_availability;
   wire                receiver_result_data_valid;
-  wire       [11:0]   receiver_result_data_payload_cha_i;
-  wire       [11:0]   receiver_result_data_payload_cha_q;
+  wire                receiver_result_data_payload_last;
+  wire       [7:0]    receiver_result_data_payload_fragment;
   wire       [6:0]    clkCrossing_9_dataOut;
   wire       [6:0]    clkCrossing_10_dataOut;
   wire                clkCrossing_11_dataOut;
@@ -207,17 +207,17 @@ module LoopBackTest (
     .reset                    (reset                                          )  //i
   );
   RX receiver (
-    .raw_data_valid               (1'b1                                      ), //i
-    .raw_data_payload_cha_i       (receiver_raw_data_payload_cha_i[11:0]     ), //i
-    .raw_data_payload_cha_q       (receiver_raw_data_payload_cha_q[11:0]     ), //i
-    .pa_shift_bias                (clkCrossing_15_dataOut[1:0]               ), //i
-    .pa_shift_dir                 (clkCrossing_16_dataOut                    ), //i
-    .result_data_valid            (receiver_result_data_valid                ), //o
-    .result_data_payload_cha_i    (receiver_result_data_payload_cha_i[11:0]  ), //o
-    .result_data_payload_cha_q    (receiver_result_data_payload_cha_q[11:0]  ), //o
-    .min_plateau                  (clkCrossing_17_dataOut[7:0]               ), //i
-    .clk                          (clk                                       ), //i
-    .reset                        (reset                                     )  //i
+    .raw_data_valid                  (1'b1                                        ), //i
+    .raw_data_payload_cha_i          (receiver_raw_data_payload_cha_i[11:0]       ), //i
+    .raw_data_payload_cha_q          (receiver_raw_data_payload_cha_q[11:0]       ), //i
+    .pa_shift_bias                   (clkCrossing_15_dataOut[1:0]                 ), //i
+    .pa_shift_dir                    (clkCrossing_16_dataOut                      ), //i
+    .result_data_valid               (receiver_result_data_valid                  ), //o
+    .result_data_payload_last        (receiver_result_data_payload_last           ), //o
+    .result_data_payload_fragment    (receiver_result_data_payload_fragment[7:0]  ), //o
+    .min_plateau                     (clkCrossing_17_dataOut[7:0]                 ), //i
+    .clk                             (clk                                         ), //i
+    .reset                           (reset                                       )  //i
   );
   ClkCrossing clkCrossing_9 (
     .dataIn     (pkg_gen_bridge_slices_limit[6:0]  ), //i
@@ -354,8 +354,8 @@ module LoopBackTest (
   assign receiver_raw_data_payload_cha_i = (trans_to_recv_fifo_io_pop_valid ? trans_to_recv_fifo_io_pop_payload_cha_i : 12'h0);
   assign receiver_raw_data_payload_cha_q = (trans_to_recv_fifo_io_pop_valid ? trans_to_recv_fifo_io_pop_payload_cha_q : 12'h0);
   assign result_data_valid = receiver_result_data_valid;
-  assign result_data_payload_cha_i = receiver_result_data_payload_cha_i;
-  assign result_data_payload_cha_q = receiver_result_data_payload_cha_q;
+  assign result_data_payload_last = receiver_result_data_payload_last;
+  assign result_data_payload_fragment = receiver_result_data_payload_fragment;
   assign pkg_gen_bridge_slices_limit = pkg_gen_bridge_slices_limit_driver;
   assign pkg_gen_bridge_slices_cnt = clkCrossing_10_dataOut;
   assign transmitter_bridge_div_enable = transmitter_bridge_div_enable_driver;
@@ -567,8 +567,8 @@ module RX (
   input      [1:0]    pa_shift_bias,
   input               pa_shift_dir,
   output              result_data_valid,
-  output     [11:0]   result_data_payload_cha_i,
-  output     [11:0]   result_data_payload_cha_q,
+  output              result_data_payload_last,
+  output     [7:0]    result_data_payload_fragment,
   input      [7:0]    min_plateau,
   input               clk,
   input               reset
@@ -601,6 +601,10 @@ module RX (
   wire                phy_rx_header_extender_header_message_valid;
   wire       [7:0]    phy_rx_header_extender_header_message_payload_pkg_size;
   wire       [1:0]    phy_rx_header_extender_header_message_payload_demod_method;
+  wire       [7:0]    phy_rx_header_extender_package_size;
+  wire                phy_rx_demodulator_result_data_valid;
+  wire                phy_rx_demodulator_result_data_payload_last;
+  wire       [7:0]    phy_rx_demodulator_result_data_payload_fragment;
   wire                phy_rx_reset;
 
   PhyRxInterfaceIQ2modIQ datatype_convert (
@@ -682,12 +686,26 @@ module RX (
     .header_message_valid                   (phy_rx_header_extender_header_message_valid                      ), //o
     .header_message_payload_pkg_size        (phy_rx_header_extender_header_message_payload_pkg_size[7:0]      ), //o
     .header_message_payload_demod_method    (phy_rx_header_extender_header_message_payload_demod_method[1:0]  ), //o
+    .package_size                           (phy_rx_header_extender_package_size[7:0]                         ), //o
     .clk                                    (clk                                                              ), //i
     .reset                                  (reset                                                            )  //i
   );
-  assign result_data_valid = phy_rx_header_extender_result_data_valid;
-  assign result_data_payload_cha_i = phy_rx_header_extender_result_data_payload_cha_i;
-  assign result_data_payload_cha_q = phy_rx_header_extender_result_data_payload_cha_q;
+  PhyRxDemodulator phy_rx_demodulator (
+    .raw_data_valid                         (phy_rx_header_extender_result_data_valid                         ), //i
+    .raw_data_payload_cha_i                 (phy_rx_header_extender_result_data_payload_cha_i[11:0]           ), //i
+    .raw_data_payload_cha_q                 (phy_rx_header_extender_result_data_payload_cha_q[11:0]           ), //i
+    .result_data_valid                      (phy_rx_demodulator_result_data_valid                             ), //o
+    .result_data_payload_last               (phy_rx_demodulator_result_data_payload_last                      ), //o
+    .result_data_payload_fragment           (phy_rx_demodulator_result_data_payload_fragment[7:0]             ), //o
+    .header_message_valid                   (phy_rx_header_extender_header_message_valid                      ), //i
+    .header_message_payload_pkg_size        (phy_rx_header_extender_header_message_payload_pkg_size[7:0]      ), //i
+    .header_message_payload_demod_method    (phy_rx_header_extender_header_message_payload_demod_method[1:0]  ), //i
+    .clk                                    (clk                                                              ), //i
+    .reset                                  (reset                                                            )  //i
+  );
+  assign result_data_valid = phy_rx_demodulator_result_data_valid;
+  assign result_data_payload_last = phy_rx_demodulator_result_data_payload_last;
+  assign result_data_payload_fragment = phy_rx_demodulator_result_data_payload_fragment;
   assign phy_rx_reset = phy_rx_header_extender_sdf_not_found;
 
 endmodule
@@ -869,10 +887,10 @@ module TX (
 
   wire                phy_tx_information_gen_raw_data_valid;
   wire                phy_tx_information_gen_result_data_queueWithAvailability_io_pop_ready;
-  wire                phy_tx_padder_raw_data_valid;
-  wire                phy_tx_padder_result_data_queueWithAvailability_io_pop_ready;
   wire                phy_tx_crc_raw_data_valid;
   wire                phy_tx_crc_result_data_queueWithAvailability_io_pop_ready;
+  wire                phy_tx_padder_raw_data_valid;
+  wire                phy_tx_padder_result_data_queueWithAvailability_io_pop_ready;
   wire                phy_tx_encoder_raw_data_valid;
   wire                phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_ready;
   wire                phy_tx_scrambler_raw_data_valid;
@@ -897,16 +915,6 @@ module TX (
   wire       [7:0]    phy_tx_information_gen_result_data_queueWithAvailability_io_pop_payload_fragment;
   wire       [5:0]    phy_tx_information_gen_result_data_queueWithAvailability_io_occupancy;
   wire       [5:0]    phy_tx_information_gen_result_data_queueWithAvailability_io_availability;
-  wire                phy_tx_padder_raw_data_ready;
-  wire                phy_tx_padder_result_data_valid;
-  wire                phy_tx_padder_result_data_payload_last;
-  wire       [7:0]    phy_tx_padder_result_data_payload_fragment;
-  wire                phy_tx_padder_result_data_queueWithAvailability_io_push_ready;
-  wire                phy_tx_padder_result_data_queueWithAvailability_io_pop_valid;
-  wire                phy_tx_padder_result_data_queueWithAvailability_io_pop_payload_last;
-  wire       [7:0]    phy_tx_padder_result_data_queueWithAvailability_io_pop_payload_fragment;
-  wire       [5:0]    phy_tx_padder_result_data_queueWithAvailability_io_occupancy;
-  wire       [5:0]    phy_tx_padder_result_data_queueWithAvailability_io_availability;
   wire                phy_tx_crc_raw_data_ready;
   wire                phy_tx_crc_result_data_valid;
   wire                phy_tx_crc_result_data_payload_last;
@@ -917,6 +925,16 @@ module TX (
   wire       [7:0]    phy_tx_crc_result_data_queueWithAvailability_io_pop_payload_fragment;
   wire       [5:0]    phy_tx_crc_result_data_queueWithAvailability_io_occupancy;
   wire       [5:0]    phy_tx_crc_result_data_queueWithAvailability_io_availability;
+  wire                phy_tx_padder_raw_data_ready;
+  wire                phy_tx_padder_result_data_valid;
+  wire                phy_tx_padder_result_data_payload_last;
+  wire       [7:0]    phy_tx_padder_result_data_payload_fragment;
+  wire                phy_tx_padder_result_data_queueWithAvailability_io_push_ready;
+  wire                phy_tx_padder_result_data_queueWithAvailability_io_pop_valid;
+  wire                phy_tx_padder_result_data_queueWithAvailability_io_pop_payload_last;
+  wire       [7:0]    phy_tx_padder_result_data_queueWithAvailability_io_pop_payload_fragment;
+  wire       [5:0]    phy_tx_padder_result_data_queueWithAvailability_io_occupancy;
+  wire       [5:0]    phy_tx_padder_result_data_queueWithAvailability_io_availability;
   wire                phy_tx_encoder_raw_data_ready;
   wire                phy_tx_encoder_result_data_valid;
   wire                phy_tx_encoder_result_data_payload_last;
@@ -1053,44 +1071,17 @@ module TX (
     .clk                         (clk                                                                                    ), //i
     .reset                       (reset                                                                                  )  //i
   );
-  PhyTxPadder phy_tx_padder (
-    .raw_data_valid                  (phy_tx_padder_raw_data_valid                                                           ), //i
-    .raw_data_ready                  (phy_tx_padder_raw_data_ready                                                           ), //o
+  PhyTxCrc phy_tx_crc (
+    .raw_data_valid                  (phy_tx_crc_raw_data_valid                                                              ), //i
+    .raw_data_ready                  (phy_tx_crc_raw_data_ready                                                              ), //o
     .raw_data_payload_last           (phy_tx_information_gen_result_data_queueWithAvailability_io_pop_payload_last           ), //i
     .raw_data_payload_fragment       (phy_tx_information_gen_result_data_queueWithAvailability_io_pop_payload_fragment[7:0]  ), //i
-    .result_data_valid               (phy_tx_padder_result_data_valid                                                        ), //o
-    .result_data_ready               (phy_tx_padder_result_data_queueWithAvailability_io_push_ready                          ), //i
-    .result_data_payload_last        (phy_tx_padder_result_data_payload_last                                                 ), //o
-    .result_data_payload_fragment    (phy_tx_padder_result_data_payload_fragment[7:0]                                        ), //o
+    .result_data_valid               (phy_tx_crc_result_data_valid                                                           ), //o
+    .result_data_ready               (phy_tx_crc_result_data_queueWithAvailability_io_push_ready                             ), //i
+    .result_data_payload_last        (phy_tx_crc_result_data_payload_last                                                    ), //o
+    .result_data_payload_fragment    (phy_tx_crc_result_data_payload_fragment[7:0]                                           ), //o
     .clk                             (clk                                                                                    ), //i
     .reset                           (reset                                                                                  )  //i
-  );
-  StreamFifo_2 phy_tx_padder_result_data_queueWithAvailability (
-    .io_push_valid               (phy_tx_padder_result_data_valid                                               ), //i
-    .io_push_ready               (phy_tx_padder_result_data_queueWithAvailability_io_push_ready                 ), //o
-    .io_push_payload_last        (phy_tx_padder_result_data_payload_last                                        ), //i
-    .io_push_payload_fragment    (phy_tx_padder_result_data_payload_fragment[7:0]                               ), //i
-    .io_pop_valid                (phy_tx_padder_result_data_queueWithAvailability_io_pop_valid                  ), //o
-    .io_pop_ready                (phy_tx_padder_result_data_queueWithAvailability_io_pop_ready                  ), //i
-    .io_pop_payload_last         (phy_tx_padder_result_data_queueWithAvailability_io_pop_payload_last           ), //o
-    .io_pop_payload_fragment     (phy_tx_padder_result_data_queueWithAvailability_io_pop_payload_fragment[7:0]  ), //o
-    .io_flush                    (1'b0                                                                          ), //i
-    .io_occupancy                (phy_tx_padder_result_data_queueWithAvailability_io_occupancy[5:0]             ), //o
-    .io_availability             (phy_tx_padder_result_data_queueWithAvailability_io_availability[5:0]          ), //o
-    .clk                         (clk                                                                           ), //i
-    .reset                       (reset                                                                         )  //i
-  );
-  PhyTxCrc phy_tx_crc (
-    .raw_data_valid                  (phy_tx_crc_raw_data_valid                                                     ), //i
-    .raw_data_ready                  (phy_tx_crc_raw_data_ready                                                     ), //o
-    .raw_data_payload_last           (phy_tx_padder_result_data_queueWithAvailability_io_pop_payload_last           ), //i
-    .raw_data_payload_fragment       (phy_tx_padder_result_data_queueWithAvailability_io_pop_payload_fragment[7:0]  ), //i
-    .result_data_valid               (phy_tx_crc_result_data_valid                                                  ), //o
-    .result_data_ready               (phy_tx_crc_result_data_queueWithAvailability_io_push_ready                    ), //i
-    .result_data_payload_last        (phy_tx_crc_result_data_payload_last                                           ), //o
-    .result_data_payload_fragment    (phy_tx_crc_result_data_payload_fragment[7:0]                                  ), //o
-    .clk                             (clk                                                                           ), //i
-    .reset                           (reset                                                                         )  //i
   );
   StreamFifo_2 phy_tx_crc_result_data_queueWithAvailability (
     .io_push_valid               (phy_tx_crc_result_data_valid                                               ), //i
@@ -1107,17 +1098,44 @@ module TX (
     .clk                         (clk                                                                        ), //i
     .reset                       (reset                                                                      )  //i
   );
-  PhyTxEncoder phy_tx_encoder (
-    .raw_data_valid                  (phy_tx_encoder_raw_data_valid                                              ), //i
-    .raw_data_ready                  (phy_tx_encoder_raw_data_ready                                              ), //o
+  PhyTxPadder phy_tx_padder (
+    .raw_data_valid                  (phy_tx_padder_raw_data_valid                                               ), //i
+    .raw_data_ready                  (phy_tx_padder_raw_data_ready                                               ), //o
     .raw_data_payload_last           (phy_tx_crc_result_data_queueWithAvailability_io_pop_payload_last           ), //i
     .raw_data_payload_fragment       (phy_tx_crc_result_data_queueWithAvailability_io_pop_payload_fragment[7:0]  ), //i
-    .result_data_valid               (phy_tx_encoder_result_data_valid                                           ), //o
-    .result_data_ready               (phy_tx_puncher_raw_data_ready                                              ), //i
-    .result_data_payload_last        (phy_tx_encoder_result_data_payload_last                                    ), //o
-    .result_data_payload_fragment    (phy_tx_encoder_result_data_payload_fragment[15:0]                          ), //o
+    .result_data_valid               (phy_tx_padder_result_data_valid                                            ), //o
+    .result_data_ready               (phy_tx_padder_result_data_queueWithAvailability_io_push_ready              ), //i
+    .result_data_payload_last        (phy_tx_padder_result_data_payload_last                                     ), //o
+    .result_data_payload_fragment    (phy_tx_padder_result_data_payload_fragment[7:0]                            ), //o
     .clk                             (clk                                                                        ), //i
     .reset                           (reset                                                                      )  //i
+  );
+  StreamFifo_2 phy_tx_padder_result_data_queueWithAvailability (
+    .io_push_valid               (phy_tx_padder_result_data_valid                                               ), //i
+    .io_push_ready               (phy_tx_padder_result_data_queueWithAvailability_io_push_ready                 ), //o
+    .io_push_payload_last        (phy_tx_padder_result_data_payload_last                                        ), //i
+    .io_push_payload_fragment    (phy_tx_padder_result_data_payload_fragment[7:0]                               ), //i
+    .io_pop_valid                (phy_tx_padder_result_data_queueWithAvailability_io_pop_valid                  ), //o
+    .io_pop_ready                (phy_tx_padder_result_data_queueWithAvailability_io_pop_ready                  ), //i
+    .io_pop_payload_last         (phy_tx_padder_result_data_queueWithAvailability_io_pop_payload_last           ), //o
+    .io_pop_payload_fragment     (phy_tx_padder_result_data_queueWithAvailability_io_pop_payload_fragment[7:0]  ), //o
+    .io_flush                    (1'b0                                                                          ), //i
+    .io_occupancy                (phy_tx_padder_result_data_queueWithAvailability_io_occupancy[5:0]             ), //o
+    .io_availability             (phy_tx_padder_result_data_queueWithAvailability_io_availability[5:0]          ), //o
+    .clk                         (clk                                                                           ), //i
+    .reset                       (reset                                                                         )  //i
+  );
+  PhyTxEncoder phy_tx_encoder (
+    .raw_data_valid                  (phy_tx_encoder_raw_data_valid                                                 ), //i
+    .raw_data_ready                  (phy_tx_encoder_raw_data_ready                                                 ), //o
+    .raw_data_payload_last           (phy_tx_padder_result_data_queueWithAvailability_io_pop_payload_last           ), //i
+    .raw_data_payload_fragment       (phy_tx_padder_result_data_queueWithAvailability_io_pop_payload_fragment[7:0]  ), //i
+    .result_data_valid               (phy_tx_encoder_result_data_valid                                              ), //o
+    .result_data_ready               (phy_tx_puncher_raw_data_ready                                                 ), //i
+    .result_data_payload_last        (phy_tx_encoder_result_data_payload_last                                       ), //o
+    .result_data_payload_fragment    (phy_tx_encoder_result_data_payload_fragment[15:0]                             ), //o
+    .clk                             (clk                                                                           ), //i
+    .reset                           (reset                                                                         )  //i
   );
   Puncturing phy_tx_puncher (
     .raw_data_valid                   (phy_tx_encoder_result_data_valid                    ), //i
@@ -1340,8 +1358,8 @@ module TX (
   assign phy_tx_information_gen_raw_data_valid = (raw_data_valid && _zz_raw_data_ready);
   always @(*) begin
     pipeline_halt[0] = (phy_tx_information_gen_result_data_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[1] = (phy_tx_padder_result_data_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[2] = (phy_tx_crc_result_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[1] = (phy_tx_crc_result_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[2] = (phy_tx_padder_result_data_queueWithAvailability_io_availability < 6'h12);
     pipeline_halt[3] = (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_availability < 6'h12);
     pipeline_halt[4] = (phy_tx_scrambler_result_data_queueWithAvailability_io_availability < 6'h12);
     pipeline_halt[5] = (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_availability < 6'h12);
@@ -1351,14 +1369,14 @@ module TX (
   end
 
   assign _zz_io_pop_ready = (! pipeline_halt[1]);
-  assign phy_tx_information_gen_result_data_queueWithAvailability_io_pop_ready = (phy_tx_padder_raw_data_ready && _zz_io_pop_ready);
-  assign phy_tx_padder_raw_data_valid = (phy_tx_information_gen_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready);
+  assign phy_tx_information_gen_result_data_queueWithAvailability_io_pop_ready = (phy_tx_crc_raw_data_ready && _zz_io_pop_ready);
+  assign phy_tx_crc_raw_data_valid = (phy_tx_information_gen_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready);
   assign _zz_io_pop_ready_1 = (! pipeline_halt[2]);
-  assign phy_tx_padder_result_data_queueWithAvailability_io_pop_ready = (phy_tx_crc_raw_data_ready && _zz_io_pop_ready_1);
-  assign phy_tx_crc_raw_data_valid = (phy_tx_padder_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_1);
+  assign phy_tx_crc_result_data_queueWithAvailability_io_pop_ready = (phy_tx_padder_raw_data_ready && _zz_io_pop_ready_1);
+  assign phy_tx_padder_raw_data_valid = (phy_tx_crc_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_1);
   assign _zz_io_pop_ready_2 = (! pipeline_halt[3]);
-  assign phy_tx_crc_result_data_queueWithAvailability_io_pop_ready = (phy_tx_encoder_raw_data_ready && _zz_io_pop_ready_2);
-  assign phy_tx_encoder_raw_data_valid = (phy_tx_crc_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_2);
+  assign phy_tx_padder_result_data_queueWithAvailability_io_pop_ready = (phy_tx_encoder_raw_data_ready && _zz_io_pop_ready_2);
+  assign phy_tx_encoder_raw_data_valid = (phy_tx_padder_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_2);
   assign phy_tx_puncher_punched_data_toStream_valid = phy_tx_puncher_punched_data_valid;
   assign phy_tx_puncher_punched_data_toStream_payload_last = phy_tx_puncher_punched_data_payload_last;
   assign phy_tx_puncher_punched_data_toStream_payload_fragment = phy_tx_puncher_punched_data_payload_fragment;
@@ -1790,6 +1808,120 @@ module StreamFifo_11 (
 
 endmodule
 
+module PhyRxDemodulator (
+  input               raw_data_valid,
+  input      [11:0]   raw_data_payload_cha_i,
+  input      [11:0]   raw_data_payload_cha_q,
+  output              result_data_valid,
+  output              result_data_payload_last,
+  output     [7:0]    result_data_payload_fragment,
+  input               header_message_valid,
+  input      [7:0]    header_message_payload_pkg_size,
+  input      [1:0]    header_message_payload_demod_method,
+  input               clk,
+  input               reset
+);
+  localparam PhyRxDemodualtorStatus_IDLE = 1'd0;
+  localparam PhyRxDemodualtorStatus_DATA = 1'd1;
+
+  wire                demodulator_inst_data_flow_mod_iq_valid;
+  wire                demodulator_inst_data_flow_mod_iq_payload_last;
+  wire                demodulator_inst_data_flow_unit_data_valid;
+  wire                demodulator_inst_data_flow_unit_data_payload_last;
+  wire       [7:0]    demodulator_inst_data_flow_unit_data_payload_fragment;
+  wire       [14:0]   _zz_desc_cnt;
+  wire       [7:0]    _zz_desc_cnt_1;
+  wire       [7:0]    _zz_desc_cnt_2;
+  wire       [2:0]    _zz_desc_cnt_3;
+  wire       [2:0]    _zz_desc_cnt_4;
+  wire       [11:0]   _zz_when_PhyRx_l283;
+  wire       [11:0]   _zz_data_flow_mod_iq_payload_last;
+  reg        [11:0]   desc_cnt;
+  reg        [11:0]   symbol_cnt;
+  reg        [1:0]    demod_method;
+  reg        [0:0]    demodulator_states;
+  wire                when_PhyRx_l283;
+  `ifndef SYNTHESIS
+  reg [31:0] demodulator_states_string;
+  `endif
+
+
+  assign _zz_desc_cnt = ({7'd0,_zz_desc_cnt_1} <<< _zz_desc_cnt_3);
+  assign _zz_desc_cnt_1 = (_zz_desc_cnt_2 + 8'h01);
+  assign _zz_desc_cnt_2 = (header_message_payload_pkg_size + 8'h04);
+  assign _zz_desc_cnt_3 = (3'b100 - _zz_desc_cnt_4);
+  assign _zz_desc_cnt_4 = {1'd0, header_message_payload_demod_method};
+  assign _zz_when_PhyRx_l283 = (desc_cnt - 12'h001);
+  assign _zz_data_flow_mod_iq_payload_last = (desc_cnt - 12'h001);
+  DemodulatorRTL demodulator_inst (
+    .select_1                                   (demod_method[1:0]                                           ), //i
+    .data_flow_unit_data_valid                  (demodulator_inst_data_flow_unit_data_valid                  ), //o
+    .data_flow_unit_data_payload_last           (demodulator_inst_data_flow_unit_data_payload_last           ), //o
+    .data_flow_unit_data_payload_fragment       (demodulator_inst_data_flow_unit_data_payload_fragment[7:0]  ), //o
+    .data_flow_mod_iq_valid                     (demodulator_inst_data_flow_mod_iq_valid                     ), //i
+    .data_flow_mod_iq_payload_last              (demodulator_inst_data_flow_mod_iq_payload_last              ), //i
+    .data_flow_mod_iq_payload_fragment_cha_i    (raw_data_payload_cha_i[11:0]                                ), //i
+    .data_flow_mod_iq_payload_fragment_cha_q    (raw_data_payload_cha_q[11:0]                                ), //i
+    .clk                                        (clk                                                         ), //i
+    .reset                                      (reset                                                       )  //i
+  );
+  `ifndef SYNTHESIS
+  always @(*) begin
+    case(demodulator_states)
+      PhyRxDemodualtorStatus_IDLE : demodulator_states_string = "IDLE";
+      PhyRxDemodualtorStatus_DATA : demodulator_states_string = "DATA";
+      default : demodulator_states_string = "????";
+    endcase
+  end
+  `endif
+
+  assign when_PhyRx_l283 = (symbol_cnt == _zz_when_PhyRx_l283);
+  assign demodulator_inst_data_flow_mod_iq_valid = (raw_data_valid && (demodulator_states == PhyRxDemodualtorStatus_DATA));
+  assign demodulator_inst_data_flow_mod_iq_payload_last = (symbol_cnt == _zz_data_flow_mod_iq_payload_last);
+  assign result_data_valid = demodulator_inst_data_flow_unit_data_valid;
+  assign result_data_payload_last = demodulator_inst_data_flow_unit_data_payload_last;
+  assign result_data_payload_fragment = demodulator_inst_data_flow_unit_data_payload_fragment;
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      desc_cnt <= 12'h0;
+      symbol_cnt <= 12'h0;
+      demodulator_states <= PhyRxDemodualtorStatus_IDLE;
+    end else begin
+      case(demodulator_states)
+        PhyRxDemodualtorStatus_IDLE : begin
+          if(header_message_valid) begin
+            desc_cnt <= _zz_desc_cnt[11:0];
+            demodulator_states <= PhyRxDemodualtorStatus_DATA;
+          end
+          symbol_cnt <= 12'h0;
+        end
+        default : begin
+          if(raw_data_valid) begin
+            symbol_cnt <= (symbol_cnt + 12'h001);
+          end
+          if(when_PhyRx_l283) begin
+            demodulator_states <= PhyRxDemodualtorStatus_IDLE;
+          end
+        end
+      endcase
+    end
+  end
+
+  always @(posedge clk) begin
+    case(demodulator_states)
+      PhyRxDemodualtorStatus_IDLE : begin
+        if(header_message_valid) begin
+          demod_method <= header_message_payload_demod_method;
+        end
+      end
+      default : begin
+      end
+    endcase
+  end
+
+
+endmodule
+
 module PhyRxHeaderExtender (
   input               raw_data_valid,
   input      [11:0]   raw_data_payload_cha_i,
@@ -1802,6 +1934,7 @@ module PhyRxHeaderExtender (
   output              header_message_valid,
   output     [7:0]    header_message_payload_pkg_size,
   output     [1:0]    header_message_payload_demod_method,
+  output     [7:0]    package_size,
   input               clk,
   input               reset
 );
@@ -1823,10 +1956,10 @@ module PhyRxHeaderExtender (
   reg        [1:0]    header_status;
   reg                 message_valid;
   reg        [5:0]    timeout;
-  wire                when_PhyRx_l197;
-  wire                when_PhyRx_l204;
-  wire                when_PhyRx_l212;
-  wire                when_PhyRx_l223;
+  wire                when_PhyRx_l198;
+  wire                when_PhyRx_l205;
+  wire                when_PhyRx_l213;
+  wire                when_PhyRx_l224;
   wire                raw_data_takeWhen_valid;
   wire       [11:0]   raw_data_takeWhen_payload_cha_i;
   wire       [11:0]   raw_data_takeWhen_payload_cha_q;
@@ -1874,7 +2007,7 @@ module PhyRxHeaderExtender (
     case(header_status)
       PhyRxHeaderStatus_SDF : begin
         if(raw_data_valid) begin
-          if(when_PhyRx_l204) begin
+          if(when_PhyRx_l205) begin
             sdf_not_found = 1'b1;
           end
         end
@@ -1888,10 +2021,10 @@ module PhyRxHeaderExtender (
     endcase
   end
 
-  assign when_PhyRx_l197 = (sdf_i_win == sdf_i_ref);
-  assign when_PhyRx_l204 = (timeout == 6'h3f);
-  assign when_PhyRx_l212 = (cnt == 4'b0000);
-  assign when_PhyRx_l223 = (cnt == 4'b0000);
+  assign when_PhyRx_l198 = (sdf_i_win == sdf_i_ref);
+  assign when_PhyRx_l205 = (timeout == 6'h3f);
+  assign when_PhyRx_l213 = (cnt == 4'b0000);
+  assign when_PhyRx_l224 = (cnt == 4'b0000);
   assign raw_data_takeWhen_valid = (raw_data_valid && by_pass_enable);
   assign raw_data_takeWhen_payload_cha_i = raw_data_payload_cha_i;
   assign raw_data_takeWhen_payload_cha_q = raw_data_payload_cha_q;
@@ -1901,6 +2034,7 @@ module PhyRxHeaderExtender (
   assign header_message_payload_pkg_size = pkg_size;
   assign header_message_payload_demod_method = demod_method;
   assign header_message_valid = message_valid;
+  assign package_size = pkg_size;
   always @(posedge clk or posedge reset) begin
     if(reset) begin
       cnt <= 4'b0000;
@@ -1927,7 +2061,7 @@ module PhyRxHeaderExtender (
       end
       case(header_status)
         PhyRxHeaderStatus_SDF : begin
-          if(when_PhyRx_l197) begin
+          if(when_PhyRx_l198) begin
             header_status <= PhyRxHeaderStatus_METHOD;
           end
           cnt <= 4'b0001;
@@ -1939,7 +2073,7 @@ module PhyRxHeaderExtender (
         PhyRxHeaderStatus_METHOD : begin
           timeout <= 6'h0;
           if(raw_data_valid) begin
-            if(when_PhyRx_l212) begin
+            if(when_PhyRx_l213) begin
               header_status <= PhyRxHeaderStatus_SIZE;
               cnt <= 4'b0111;
             end else begin
@@ -1949,7 +2083,7 @@ module PhyRxHeaderExtender (
         end
         PhyRxHeaderStatus_SIZE : begin
           if(raw_data_valid) begin
-            if(when_PhyRx_l223) begin
+            if(when_PhyRx_l224) begin
               header_status <= PhyRxHeaderStatus_DATA;
               message_valid <= 1'b1;
             end else begin
@@ -2682,9 +2816,9 @@ module PhyTxFilter (
   wire       [11:0]   _zz_raw_data_payload_1;
   reg                 last_padding;
   wire                raw_data_fire;
-  wire                when_PhyTx_l192;
+  wire                when_PhyTx_l196;
   wire                result_data_fire;
-  wire                when_PhyTx_l194;
+  wire                when_PhyTx_l198;
   reg                 raw_data_payload_last_delay_1;
   reg                 raw_data_payload_last_delay_2;
   reg                 raw_data_payload_last_delay_3;
@@ -2724,9 +2858,9 @@ module PhyTxFilter (
     .reset                      (reset                                        )  //i
   );
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign when_PhyTx_l192 = (raw_data_fire && raw_data_payload_last);
+  assign when_PhyTx_l196 = (raw_data_fire && raw_data_payload_last);
   assign result_data_fire = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l194 = (result_data_fire && result_data_payload_last);
+  assign when_PhyTx_l198 = (result_data_fire && result_data_payload_last);
   assign raw_data_ready = ((! last_padding) && result_data_ready);
   assign fir_filter_iq_raw_data_valid = (raw_data_valid || last_padding);
   assign fir_filter_iq_raw_data_payload_0 = (last_padding ? _zz_raw_data_payload_0 : raw_data_payload_fragment_cha_i);
@@ -2764,10 +2898,10 @@ module PhyTxFilter (
       raw_data_payload_last_delay_24 <= 1'b0;
       raw_data_payload_last_delay_25 <= 1'b0;
     end else begin
-      if(when_PhyTx_l192) begin
+      if(when_PhyTx_l196) begin
         last_padding <= 1'b1;
       end else begin
-        if(when_PhyTx_l194) begin
+        if(when_PhyTx_l198) begin
           last_padding <= 1'b0;
         end
       end
@@ -2952,15 +3086,15 @@ module PhyHeaderExtender (
   reg                 pkg_size_ready_1;
   reg        [7:0]    pkg_size_payload_1;
   wire       [9:0]    method_size;
-  wire                when_PhyTx_l299;
+  wire                when_PhyTx_l304;
   wire                pkg_size_fire;
   wire                result_data_fire;
-  wire                when_PhyTx_l310;
+  wire                when_PhyTx_l315;
   wire                result_data_fire_1;
-  wire                when_PhyTx_l322;
+  wire                when_PhyTx_l327;
   wire       [0:0]    _zz_result_data_payload_fragment_cha_i;
   wire                result_data_fire_2;
-  wire                when_PhyTx_l333;
+  wire                when_PhyTx_l338;
   `ifndef SYNTHESIS
   reg [47:0] header_status_string;
   `endif
@@ -3103,15 +3237,15 @@ module PhyHeaderExtender (
   end
 
   assign method_size = {mod_method,pkg_size_payload_1};
-  assign when_PhyTx_l299 = (raw_data_valid && pkg_size_valid);
+  assign when_PhyTx_l304 = (raw_data_valid && pkg_size_valid);
   assign pkg_size_fire = (pkg_size_valid && pkg_size_ready);
   assign result_data_fire = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l310 = (counter == 5'h07);
+  assign when_PhyTx_l315 = (counter == 5'h07);
   assign result_data_fire_1 = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l322 = (counter == 5'h0);
+  assign when_PhyTx_l327 = (counter == 5'h0);
   assign _zz_result_data_payload_fragment_cha_i = method_size[_zz__zz_result_data_payload_fragment_cha_i];
   assign result_data_fire_2 = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l333 = (result_data_fire_2 && result_data_payload_last);
+  assign when_PhyTx_l338 = (result_data_fire_2 && result_data_payload_last);
   assign pkg_size_ready = pkg_size_ready_1;
   always @(posedge clk or posedge reset) begin
     if(reset) begin
@@ -3121,7 +3255,7 @@ module PhyHeaderExtender (
     end else begin
       case(header_status)
         PhyTxHeaderStatus_IDLE : begin
-          if(when_PhyTx_l299) begin
+          if(when_PhyTx_l304) begin
             header_status <= PhyTxHeaderStatus_SDF;
             pkg_size_ready_1 <= 1'b1;
           end
@@ -3131,7 +3265,7 @@ module PhyHeaderExtender (
             pkg_size_ready_1 <= 1'b0;
           end
           if(result_data_fire) begin
-            if(when_PhyTx_l310) begin
+            if(when_PhyTx_l315) begin
               header_status <= PhyTxHeaderStatus_HEADER;
               counter <= 5'h09;
             end else begin
@@ -3141,7 +3275,7 @@ module PhyHeaderExtender (
         end
         PhyTxHeaderStatus_HEADER : begin
           if(result_data_fire_1) begin
-            if(when_PhyTx_l322) begin
+            if(when_PhyTx_l327) begin
               header_status <= PhyTxHeaderStatus_DATA;
               counter <= 5'h0;
             end else begin
@@ -3150,7 +3284,7 @@ module PhyHeaderExtender (
           end
         end
         default : begin
-          if(when_PhyTx_l333) begin
+          if(when_PhyTx_l338) begin
             header_status <= PhyTxHeaderStatus_IDLE;
           end
         end
@@ -3356,15 +3490,15 @@ module ModulatorRTL (
   wire       [0:0]    mPSK_Modulator_Extension_mod_unit_data_payload_fragment;
   wire       [1:0]    mPSK_Modulator_Extension_mod_1_unit_data_payload_fragment;
   wire       [3:0]    mQAM_Modulator_Extension_mod_unit_data_payload_fragment;
-  wire                flowDeMux_1_outputs_0_valid;
-  wire                flowDeMux_1_outputs_0_payload_last;
-  wire       [7:0]    flowDeMux_1_outputs_0_payload_fragment;
-  wire                flowDeMux_1_outputs_1_valid;
-  wire                flowDeMux_1_outputs_1_payload_last;
-  wire       [7:0]    flowDeMux_1_outputs_1_payload_fragment;
-  wire                flowDeMux_1_outputs_2_valid;
-  wire                flowDeMux_1_outputs_2_payload_last;
-  wire       [7:0]    flowDeMux_1_outputs_2_payload_fragment;
+  wire                flowDeMux_2_outputs_0_valid;
+  wire                flowDeMux_2_outputs_0_payload_last;
+  wire       [7:0]    flowDeMux_2_outputs_0_payload_fragment;
+  wire                flowDeMux_2_outputs_1_valid;
+  wire                flowDeMux_2_outputs_1_payload_last;
+  wire       [7:0]    flowDeMux_2_outputs_1_payload_fragment;
+  wire                flowDeMux_2_outputs_2_valid;
+  wire                flowDeMux_2_outputs_2_payload_last;
+  wire       [7:0]    flowDeMux_2_outputs_2_payload_fragment;
   wire                mPSK_Modulator_Extension_mod_mod_iq_valid;
   wire                mPSK_Modulator_Extension_mod_mod_iq_payload_last;
   wire       [11:0]   mPSK_Modulator_Extension_mod_mod_iq_payload_fragment_cha_i;
@@ -3377,10 +3511,10 @@ module ModulatorRTL (
   wire                mQAM_Modulator_Extension_mod_mod_iq_payload_last;
   wire       [11:0]   mQAM_Modulator_Extension_mod_mod_iq_payload_fragment_cha_i;
   wire       [11:0]   mQAM_Modulator_Extension_mod_mod_iq_payload_fragment_cha_q;
-  wire                flowMux_1_output_valid;
-  wire                flowMux_1_output_payload_last;
-  wire       [11:0]   flowMux_1_output_payload_fragment_cha_i;
-  wire       [11:0]   flowMux_1_output_payload_fragment_cha_q;
+  wire                flowMux_2_output_valid;
+  wire                flowMux_2_output_payload_last;
+  wire       [11:0]   flowMux_2_output_payload_fragment_cha_i;
+  wire       [11:0]   flowMux_2_output_payload_fragment_cha_q;
   wire                _zz_unit_data_valid;
   wire                _zz_unit_data_payload_last;
   wire                _zz_unit_data_valid_1;
@@ -3388,20 +3522,20 @@ module ModulatorRTL (
   wire                _zz_unit_data_valid_2;
   wire                _zz_unit_data_payload_last_2;
 
-  FlowDeMux flowDeMux_1 (
+  FlowDeMux_1 flowDeMux_2 (
     .input_valid                   (data_flow_unit_data_valid                    ), //i
     .input_payload_last            (data_flow_unit_data_payload_last             ), //i
     .input_payload_fragment        (data_flow_unit_data_payload_fragment[7:0]    ), //i
     .select_1                      (select_1[1:0]                                ), //i
-    .outputs_0_valid               (flowDeMux_1_outputs_0_valid                  ), //o
-    .outputs_0_payload_last        (flowDeMux_1_outputs_0_payload_last           ), //o
-    .outputs_0_payload_fragment    (flowDeMux_1_outputs_0_payload_fragment[7:0]  ), //o
-    .outputs_1_valid               (flowDeMux_1_outputs_1_valid                  ), //o
-    .outputs_1_payload_last        (flowDeMux_1_outputs_1_payload_last           ), //o
-    .outputs_1_payload_fragment    (flowDeMux_1_outputs_1_payload_fragment[7:0]  ), //o
-    .outputs_2_valid               (flowDeMux_1_outputs_2_valid                  ), //o
-    .outputs_2_payload_last        (flowDeMux_1_outputs_2_payload_last           ), //o
-    .outputs_2_payload_fragment    (flowDeMux_1_outputs_2_payload_fragment[7:0]  )  //o
+    .outputs_0_valid               (flowDeMux_2_outputs_0_valid                  ), //o
+    .outputs_0_payload_last        (flowDeMux_2_outputs_0_payload_last           ), //o
+    .outputs_0_payload_fragment    (flowDeMux_2_outputs_0_payload_fragment[7:0]  ), //o
+    .outputs_1_valid               (flowDeMux_2_outputs_1_valid                  ), //o
+    .outputs_1_payload_last        (flowDeMux_2_outputs_1_payload_last           ), //o
+    .outputs_1_payload_fragment    (flowDeMux_2_outputs_1_payload_fragment[7:0]  ), //o
+    .outputs_2_valid               (flowDeMux_2_outputs_2_valid                  ), //o
+    .outputs_2_payload_last        (flowDeMux_2_outputs_2_payload_last           ), //o
+    .outputs_2_payload_fragment    (flowDeMux_2_outputs_2_payload_fragment[7:0]  )  //o
   );
   mPSKMod mPSK_Modulator_Extension_mod (
     .unit_data_valid                  (_zz_unit_data_valid                                               ), //i
@@ -3436,7 +3570,7 @@ module ModulatorRTL (
     .clk                              (clk                                                               ), //i
     .reset                            (reset                                                             )  //i
   );
-  FlowMux flowMux_1 (
+  FlowMux_1 flowMux_2 (
     .inputs_0_valid                     (mPSK_Modulator_Extension_mod_mod_iq_valid                           ), //i
     .inputs_0_payload_last              (mPSK_Modulator_Extension_mod_mod_iq_payload_last                    ), //i
     .inputs_0_payload_fragment_cha_i    (mPSK_Modulator_Extension_mod_mod_iq_payload_fragment_cha_i[11:0]    ), //i
@@ -3450,24 +3584,24 @@ module ModulatorRTL (
     .inputs_2_payload_fragment_cha_i    (mQAM_Modulator_Extension_mod_mod_iq_payload_fragment_cha_i[11:0]    ), //i
     .inputs_2_payload_fragment_cha_q    (mQAM_Modulator_Extension_mod_mod_iq_payload_fragment_cha_q[11:0]    ), //i
     .select_1                           (select_1[1:0]                                                       ), //i
-    .output_valid                       (flowMux_1_output_valid                                              ), //o
-    .output_payload_last                (flowMux_1_output_payload_last                                       ), //o
-    .output_payload_fragment_cha_i      (flowMux_1_output_payload_fragment_cha_i[11:0]                       ), //o
-    .output_payload_fragment_cha_q      (flowMux_1_output_payload_fragment_cha_q[11:0]                       )  //o
+    .output_valid                       (flowMux_2_output_valid                                              ), //o
+    .output_payload_last                (flowMux_2_output_payload_last                                       ), //o
+    .output_payload_fragment_cha_i      (flowMux_2_output_payload_fragment_cha_i[11:0]                       ), //o
+    .output_payload_fragment_cha_q      (flowMux_2_output_payload_fragment_cha_q[11:0]                       )  //o
   );
-  assign _zz_unit_data_valid = flowDeMux_1_outputs_0_valid;
-  assign _zz_unit_data_payload_last = flowDeMux_1_outputs_0_payload_last;
-  assign mPSK_Modulator_Extension_mod_unit_data_payload_fragment = flowDeMux_1_outputs_0_payload_fragment[0:0];
-  assign _zz_unit_data_valid_1 = flowDeMux_1_outputs_1_valid;
-  assign _zz_unit_data_payload_last_1 = flowDeMux_1_outputs_1_payload_last;
-  assign mPSK_Modulator_Extension_mod_1_unit_data_payload_fragment = flowDeMux_1_outputs_1_payload_fragment[1:0];
-  assign _zz_unit_data_valid_2 = flowDeMux_1_outputs_2_valid;
-  assign _zz_unit_data_payload_last_2 = flowDeMux_1_outputs_2_payload_last;
-  assign mQAM_Modulator_Extension_mod_unit_data_payload_fragment = flowDeMux_1_outputs_2_payload_fragment[3:0];
-  assign data_flow_mod_iq_valid = flowMux_1_output_valid;
-  assign data_flow_mod_iq_payload_last = flowMux_1_output_payload_last;
-  assign data_flow_mod_iq_payload_fragment_cha_i = flowMux_1_output_payload_fragment_cha_i;
-  assign data_flow_mod_iq_payload_fragment_cha_q = flowMux_1_output_payload_fragment_cha_q;
+  assign _zz_unit_data_valid = flowDeMux_2_outputs_0_valid;
+  assign _zz_unit_data_payload_last = flowDeMux_2_outputs_0_payload_last;
+  assign mPSK_Modulator_Extension_mod_unit_data_payload_fragment = flowDeMux_2_outputs_0_payload_fragment[0:0];
+  assign _zz_unit_data_valid_1 = flowDeMux_2_outputs_1_valid;
+  assign _zz_unit_data_payload_last_1 = flowDeMux_2_outputs_1_payload_last;
+  assign mPSK_Modulator_Extension_mod_1_unit_data_payload_fragment = flowDeMux_2_outputs_1_payload_fragment[1:0];
+  assign _zz_unit_data_valid_2 = flowDeMux_2_outputs_2_valid;
+  assign _zz_unit_data_payload_last_2 = flowDeMux_2_outputs_2_payload_last;
+  assign mQAM_Modulator_Extension_mod_unit_data_payload_fragment = flowDeMux_2_outputs_2_payload_fragment[3:0];
+  assign data_flow_mod_iq_valid = flowMux_2_output_valid;
+  assign data_flow_mod_iq_payload_last = flowMux_2_output_payload_last;
+  assign data_flow_mod_iq_payload_fragment_cha_i = flowMux_2_output_payload_fragment_cha_i;
+  assign data_flow_mod_iq_payload_fragment_cha_q = flowMux_2_output_payload_fragment_cha_q;
 
 endmodule
 
@@ -3569,7 +3703,7 @@ module PhyTxScrambler (
   wire       [15:0]   scrambler_1_scram_data_payload;
   reg        [1:0]    scrambler_status;
   wire                raw_data_fire;
-  wire                when_PhyTx_l144;
+  wire                when_PhyTx_l148;
   wire                raw_data_fire_1;
   `ifndef SYNTHESIS
   reg [79:0] scrambler_status_string;
@@ -3661,7 +3795,7 @@ module PhyTxScrambler (
   end
 
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign when_PhyTx_l144 = (raw_data_fire && raw_data_payload_last);
+  assign when_PhyTx_l148 = (raw_data_fire && raw_data_payload_last);
   assign raw_data_fire_1 = (raw_data_valid && raw_data_ready);
   always @(posedge clk or posedge reset) begin
     if(reset) begin
@@ -3674,7 +3808,7 @@ module PhyTxScrambler (
           end
         end
         PhyTxScramblerStatus_SCRAMBLING : begin
-          if(when_PhyTx_l144) begin
+          if(when_PhyTx_l148) begin
             scrambler_status <= PhyTxScramblerStatus_FINAL_1;
           end
         end
@@ -3909,11 +4043,9 @@ module PhyTxEncoder (
   wire                phy_tx_encoder_coded_data_valid;
   wire                phy_tx_encoder_coded_data_payload_last;
   wire       [15:0]   phy_tx_encoder_coded_data_payload_fragment;
-  reg                 emitEncoding;
+  reg                 isEncoding;
   wire                raw_data_fire;
-  wire                when_PhyTx_l96;
-  wire                phy_tx_encoder_raw_data_fire;
-  wire                when_PhyTx_l96_1;
+  wire                when_PhyTx_l97;
   wire                phy_tx_encoder_coded_data_toStream_valid;
   wire                phy_tx_encoder_coded_data_toStream_ready;
   wire                phy_tx_encoder_coded_data_toStream_payload_last;
@@ -3933,36 +4065,34 @@ module PhyTxEncoder (
     .reset                          (reset                                             )  //i
   );
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign when_PhyTx_l96 = (raw_data_fire && raw_data_payload_last);
-  assign phy_tx_encoder_raw_data_fire = (phy_tx_encoder_raw_data_valid && phy_tx_encoder_raw_data_ready);
-  assign when_PhyTx_l96_1 = (phy_tx_encoder_raw_data_fire && phy_tx_encoder_raw_data_payload_last);
+  assign when_PhyTx_l97 = (raw_data_fire && raw_data_payload_last);
   always @(*) begin
-    if(emitEncoding) begin
-      raw_data_ready = 1'b0;
-    end else begin
+    if(isEncoding) begin
       raw_data_ready = phy_tx_encoder_raw_data_ready;
+    end else begin
+      raw_data_ready = 1'b0;
     end
   end
 
   always @(*) begin
-    if(emitEncoding) begin
-      phy_tx_encoder_raw_data_valid = 1'b1;
-    end else begin
+    if(isEncoding) begin
       phy_tx_encoder_raw_data_valid = raw_data_valid;
-    end
-  end
-
-  always @(*) begin
-    if(emitEncoding) begin
-      phy_tx_encoder_raw_data_payload_fragment = 8'h0;
     end else begin
-      phy_tx_encoder_raw_data_payload_fragment = raw_data_payload_fragment;
+      phy_tx_encoder_raw_data_valid = 1'b0;
     end
   end
 
   always @(*) begin
-    if(emitEncoding) begin
-      phy_tx_encoder_raw_data_payload_last = 1'b1;
+    if(isEncoding) begin
+      phy_tx_encoder_raw_data_payload_fragment = raw_data_payload_fragment;
+    end else begin
+      phy_tx_encoder_raw_data_payload_fragment = 8'h0;
+    end
+  end
+
+  always @(*) begin
+    if(isEncoding) begin
+      phy_tx_encoder_raw_data_payload_last = raw_data_payload_last;
     end else begin
       phy_tx_encoder_raw_data_payload_last = 1'b0;
     end
@@ -3977,13 +4107,95 @@ module PhyTxEncoder (
   assign result_data_payload_fragment = phy_tx_encoder_coded_data_toStream_payload_fragment;
   always @(posedge clk or posedge reset) begin
     if(reset) begin
-      emitEncoding <= 1'b0;
+      isEncoding <= 1'b0;
     end else begin
-      if(when_PhyTx_l96) begin
-        emitEncoding <= 1'b1;
+      if(when_PhyTx_l97) begin
+        isEncoding <= 1'b0;
+      end else begin
+        if(raw_data_valid) begin
+          isEncoding <= 1'b1;
+        end
       end
-      if(when_PhyTx_l96_1) begin
-        emitEncoding <= 1'b0;
+    end
+  end
+
+
+endmodule
+
+//StreamFifo_2 replaced by StreamFifo_2
+
+module PhyTxPadder (
+  input               raw_data_valid,
+  output              raw_data_ready,
+  input               raw_data_payload_last,
+  input      [7:0]    raw_data_payload_fragment,
+  output reg          result_data_valid,
+  input               result_data_ready,
+  output reg          result_data_payload_last,
+  output reg [7:0]    result_data_payload_fragment,
+  input               clk,
+  input               reset
+);
+
+  reg        [2:0]    counter;
+  wire                ok;
+  wire                raw_data_fire;
+  reg                 raw_data_payload_first;
+  wire                fill;
+  wire                result_data_fire;
+  wire                when_PhyTx_l72;
+  wire                result_data_fire_1;
+  wire                when_PhyTx_l75;
+  wire                _zz_raw_data_ready;
+  wire                when_PhyTx_l79;
+
+  assign ok = (counter == 3'b111);
+  assign raw_data_fire = (raw_data_valid && raw_data_ready);
+  assign fill = ((counter != 3'b000) && raw_data_payload_first);
+  assign result_data_fire = (result_data_valid && result_data_ready);
+  assign when_PhyTx_l72 = ((! ok) && result_data_fire);
+  assign result_data_fire_1 = (result_data_valid && result_data_ready);
+  assign when_PhyTx_l75 = (result_data_fire_1 && result_data_payload_last);
+  assign _zz_raw_data_ready = (! fill);
+  assign raw_data_ready = (result_data_ready && _zz_raw_data_ready);
+  always @(*) begin
+    result_data_valid = (raw_data_valid && _zz_raw_data_ready);
+    if(fill) begin
+      result_data_valid = 1'b1;
+    end
+  end
+
+  always @(*) begin
+    result_data_payload_last = raw_data_payload_last;
+    if(when_PhyTx_l79) begin
+      result_data_payload_last = 1'b0;
+    end
+    if(fill) begin
+      result_data_payload_last = ok;
+    end
+  end
+
+  always @(*) begin
+    result_data_payload_fragment = raw_data_payload_fragment;
+    if(fill) begin
+      result_data_payload_fragment = 8'h0;
+    end
+  end
+
+  assign when_PhyTx_l79 = (! ok);
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      counter <= 3'b000;
+      raw_data_payload_first <= 1'b1;
+    end else begin
+      if(raw_data_fire) begin
+        raw_data_payload_first <= raw_data_payload_last;
+      end
+      if(when_PhyTx_l72) begin
+        counter <= (counter + 3'b001);
+      end
+      if(when_PhyTx_l75) begin
+        counter <= 3'b000;
       end
     end
   end
@@ -4101,87 +4313,6 @@ module PhyTxCrc (
         if(result_data_ready) begin
           counter <= (counter + 2'b01);
         end
-      end
-    end
-  end
-
-
-endmodule
-
-//StreamFifo_2 replaced by StreamFifo_2
-
-module PhyTxPadder (
-  input               raw_data_valid,
-  output              raw_data_ready,
-  input               raw_data_payload_last,
-  input      [7:0]    raw_data_payload_fragment,
-  output reg          result_data_valid,
-  input               result_data_ready,
-  output reg          result_data_payload_last,
-  output reg [7:0]    result_data_payload_fragment,
-  input               clk,
-  input               reset
-);
-
-  reg        [2:0]    counter;
-  wire                ok;
-  wire                raw_data_fire;
-  reg                 raw_data_payload_first;
-  wire                fill;
-  wire                result_data_fire;
-  wire                when_PhyTx_l72;
-  wire                result_data_fire_1;
-  wire                when_PhyTx_l75;
-  wire                _zz_raw_data_ready;
-  wire                when_PhyTx_l79;
-
-  assign ok = (counter == 3'b111);
-  assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign fill = ((counter != 3'b000) && raw_data_payload_first);
-  assign result_data_fire = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l72 = ((! ok) && result_data_fire);
-  assign result_data_fire_1 = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l75 = (result_data_fire_1 && result_data_payload_last);
-  assign _zz_raw_data_ready = (! fill);
-  assign raw_data_ready = (result_data_ready && _zz_raw_data_ready);
-  always @(*) begin
-    result_data_valid = (raw_data_valid && _zz_raw_data_ready);
-    if(fill) begin
-      result_data_valid = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    result_data_payload_last = raw_data_payload_last;
-    if(when_PhyTx_l79) begin
-      result_data_payload_last = 1'b0;
-    end
-    if(fill) begin
-      result_data_payload_last = ok;
-    end
-  end
-
-  always @(*) begin
-    result_data_payload_fragment = raw_data_payload_fragment;
-    if(fill) begin
-      result_data_payload_fragment = 8'h0;
-    end
-  end
-
-  assign when_PhyTx_l79 = (! ok);
-  always @(posedge clk or posedge reset) begin
-    if(reset) begin
-      counter <= 3'b000;
-      raw_data_payload_first <= 1'b1;
-    end else begin
-      if(raw_data_fire) begin
-        raw_data_payload_first <= raw_data_payload_last;
-      end
-      if(when_PhyTx_l72) begin
-        counter <= (counter + 3'b001);
-      end
-      if(when_PhyTx_l75) begin
-        counter <= 3'b000;
       end
     end
   end
@@ -4378,12 +4509,12 @@ module PhyPkgInformationGen (
   reg        [7:0]    pkg_size_cnt;
   wire                _zz_raw_data_ready;
   wire                raw_data_fire;
-  wire                when_PhyTx_l239;
+  wire                when_PhyTx_l244;
   wire                raw_data_fire_1;
   reg                 pkg_size_valid_1;
   reg        [7:0]    pkg_size_payload_1;
   wire                raw_data_fire_2;
-  wire                when_PhyTx_l246;
+  wire                when_PhyTx_l251;
   wire                raw_data_fire_3;
 
   StreamFifo dataFifo (
@@ -4421,10 +4552,10 @@ module PhyPkgInformationGen (
   assign result_data_payload_last = dataFifo_io_pop_payload_last;
   assign result_data_payload_fragment = dataFifo_io_pop_payload_fragment;
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign when_PhyTx_l239 = (raw_data_fire && raw_data_payload_last);
+  assign when_PhyTx_l244 = (raw_data_fire && raw_data_payload_last);
   assign raw_data_fire_1 = (raw_data_valid && raw_data_ready);
   assign raw_data_fire_2 = (raw_data_valid && raw_data_ready);
-  assign when_PhyTx_l246 = (raw_data_fire_2 && raw_data_payload_last);
+  assign when_PhyTx_l251 = (raw_data_fire_2 && raw_data_payload_last);
   assign raw_data_fire_3 = (raw_data_valid && raw_data_ready);
   assign pkg_size_valid = pkg_size_fifo_io_pop_valid;
   assign pkg_size_payload = pkg_size_fifo_io_pop_payload;
@@ -4434,12 +4565,12 @@ module PhyPkgInformationGen (
       pkg_size_valid_1 <= 1'b0;
       pkg_size_payload_1 <= 8'h0;
     end else begin
-      if(!when_PhyTx_l239) begin
+      if(!when_PhyTx_l244) begin
         if(raw_data_fire_1) begin
           pkg_size_cnt <= (pkg_size_cnt + 8'h01);
         end
       end
-      if(when_PhyTx_l246) begin
+      if(when_PhyTx_l251) begin
         pkg_size_valid_1 <= 1'b1;
         pkg_size_payload_1 <= (pkg_size_cnt + 8'h01);
         pkg_size_cnt <= 8'h0;
@@ -4502,6 +4633,117 @@ module StreamPayloadSplit (
     end
   end
 
+
+endmodule
+
+module DemodulatorRTL (
+  input      [1:0]    select_1,
+  output              data_flow_unit_data_valid,
+  output              data_flow_unit_data_payload_last,
+  output     [7:0]    data_flow_unit_data_payload_fragment,
+  input               data_flow_mod_iq_valid,
+  input               data_flow_mod_iq_payload_last,
+  input      [11:0]   data_flow_mod_iq_payload_fragment_cha_i,
+  input      [11:0]   data_flow_mod_iq_payload_fragment_cha_q,
+  input               clk,
+  input               reset
+);
+
+  wire                flowDeMux_2_outputs_0_valid;
+  wire                flowDeMux_2_outputs_0_payload_last;
+  wire       [11:0]   flowDeMux_2_outputs_0_payload_fragment_cha_i;
+  wire       [11:0]   flowDeMux_2_outputs_0_payload_fragment_cha_q;
+  wire                flowDeMux_2_outputs_1_valid;
+  wire                flowDeMux_2_outputs_1_payload_last;
+  wire       [11:0]   flowDeMux_2_outputs_1_payload_fragment_cha_i;
+  wire       [11:0]   flowDeMux_2_outputs_1_payload_fragment_cha_q;
+  wire                flowDeMux_2_outputs_2_valid;
+  wire                flowDeMux_2_outputs_2_payload_last;
+  wire       [11:0]   flowDeMux_2_outputs_2_payload_fragment_cha_i;
+  wire       [11:0]   flowDeMux_2_outputs_2_payload_fragment_cha_q;
+  wire                demod_unit_data_valid;
+  wire                demod_unit_data_payload_last;
+  wire       [7:0]    demod_unit_data_payload_fragment;
+  wire                demod_1_unit_data_valid;
+  wire                demod_1_unit_data_payload_last;
+  wire       [7:0]    demod_1_unit_data_payload_fragment;
+  wire                demod_2_unit_data_valid;
+  wire                demod_2_unit_data_payload_last;
+  wire       [7:0]    demod_2_unit_data_payload_fragment;
+  wire                flowMux_2_output_valid;
+  wire                flowMux_2_output_payload_last;
+  wire       [7:0]    flowMux_2_output_payload_fragment;
+
+  FlowDeMux flowDeMux_2 (
+    .input_valid                         (data_flow_mod_iq_valid                              ), //i
+    .input_payload_last                  (data_flow_mod_iq_payload_last                       ), //i
+    .input_payload_fragment_cha_i        (data_flow_mod_iq_payload_fragment_cha_i[11:0]       ), //i
+    .input_payload_fragment_cha_q        (data_flow_mod_iq_payload_fragment_cha_q[11:0]       ), //i
+    .select_1                            (select_1[1:0]                                       ), //i
+    .outputs_0_valid                     (flowDeMux_2_outputs_0_valid                         ), //o
+    .outputs_0_payload_last              (flowDeMux_2_outputs_0_payload_last                  ), //o
+    .outputs_0_payload_fragment_cha_i    (flowDeMux_2_outputs_0_payload_fragment_cha_i[11:0]  ), //o
+    .outputs_0_payload_fragment_cha_q    (flowDeMux_2_outputs_0_payload_fragment_cha_q[11:0]  ), //o
+    .outputs_1_valid                     (flowDeMux_2_outputs_1_valid                         ), //o
+    .outputs_1_payload_last              (flowDeMux_2_outputs_1_payload_last                  ), //o
+    .outputs_1_payload_fragment_cha_i    (flowDeMux_2_outputs_1_payload_fragment_cha_i[11:0]  ), //o
+    .outputs_1_payload_fragment_cha_q    (flowDeMux_2_outputs_1_payload_fragment_cha_q[11:0]  ), //o
+    .outputs_2_valid                     (flowDeMux_2_outputs_2_valid                         ), //o
+    .outputs_2_payload_last              (flowDeMux_2_outputs_2_payload_last                  ), //o
+    .outputs_2_payload_fragment_cha_i    (flowDeMux_2_outputs_2_payload_fragment_cha_i[11:0]  ), //o
+    .outputs_2_payload_fragment_cha_q    (flowDeMux_2_outputs_2_payload_fragment_cha_q[11:0]  )  //o
+  );
+  IQDemod demod (
+    .unit_data_valid                  (demod_unit_data_valid                               ), //o
+    .unit_data_payload_last           (demod_unit_data_payload_last                        ), //o
+    .unit_data_payload_fragment       (demod_unit_data_payload_fragment[7:0]               ), //o
+    .mod_iq_valid                     (flowDeMux_2_outputs_0_valid                         ), //i
+    .mod_iq_payload_last              (flowDeMux_2_outputs_0_payload_last                  ), //i
+    .mod_iq_payload_fragment_cha_i    (flowDeMux_2_outputs_0_payload_fragment_cha_i[11:0]  ), //i
+    .mod_iq_payload_fragment_cha_q    (flowDeMux_2_outputs_0_payload_fragment_cha_q[11:0]  ), //i
+    .clk                              (clk                                                 ), //i
+    .reset                            (reset                                               )  //i
+  );
+  IQDemod_1 demod_1 (
+    .unit_data_valid                  (demod_1_unit_data_valid                             ), //o
+    .unit_data_payload_last           (demod_1_unit_data_payload_last                      ), //o
+    .unit_data_payload_fragment       (demod_1_unit_data_payload_fragment[7:0]             ), //o
+    .mod_iq_valid                     (flowDeMux_2_outputs_1_valid                         ), //i
+    .mod_iq_payload_last              (flowDeMux_2_outputs_1_payload_last                  ), //i
+    .mod_iq_payload_fragment_cha_i    (flowDeMux_2_outputs_1_payload_fragment_cha_i[11:0]  ), //i
+    .mod_iq_payload_fragment_cha_q    (flowDeMux_2_outputs_1_payload_fragment_cha_q[11:0]  ), //i
+    .clk                              (clk                                                 ), //i
+    .reset                            (reset                                               )  //i
+  );
+  IQDemod_2 demod_2 (
+    .unit_data_valid                  (demod_2_unit_data_valid                             ), //o
+    .unit_data_payload_last           (demod_2_unit_data_payload_last                      ), //o
+    .unit_data_payload_fragment       (demod_2_unit_data_payload_fragment[7:0]             ), //o
+    .mod_iq_valid                     (flowDeMux_2_outputs_2_valid                         ), //i
+    .mod_iq_payload_last              (flowDeMux_2_outputs_2_payload_last                  ), //i
+    .mod_iq_payload_fragment_cha_i    (flowDeMux_2_outputs_2_payload_fragment_cha_i[11:0]  ), //i
+    .mod_iq_payload_fragment_cha_q    (flowDeMux_2_outputs_2_payload_fragment_cha_q[11:0]  ), //i
+    .clk                              (clk                                                 ), //i
+    .reset                            (reset                                               )  //i
+  );
+  FlowMux flowMux_2 (
+    .inputs_0_valid               (demod_unit_data_valid                    ), //i
+    .inputs_0_payload_last        (demod_unit_data_payload_last             ), //i
+    .inputs_0_payload_fragment    (demod_unit_data_payload_fragment[7:0]    ), //i
+    .inputs_1_valid               (demod_1_unit_data_valid                  ), //i
+    .inputs_1_payload_last        (demod_1_unit_data_payload_last           ), //i
+    .inputs_1_payload_fragment    (demod_1_unit_data_payload_fragment[7:0]  ), //i
+    .inputs_2_valid               (demod_2_unit_data_valid                  ), //i
+    .inputs_2_payload_last        (demod_2_unit_data_payload_last           ), //i
+    .inputs_2_payload_fragment    (demod_2_unit_data_payload_fragment[7:0]  ), //i
+    .select_1                     (select_1[1:0]                            ), //i
+    .output_valid                 (flowMux_2_output_valid                   ), //o
+    .output_payload_last          (flowMux_2_output_payload_last            ), //o
+    .output_payload_fragment      (flowMux_2_output_payload_fragment[7:0]   )  //o
+  );
+  assign data_flow_unit_data_valid = flowMux_2_output_valid;
+  assign data_flow_unit_data_payload_last = flowMux_2_output_payload_last;
+  assign data_flow_unit_data_payload_fragment = flowMux_2_output_payload_fragment;
 
 endmodule
 
@@ -5635,7 +5877,7 @@ module TransposeFIR (
 
 endmodule
 
-module FlowMux (
+module FlowMux_1 (
   input               inputs_0_valid,
   input               inputs_0_payload_last,
   input      [11:0]   inputs_0_payload_fragment_cha_i,
@@ -5984,7 +6226,7 @@ module mPSKMod (
 
 endmodule
 
-module FlowDeMux (
+module FlowDeMux_1 (
   input               input_valid,
   input               input_payload_last,
   input      [7:0]    input_payload_fragment,
@@ -6315,6 +6557,7 @@ module ConvEncoder (
     end else begin
       if(tail_bits_valid) begin
         r_enc_buf <= tail_bits_payload;
+        coded_data_valid_1 <= 1'b0;
       end else begin
         if(raw_data_fire) begin
           r_enc_buf <= r_enc_7;
@@ -6794,6 +7037,483 @@ module StreamFifo (
       if(io_flush) begin
         logic_risingOccupancy <= 1'b0;
       end
+    end
+  end
+
+
+endmodule
+
+module FlowMux (
+  input               inputs_0_valid,
+  input               inputs_0_payload_last,
+  input      [7:0]    inputs_0_payload_fragment,
+  input               inputs_1_valid,
+  input               inputs_1_payload_last,
+  input      [7:0]    inputs_1_payload_fragment,
+  input               inputs_2_valid,
+  input               inputs_2_payload_last,
+  input      [7:0]    inputs_2_payload_fragment,
+  input      [1:0]    select_1,
+  output              output_valid,
+  output              output_payload_last,
+  output     [7:0]    output_payload_fragment
+);
+
+  reg                 _zz_output_valid;
+  reg                 _zz_output_payload_last;
+  reg        [7:0]    _zz_output_payload_fragment;
+
+  always @(*) begin
+    case(select_1)
+      2'b00 : begin
+        _zz_output_valid = inputs_0_valid;
+        _zz_output_payload_last = inputs_0_payload_last;
+        _zz_output_payload_fragment = inputs_0_payload_fragment;
+      end
+      2'b01 : begin
+        _zz_output_valid = inputs_1_valid;
+        _zz_output_payload_last = inputs_1_payload_last;
+        _zz_output_payload_fragment = inputs_1_payload_fragment;
+      end
+      default : begin
+        _zz_output_valid = inputs_2_valid;
+        _zz_output_payload_last = inputs_2_payload_last;
+        _zz_output_payload_fragment = inputs_2_payload_fragment;
+      end
+    endcase
+  end
+
+  assign output_valid = _zz_output_valid;
+  assign output_payload_last = _zz_output_payload_last;
+  assign output_payload_fragment = _zz_output_payload_fragment;
+
+endmodule
+
+module IQDemod_2 (
+  output              unit_data_valid,
+  output              unit_data_payload_last,
+  output     [7:0]    unit_data_payload_fragment,
+  input               mod_iq_valid,
+  input               mod_iq_payload_last,
+  input      [11:0]   mod_iq_payload_fragment_cha_i,
+  input      [11:0]   mod_iq_payload_fragment_cha_q,
+  input               clk,
+  input               reset
+);
+
+  wire       [11:0]   _zz_comp_cmp_i;
+  wire       [11:0]   _zz_comp_cmp_q;
+  wire       [11:0]   _zz_comp_cmp_i_1;
+  wire       [11:0]   _zz_comp_cmp_q_1;
+  wire       [11:0]   _zz_comp_cmp_i_2;
+  wire       [11:0]   _zz_comp_cmp_q_2;
+  wire       [3:0]    _zz_unit_data_payload_fragment;
+  reg        [11:0]   demod_data_i;
+  reg                 demod_valid_i;
+  reg        [11:0]   demod_data_q;
+  reg                 demod_valid_q;
+  reg                 demod_last_iq;
+  reg        [2:0]    comp_cmp_i;
+  reg        [2:0]    comp_cmp_q;
+  reg        [2:0]    compTable_i;
+  reg        [2:0]    codeTable_q;
+  reg                 demod_valid;
+  reg                 demod_last;
+  reg        [1:0]    unit_data_i;
+  reg        [1:0]    unit_data_q;
+  reg                 unit_valid;
+  reg                 unit_last;
+
+  assign _zz_comp_cmp_i = 12'hd78;
+  assign _zz_comp_cmp_q = 12'hd78;
+  assign _zz_comp_cmp_i_1 = 12'hfff;
+  assign _zz_comp_cmp_q_1 = 12'hfff;
+  assign _zz_comp_cmp_i_2 = 12'h286;
+  assign _zz_comp_cmp_q_2 = 12'h286;
+  assign _zz_unit_data_payload_fragment = {unit_data_i,unit_data_q};
+  always @(*) begin
+    comp_cmp_i[0] = ($signed(_zz_comp_cmp_i) < $signed(demod_data_i));
+    comp_cmp_i[1] = ($signed(_zz_comp_cmp_i_1) < $signed(demod_data_i));
+    comp_cmp_i[2] = ($signed(_zz_comp_cmp_i_2) < $signed(demod_data_i));
+  end
+
+  always @(*) begin
+    comp_cmp_q[0] = ($signed(_zz_comp_cmp_q) < $signed(demod_data_q));
+    comp_cmp_q[1] = ($signed(_zz_comp_cmp_q_1) < $signed(demod_data_q));
+    comp_cmp_q[2] = ($signed(_zz_comp_cmp_q_2) < $signed(demod_data_q));
+  end
+
+  assign unit_data_payload_fragment = {4'd0, _zz_unit_data_payload_fragment};
+  assign unit_data_valid = unit_valid;
+  assign unit_data_payload_last = unit_last;
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      demod_data_i <= 12'h0;
+      demod_valid_i <= 1'b0;
+      demod_data_q <= 12'h0;
+      demod_valid_q <= 1'b0;
+      demod_last_iq <= 1'b0;
+      compTable_i <= 3'b000;
+      codeTable_q <= 3'b000;
+      demod_valid <= 1'b0;
+      demod_last <= 1'b0;
+      unit_valid <= 1'b0;
+      unit_last <= 1'b0;
+    end else begin
+      demod_data_i <= mod_iq_payload_fragment_cha_i;
+      demod_valid_i <= mod_iq_valid;
+      demod_data_q <= mod_iq_payload_fragment_cha_q;
+      demod_valid_q <= mod_iq_valid;
+      demod_last_iq <= mod_iq_payload_last;
+      compTable_i <= comp_cmp_i;
+      codeTable_q <= comp_cmp_q;
+      demod_valid <= (demod_valid_i && demod_valid_q);
+      demod_last <= demod_last_iq;
+      if(demod_valid) begin
+        unit_valid <= 1'b1;
+        unit_last <= demod_last;
+      end else begin
+        unit_valid <= 1'b0;
+        unit_last <= 1'b0;
+      end
+    end
+  end
+
+  always @(posedge clk) begin
+    if(demod_valid) begin
+      case(compTable_i)
+        3'b000 : begin
+          unit_data_i <= 2'b00;
+        end
+        3'b001 : begin
+          unit_data_i <= 2'b01;
+        end
+        3'b011 : begin
+          unit_data_i <= 2'b11;
+        end
+        3'b111 : begin
+          unit_data_i <= 2'b10;
+        end
+        default : begin
+        end
+      endcase
+      case(codeTable_q)
+        3'b000 : begin
+          unit_data_q <= 2'b00;
+        end
+        3'b001 : begin
+          unit_data_q <= 2'b01;
+        end
+        3'b011 : begin
+          unit_data_q <= 2'b11;
+        end
+        3'b111 : begin
+          unit_data_q <= 2'b10;
+        end
+        default : begin
+        end
+      endcase
+    end else begin
+      unit_data_i <= 2'b00;
+      unit_data_q <= 2'b00;
+    end
+  end
+
+
+endmodule
+
+module IQDemod_1 (
+  output              unit_data_valid,
+  output              unit_data_payload_last,
+  output     [7:0]    unit_data_payload_fragment,
+  input               mod_iq_valid,
+  input               mod_iq_payload_last,
+  input      [11:0]   mod_iq_payload_fragment_cha_i,
+  input      [11:0]   mod_iq_payload_fragment_cha_q,
+  input               clk,
+  input               reset
+);
+
+  wire       [11:0]   _zz_comp_cmp_i;
+  wire       [11:0]   _zz_comp_cmp_q;
+  wire       [1:0]    _zz_unit_data_payload_fragment;
+  reg        [11:0]   demod_data_i;
+  reg                 demod_valid_i;
+  reg        [11:0]   demod_data_q;
+  reg                 demod_valid_q;
+  reg                 demod_last_iq;
+  wire       [0:0]    comp_cmp_i;
+  wire       [0:0]    comp_cmp_q;
+  reg        [0:0]    compTable_i;
+  reg        [0:0]    codeTable_q;
+  reg                 demod_valid;
+  reg                 demod_last;
+  reg        [0:0]    unit_data_i;
+  reg        [0:0]    unit_data_q;
+  reg                 unit_valid;
+  reg                 unit_last;
+
+  assign _zz_comp_cmp_i = 12'h0;
+  assign _zz_comp_cmp_q = 12'h0;
+  assign _zz_unit_data_payload_fragment = {unit_data_i,unit_data_q};
+  assign comp_cmp_i[0] = ($signed(_zz_comp_cmp_i) < $signed(demod_data_i));
+  assign comp_cmp_q[0] = ($signed(_zz_comp_cmp_q) < $signed(demod_data_q));
+  assign unit_data_payload_fragment = {6'd0, _zz_unit_data_payload_fragment};
+  assign unit_data_valid = unit_valid;
+  assign unit_data_payload_last = unit_last;
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      demod_data_i <= 12'h0;
+      demod_valid_i <= 1'b0;
+      demod_data_q <= 12'h0;
+      demod_valid_q <= 1'b0;
+      demod_last_iq <= 1'b0;
+      compTable_i <= 1'b0;
+      codeTable_q <= 1'b0;
+      demod_valid <= 1'b0;
+      demod_last <= 1'b0;
+      unit_valid <= 1'b0;
+      unit_last <= 1'b0;
+    end else begin
+      demod_data_i <= mod_iq_payload_fragment_cha_i;
+      demod_valid_i <= mod_iq_valid;
+      demod_data_q <= mod_iq_payload_fragment_cha_q;
+      demod_valid_q <= mod_iq_valid;
+      demod_last_iq <= mod_iq_payload_last;
+      compTable_i <= comp_cmp_i;
+      codeTable_q <= comp_cmp_q;
+      demod_valid <= (demod_valid_i && demod_valid_q);
+      demod_last <= demod_last_iq;
+      if(demod_valid) begin
+        unit_valid <= 1'b1;
+        unit_last <= demod_last;
+      end else begin
+        unit_valid <= 1'b0;
+        unit_last <= 1'b0;
+      end
+    end
+  end
+
+  always @(posedge clk) begin
+    if(demod_valid) begin
+      case(compTable_i)
+        1'b0 : begin
+          unit_data_i <= 1'b0;
+        end
+        default : begin
+          unit_data_i <= 1'b1;
+        end
+      endcase
+      case(codeTable_q)
+        1'b0 : begin
+          unit_data_q <= 1'b0;
+        end
+        default : begin
+          unit_data_q <= 1'b1;
+        end
+      endcase
+    end else begin
+      unit_data_i <= 1'b0;
+      unit_data_q <= 1'b0;
+    end
+  end
+
+
+endmodule
+
+module IQDemod (
+  output              unit_data_valid,
+  output              unit_data_payload_last,
+  output     [7:0]    unit_data_payload_fragment,
+  input               mod_iq_valid,
+  input               mod_iq_payload_last,
+  input      [11:0]   mod_iq_payload_fragment_cha_i,
+  input      [11:0]   mod_iq_payload_fragment_cha_q,
+  input               clk,
+  input               reset
+);
+
+  wire       [11:0]   _zz_comp_cmp_i;
+  reg        [11:0]   demod_data_i;
+  reg                 demod_valid_i;
+  reg                 demod_last_iq;
+  wire       [0:0]    comp_cmp_i;
+  reg        [0:0]    compTable_i;
+  reg                 demod_valid;
+  reg                 demod_last;
+  reg        [0:0]    unit_data_i;
+  reg                 unit_valid;
+  reg                 unit_last;
+
+  assign _zz_comp_cmp_i = 12'h0;
+  assign comp_cmp_i[0] = ($signed(_zz_comp_cmp_i) < $signed(demod_data_i));
+  assign unit_data_payload_fragment = {7'd0, unit_data_i};
+  assign unit_data_valid = unit_valid;
+  assign unit_data_payload_last = unit_last;
+  always @(posedge clk or posedge reset) begin
+    if(reset) begin
+      demod_data_i <= 12'h0;
+      demod_valid_i <= 1'b0;
+      demod_last_iq <= 1'b0;
+      compTable_i <= 1'b0;
+      demod_last <= 1'b0;
+      unit_valid <= 1'b0;
+      unit_last <= 1'b0;
+    end else begin
+      demod_data_i <= mod_iq_payload_fragment_cha_i;
+      demod_valid_i <= mod_iq_valid;
+      demod_last_iq <= mod_iq_payload_last;
+      compTable_i <= comp_cmp_i;
+      demod_last <= demod_last_iq;
+      if(demod_valid) begin
+        unit_valid <= 1'b1;
+        unit_last <= demod_last;
+      end else begin
+        unit_valid <= 1'b0;
+        unit_last <= 1'b0;
+      end
+    end
+  end
+
+  always @(posedge clk) begin
+    demod_valid <= demod_valid_i;
+    if(demod_valid) begin
+      case(compTable_i)
+        1'b0 : begin
+          unit_data_i <= 1'b0;
+        end
+        default : begin
+          unit_data_i <= 1'b1;
+        end
+      endcase
+    end else begin
+      unit_data_i <= 1'b0;
+    end
+  end
+
+
+endmodule
+
+module FlowDeMux (
+  input               input_valid,
+  input               input_payload_last,
+  input      [11:0]   input_payload_fragment_cha_i,
+  input      [11:0]   input_payload_fragment_cha_q,
+  input      [1:0]    select_1,
+  output reg          outputs_0_valid,
+  output reg          outputs_0_payload_last,
+  output reg [11:0]   outputs_0_payload_fragment_cha_i,
+  output reg [11:0]   outputs_0_payload_fragment_cha_q,
+  output reg          outputs_1_valid,
+  output reg          outputs_1_payload_last,
+  output reg [11:0]   outputs_1_payload_fragment_cha_i,
+  output reg [11:0]   outputs_1_payload_fragment_cha_q,
+  output reg          outputs_2_valid,
+  output reg          outputs_2_payload_last,
+  output reg [11:0]   outputs_2_payload_fragment_cha_i,
+  output reg [11:0]   outputs_2_payload_fragment_cha_q
+);
+
+  wire                when_FlowDeMux_l16;
+  wire                when_FlowDeMux_l16_1;
+  wire                when_FlowDeMux_l16_2;
+
+  assign when_FlowDeMux_l16 = (2'b00 != select_1);
+  always @(*) begin
+    if(when_FlowDeMux_l16) begin
+      outputs_0_valid = 1'b0;
+    end else begin
+      outputs_0_valid = input_valid;
+    end
+  end
+
+  always @(*) begin
+    if(when_FlowDeMux_l16) begin
+      outputs_0_payload_last = 1'b0;
+    end else begin
+      outputs_0_payload_last = input_payload_last;
+    end
+  end
+
+  always @(*) begin
+    if(when_FlowDeMux_l16) begin
+      outputs_0_payload_fragment_cha_i = 12'h0;
+    end else begin
+      outputs_0_payload_fragment_cha_i = input_payload_fragment_cha_i;
+    end
+  end
+
+  always @(*) begin
+    if(when_FlowDeMux_l16) begin
+      outputs_0_payload_fragment_cha_q = 12'h0;
+    end else begin
+      outputs_0_payload_fragment_cha_q = input_payload_fragment_cha_q;
+    end
+  end
+
+  assign when_FlowDeMux_l16_1 = (2'b01 != select_1);
+  always @(*) begin
+    if(when_FlowDeMux_l16_1) begin
+      outputs_1_valid = 1'b0;
+    end else begin
+      outputs_1_valid = input_valid;
+    end
+  end
+
+  always @(*) begin
+    if(when_FlowDeMux_l16_1) begin
+      outputs_1_payload_last = 1'b0;
+    end else begin
+      outputs_1_payload_last = input_payload_last;
+    end
+  end
+
+  always @(*) begin
+    if(when_FlowDeMux_l16_1) begin
+      outputs_1_payload_fragment_cha_i = 12'h0;
+    end else begin
+      outputs_1_payload_fragment_cha_i = input_payload_fragment_cha_i;
+    end
+  end
+
+  always @(*) begin
+    if(when_FlowDeMux_l16_1) begin
+      outputs_1_payload_fragment_cha_q = 12'h0;
+    end else begin
+      outputs_1_payload_fragment_cha_q = input_payload_fragment_cha_q;
+    end
+  end
+
+  assign when_FlowDeMux_l16_2 = (2'b10 != select_1);
+  always @(*) begin
+    if(when_FlowDeMux_l16_2) begin
+      outputs_2_valid = 1'b0;
+    end else begin
+      outputs_2_valid = input_valid;
+    end
+  end
+
+  always @(*) begin
+    if(when_FlowDeMux_l16_2) begin
+      outputs_2_payload_last = 1'b0;
+    end else begin
+      outputs_2_payload_last = input_payload_last;
+    end
+  end
+
+  always @(*) begin
+    if(when_FlowDeMux_l16_2) begin
+      outputs_2_payload_fragment_cha_i = 12'h0;
+    end else begin
+      outputs_2_payload_fragment_cha_i = input_payload_fragment_cha_i;
+    end
+  end
+
+  always @(*) begin
+    if(when_FlowDeMux_l16_2) begin
+      outputs_2_payload_fragment_cha_q = 12'h0;
+    end else begin
+      outputs_2_payload_fragment_cha_q = input_payload_fragment_cha_q;
     end
   end
 

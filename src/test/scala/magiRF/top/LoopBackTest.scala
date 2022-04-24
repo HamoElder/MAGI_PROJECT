@@ -1,7 +1,7 @@
 package magiRF.top
 
 import magiRF.packages.PackageGen.StreamPkgGen
-import magiRF.top.RFBench.Config.{axiLite4_config, genPkgGenConfig, interfaceIQDataType, phyDataType, power_adjustor_config, rf_payload_upper_boundary, stream_config}
+import magiRF.top.RFBench.Config.{axiLite4_config, genDemodulatorConfig, genPkgGenConfig, interfaceIQDataType, phyDataType, power_adjustor_config, rf_payload_upper_boundary, stream_config}
 import magiRF.top.RFBench.RFBenchTop
 import magiRF.top.RFBench.Receiver.RX
 import magiRF.top.RFBench.Transmitter.TX
@@ -14,7 +14,7 @@ case class LoopBackTest() extends Component{
   val io = new Bundle{
       val axil4Ctrl = slave(AxiLite4(axiLite4_config))
       val trans_data = slave(AxiStream4(stream_config))
-      val result_data = master(Flow(power_adjustor_config.dataOutType))
+      val result_data = master(Flow(Fragment(genDemodulatorConfig.unitDataType)))
 //      val recv_data = master(AxiStream4(stream_config))
   }
   noIoPrefix()

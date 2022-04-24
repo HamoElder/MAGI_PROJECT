@@ -93,17 +93,21 @@ case class PhyTxEncoder() extends Component {
     }
     noIoPrefix()
     val phy_tx_encoder = ConvEncoder(conv_encoder_config)
-    val emitEncoding = RegInit(False) setWhen(io.raw_data.lastFire) clearWhen(phy_tx_encoder.io.raw_data.lastFire)
-
-    when(emitEncoding){
-        io.raw_data.ready := False
-        phy_tx_encoder.io.raw_data.valid := True
-        phy_tx_encoder.io.raw_data.fragment := 0
-        phy_tx_encoder.io.raw_data.last := True
-    }.otherwise{
+    val isEncoding = Reg(Bool()) init(False)
+    when(io.raw_data.lastFire){
+        isEncoding := False
+    }.elsewhen(io.raw_data.valid){
+        isEncoding := True
+    }
+    when(isEncoding){
         io.raw_data.ready := phy_tx_encoder.io.raw_data.ready
         phy_tx_encoder.io.raw_data.valid :=  io.raw_data.valid
         phy_tx_encoder.io.raw_data.fragment :=  io.raw_data.fragment
+        phy_tx_encoder.io.raw_data.last := io.raw_data.last
+    }.otherwise{
+        io.raw_data.ready := False
+        phy_tx_encoder.io.raw_data.valid := False
+        phy_tx_encoder.io.raw_data.fragment := 0
         phy_tx_encoder.io.raw_data.last := False
     }
     phy_tx_encoder.io.tail_bits.valid := False
@@ -204,7 +208,8 @@ case class PhyTxFilter() extends Component{
     io.result_data.valid := fir_filter_iq.io.filtered_data.valid
     io.result_data.cha_i := fir_filter_iq.io.filtered_data.payload(0).floor(filter_cut_off_width bits)
     io.result_data.cha_q := fir_filter_iq.io.filtered_data.payload(1).floor(filter_cut_off_width bits)
-    io.result_data.last := Delay(io.raw_data.last, (srrcConfig.symbolSpan - 1)*srrcConfig.samplesPerSymbol + 1, fir_filter_iq.io.raw_data.fire, False)
+    io.result_data.last := Delay(io.raw_data.last, (srrcConfig.symbolSpan - 1) * srrcConfig.samplesPerSymbol + 1,
+        fir_filter_iq.io.raw_data.fire, False)
 }
 
 

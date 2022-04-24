@@ -7,7 +7,7 @@ import magiRF.modules.Modem.Demodulator.DemodulatorRTL
 import magiRF.packages.CFO.CFOCorrector
 import magiRF.packages.Equalizer.SCEqualizer
 import magiRF.packages.Preamble.PreambleDetector
-import magiRF.top.RFBench.Config.{demod_method_type, down_sampling_decimation, filter_cut_off_width, genDemodulatorConfig, header_corrector_config, header_corrector_out_datatype, header_corrector_win_cnt_datatype, header_corrector_win_limit, interfaceIQDataType, modIQDataType, mod_method_type, mod_method_width, preamble_config, receiver_use_timeout, rx_coarse_cfo_corrector_config, sdf_i_array, sdf_size, size_width, srrcConfig, srrcTaps, stream_config}
+import magiRF.top.RFBench.Config.{crc_data_width, demodSymbolCntDataType, demod_method_type, down_sampling_decimation, filter_cut_off_width, genDemodulatorConfig, header_corrector_config, header_corrector_out_datatype, header_corrector_win_cnt_datatype, header_corrector_win_limit, interfaceIQDataType, modIQDataType, mod_method_type, mod_method_width, padding_size, preamble_config, receiver_use_timeout, rx_coarse_cfo_corrector_config, sdf_i_array, sdf_size, size_width, srrcConfig, srrcTaps, stream_config}
 import spinal.core._
 import spinal.lib._
 import utils.bus.AxiStream4.AxiStream4
@@ -107,7 +107,7 @@ case class PhyRxEqualizer() extends Component{
     }
     noIoPrefix()
 //    val equalizer_inst = SCEqualizer()
-
+    
 }
 
 case class PhyRxFilter() extends Component{
@@ -162,6 +162,7 @@ case class PhyRxHeaderExtender()extends Component{
         val sdf_not_found = out(Bool())
         val header_extender_reset = in(Bool())
         val header_message = master(Flow(PhyRxPkgMessage()))
+        val package_size = out(PhyRxPkgMessage().sizeDataType)
     }
     noIoPrefix()
     val cnt = Reg(cntDataType) init(0)
@@ -242,9 +243,13 @@ case class PhyRxHeaderExtender()extends Component{
     io.header_message.pkg_size := pkg_size
     io.header_message.demod_method := demod_method
     io.header_message.valid := message_valid
+    io.package_size := pkg_size
 }
 
 case class PhyRxDemodulator() extends Component{
+    object PhyRxDemodualtorStatus extends SpinalEnum{
+        val IDLE, CALC, DATA = newElement()
+    }
     val io = new Bundle{
         val raw_data = slave(Flow(modIQDataType))
         val result_data = master(Flow(Fragment(genDemodulatorConfig.unitDataType)))
@@ -255,21 +260,39 @@ case class PhyRxDemodulator() extends Component{
         val w_sel = if(genDemodulatorConfig.editable) in(Bits(2 bits)) else null
 
         val iq_shift = if(genDemodulatorConfig.lookUpNum > 0) in(UInt(genDemodulatorConfig.cfgDataWidth bits)) else null
-
-        val select = in(demod_method_type)
-
         val header_message = slave(Flow(PhyRxPkgMessage()))
     }
     noIoPrefix()
+    val desc_cnt = Reg(demodSymbolCntDataType) init(0)
+    val symbol_cnt = Reg(demodSymbolCntDataType) init(0)
+    val demod_method = Reg(mod_method_type)
+    val demodulator_states = Reg(PhyRxDemodualtorStatus()) init(PhyRxDemodualtorStatus.IDLE)
+    switch(demodulator_states){
+        is(PhyRxDemodualtorStatus.IDLE){
+            when(io.header_message.fire){
+                demodulator_states := PhyRxDemodualtorStatus.DATA
+                demod_method := io.header_message.demod_method
+            }
+            symbol_cnt := 0
+        }
+        is(PhyRxDemodualtorStatus.CALC){
+            desc_cnt := ((io.header_message.pkg_size + crc_data_width + padding_size) << (4 - io.header_message.demod_method)).resized
+        }
+        is(PhyRxDemodualtorStatus.DATA){
+            when(io.raw_data.fire){
+                symbol_cnt := symbol_cnt + 1
+            }
+            when(symbol_cnt === (desc_cnt - 1)){
+                demodulator_states := PhyRxDemodualtorStatus.IDLE
+            }
+        }
+    }
+
     val demodulator_inst = DemodulatorRTL(genDemodulatorConfig)
     demodulator_inst.io.data_flow.mod_iq.cha_i := io.raw_data.cha_i
     demodulator_inst.io.data_flow.mod_iq.cha_q := io.raw_data.cha_q
-    demodulator_inst.io.data_flow.mod_iq.valid := io.raw_data.valid
-    demodulator_inst.io.data_flow.mod_iq.last := False // TODO:
-
-    when(io.header_message.fire){
-
-    }
+    demodulator_inst.io.data_flow.mod_iq.valid := io.raw_data.valid && (demodulator_states === PhyRxDemodualtorStatus.DATA)
+    demodulator_inst.io.data_flow.mod_iq.last := symbol_cnt === (desc_cnt - 1)
 
     if(genDemodulatorConfig.editable){
         demodulator_inst.io.w_en := io.w_en
@@ -282,13 +305,21 @@ case class PhyRxDemodulator() extends Component{
         demodulator_inst.io.iq_shift := io.iq_shift
     }
 
-    demodulator_inst.io.select := io.select
+    demodulator_inst.io.select := demod_method
 
     io.result_data << demodulator_inst.io.data_flow.unit_data
-
 }
 
 case class PhyRxPayloadExtender() extends Component{
+    val io = new Bundle{
+        val raw_data = slave(Flow(modIQDataType))
+        val result_data = master(Flow(modIQDataType))
+    }
+    noIoPrefix()
+
+}
+
+case class PhyRxDescrambling() extends Component{
     val io = new Bundle{
         val raw_data = slave(Flow(modIQDataType))
         val result_data = master(Flow(modIQDataType))

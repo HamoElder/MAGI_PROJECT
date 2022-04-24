@@ -1,29 +1,8 @@
-// Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
+// Generator : SpinalHDL v1.6.4    git head : 598c18959149eb18e5eee5b0aa3eef01ecaa41a1
 // Component : AxiLite4I2cCtrl
-// Git hash  : 7062b2d46bd2847283195a25ed1c22f9f1827302
+// Git hash  : b4854519b9981ad4d90b9c6743c51cbef5656810
 
-
-`define I2cSlaveCmdMode_binary_sequential_type [2:0]
-`define I2cSlaveCmdMode_binary_sequential_NONE 3'b000
-`define I2cSlaveCmdMode_binary_sequential_START 3'b001
-`define I2cSlaveCmdMode_binary_sequential_RESTART 3'b010
-`define I2cSlaveCmdMode_binary_sequential_STOP 3'b011
-`define I2cSlaveCmdMode_binary_sequential_DROP 3'b100
-`define I2cSlaveCmdMode_binary_sequential_DRIVE 3'b101
-`define I2cSlaveCmdMode_binary_sequential_READ 3'b110
-
-`define bridge_masterLogic_fsm_enumDefinition_binary_sequential_type [3:0]
-`define bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_BOOT 4'b0000
-`define bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_IDLE 4'b0001
-`define bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START1 4'b0010
-`define bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START2 4'b0011
-`define bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_LOW 4'b0100
-`define bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_HIGH 4'b0101
-`define bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_RESTART 4'b0110
-`define bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP1 4'b0111
-`define bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP2 4'b1000
-`define bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_TBUF 4'b1001
-
+`timescale 1ns/1ps 
 
 module AxiLite4I2cCtrl (
   input               axil4Ctrl_awvalid,
@@ -53,12 +32,30 @@ module AxiLite4I2cCtrl (
   input               clk,
   input               resetn
 );
+  localparam bridge_masterLogic_fsm_enumDef_BOOT = 4'd0;
+  localparam bridge_masterLogic_fsm_enumDef_IDLE = 4'd1;
+  localparam bridge_masterLogic_fsm_enumDef_START1 = 4'd2;
+  localparam bridge_masterLogic_fsm_enumDef_START2 = 4'd3;
+  localparam bridge_masterLogic_fsm_enumDef_LOW = 4'd4;
+  localparam bridge_masterLogic_fsm_enumDef_HIGH = 4'd5;
+  localparam bridge_masterLogic_fsm_enumDef_RESTART = 4'd6;
+  localparam bridge_masterLogic_fsm_enumDef_STOP1 = 4'd7;
+  localparam bridge_masterLogic_fsm_enumDef_STOP2 = 4'd8;
+  localparam bridge_masterLogic_fsm_enumDef_TBUF = 4'd9;
+  localparam I2cSlaveCmdMode_NONE = 3'd0;
+  localparam I2cSlaveCmdMode_START = 3'd1;
+  localparam I2cSlaveCmdMode_RESTART = 3'd2;
+  localparam I2cSlaveCmdMode_STOP = 3'd3;
+  localparam I2cSlaveCmdMode_DROP = 3'd4;
+  localparam I2cSlaveCmdMode_DRIVE = 3'd5;
+  localparam I2cSlaveCmdMode_READ = 3'd6;
+
   reg                 i2cCtrl_io_bus_rsp_valid;
   reg                 i2cCtrl_io_bus_rsp_enable;
   reg                 i2cCtrl_io_bus_rsp_data;
   wire                i2cCtrl_io_i2c_scl_write;
   wire                i2cCtrl_io_i2c_sda_write;
-  wire       `I2cSlaveCmdMode_binary_sequential_type i2cCtrl_io_bus_cmd_kind;
+  wire       [2:0]    i2cCtrl_io_bus_cmd_kind;
   wire                i2cCtrl_io_bus_cmd_data;
   wire                i2cCtrl_io_internals_inFrame;
   wire                i2cCtrl_io_internals_sdaRead;
@@ -101,10 +98,10 @@ module AxiLite4I2cCtrl (
   reg                 _zz_axil4Ctrl_bvalid_2;
   reg        [1:0]    _zz_axil4Ctrl_bresp;
   wire                when_Stream_l342;
-  wire                io_axil4Ctrl_ar_readDataStage_valid;
-  wire                io_axil4Ctrl_ar_readDataStage_ready;
-  wire       [7:0]    io_axil4Ctrl_ar_readDataStage_payload_addr;
-  wire       [2:0]    io_axil4Ctrl_ar_readDataStage_payload_prot;
+  wire                readDataStage_valid;
+  wire                readDataStage_ready;
+  wire       [7:0]    readDataStage_payload_addr;
+  wire       [2:0]    readDataStage_payload_prot;
   reg                 io_axil4Ctrl_ar_rValid;
   reg        [7:0]    io_axil4Ctrl_ar_rData_addr;
   reg        [2:0]    io_axil4Ctrl_ar_rData_prot;
@@ -242,12 +239,12 @@ module AxiLite4I2cCtrl (
   reg                 when_BusSlaveFactory_l335_5;
   wire                when_BusSlaveFactory_l337_5;
   reg        [9:0]    _zz_io_config_samplingClockDivider;
-  reg        [19:0]   _zz_io_config_timeout = 20'b00000000000000000000;
-  reg        [5:0]    _zz_io_config_tsuData = 6'b000000;
+  reg        [19:0]   _zz_io_config_timeout;
+  reg        [5:0]    _zz_io_config_tsuData;
   reg                 bridge_i2cBuffer_scl_write_regNext;
   reg                 bridge_i2cBuffer_sda_write_regNext;
-  reg        `bridge_masterLogic_fsm_enumDefinition_binary_sequential_type bridge_masterLogic_fsm_stateReg;
-  reg        `bridge_masterLogic_fsm_enumDefinition_binary_sequential_type bridge_masterLogic_fsm_stateNext;
+  reg        [3:0]    bridge_masterLogic_fsm_stateReg;
+  reg        [3:0]    bridge_masterLogic_fsm_stateNext;
   reg                 i2cCtrl_io_internals_inFrame_regNext;
   wire                when_I2cCtrl_l321;
   wire                when_I2cCtrl_l323;
@@ -256,18 +253,18 @@ module AxiLite4I2cCtrl (
   wire                when_I2cCtrl_l366;
   wire                when_I2cCtrl_l386;
   wire                when_I2cCtrl_l397;
-  wire                when_StateMachine_l230;
-  wire                when_StateMachine_l230_1;
-  wire                when_StateMachine_l230_2;
-  wire                when_StateMachine_l230_3;
-  wire                when_StateMachine_l230_4;
-  wire                when_StateMachine_l230_5;
-  wire                when_StateMachine_l230_6;
-  wire                when_StateMachine_l230_7;
+  wire                when_StateMachine_l238;
+  wire                when_StateMachine_l238_1;
+  wire                when_StateMachine_l238_2;
+  wire                when_StateMachine_l238_3;
+  wire                when_StateMachine_l238_4;
+  wire                when_StateMachine_l238_5;
+  wire                when_StateMachine_l238_6;
+  wire                when_StateMachine_l238_7;
   wire                when_I2cCtrl_l309;
   `ifndef SYNTHESIS
-  reg [239:0] bridge_masterLogic_fsm_stateReg_string;
-  reg [239:0] bridge_masterLogic_fsm_stateNext_string;
+  reg [55:0] bridge_masterLogic_fsm_stateReg_string;
+  reg [55:0] bridge_masterLogic_fsm_stateNext_string;
   `endif
 
 
@@ -295,53 +292,60 @@ module AxiLite4I2cCtrl (
   assign _zz_when_I2cCtrl_l271_4 = (bridge_addressFilter_addresses_0_enable && bridge_addressFilter_addresses_0_is10Bit);
   assign _zz_when_I2cCtrl_l271_5 = (bridge_addressFilter_byte0[2 : 1] == bridge_addressFilter_addresses_0_value[9 : 8]);
   I2cSlave i2cCtrl (
-    .io_i2c_sda_write                  (i2cCtrl_io_i2c_sda_write            ), //o
-    .io_i2c_sda_read                   (bridge_i2cBuffer_sda_read           ), //i
-    .io_i2c_scl_write                  (i2cCtrl_io_i2c_scl_write            ), //o
-    .io_i2c_scl_read                   (bridge_i2cBuffer_scl_read           ), //i
-    .io_config_samplingClockDivider    (_zz_io_config_samplingClockDivider  ), //i
-    .io_config_timeout                 (_zz_io_config_timeout               ), //i
-    .io_config_tsuData                 (_zz_io_config_tsuData               ), //i
-    .io_bus_cmd_kind                   (i2cCtrl_io_bus_cmd_kind             ), //o
-    .io_bus_cmd_data                   (i2cCtrl_io_bus_cmd_data             ), //o
-    .io_bus_rsp_valid                  (i2cCtrl_io_bus_rsp_valid            ), //i
-    .io_bus_rsp_enable                 (i2cCtrl_io_bus_rsp_enable           ), //i
-    .io_bus_rsp_data                   (i2cCtrl_io_bus_rsp_data             ), //i
-    .io_internals_inFrame              (i2cCtrl_io_internals_inFrame        ), //o
-    .io_internals_sdaRead              (i2cCtrl_io_internals_sdaRead        ), //o
-    .io_internals_sclRead              (i2cCtrl_io_internals_sclRead        ), //o
-    .clk                               (clk                                 ), //i
-    .resetn                            (resetn                              )  //i
+    .io_i2c_sda_write                  (i2cCtrl_io_i2c_sda_write                 ), //o
+    .io_i2c_sda_read                   (bridge_i2cBuffer_sda_read                ), //i
+    .io_i2c_scl_write                  (i2cCtrl_io_i2c_scl_write                 ), //o
+    .io_i2c_scl_read                   (bridge_i2cBuffer_scl_read                ), //i
+    .io_config_samplingClockDivider    (_zz_io_config_samplingClockDivider[9:0]  ), //i
+    .io_config_timeout                 (_zz_io_config_timeout[19:0]              ), //i
+    .io_config_tsuData                 (_zz_io_config_tsuData[5:0]               ), //i
+    .io_bus_cmd_kind                   (i2cCtrl_io_bus_cmd_kind[2:0]             ), //o
+    .io_bus_cmd_data                   (i2cCtrl_io_bus_cmd_data                  ), //o
+    .io_bus_rsp_valid                  (i2cCtrl_io_bus_rsp_valid                 ), //i
+    .io_bus_rsp_enable                 (i2cCtrl_io_bus_rsp_enable                ), //i
+    .io_bus_rsp_data                   (i2cCtrl_io_bus_rsp_data                  ), //i
+    .io_internals_inFrame              (i2cCtrl_io_internals_inFrame             ), //o
+    .io_internals_sdaRead              (i2cCtrl_io_internals_sdaRead             ), //o
+    .io_internals_sclRead              (i2cCtrl_io_internals_sclRead             ), //o
+    .clk                               (clk                                      ), //i
+    .resetn                            (resetn                                   )  //i
   );
+  initial begin
+  `ifndef SYNTHESIS
+    _zz_io_config_timeout = {1{$urandom}};
+    _zz_io_config_tsuData = {1{$urandom}};
+  `endif
+  end
+
   `ifndef SYNTHESIS
   always @(*) begin
     case(bridge_masterLogic_fsm_stateReg)
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_BOOT : bridge_masterLogic_fsm_stateReg_string = "bridge_masterLogic_fsm_BOOT   ";
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_IDLE : bridge_masterLogic_fsm_stateReg_string = "bridge_masterLogic_fsm_IDLE   ";
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START1 : bridge_masterLogic_fsm_stateReg_string = "bridge_masterLogic_fsm_START1 ";
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START2 : bridge_masterLogic_fsm_stateReg_string = "bridge_masterLogic_fsm_START2 ";
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_LOW : bridge_masterLogic_fsm_stateReg_string = "bridge_masterLogic_fsm_LOW    ";
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_HIGH : bridge_masterLogic_fsm_stateReg_string = "bridge_masterLogic_fsm_HIGH   ";
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_RESTART : bridge_masterLogic_fsm_stateReg_string = "bridge_masterLogic_fsm_RESTART";
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP1 : bridge_masterLogic_fsm_stateReg_string = "bridge_masterLogic_fsm_STOP1  ";
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP2 : bridge_masterLogic_fsm_stateReg_string = "bridge_masterLogic_fsm_STOP2  ";
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_TBUF : bridge_masterLogic_fsm_stateReg_string = "bridge_masterLogic_fsm_TBUF   ";
-      default : bridge_masterLogic_fsm_stateReg_string = "??????????????????????????????";
+      bridge_masterLogic_fsm_enumDef_BOOT : bridge_masterLogic_fsm_stateReg_string = "BOOT   ";
+      bridge_masterLogic_fsm_enumDef_IDLE : bridge_masterLogic_fsm_stateReg_string = "IDLE   ";
+      bridge_masterLogic_fsm_enumDef_START1 : bridge_masterLogic_fsm_stateReg_string = "START1 ";
+      bridge_masterLogic_fsm_enumDef_START2 : bridge_masterLogic_fsm_stateReg_string = "START2 ";
+      bridge_masterLogic_fsm_enumDef_LOW : bridge_masterLogic_fsm_stateReg_string = "LOW    ";
+      bridge_masterLogic_fsm_enumDef_HIGH : bridge_masterLogic_fsm_stateReg_string = "HIGH   ";
+      bridge_masterLogic_fsm_enumDef_RESTART : bridge_masterLogic_fsm_stateReg_string = "RESTART";
+      bridge_masterLogic_fsm_enumDef_STOP1 : bridge_masterLogic_fsm_stateReg_string = "STOP1  ";
+      bridge_masterLogic_fsm_enumDef_STOP2 : bridge_masterLogic_fsm_stateReg_string = "STOP2  ";
+      bridge_masterLogic_fsm_enumDef_TBUF : bridge_masterLogic_fsm_stateReg_string = "TBUF   ";
+      default : bridge_masterLogic_fsm_stateReg_string = "???????";
     endcase
   end
   always @(*) begin
     case(bridge_masterLogic_fsm_stateNext)
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_BOOT : bridge_masterLogic_fsm_stateNext_string = "bridge_masterLogic_fsm_BOOT   ";
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_IDLE : bridge_masterLogic_fsm_stateNext_string = "bridge_masterLogic_fsm_IDLE   ";
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START1 : bridge_masterLogic_fsm_stateNext_string = "bridge_masterLogic_fsm_START1 ";
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START2 : bridge_masterLogic_fsm_stateNext_string = "bridge_masterLogic_fsm_START2 ";
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_LOW : bridge_masterLogic_fsm_stateNext_string = "bridge_masterLogic_fsm_LOW    ";
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_HIGH : bridge_masterLogic_fsm_stateNext_string = "bridge_masterLogic_fsm_HIGH   ";
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_RESTART : bridge_masterLogic_fsm_stateNext_string = "bridge_masterLogic_fsm_RESTART";
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP1 : bridge_masterLogic_fsm_stateNext_string = "bridge_masterLogic_fsm_STOP1  ";
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP2 : bridge_masterLogic_fsm_stateNext_string = "bridge_masterLogic_fsm_STOP2  ";
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_TBUF : bridge_masterLogic_fsm_stateNext_string = "bridge_masterLogic_fsm_TBUF   ";
-      default : bridge_masterLogic_fsm_stateNext_string = "??????????????????????????????";
+      bridge_masterLogic_fsm_enumDef_BOOT : bridge_masterLogic_fsm_stateNext_string = "BOOT   ";
+      bridge_masterLogic_fsm_enumDef_IDLE : bridge_masterLogic_fsm_stateNext_string = "IDLE   ";
+      bridge_masterLogic_fsm_enumDef_START1 : bridge_masterLogic_fsm_stateNext_string = "START1 ";
+      bridge_masterLogic_fsm_enumDef_START2 : bridge_masterLogic_fsm_stateNext_string = "START2 ";
+      bridge_masterLogic_fsm_enumDef_LOW : bridge_masterLogic_fsm_stateNext_string = "LOW    ";
+      bridge_masterLogic_fsm_enumDef_HIGH : bridge_masterLogic_fsm_stateNext_string = "HIGH   ";
+      bridge_masterLogic_fsm_enumDef_RESTART : bridge_masterLogic_fsm_stateNext_string = "RESTART";
+      bridge_masterLogic_fsm_enumDef_STOP1 : bridge_masterLogic_fsm_stateNext_string = "STOP1  ";
+      bridge_masterLogic_fsm_enumDef_STOP2 : bridge_masterLogic_fsm_stateNext_string = "STOP2  ";
+      bridge_masterLogic_fsm_enumDef_TBUF : bridge_masterLogic_fsm_stateNext_string = "TBUF   ";
+      default : bridge_masterLogic_fsm_stateNext_string = "???????";
     endcase
   end
   `endif
@@ -369,26 +373,26 @@ module AxiLite4I2cCtrl (
   assign axil4Ctrl_bvalid = _zz_axil4Ctrl_bvalid_1;
   assign axil4Ctrl_bresp = _zz_axil4Ctrl_bresp;
   always @(*) begin
-    axil4Ctrl_arready = io_axil4Ctrl_ar_readDataStage_ready;
+    axil4Ctrl_arready = readDataStage_ready;
     if(when_Stream_l342_1) begin
       axil4Ctrl_arready = 1'b1;
     end
   end
 
-  assign when_Stream_l342_1 = (! io_axil4Ctrl_ar_readDataStage_valid);
-  assign io_axil4Ctrl_ar_readDataStage_valid = io_axil4Ctrl_ar_rValid;
-  assign io_axil4Ctrl_ar_readDataStage_payload_addr = io_axil4Ctrl_ar_rData_addr;
-  assign io_axil4Ctrl_ar_readDataStage_payload_prot = io_axil4Ctrl_ar_rData_prot;
+  assign when_Stream_l342_1 = (! readDataStage_valid);
+  assign readDataStage_valid = io_axil4Ctrl_ar_rValid;
+  assign readDataStage_payload_addr = io_axil4Ctrl_ar_rData_addr;
+  assign readDataStage_payload_prot = io_axil4Ctrl_ar_rData_prot;
   assign _zz_axil4Ctrl_rvalid = (! readHaltRequest);
-  assign io_axil4Ctrl_ar_readDataStage_ready = (axil4Ctrl_rready && _zz_axil4Ctrl_rvalid);
-  assign axil4Ctrl_rvalid = (io_axil4Ctrl_ar_readDataStage_valid && _zz_axil4Ctrl_rvalid);
+  assign readDataStage_ready = (axil4Ctrl_rready && _zz_axil4Ctrl_rvalid);
+  assign axil4Ctrl_rvalid = (readDataStage_valid && _zz_axil4Ctrl_rvalid);
   assign axil4Ctrl_rdata = readRsp_data;
   assign axil4Ctrl_rresp = readRsp_resp;
   assign writeRsp_resp = 2'b00;
   assign readRsp_resp = 2'b00;
   always @(*) begin
     readRsp_data = 32'h0;
-    case(io_axil4Ctrl_ar_readDataStage_payload_addr)
+    case(readDataStage_payload_addr)
       8'h08 : begin
         readRsp_data[8 : 8] = bridge_rxData_valid;
         readRsp_data[7 : 0] = bridge_rxData_value;
@@ -447,16 +451,16 @@ module AxiLite4I2cCtrl (
   always @(*) begin
     bridge_frameReset = 1'b0;
     case(i2cCtrl_io_bus_cmd_kind)
-      `I2cSlaveCmdMode_binary_sequential_START : begin
+      I2cSlaveCmdMode_START : begin
         bridge_frameReset = 1'b1;
       end
-      `I2cSlaveCmdMode_binary_sequential_RESTART : begin
+      I2cSlaveCmdMode_RESTART : begin
         bridge_frameReset = 1'b1;
       end
-      `I2cSlaveCmdMode_binary_sequential_STOP : begin
+      I2cSlaveCmdMode_STOP : begin
         bridge_frameReset = 1'b1;
       end
-      `I2cSlaveCmdMode_binary_sequential_DROP : begin
+      I2cSlaveCmdMode_DROP : begin
         bridge_frameReset = 1'b1;
       end
       default : begin
@@ -467,27 +471,27 @@ module AxiLite4I2cCtrl (
   always @(*) begin
     bridge_i2cBuffer_sda_write = i2cCtrl_io_i2c_sda_write;
     case(bridge_masterLogic_fsm_stateReg)
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_IDLE : begin
+      bridge_masterLogic_fsm_enumDef_IDLE : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START1 : begin
+      bridge_masterLogic_fsm_enumDef_START1 : begin
         bridge_i2cBuffer_sda_write = 1'b0;
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START2 : begin
+      bridge_masterLogic_fsm_enumDef_START2 : begin
         bridge_i2cBuffer_sda_write = 1'b0;
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_LOW : begin
+      bridge_masterLogic_fsm_enumDef_LOW : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_HIGH : begin
+      bridge_masterLogic_fsm_enumDef_HIGH : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_RESTART : begin
+      bridge_masterLogic_fsm_enumDef_RESTART : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP1 : begin
+      bridge_masterLogic_fsm_enumDef_STOP1 : begin
         bridge_i2cBuffer_sda_write = 1'b0;
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP2 : begin
+      bridge_masterLogic_fsm_enumDef_STOP2 : begin
         bridge_i2cBuffer_sda_write = 1'b0;
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_TBUF : begin
+      bridge_masterLogic_fsm_enumDef_TBUF : begin
       end
       default : begin
       end
@@ -497,14 +501,14 @@ module AxiLite4I2cCtrl (
   always @(*) begin
     bridge_i2cBuffer_scl_write = i2cCtrl_io_i2c_scl_write;
     case(bridge_masterLogic_fsm_stateReg)
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_IDLE : begin
+      bridge_masterLogic_fsm_enumDef_IDLE : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START1 : begin
+      bridge_masterLogic_fsm_enumDef_START1 : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START2 : begin
+      bridge_masterLogic_fsm_enumDef_START2 : begin
         bridge_i2cBuffer_scl_write = 1'b0;
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_LOW : begin
+      bridge_masterLogic_fsm_enumDef_LOW : begin
         if(bridge_masterLogic_timer_done) begin
           if(when_I2cCtrl_l362) begin
             bridge_i2cBuffer_scl_write = 1'b0;
@@ -517,16 +521,16 @@ module AxiLite4I2cCtrl (
           bridge_i2cBuffer_scl_write = 1'b0;
         end
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_HIGH : begin
+      bridge_masterLogic_fsm_enumDef_HIGH : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_RESTART : begin
+      bridge_masterLogic_fsm_enumDef_RESTART : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP1 : begin
+      bridge_masterLogic_fsm_enumDef_STOP1 : begin
         bridge_i2cBuffer_scl_write = 1'b0;
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP2 : begin
+      bridge_masterLogic_fsm_enumDef_STOP2 : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_TBUF : begin
+      bridge_masterLogic_fsm_enumDef_TBUF : begin
       end
       default : begin
       end
@@ -535,7 +539,7 @@ module AxiLite4I2cCtrl (
 
   always @(*) begin
     when_I2cCtrl_l189 = 1'b0;
-    case(io_axil4Ctrl_ar_readDataStage_payload_addr)
+    case(readDataStage_payload_addr)
       8'h08 : begin
         if(readOccur) begin
           when_I2cCtrl_l189 = 1'b1;
@@ -548,7 +552,7 @@ module AxiLite4I2cCtrl (
 
   always @(*) begin
     when_I2cCtrl_l202 = 1'b0;
-    case(io_axil4Ctrl_ar_readDataStage_payload_addr)
+    case(readDataStage_payload_addr)
       8'h0c : begin
         if(readOccur) begin
           when_I2cCtrl_l202 = 1'b1;
@@ -565,13 +569,13 @@ module AxiLite4I2cCtrl (
       bridge_txData_forceDisable = 1'b0;
     end
     case(bridge_masterLogic_fsm_stateReg)
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_IDLE : begin
+      bridge_masterLogic_fsm_enumDef_IDLE : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START1 : begin
+      bridge_masterLogic_fsm_enumDef_START1 : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START2 : begin
+      bridge_masterLogic_fsm_enumDef_START2 : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_LOW : begin
+      bridge_masterLogic_fsm_enumDef_LOW : begin
         if(bridge_masterLogic_timer_done) begin
           if(when_I2cCtrl_l362) begin
             bridge_txData_forceDisable = 1'b1;
@@ -582,15 +586,15 @@ module AxiLite4I2cCtrl (
           end
         end
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_HIGH : begin
+      bridge_masterLogic_fsm_enumDef_HIGH : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_RESTART : begin
+      bridge_masterLogic_fsm_enumDef_RESTART : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP1 : begin
+      bridge_masterLogic_fsm_enumDef_STOP1 : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP2 : begin
+      bridge_masterLogic_fsm_enumDef_STOP2 : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_TBUF : begin
+      bridge_masterLogic_fsm_enumDef_TBUF : begin
       end
       default : begin
       end
@@ -659,23 +663,23 @@ module AxiLite4I2cCtrl (
   always @(*) begin
     bridge_masterLogic_fsm_wantStart = 1'b0;
     case(bridge_masterLogic_fsm_stateReg)
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_IDLE : begin
+      bridge_masterLogic_fsm_enumDef_IDLE : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START1 : begin
+      bridge_masterLogic_fsm_enumDef_START1 : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START2 : begin
+      bridge_masterLogic_fsm_enumDef_START2 : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_LOW : begin
+      bridge_masterLogic_fsm_enumDef_LOW : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_HIGH : begin
+      bridge_masterLogic_fsm_enumDef_HIGH : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_RESTART : begin
+      bridge_masterLogic_fsm_enumDef_RESTART : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP1 : begin
+      bridge_masterLogic_fsm_enumDef_STOP1 : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP2 : begin
+      bridge_masterLogic_fsm_enumDef_STOP2 : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_TBUF : begin
+      bridge_masterLogic_fsm_enumDef_TBUF : begin
       end
       default : begin
         bridge_masterLogic_fsm_wantStart = 1'b1;
@@ -686,23 +690,23 @@ module AxiLite4I2cCtrl (
   assign bridge_masterLogic_fsm_wantKill = 1'b0;
   assign when_I2cCtrl_l318 = (! i2cCtrl_io_internals_sclRead);
   assign when_I2cCtrl_l318_1 = (! i2cCtrl_io_internals_inFrame);
-  assign bridge_masterLogic_fsm_isBusy = ((! (bridge_masterLogic_fsm_stateReg == `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_IDLE)) && (! (bridge_masterLogic_fsm_stateReg == `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_TBUF)));
+  assign bridge_masterLogic_fsm_isBusy = ((! (bridge_masterLogic_fsm_stateReg == bridge_masterLogic_fsm_enumDef_IDLE)) && (! (bridge_masterLogic_fsm_stateReg == bridge_masterLogic_fsm_enumDef_TBUF)));
   assign bridge_masterLogic_txReady = (bridge_inAckState ? bridge_txAck_valid : bridge_txData_valid);
   assign when_I2cCtrl_l457 = (! bridge_inAckState);
   always @(*) begin
     if(when_I2cCtrl_l457) begin
-      i2cCtrl_io_bus_rsp_valid = ((bridge_txData_valid && (! (bridge_rxData_valid && bridge_rxData_listen))) && (i2cCtrl_io_bus_cmd_kind == `I2cSlaveCmdMode_binary_sequential_DRIVE));
+      i2cCtrl_io_bus_rsp_valid = ((bridge_txData_valid && (! (bridge_rxData_valid && bridge_rxData_listen))) && (i2cCtrl_io_bus_cmd_kind == I2cSlaveCmdMode_DRIVE));
       if(bridge_txData_forceDisable) begin
         i2cCtrl_io_bus_rsp_valid = 1'b1;
       end
     end else begin
-      i2cCtrl_io_bus_rsp_valid = ((bridge_txAck_valid && (! (bridge_rxAck_valid && bridge_rxAck_listen))) && (i2cCtrl_io_bus_cmd_kind == `I2cSlaveCmdMode_binary_sequential_DRIVE));
+      i2cCtrl_io_bus_rsp_valid = ((bridge_txAck_valid && (! (bridge_rxAck_valid && bridge_rxAck_listen))) && (i2cCtrl_io_bus_cmd_kind == I2cSlaveCmdMode_DRIVE));
       if(bridge_txAck_forceAck) begin
         i2cCtrl_io_bus_rsp_valid = 1'b1;
       end
     end
     if(when_I2cCtrl_l480) begin
-      i2cCtrl_io_bus_rsp_valid = (i2cCtrl_io_bus_cmd_kind == `I2cSlaveCmdMode_binary_sequential_DRIVE);
+      i2cCtrl_io_bus_rsp_valid = (i2cCtrl_io_bus_cmd_kind == I2cSlaveCmdMode_DRIVE);
     end
   end
 
@@ -740,7 +744,7 @@ module AxiLite4I2cCtrl (
   assign when_I2cCtrl_l508 = (bridge_dataCounter == 3'b111);
   assign when_I2cCtrl_l512 = (bridge_txData_valid && (! bridge_txData_repeat));
   assign when_I2cCtrl_l522 = (bridge_txAck_valid && (! bridge_txAck_repeat));
-  assign when_I2cCtrl_l535 = ((i2cCtrl_io_bus_cmd_kind == `I2cSlaveCmdMode_binary_sequential_STOP) || (i2cCtrl_io_bus_cmd_kind == `I2cSlaveCmdMode_binary_sequential_DROP));
+  assign when_I2cCtrl_l535 = ((i2cCtrl_io_bus_cmd_kind == I2cSlaveCmdMode_STOP) || (i2cCtrl_io_bus_cmd_kind == I2cSlaveCmdMode_DROP));
   always @(*) begin
     bridge_interruptCtrl_interrupt = ((((bridge_interruptCtrl_rxDataEnable && bridge_rxData_valid) || (bridge_interruptCtrl_rxAckEnable && bridge_rxAck_valid)) || (bridge_interruptCtrl_txDataEnable && (! bridge_txData_valid))) || (bridge_interruptCtrl_txAckEnable && (! bridge_txAck_valid)));
     if(bridge_interruptCtrl_start_flag) begin
@@ -763,7 +767,7 @@ module AxiLite4I2cCtrl (
     end
   end
 
-  assign when_I2cCtrl_l569 = (i2cCtrl_io_bus_cmd_kind == `I2cSlaveCmdMode_binary_sequential_START);
+  assign when_I2cCtrl_l569 = (i2cCtrl_io_bus_cmd_kind == I2cSlaveCmdMode_START);
   assign when_I2cCtrl_l569_1 = (! bridge_interruptCtrl_start_enable);
   always @(*) begin
     when_BusSlaveFactory_l335 = 1'b0;
@@ -779,7 +783,7 @@ module AxiLite4I2cCtrl (
   end
 
   assign when_BusSlaveFactory_l337 = axil4Ctrl_wdata[4];
-  assign when_I2cCtrl_l569_2 = (i2cCtrl_io_bus_cmd_kind == `I2cSlaveCmdMode_binary_sequential_RESTART);
+  assign when_I2cCtrl_l569_2 = (i2cCtrl_io_bus_cmd_kind == I2cSlaveCmdMode_RESTART);
   assign when_I2cCtrl_l569_3 = (! bridge_interruptCtrl_restart_enable);
   always @(*) begin
     when_BusSlaveFactory_l335_1 = 1'b0;
@@ -795,7 +799,7 @@ module AxiLite4I2cCtrl (
   end
 
   assign when_BusSlaveFactory_l337_1 = axil4Ctrl_wdata[5];
-  assign when_I2cCtrl_l569_4 = (i2cCtrl_io_bus_cmd_kind == `I2cSlaveCmdMode_binary_sequential_STOP);
+  assign when_I2cCtrl_l569_4 = (i2cCtrl_io_bus_cmd_kind == I2cSlaveCmdMode_STOP);
   assign when_I2cCtrl_l569_5 = (! bridge_interruptCtrl_end_enable);
   always @(*) begin
     when_BusSlaveFactory_l335_2 = 1'b0;
@@ -811,7 +815,7 @@ module AxiLite4I2cCtrl (
   end
 
   assign when_BusSlaveFactory_l337_2 = axil4Ctrl_wdata[6];
-  assign when_I2cCtrl_l569_6 = (i2cCtrl_io_bus_cmd_kind == `I2cSlaveCmdMode_binary_sequential_DROP);
+  assign when_I2cCtrl_l569_6 = (i2cCtrl_io_bus_cmd_kind == I2cSlaveCmdMode_DROP);
   assign when_I2cCtrl_l569_7 = (! bridge_interruptCtrl_drop_enable);
   always @(*) begin
     when_BusSlaveFactory_l335_3 = 1'b0;
@@ -868,76 +872,76 @@ module AxiLite4I2cCtrl (
   always @(*) begin
     bridge_masterLogic_fsm_stateNext = bridge_masterLogic_fsm_stateReg;
     case(bridge_masterLogic_fsm_stateReg)
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_IDLE : begin
+      bridge_masterLogic_fsm_enumDef_IDLE : begin
         if(when_I2cCtrl_l321) begin
-          bridge_masterLogic_fsm_stateNext = `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_TBUF;
+          bridge_masterLogic_fsm_stateNext = bridge_masterLogic_fsm_enumDef_TBUF;
         end else begin
           if(when_I2cCtrl_l323) begin
-            bridge_masterLogic_fsm_stateNext = `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START1;
+            bridge_masterLogic_fsm_stateNext = bridge_masterLogic_fsm_enumDef_START1;
           end
         end
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START1 : begin
+      bridge_masterLogic_fsm_enumDef_START1 : begin
         if(when_I2cCtrl_l336) begin
-          bridge_masterLogic_fsm_stateNext = `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START2;
+          bridge_masterLogic_fsm_stateNext = bridge_masterLogic_fsm_enumDef_START2;
         end
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START2 : begin
+      bridge_masterLogic_fsm_enumDef_START2 : begin
         if(bridge_masterLogic_timer_done) begin
-          bridge_masterLogic_fsm_stateNext = `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_LOW;
+          bridge_masterLogic_fsm_stateNext = bridge_masterLogic_fsm_enumDef_LOW;
         end
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_LOW : begin
+      bridge_masterLogic_fsm_enumDef_LOW : begin
         if(bridge_masterLogic_timer_done) begin
           if(when_I2cCtrl_l362) begin
-            bridge_masterLogic_fsm_stateNext = `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP1;
+            bridge_masterLogic_fsm_stateNext = bridge_masterLogic_fsm_enumDef_STOP1;
           end else begin
             if(when_I2cCtrl_l366) begin
-              bridge_masterLogic_fsm_stateNext = `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_RESTART;
+              bridge_masterLogic_fsm_stateNext = bridge_masterLogic_fsm_enumDef_RESTART;
             end else begin
               if(i2cCtrl_io_internals_sclRead) begin
-                bridge_masterLogic_fsm_stateNext = `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_HIGH;
+                bridge_masterLogic_fsm_stateNext = bridge_masterLogic_fsm_enumDef_HIGH;
               end
             end
           end
         end
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_HIGH : begin
+      bridge_masterLogic_fsm_enumDef_HIGH : begin
         if(when_I2cCtrl_l386) begin
-          bridge_masterLogic_fsm_stateNext = `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_LOW;
+          bridge_masterLogic_fsm_stateNext = bridge_masterLogic_fsm_enumDef_LOW;
         end
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_RESTART : begin
+      bridge_masterLogic_fsm_enumDef_RESTART : begin
         if(bridge_masterLogic_timer_done) begin
-          bridge_masterLogic_fsm_stateNext = `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START1;
+          bridge_masterLogic_fsm_stateNext = bridge_masterLogic_fsm_enumDef_START1;
         end
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP1 : begin
+      bridge_masterLogic_fsm_enumDef_STOP1 : begin
         if(bridge_masterLogic_timer_done) begin
-          bridge_masterLogic_fsm_stateNext = `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP2;
+          bridge_masterLogic_fsm_stateNext = bridge_masterLogic_fsm_enumDef_STOP2;
         end
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP2 : begin
+      bridge_masterLogic_fsm_enumDef_STOP2 : begin
         if(bridge_masterLogic_timer_done) begin
-          bridge_masterLogic_fsm_stateNext = `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_TBUF;
+          bridge_masterLogic_fsm_stateNext = bridge_masterLogic_fsm_enumDef_TBUF;
         end
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_TBUF : begin
+      bridge_masterLogic_fsm_enumDef_TBUF : begin
         if(bridge_masterLogic_timer_done) begin
-          bridge_masterLogic_fsm_stateNext = `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_IDLE;
+          bridge_masterLogic_fsm_stateNext = bridge_masterLogic_fsm_enumDef_IDLE;
         end
       end
       default : begin
       end
     endcase
     if(when_I2cCtrl_l309) begin
-      bridge_masterLogic_fsm_stateNext = `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_TBUF;
+      bridge_masterLogic_fsm_stateNext = bridge_masterLogic_fsm_enumDef_TBUF;
     end
     if(bridge_masterLogic_fsm_wantStart) begin
-      bridge_masterLogic_fsm_stateNext = `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_IDLE;
+      bridge_masterLogic_fsm_stateNext = bridge_masterLogic_fsm_enumDef_IDLE;
     end
     if(bridge_masterLogic_fsm_wantKill) begin
-      bridge_masterLogic_fsm_stateNext = `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_BOOT;
+      bridge_masterLogic_fsm_stateNext = bridge_masterLogic_fsm_enumDef_BOOT;
     end
   end
 
@@ -948,15 +952,15 @@ module AxiLite4I2cCtrl (
   assign when_I2cCtrl_l366 = (bridge_masterLogic_start && (! bridge_inAckState));
   assign when_I2cCtrl_l386 = (bridge_masterLogic_timer_done || (! i2cCtrl_io_internals_sclRead));
   assign when_I2cCtrl_l397 = (! i2cCtrl_io_internals_sclRead);
-  assign when_StateMachine_l230 = ((! (bridge_masterLogic_fsm_stateReg == `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START1)) && (bridge_masterLogic_fsm_stateNext == `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START1));
-  assign when_StateMachine_l230_1 = ((! (bridge_masterLogic_fsm_stateReg == `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START2)) && (bridge_masterLogic_fsm_stateNext == `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START2));
-  assign when_StateMachine_l230_2 = ((! (bridge_masterLogic_fsm_stateReg == `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_LOW)) && (bridge_masterLogic_fsm_stateNext == `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_LOW));
-  assign when_StateMachine_l230_3 = ((! (bridge_masterLogic_fsm_stateReg == `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_HIGH)) && (bridge_masterLogic_fsm_stateNext == `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_HIGH));
-  assign when_StateMachine_l230_4 = ((! (bridge_masterLogic_fsm_stateReg == `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_RESTART)) && (bridge_masterLogic_fsm_stateNext == `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_RESTART));
-  assign when_StateMachine_l230_5 = ((! (bridge_masterLogic_fsm_stateReg == `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP1)) && (bridge_masterLogic_fsm_stateNext == `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP1));
-  assign when_StateMachine_l230_6 = ((! (bridge_masterLogic_fsm_stateReg == `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP2)) && (bridge_masterLogic_fsm_stateNext == `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP2));
-  assign when_StateMachine_l230_7 = ((! (bridge_masterLogic_fsm_stateReg == `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_TBUF)) && (bridge_masterLogic_fsm_stateNext == `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_TBUF));
-  assign when_I2cCtrl_l309 = (bridge_masterLogic_drop || ((! (bridge_masterLogic_fsm_stateReg == `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_IDLE)) && (i2cCtrl_io_bus_cmd_kind == `I2cSlaveCmdMode_binary_sequential_DROP)));
+  assign when_StateMachine_l238 = ((! (bridge_masterLogic_fsm_stateReg == bridge_masterLogic_fsm_enumDef_START1)) && (bridge_masterLogic_fsm_stateNext == bridge_masterLogic_fsm_enumDef_START1));
+  assign when_StateMachine_l238_1 = ((! (bridge_masterLogic_fsm_stateReg == bridge_masterLogic_fsm_enumDef_START2)) && (bridge_masterLogic_fsm_stateNext == bridge_masterLogic_fsm_enumDef_START2));
+  assign when_StateMachine_l238_2 = ((! (bridge_masterLogic_fsm_stateReg == bridge_masterLogic_fsm_enumDef_LOW)) && (bridge_masterLogic_fsm_stateNext == bridge_masterLogic_fsm_enumDef_LOW));
+  assign when_StateMachine_l238_3 = ((! (bridge_masterLogic_fsm_stateReg == bridge_masterLogic_fsm_enumDef_HIGH)) && (bridge_masterLogic_fsm_stateNext == bridge_masterLogic_fsm_enumDef_HIGH));
+  assign when_StateMachine_l238_4 = ((! (bridge_masterLogic_fsm_stateReg == bridge_masterLogic_fsm_enumDef_RESTART)) && (bridge_masterLogic_fsm_stateNext == bridge_masterLogic_fsm_enumDef_RESTART));
+  assign when_StateMachine_l238_5 = ((! (bridge_masterLogic_fsm_stateReg == bridge_masterLogic_fsm_enumDef_STOP1)) && (bridge_masterLogic_fsm_stateNext == bridge_masterLogic_fsm_enumDef_STOP1));
+  assign when_StateMachine_l238_6 = ((! (bridge_masterLogic_fsm_stateReg == bridge_masterLogic_fsm_enumDef_STOP2)) && (bridge_masterLogic_fsm_stateNext == bridge_masterLogic_fsm_enumDef_STOP2));
+  assign when_StateMachine_l238_7 = ((! (bridge_masterLogic_fsm_stateReg == bridge_masterLogic_fsm_enumDef_TBUF)) && (bridge_masterLogic_fsm_stateNext == bridge_masterLogic_fsm_enumDef_TBUF));
+  assign when_I2cCtrl_l309 = (bridge_masterLogic_drop || ((! (bridge_masterLogic_fsm_stateReg == bridge_masterLogic_fsm_enumDef_IDLE)) && (i2cCtrl_io_bus_cmd_kind == I2cSlaveCmdMode_DROP)));
   always @(posedge clk) begin
     if(!resetn) begin
       _zz_axil4Ctrl_bvalid_2 <= 1'b0;
@@ -1002,7 +1006,7 @@ module AxiLite4I2cCtrl (
       _zz_io_config_samplingClockDivider <= 10'h0;
       bridge_i2cBuffer_scl_write_regNext <= 1'b1;
       bridge_i2cBuffer_sda_write_regNext <= 1'b1;
-      bridge_masterLogic_fsm_stateReg <= `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_BOOT;
+      bridge_masterLogic_fsm_stateReg <= bridge_masterLogic_fsm_enumDef_BOOT;
     end else begin
       if(_zz_writeJoinEvent_translated_ready) begin
         _zz_axil4Ctrl_bvalid_2 <= (writeJoinEvent_translated_valid && _zz_axil4Ctrl_bvalid);
@@ -1051,7 +1055,7 @@ module AxiLite4I2cCtrl (
         end
       end
       case(i2cCtrl_io_bus_cmd_kind)
-        `I2cSlaveCmdMode_binary_sequential_READ : begin
+        I2cSlaveCmdMode_READ : begin
           if(when_I2cCtrl_l500) begin
             bridge_dataCounter <= (bridge_dataCounter + 3'b001);
             if(when_I2cCtrl_l504) begin
@@ -1238,34 +1242,34 @@ module AxiLite4I2cCtrl (
       endcase
       bridge_masterLogic_fsm_stateReg <= bridge_masterLogic_fsm_stateNext;
       case(bridge_masterLogic_fsm_stateReg)
-        `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_IDLE : begin
+        bridge_masterLogic_fsm_enumDef_IDLE : begin
           if(!when_I2cCtrl_l321) begin
             if(when_I2cCtrl_l323) begin
               bridge_txData_valid <= 1'b0;
             end
           end
         end
-        `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START1 : begin
+        bridge_masterLogic_fsm_enumDef_START1 : begin
         end
-        `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START2 : begin
+        bridge_masterLogic_fsm_enumDef_START2 : begin
           if(bridge_masterLogic_timer_done) begin
             bridge_masterLogic_start <= 1'b0;
           end
         end
-        `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_LOW : begin
+        bridge_masterLogic_fsm_enumDef_LOW : begin
         end
-        `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_HIGH : begin
+        bridge_masterLogic_fsm_enumDef_HIGH : begin
         end
-        `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_RESTART : begin
+        bridge_masterLogic_fsm_enumDef_RESTART : begin
         end
-        `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP1 : begin
+        bridge_masterLogic_fsm_enumDef_STOP1 : begin
         end
-        `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP2 : begin
+        bridge_masterLogic_fsm_enumDef_STOP2 : begin
           if(bridge_masterLogic_timer_done) begin
             bridge_masterLogic_stop <= 1'b0;
           end
         end
-        `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_TBUF : begin
+        bridge_masterLogic_fsm_enumDef_TBUF : begin
         end
         default : begin
         end
@@ -1307,7 +1311,7 @@ module AxiLite4I2cCtrl (
       bridge_masterLogic_fsm_inFrameLate <= 1'b0;
     end
     case(i2cCtrl_io_bus_cmd_kind)
-      `I2cSlaveCmdMode_binary_sequential_READ : begin
+      I2cSlaveCmdMode_READ : begin
         if(when_I2cCtrl_l500) begin
           bridge_rxData_value[_zz_bridge_rxData_value] <= i2cCtrl_io_bus_cmd_data;
         end else begin
@@ -1389,52 +1393,52 @@ module AxiLite4I2cCtrl (
       end
     endcase
     case(bridge_masterLogic_fsm_stateReg)
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_IDLE : begin
+      bridge_masterLogic_fsm_enumDef_IDLE : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START1 : begin
+      bridge_masterLogic_fsm_enumDef_START1 : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_START2 : begin
+      bridge_masterLogic_fsm_enumDef_START2 : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_LOW : begin
+      bridge_masterLogic_fsm_enumDef_LOW : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_HIGH : begin
+      bridge_masterLogic_fsm_enumDef_HIGH : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_RESTART : begin
+      bridge_masterLogic_fsm_enumDef_RESTART : begin
         if(when_I2cCtrl_l397) begin
           bridge_masterLogic_timer_value <= bridge_masterLogic_timer_tHigh;
         end
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP1 : begin
+      bridge_masterLogic_fsm_enumDef_STOP1 : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_STOP2 : begin
+      bridge_masterLogic_fsm_enumDef_STOP2 : begin
       end
-      `bridge_masterLogic_fsm_enumDefinition_binary_sequential_bridge_masterLogic_fsm_TBUF : begin
+      bridge_masterLogic_fsm_enumDef_TBUF : begin
       end
       default : begin
       end
     endcase
-    if(when_StateMachine_l230) begin
+    if(when_StateMachine_l238) begin
       bridge_masterLogic_timer_value <= bridge_masterLogic_timer_tHigh;
     end
-    if(when_StateMachine_l230_1) begin
+    if(when_StateMachine_l238_1) begin
       bridge_masterLogic_timer_value <= bridge_masterLogic_timer_tLow;
     end
-    if(when_StateMachine_l230_2) begin
+    if(when_StateMachine_l238_2) begin
       bridge_masterLogic_timer_value <= bridge_masterLogic_timer_tLow;
     end
-    if(when_StateMachine_l230_3) begin
+    if(when_StateMachine_l238_3) begin
       bridge_masterLogic_timer_value <= bridge_masterLogic_timer_tHigh;
     end
-    if(when_StateMachine_l230_4) begin
+    if(when_StateMachine_l238_4) begin
       bridge_masterLogic_timer_value <= bridge_masterLogic_timer_tHigh;
     end
-    if(when_StateMachine_l230_5) begin
+    if(when_StateMachine_l238_5) begin
       bridge_masterLogic_timer_value <= bridge_masterLogic_timer_tHigh;
     end
-    if(when_StateMachine_l230_6) begin
+    if(when_StateMachine_l238_6) begin
       bridge_masterLogic_timer_value <= bridge_masterLogic_timer_tHigh;
     end
-    if(when_StateMachine_l230_7) begin
+    if(when_StateMachine_l238_7) begin
       bridge_masterLogic_timer_value <= bridge_masterLogic_timer_tBuf;
     end
   end
@@ -1458,7 +1462,7 @@ module I2cSlave (
   input      [9:0]    io_config_samplingClockDivider,
   input      [19:0]   io_config_timeout,
   input      [5:0]    io_config_tsuData,
-  output reg `I2cSlaveCmdMode_binary_sequential_type io_bus_cmd_kind,
+  output reg [2:0]    io_bus_cmd_kind,
   output              io_bus_cmd_data,
   input               io_bus_rsp_valid,
   input               io_bus_rsp_enable,
@@ -1469,6 +1473,14 @@ module I2cSlave (
   input               clk,
   input               resetn
 );
+  localparam I2cSlaveCmdMode_NONE = 3'd0;
+  localparam I2cSlaveCmdMode_START = 3'd1;
+  localparam I2cSlaveCmdMode_RESTART = 3'd2;
+  localparam I2cSlaveCmdMode_STOP = 3'd3;
+  localparam I2cSlaveCmdMode_DROP = 3'd4;
+  localparam I2cSlaveCmdMode_DRIVE = 3'd5;
+  localparam I2cSlaveCmdMode_READ = 3'd6;
+
   wire                io_i2c_scl_read_buffercc_io_dataOut;
   wire                io_i2c_sda_read_buffercc_io_dataOut;
   reg        [9:0]    filter_timer_counter;
@@ -1513,10 +1525,10 @@ module I2cSlave (
   reg                 ctrl_rspBufferIn_ready;
   wire                ctrl_rspBufferIn_payload_enable;
   wire                ctrl_rspBufferIn_payload_data;
-  wire                ctrl_rspBufferIn_rspBuffer_valid;
-  reg                 ctrl_rspBufferIn_rspBuffer_ready;
-  wire                ctrl_rspBufferIn_rspBuffer_payload_enable;
-  wire                ctrl_rspBufferIn_rspBuffer_payload_data;
+  wire                ctrl_rspBuffer_valid;
+  reg                 ctrl_rspBuffer_ready;
+  wire                ctrl_rspBuffer_payload_enable;
+  wire                ctrl_rspBuffer_payload_data;
   reg                 ctrl_rspBufferIn_rValid;
   reg                 ctrl_rspBufferIn_rData_enable;
   reg                 ctrl_rspBufferIn_rData_data;
@@ -1551,13 +1563,13 @@ module I2cSlave (
   `ifndef SYNTHESIS
   always @(*) begin
     case(io_bus_cmd_kind)
-      `I2cSlaveCmdMode_binary_sequential_NONE : io_bus_cmd_kind_string = "NONE   ";
-      `I2cSlaveCmdMode_binary_sequential_START : io_bus_cmd_kind_string = "START  ";
-      `I2cSlaveCmdMode_binary_sequential_RESTART : io_bus_cmd_kind_string = "RESTART";
-      `I2cSlaveCmdMode_binary_sequential_STOP : io_bus_cmd_kind_string = "STOP   ";
-      `I2cSlaveCmdMode_binary_sequential_DROP : io_bus_cmd_kind_string = "DROP   ";
-      `I2cSlaveCmdMode_binary_sequential_DRIVE : io_bus_cmd_kind_string = "DRIVE  ";
-      `I2cSlaveCmdMode_binary_sequential_READ : io_bus_cmd_kind_string = "READ   ";
+      I2cSlaveCmdMode_NONE : io_bus_cmd_kind_string = "NONE   ";
+      I2cSlaveCmdMode_START : io_bus_cmd_kind_string = "START  ";
+      I2cSlaveCmdMode_RESTART : io_bus_cmd_kind_string = "RESTART";
+      I2cSlaveCmdMode_STOP : io_bus_cmd_kind_string = "STOP   ";
+      I2cSlaveCmdMode_DROP : io_bus_cmd_kind_string = "DROP   ";
+      I2cSlaveCmdMode_DRIVE : io_bus_cmd_kind_string = "DRIVE  ";
+      I2cSlaveCmdMode_READ : io_bus_cmd_kind_string = "READ   ";
       default : io_bus_cmd_kind_string = "???????";
     endcase
   end
@@ -1612,55 +1624,55 @@ module I2cSlave (
   end
 
   always @(*) begin
-    ctrl_rspBufferIn_ready = ctrl_rspBufferIn_rspBuffer_ready;
+    ctrl_rspBufferIn_ready = ctrl_rspBuffer_ready;
     if(when_Stream_l342) begin
       ctrl_rspBufferIn_ready = 1'b1;
     end
   end
 
-  assign when_Stream_l342 = (! ctrl_rspBufferIn_rspBuffer_valid);
-  assign ctrl_rspBufferIn_rspBuffer_valid = ctrl_rspBufferIn_rValid;
-  assign ctrl_rspBufferIn_rspBuffer_payload_enable = ctrl_rspBufferIn_rData_enable;
-  assign ctrl_rspBufferIn_rspBuffer_payload_data = ctrl_rspBufferIn_rData_data;
-  assign ctrl_rspAhead_valid = (ctrl_rspBufferIn_rspBuffer_valid ? ctrl_rspBufferIn_rspBuffer_valid : ctrl_rspBufferIn_valid);
-  assign ctrl_rspAhead_payload_enable = (ctrl_rspBufferIn_rspBuffer_valid ? ctrl_rspBufferIn_rspBuffer_payload_enable : ctrl_rspBufferIn_payload_enable);
-  assign ctrl_rspAhead_payload_data = (ctrl_rspBufferIn_rspBuffer_valid ? ctrl_rspBufferIn_rspBuffer_payload_data : ctrl_rspBufferIn_payload_data);
+  assign when_Stream_l342 = (! ctrl_rspBuffer_valid);
+  assign ctrl_rspBuffer_valid = ctrl_rspBufferIn_rValid;
+  assign ctrl_rspBuffer_payload_enable = ctrl_rspBufferIn_rData_enable;
+  assign ctrl_rspBuffer_payload_data = ctrl_rspBufferIn_rData_data;
+  assign ctrl_rspAhead_valid = (ctrl_rspBuffer_valid ? ctrl_rspBuffer_valid : ctrl_rspBufferIn_valid);
+  assign ctrl_rspAhead_payload_enable = (ctrl_rspBuffer_valid ? ctrl_rspBuffer_payload_enable : ctrl_rspBufferIn_payload_enable);
+  assign ctrl_rspAhead_payload_data = (ctrl_rspBuffer_valid ? ctrl_rspBuffer_payload_data : ctrl_rspBufferIn_payload_data);
   assign ctrl_rspBufferIn_valid = io_bus_rsp_valid;
   assign ctrl_rspBufferIn_payload_enable = io_bus_rsp_enable;
   assign ctrl_rspBufferIn_payload_data = io_bus_rsp_data;
   always @(*) begin
-    ctrl_rspBufferIn_rspBuffer_ready = 1'b0;
+    ctrl_rspBuffer_ready = 1'b0;
     if(ctrl_inFrame) begin
       if(sclEdge_fall) begin
-        ctrl_rspBufferIn_rspBuffer_ready = 1'b1;
+        ctrl_rspBuffer_ready = 1'b1;
       end
     end
   end
 
   always @(*) begin
-    io_bus_cmd_kind = `I2cSlaveCmdMode_binary_sequential_NONE;
+    io_bus_cmd_kind = I2cSlaveCmdMode_NONE;
     if(ctrl_inFrame) begin
       if(sclEdge_rise) begin
-        io_bus_cmd_kind = `I2cSlaveCmdMode_binary_sequential_READ;
+        io_bus_cmd_kind = I2cSlaveCmdMode_READ;
       end
     end
     if(ctrl_inFrameData) begin
       if(when_I2CSlave_l271) begin
-        io_bus_cmd_kind = `I2cSlaveCmdMode_binary_sequential_DRIVE;
+        io_bus_cmd_kind = I2cSlaveCmdMode_DRIVE;
       end
     end
     if(detector_start) begin
-      io_bus_cmd_kind = (ctrl_inFrame ? `I2cSlaveCmdMode_binary_sequential_RESTART : `I2cSlaveCmdMode_binary_sequential_START);
+      io_bus_cmd_kind = (ctrl_inFrame ? I2cSlaveCmdMode_RESTART : I2cSlaveCmdMode_START);
     end
     if(when_I2CSlave_l306) begin
       if(ctrl_inFrame) begin
-        io_bus_cmd_kind = (timeout_tick ? `I2cSlaveCmdMode_binary_sequential_DROP : `I2cSlaveCmdMode_binary_sequential_STOP);
+        io_bus_cmd_kind = (timeout_tick ? I2cSlaveCmdMode_DROP : I2cSlaveCmdMode_STOP);
       end
     end
   end
 
   assign io_bus_cmd_data = filter_sda;
-  assign when_I2CSlave_l271 = ((! ctrl_rspBufferIn_rspBuffer_valid) || ctrl_rspBufferIn_rspBuffer_ready);
+  assign when_I2CSlave_l271 = ((! ctrl_rspBuffer_valid) || ctrl_rspBuffer_ready);
   assign when_I2CSlave_l275 = ((! ctrl_rspAhead_valid) || (ctrl_rspAhead_payload_enable && (! tsuData_done)));
   assign when_I2CSlave_l281 = (ctrl_rspAhead_valid && ctrl_rspAhead_payload_enable);
   always @(*) begin
@@ -1767,6 +1779,7 @@ module BufferCC (
   input               clk,
   input               resetn
 );
+
   (* async_reg = "true" *) reg                 buffers_0;
   (* async_reg = "true" *) reg                 buffers_1;
 

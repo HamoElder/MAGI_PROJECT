@@ -44,7 +44,7 @@ import utils.common.CRC.CrcKind
  * RF Interface(12 bits * 2) => Preambler Detector => CFO Estimator => CFO Corrector => Filter => DownSampling => DeModulation(1 bits * 2)
  *                                                                                                                      ||
  *                                                                                                                      \/
- *                Data To DMA <= StreamPkgComb <= CRC Checker <= Viterbi Decoder<= DePuncturing <= Descrambling <= HeaderMessage
+ *                Data To DMA <= StreamPkgComb <= CRC Checker <= Viterbi Decoder <= DePuncturing <= Descrambling <= HeaderMessage
  *
  */
 
@@ -106,7 +106,9 @@ object Config {
 
     def sdf_size: Int = 8
 
-    def mask_seq_1_2 = Seq(0, 8, 1, 9, 2, 10, 3, 11, 4, 12, 5, 13, 6, 14, 7, 15)
+    def padding_size: Int = 1
+
+    def mask_seq_1_2: Seq[Int] = Seq(0, 8, 1, 9, 2, 10, 3, 11, 4, 12, 5, 13, 6, 14, 7, 15)
     //    val ltf32: Array[Complex] = zcSeqGen(5, 32)
     //    val ltf: Array[Complex] = (ltf32 ++ ltf32)
     def srrcConfig: SquareRootRaisedCosineFilterParams = SquareRootRaisedCosineFilterParams(128.0, 0.3, 4, oversampled_zeros)
@@ -117,7 +119,6 @@ object Config {
 
     def stf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, stf, stf_repeat_times, scale = 0.55)
     //    def ltf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, ltf, scale = 0.6)
-
     def header_bpsk_mod_array: Array[Int] = {
         def grayEncode(n: Int): Int = n ^ (n >>> 1)
 
@@ -134,6 +135,7 @@ object Config {
         }
         BPSKTable802_11_I(2, (scala.math.pow(2, iqWidth - 1) - 1).toInt)
     }
+
     def sdf_i_array: Array[Int] = Array[Int](header_bpsk_mod_array(0), header_bpsk_mod_array(0),
         header_bpsk_mod_array(1), header_bpsk_mod_array(1), header_bpsk_mod_array(0), header_bpsk_mod_array(0),
         header_bpsk_mod_array(1), header_bpsk_mod_array(0))
@@ -305,6 +307,10 @@ object Config {
         DemodulatorRTLConfig(unitDataWidth, modDataWidth, 32, demod_config, lookup_demod_config)
 
     }
+
     def demod_method_width: Int = log2Up(genDemodulatorConfig.selectNum)
+
     def demod_method_type: UInt = UInt(demod_method_width bits)
+
+    def demodSymbolCntDataType: UInt = UInt(log2Up((rf_payload_upper_boundary + crc_data_width + 1) * 8) bits)
 }

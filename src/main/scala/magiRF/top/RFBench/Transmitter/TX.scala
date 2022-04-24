@@ -38,18 +38,18 @@ case class TX() extends Component{
     val pipeline_halt = Bits(9 bits)
     val phy_tx_information_gen = PhyPkgInformationGen()
     phy_tx_information_gen.io.raw_data << io.raw_data.haltWhen(pipeline_halt(0))
-    val information_to_padder_fifo = phy_tx_information_gen.io.result_data.queueWithAvailability(interConnectFifoDepth)
-    pipeline_halt(0) := information_to_padder_fifo._2 < interConnectHaltThreshold
-    val phy_tx_padder = PhyTxPadder()
-    phy_tx_padder.io.raw_data << information_to_padder_fifo._1.haltWhen(pipeline_halt(1))
-    val padder_to_crc_fifo = phy_tx_padder.io.result_data.queueWithAvailability(interConnectFifoDepth)
-    pipeline_halt(1) := padder_to_crc_fifo._2 < interConnectHaltThreshold
+    val information_to_crc_fifo = phy_tx_information_gen.io.result_data.queueWithAvailability(interConnectFifoDepth)
+    pipeline_halt(0) := information_to_crc_fifo._2 < interConnectHaltThreshold
     val phy_tx_crc = PhyTxCrc()
-    phy_tx_crc.io.raw_data << padder_to_crc_fifo._1.haltWhen(pipeline_halt(2))
-    val crc_to_encoder_fifo = phy_tx_crc.io.result_data.queueWithAvailability(interConnectFifoDepth)
-    pipeline_halt(2) := crc_to_encoder_fifo._2 < interConnectHaltThreshold
+    phy_tx_crc.io.raw_data << information_to_crc_fifo._1.haltWhen(pipeline_halt(1))
+    val crc_to_padder_fifo = phy_tx_crc.io.result_data.queueWithAvailability(interConnectFifoDepth)
+    pipeline_halt(1) := crc_to_padder_fifo._2 < interConnectHaltThreshold
+    val phy_tx_padder = PhyTxPadder()
+    phy_tx_padder.io.raw_data << crc_to_padder_fifo._1.haltWhen(pipeline_halt(2))
+    val padder_to_encoder_fifo = phy_tx_padder.io.result_data.queueWithAvailability(interConnectFifoDepth)
+    pipeline_halt(2) := padder_to_encoder_fifo._2 < interConnectHaltThreshold
     val phy_tx_encoder = PhyTxEncoder()
-    phy_tx_encoder.io.raw_data << crc_to_encoder_fifo._1.haltWhen(pipeline_halt(3))
+    phy_tx_encoder.io.raw_data << padder_to_encoder_fifo._1.haltWhen(pipeline_halt(3))
     val phy_tx_puncher = Puncturing(codedDataWidth, mask_seq_1_2)
     phy_tx_puncher.io.raw_data << phy_tx_encoder.io.result_data
     val puncher_to_scrambling_fifo = phy_tx_puncher.io.punched_data.toStream.queueWithAvailability(interConnectFifoDepth)
@@ -123,7 +123,7 @@ case class TX() extends Component{
             val mod_w_addr = cloneOf(io.mod_w_addr)
             val mod_w_data = cloneOf(io.mod_w_data)
             busCtrl.drive(mod_w_en, address = baseAddress + 0x14, bitOffset = 0,
-                documentation = "Look Up Modulator Ram Write Enable (1 bits).") init(genModulatorConfig.editNum)
+                documentation = s"Look Up Modulator Ram Write Enable (${mod_w_en.getBitsWidth} bits).") init(genModulatorConfig.editNum)
             busCtrl.drive(mod_w_addr, address = baseAddress + 0x18, bitOffset = 0,
                 documentation = s"Look Up Modulator Ram Write Address Set (${mod_w_addr.getBitsWidth} bits).") init(0)
             busCtrl.drive(mod_w_data, address = baseAddress + 0x1C, bitOffset = 0,

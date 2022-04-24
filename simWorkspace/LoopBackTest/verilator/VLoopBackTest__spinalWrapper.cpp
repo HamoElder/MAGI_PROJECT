@@ -197,8 +197,8 @@ public:
       signalAccess[23] = new CDataSignalAccess( top.trans_data_tkeep );
       signalAccess[24] = new CDataSignalAccess( top.trans_data_tlast );
       signalAccess[25] = new CDataSignalAccess( top.result_data_valid );
-      signalAccess[26] = new SDataSignalAccess( top.result_data_payload_cha_i );
-      signalAccess[27] = new SDataSignalAccess( top.result_data_payload_cha_q );
+      signalAccess[26] = new CDataSignalAccess( top.result_data_payload_last );
+      signalAccess[27] = new CDataSignalAccess( top.result_data_payload_fragment );
       signalAccess[28] = new CDataSignalAccess( top.clk );
       signalAccess[29] = new CDataSignalAccess( top.reset );
 

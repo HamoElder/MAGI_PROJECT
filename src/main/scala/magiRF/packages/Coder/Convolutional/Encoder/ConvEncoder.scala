@@ -41,6 +41,7 @@ case class ConvEncoder(config: ConvEncoderConfig) extends Component{
 
 	when(io.tail_bits.fire){
 		r_enc_buf := io.tail_bits.payload
+		coded_data_valid := False
 	}.elsewhen(io.raw_data.fire){
 		r_enc_buf := r_enc(config.dataWidth - 1)
 		coded_data := code_vec.reverse.asBits
