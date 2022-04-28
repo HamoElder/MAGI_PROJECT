@@ -1,22 +1,25 @@
 package magiRF.top.RFBench.Receiver
 
 import magiRF.modules.DSP.PowerAdjustor.PowerAdjustor
-import magiRF.top.RFBench.Config.{genDemodulatorConfig, interfaceIQDataType, iqWidth, modIQDataType, power_adjustor_config, preamble_config, stream_config}
+import magiRF.packages.Coder.Convolutional.Decoder.ViterbiDecoder
+import magiRF.packages.Puncher.DePuncturing
+import magiRF.top.RFBench.Config.{code_rate, codedDataType, codedDataWidth, de_puncture_mask_seq_1_2, decoder_fifo_depth, genDemodulatorConfig, headerCorrectorWinDatatype, header_corrector_win_default, interConnectFifoDepth, interfaceIQDataType, iqWidth, modIQDataType, phyDataType, power_adjustor_config, preamble_config, rx_package_data_type, soft_width, stream_config, viterbi_decoder_config}
 import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
-import utils.bus.AxiStream4.{AxiStream4, AxiStream4SpecRenamer}
-import utils.bus.IQBundle.IQBundle
 import utils.common.ClkCrossing.ClkCrossing
 
 case class RX() extends Component {
     val io = new Bundle{
         val raw_data = slave(Flow(interfaceIQDataType))
+        val result_data = master(Stream(Fragment(phyDataType)))
+
         val pa_shift_bias = in(power_adjustor_config.ratioType)
         val pa_shift_dir = in(Bool())
-        val result_data = master(Flow(Fragment(genDemodulatorConfig.unitDataType)))
+
         val min_plateau = in(preamble_config.plateauDataType)
         val gate_threshold = if(preamble_config.usePowerMeter) null else in(preamble_config.gateThresholdDataType)
+        val phase_corrector_shift = in(headerCorrectorWinDatatype)
 
         val demod_w_en = if(genDemodulatorConfig.editable) in(genDemodulatorConfig.editSelectDataType) else null
         val demod_w_addr = if(genDemodulatorConfig.editable) in(UInt(genDemodulatorConfig.cfgDataWidth bits)) else null
@@ -24,6 +27,7 @@ case class RX() extends Component {
         val demod_w_sel = if(genDemodulatorConfig.editable) in(Bits(2 bits)) else null
 
         val demod_iq_shift = if(genDemodulatorConfig.lookUpNum > 0) in(UInt(genDemodulatorConfig.cfgDataWidth bits)) else null
+
     }
     noIoPrefix()
 //    AxiStream4SpecRenamer(io.result_data)
@@ -44,6 +48,7 @@ case class RX() extends Component {
     val phy_rx_cfo = PhyRxCFO()
     phy_rx_cfo.io.raw_data << phy_rx_preamble_detector.io.result_data
     phy_rx_cfo.io.cfo_reset := phy_rx_reset
+    phy_rx_cfo.io.phase_corrector_shift := io.phase_corrector_shift
     phy_rx_cfo.io.pkg_detected := phy_rx_preamble_detector.io.pkg_handling
     val phy_rx_filter = PhyRxFilter()
     phy_rx_filter.io.raw_data << phy_rx_cfo.io.result_data
@@ -52,16 +57,34 @@ case class RX() extends Component {
     phy_rx_decimator.io.enable := phy_rx_cfo.io.phase_corrected
     val phy_rx_header_extender = PhyRxHeaderExtender()
     phy_rx_header_extender.io.raw_data << phy_rx_decimator.io.result_data
-    phy_rx_header_extender.io.header_extender_reset := False
+    phy_rx_header_extender.io.header_extender_reset := phy_rx_reset
 
     val phy_rx_demodulator = PhyRxDemodulator()
     phy_rx_demodulator.io.raw_data << phy_rx_header_extender.io.result_data
     phy_rx_demodulator.io.header_message << phy_rx_header_extender.io.header_message
-    io.result_data << phy_rx_demodulator.io.result_data
 
+    val phy_rx_data_combination = PhyRxDataCombination()
+    phy_rx_data_combination.io.raw_data << phy_rx_demodulator.io.result_data
+    phy_rx_data_combination.io.header_message << phy_rx_header_extender.io.header_message
+    phy_rx_data_combination.io.enable := phy_rx_cfo.io.phase_corrected
 
+    val phy_rx_descrambling = PhyRxDescrambling()
+    phy_rx_descrambling.io.raw_data << phy_rx_data_combination.io.result_data
 
-    phy_rx_reset := phy_rx_header_extender.io.sdf_not_found
+    val de_scrambling_to_de_puncher_fifo = StreamFifo(Fragment(codedDataType), decoder_fifo_depth)
+    de_scrambling_to_de_puncher_fifo.io.push << phy_rx_descrambling.io.result_data.toStream
+    de_scrambling_to_de_puncher_fifo.io.flush := phy_rx_reset
+    val phy_rx_de_puncher = DePuncturing(codedDataWidth, soft_width, code_rate, de_puncture_mask_seq_1_2)
+    phy_rx_de_puncher.io.raw_data << de_scrambling_to_de_puncher_fifo.io.pop
+
+    val phy_rx_decoder = ViterbiDecoder(viterbi_decoder_config)
+    phy_rx_decoder.io.raw_data << phy_rx_de_puncher.io.de_punched_data.queue(interConnectFifoDepth)
+    val phy_rx_crc_checker = PhyRxCrcChecker()
+    phy_rx_crc_checker.io.raw_data << StreamFragmentWidthAdapter.make(phy_rx_decoder.io.decoded_data.toStream.queue(interConnectFifoDepth), phyDataType)
+    phy_rx_crc_checker.io.header_message << phy_rx_header_extender.io.header_message
+    io.result_data << phy_rx_crc_checker.io.result_data
+
+    phy_rx_reset := phy_rx_header_extender.io.sdf_not_found || phy_rx_crc_checker.io.phy_rx_finish
 
     if(genDemodulatorConfig.editable){
         phy_rx_demodulator.io.w_en := io.demod_w_en
@@ -72,6 +95,8 @@ case class RX() extends Component {
     if(genDemodulatorConfig.lookUpNum > 0){
         phy_rx_demodulator.io.iq_shift := io.demod_iq_shift
     }
+
+//    io.header_message << phy_rx_header_extender.io.header_message
 
     def driveFrom(busCtrl: BusSlaveFactory, baseAddress: BigInt, coreClockDomain: ClockDomain, rfClockDomain: ClockDomain): Area = new Area {
         val pa_shift_bias = cloneOf(io.pa_shift_bias)
@@ -114,5 +139,9 @@ case class RX() extends Component {
         if(genDemodulatorConfig.lookUpNum > 0){
             phy_rx_demodulator.io.iq_shift := io.demod_iq_shift
         }
+        val phase_corrector_shift = cloneOf(io.phase_corrector_shift)
+        busCtrl.driveAndRead(phase_corrector_shift, address = baseAddress + 0x20, bitOffset = 0,
+            documentation = s"CFO Corrector Shift Size (${phase_corrector_shift.getBitsWidth} bits).") init (header_corrector_win_default)
+        io.phase_corrector_shift := ClkCrossing(coreClockDomain, rfClockDomain, phase_corrector_shift)
     }
 }

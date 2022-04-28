@@ -17,16 +17,6 @@
 					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="rebuild_cache">
-				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
 			<Target title="STB_IMAGE">
 				<Option output="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/libSTB_IMAGE.a" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug"/>
@@ -78,6 +68,62 @@
 				</Compiler>
 				<MakeCommands>
 					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 STB_IMAGE/fast"/>
+					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="GLAD">
+				<Option output="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/libGLAD.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/configuration"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/includes"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 GLAD"/>
+					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="GLAD/fast">
+				<Option output="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/libGLAD.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/configuration"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/includes"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui"/>
+					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends"/>
+					<Add directory="/usr/include/c++/9"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
+					<Add directory="/usr/include/c++/9/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 GLAD/fast"/>
 					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
@@ -149,57 +195,11 @@
 					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="GLAD">
-				<Option output="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/libGLAD.a" prefix_auto="0" extension_auto="0"/>
+			<Target title="rebuild_cache">
 				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="2"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/configuration"/>
-					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/includes"/>
-					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty"/>
-					<Add directory="/usr/local/include/eigen3"/>
-					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui"/>
-					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends"/>
-					<Add directory="/usr/include/c++/9"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
-					<Add directory="/usr/include/c++/9/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
+				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 GLAD"/>
-					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="GLAD/fast">
-				<Option output="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/libGLAD.a" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="2"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/configuration"/>
-					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/includes"/>
-					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty"/>
-					<Add directory="/usr/local/include/eigen3"/>
-					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui"/>
-					<Add directory="/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends"/>
-					<Add directory="/usr/include/c++/9"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/9"/>
-					<Add directory="/usr/include/c++/9/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 GLAD/fast"/>
+					<Build command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
 					<CompileFile command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/bin/make -j64 -f &quot;/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>

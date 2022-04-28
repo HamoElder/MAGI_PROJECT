@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.4    git head : 598c18959149eb18e5eee5b0aa3eef01ecaa41a1
 // Component : Axi4VgaCtrl
-// Git hash  : b4854519b9981ad4d90b9c6743c51cbef5656810
+// Git hash  : 8d2c64a14bad8227774c74e2a7d5ea571705d609
 
 `timescale 1ns/1ps 
 

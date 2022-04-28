@@ -47,7 +47,7 @@ case class CrossCorrelator(config: CrossCorrelatorConfig) extends Component {
     corr_core.io.raw_data_1.payload := iq_cursor
 
     when(io.raw_data.valid){
-        cnt := (cnt >= config.dataLength - 1) ? U(0) | cnt + 1
+        cnt := (cnt === (config.dataLength - 1)) ? U(0) | cnt + 1
     }.otherwise{
         cnt := 0
     }

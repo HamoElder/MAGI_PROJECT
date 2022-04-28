@@ -31,7 +31,7 @@ case class PhyTxCrc()extends Component{
     }
     noIoPrefix()
     val emitCrc = RegInit(False) setWhen(io.raw_data.lastFire) clearWhen(io.result_data.lastFire)
-    val counter = Reg(UInt(log2Up(32 / phyDataWidth) bits)) init(0)
+    val counter = Reg(UInt(log2Up((crc_data_width.toInt * 8) / phyDataWidth) bits)) init(0)
     val crc = Crc(crc32_config, phyDataWidth)
     crc.io.input << io.raw_data.toFlowFire.translateWith(io.raw_data.fragment)
     crc.io.flush := io.result_data.lastFire
@@ -63,27 +63,27 @@ case class PhyTxPadder() extends Component{
         val result_data = master(Stream(Fragment(phyDataType)))
     }
     noIoPrefix()
-    val byteCount:Int = phy_payload_lower_boundary.toInt
-    val cycles: Int = (byteCount*8 + phyDataWidth - 1)/phyDataWidth
-    val counter: UInt = Reg(UInt(log2Up(cycles) bits)) init(0)
-    val ok = counter === cycles-1
-    val fill = counter =/= 0 && io.raw_data.first
 
-    when(!ok && io.result_data.fire){
-        counter := counter + 1
-    }
-    when(io.result_data.lastFire){
-        counter := 0
-    }
-    io.result_data << io.raw_data.haltWhen(fill)
-    when(!ok){
-        io.result_data.last := False
-    }
-    when(fill){
+    val data_last = Reg(Bool()) init(False)
+
+    when(data_last){
+        when(io.result_data.lastFire){
+            data_last := False
+        }
         io.result_data.valid := True
         io.result_data.fragment := 0
-        io.result_data.last := ok
+        io.raw_data.ready := False
+        io.result_data.last := True
+    }.otherwise{
+        when(io.raw_data.lastFire){
+            data_last := True
+        }
+        io.result_data.valid := io.raw_data.valid
+        io.result_data.fragment := io.raw_data.fragment
+        io.raw_data.ready := io.result_data.ready
+        io.result_data.last := False
     }
+
 }
 
 case class PhyTxEncoder() extends Component {
@@ -279,7 +279,7 @@ case class PhyHeaderExtender() extends Component {
     noIoPrefix()
 
     val header_status = Reg(PhyTxHeaderStatus) init(PhyTxHeaderStatus.IDLE)
-    val header_mod_array = Mem(modIQDataType.cha_i.clone(), 2)
+    val header_mod_array = Vec(cloneOf(modIQDataType.cha_i), 2)
     for(idx <- 0 until 2){
         header_mod_array(idx) := header_bpsk_mod_array(idx)
     }

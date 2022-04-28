@@ -52,7 +52,6 @@ case class PreambleDetector(config: PreambleDetectorConfig) extends Component{
         power_meter.io.raw_data << io.raw_data
         val power_meter_result = RegNext(power_meter.io.power_result.cha_i.abs + power_meter.io.power_result.cha_q.abs) init(0)
         val power_meter_valid = RegNext(power_meter.io.power_result.valid) init(False)
-        println(power_meter_result.getBitsWidth)
         val power_indicator = (power_meter_result << 3) + (power_meter_result << 2)
         when(power_meter_valid){
             gate_pkg_det := prod_avg_mag > power_indicator

@@ -9,7 +9,7 @@ case class dataCombinationConfig(
                                     baseDataWidth      : Int
                                 ) {
     def baseDataType: UInt = UInt(baseDataWidth bits)
-    def unitDataType: UInt = baseDataType
+    def unitDataType: UInt = UInt(baseDataWidth bits)
     def cntType: UInt = UInt(cntWidth bits)
 
     def cntWidth: Int = log2Up(baseDataWidth)
@@ -45,11 +45,15 @@ case class dataCombination(config: dataCombinationConfig) extends Component{
         base_data_last := False
     }.elsewhen(unit_data_valid){
         base_data_valid := (base_cnt === io.cnt_limit)
-        base_data_last := (base_cnt === io.cnt_limit)&&base_data_last
+        base_data_last := (base_cnt === io.cnt_limit) && unit_data_last
         base_cnt := (base_cnt === io.cnt_limit) ? U(0) | (base_cnt + io.cnt_step)
-        base_data_buffer := ((base_data_buffer << io.cnt_step) | (unit_data_buffer).resized).resized
+        base_data_buffer := ((unit_data_buffer ## base_data_buffer) >> io.cnt_step).asUInt.resized
+//        base_data_buffer := ((base_data_buffer >> io.cnt_step) | (unit_data_buffer.asBits.resizeLeft())).resized
+    }.elsewhen(io.base_data.fire){
+        base_cnt := 0
+        base_data_valid := False
     }
-//        .otherwise{
+//    .otherwise{
 //        base_data_valid := (base_cnt === io.cnt_limit)
 //        base_cnt := (base_cnt === io.cnt_limit) ? U(0) | (base_cnt + io.cnt_step)
 //        base_data_buffer := (base_data_buffer << io.cnt_step).resized

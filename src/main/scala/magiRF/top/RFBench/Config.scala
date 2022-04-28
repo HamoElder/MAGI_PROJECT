@@ -6,7 +6,7 @@ import magiRF.modules.DSP.Correlator.CrossCorrelatorConfig
 import magiRF.modules.DSP.PowerAdjustor.PowerAdjustorConfig
 import magiRF.modules.Modem.Demodulator.DemodulatorRTLConfig
 import magiRF.modules.Modem.Demodulator.extensions.lookUpDemodConfig
-import magiRF.modules.Modem.Misc.{dataDivConfig, demodUnitConfig, modUnitConfig}
+import magiRF.modules.Modem.Misc.{dataCombinationConfig, dataDivConfig, demodUnitConfig, modUnitConfig}
 import magiRF.modules.Modem.Modulator.modRTLConfig
 import magiRF.modules.Modem.Modulator.extensions.{ModExtension, lookUpModConfig, mPSKModExtension, mQAMModExtension}
 import magiRF.packages.CFO.CFOCorrectorConfig
@@ -24,7 +24,7 @@ import utils.common.CRC.CrcKind
 /**
  * Frame Structure:
  * ----------------------------------------------------------------------------------------------------------------------------------------------
- * |         stf (20 bytes)        | SDF (1 bytes) | Method (2 bits) | size (1 bytes) | payload(16-255 bytes) | crc (4 bytes) | padding (1 byte) |
+ * |         stf (20 bytes)        | SDF (1 bytes) | Method (2 bits) | size (1 bytes) | payload(16-250 bytes) | crc (4 bytes) | padding (1 byte) |
  * ----------------------------------------------------------------------------------------------------------------------------------------------
  * |                               |            BPSK   Uncoded  UnScrambling          |             Coded   Configurable  Scrambling             |
  * |             PLCP              |                       SIGNAL                     |                             DATA                         |
@@ -80,7 +80,9 @@ object Config {
 
     def size_width: BigInt = 1 Byte
 
-    def rf_payload_upper_boundary: BigInt = 255 Bytes
+    def size_data_type: UInt = UInt(size_width* 8 bits)
+
+    def rf_payload_upper_boundary: BigInt = 250 Bytes
 
     def rf_payload_lower_boundary: BigInt = 16 Bytes
 
@@ -117,6 +119,8 @@ object Config {
 
     def filter_cut_off_width: Int = log2Up(srrcTaps.max + 1) + 1
 
+    def soft_width: Int = 1
+
     def stf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, stf, stf_repeat_times, scale = 0.55)
     //    def ltf_preamble_config: PreambleConfig = PreambleConfig(iqWidth, ltf, scale = 0.6)
     def header_bpsk_mod_array: Array[Int] = {
@@ -133,7 +137,7 @@ object Config {
             }
             codeTable
         }
-        BPSKTable802_11_I(2, (scala.math.pow(2, iqWidth - 1) - 1).toInt)
+        BPSKTable802_11_I(2, (scala.math.pow(2, iqWidth - 2) - 1).toInt)
     }
 
     def sdf_i_array: Array[Int] = Array[Int](header_bpsk_mod_array(0), header_bpsk_mod_array(0),
@@ -141,8 +145,6 @@ object Config {
         header_bpsk_mod_array(1), header_bpsk_mod_array(0))
 
     def conv_encoder_config: ConvEncoderConfig = ConvEncoderConfig(phyDataWidth, 7, List(91, 121))
-
-    def viterbi_decoder_config: ViterbiDecoderConfig = ViterbiDecoderConfig(7, 84, 1, List(91, 121))
 
     def crc32_config: CrcKind = new CrcKind(
         polynomial = BigInt("04C11DB7", 16),
@@ -154,6 +156,8 @@ object Config {
     )
 
     def stream_config: AxiStream4Config = AxiStream4Config(streamDataWidth, useID = false, useStrb = true, useLast = true)
+
+    def stream_data_type: Bits = Bits(streamDataWidth bits)
 
     def axiLite4_config: AxiLite4Config = AxiLite4Config(cfgAddressWidth, cfgDataWidth)
 
@@ -251,12 +255,15 @@ object Config {
 
     def power_adjustor_config: PowerAdjustorConfig = PowerAdjustorConfig(iqWidth, iqWidth, power_adjustor_ratio)
     def preamble_config: PreambleDetectorConfig = PreambleDetectorConfig(12, stf.length, stf.length, 8, usePowerMeter = true)
-    def rx_coarse_cfo_corrector_config: CFOCorrectorConfig = CFOCorrectorConfig(iqWidth, stf.length, stf.length, iqWidth, (stf_repeat_times / 2) & 0xfe, dataResolutionWidth)
+    def rx_coarse_cfo_corrector_delta_mean_times: Int = 2
+    def rx_coarse_cfo_corrector_config: CFOCorrectorConfig = CFOCorrectorConfig(iqWidth, stf.length, stf.length, iqWidth, rx_coarse_cfo_corrector_delta_mean_times, dataResolutionWidth)
     def header_corrector_out_width: Int = 3 * iqWidth
     def header_corrector_out_datatype: SInt = SInt(header_corrector_out_width bits)
-    def header_corrector_win_limit: Int = stf.length + stf.length / 2 - 2
+    def header_corrector_win_limit: Int = 3 * stf.length
+    def headerCorrectorWinDatatype: UInt = UInt(log2Up(header_corrector_win_limit + 1) bits)
+    def header_corrector_win_default: Int = stf.length + stf.length - 3
     def header_corrector_win_cnt_datatype: UInt = UInt(log2Up(header_corrector_win_limit + 1) bits)
-    def header_corrector_config: CrossCorrelatorConfig = CrossCorrelatorConfig(12, stf,  3 * iqWidth)
+    def header_corrector_config: CrossCorrelatorConfig = CrossCorrelatorConfig(12, stf.map(i=>i*128),  3 * iqWidth)
 
     def receiver_use_timeout: Boolean = false
 
@@ -313,4 +320,30 @@ object Config {
     def demod_method_type: UInt = UInt(demod_method_width bits)
 
     def demodSymbolCntDataType: UInt = UInt(log2Up((rf_payload_upper_boundary + crc_data_width + 1) * 8) bits)
+
+    def demod_data_comb_config: dataCombinationConfig = dataCombinationConfig(codedDataWidth)
+
+    def demod_size_shift(size: UInt): Seq[(Int, UInt)] =  Seq[(Int, UInt)]((0, (size << 4).resize(demodSymbolCntDataType.getBitsWidth)),
+        (1, (size << 3).resize(demodSymbolCntDataType.getBitsWidth)),
+        (2, (size << 2).resize(demodSymbolCntDataType.getBitsWidth)))
+
+    def demod_data_shift: Seq[(Int, UInt)]  = Seq[(Int, UInt)] ((0, U(1)), (1, U(2)), (2, U(4)))
+
+    def de_puncture_mask_seq_1_2: Seq[Int] = Seq(3, 3, 3, 3, 3, 3, 3, 3)
+
+    def viterbi_decoder_traceback_win_size = 84
+
+    def viterbi_decoder_config: ViterbiDecoderConfig = ViterbiDecoderConfig(7, viterbi_decoder_traceback_win_size, soft_width, List(91, 121))
+
+    def rx_package_data_width: Int = streamDataWidth
+
+    def rx_package_data_type: Bits = Bits(rx_package_data_width bits)
+
+    def decoded_data_comb_config: dataCombinationConfig = dataCombinationConfig(rx_package_data_width)
+
+    def decoder_fifo_depth: Int = viterbi_decoder_traceback_win_size
+
+    def crc_reset_cycle: Int = 4
+
+    def cross_clk_fifo_depth: Int = rf_payload_upper_boundary.toInt + 2
 }
