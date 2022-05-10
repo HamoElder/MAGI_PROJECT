@@ -2,7 +2,6 @@ package magiRF.top
 
 import magiRF.packages.PackageGen.StreamPkgGen
 import magiRF.top.RFBench.Config.{axiLite4_config, codedDataType, genDemodulatorConfig, genPhyPkgConfig, interfaceIQDataType, phyDataType, power_adjustor_config, rf_payload_upper_boundary, rx_package_data_type, stream_config}
-import magiRF.top.RFBench.RFBenchTop
 import magiRF.top.RFBench.Receiver.RX
 import magiRF.top.RFBench.Transmitter.TX
 import spinal.core._
@@ -107,7 +106,7 @@ object LoopBackTestSimApp extends App {
             dut.io.trans_data.stream.last #= false
             dut.io.trans_data.stream.valid #= false
 
-            dut.clockDomain.waitSampling(4100)
+            dut.clockDomain.waitSampling(3100)
         }
 }
 

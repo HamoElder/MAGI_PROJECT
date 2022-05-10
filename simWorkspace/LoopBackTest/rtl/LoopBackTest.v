@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.4    git head : 598c18959149eb18e5eee5b0aa3eef01ecaa41a1
 // Component : LoopBackTest
-// Git hash  : f36ce92a0a16f353bfe80375963e5ab8ed1c93a7
+// Git hash  : 14c0d8f3e9047832783b802ec3bf8b9c97df3651
 
 `timescale 1ns/1ps 
 
@@ -626,7 +626,6 @@ module RX (
   wire                phy_rx_header_extender_header_message_valid;
   wire       [7:0]    phy_rx_header_extender_header_message_payload_pkg_size;
   wire       [1:0]    phy_rx_header_extender_header_message_payload_demod_method;
-  wire       [7:0]    phy_rx_header_extender_package_size;
   wire                phy_rx_demodulator_result_data_valid;
   wire                phy_rx_demodulator_result_data_payload_last;
   wire       [7:0]    phy_rx_demodulator_result_data_payload_fragment;
@@ -772,7 +771,6 @@ module RX (
     .header_message_valid                   (phy_rx_header_extender_header_message_valid                      ), //o
     .header_message_payload_pkg_size        (phy_rx_header_extender_header_message_payload_pkg_size[7:0]      ), //o
     .header_message_payload_demod_method    (phy_rx_header_extender_header_message_payload_demod_method[1:0]  ), //o
-    .package_size                           (phy_rx_header_extender_package_size[7:0]                         ), //o
     .clk                                    (clk                                                              ), //i
     .reset                                  (reset                                                            )  //i
   );
@@ -2245,12 +2243,12 @@ module PhyRxCrcChecker (
   wire                raw_data_fire_1;
   wire       [7:0]    crc_checker_result;
   wire                raw_data_fire_2;
-  wire                when_PhyRx_l441;
+  wire                when_PhyRx_l439;
   wire                raw_data_fire_3;
-  wire                when_PhyRx_l454;
-  wire                when_PhyRx_l458;
-  wire                when_PhyRx_l467;
-  wire                when_PhyRx_l473;
+  wire                when_PhyRx_l452;
+  wire                when_PhyRx_l456;
+  wire                when_PhyRx_l465;
+  wire                when_PhyRx_l471;
   wire                _zz_result_data_valid;
   `ifndef SYNTHESIS
   reg [63:0] crc_status_string;
@@ -2348,12 +2346,12 @@ module PhyRxCrcChecker (
 
   assign crc_checker_result = _zz_crc_checker_result;
   assign raw_data_fire_2 = (raw_data_valid && raw_data_ready);
-  assign when_PhyRx_l441 = (pkg_cnt == pkg_limit);
+  assign when_PhyRx_l439 = (pkg_cnt == pkg_limit);
   assign raw_data_fire_3 = (raw_data_valid && raw_data_ready);
-  assign when_PhyRx_l454 = (raw_data_payload_last || (pkg_cnt == 8'h04));
-  assign when_PhyRx_l458 = (raw_data_payload_fragment != crc_checker_result);
-  assign when_PhyRx_l467 = (data_fifo_io_occupancy == 8'h0);
-  assign when_PhyRx_l473 = (pkg_cnt == 8'h03);
+  assign when_PhyRx_l452 = (raw_data_payload_last || (pkg_cnt == 8'h04));
+  assign when_PhyRx_l456 = (raw_data_payload_fragment != crc_checker_result);
+  assign when_PhyRx_l465 = (data_fifo_io_occupancy == 8'h0);
+  assign when_PhyRx_l471 = (pkg_cnt == 8'h03);
   assign _zz_result_data_valid = (! (! fifo_pop_valve));
   assign data_fifo_io_pop_ready = (result_data_ready && _zz_result_data_valid);
   assign result_data_valid = (data_fifo_io_pop_valid && _zz_result_data_valid);
@@ -2378,7 +2376,7 @@ module PhyRxCrcChecker (
         end
         PhyRxCrcCheckerStatus_CALC_CRC : begin
           if(raw_data_fire_2) begin
-            if(when_PhyRx_l441) begin
+            if(when_PhyRx_l439) begin
               fifo_push_valve <= 1'b0;
               crc_status <= PhyRxCrcCheckerStatus_CMP;
             end
@@ -2386,23 +2384,23 @@ module PhyRxCrcChecker (
         end
         PhyRxCrcCheckerStatus_CMP : begin
           if(raw_data_fire_3) begin
-            if(when_PhyRx_l454) begin
+            if(when_PhyRx_l452) begin
               fifo_pop_valve <= 1'b1;
               crc_status <= PhyRxCrcCheckerStatus_TRANS;
             end else begin
-              if(when_PhyRx_l458) begin
+              if(when_PhyRx_l456) begin
                 crc_status <= PhyRxCrcCheckerStatus_RESET;
               end
             end
           end
         end
         PhyRxCrcCheckerStatus_TRANS : begin
-          if(when_PhyRx_l467) begin
+          if(when_PhyRx_l465) begin
             crc_status <= PhyRxCrcCheckerStatus_RESET;
           end
         end
         default : begin
-          if(when_PhyRx_l473) begin
+          if(when_PhyRx_l471) begin
             crc_status <= PhyRxCrcCheckerStatus_IDLE;
           end
         end
@@ -2420,7 +2418,7 @@ module PhyRxCrcChecker (
       end
       PhyRxCrcCheckerStatus_CALC_CRC : begin
         if(raw_data_fire_2) begin
-          if(when_PhyRx_l441) begin
+          if(when_PhyRx_l439) begin
             pkg_cnt <= 8'h0;
           end else begin
             pkg_cnt <= (pkg_cnt + 8'h01);
@@ -2429,10 +2427,10 @@ module PhyRxCrcChecker (
       end
       PhyRxCrcCheckerStatus_CMP : begin
         if(raw_data_fire_3) begin
-          if(when_PhyRx_l454) begin
+          if(when_PhyRx_l452) begin
             pkg_cnt <= 8'h0;
           end else begin
-            if(when_PhyRx_l458) begin
+            if(when_PhyRx_l456) begin
               pkg_cnt <= 8'h0;
             end else begin
               pkg_cnt <= (pkg_cnt + 8'h01);
@@ -3055,7 +3053,7 @@ module PhyRxDescrambling (
   wire                descrambler_scram_data_valid;
   wire       [15:0]   descrambler_scram_data_payload;
   reg        [1:0]    descrambler_status;
-  wire                when_PhyRx_l377;
+  wire                when_PhyRx_l375;
   `ifndef SYNTHESIS
   reg [95:0] descrambler_status_string;
   `endif
@@ -3124,7 +3122,7 @@ module PhyRxDescrambling (
     endcase
   end
 
-  assign when_PhyRx_l377 = (raw_data_valid && raw_data_payload_last);
+  assign when_PhyRx_l375 = (raw_data_valid && raw_data_payload_last);
   always @(posedge clk or posedge reset) begin
     if(reset) begin
       descrambler_status <= PhyRxDescramblerStatus_FINAL_1;
@@ -3134,7 +3132,7 @@ module PhyRxDescrambling (
           descrambler_status <= PhyRxDescramblerStatus_DESCRAMBLING;
         end
         PhyRxDescramblerStatus_DESCRAMBLING : begin
-          if(when_PhyRx_l377) begin
+          if(when_PhyRx_l375) begin
             descrambler_status <= PhyRxDescramblerStatus_FINAL_1;
           end
         end
@@ -3251,7 +3249,7 @@ module PhyRxDemodulator (
   wire       [11:0]   _zz__zz_desc_cnt;
   wire       [10:0]   _zz__zz_desc_cnt_1;
   wire       [9:0]    _zz__zz_desc_cnt_2;
-  wire       [10:0]   _zz_when_PhyRx_l299;
+  wire       [10:0]   _zz_when_PhyRx_l297;
   wire       [10:0]   _zz_data_flow_mod_iq_payload_last;
   reg        [10:0]   desc_cnt;
   reg        [10:0]   symbol_cnt;
@@ -3259,7 +3257,7 @@ module PhyRxDemodulator (
   reg        [1:0]    demodulator_states;
   reg        [7:0]    bytes_size;
   reg        [10:0]   _zz_desc_cnt;
-  wire                when_PhyRx_l299;
+  wire                when_PhyRx_l297;
   `ifndef SYNTHESIS
   reg [31:0] demodulator_states_string;
   `endif
@@ -3269,7 +3267,7 @@ module PhyRxDemodulator (
   assign _zz__zz_desc_cnt = ({4'd0,bytes_size} <<< 4);
   assign _zz__zz_desc_cnt_1 = ({3'd0,bytes_size} <<< 3);
   assign _zz__zz_desc_cnt_2 = ({2'd0,bytes_size} <<< 2);
-  assign _zz_when_PhyRx_l299 = (desc_cnt - 11'h001);
+  assign _zz_when_PhyRx_l297 = (desc_cnt - 11'h001);
   assign _zz_data_flow_mod_iq_payload_last = (desc_cnt - 11'h001);
   DemodulatorRTL demodulator_inst (
     .select_1                                   (demod_method[1:0]                                           ), //i
@@ -3311,7 +3309,7 @@ module PhyRxDemodulator (
     endcase
   end
 
-  assign when_PhyRx_l299 = (symbol_cnt == _zz_when_PhyRx_l299);
+  assign when_PhyRx_l297 = (symbol_cnt == _zz_when_PhyRx_l297);
   assign demodulator_inst_data_flow_mod_iq_valid = (raw_data_valid && (demodulator_states == PhyRxDemodualtorStatus_DATA));
   assign demodulator_inst_data_flow_mod_iq_payload_last = ((symbol_cnt == _zz_data_flow_mod_iq_payload_last) && raw_data_valid);
   assign result_data_valid = demodulator_inst_data_flow_unit_data_valid;
@@ -3337,7 +3335,7 @@ module PhyRxDemodulator (
         default : begin
           if(raw_data_valid) begin
             symbol_cnt <= (symbol_cnt + 11'h001);
-            if(when_PhyRx_l299) begin
+            if(when_PhyRx_l297) begin
               demodulator_states <= PhyRxDemodualtorStatus_IDLE;
             end
           end
@@ -3376,7 +3374,6 @@ module PhyRxHeaderExtender (
   output              header_message_valid,
   output     [7:0]    header_message_payload_pkg_size,
   output     [1:0]    header_message_payload_demod_method,
-  output     [7:0]    package_size,
   input               clk,
   input               reset
 );
@@ -3398,10 +3395,10 @@ module PhyRxHeaderExtender (
   reg        [1:0]    header_status;
   reg                 message_valid;
   reg        [5:0]    timeout;
-  wire                when_PhyRx_l207;
-  wire                when_PhyRx_l214;
-  wire                when_PhyRx_l222;
-  wire                when_PhyRx_l233;
+  wire                when_PhyRx_l206;
+  wire                when_PhyRx_l213;
+  wire                when_PhyRx_l221;
+  wire                when_PhyRx_l232;
   wire                raw_data_takeWhen_valid;
   wire       [11:0]   raw_data_takeWhen_payload_cha_i;
   wire       [11:0]   raw_data_takeWhen_payload_cha_q;
@@ -3449,7 +3446,7 @@ module PhyRxHeaderExtender (
     case(header_status)
       PhyRxHeaderStatus_SDF : begin
         if(raw_data_valid) begin
-          if(when_PhyRx_l214) begin
+          if(when_PhyRx_l213) begin
             sdf_not_found = 1'b1;
           end
         end
@@ -3463,10 +3460,10 @@ module PhyRxHeaderExtender (
     endcase
   end
 
-  assign when_PhyRx_l207 = (sdf_i_win == sdf_i_ref);
-  assign when_PhyRx_l214 = (timeout == 6'h3f);
-  assign when_PhyRx_l222 = (cnt == 4'b0000);
-  assign when_PhyRx_l233 = (cnt == 4'b0000);
+  assign when_PhyRx_l206 = (sdf_i_win == sdf_i_ref);
+  assign when_PhyRx_l213 = (timeout == 6'h3f);
+  assign when_PhyRx_l221 = (cnt == 4'b0000);
+  assign when_PhyRx_l232 = (cnt == 4'b0000);
   assign raw_data_takeWhen_valid = (raw_data_valid && by_pass_enable);
   assign raw_data_takeWhen_payload_cha_i = raw_data_payload_cha_i;
   assign raw_data_takeWhen_payload_cha_q = raw_data_payload_cha_q;
@@ -3476,7 +3473,6 @@ module PhyRxHeaderExtender (
   assign header_message_payload_pkg_size = pkg_size;
   assign header_message_payload_demod_method = demod_method;
   assign header_message_valid = message_valid;
-  assign package_size = pkg_size;
   always @(posedge clk or posedge reset) begin
     if(reset) begin
       cnt <= 4'b0000;
@@ -3503,7 +3499,7 @@ module PhyRxHeaderExtender (
       end
       case(header_status)
         PhyRxHeaderStatus_SDF : begin
-          if(when_PhyRx_l207) begin
+          if(when_PhyRx_l206) begin
             header_status <= PhyRxHeaderStatus_METHOD;
           end
           cnt <= 4'b0001;
@@ -3515,7 +3511,7 @@ module PhyRxHeaderExtender (
         PhyRxHeaderStatus_METHOD : begin
           timeout <= 6'h0;
           if(raw_data_valid) begin
-            if(when_PhyRx_l222) begin
+            if(when_PhyRx_l221) begin
               header_status <= PhyRxHeaderStatus_SIZE;
               cnt <= 4'b0111;
             end else begin
@@ -3525,7 +3521,7 @@ module PhyRxHeaderExtender (
         end
         PhyRxHeaderStatus_SIZE : begin
           if(raw_data_valid) begin
-            if(when_PhyRx_l233) begin
+            if(when_PhyRx_l232) begin
               header_status <= PhyRxHeaderStatus_DATA;
               message_valid <= 1'b1;
             end else begin
