@@ -159,7 +159,7 @@ public:
     uint32_t timeCheck;
     bool waveEnabled;
     VLoopBackTest top;
-    ISignalAccess *signalAccess[31];
+    ISignalAccess *signalAccess[30];
     #ifdef TRACE
 	  VerilatedVcdC tfp;
 	  #endif
@@ -193,15 +193,14 @@ public:
       signalAccess[19] = new CDataSignalAccess( top.trans_data_tvalid );
       signalAccess[20] = new CDataSignalAccess( top.trans_data_tready );
       signalAccess[21] = new IDataSignalAccess( top.trans_data_tdata );
-      signalAccess[22] = new CDataSignalAccess( top.trans_data_tstrb );
-      signalAccess[23] = new CDataSignalAccess( top.trans_data_tkeep );
-      signalAccess[24] = new CDataSignalAccess( top.trans_data_tlast );
-      signalAccess[25] = new CDataSignalAccess( top.result_data_valid );
-      signalAccess[26] = new CDataSignalAccess( top.result_data_ready );
-      signalAccess[27] = new CDataSignalAccess( top.result_data_payload_last );
-      signalAccess[28] = new CDataSignalAccess( top.result_data_payload_fragment );
-      signalAccess[29] = new CDataSignalAccess( top.clk );
-      signalAccess[30] = new CDataSignalAccess( top.reset );
+      signalAccess[22] = new CDataSignalAccess( top.trans_data_tkeep );
+      signalAccess[23] = new CDataSignalAccess( top.trans_data_tlast );
+      signalAccess[24] = new CDataSignalAccess( top.result_data_valid );
+      signalAccess[25] = new CDataSignalAccess( top.result_data_ready );
+      signalAccess[26] = new CDataSignalAccess( top.result_data_payload_last );
+      signalAccess[27] = new CDataSignalAccess( top.result_data_payload_fragment );
+      signalAccess[28] = new CDataSignalAccess( top.clk );
+      signalAccess[29] = new CDataSignalAccess( top.reset );
 
       #ifdef TRACE
       Verilated::traceEverOn(true);
@@ -212,7 +211,7 @@ public:
     }
 
     virtual ~Wrapper_1(){
-      for(int idx = 0;idx < 31;idx++){
+      for(int idx = 0;idx < 30;idx++){
           delete signalAccess[idx];
       }
 

@@ -1,7 +1,7 @@
 package magiRF.top
 
 import magiRF.packages.PackageGen.StreamPkgGen
-import magiRF.top.RFBench.Config.{axiLite4_config, codedDataType, genDemodulatorConfig, genPkgGenConfig, interfaceIQDataType, phyDataType, power_adjustor_config, rf_payload_upper_boundary, rx_package_data_type, stream_config}
+import magiRF.top.RFBench.Config.{axiLite4_config, codedDataType, genDemodulatorConfig, genPhyPkgConfig, interfaceIQDataType, phyDataType, power_adjustor_config, rf_payload_upper_boundary, rx_package_data_type, stream_config}
 import magiRF.top.RFBench.RFBenchTop
 import magiRF.top.RFBench.Receiver.RX
 import magiRF.top.RFBench.Transmitter.TX
@@ -25,11 +25,11 @@ case class LoopBackTest() extends Component {
     val axil4busCtrl: AxiLite4SlaveFactory = new AxiLite4SlaveFactory(io.axil4Ctrl).setName("")
     val axi4_stream_fifo = StreamFifo(AxiStream4X(stream_config), 256)
     axi4_stream_fifo.io.push << io.trans_data.stream
-    val stream_package_gen = StreamPkgGen(genPkgGenConfig)
+    val stream_package_gen = StreamPkgGen(genPhyPkgConfig)
     stream_package_gen.io.raw_data.stream << axi4_stream_fifo.io.pop
     val trans_fifo = StreamFifo(
         Fragment(phyDataType),
-        256
+        16
     )
     trans_fifo.io.push << stream_package_gen.io.pkg_data
     val transmitter = TX()
@@ -74,21 +74,21 @@ object LoopBackTestSimApp extends App {
             aliteDrv.write(0x44, 0x1)
             aliteDrv.write(0x48, 3488428)
             aliteDrv.write(0x4C, 16)
-            for (idx <- 0 until 1) {
+            for (idx <- 0 until 2) {
                 dut.io.trans_data.stream.valid #= true
                 dut.io.trans_data.stream.ready #= true
                 dut.io.trans_data.stream.data #= idx
-                dut.io.trans_data.stream.strb #= 15
+                dut.io.trans_data.stream.keep_ #= 15
                 dut.clockDomain.waitSampling(1)
             }
             dut.io.trans_data.stream.last #= true
             dut.io.trans_data.stream.valid #= true
             dut.io.trans_data.stream.data #= 0x03020100
-            dut.io.trans_data.stream.strb #= 7
+            dut.io.trans_data.stream.keep_ #= 7
             dut.clockDomain.waitSampling(1)
             dut.io.trans_data.stream.last #= false
             dut.io.trans_data.stream.valid #= false
-            dut.clockDomain.waitSampling(1500)
+            dut.clockDomain.waitSampling(2000)
             /**
              * Next Package
              */
@@ -96,13 +96,13 @@ object LoopBackTestSimApp extends App {
                 dut.io.trans_data.stream.valid #= true
                 dut.io.trans_data.stream.ready #= true
                 dut.io.trans_data.stream.data #= idx
-                dut.io.trans_data.stream.strb #= 15
+                dut.io.trans_data.stream.keep_ #= 15
                 dut.clockDomain.waitSampling(1)
             }
             dut.io.trans_data.stream.last #= true
             dut.io.trans_data.stream.valid #= true
             dut.io.trans_data.stream.data #= 0x03020100
-            dut.io.trans_data.stream.strb #= 7
+            dut.io.trans_data.stream.keep_ #= 7
             dut.clockDomain.waitSampling(1)
             dut.io.trans_data.stream.last #= false
             dut.io.trans_data.stream.valid #= false
@@ -110,9 +110,4 @@ object LoopBackTestSimApp extends App {
             dut.clockDomain.waitSampling(4100)
         }
 }
-
-
-
-
-
 

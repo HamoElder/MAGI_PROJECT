@@ -171,7 +171,6 @@ case class PhyRxHeaderExtender()extends Component{
         val sdf_not_found = out(Bool())
         val header_extender_reset = in(Bool())
         val header_message = master(Flow(PhyRxPkgMessage()))
-        val package_size = out(size_data_type)
     }
     noIoPrefix()
     val cnt = Reg(cntDataType) init(0)
@@ -252,7 +251,6 @@ case class PhyRxHeaderExtender()extends Component{
     io.header_message.pkg_size := pkg_size
     io.header_message.demod_method := demod_method
     io.header_message.valid := message_valid
-    io.package_size := pkg_size
 }
 
 

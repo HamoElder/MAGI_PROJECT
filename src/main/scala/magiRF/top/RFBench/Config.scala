@@ -13,6 +13,7 @@ import magiRF.packages.CFO.CFOCorrectorConfig
 import magiRF.packages.Coder.Convolutional.Decoder.ViterbiDecoderConfig
 import magiRF.packages.Coder.Convolutional.Encoder.ConvEncoderConfig
 import magiRF.packages.PackageGen.{AxiLite4PackageGenConfig, StreamPkgGenConfig}
+import magiRF.packages.PackageRestructured.StreamPackageRestructuredConfig
 import magiRF.packages.Preamble.{PreambleConfig, PreambleDetectorConfig}
 import spinal.core._
 import spinal.lib._
@@ -86,10 +87,6 @@ object Config {
 
     def rf_payload_lower_boundary: BigInt = 16 Bytes
 
-    def phy_payload_upper_boundary: BigInt = rf_payload_upper_boundary / code_rate
-
-    def phy_payload_lower_boundary: BigInt = rf_payload_lower_boundary / code_rate
-
     def phyDataType: Bits = Bits(phyDataWidth bits)
 
     def codedDataType: Bits = Bits(codedDataWidth bits)
@@ -155,13 +152,13 @@ object Config {
         finalXor = BigInt("FFFFFFFF", 16)
     )
 
-    def stream_config: AxiStream4Config = AxiStream4Config(streamDataWidth, useID = false, useStrb = true, useLast = true)
+    def stream_config: AxiStream4Config = AxiStream4Config(streamDataWidth, useID = false, useStrb = false, useLast = true)
 
     def stream_data_type: Bits = Bits(streamDataWidth bits)
 
     def axiLite4_config: AxiLite4Config = AxiLite4Config(cfgAddressWidth, cfgDataWidth)
 
-    def genPkgGenConfig: StreamPkgGenConfig = StreamPkgGenConfig(streamDataWidth, phyDataWidth, phy_payload_upper_boundary.toInt, LITTLE)
+    def genPhyPkgConfig: StreamPkgGenConfig = StreamPkgGenConfig(streamDataWidth, phyDataWidth, rf_payload_upper_boundary.toInt, LITTLE, useKeep = true)
 
     def genModulatorDivConfig: dataDivConfig = dataDivConfig(codedDataWidth, 0)
 
@@ -346,4 +343,6 @@ object Config {
     def crc_reset_cycle: Int = 4
 
     def cross_clk_fifo_depth: Int = rf_payload_upper_boundary.toInt + 2
+
+    def genStreamPkgConfig: StreamPackageRestructuredConfig = StreamPackageRestructuredConfig(phyDataWidth, streamDataWidth, LITTLE, useKeep = true)
 }

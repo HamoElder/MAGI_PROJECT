@@ -11,8 +11,13 @@ import utils.common.DataSplitUnite.StreamSplitUnite.StreamPayloadSplit
 case class StreamPkgGenConfig(
                                  rawDataWidth       : Int,
                                  pkgDataWidth       : Int,
-																 maxSlicesCnt       : Int,
-																 endianness         : Endianness = LITTLE
+								 maxSlicesCnt       : Int,
+								 endianness         : Endianness = LITTLE,
+
+								 axisIDWidth        : Int        = 0,
+								 userWidth          : Int        = -1,
+								 useID              : Boolean    = false,
+								 useKeep            : Boolean    = false
                                  ) {
 	// use Little-endian: right shift
 	def rawDataType: Bits = Bits(rawDataWidth bits)
@@ -23,9 +28,9 @@ case class StreamPkgGenConfig(
 	def slicesCntDataType: UInt = UInt(slicesCntWidth bits)
 	def axisConfig: AxiStream4Config = AxiStream4Config(
 		dataWidth = rawDataWidth,
-		idWidth = 0,
-		userWidth = -1,
-		useID = false, useKeep = false
+		idWidth = axisIDWidth,
+		userWidth = userWidth,
+		useID = useID, useKeep = useKeep, useStrb = !useKeep
 	)
 }
 
@@ -38,9 +43,9 @@ case class StreamPkgGen(config: StreamPkgGenConfig) extends Component {
 	}
 	noIoPrefix()
 	AxiStream4SpecRenamer(io.raw_data)
-	val strb_buf = Reg(config.axisConfig.strbType)
+	val bit_valid_buf = if(config.useKeep) Reg(config.axisConfig.keepType) else Reg(config.axisConfig.strbType)
 	val pkg_slices_cnt = Reg(config.slicesCntDataType) init(0)
-	val bit_valid = if(config.endianness == LITTLE) strb_buf(0) else strb_buf(config.pkgBytesNum - 1)
+	val bit_valid = if(config.endianness == LITTLE) bit_valid_buf(0) else bit_valid_buf(config.pkgBytesNum - 1)
 	val split_core = StreamPayloadSplit(io.raw_data.stream.data, io.pkg_data.fragment, config.endianness == LITTLE)
 	val raw_data_last = Reg(Bool()) init(False)
 
@@ -52,20 +57,23 @@ case class StreamPkgGen(config: StreamPkgGenConfig) extends Component {
 	io.pkg_data.valid := split_core.io.split_data.valid && bit_valid
 	io.pkg_data.fragment := split_core.io.split_data.payload
 	if(config.endianness == LITTLE){
-		io.pkg_data.last := (pkg_slices_cnt === (io.slices_limit - 1)) || (raw_data_last && (strb_buf === 1))
+		io.pkg_data.last := (pkg_slices_cnt === (io.slices_limit - 1)) || (raw_data_last && (bit_valid_buf === 1))
 	}else{
-		io.pkg_data.last := (pkg_slices_cnt === (io.slices_limit - 1)) || (raw_data_last && (strb_buf === (1 << (config.pkgBytesNum - 1))))
+		io.pkg_data.last := (pkg_slices_cnt === (io.slices_limit - 1)) || (raw_data_last && (bit_valid_buf === (1 << (config.pkgBytesNum - 1))))
 	}
 
-
 	when(io.raw_data.stream.fire){
-		strb_buf := io.raw_data.stream.strb
+		if(config.useKeep){
+			bit_valid_buf := io.raw_data.stream.keep_
+		}else{
+			bit_valid_buf := io.raw_data.stream.strb
+		}
 		raw_data_last := io.raw_data.stream.last
 	}.elsewhen(split_core.io.split_data.fire){
 		if(config.endianness == LITTLE){
-			strb_buf := strb_buf |>> 1
+			bit_valid_buf := bit_valid_buf |>> 1
 		}else{
-			strb_buf := strb_buf |<< 1
+			bit_valid_buf := bit_valid_buf |<< 1
 		}
 
 		pkg_slices_cnt := io.pkg_data.last ? U(0) | (pkg_slices_cnt + 1)

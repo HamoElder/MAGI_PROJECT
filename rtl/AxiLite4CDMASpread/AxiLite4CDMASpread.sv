@@ -1,8 +1,8 @@
-// Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
+// Generator : SpinalHDL v1.6.4    git head : 598c18959149eb18e5eee5b0aa3eef01ecaa41a1
 // Component : AxiLite4CDMASpread
-// Git hash  : e700e7347423171eccd7b05bac962965acefbb15
+// Git hash  : f36ce92a0a16f353bfe80375963e5ab8ed1c93a7
 
-
+`timescale 1ns/1ps 
 
 module AxiLite4CDMASpread (
   input               axil4Ctrl_awvalid,
@@ -36,6 +36,7 @@ module AxiLite4CDMASpread (
   input               clk,
   input               resetn
 );
+
   wire                rfClockArea_cdma_spread_base_iq_ready;
   wire                rfClockArea_cdma_spread_mod_sub_iqs_0_valid;
   wire       [11:0]   rfClockArea_cdma_spread_mod_sub_iqs_0_payload_cha_i;
@@ -62,10 +63,10 @@ module AxiLite4CDMASpread (
   reg                 _zz_axil4Ctrl_bvalid_2;
   reg        [1:0]    _zz_axil4Ctrl_bresp;
   wire                when_Stream_l342;
-  wire                axil4Ctrl_ar_readDataStage_valid;
-  wire                axil4Ctrl_ar_readDataStage_ready;
-  wire       [7:0]    axil4Ctrl_ar_readDataStage_payload_addr;
-  wire       [2:0]    axil4Ctrl_ar_readDataStage_payload_prot;
+  wire                readDataStage_valid;
+  wire                readDataStage_ready;
+  wire       [7:0]    readDataStage_payload_addr;
+  wire       [2:0]    readDataStage_payload_prot;
   reg                 axil4Ctrl_ar_rValid;
   reg        [7:0]    axil4Ctrl_ar_rData_addr;
   reg        [2:0]    axil4Ctrl_ar_rData_prot;
@@ -82,27 +83,27 @@ module AxiLite4CDMASpread (
   reg        [2:0]    _zz_dataIn_2;
 
   CDMASpreading rfClockArea_cdma_spread (
-    .w_en                           (clkCrossing_6_dataOut                                ), //i
-    .w_data                         (clkCrossing_8_dataOut                                ), //i
-    .clc                            (clkCrossing_5_dataOut                                ), //i
-    .cnt_limit                      (clkCrossing_9_dataOut                                ), //i
-    .base_iq_valid                  (base_iq_valid                                        ), //i
-    .base_iq_ready                  (rfClockArea_cdma_spread_base_iq_ready                ), //o
-    .base_iq_payload_0_cha_i        (base_iq_payload_0_cha_i                              ), //i
-    .base_iq_payload_0_cha_q        (base_iq_payload_0_cha_q                              ), //i
-    .mod_sub_iqs_0_valid            (rfClockArea_cdma_spread_mod_sub_iqs_0_valid          ), //o
-    .mod_sub_iqs_0_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_0_payload_cha_i  ), //o
-    .mod_sub_iqs_0_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_0_payload_cha_q  ), //o
-    .rf_clk                         (rf_clk                                               ), //i
-    .rf_resetn                      (rf_resetn                                            )  //i
+    .w_en                           (clkCrossing_6_dataOut                                      ), //i
+    .w_data                         (clkCrossing_8_dataOut[7:0]                                 ), //i
+    .clc                            (clkCrossing_5_dataOut                                      ), //i
+    .cnt_limit                      (clkCrossing_9_dataOut[2:0]                                 ), //i
+    .base_iq_valid                  (base_iq_valid                                              ), //i
+    .base_iq_ready                  (rfClockArea_cdma_spread_base_iq_ready                      ), //o
+    .base_iq_payload_0_cha_i        (base_iq_payload_0_cha_i[11:0]                              ), //i
+    .base_iq_payload_0_cha_q        (base_iq_payload_0_cha_q[11:0]                              ), //i
+    .mod_sub_iqs_0_valid            (rfClockArea_cdma_spread_mod_sub_iqs_0_valid                ), //o
+    .mod_sub_iqs_0_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_0_payload_cha_i[11:0]  ), //o
+    .mod_sub_iqs_0_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_0_payload_cha_q[11:0]  ), //o
+    .rf_clk                         (rf_clk                                                     ), //i
+    .rf_resetn                      (rf_resetn                                                  )  //i
   );
   CodeCompose rfClockArea_cdma_code_sum (
-    .mod_sub_iqs_0_valid            (rfClockArea_cdma_spread_mod_sub_iqs_0_valid          ), //i
-    .mod_sub_iqs_0_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_0_payload_cha_i  ), //i
-    .mod_sub_iqs_0_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_0_payload_cha_q  ), //i
-    .mod_iq_valid                   (rfClockArea_cdma_code_sum_mod_iq_valid               ), //o
-    .mod_iq_payload_cha_i           (rfClockArea_cdma_code_sum_mod_iq_payload_cha_i       ), //o
-    .mod_iq_payload_cha_q           (rfClockArea_cdma_code_sum_mod_iq_payload_cha_q       )  //o
+    .mod_sub_iqs_0_valid            (rfClockArea_cdma_spread_mod_sub_iqs_0_valid                ), //i
+    .mod_sub_iqs_0_payload_cha_i    (rfClockArea_cdma_spread_mod_sub_iqs_0_payload_cha_i[11:0]  ), //i
+    .mod_sub_iqs_0_payload_cha_q    (rfClockArea_cdma_spread_mod_sub_iqs_0_payload_cha_q[11:0]  ), //i
+    .mod_iq_valid                   (rfClockArea_cdma_code_sum_mod_iq_valid                     ), //o
+    .mod_iq_payload_cha_i           (rfClockArea_cdma_code_sum_mod_iq_payload_cha_i[11:0]       ), //o
+    .mod_iq_payload_cha_q           (rfClockArea_cdma_code_sum_mod_iq_payload_cha_q[11:0]       )  //o
   );
   ClkCrossing clkCrossing_5 (
     .dataIn       (cdma_spread_bridge_clc  ), //i
@@ -127,20 +128,20 @@ module AxiLite4CDMASpread (
     .rf_resetn    (rf_resetn  )  //i
   );
   ClkCrossing_3 clkCrossing_8 (
-    .dataIn       (_zz_dataIn_1           ), //i
-    .dataOut      (clkCrossing_8_dataOut  ), //o
-    .clk          (clk                    ), //i
-    .resetn       (resetn                 ), //i
-    .rf_clk       (rf_clk                 ), //i
-    .rf_resetn    (rf_resetn              )  //i
+    .dataIn       (_zz_dataIn_1[7:0]           ), //i
+    .dataOut      (clkCrossing_8_dataOut[7:0]  ), //o
+    .clk          (clk                         ), //i
+    .resetn       (resetn                      ), //i
+    .rf_clk       (rf_clk                      ), //i
+    .rf_resetn    (rf_resetn                   )  //i
   );
   ClkCrossing_4 clkCrossing_9 (
-    .dataIn       (_zz_dataIn_2           ), //i
-    .dataOut      (clkCrossing_9_dataOut  ), //o
-    .clk          (clk                    ), //i
-    .resetn       (resetn                 ), //i
-    .rf_clk       (rf_clk                 ), //i
-    .rf_resetn    (rf_resetn              )  //i
+    .dataIn       (_zz_dataIn_2[2:0]           ), //i
+    .dataOut      (clkCrossing_9_dataOut[2:0]  ), //o
+    .clk          (clk                         ), //i
+    .resetn       (resetn                      ), //i
+    .rf_clk       (rf_clk                      ), //i
+    .rf_resetn    (rf_resetn                   )  //i
   );
   assign base_iq_ready = rfClockArea_cdma_spread_base_iq_ready;
   assign mod_iq_valid = rfClockArea_cdma_code_sum_mod_iq_valid;
@@ -169,26 +170,26 @@ module AxiLite4CDMASpread (
   assign axil4Ctrl_bvalid = _zz_axil4Ctrl_bvalid_1;
   assign axil4Ctrl_bresp = _zz_axil4Ctrl_bresp;
   always @(*) begin
-    axil4Ctrl_arready = axil4Ctrl_ar_readDataStage_ready;
+    axil4Ctrl_arready = readDataStage_ready;
     if(when_Stream_l342_1) begin
       axil4Ctrl_arready = 1'b1;
     end
   end
 
-  assign when_Stream_l342_1 = (! axil4Ctrl_ar_readDataStage_valid);
-  assign axil4Ctrl_ar_readDataStage_valid = axil4Ctrl_ar_rValid;
-  assign axil4Ctrl_ar_readDataStage_payload_addr = axil4Ctrl_ar_rData_addr;
-  assign axil4Ctrl_ar_readDataStage_payload_prot = axil4Ctrl_ar_rData_prot;
+  assign when_Stream_l342_1 = (! readDataStage_valid);
+  assign readDataStage_valid = axil4Ctrl_ar_rValid;
+  assign readDataStage_payload_addr = axil4Ctrl_ar_rData_addr;
+  assign readDataStage_payload_prot = axil4Ctrl_ar_rData_prot;
   assign _zz_axil4Ctrl_rvalid = (! readHaltRequest);
-  assign axil4Ctrl_ar_readDataStage_ready = (axil4Ctrl_rready && _zz_axil4Ctrl_rvalid);
-  assign axil4Ctrl_rvalid = (axil4Ctrl_ar_readDataStage_valid && _zz_axil4Ctrl_rvalid);
+  assign readDataStage_ready = (axil4Ctrl_rready && _zz_axil4Ctrl_rvalid);
+  assign axil4Ctrl_rvalid = (readDataStage_valid && _zz_axil4Ctrl_rvalid);
   assign axil4Ctrl_rdata = readRsp_data;
   assign axil4Ctrl_rresp = readRsp_resp;
   assign writeRsp_resp = 2'b00;
   assign readRsp_resp = 2'b00;
   always @(*) begin
     readRsp_data = 32'h0;
-    case(axil4Ctrl_ar_readDataStage_payload_addr)
+    case(readDataStage_payload_addr)
       8'h0 : begin
         readRsp_data[0 : 0] = cdma_spread_bridge_clc_driver;
       end
@@ -262,6 +263,7 @@ module ClkCrossing_4 (
   input               rf_clk,
   input               rf_resetn
 );
+
   reg        [2:0]    area_clkI_reg;
   (* async_reg = "true" *) reg        [2:0]    area_clkO_buf0;
   reg        [2:0]    area_clkO_buf1;
@@ -287,6 +289,7 @@ module ClkCrossing_3 (
   input               rf_clk,
   input               rf_resetn
 );
+
   reg        [7:0]    area_clkI_reg;
   (* async_reg = "true" *) reg        [7:0]    area_clkO_buf0;
   reg        [7:0]    area_clkO_buf1;
@@ -312,6 +315,7 @@ module ClkCrossing_2 (
 );
 
 
+
 endmodule
 
 //ClkCrossing replaced by ClkCrossing
@@ -324,6 +328,7 @@ module ClkCrossing (
   input               rf_clk,
   input               rf_resetn
 );
+
   reg                 area_clkI_reg;
   (* async_reg = "true" *) reg                 area_clkO_buf0;
   reg                 area_clkO_buf1;
@@ -349,6 +354,7 @@ module CodeCompose (
   output     [11:0]   mod_iq_payload_cha_i,
   output     [11:0]   mod_iq_payload_cha_q
 );
+
   wire       [11:0]   sub_i_data_vec_0;
   wire       [11:0]   sub_q_data_vec_0;
   wire                sub_iqs_valid_vec_0;
@@ -377,6 +383,7 @@ module CDMASpreading (
   input               rf_clk,
   input               rf_resetn
 );
+
   wire                computeUnit_1_mod_iq_valid;
   wire       [11:0]   computeUnit_1_mod_iq_payload_cha_i;
   wire       [11:0]   computeUnit_1_mod_iq_payload_cha_q;
@@ -390,19 +397,20 @@ module CDMASpreading (
   wire                base_iq_fire;
   wire                when_CDMASpreading_l51;
   wire                when_CDMASpreading_l65;
-  reg        [7:0]    _zz_code_1;
+  wire       [7:0]    _zz_code_1;
+  reg        [7:0]    _zz_code_2;
 
   assign _zz_cnt = (cnt + 3'b001);
   ComputeUnit computeUnit_1 (
-    .code                     (_zz_code                            ), //i
-    .base_iq_valid            (flow_iq_valid                       ), //i
-    .base_iq_payload_cha_i    (flow_iq_data_vec_0_cha_i            ), //i
-    .base_iq_payload_cha_q    (flow_iq_data_vec_0_cha_q            ), //i
-    .mod_iq_valid             (computeUnit_1_mod_iq_valid          ), //o
-    .mod_iq_payload_cha_i     (computeUnit_1_mod_iq_payload_cha_i  ), //o
-    .mod_iq_payload_cha_q     (computeUnit_1_mod_iq_payload_cha_q  ), //o
-    .rf_clk                   (rf_clk                              ), //i
-    .rf_resetn                (rf_resetn                           )  //i
+    .code                     (_zz_code                                  ), //i
+    .base_iq_valid            (flow_iq_valid                             ), //i
+    .base_iq_payload_cha_i    (flow_iq_data_vec_0_cha_i[11:0]            ), //i
+    .base_iq_payload_cha_q    (flow_iq_data_vec_0_cha_q[11:0]            ), //i
+    .mod_iq_valid             (computeUnit_1_mod_iq_valid                ), //o
+    .mod_iq_payload_cha_i     (computeUnit_1_mod_iq_payload_cha_i[11:0]  ), //o
+    .mod_iq_payload_cha_q     (computeUnit_1_mod_iq_payload_cha_q[11:0]  ), //o
+    .rf_clk                   (rf_clk                                    ), //i
+    .rf_resetn                (rf_resetn                                 )  //i
   );
   always @(*) begin
     when_Phase_l623 = 1'b0;
@@ -418,6 +426,7 @@ module CDMASpreading (
   assign when_CDMASpreading_l51 = (base_iq_fire || (cnt != 3'b000));
   assign when_CDMASpreading_l65 = (cnt == 3'b000);
   assign base_iq_ready = ((cnt == 3'b000) && (! clc));
+  assign _zz_code_1 = _zz_code_2;
   always @(posedge rf_clk) begin
     if(!rf_resetn) begin
       cnt <= 3'b000;
@@ -443,7 +452,7 @@ module CDMASpreading (
       flow_iq_data_vec_0_cha_q <= base_iq_payload_0_cha_q;
     end
     if(when_Phase_l623) begin
-      _zz_code_1 <= w_data;
+      _zz_code_2 <= w_data;
     end
   end
 
@@ -461,6 +470,7 @@ module ComputeUnit (
   input               rf_clk,
   input               rf_resetn
 );
+
   wire       [11:0]   _zz_mod_i;
   wire       [11:0]   _zz_mod_q;
   reg        [11:0]   mod_i;

@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.6.4    git head : 598c18959149eb18e5eee5b0aa3eef01ecaa41a1
 // Component : LoopBackTest
-// Git hash  : 8d2c64a14bad8227774c74e2a7d5ea571705d609
+// Git hash  : f36ce92a0a16f353bfe80375963e5ab8ed1c93a7
 
 `timescale 1ns/1ps 
 
@@ -27,7 +27,6 @@ module LoopBackTest (
   input               trans_data_tvalid,
   output              trans_data_tready,
   input      [31:0]   trans_data_tdata,
-  input      [3:0]    trans_data_tstrb,
   input      [3:0]    trans_data_tkeep,
   input               trans_data_tlast,
   output              result_data_valid,
@@ -43,12 +42,11 @@ module LoopBackTest (
   wire                axi4_stream_fifo_io_push_ready;
   wire                axi4_stream_fifo_io_pop_valid;
   wire       [31:0]   axi4_stream_fifo_io_pop_payload_data;
-  wire       [3:0]    axi4_stream_fifo_io_pop_payload_strb;
   wire       [3:0]    axi4_stream_fifo_io_pop_payload_keep_;
   wire                axi4_stream_fifo_io_pop_payload_last;
   wire       [8:0]    axi4_stream_fifo_io_occupancy;
   wire       [8:0]    axi4_stream_fifo_io_availability;
-  wire       [6:0]    stream_package_gen_slices_cnt;
+  wire       [7:0]    stream_package_gen_slices_cnt;
   wire                stream_package_gen_raw_data_tready;
   wire                stream_package_gen_pkg_data_valid;
   wire                stream_package_gen_pkg_data_payload_last;
@@ -57,8 +55,8 @@ module LoopBackTest (
   wire                trans_fifo_io_pop_valid;
   wire                trans_fifo_io_pop_payload_last;
   wire       [7:0]    trans_fifo_io_pop_payload_fragment;
-  wire       [8:0]    trans_fifo_io_occupancy;
-  wire       [8:0]    trans_fifo_io_availability;
+  wire       [4:0]    trans_fifo_io_occupancy;
+  wire       [4:0]    trans_fifo_io_availability;
   wire                transmitter_raw_data_ready;
   wire                transmitter_rf_data_valid;
   wire       [11:0]   transmitter_rf_data_payload_cha_i;
@@ -72,8 +70,8 @@ module LoopBackTest (
   wire                receiver_result_data_valid;
   wire                receiver_result_data_payload_last;
   wire       [7:0]    receiver_result_data_payload_fragment;
-  wire       [6:0]    clkCrossing_10_dataOut;
-  wire       [6:0]    clkCrossing_11_dataOut;
+  wire       [7:0]    clkCrossing_10_dataOut;
+  wire       [7:0]    clkCrossing_11_dataOut;
   wire                clkCrossing_12_dataOut;
   wire       [3:0]    clkCrossing_13_dataOut;
   wire       [3:0]    clkCrossing_14_dataOut;
@@ -110,9 +108,9 @@ module LoopBackTest (
   wire                _zz_axil4Ctrl_rvalid;
   wire                writeOccur;
   wire                readOccur;
-  wire       [6:0]    pkg_gen_bridge_slices_limit;
-  wire       [6:0]    pkg_gen_bridge_slices_cnt;
-  reg        [6:0]    pkg_gen_bridge_slices_limit_driver;
+  wire       [7:0]    pkg_gen_bridge_slices_limit;
+  wire       [7:0]    pkg_gen_bridge_slices_cnt;
+  reg        [7:0]    pkg_gen_bridge_slices_limit_driver;
   wire                transmitter_bridge_div_enable;
   wire       [3:0]    transmitter_bridge_div_cnt_step;
   wire       [3:0]    transmitter_bridge_div_cnt_limit;
@@ -134,13 +132,11 @@ module LoopBackTest (
     .io_push_valid            (trans_data_tvalid                           ), //i
     .io_push_ready            (axi4_stream_fifo_io_push_ready              ), //o
     .io_push_payload_data     (trans_data_tdata[31:0]                      ), //i
-    .io_push_payload_strb     (trans_data_tstrb[3:0]                       ), //i
     .io_push_payload_keep_    (trans_data_tkeep[3:0]                       ), //i
     .io_push_payload_last     (trans_data_tlast                            ), //i
     .io_pop_valid             (axi4_stream_fifo_io_pop_valid               ), //o
     .io_pop_ready             (stream_package_gen_raw_data_tready          ), //i
     .io_pop_payload_data      (axi4_stream_fifo_io_pop_payload_data[31:0]  ), //o
-    .io_pop_payload_strb      (axi4_stream_fifo_io_pop_payload_strb[3:0]   ), //o
     .io_pop_payload_keep_     (axi4_stream_fifo_io_pop_payload_keep_[3:0]  ), //o
     .io_pop_payload_last      (axi4_stream_fifo_io_pop_payload_last        ), //o
     .io_flush                 (1'b0                                        ), //i
@@ -150,12 +146,12 @@ module LoopBackTest (
     .reset                    (reset                                       )  //i
   );
   StreamPkgGen stream_package_gen (
-    .slices_limit                 (clkCrossing_10_dataOut[6:0]                        ), //i
-    .slices_cnt                   (stream_package_gen_slices_cnt[6:0]                 ), //o
+    .slices_limit                 (clkCrossing_10_dataOut[7:0]                        ), //i
+    .slices_cnt                   (stream_package_gen_slices_cnt[7:0]                 ), //o
     .raw_data_tvalid              (axi4_stream_fifo_io_pop_valid                      ), //i
     .raw_data_tready              (stream_package_gen_raw_data_tready                 ), //o
     .raw_data_tdata               (axi4_stream_fifo_io_pop_payload_data[31:0]         ), //i
-    .raw_data_tstrb               (axi4_stream_fifo_io_pop_payload_strb[3:0]          ), //i
+    .raw_data_tkeep               (axi4_stream_fifo_io_pop_payload_keep_[3:0]         ), //i
     .raw_data_tlast               (axi4_stream_fifo_io_pop_payload_last               ), //i
     .pkg_data_valid               (stream_package_gen_pkg_data_valid                  ), //o
     .pkg_data_ready               (trans_fifo_io_push_ready                           ), //i
@@ -174,8 +170,8 @@ module LoopBackTest (
     .io_pop_payload_last         (trans_fifo_io_pop_payload_last                     ), //o
     .io_pop_payload_fragment     (trans_fifo_io_pop_payload_fragment[7:0]            ), //o
     .io_flush                    (1'b0                                               ), //i
-    .io_occupancy                (trans_fifo_io_occupancy[8:0]                       ), //o
-    .io_availability             (trans_fifo_io_availability[8:0]                    ), //o
+    .io_occupancy                (trans_fifo_io_occupancy[4:0]                       ), //o
+    .io_availability             (trans_fifo_io_availability[4:0]                    ), //o
     .clk                         (clk                                                ), //i
     .reset                       (reset                                              )  //i
   );
@@ -226,14 +222,14 @@ module LoopBackTest (
     .reset                           (reset                                       )  //i
   );
   ClkCrossing clkCrossing_10 (
-    .dataIn     (pkg_gen_bridge_slices_limit[6:0]  ), //i
-    .dataOut    (clkCrossing_10_dataOut[6:0]       ), //o
+    .dataIn     (pkg_gen_bridge_slices_limit[7:0]  ), //i
+    .dataOut    (clkCrossing_10_dataOut[7:0]       ), //o
     .clk        (clk                               ), //i
     .reset      (reset                             )  //i
   );
   ClkCrossing clkCrossing_11 (
-    .dataIn     (stream_package_gen_slices_cnt[6:0]  ), //i
-    .dataOut    (clkCrossing_11_dataOut[6:0]         ), //o
+    .dataIn     (stream_package_gen_slices_cnt[7:0]  ), //i
+    .dataOut    (clkCrossing_11_dataOut[7:0]         ), //o
     .clk        (clk                                 ), //i
     .reset      (reset                               )  //i
   );
@@ -273,7 +269,7 @@ module LoopBackTest (
     .clk        (clk                           ), //i
     .reset      (reset                         )  //i
   );
-  ClkCrossing_8 clkCrossing_18 (
+  ClkCrossing clkCrossing_18 (
     .dataIn     (receiver_bridge_min_plateau[7:0]  ), //i
     .dataOut    (clkCrossing_18_dataOut[7:0]       ), //o
     .clk        (clk                               ), //i
@@ -329,10 +325,10 @@ module LoopBackTest (
     readRsp_data = 32'h0;
     case(readDataStage_payload_addr)
       8'h0 : begin
-        readRsp_data[6 : 0] = pkg_gen_bridge_slices_limit_driver;
+        readRsp_data[7 : 0] = pkg_gen_bridge_slices_limit_driver;
       end
       8'h04 : begin
-        readRsp_data[6 : 0] = pkg_gen_bridge_slices_cnt;
+        readRsp_data[7 : 0] = pkg_gen_bridge_slices_cnt;
       end
       8'h10 : begin
         readRsp_data[0 : 0] = transmitter_bridge_div_enable_driver;
@@ -458,7 +454,7 @@ module LoopBackTest (
     case(axil4Ctrl_awaddr)
       8'h0 : begin
         if(writeOccur) begin
-          pkg_gen_bridge_slices_limit_driver <= axil4Ctrl_wdata[6 : 0];
+          pkg_gen_bridge_slices_limit_driver <= axil4Ctrl_wdata[7 : 0];
         end
       end
       default : begin
@@ -490,26 +486,7 @@ module ClkCrossing_9 (
 
 endmodule
 
-module ClkCrossing_8 (
-  input      [7:0]    dataIn,
-  output     [7:0]    dataOut,
-  input               clk,
-  input               reset
-);
-
-  reg        [7:0]    area_clkI_reg;
-  (* async_reg = "true" *) reg        [7:0]    area_clkO_buf0;
-  reg        [7:0]    area_clkO_buf1;
-
-  assign dataOut = area_clkO_buf1;
-  always @(posedge clk) begin
-    area_clkI_reg <= dataIn;
-    area_clkO_buf0 <= area_clkI_reg;
-    area_clkO_buf1 <= area_clkO_buf0;
-  end
-
-
-endmodule
+//ClkCrossing replaced by ClkCrossing
 
 //ClkCrossing_2 replaced by ClkCrossing_2
 
@@ -583,15 +560,15 @@ endmodule
 //ClkCrossing replaced by ClkCrossing
 
 module ClkCrossing (
-  input      [6:0]    dataIn,
-  output     [6:0]    dataOut,
+  input      [7:0]    dataIn,
+  output     [7:0]    dataOut,
   input               clk,
   input               reset
 );
 
-  reg        [6:0]    area_clkI_reg;
-  (* async_reg = "true" *) reg        [6:0]    area_clkO_buf0;
-  reg        [6:0]    area_clkO_buf1;
+  reg        [7:0]    area_clkI_reg;
+  (* async_reg = "true" *) reg        [7:0]    area_clkO_buf0;
+  reg        [7:0]    area_clkO_buf1;
 
   assign dataOut = area_clkO_buf1;
   always @(posedge clk) begin
@@ -1148,7 +1125,6 @@ module TX (
   input               reset
 );
 
-  wire                phy_tx_information_gen_raw_data_valid;
   wire                phy_tx_information_gen_result_data_queueWithAvailability_io_pop_ready;
   wire                phy_tx_crc_raw_data_valid;
   wire                phy_tx_crc_result_data_queueWithAvailability_io_pop_ready;
@@ -1282,8 +1258,7 @@ module TX (
   wire       [11:0]   phy_tx_front_result_data_queueWithAvailability_io_pop_payload_cha_q;
   wire       [5:0]    phy_tx_front_result_data_queueWithAvailability_io_occupancy;
   wire       [5:0]    phy_tx_front_result_data_queueWithAvailability_io_availability;
-  reg        [8:0]    pipeline_halt;
-  wire                _zz_raw_data_ready;
+  reg        [7:0]    pipeline_halt;
   wire                _zz_io_pop_ready;
   wire                _zz_io_pop_ready_1;
   wire                _zz_io_pop_ready_2;
@@ -1305,7 +1280,7 @@ module TX (
   wire                _zz_io_pop_ready_7;
 
   PhyPkgInformationGen phy_tx_information_gen (
-    .raw_data_valid                  (phy_tx_information_gen_raw_data_valid                                   ), //i
+    .raw_data_valid                  (raw_data_valid                                                          ), //i
     .raw_data_ready                  (phy_tx_information_gen_raw_data_ready                                   ), //o
     .raw_data_payload_last           (raw_data_payload_last                                                   ), //i
     .raw_data_payload_fragment       (raw_data_payload_fragment[7:0]                                          ), //i
@@ -1616,38 +1591,35 @@ module TX (
     .clk                      (clk                                                                        ), //i
     .reset                    (reset                                                                      )  //i
   );
-  assign _zz_raw_data_ready = (! pipeline_halt[0]);
-  assign raw_data_ready = (phy_tx_information_gen_raw_data_ready && _zz_raw_data_ready);
-  assign phy_tx_information_gen_raw_data_valid = (raw_data_valid && _zz_raw_data_ready);
-  always @(*) begin
-    pipeline_halt[0] = (phy_tx_information_gen_result_data_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[1] = (phy_tx_crc_result_data_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[2] = (phy_tx_padder_result_data_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[3] = (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[4] = (phy_tx_scrambler_result_data_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[5] = (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[6] = (phy_header_extender_result_data_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[7] = (phy_tx_filter_result_data_queueWithAvailability_io_availability < 6'h12);
-    pipeline_halt[8] = (phy_tx_front_result_data_queueWithAvailability_io_availability < 6'h12);
-  end
-
-  assign _zz_io_pop_ready = (! pipeline_halt[1]);
+  assign raw_data_ready = phy_tx_information_gen_raw_data_ready;
+  assign _zz_io_pop_ready = (! pipeline_halt[0]);
   assign phy_tx_information_gen_result_data_queueWithAvailability_io_pop_ready = (phy_tx_crc_raw_data_ready && _zz_io_pop_ready);
   assign phy_tx_crc_raw_data_valid = (phy_tx_information_gen_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready);
-  assign _zz_io_pop_ready_1 = (! pipeline_halt[2]);
+  always @(*) begin
+    pipeline_halt[0] = (phy_tx_crc_result_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[1] = (phy_tx_padder_result_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[2] = (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[3] = (phy_tx_scrambler_result_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[4] = (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[5] = (phy_header_extender_result_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[6] = (phy_tx_filter_result_data_queueWithAvailability_io_availability < 6'h12);
+    pipeline_halt[7] = (phy_tx_front_result_data_queueWithAvailability_io_availability < 6'h12);
+  end
+
+  assign _zz_io_pop_ready_1 = (! pipeline_halt[1]);
   assign phy_tx_crc_result_data_queueWithAvailability_io_pop_ready = (phy_tx_padder_raw_data_ready && _zz_io_pop_ready_1);
   assign phy_tx_padder_raw_data_valid = (phy_tx_crc_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_1);
-  assign _zz_io_pop_ready_2 = (! pipeline_halt[3]);
+  assign _zz_io_pop_ready_2 = (! pipeline_halt[2]);
   assign phy_tx_padder_result_data_queueWithAvailability_io_pop_ready = (phy_tx_encoder_raw_data_ready && _zz_io_pop_ready_2);
   assign phy_tx_encoder_raw_data_valid = (phy_tx_padder_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_2);
   assign phy_tx_puncher_punched_data_toStream_valid = phy_tx_puncher_punched_data_valid;
   assign phy_tx_puncher_punched_data_toStream_payload_last = phy_tx_puncher_punched_data_payload_last;
   assign phy_tx_puncher_punched_data_toStream_payload_fragment = phy_tx_puncher_punched_data_payload_fragment;
   assign phy_tx_puncher_punched_data_toStream_ready = phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_push_ready;
-  assign _zz_io_pop_ready_3 = (! pipeline_halt[4]);
+  assign _zz_io_pop_ready_3 = (! pipeline_halt[3]);
   assign phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_ready = (phy_tx_scrambler_raw_data_ready && _zz_io_pop_ready_3);
   assign phy_tx_scrambler_raw_data_valid = (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_3);
-  assign _zz_io_pop_ready_4 = (! pipeline_halt[5]);
+  assign _zz_io_pop_ready_4 = (! pipeline_halt[4]);
   assign phy_tx_scrambler_result_data_queueWithAvailability_io_pop_ready = (mod_data_div_base_data_ready && _zz_io_pop_ready_4);
   assign mod_data_div_base_data_valid = (phy_tx_scrambler_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_4);
   assign _zz_data_flow_unit_data_valid = mod_data_div_unit_data_valid;
@@ -1658,13 +1630,13 @@ module TX (
   assign mod_rtl_data_flow_mod_iq_toStream_payload_fragment_cha_i = mod_rtl_data_flow_mod_iq_payload_fragment_cha_i;
   assign mod_rtl_data_flow_mod_iq_toStream_payload_fragment_cha_q = mod_rtl_data_flow_mod_iq_payload_fragment_cha_q;
   assign mod_rtl_data_flow_mod_iq_toStream_ready = mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_push_ready;
-  assign _zz_io_pop_ready_5 = (! pipeline_halt[6]);
+  assign _zz_io_pop_ready_5 = (! pipeline_halt[5]);
   assign mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_ready = (phy_header_extender_raw_data_ready && _zz_io_pop_ready_5);
   assign phy_header_extender_raw_data_valid = (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_5);
-  assign _zz_io_pop_ready_6 = (! pipeline_halt[7]);
+  assign _zz_io_pop_ready_6 = (! pipeline_halt[6]);
   assign phy_header_extender_result_data_queueWithAvailability_io_pop_ready = (phy_tx_oversampling_raw_data_ready && _zz_io_pop_ready_6);
   assign phy_tx_oversampling_raw_data_valid = (phy_header_extender_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_6);
-  assign _zz_io_pop_ready_7 = (! pipeline_halt[8]);
+  assign _zz_io_pop_ready_7 = (! pipeline_halt[7]);
   assign phy_tx_filter_result_data_queueWithAvailability_io_pop_ready = (stf_preamble_adder_raw_data_ready && _zz_io_pop_ready_7);
   assign stf_preamble_adder_raw_data_valid = (phy_tx_filter_result_data_queueWithAvailability_io_pop_valid && _zz_io_pop_ready_7);
   assign rf_data_valid = phy_tx_front_result_data_queueWithAvailability_io_pop_valid;
@@ -1683,32 +1655,32 @@ module StreamFifo_17 (
   output              io_pop_payload_last,
   output     [7:0]    io_pop_payload_fragment,
   input               io_flush,
-  output     [8:0]    io_occupancy,
-  output     [8:0]    io_availability,
+  output     [4:0]    io_occupancy,
+  output     [4:0]    io_availability,
   input               clk,
   input               reset
 );
 
   reg        [8:0]    _zz_logic_ram_port0;
-  wire       [7:0]    _zz_logic_pushPtr_valueNext;
+  wire       [3:0]    _zz_logic_pushPtr_valueNext;
   wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
-  wire       [7:0]    _zz_logic_popPtr_valueNext;
+  wire       [3:0]    _zz_logic_popPtr_valueNext;
   wire       [0:0]    _zz_logic_popPtr_valueNext_1;
   wire                _zz_logic_ram_port;
   wire                _zz__zz_io_pop_payload_last;
   wire       [8:0]    _zz_logic_ram_port_1;
-  wire       [7:0]    _zz_io_availability;
+  wire       [3:0]    _zz_io_availability;
   reg                 _zz_1;
   reg                 logic_pushPtr_willIncrement;
   reg                 logic_pushPtr_willClear;
-  reg        [7:0]    logic_pushPtr_valueNext;
-  reg        [7:0]    logic_pushPtr_value;
+  reg        [3:0]    logic_pushPtr_valueNext;
+  reg        [3:0]    logic_pushPtr_value;
   wire                logic_pushPtr_willOverflowIfInc;
   wire                logic_pushPtr_willOverflow;
   reg                 logic_popPtr_willIncrement;
   reg                 logic_popPtr_willClear;
-  reg        [7:0]    logic_popPtr_valueNext;
-  reg        [7:0]    logic_popPtr_value;
+  reg        [3:0]    logic_popPtr_valueNext;
+  reg        [3:0]    logic_popPtr_value;
   wire                logic_popPtr_willOverflowIfInc;
   wire                logic_popPtr_willOverflow;
   wire                logic_ptrMatch;
@@ -1720,13 +1692,13 @@ module StreamFifo_17 (
   reg                 _zz_io_pop_valid;
   wire       [8:0]    _zz_io_pop_payload_last;
   wire                when_Stream_l954;
-  wire       [7:0]    logic_ptrDif;
-  reg [8:0] logic_ram [0:255];
+  wire       [3:0]    logic_ptrDif;
+  reg [8:0] logic_ram [0:15];
 
   assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
-  assign _zz_logic_pushPtr_valueNext = {7'd0, _zz_logic_pushPtr_valueNext_1};
+  assign _zz_logic_pushPtr_valueNext = {3'd0, _zz_logic_pushPtr_valueNext_1};
   assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
-  assign _zz_logic_popPtr_valueNext = {7'd0, _zz_logic_popPtr_valueNext_1};
+  assign _zz_logic_popPtr_valueNext = {3'd0, _zz_logic_popPtr_valueNext_1};
   assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz__zz_io_pop_payload_last = 1'b1;
   assign _zz_logic_ram_port_1 = {io_push_payload_fragment,io_push_payload_last};
@@ -1763,12 +1735,12 @@ module StreamFifo_17 (
     end
   end
 
-  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 8'hff);
+  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 4'b1111);
   assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
   always @(*) begin
     logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
     if(logic_pushPtr_willClear) begin
-      logic_pushPtr_valueNext = 8'h0;
+      logic_pushPtr_valueNext = 4'b0000;
     end
   end
 
@@ -1786,12 +1758,12 @@ module StreamFifo_17 (
     end
   end
 
-  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 8'hff);
+  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 4'b1111);
   assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
   always @(*) begin
     logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
     if(logic_popPtr_willClear) begin
-      logic_popPtr_valueNext = 8'h0;
+      logic_popPtr_valueNext = 4'b0000;
     end
   end
 
@@ -1811,8 +1783,8 @@ module StreamFifo_17 (
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
   always @(posedge clk or posedge reset) begin
     if(reset) begin
-      logic_pushPtr_value <= 8'h0;
-      logic_popPtr_value <= 8'h0;
+      logic_pushPtr_value <= 4'b0000;
+      logic_popPtr_value <= 4'b0000;
       logic_risingOccupancy <= 1'b0;
       _zz_io_pop_valid <= 1'b0;
     end else begin
@@ -1832,12 +1804,12 @@ module StreamFifo_17 (
 endmodule
 
 module StreamPkgGen (
-  input      [6:0]    slices_limit,
-  output     [6:0]    slices_cnt,
+  input      [7:0]    slices_limit,
+  output     [7:0]    slices_cnt,
   input               raw_data_tvalid,
   output              raw_data_tready,
   input      [31:0]   raw_data_tdata,
-  input      [3:0]    raw_data_tstrb,
+  input      [3:0]    raw_data_tkeep,
   input               raw_data_tlast,
   output              pkg_data_valid,
   input               pkg_data_ready,
@@ -1850,17 +1822,17 @@ module StreamPkgGen (
   wire                split_core_raw_data_ready;
   wire                split_core_split_data_valid;
   wire       [7:0]    split_core_split_data_payload;
-  wire       [6:0]    _zz_pkg_data_payload_last;
-  wire       [6:0]    _zz_pkg_slices_cnt;
-  reg        [3:0]    strb_buf;
-  reg        [6:0]    pkg_slices_cnt;
+  wire       [7:0]    _zz_pkg_data_payload_last;
+  wire       [7:0]    _zz_pkg_slices_cnt;
+  reg        [3:0]    bit_valid_buf;
+  reg        [7:0]    pkg_slices_cnt;
   wire                bit_valid;
   reg                 raw_data_last;
   wire                raw_data_stream_fire;
   wire                split_core_split_data_fire;
 
-  assign _zz_pkg_data_payload_last = (slices_limit - 7'h01);
-  assign _zz_pkg_slices_cnt = (pkg_slices_cnt + 7'h01);
+  assign _zz_pkg_data_payload_last = (slices_limit - 8'h01);
+  assign _zz_pkg_slices_cnt = (pkg_slices_cnt + 8'h01);
   StreamPayloadSplit split_core (
     .raw_data_valid        (raw_data_tvalid                     ), //i
     .raw_data_ready        (split_core_raw_data_ready           ), //o
@@ -1871,24 +1843,24 @@ module StreamPkgGen (
     .clk                   (clk                                 ), //i
     .reset                 (reset                               )  //i
   );
-  assign bit_valid = strb_buf[0];
+  assign bit_valid = bit_valid_buf[0];
   assign raw_data_tready = split_core_raw_data_ready;
   assign pkg_data_valid = (split_core_split_data_valid && bit_valid);
   assign pkg_data_payload_fragment = split_core_split_data_payload;
-  assign pkg_data_payload_last = ((pkg_slices_cnt == _zz_pkg_data_payload_last) || (raw_data_last && (strb_buf == 4'b0001)));
+  assign pkg_data_payload_last = ((pkg_slices_cnt == _zz_pkg_data_payload_last) || (raw_data_last && (bit_valid_buf == 4'b0001)));
   assign raw_data_stream_fire = (raw_data_tvalid && raw_data_tready);
   assign split_core_split_data_fire = (split_core_split_data_valid && pkg_data_ready);
   assign slices_cnt = pkg_slices_cnt;
   always @(posedge clk or posedge reset) begin
     if(reset) begin
-      pkg_slices_cnt <= 7'h0;
+      pkg_slices_cnt <= 8'h0;
       raw_data_last <= 1'b0;
     end else begin
       if(raw_data_stream_fire) begin
         raw_data_last <= raw_data_tlast;
       end else begin
         if(split_core_split_data_fire) begin
-          pkg_slices_cnt <= (pkg_data_payload_last ? 7'h0 : _zz_pkg_slices_cnt);
+          pkg_slices_cnt <= (pkg_data_payload_last ? 8'h0 : _zz_pkg_slices_cnt);
         end
       end
     end
@@ -1896,10 +1868,10 @@ module StreamPkgGen (
 
   always @(posedge clk) begin
     if(raw_data_stream_fire) begin
-      strb_buf <= raw_data_tstrb;
+      bit_valid_buf <= raw_data_tkeep;
     end else begin
       if(split_core_split_data_fire) begin
-        strb_buf <= (strb_buf >>> 1);
+        bit_valid_buf <= (bit_valid_buf >>> 1);
       end
     end
   end
@@ -1911,13 +1883,11 @@ module StreamFifo_16 (
   input               io_push_valid,
   output              io_push_ready,
   input      [31:0]   io_push_payload_data,
-  input      [3:0]    io_push_payload_strb,
   input      [3:0]    io_push_payload_keep_,
   input               io_push_payload_last,
   output              io_pop_valid,
   input               io_pop_ready,
   output     [31:0]   io_pop_payload_data,
-  output     [3:0]    io_pop_payload_strb,
   output     [3:0]    io_pop_payload_keep_,
   output              io_pop_payload_last,
   input               io_flush,
@@ -1927,14 +1897,14 @@ module StreamFifo_16 (
   input               reset
 );
 
-  reg        [40:0]   _zz_logic_ram_port0;
+  reg        [36:0]   _zz_logic_ram_port0;
   wire       [7:0]    _zz_logic_pushPtr_valueNext;
   wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
   wire       [7:0]    _zz_logic_popPtr_valueNext;
   wire       [0:0]    _zz_logic_popPtr_valueNext_1;
   wire                _zz_logic_ram_port;
   wire                _zz__zz_io_pop_payload_data;
-  wire       [40:0]   _zz_logic_ram_port_1;
+  wire       [36:0]   _zz_logic_ram_port_1;
   wire       [7:0]    _zz_io_availability;
   reg                 _zz_1;
   reg                 logic_pushPtr_willIncrement;
@@ -1956,10 +1926,10 @@ module StreamFifo_16 (
   wire                logic_empty;
   wire                logic_full;
   reg                 _zz_io_pop_valid;
-  wire       [40:0]   _zz_io_pop_payload_data;
+  wire       [36:0]   _zz_io_pop_payload_data;
   wire                when_Stream_l954;
   wire       [7:0]    logic_ptrDif;
-  reg [40:0] logic_ram [0:255];
+  reg [36:0] logic_ram [0:255];
 
   assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
   assign _zz_logic_pushPtr_valueNext = {7'd0, _zz_logic_pushPtr_valueNext_1};
@@ -1967,7 +1937,7 @@ module StreamFifo_16 (
   assign _zz_logic_popPtr_valueNext = {7'd0, _zz_logic_popPtr_valueNext_1};
   assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz__zz_io_pop_payload_data = 1'b1;
-  assign _zz_logic_ram_port_1 = {io_push_payload_last,{io_push_payload_keep_,{io_push_payload_strb,io_push_payload_data}}};
+  assign _zz_logic_ram_port_1 = {io_push_payload_last,{io_push_payload_keep_,io_push_payload_data}};
   always @(posedge clk) begin
     if(_zz__zz_io_pop_payload_data) begin
       _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
@@ -2042,9 +2012,8 @@ module StreamFifo_16 (
   assign io_pop_valid = ((! logic_empty) && (! (_zz_io_pop_valid && (! logic_full))));
   assign _zz_io_pop_payload_data = _zz_logic_ram_port0;
   assign io_pop_payload_data = _zz_io_pop_payload_data[31 : 0];
-  assign io_pop_payload_strb = _zz_io_pop_payload_data[35 : 32];
-  assign io_pop_payload_keep_ = _zz_io_pop_payload_data[39 : 36];
-  assign io_pop_payload_last = _zz_io_pop_payload_data[40];
+  assign io_pop_payload_keep_ = _zz_io_pop_payload_data[35 : 32];
+  assign io_pop_payload_last = _zz_io_pop_payload_data[36];
   assign when_Stream_l954 = (logic_pushing != logic_popping);
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
@@ -2298,7 +2267,7 @@ module PhyRxCrcChecker (
     .clk              (clk                             ), //i
     .reset            (reset                           )  //i
   );
-  StreamFifo_3 data_fifo (
+  StreamFifo_1 data_fifo (
     .io_push_valid               (data_fifo_io_push_valid                 ), //i
     .io_push_ready               (data_fifo_io_push_ready                 ), //o
     .io_push_payload_last        (data_fifo_io_push_payload_last          ), //i
@@ -4555,14 +4524,14 @@ module PhyHeaderExtender (
   reg                 pkg_size_ready_1;
   reg        [7:0]    pkg_size_payload_1;
   wire       [9:0]    method_size;
-  wire                when_PhyTx_l304;
+  wire                when_PhyTx_l305;
   wire                pkg_size_fire;
   wire                result_data_fire;
-  wire                when_PhyTx_l315;
+  wire                when_PhyTx_l316;
   wire                result_data_fire_1;
-  wire                when_PhyTx_l327;
+  wire                when_PhyTx_l328;
   wire                result_data_fire_2;
-  wire                when_PhyTx_l338;
+  wire                when_PhyTx_l339;
   `ifndef SYNTHESIS
   reg [47:0] header_status_string;
   `endif
@@ -4693,14 +4662,14 @@ module PhyHeaderExtender (
   end
 
   assign method_size = {mod_method,pkg_size_payload_1};
-  assign when_PhyTx_l304 = (raw_data_valid && pkg_size_valid);
+  assign when_PhyTx_l305 = (raw_data_valid && pkg_size_valid);
   assign pkg_size_fire = (pkg_size_valid && pkg_size_ready);
   assign result_data_fire = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l315 = (counter == 5'h07);
+  assign when_PhyTx_l316 = (counter == 5'h07);
   assign result_data_fire_1 = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l327 = (counter == 5'h0);
+  assign when_PhyTx_l328 = (counter == 5'h0);
   assign result_data_fire_2 = (result_data_valid && result_data_ready);
-  assign when_PhyTx_l338 = (result_data_fire_2 && result_data_payload_last);
+  assign when_PhyTx_l339 = (result_data_fire_2 && result_data_payload_last);
   assign pkg_size_ready = pkg_size_ready_1;
   always @(posedge clk or posedge reset) begin
     if(reset) begin
@@ -4710,7 +4679,7 @@ module PhyHeaderExtender (
     end else begin
       case(header_status)
         PhyTxHeaderStatus_IDLE : begin
-          if(when_PhyTx_l304) begin
+          if(when_PhyTx_l305) begin
             header_status <= PhyTxHeaderStatus_SDF;
             pkg_size_ready_1 <= 1'b1;
           end
@@ -4720,7 +4689,7 @@ module PhyHeaderExtender (
             pkg_size_ready_1 <= 1'b0;
           end
           if(result_data_fire) begin
-            if(when_PhyTx_l315) begin
+            if(when_PhyTx_l316) begin
               header_status <= PhyTxHeaderStatus_HEADER;
               counter <= 5'h09;
             end else begin
@@ -4730,7 +4699,7 @@ module PhyHeaderExtender (
         end
         PhyTxHeaderStatus_HEADER : begin
           if(result_data_fire_1) begin
-            if(when_PhyTx_l327) begin
+            if(when_PhyTx_l328) begin
               header_status <= PhyTxHeaderStatus_DATA;
               counter <= 5'h0;
             end else begin
@@ -4739,7 +4708,7 @@ module PhyHeaderExtender (
           end
         end
         default : begin
-          if(when_PhyTx_l338) begin
+          if(when_PhyTx_l339) begin
             header_status <= PhyTxHeaderStatus_IDLE;
           end
         end
@@ -5949,22 +5918,23 @@ module PhyPkgInformationGen (
   wire                dataFifo_io_pop_valid;
   wire                dataFifo_io_pop_payload_last;
   wire       [7:0]    dataFifo_io_pop_payload_fragment;
-  wire       [6:0]    dataFifo_io_occupancy;
-  wire       [6:0]    dataFifo_io_availability;
+  wire       [7:0]    dataFifo_io_occupancy;
+  wire       [7:0]    dataFifo_io_availability;
   wire                pkg_size_fifo_io_push_ready;
   wire                pkg_size_fifo_io_pop_valid;
   wire       [7:0]    pkg_size_fifo_io_pop_payload;
   wire       [4:0]    pkg_size_fifo_io_occupancy;
   wire       [4:0]    pkg_size_fifo_io_availability;
   reg        [7:0]    pkg_size_cnt;
+  wire                halt;
   wire                _zz_raw_data_ready;
   wire                raw_data_fire;
-  wire                when_PhyTx_l244;
+  wire                when_PhyTx_l245;
   wire                raw_data_fire_1;
   reg                 pkg_size_valid_1;
   reg        [7:0]    pkg_size_payload_1;
   wire                raw_data_fire_2;
-  wire                when_PhyTx_l251;
+  wire                when_PhyTx_l252;
   wire                raw_data_fire_3;
 
   StreamFifo_1 dataFifo (
@@ -5977,8 +5947,8 @@ module PhyPkgInformationGen (
     .io_pop_payload_last         (dataFifo_io_pop_payload_last           ), //o
     .io_pop_payload_fragment     (dataFifo_io_pop_payload_fragment[7:0]  ), //o
     .io_flush                    (1'b0                                   ), //i
-    .io_occupancy                (dataFifo_io_occupancy[6:0]             ), //o
-    .io_availability             (dataFifo_io_availability[6:0]          ), //o
+    .io_occupancy                (dataFifo_io_occupancy[7:0]             ), //o
+    .io_availability             (dataFifo_io_availability[7:0]          ), //o
     .clk                         (clk                                    ), //i
     .reset                       (reset                                  )  //i
   );
@@ -5995,17 +5965,18 @@ module PhyPkgInformationGen (
     .clk                (clk                                 ), //i
     .reset              (reset                               )  //i
   );
-  assign _zz_raw_data_ready = (! (! pkg_size_fifo_io_push_ready));
+  assign halt = (! pkg_size_fifo_io_push_ready);
+  assign _zz_raw_data_ready = (! halt);
   assign raw_data_ready = (dataFifo_io_push_ready && _zz_raw_data_ready);
   assign dataFifo_io_push_valid = (raw_data_valid && _zz_raw_data_ready);
   assign result_data_valid = dataFifo_io_pop_valid;
   assign result_data_payload_last = dataFifo_io_pop_payload_last;
   assign result_data_payload_fragment = dataFifo_io_pop_payload_fragment;
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
-  assign when_PhyTx_l244 = (raw_data_fire && raw_data_payload_last);
+  assign when_PhyTx_l245 = (raw_data_fire && raw_data_payload_last);
   assign raw_data_fire_1 = (raw_data_valid && raw_data_ready);
   assign raw_data_fire_2 = (raw_data_valid && raw_data_ready);
-  assign when_PhyTx_l251 = (raw_data_fire_2 && raw_data_payload_last);
+  assign when_PhyTx_l252 = (raw_data_fire_2 && raw_data_payload_last);
   assign raw_data_fire_3 = (raw_data_valid && raw_data_ready);
   assign pkg_size_valid = pkg_size_fifo_io_pop_valid;
   assign pkg_size_payload = pkg_size_fifo_io_pop_payload;
@@ -6015,12 +5986,12 @@ module PhyPkgInformationGen (
       pkg_size_valid_1 <= 1'b0;
       pkg_size_payload_1 <= 8'h0;
     end else begin
-      if(!when_PhyTx_l244) begin
+      if(!when_PhyTx_l245) begin
         if(raw_data_fire_1) begin
           pkg_size_cnt <= (pkg_size_cnt + 8'h01);
         end
       end
-      if(when_PhyTx_l251) begin
+      if(when_PhyTx_l252) begin
         pkg_size_valid_1 <= 1'b1;
         pkg_size_payload_1 <= (pkg_size_cnt + 8'h01);
         pkg_size_cnt <= 8'h0;
@@ -6086,191 +6057,7 @@ module StreamPayloadSplit (
 
 endmodule
 
-module StreamFifo_3 (
-  input               io_push_valid,
-  output              io_push_ready,
-  input               io_push_payload_last,
-  input      [7:0]    io_push_payload_fragment,
-  output              io_pop_valid,
-  input               io_pop_ready,
-  output              io_pop_payload_last,
-  output     [7:0]    io_pop_payload_fragment,
-  input               io_flush,
-  output reg [7:0]    io_occupancy,
-  output reg [7:0]    io_availability,
-  input               clk,
-  input               reset
-);
-
-  reg        [8:0]    _zz_logic_ram_port0;
-  wire       [7:0]    _zz_logic_pushPtr_valueNext;
-  wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
-  wire       [7:0]    _zz_logic_popPtr_valueNext;
-  wire       [0:0]    _zz_logic_popPtr_valueNext_1;
-  wire                _zz_logic_ram_port;
-  wire                _zz__zz_io_pop_payload_last;
-  wire       [8:0]    _zz_logic_ram_port_1;
-  wire       [7:0]    _zz_io_occupancy;
-  wire       [7:0]    _zz_io_availability;
-  wire       [7:0]    _zz_io_availability_1;
-  wire       [7:0]    _zz_io_availability_2;
-  reg                 _zz_1;
-  reg                 logic_pushPtr_willIncrement;
-  reg                 logic_pushPtr_willClear;
-  reg        [7:0]    logic_pushPtr_valueNext;
-  reg        [7:0]    logic_pushPtr_value;
-  wire                logic_pushPtr_willOverflowIfInc;
-  wire                logic_pushPtr_willOverflow;
-  reg                 logic_popPtr_willIncrement;
-  reg                 logic_popPtr_willClear;
-  reg        [7:0]    logic_popPtr_valueNext;
-  reg        [7:0]    logic_popPtr_value;
-  wire                logic_popPtr_willOverflowIfInc;
-  wire                logic_popPtr_willOverflow;
-  wire                logic_ptrMatch;
-  reg                 logic_risingOccupancy;
-  wire                logic_pushing;
-  wire                logic_popping;
-  wire                logic_empty;
-  wire                logic_full;
-  reg                 _zz_io_pop_valid;
-  wire       [8:0]    _zz_io_pop_payload_last;
-  wire                when_Stream_l954;
-  wire       [7:0]    logic_ptrDif;
-  reg [8:0] logic_ram [0:251];
-
-  assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
-  assign _zz_logic_pushPtr_valueNext = {7'd0, _zz_logic_pushPtr_valueNext_1};
-  assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
-  assign _zz_logic_popPtr_valueNext = {7'd0, _zz_logic_popPtr_valueNext_1};
-  assign _zz_io_occupancy = (8'hfc + logic_ptrDif);
-  assign _zz_io_availability = (8'hfc + _zz_io_availability_1);
-  assign _zz_io_availability_1 = (logic_popPtr_value - logic_pushPtr_value);
-  assign _zz_io_availability_2 = (logic_popPtr_value - logic_pushPtr_value);
-  assign _zz__zz_io_pop_payload_last = 1'b1;
-  assign _zz_logic_ram_port_1 = {io_push_payload_fragment,io_push_payload_last};
-  always @(posedge clk) begin
-    if(_zz__zz_io_pop_payload_last) begin
-      _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
-    end
-  end
-
-  always @(posedge clk) begin
-    if(_zz_1) begin
-      logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
-    end
-  end
-
-  always @(*) begin
-    _zz_1 = 1'b0;
-    if(logic_pushing) begin
-      _zz_1 = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_pushPtr_willIncrement = 1'b0;
-    if(logic_pushing) begin
-      logic_pushPtr_willIncrement = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_pushPtr_willClear = 1'b0;
-    if(io_flush) begin
-      logic_pushPtr_willClear = 1'b1;
-    end
-  end
-
-  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 8'hfb);
-  assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
-  always @(*) begin
-    if(logic_pushPtr_willOverflow) begin
-      logic_pushPtr_valueNext = 8'h0;
-    end else begin
-      logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
-    end
-    if(logic_pushPtr_willClear) begin
-      logic_pushPtr_valueNext = 8'h0;
-    end
-  end
-
-  always @(*) begin
-    logic_popPtr_willIncrement = 1'b0;
-    if(logic_popping) begin
-      logic_popPtr_willIncrement = 1'b1;
-    end
-  end
-
-  always @(*) begin
-    logic_popPtr_willClear = 1'b0;
-    if(io_flush) begin
-      logic_popPtr_willClear = 1'b1;
-    end
-  end
-
-  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 8'hfb);
-  assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
-  always @(*) begin
-    if(logic_popPtr_willOverflow) begin
-      logic_popPtr_valueNext = 8'h0;
-    end else begin
-      logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
-    end
-    if(logic_popPtr_willClear) begin
-      logic_popPtr_valueNext = 8'h0;
-    end
-  end
-
-  assign logic_ptrMatch = (logic_pushPtr_value == logic_popPtr_value);
-  assign logic_pushing = (io_push_valid && io_push_ready);
-  assign logic_popping = (io_pop_valid && io_pop_ready);
-  assign logic_empty = (logic_ptrMatch && (! logic_risingOccupancy));
-  assign logic_full = (logic_ptrMatch && logic_risingOccupancy);
-  assign io_push_ready = (! logic_full);
-  assign io_pop_valid = ((! logic_empty) && (! (_zz_io_pop_valid && (! logic_full))));
-  assign _zz_io_pop_payload_last = _zz_logic_ram_port0;
-  assign io_pop_payload_last = _zz_io_pop_payload_last[0];
-  assign io_pop_payload_fragment = _zz_io_pop_payload_last[8 : 1];
-  assign when_Stream_l954 = (logic_pushing != logic_popping);
-  assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
-  always @(*) begin
-    if(logic_ptrMatch) begin
-      io_occupancy = (logic_risingOccupancy ? 8'hfc : 8'h0);
-    end else begin
-      io_occupancy = ((logic_popPtr_value < logic_pushPtr_value) ? logic_ptrDif : _zz_io_occupancy);
-    end
-  end
-
-  always @(*) begin
-    if(logic_ptrMatch) begin
-      io_availability = (logic_risingOccupancy ? 8'h0 : 8'hfc);
-    end else begin
-      io_availability = ((logic_popPtr_value < logic_pushPtr_value) ? _zz_io_availability : _zz_io_availability_2);
-    end
-  end
-
-  always @(posedge clk or posedge reset) begin
-    if(reset) begin
-      logic_pushPtr_value <= 8'h0;
-      logic_popPtr_value <= 8'h0;
-      logic_risingOccupancy <= 1'b0;
-      _zz_io_pop_valid <= 1'b0;
-    end else begin
-      logic_pushPtr_value <= logic_pushPtr_valueNext;
-      logic_popPtr_value <= logic_popPtr_valueNext;
-      _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
-      if(when_Stream_l954) begin
-        logic_risingOccupancy <= logic_pushing;
-      end
-      if(io_flush) begin
-        logic_risingOccupancy <= 1'b0;
-      end
-    end
-  end
-
-
-endmodule
+//StreamFifo_1 replaced by StreamFifo_1
 
 //Crc replaced by Crc
 
@@ -12473,35 +12260,35 @@ module StreamFifo_1 (
   output              io_pop_payload_last,
   output     [7:0]    io_pop_payload_fragment,
   input               io_flush,
-  output reg [6:0]    io_occupancy,
-  output reg [6:0]    io_availability,
+  output reg [7:0]    io_occupancy,
+  output reg [7:0]    io_availability,
   input               clk,
   input               reset
 );
 
   reg        [8:0]    _zz_logic_ram_port0;
-  wire       [6:0]    _zz_logic_pushPtr_valueNext;
+  wire       [7:0]    _zz_logic_pushPtr_valueNext;
   wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
-  wire       [6:0]    _zz_logic_popPtr_valueNext;
+  wire       [7:0]    _zz_logic_popPtr_valueNext;
   wire       [0:0]    _zz_logic_popPtr_valueNext_1;
   wire                _zz_logic_ram_port;
   wire                _zz__zz_io_pop_payload_last;
   wire       [8:0]    _zz_logic_ram_port_1;
-  wire       [6:0]    _zz_io_occupancy;
-  wire       [6:0]    _zz_io_availability;
-  wire       [6:0]    _zz_io_availability_1;
-  wire       [6:0]    _zz_io_availability_2;
+  wire       [7:0]    _zz_io_occupancy;
+  wire       [7:0]    _zz_io_availability;
+  wire       [7:0]    _zz_io_availability_1;
+  wire       [7:0]    _zz_io_availability_2;
   reg                 _zz_1;
   reg                 logic_pushPtr_willIncrement;
   reg                 logic_pushPtr_willClear;
-  reg        [6:0]    logic_pushPtr_valueNext;
-  reg        [6:0]    logic_pushPtr_value;
+  reg        [7:0]    logic_pushPtr_valueNext;
+  reg        [7:0]    logic_pushPtr_value;
   wire                logic_pushPtr_willOverflowIfInc;
   wire                logic_pushPtr_willOverflow;
   reg                 logic_popPtr_willIncrement;
   reg                 logic_popPtr_willClear;
-  reg        [6:0]    logic_popPtr_valueNext;
-  reg        [6:0]    logic_popPtr_value;
+  reg        [7:0]    logic_popPtr_valueNext;
+  reg        [7:0]    logic_popPtr_value;
   wire                logic_popPtr_willOverflowIfInc;
   wire                logic_popPtr_willOverflow;
   wire                logic_ptrMatch;
@@ -12513,15 +12300,15 @@ module StreamFifo_1 (
   reg                 _zz_io_pop_valid;
   wire       [8:0]    _zz_io_pop_payload_last;
   wire                when_Stream_l954;
-  wire       [6:0]    logic_ptrDif;
-  reg [8:0] logic_ram [0:126];
+  wire       [7:0]    logic_ptrDif;
+  reg [8:0] logic_ram [0:251];
 
   assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
-  assign _zz_logic_pushPtr_valueNext = {6'd0, _zz_logic_pushPtr_valueNext_1};
+  assign _zz_logic_pushPtr_valueNext = {7'd0, _zz_logic_pushPtr_valueNext_1};
   assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
-  assign _zz_logic_popPtr_valueNext = {6'd0, _zz_logic_popPtr_valueNext_1};
-  assign _zz_io_occupancy = (7'h7f + logic_ptrDif);
-  assign _zz_io_availability = (7'h7f + _zz_io_availability_1);
+  assign _zz_logic_popPtr_valueNext = {7'd0, _zz_logic_popPtr_valueNext_1};
+  assign _zz_io_occupancy = (8'hfc + logic_ptrDif);
+  assign _zz_io_availability = (8'hfc + _zz_io_availability_1);
   assign _zz_io_availability_1 = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz_io_availability_2 = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz__zz_io_pop_payload_last = 1'b1;
@@ -12559,16 +12346,16 @@ module StreamFifo_1 (
     end
   end
 
-  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 7'h7e);
+  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 8'hfb);
   assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
   always @(*) begin
     if(logic_pushPtr_willOverflow) begin
-      logic_pushPtr_valueNext = 7'h0;
+      logic_pushPtr_valueNext = 8'h0;
     end else begin
       logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
     end
     if(logic_pushPtr_willClear) begin
-      logic_pushPtr_valueNext = 7'h0;
+      logic_pushPtr_valueNext = 8'h0;
     end
   end
 
@@ -12586,16 +12373,16 @@ module StreamFifo_1 (
     end
   end
 
-  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 7'h7e);
+  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 8'hfb);
   assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
   always @(*) begin
     if(logic_popPtr_willOverflow) begin
-      logic_popPtr_valueNext = 7'h0;
+      logic_popPtr_valueNext = 8'h0;
     end else begin
       logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
     end
     if(logic_popPtr_willClear) begin
-      logic_popPtr_valueNext = 7'h0;
+      logic_popPtr_valueNext = 8'h0;
     end
   end
 
@@ -12613,7 +12400,7 @@ module StreamFifo_1 (
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   always @(*) begin
     if(logic_ptrMatch) begin
-      io_occupancy = (logic_risingOccupancy ? 7'h7f : 7'h0);
+      io_occupancy = (logic_risingOccupancy ? 8'hfc : 8'h0);
     end else begin
       io_occupancy = ((logic_popPtr_value < logic_pushPtr_value) ? logic_ptrDif : _zz_io_occupancy);
     end
@@ -12621,7 +12408,7 @@ module StreamFifo_1 (
 
   always @(*) begin
     if(logic_ptrMatch) begin
-      io_availability = (logic_risingOccupancy ? 7'h0 : 7'h7f);
+      io_availability = (logic_risingOccupancy ? 8'h0 : 8'hfc);
     end else begin
       io_availability = ((logic_popPtr_value < logic_pushPtr_value) ? _zz_io_availability : _zz_io_availability_2);
     end
@@ -12629,8 +12416,8 @@ module StreamFifo_1 (
 
   always @(posedge clk or posedge reset) begin
     if(reset) begin
-      logic_pushPtr_value <= 7'h0;
-      logic_popPtr_value <= 7'h0;
+      logic_pushPtr_value <= 8'h0;
+      logic_popPtr_value <= 8'h0;
       logic_risingOccupancy <= 1'b0;
       _zz_io_pop_valid <= 1'b0;
     end else begin

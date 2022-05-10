@@ -66,7 +66,7 @@ case class AD9361Interface() extends Component {
             resetActiveLevel = this.clockDomain.config.resetActiveLevel
         )
     )
-
+    rxClockDomain.clock.setName("ad9361_rf_clk")
     val rxClockArea = new ClockingArea(rxClockDomain){
         /**
          * AD9361 IP CORE
@@ -171,7 +171,7 @@ case class AD9361Interface() extends Component {
             resetActiveLevel = this.clockDomain.config.resetActiveLevel
         )
     )
-
+    txClockDomain.clock.setName("ad9361_rf_clk")
     val txClockArea = new ClockingArea(txClockDomain){
         val tx_data_cnt = Reg(UInt(3 bits)) init(0)
         val tx_data_i0_d = Reg(dataType) init(0)

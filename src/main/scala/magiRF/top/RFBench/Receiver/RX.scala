@@ -30,7 +30,6 @@ case class RX() extends Component {
 
     }
     noIoPrefix()
-//    AxiStream4SpecRenamer(io.result_data)
     val phy_rx_reset = Bool()
     val datatype_convert = PhyRxInterfaceIQ2modIQ()
     datatype_convert.io.raw_data << io.raw_data

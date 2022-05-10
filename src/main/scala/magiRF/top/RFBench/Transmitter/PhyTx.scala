@@ -6,7 +6,7 @@ import magiRF.modules.Modem.Misc.dataDivDynamic
 import magiRF.modules.Modem.Modulator.extensions.mPSKMod
 import magiRF.packages.Coder.Convolutional.Encoder.ConvEncoder
 import magiRF.packages.Scramble.Scrambler
-import magiRF.top.RFBench.Config.{codedDataType, codedDataWidth, conv_encoder_config, crc32_config, crc_data_width, filter_cut_off_width, genModulatorConfig, genModulatorDivConfig, header_bpsk_mod_array, iqWidth, modIQDataType, mod_method_type, mod_method_width, oversampled_zeros, phyDataType, phyDataWidth, phy_payload_lower_boundary, phy_payload_upper_boundary, rf_payload_upper_boundary, scrambler_poly, scrambler_reg_width, sdf_i_array, sdf_size, size_width, srrcConfig, srrcTaps}
+import magiRF.top.RFBench.Config.{codedDataType, codedDataWidth, conv_encoder_config, crc32_config, crc_data_width, filter_cut_off_width, genModulatorConfig, genModulatorDivConfig, header_bpsk_mod_array, iqWidth, modIQDataType, mod_method_type, mod_method_width, oversampled_zeros, phyDataType, phyDataWidth, rf_payload_upper_boundary, scrambler_poly, scrambler_reg_width, sdf_i_array, sdf_size, size_width, srrcConfig, srrcTaps}
 import spinal.core._
 import spinal.lib._
 import utils.bus.IQBundle.IQBundle
@@ -229,7 +229,7 @@ case class PhyTxICFront() extends Component{
 
 case class PhyPkgInformationGen() extends Component{
     def cntDataType: UInt = UInt(size_width* 8 bits)
-    def payloadSizeLimit: BigInt = phy_payload_upper_boundary + 2
+    def payloadSizeLimit: BigInt = rf_payload_upper_boundary + 2
     val io = new Bundle{
         val raw_data = slave(Stream(Fragment(phyDataType)))
         val result_data = master(Stream(Fragment(phyDataType)))
@@ -239,7 +239,8 @@ case class PhyPkgInformationGen() extends Component{
     val pkg_size_cnt = Reg(cntDataType) init(0)
     val dataFifo = StreamFifo(Fragment(phyDataType), payloadSizeLimit.toInt)
     val pkg_size_fifo = StreamFifo(cntDataType, 16)
-    dataFifo.io.push << io.raw_data.haltWhen(~pkg_size_fifo.io.push.ready)
+    val halt = ~pkg_size_fifo.io.push.ready
+    dataFifo.io.push << io.raw_data.haltWhen(halt)
     io.result_data << dataFifo.io.pop
     when(io.raw_data.lastFire){
 
