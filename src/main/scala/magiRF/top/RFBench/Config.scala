@@ -345,4 +345,8 @@ object Config {
     def cross_clk_fifo_depth: Int = rf_payload_upper_boundary.toInt + 2
 
     def genStreamPkgConfig: StreamPackageRestructuredConfig = StreamPackageRestructuredConfig(phyDataWidth, streamDataWidth, LITTLE, useKeep = true)
+
+    def rxFifoDepth: Int = (rf_payload_upper_boundary.toDouble / (streamDataWidth/phyDataWidth)).floor.toInt
+
+    def rxFifoCntType: UInt = UInt(log2Up(rxFifoDepth + 1) bits)
 }
