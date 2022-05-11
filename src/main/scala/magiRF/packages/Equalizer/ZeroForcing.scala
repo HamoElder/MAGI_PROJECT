@@ -47,26 +47,3 @@ object ZeroForcingBench {
         SpinalConfig(targetDirectory = "rtl/ZeroForcing").generateSystemVerilog(new ZeroForcing(9 exp, -6 exp, 16)).printPruned()
     }
 }
-
-object UnsignedDividerSimApp extends App {
-    import spinal.core.sim._
-
-    SimConfig.withWave.allOptimisation
-        .doSim(new UnsignedDivider(16, 16, true)) { dut =>
-            dut.clockDomain.forkStimulus(5)
-            dut.io.flush #= false
-            dut.io.cmd.valid #= false
-            dut.io.rsp.ready #= true
-            dut.clockDomain.waitSampling(10)
-
-            for(idx <- 1 until 100){
-                dut.io.cmd.numerator #= 12345
-                dut.io.cmd.denominator #= idx
-                dut.io.cmd.valid #= true
-//                dut.io.raw_data.valid.randomize()
-                dut.clockDomain.waitSampling(1)
-            }
-
-            dut.clockDomain.waitSampling(50)
-    }
-}

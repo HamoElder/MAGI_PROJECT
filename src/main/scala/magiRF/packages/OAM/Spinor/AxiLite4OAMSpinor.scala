@@ -12,13 +12,11 @@ case class AxiLite4OAMSpinorConfig(
                                   cfgDataWidth: Int = 32
                                   ){
     require(modalNum <= eleNum, "The num of Modal must equal or less than the num of Channels(Antenna elements).")
-    def addressWidth = 8
+    def addressWidth: Int = 8
     def axiLite4Config: AxiLite4Config = AxiLite4Config(addressWidth, cfgDataWidth)
     def iqDataType: SInt = SInt(iqWidth bits)
     def modDataWidth: Int = iqWidth + iqWidth
     def modDataType: SInt = SInt(modDataWidth bits)
-
-    override def equals(that: Any): Boolean = that == this
 }
 
 

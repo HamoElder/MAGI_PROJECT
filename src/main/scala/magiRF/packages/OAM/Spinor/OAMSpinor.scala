@@ -7,7 +7,7 @@ import utils.bus.IQBundle.IQBundle
 import utils.common.ClkCrossing.ClkCrossing
 
 case class OAMSpinor(iqWidth: Int, eleNum: Int, modalNum: Int) extends Component {
-    require(modalNum <= eleNum, "The num of Modal must equal or less than the num of Channels(Antenna elements).")
+    require(modalNum <= eleNum, "The num of modal must equal or less than the num of Channels(Antenna elements).")
     def iqDataType: SInt = SInt(iqWidth bits)
     def modDataWidth: Int = iqWidth + iqWidth
     def modDataType: SInt = SInt(modDataWidth bits)
@@ -58,9 +58,9 @@ case class OAMSpinor(iqWidth: Int, eleNum: Int, modalNum: Int) extends Component
     val mod_iq_valid_vec: Vec[Bool] = Vec(Bool(), eleNum)
     for(ele <- 0 until eleNum){
         val antenna_compose = ChaCompose(modDataWidth, modalNum)
-        for(idx <- 0 until modalNum){
-            antenna_compose.io.mod_sub_iqs(idx).payload := mod_sub_iqs_vec(idx* eleNum + ele)
-            antenna_compose.io.mod_sub_iqs(idx).valid := mod_sub_valid_vec(idx* eleNum + ele)
+        for(mod <- 0 until modalNum){
+            antenna_compose.io.mod_sub_iqs(mod).payload := mod_sub_iqs_vec(mod* eleNum + ele)
+            antenna_compose.io.mod_sub_iqs(mod).valid := mod_sub_valid_vec(mod* eleNum + ele)
         }
         io.mod_iqs.payload(ele) := antenna_compose.io.mod_iq.payload
         mod_iq_valid_vec(ele) := antenna_compose.io.mod_iq.valid
