@@ -5,7 +5,7 @@ import spinal.lib._
 
 case class RSDecoder() extends Component {
     val io = new Bundle{
-
+        val data = slave(Stream(UInt(32 bits)))
     }
     noIoPrefix()
 
