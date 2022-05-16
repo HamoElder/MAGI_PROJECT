@@ -29,7 +29,7 @@ case class DDS_Config(  dataWidth          : Int,
 
 case class DDS(config: DDS_Config) extends Component {
     val io = new Bundle{
-        val data = master(Flow(config.dataType))
+        val data = master(Stream(config.dataType))
         val phase = if(config.usePhaseChannel) master(Flow(config.phaseType)) else null
         val channel_en = in Bool()
         val sync_en = in Bool()
@@ -48,8 +48,9 @@ case class DDS(config: DDS_Config) extends Component {
     val module_en = io.sync_en && io.channel_en
 
     val phase_cursor = Reg(config.phaseType) init(0)
+    val valid_buf = Reg(Bool) init(False)
 
-    when(module_en){
+    when(module_en && io.data.ready){
         when(phase_cursor >= io.phase_limit){
             phase_cursor := 0
         }.otherwise{
@@ -61,6 +62,9 @@ case class DDS(config: DDS_Config) extends Component {
                 phase_cursor := phase_cursor + 1
             }
         }
+        valid_buf := True
+    }.otherwise{
+        valid_buf := False
     }
 
     val mem = Mem(config.dataType, initialContent = config.romTable).addAttribute("ram_style", "block")
@@ -72,22 +76,17 @@ case class DDS(config: DDS_Config) extends Component {
             data = io.w_data
         )
     }
-    val valid_o_buf = Reg(Bool) init(False)
+
     io.data.payload := mem.readSync(phase_cursor)
-    io.data.valid := valid_o_buf
+    io.data.valid := RegNext(valid_buf) init(False)
 
     if(config.usePhaseChannel){
         val phase_o_buf = Reg(config.phaseType) init(0)
-        io.phase.valid := valid_o_buf
+        io.phase.valid := RegNext(valid_buf) init(False)
         io.phase.payload := phase_o_buf
         when(module_en){
             phase_o_buf := phase_cursor
         }
-    }
-    when(module_en){
-        valid_o_buf := True
-    }.otherwise{
-        valid_o_buf := False
     }
 
     // Bus interface function module

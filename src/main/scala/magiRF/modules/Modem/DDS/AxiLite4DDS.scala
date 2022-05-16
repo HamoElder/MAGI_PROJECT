@@ -28,7 +28,7 @@ case class AxiLite4DDSConfig(
 case class AxiLite4DDS(config : AxiLite4DDSConfig) extends Component{
     val io = new Bundle{
         val axil4Ctrl = slave(AxiLite4(config.axiLite4Config))
-        val data = Vec(master(Flow(config.ddsConfig.dataType)), config.channelsNum)
+        val data = Vec(master(Stream(config.ddsConfig.dataType)), config.channelsNum)
         val phase = if(config.usePhaseChannel) Vec(master(Flow(config.ddsConfig.phaseType)), config.channelsNum) else null
 
         val rf_clk = in(Bool())
@@ -56,6 +56,7 @@ case class AxiLite4DDS(config : AxiLite4DDSConfig) extends Component{
             val dds_core = DDS(config.ddsConfig)
             io.data(idx).payload := dds_core.io.data.payload
             io.data(idx).valid := dds_core.io.data.valid
+            dds_core.io.data.ready := io.data(idx).ready
             if(config.usePhaseChannel){
                 io.phase(idx).payload := dds_core.io.phase.payload
                 io.phase(idx).valid := dds_core.io.phase.valid

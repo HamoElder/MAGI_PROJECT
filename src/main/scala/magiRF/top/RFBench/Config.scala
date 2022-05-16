@@ -9,9 +9,9 @@ import magiRF.modules.Modem.Demodulator.extensions.lookUpDemodConfig
 import magiRF.modules.Modem.Misc.{dataCombinationConfig, dataDivConfig, demodUnitConfig, modUnitConfig}
 import magiRF.modules.Modem.Modulator.modRTLConfig
 import magiRF.modules.Modem.Modulator.extensions.{ModExtension, lookUpModConfig, mPSKModExtension, mQAMModExtension}
-import magiRF.packages.CFO.CFOCorrectorConfig
 import magiRF.packages.Coder.Convolutional.Decoder.ViterbiDecoderConfig
 import magiRF.packages.Coder.Convolutional.Encoder.ConvEncoderConfig
+import magiRF.packages.Estimator.CFOEstimator.CFOCorrectorConfig
 import magiRF.packages.PackageGen.{AxiLite4PackageGenConfig, StreamPkgGenConfig}
 import magiRF.packages.PackageRestructured.StreamPackageRestructuredConfig
 import magiRF.packages.Preamble.{PreambleConfig, PreambleDetectorConfig}

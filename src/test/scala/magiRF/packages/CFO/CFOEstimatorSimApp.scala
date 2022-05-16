@@ -2,6 +2,7 @@ package magiRF.packages.CFO
 
 import Misc.math.Complex
 import Misc.math.ZadoffChuSeq.zcSeqGen
+import magiRF.packages.Estimator.CFOEstimator.{CFOEstimator, CFOEstimatorConfig}
 
 import scala.util.Random
 import spinal.core.sim._

@@ -1,6 +1,7 @@
 package magiRF.packages.CFO
 
 import Misc.math.Complex
+import magiRF.packages.Estimator.CFOEstimator.{CFOCorrector, CFOCorrectorConfig}
 
 import scala.util.Random
 import spinal.core.sim._

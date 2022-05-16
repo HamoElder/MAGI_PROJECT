@@ -1,5 +1,6 @@
 package magiRF.packages.CFO
 import Misc.math.Complex
+import magiRF.packages.Estimator.CFOEstimator.{PhaseRotator, PhaseRotatorConfig}
 import spinal.core.sim._
 
 

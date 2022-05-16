@@ -5,8 +5,8 @@ import magiRF.modules.DSP.Decimator.DecimatorIQ
 import magiRF.modules.Filters.FIR.TransposeFIR
 import magiRF.modules.Modem.Demodulator.DemodulatorRTL
 import magiRF.modules.Modem.Misc.dataCombination
-import magiRF.packages.CFO.CFOCorrector
 import magiRF.packages.Equalizer.SCEqualizer
+import magiRF.packages.Estimator.CFOEstimator.CFOCorrector
 import magiRF.packages.Preamble.PreambleDetector
 import magiRF.packages.Scramble.Scrambler
 import magiRF.top.RFBench.Config.{codedDataType, codedDataWidth, crc32_config, crc_data_width, crc_reset_cycle, decoded_data_comb_config, demodSymbolCntDataType, demod_data_comb_config, demod_data_shift, demod_size_shift, down_sampling_decimation, filter_cut_off_width, genDemodulatorConfig, headerCorrectorWinDatatype, header_corrector_config, header_corrector_out_datatype, header_corrector_win_cnt_datatype, header_corrector_win_limit, interfaceIQDataType, modIQDataType, mod_method_type, mod_method_width, padding_size, phyDataType, phyDataWidth, preamble_config, receiver_use_timeout, rf_payload_upper_boundary, rx_coarse_cfo_corrector_config, rx_package_data_type, rx_package_data_width, scrambler_poly, scrambler_reg_width, sdf_i_array, sdf_size, size_data_type, size_width, srrcConfig, srrcTaps, streamDataWidth, stream_config, viterbi_decoder_config}
