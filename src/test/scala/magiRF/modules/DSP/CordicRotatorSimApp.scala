@@ -18,7 +18,7 @@ object CordicRotatorSimApp extends App{
      * Get sequences of length n that go atan(1), atan(0.5), atan(0.25), ...
      */
     def arctanRam(n: Int):Seq[Double] = linearRam(n).map(Math.atan)
-    val cordic_config = CordicConfig(16 exp, -15 exp, 16, linearRam, usePipeline = true, useProgrammable = true)
+    val cordic_config = CordicConfig(16 exp, -15 exp, 16, linearRam, usePipeline = false, useProgrammable = true)
 
     SimConfig
         .withWave

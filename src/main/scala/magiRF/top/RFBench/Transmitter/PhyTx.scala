@@ -222,7 +222,7 @@ case class PhyTxICFront() extends Component{
     io.raw_data.ready := io.result_data.ready
     io.result_data.cha_i := io.raw_data.valid ? io.raw_data.cha_i.asBits | 0
     io.result_data.cha_q := io.raw_data.valid ? io.raw_data.cha_q.asBits | 0
-    io.result_data.valid := io.raw_data.valid
+    io.result_data.valid := io.raw_data.valid | True
 }
 
 

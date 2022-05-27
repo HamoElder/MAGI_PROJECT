@@ -15,8 +15,8 @@ object BDMAm2sSimApp extends App{
         dut.io.m2s_data.stream.ready #= true
         dut.io.dma_r.data #= r_data
         dut.clockDomain.waitSampling(10)
-        dut.io.m2s_cch.desc_start_addr #= 0x10015274
-        dut.io.m2s_cch.desc_total_bytes #= 8
+        dut.io.m2s_cch.desc_start_addr #= 0x10015272
+        dut.io.m2s_cch.desc_total_bytes #= 1000
         dut.io.m2s_cch.desc_burst #= 1
         dut.io.m2s_cch.desc_id #= 3
         dut.io.m2s_cch.valid #= true

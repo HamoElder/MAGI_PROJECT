@@ -8,7 +8,6 @@
 void VLoopBackTest::_ctor_var_reset_5() {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VLoopBackTest::_ctor_var_reset_5\n"); );
     // Body
-    LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_52 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_53 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_54 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_55 = VL_RAND_RESET_I(1);
@@ -509,12 +508,12 @@ void VLoopBackTest::_ctor_var_reset_5() {
     LoopBackTest__DOT__receiver__DOT__phy_rx_de_puncher_de_punched_data_fifo__DOT__logic_pushing = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_de_puncher_de_punched_data_fifo__DOT__logic_popping = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_de_puncher_de_punched_data_fifo__DOT__logic_full = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_de_puncher_de_punched_data_fifo__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
 }
 
 void VLoopBackTest::_ctor_var_reset_6() {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VLoopBackTest::_ctor_var_reset_6\n"); );
     // Body
-    LoopBackTest__DOT__receiver__DOT__phy_rx_de_puncher_de_punched_data_fifo__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
     { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
             LoopBackTest__DOT__receiver__DOT__phy_rx_de_puncher_de_punched_data_fifo__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(5);
     }}

@@ -56,6 +56,7 @@ case class RFBenchAD9361() extends Component{
         val recv_data = master(AxiStream4(stream_config))
         val rf_if = PhyTxInterface()
         val recv_intr = out(Bool())
+        val ad9361_rx_clk = out(Bool())
     }
     noIoPrefix()
     AxiStream4SpecRenamer(io.trans_data)
@@ -70,7 +71,7 @@ case class RFBenchAD9361() extends Component{
     stream_package_gen.io.raw_data << io.trans_data
     val core_to_rf_fifoCc = StreamFifoCC(
         Fragment(phyDataType),
-        16,
+        64,
         this.clockDomain,
         rf_interface.txClockDomain
     )
@@ -86,14 +87,14 @@ case class RFBenchAD9361() extends Component{
     rx_intr_ctrl.io.raw_data << rf_to_core_fifoCc.io.pop
     io.recv_data << rx_intr_ctrl.io.result_data
     io.recv_intr := rx_intr_ctrl.io.intr
-
+    io.ad9361_rx_clk := rf_interface.io.data_clk
     val rfTxClockArea = new ClockingArea(rf_interface.txClockDomain){
         val transmitter = TX()
         transmitter.io.raw_data << core_to_rf_fifoCc.io.pop
         transmitter.io.rf_data.ready := rf_interface.io.dac_data.ready
         rf_interface.io.dac_data.valid := transmitter.io.rf_data.valid
         rf_interface.io.dac_data.payload(1) := transmitter.io.rf_data.payload
-        rf_interface.io.dac_data.payload(0) := interfaceIQDataType.getZero
+        rf_interface.io.dac_data.payload(0) := transmitter.io.rf_data.payload
         rf_interface.io.dac_t1_mod := False
         rf_interface.io.adc_r1_mod := False
 
@@ -105,8 +106,8 @@ case class RFBenchAD9361() extends Component{
         io.rf_if.tx_fb_clk := rf_interface.io.tx_fb_clk
         io.rf_if.tx_if_data := rf_interface.io.tx_if_data
 
-        val tx_ila = Ila(Seq(rf_interface.io.dac_data.valid, rf_interface.io.dac_data.payload(0).cha_i,
-            rf_interface.io.dac_data.payload(0).cha_q, rf_interface.io.dac_data.payload(1).cha_i, rf_interface.io.dac_data.payload(1).cha_q), 2048)
+//        val tx_ila = Ila(Seq(rf_interface.io.dac_data.valid, rf_interface.io.dac_data.payload(0).cha_i,
+//            rf_interface.io.dac_data.payload(0).cha_q, rf_interface.io.dac_data.payload(1).cha_i, rf_interface.io.dac_data.payload(1).cha_q), 2048)
     }
 
     val rfRxClockArea = new ClockingArea(rf_interface.rxClockDomain){
@@ -117,8 +118,8 @@ case class RFBenchAD9361() extends Component{
         stream_package_restructured.io.pkg_data << receiver.io.result_data
         rf_to_core_fifoCc.io.push << stream_package_restructured.io.stream_data.stream
 
-        val rx_ila = Ila(Seq(rf_interface.io.adc_data.valid, rf_interface.io.adc_data.payload(0).cha_i,
-            rf_interface.io.adc_data.payload(0).cha_q, rf_interface.io.adc_data.payload(1).cha_i, rf_interface.io.adc_data.payload(1).cha_q), 2048)
+//        val rx_ila = Ila(Seq(rf_interface.io.adc_data.valid, rf_interface.io.adc_data.payload(0).cha_i,
+//            rf_interface.io.adc_data.payload(0).cha_q, rf_interface.io.adc_data.payload(1).cha_i, rf_interface.io.adc_data.payload(1).cha_q), 2048)
     }
 
     val pkg_gen_bridge: Area = stream_package_gen.driveFrom(axil4busCtrl, 0x00, this.clockDomain, this.clockDomain)

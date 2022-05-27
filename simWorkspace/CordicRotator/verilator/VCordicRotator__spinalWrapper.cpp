@@ -159,7 +159,7 @@ public:
     uint32_t timeCheck;
     bool waveEnabled;
     VCordicRotator top;
-    ISignalAccess *signalAccess[16];
+    ISignalAccess *signalAccess[17];
     #ifdef TRACE
 	  VerilatedVcdC tfp;
 	  #endif
@@ -171,22 +171,23 @@ public:
       timeCheck = 0;
       lastFlushAt = high_resolution_clock::now();
       waveEnabled = true;
-      signalAccess[0] = new CDataSignalAccess( top.rotate_mode );
-      signalAccess[1] = new CDataSignalAccess( top.x_u );
-      signalAccess[2] = new CDataSignalAccess( top.w_en );
-      signalAccess[3] = new CDataSignalAccess( top.w_addr );
-      signalAccess[4] = new IDataSignalAccess( top.w_data );
-      signalAccess[5] = new CDataSignalAccess( top.raw_data_valid );
-      signalAccess[6] = new CDataSignalAccess( top.raw_data_ready );
-      signalAccess[7] = new IDataSignalAccess( top.raw_data_payload_x );
-      signalAccess[8] = new IDataSignalAccess( top.raw_data_payload_y );
-      signalAccess[9] = new IDataSignalAccess( top.raw_data_payload_z );
-      signalAccess[10] = new CDataSignalAccess( top.result_valid );
-      signalAccess[11] = new IDataSignalAccess( top.result_payload_x );
-      signalAccess[12] = new IDataSignalAccess( top.result_payload_y );
-      signalAccess[13] = new IDataSignalAccess( top.result_payload_z );
-      signalAccess[14] = new CDataSignalAccess( top.clk );
-      signalAccess[15] = new CDataSignalAccess( top.reset );
+      signalAccess[0] = new CDataSignalAccess( top.iter_limit );
+      signalAccess[1] = new CDataSignalAccess( top.rotate_mode );
+      signalAccess[2] = new CDataSignalAccess( top.x_u );
+      signalAccess[3] = new CDataSignalAccess( top.w_en );
+      signalAccess[4] = new CDataSignalAccess( top.w_addr );
+      signalAccess[5] = new IDataSignalAccess( top.w_data );
+      signalAccess[6] = new CDataSignalAccess( top.raw_data_valid );
+      signalAccess[7] = new CDataSignalAccess( top.raw_data_ready );
+      signalAccess[8] = new IDataSignalAccess( top.raw_data_payload_x );
+      signalAccess[9] = new IDataSignalAccess( top.raw_data_payload_y );
+      signalAccess[10] = new IDataSignalAccess( top.raw_data_payload_z );
+      signalAccess[11] = new CDataSignalAccess( top.result_valid );
+      signalAccess[12] = new IDataSignalAccess( top.result_payload_x );
+      signalAccess[13] = new IDataSignalAccess( top.result_payload_y );
+      signalAccess[14] = new IDataSignalAccess( top.result_payload_z );
+      signalAccess[15] = new CDataSignalAccess( top.clk );
+      signalAccess[16] = new CDataSignalAccess( top.reset );
 
       #ifdef TRACE
       Verilated::traceEverOn(true);
@@ -197,7 +198,7 @@ public:
     }
 
     virtual ~Wrapper_1(){
-      for(int idx = 0;idx < 16;idx++){
+      for(int idx = 0;idx < 17;idx++){
           delete signalAccess[idx];
       }
 

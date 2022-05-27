@@ -1,25 +1,8 @@
-// Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
+// Generator : SpinalHDL v1.7.0    git head : eca519e78d4e6022e34911ec300a432ed9db8220
 // Component : AxiLite4BDMA
-// Git hash  : 222c5ee6dba0c343bb79144fda839f9d81a69efd
+// Git hash  : 5d7ff74cd2cfb579fca78f32093b885428898498
 
-
-`define BDMAs2mStates_binary_sequential_type [1:0]
-`define BDMAs2mStates_binary_sequential_IDLE 2'b00
-`define BDMAs2mStates_binary_sequential_REQ 2'b01
-`define BDMAs2mStates_binary_sequential_BURST 2'b10
-`define BDMAs2mStates_binary_sequential_DROP 2'b11
-
-`define BDMAm2sStates_binary_sequential_type [1:0]
-`define BDMAm2sStates_binary_sequential_IDLE 2'b00
-`define BDMAm2sStates_binary_sequential_BURST 2'b01
-`define BDMAm2sStates_binary_sequential_FINAL_1 2'b10
-
-`define BDMAcchStates_binary_sequential_type [1:0]
-`define BDMAcchStates_binary_sequential_IDLE 2'b00
-`define BDMAcchStates_binary_sequential_FIXED_REQ 2'b01
-`define BDMAcchStates_binary_sequential_INCR_REQ 2'b10
-`define BDMAcchStates_binary_sequential_HALT 2'b11
-
+`timescale 1ns/1ps
 
 module AxiLite4BDMA (
   input               axil4Ctrl_awvalid,
@@ -116,6 +99,14 @@ module AxiLite4BDMA (
   input               clk,
   input               resetn
 );
+  localparam BDMAs2mStates_IDLE = 2'd0;
+  localparam BDMAs2mStates_REQ = 2'd1;
+  localparam BDMAs2mStates_BURST = 2'd2;
+  localparam BDMAs2mStates_DROP = 2'd3;
+  localparam BDMAm2sStates_IDLE = 2'd0;
+  localparam BDMAm2sStates_BURST = 2'd1;
+  localparam BDMAm2sStates_FINAL_1 = 2'd2;
+
   wire                bdma_core_axi4S2M_arvalid;
   wire       [31:0]   bdma_core_axi4S2M_araddr;
   wire       [3:0]    bdma_core_axi4S2M_arid;
@@ -160,8 +151,8 @@ module AxiLite4BDMA (
   wire                bdma_core_dataM2S_tlast;
   wire                bdma_core_cchS2M_ready;
   wire                bdma_core_cchM2S_ready;
-  wire       `BDMAs2mStates_binary_sequential_type bdma_core_indicatorS2M;
-  wire       `BDMAm2sStates_binary_sequential_type bdma_core_indicatorM2S;
+  wire       [1:0]    bdma_core_indicatorS2M;
+  wire       [1:0]    bdma_core_indicatorM2S;
   wire                bdma_core_intrS2M;
   wire                bdma_core_intrM2S;
   wire                readHaltRequest;
@@ -178,15 +169,15 @@ module AxiLite4BDMA (
   wire                _zz_axil4Ctrl_bvalid_1;
   reg                 _zz_axil4Ctrl_bvalid_2;
   reg        [1:0]    _zz_axil4Ctrl_bresp;
-  wire                when_Stream_l342;
-  wire                axil4Ctrl_ar_readDataStage_valid;
-  wire                axil4Ctrl_ar_readDataStage_ready;
-  wire       [7:0]    axil4Ctrl_ar_readDataStage_payload_addr;
-  wire       [2:0]    axil4Ctrl_ar_readDataStage_payload_prot;
+  wire                when_Stream_l368;
+  wire                readDataStage_valid;
+  wire                readDataStage_ready;
+  wire       [7:0]    readDataStage_payload_addr;
+  wire       [2:0]    readDataStage_payload_prot;
   reg                 axil4Ctrl_ar_rValid;
   reg        [7:0]    axil4Ctrl_ar_rData_addr;
   reg        [2:0]    axil4Ctrl_ar_rData_prot;
-  wire                when_Stream_l342_1;
+  wire                when_Stream_l368_1;
   reg        [31:0]   readRsp_data;
   wire       [1:0]    readRsp_resp;
   wire                _zz_axil4Ctrl_rvalid;
@@ -206,96 +197,96 @@ module AxiLite4BDMA (
   reg                 bdma_core_cchM2S_payload_desc_reset_driver;
 
   BDMACore bdma_core (
-    .axi4S2M_awvalid                    (bdma_core_axi4S2M_awvalid                         ), //o
-    .axi4S2M_awready                    (axi4S2M_awready                                   ), //i
-    .axi4S2M_awaddr                     (bdma_core_axi4S2M_awaddr                          ), //o
-    .axi4S2M_awid                       (bdma_core_axi4S2M_awid                            ), //o
-    .axi4S2M_awlen                      (bdma_core_axi4S2M_awlen                           ), //o
-    .axi4S2M_awsize                     (bdma_core_axi4S2M_awsize                          ), //o
-    .axi4S2M_awburst                    (bdma_core_axi4S2M_awburst                         ), //o
-    .axi4S2M_wvalid                     (bdma_core_axi4S2M_wvalid                          ), //o
-    .axi4S2M_wready                     (axi4S2M_wready                                    ), //i
-    .axi4S2M_wdata                      (bdma_core_axi4S2M_wdata                           ), //o
-    .axi4S2M_wstrb                      (bdma_core_axi4S2M_wstrb                           ), //o
-    .axi4S2M_wlast                      (bdma_core_axi4S2M_wlast                           ), //o
-    .axi4S2M_bvalid                     (axi4S2M_bvalid                                    ), //i
-    .axi4S2M_bready                     (bdma_core_axi4S2M_bready                          ), //o
-    .axi4S2M_bid                        (axi4S2M_bid                                       ), //i
-    .axi4S2M_bresp                      (axi4S2M_bresp                                     ), //i
-    .axi4S2M_arvalid                    (bdma_core_axi4S2M_arvalid                         ), //o
-    .axi4S2M_arready                    (axi4S2M_arready                                   ), //i
-    .axi4S2M_araddr                     (bdma_core_axi4S2M_araddr                          ), //o
-    .axi4S2M_arid                       (bdma_core_axi4S2M_arid                            ), //o
-    .axi4S2M_arlen                      (bdma_core_axi4S2M_arlen                           ), //o
-    .axi4S2M_arsize                     (bdma_core_axi4S2M_arsize                          ), //o
-    .axi4S2M_arburst                    (bdma_core_axi4S2M_arburst                         ), //o
-    .axi4S2M_rvalid                     (axi4S2M_rvalid                                    ), //i
-    .axi4S2M_rready                     (bdma_core_axi4S2M_rready                          ), //o
-    .axi4S2M_rdata                      (axi4S2M_rdata                                     ), //i
-    .axi4S2M_rid                        (axi4S2M_rid                                       ), //i
-    .axi4S2M_rresp                      (axi4S2M_rresp                                     ), //i
-    .axi4S2M_rlast                      (axi4S2M_rlast                                     ), //i
-    .axi4M2S_awvalid                    (bdma_core_axi4M2S_awvalid                         ), //o
-    .axi4M2S_awready                    (axi4M2S_awready                                   ), //i
-    .axi4M2S_awaddr                     (bdma_core_axi4M2S_awaddr                          ), //o
-    .axi4M2S_awid                       (bdma_core_axi4M2S_awid                            ), //o
-    .axi4M2S_awlen                      (bdma_core_axi4M2S_awlen                           ), //o
-    .axi4M2S_awsize                     (bdma_core_axi4M2S_awsize                          ), //o
-    .axi4M2S_awburst                    (bdma_core_axi4M2S_awburst                         ), //o
-    .axi4M2S_wvalid                     (bdma_core_axi4M2S_wvalid                          ), //o
-    .axi4M2S_wready                     (axi4M2S_wready                                    ), //i
-    .axi4M2S_wdata                      (bdma_core_axi4M2S_wdata                           ), //o
-    .axi4M2S_wstrb                      (bdma_core_axi4M2S_wstrb                           ), //o
-    .axi4M2S_wlast                      (bdma_core_axi4M2S_wlast                           ), //o
-    .axi4M2S_bvalid                     (axi4M2S_bvalid                                    ), //i
-    .axi4M2S_bready                     (bdma_core_axi4M2S_bready                          ), //o
-    .axi4M2S_bid                        (axi4M2S_bid                                       ), //i
-    .axi4M2S_bresp                      (axi4M2S_bresp                                     ), //i
-    .axi4M2S_arvalid                    (bdma_core_axi4M2S_arvalid                         ), //o
-    .axi4M2S_arready                    (axi4M2S_arready                                   ), //i
-    .axi4M2S_araddr                     (bdma_core_axi4M2S_araddr                          ), //o
-    .axi4M2S_arid                       (bdma_core_axi4M2S_arid                            ), //o
-    .axi4M2S_arlen                      (bdma_core_axi4M2S_arlen                           ), //o
-    .axi4M2S_arsize                     (bdma_core_axi4M2S_arsize                          ), //o
-    .axi4M2S_arburst                    (bdma_core_axi4M2S_arburst                         ), //o
-    .axi4M2S_rvalid                     (axi4M2S_rvalid                                    ), //i
-    .axi4M2S_rready                     (bdma_core_axi4M2S_rready                          ), //o
-    .axi4M2S_rdata                      (axi4M2S_rdata                                     ), //i
-    .axi4M2S_rid                        (axi4M2S_rid                                       ), //i
-    .axi4M2S_rresp                      (axi4M2S_rresp                                     ), //i
-    .axi4M2S_rlast                      (axi4M2S_rlast                                     ), //i
-    .dataS2M_tvalid                     (dataS2M_tvalid                                    ), //i
-    .dataS2M_tready                     (bdma_core_dataS2M_tready                          ), //o
-    .dataS2M_tdata                      (dataS2M_tdata                                     ), //i
-    .dataS2M_tstrb                      (dataS2M_tstrb                                     ), //i
-    .dataS2M_tkeep                      (dataS2M_tkeep                                     ), //i
-    .dataS2M_tlast                      (dataS2M_tlast                                     ), //i
-    .dataM2S_tvalid                     (bdma_core_dataM2S_tvalid                          ), //o
-    .dataM2S_tready                     (dataM2S_tready                                    ), //i
-    .dataM2S_tdata                      (bdma_core_dataM2S_tdata                           ), //o
-    .dataM2S_tstrb                      (bdma_core_dataM2S_tstrb                           ), //o
-    .dataM2S_tkeep                      (bdma_core_dataM2S_tkeep                           ), //o
-    .dataM2S_tlast                      (bdma_core_dataM2S_tlast                           ), //o
-    .cchS2M_valid                       (bdma_core_cchS2M_valid_driver                     ), //i
-    .cchS2M_ready                       (bdma_core_cchS2M_ready                            ), //o
-    .cchS2M_payload_desc_start_addr     (bdma_core_cchS2M_payload_desc_start_addr_driver   ), //i
-    .cchS2M_payload_desc_total_bytes    (bdma_core_cchS2M_payload_desc_total_bytes_driver  ), //i
-    .cchS2M_payload_desc_burst          (bdma_core_cchS2M_payload_desc_burst_driver        ), //i
-    .cchS2M_payload_desc_id             (bdma_core_cchS2M_payload_desc_id_driver           ), //i
-    .cchS2M_payload_desc_reset          (bdma_core_cchS2M_payload_desc_reset_driver        ), //i
-    .cchM2S_valid                       (bdma_core_cchM2S_valid_driver                     ), //i
-    .cchM2S_ready                       (bdma_core_cchM2S_ready                            ), //o
-    .cchM2S_payload_desc_start_addr     (bdma_core_cchM2S_payload_desc_start_addr_driver   ), //i
-    .cchM2S_payload_desc_total_bytes    (bdma_core_cchM2S_payload_desc_total_bytes_driver  ), //i
-    .cchM2S_payload_desc_burst          (bdma_core_cchM2S_payload_desc_burst_driver        ), //i
-    .cchM2S_payload_desc_id             (bdma_core_cchM2S_payload_desc_id_driver           ), //i
-    .cchM2S_payload_desc_reset          (bdma_core_cchM2S_payload_desc_reset_driver        ), //i
-    .indicatorS2M                       (bdma_core_indicatorS2M                            ), //o
-    .indicatorM2S                       (bdma_core_indicatorM2S                            ), //o
-    .intrS2M                            (bdma_core_intrS2M                                 ), //o
-    .intrM2S                            (bdma_core_intrM2S                                 ), //o
-    .clk                                (clk                                               ), //i
-    .resetn                             (resetn                                            )  //i
+    .axi4S2M_awvalid                 (bdma_core_axi4S2M_awvalid                             ), //o
+    .axi4S2M_awready                 (axi4S2M_awready                                       ), //i
+    .axi4S2M_awaddr                  (bdma_core_axi4S2M_awaddr[31:0]                        ), //o
+    .axi4S2M_awid                    (bdma_core_axi4S2M_awid[3:0]                           ), //o
+    .axi4S2M_awlen                   (bdma_core_axi4S2M_awlen[7:0]                          ), //o
+    .axi4S2M_awsize                  (bdma_core_axi4S2M_awsize[2:0]                         ), //o
+    .axi4S2M_awburst                 (bdma_core_axi4S2M_awburst[1:0]                        ), //o
+    .axi4S2M_wvalid                  (bdma_core_axi4S2M_wvalid                              ), //o
+    .axi4S2M_wready                  (axi4S2M_wready                                        ), //i
+    .axi4S2M_wdata                   (bdma_core_axi4S2M_wdata[31:0]                         ), //o
+    .axi4S2M_wstrb                   (bdma_core_axi4S2M_wstrb[3:0]                          ), //o
+    .axi4S2M_wlast                   (bdma_core_axi4S2M_wlast                               ), //o
+    .axi4S2M_bvalid                  (axi4S2M_bvalid                                        ), //i
+    .axi4S2M_bready                  (bdma_core_axi4S2M_bready                              ), //o
+    .axi4S2M_bid                     (axi4S2M_bid[3:0]                                      ), //i
+    .axi4S2M_bresp                   (axi4S2M_bresp[1:0]                                    ), //i
+    .axi4S2M_arvalid                 (bdma_core_axi4S2M_arvalid                             ), //o
+    .axi4S2M_arready                 (axi4S2M_arready                                       ), //i
+    .axi4S2M_araddr                  (bdma_core_axi4S2M_araddr[31:0]                        ), //o
+    .axi4S2M_arid                    (bdma_core_axi4S2M_arid[3:0]                           ), //o
+    .axi4S2M_arlen                   (bdma_core_axi4S2M_arlen[7:0]                          ), //o
+    .axi4S2M_arsize                  (bdma_core_axi4S2M_arsize[2:0]                         ), //o
+    .axi4S2M_arburst                 (bdma_core_axi4S2M_arburst[1:0]                        ), //o
+    .axi4S2M_rvalid                  (axi4S2M_rvalid                                        ), //i
+    .axi4S2M_rready                  (bdma_core_axi4S2M_rready                              ), //o
+    .axi4S2M_rdata                   (axi4S2M_rdata[31:0]                                   ), //i
+    .axi4S2M_rid                     (axi4S2M_rid[3:0]                                      ), //i
+    .axi4S2M_rresp                   (axi4S2M_rresp[1:0]                                    ), //i
+    .axi4S2M_rlast                   (axi4S2M_rlast                                         ), //i
+    .axi4M2S_awvalid                 (bdma_core_axi4M2S_awvalid                             ), //o
+    .axi4M2S_awready                 (axi4M2S_awready                                       ), //i
+    .axi4M2S_awaddr                  (bdma_core_axi4M2S_awaddr[31:0]                        ), //o
+    .axi4M2S_awid                    (bdma_core_axi4M2S_awid[3:0]                           ), //o
+    .axi4M2S_awlen                   (bdma_core_axi4M2S_awlen[7:0]                          ), //o
+    .axi4M2S_awsize                  (bdma_core_axi4M2S_awsize[2:0]                         ), //o
+    .axi4M2S_awburst                 (bdma_core_axi4M2S_awburst[1:0]                        ), //o
+    .axi4M2S_wvalid                  (bdma_core_axi4M2S_wvalid                              ), //o
+    .axi4M2S_wready                  (axi4M2S_wready                                        ), //i
+    .axi4M2S_wdata                   (bdma_core_axi4M2S_wdata[31:0]                         ), //o
+    .axi4M2S_wstrb                   (bdma_core_axi4M2S_wstrb[3:0]                          ), //o
+    .axi4M2S_wlast                   (bdma_core_axi4M2S_wlast                               ), //o
+    .axi4M2S_bvalid                  (axi4M2S_bvalid                                        ), //i
+    .axi4M2S_bready                  (bdma_core_axi4M2S_bready                              ), //o
+    .axi4M2S_bid                     (axi4M2S_bid[3:0]                                      ), //i
+    .axi4M2S_bresp                   (axi4M2S_bresp[1:0]                                    ), //i
+    .axi4M2S_arvalid                 (bdma_core_axi4M2S_arvalid                             ), //o
+    .axi4M2S_arready                 (axi4M2S_arready                                       ), //i
+    .axi4M2S_araddr                  (bdma_core_axi4M2S_araddr[31:0]                        ), //o
+    .axi4M2S_arid                    (bdma_core_axi4M2S_arid[3:0]                           ), //o
+    .axi4M2S_arlen                   (bdma_core_axi4M2S_arlen[7:0]                          ), //o
+    .axi4M2S_arsize                  (bdma_core_axi4M2S_arsize[2:0]                         ), //o
+    .axi4M2S_arburst                 (bdma_core_axi4M2S_arburst[1:0]                        ), //o
+    .axi4M2S_rvalid                  (axi4M2S_rvalid                                        ), //i
+    .axi4M2S_rready                  (bdma_core_axi4M2S_rready                              ), //o
+    .axi4M2S_rdata                   (axi4M2S_rdata[31:0]                                   ), //i
+    .axi4M2S_rid                     (axi4M2S_rid[3:0]                                      ), //i
+    .axi4M2S_rresp                   (axi4M2S_rresp[1:0]                                    ), //i
+    .axi4M2S_rlast                   (axi4M2S_rlast                                         ), //i
+    .dataS2M_tvalid                  (dataS2M_tvalid                                        ), //i
+    .dataS2M_tready                  (bdma_core_dataS2M_tready                              ), //o
+    .dataS2M_tdata                   (dataS2M_tdata[31:0]                                   ), //i
+    .dataS2M_tstrb                   (dataS2M_tstrb[3:0]                                    ), //i
+    .dataS2M_tkeep                   (dataS2M_tkeep[3:0]                                    ), //i
+    .dataS2M_tlast                   (dataS2M_tlast                                         ), //i
+    .dataM2S_tvalid                  (bdma_core_dataM2S_tvalid                              ), //o
+    .dataM2S_tready                  (dataM2S_tready                                        ), //i
+    .dataM2S_tdata                   (bdma_core_dataM2S_tdata[31:0]                         ), //o
+    .dataM2S_tstrb                   (bdma_core_dataM2S_tstrb[3:0]                          ), //o
+    .dataM2S_tkeep                   (bdma_core_dataM2S_tkeep[3:0]                          ), //o
+    .dataM2S_tlast                   (bdma_core_dataM2S_tlast                               ), //o
+    .cchS2M_valid                    (bdma_core_cchS2M_valid_driver                         ), //i
+    .cchS2M_ready                    (bdma_core_cchS2M_ready                                ), //o
+    .cchS2M_payload_desc_start_addr  (bdma_core_cchS2M_payload_desc_start_addr_driver[31:0] ), //i
+    .cchS2M_payload_desc_total_bytes (bdma_core_cchS2M_payload_desc_total_bytes_driver[29:0]), //i
+    .cchS2M_payload_desc_burst       (bdma_core_cchS2M_payload_desc_burst_driver[1:0]       ), //i
+    .cchS2M_payload_desc_id          (bdma_core_cchS2M_payload_desc_id_driver[3:0]          ), //i
+    .cchS2M_payload_desc_reset       (bdma_core_cchS2M_payload_desc_reset_driver            ), //i
+    .cchM2S_valid                    (bdma_core_cchM2S_valid_driver                         ), //i
+    .cchM2S_ready                    (bdma_core_cchM2S_ready                                ), //o
+    .cchM2S_payload_desc_start_addr  (bdma_core_cchM2S_payload_desc_start_addr_driver[31:0] ), //i
+    .cchM2S_payload_desc_total_bytes (bdma_core_cchM2S_payload_desc_total_bytes_driver[29:0]), //i
+    .cchM2S_payload_desc_burst       (bdma_core_cchM2S_payload_desc_burst_driver[1:0]       ), //i
+    .cchM2S_payload_desc_id          (bdma_core_cchM2S_payload_desc_id_driver[3:0]          ), //i
+    .cchM2S_payload_desc_reset       (bdma_core_cchM2S_payload_desc_reset_driver            ), //i
+    .indicatorS2M                    (bdma_core_indicatorS2M[1:0]                           ), //o
+    .indicatorM2S                    (bdma_core_indicatorM2S[1:0]                           ), //o
+    .intrS2M                         (bdma_core_intrS2M                                     ), //o
+    .intrM2S                         (bdma_core_intrM2S                                     ), //o
+    .clk                             (clk                                                   ), //i
+    .resetn                          (resetn                                                )  //i
   );
   assign readHaltRequest = 1'b0;
   assign writeHaltRequest = 1'b0;
@@ -310,36 +301,36 @@ module AxiLite4BDMA (
   assign writeJoinEvent_translated_ready = (_zz_writeJoinEvent_translated_ready && _zz_axil4Ctrl_bvalid);
   always @(*) begin
     _zz_writeJoinEvent_translated_ready = axil4Ctrl_bready;
-    if(when_Stream_l342) begin
+    if(when_Stream_l368) begin
       _zz_writeJoinEvent_translated_ready = 1'b1;
     end
   end
 
-  assign when_Stream_l342 = (! _zz_axil4Ctrl_bvalid_1);
+  assign when_Stream_l368 = (! _zz_axil4Ctrl_bvalid_1);
   assign _zz_axil4Ctrl_bvalid_1 = _zz_axil4Ctrl_bvalid_2;
   assign axil4Ctrl_bvalid = _zz_axil4Ctrl_bvalid_1;
   assign axil4Ctrl_bresp = _zz_axil4Ctrl_bresp;
   always @(*) begin
-    axil4Ctrl_arready = axil4Ctrl_ar_readDataStage_ready;
-    if(when_Stream_l342_1) begin
+    axil4Ctrl_arready = readDataStage_ready;
+    if(when_Stream_l368_1) begin
       axil4Ctrl_arready = 1'b1;
     end
   end
 
-  assign when_Stream_l342_1 = (! axil4Ctrl_ar_readDataStage_valid);
-  assign axil4Ctrl_ar_readDataStage_valid = axil4Ctrl_ar_rValid;
-  assign axil4Ctrl_ar_readDataStage_payload_addr = axil4Ctrl_ar_rData_addr;
-  assign axil4Ctrl_ar_readDataStage_payload_prot = axil4Ctrl_ar_rData_prot;
+  assign when_Stream_l368_1 = (! readDataStage_valid);
+  assign readDataStage_valid = axil4Ctrl_ar_rValid;
+  assign readDataStage_payload_addr = axil4Ctrl_ar_rData_addr;
+  assign readDataStage_payload_prot = axil4Ctrl_ar_rData_prot;
   assign _zz_axil4Ctrl_rvalid = (! readHaltRequest);
-  assign axil4Ctrl_ar_readDataStage_ready = (axil4Ctrl_rready && _zz_axil4Ctrl_rvalid);
-  assign axil4Ctrl_rvalid = (axil4Ctrl_ar_readDataStage_valid && _zz_axil4Ctrl_rvalid);
+  assign readDataStage_ready = (axil4Ctrl_rready && _zz_axil4Ctrl_rvalid);
+  assign axil4Ctrl_rvalid = (readDataStage_valid && _zz_axil4Ctrl_rvalid);
   assign axil4Ctrl_rdata = readRsp_data;
   assign axil4Ctrl_rresp = readRsp_resp;
   assign writeRsp_resp = 2'b00;
   assign readRsp_resp = 2'b00;
   always @(*) begin
     readRsp_data = 32'h0;
-    case(axil4Ctrl_ar_readDataStage_payload_addr)
+    case(readDataStage_payload_addr)
       8'h0 : begin
         readRsp_data[0 : 0] = bdma_core_cchS2M_valid_driver;
       end
@@ -629,13 +620,21 @@ module BDMACore (
   input      [1:0]    cchM2S_payload_desc_burst,
   input      [3:0]    cchM2S_payload_desc_id,
   input               cchM2S_payload_desc_reset,
-  output     `BDMAs2mStates_binary_sequential_type indicatorS2M,
-  output     `BDMAm2sStates_binary_sequential_type indicatorM2S,
+  output     [1:0]    indicatorS2M,
+  output     [1:0]    indicatorM2S,
   output              intrS2M,
   output              intrM2S,
   input               clk,
   input               resetn
 );
+  localparam BDMAs2mStates_IDLE = 2'd0;
+  localparam BDMAs2mStates_REQ = 2'd1;
+  localparam BDMAs2mStates_BURST = 2'd2;
+  localparam BDMAs2mStates_DROP = 2'd3;
+  localparam BDMAm2sStates_IDLE = 2'd0;
+  localparam BDMAm2sStates_BURST = 2'd1;
+  localparam BDMAm2sStates_FINAL_1 = 2'd2;
+
   wire                dma_s2m_core_dma_aw_valid;
   wire       [31:0]   dma_s2m_core_dma_aw_payload_addr;
   wire       [3:0]    dma_s2m_core_dma_aw_payload_id;
@@ -648,7 +647,7 @@ module BDMACore (
   wire                dma_s2m_core_dma_w_payload_last;
   wire                dma_s2m_core_dma_b_ready;
   wire                dma_s2m_core_s2m_data_stream_ready;
-  wire       `BDMAs2mStates_binary_sequential_type dma_s2m_core_s2m_state;
+  wire       [1:0]    dma_s2m_core_s2m_state;
   wire                dma_s2m_core_s2m_cch_ready;
   wire                dma_s2m_core_s2m_intr;
   wire                dma_m2s_core_dma_ar_valid;
@@ -663,7 +662,7 @@ module BDMACore (
   wire       [3:0]    dma_m2s_core_m2s_data_stream_payload_strb;
   wire       [3:0]    dma_m2s_core_m2s_data_stream_payload_keep_;
   wire                dma_m2s_core_m2s_data_stream_payload_last;
-  wire       `BDMAm2sStates_binary_sequential_type dma_m2s_core_m2s_state;
+  wire       [1:0]    dma_m2s_core_m2s_state;
   wire                dma_m2s_core_m2s_cch_ready;
   wire                dma_m2s_core_m2s_intr;
   `ifndef SYNTHESIS
@@ -673,87 +672,87 @@ module BDMACore (
 
 
   BDMAs2m dma_s2m_core (
-    .dma_aw_valid                        (dma_s2m_core_dma_aw_valid           ), //o
-    .dma_aw_ready                        (axi4S2M_awready                     ), //i
-    .dma_aw_payload_addr                 (dma_s2m_core_dma_aw_payload_addr    ), //o
-    .dma_aw_payload_id                   (dma_s2m_core_dma_aw_payload_id      ), //o
-    .dma_aw_payload_len                  (dma_s2m_core_dma_aw_payload_len     ), //o
-    .dma_aw_payload_size                 (dma_s2m_core_dma_aw_payload_size    ), //o
-    .dma_aw_payload_burst                (dma_s2m_core_dma_aw_payload_burst   ), //o
-    .dma_w_valid                         (dma_s2m_core_dma_w_valid            ), //o
-    .dma_w_ready                         (axi4S2M_wready                      ), //i
-    .dma_w_payload_data                  (dma_s2m_core_dma_w_payload_data     ), //o
-    .dma_w_payload_strb                  (dma_s2m_core_dma_w_payload_strb     ), //o
-    .dma_w_payload_last                  (dma_s2m_core_dma_w_payload_last     ), //o
-    .dma_b_valid                         (axi4S2M_bvalid                      ), //i
-    .dma_b_ready                         (dma_s2m_core_dma_b_ready            ), //o
-    .dma_b_payload_id                    (axi4S2M_bid                         ), //i
-    .dma_b_payload_resp                  (axi4S2M_bresp                       ), //i
-    .s2m_data_stream_valid               (dataS2M_tvalid                      ), //i
-    .s2m_data_stream_ready               (dma_s2m_core_s2m_data_stream_ready  ), //o
-    .s2m_data_stream_payload_data        (dataS2M_tdata                       ), //i
-    .s2m_data_stream_payload_strb        (dataS2M_tstrb                       ), //i
-    .s2m_data_stream_payload_keep_       (dataS2M_tkeep                       ), //i
-    .s2m_data_stream_payload_last        (dataS2M_tlast                       ), //i
-    .s2m_state                           (dma_s2m_core_s2m_state              ), //o
-    .s2m_cch_valid                       (cchS2M_valid                        ), //i
-    .s2m_cch_ready                       (dma_s2m_core_s2m_cch_ready          ), //o
-    .s2m_cch_payload_desc_start_addr     (cchS2M_payload_desc_start_addr      ), //i
-    .s2m_cch_payload_desc_total_bytes    (cchS2M_payload_desc_total_bytes     ), //i
-    .s2m_cch_payload_desc_burst          (cchS2M_payload_desc_burst           ), //i
-    .s2m_cch_payload_desc_id             (cchS2M_payload_desc_id              ), //i
-    .s2m_cch_payload_desc_reset          (cchS2M_payload_desc_reset           ), //i
-    .s2m_intr                            (dma_s2m_core_s2m_intr               ), //o
-    .clk                                 (clk                                 ), //i
-    .resetn                              (resetn                              )  //i
+    .dma_aw_valid                     (dma_s2m_core_dma_aw_valid             ), //o
+    .dma_aw_ready                     (axi4S2M_awready                       ), //i
+    .dma_aw_payload_addr              (dma_s2m_core_dma_aw_payload_addr[31:0]), //o
+    .dma_aw_payload_id                (dma_s2m_core_dma_aw_payload_id[3:0]   ), //o
+    .dma_aw_payload_len               (dma_s2m_core_dma_aw_payload_len[7:0]  ), //o
+    .dma_aw_payload_size              (dma_s2m_core_dma_aw_payload_size[2:0] ), //o
+    .dma_aw_payload_burst             (dma_s2m_core_dma_aw_payload_burst[1:0]), //o
+    .dma_w_valid                      (dma_s2m_core_dma_w_valid              ), //o
+    .dma_w_ready                      (axi4S2M_wready                        ), //i
+    .dma_w_payload_data               (dma_s2m_core_dma_w_payload_data[31:0] ), //o
+    .dma_w_payload_strb               (dma_s2m_core_dma_w_payload_strb[3:0]  ), //o
+    .dma_w_payload_last               (dma_s2m_core_dma_w_payload_last       ), //o
+    .dma_b_valid                      (axi4S2M_bvalid                        ), //i
+    .dma_b_ready                      (dma_s2m_core_dma_b_ready              ), //o
+    .dma_b_payload_id                 (axi4S2M_bid[3:0]                      ), //i
+    .dma_b_payload_resp               (axi4S2M_bresp[1:0]                    ), //i
+    .s2m_data_stream_valid            (dataS2M_tvalid                        ), //i
+    .s2m_data_stream_ready            (dma_s2m_core_s2m_data_stream_ready    ), //o
+    .s2m_data_stream_payload_data     (dataS2M_tdata[31:0]                   ), //i
+    .s2m_data_stream_payload_strb     (dataS2M_tstrb[3:0]                    ), //i
+    .s2m_data_stream_payload_keep_    (dataS2M_tkeep[3:0]                    ), //i
+    .s2m_data_stream_payload_last     (dataS2M_tlast                         ), //i
+    .s2m_state                        (dma_s2m_core_s2m_state[1:0]           ), //o
+    .s2m_cch_valid                    (cchS2M_valid                          ), //i
+    .s2m_cch_ready                    (dma_s2m_core_s2m_cch_ready            ), //o
+    .s2m_cch_payload_desc_start_addr  (cchS2M_payload_desc_start_addr[31:0]  ), //i
+    .s2m_cch_payload_desc_total_bytes (cchS2M_payload_desc_total_bytes[29:0] ), //i
+    .s2m_cch_payload_desc_burst       (cchS2M_payload_desc_burst[1:0]        ), //i
+    .s2m_cch_payload_desc_id          (cchS2M_payload_desc_id[3:0]           ), //i
+    .s2m_cch_payload_desc_reset       (cchS2M_payload_desc_reset             ), //i
+    .s2m_intr                         (dma_s2m_core_s2m_intr                 ), //o
+    .clk                              (clk                                   ), //i
+    .resetn                           (resetn                                )  //i
   );
   BDMAm2s dma_m2s_core (
-    .dma_ar_valid                        (dma_m2s_core_dma_ar_valid                   ), //o
-    .dma_ar_ready                        (axi4M2S_arready                             ), //i
-    .dma_ar_payload_addr                 (dma_m2s_core_dma_ar_payload_addr            ), //o
-    .dma_ar_payload_id                   (dma_m2s_core_dma_ar_payload_id              ), //o
-    .dma_ar_payload_len                  (dma_m2s_core_dma_ar_payload_len             ), //o
-    .dma_ar_payload_size                 (dma_m2s_core_dma_ar_payload_size            ), //o
-    .dma_ar_payload_burst                (dma_m2s_core_dma_ar_payload_burst           ), //o
-    .dma_r_valid                         (axi4M2S_rvalid                              ), //i
-    .dma_r_ready                         (dma_m2s_core_dma_r_ready                    ), //o
-    .dma_r_payload_data                  (axi4M2S_rdata                               ), //i
-    .dma_r_payload_id                    (axi4M2S_rid                                 ), //i
-    .dma_r_payload_resp                  (axi4M2S_rresp                               ), //i
-    .dma_r_payload_last                  (axi4M2S_rlast                               ), //i
-    .m2s_data_stream_valid               (dma_m2s_core_m2s_data_stream_valid          ), //o
-    .m2s_data_stream_ready               (dataM2S_tready                              ), //i
-    .m2s_data_stream_payload_data        (dma_m2s_core_m2s_data_stream_payload_data   ), //o
-    .m2s_data_stream_payload_strb        (dma_m2s_core_m2s_data_stream_payload_strb   ), //o
-    .m2s_data_stream_payload_keep_       (dma_m2s_core_m2s_data_stream_payload_keep_  ), //o
-    .m2s_data_stream_payload_last        (dma_m2s_core_m2s_data_stream_payload_last   ), //o
-    .m2s_state                           (dma_m2s_core_m2s_state                      ), //o
-    .m2s_cch_valid                       (cchM2S_valid                                ), //i
-    .m2s_cch_ready                       (dma_m2s_core_m2s_cch_ready                  ), //o
-    .m2s_cch_payload_desc_start_addr     (cchM2S_payload_desc_start_addr              ), //i
-    .m2s_cch_payload_desc_total_bytes    (cchM2S_payload_desc_total_bytes             ), //i
-    .m2s_cch_payload_desc_burst          (cchM2S_payload_desc_burst                   ), //i
-    .m2s_cch_payload_desc_id             (cchM2S_payload_desc_id                      ), //i
-    .m2s_cch_payload_desc_reset          (cchM2S_payload_desc_reset                   ), //i
-    .m2s_intr                            (dma_m2s_core_m2s_intr                       ), //o
-    .clk                                 (clk                                         ), //i
-    .resetn                              (resetn                                      )  //i
+    .dma_ar_valid                     (dma_m2s_core_dma_ar_valid                      ), //o
+    .dma_ar_ready                     (axi4M2S_arready                                ), //i
+    .dma_ar_payload_addr              (dma_m2s_core_dma_ar_payload_addr[31:0]         ), //o
+    .dma_ar_payload_id                (dma_m2s_core_dma_ar_payload_id[3:0]            ), //o
+    .dma_ar_payload_len               (dma_m2s_core_dma_ar_payload_len[7:0]           ), //o
+    .dma_ar_payload_size              (dma_m2s_core_dma_ar_payload_size[2:0]          ), //o
+    .dma_ar_payload_burst             (dma_m2s_core_dma_ar_payload_burst[1:0]         ), //o
+    .dma_r_valid                      (axi4M2S_rvalid                                 ), //i
+    .dma_r_ready                      (dma_m2s_core_dma_r_ready                       ), //o
+    .dma_r_payload_data               (axi4M2S_rdata[31:0]                            ), //i
+    .dma_r_payload_id                 (axi4M2S_rid[3:0]                               ), //i
+    .dma_r_payload_resp               (axi4M2S_rresp[1:0]                             ), //i
+    .dma_r_payload_last               (axi4M2S_rlast                                  ), //i
+    .m2s_data_stream_valid            (dma_m2s_core_m2s_data_stream_valid             ), //o
+    .m2s_data_stream_ready            (dataM2S_tready                                 ), //i
+    .m2s_data_stream_payload_data     (dma_m2s_core_m2s_data_stream_payload_data[31:0]), //o
+    .m2s_data_stream_payload_strb     (dma_m2s_core_m2s_data_stream_payload_strb[3:0] ), //o
+    .m2s_data_stream_payload_keep_    (dma_m2s_core_m2s_data_stream_payload_keep_[3:0]), //o
+    .m2s_data_stream_payload_last     (dma_m2s_core_m2s_data_stream_payload_last      ), //o
+    .m2s_state                        (dma_m2s_core_m2s_state[1:0]                    ), //o
+    .m2s_cch_valid                    (cchM2S_valid                                   ), //i
+    .m2s_cch_ready                    (dma_m2s_core_m2s_cch_ready                     ), //o
+    .m2s_cch_payload_desc_start_addr  (cchM2S_payload_desc_start_addr[31:0]           ), //i
+    .m2s_cch_payload_desc_total_bytes (cchM2S_payload_desc_total_bytes[29:0]          ), //i
+    .m2s_cch_payload_desc_burst       (cchM2S_payload_desc_burst[1:0]                 ), //i
+    .m2s_cch_payload_desc_id          (cchM2S_payload_desc_id[3:0]                    ), //i
+    .m2s_cch_payload_desc_reset       (cchM2S_payload_desc_reset                      ), //i
+    .m2s_intr                         (dma_m2s_core_m2s_intr                          ), //o
+    .clk                              (clk                                            ), //i
+    .resetn                           (resetn                                         )  //i
   );
   `ifndef SYNTHESIS
   always @(*) begin
     case(indicatorS2M)
-      `BDMAs2mStates_binary_sequential_IDLE : indicatorS2M_string = "IDLE ";
-      `BDMAs2mStates_binary_sequential_REQ : indicatorS2M_string = "REQ  ";
-      `BDMAs2mStates_binary_sequential_BURST : indicatorS2M_string = "BURST";
-      `BDMAs2mStates_binary_sequential_DROP : indicatorS2M_string = "DROP ";
+      BDMAs2mStates_IDLE : indicatorS2M_string = "IDLE ";
+      BDMAs2mStates_REQ : indicatorS2M_string = "REQ  ";
+      BDMAs2mStates_BURST : indicatorS2M_string = "BURST";
+      BDMAs2mStates_DROP : indicatorS2M_string = "DROP ";
       default : indicatorS2M_string = "?????";
     endcase
   end
   always @(*) begin
     case(indicatorM2S)
-      `BDMAm2sStates_binary_sequential_IDLE : indicatorM2S_string = "IDLE   ";
-      `BDMAm2sStates_binary_sequential_BURST : indicatorM2S_string = "BURST  ";
-      `BDMAm2sStates_binary_sequential_FINAL_1 : indicatorM2S_string = "FINAL_1";
+      BDMAm2sStates_IDLE : indicatorM2S_string = "IDLE   ";
+      BDMAm2sStates_BURST : indicatorM2S_string = "BURST  ";
+      BDMAm2sStates_FINAL_1 : indicatorM2S_string = "FINAL_1";
       default : indicatorM2S_string = "???????";
     endcase
   end
@@ -830,7 +829,7 @@ module BDMAm2s (
   output     [3:0]    m2s_data_stream_payload_strb,
   output     [3:0]    m2s_data_stream_payload_keep_,
   output              m2s_data_stream_payload_last,
-  output     `BDMAm2sStates_binary_sequential_type m2s_state,
+  output     [1:0]    m2s_state,
   input               m2s_cch_valid,
   output              m2s_cch_ready,
   input      [31:0]   m2s_cch_payload_desc_start_addr,
@@ -842,6 +841,14 @@ module BDMAm2s (
   input               clk,
   input               resetn
 );
+  localparam BDMAm2sStates_IDLE = 2'd0;
+  localparam BDMAm2sStates_BURST = 2'd1;
+  localparam BDMAm2sStates_FINAL_1 = 2'd2;
+  localparam BDMAcchStates_IDLE = 2'd0;
+  localparam BDMAcchStates_FIXED_REQ = 2'd1;
+  localparam BDMAcchStates_INCR_REQ = 2'd2;
+  localparam BDMAcchStates_HALT = 2'd3;
+
   wire                m2s_ar_fifo_io_pop_ready;
   wire                m2s_ar_fifo_io_push_ready;
   wire                m2s_ar_fifo_io_pop_valid;
@@ -912,8 +919,8 @@ module BDMAm2s (
   wire       [1:0]    _zz_m2s_axis_strb_keep_5;
   wire       [63:0]   _zz_m2s_axis_payload;
   wire       [5:0]    _zz_m2s_axis_payload_1;
-  reg        `BDMAcchStates_binary_sequential_type m2s_cch_state;
-  reg        `BDMAm2sStates_binary_sequential_type m2s_r_state;
+  reg        [1:0]    m2s_cch_state;
+  reg        [1:0]    m2s_r_state;
   reg                 cch_ready;
   reg        [29:0]   cch_total_bytes;
   reg        [31:0]   cch_address;
@@ -1014,107 +1021,107 @@ module BDMAm2s (
   assign _zz_m2s_axis_payload = ({32'h0,m2s_r_residual_payload} >>> _zz_m2s_axis_payload_1);
   assign _zz_m2s_axis_payload_1 = (4'b1000 * m2s_bytes_shift);
   StreamFifo m2s_ar_fifo (
-    .io_push_valid            (m2s_ar_valid                      ), //i
-    .io_push_ready            (m2s_ar_fifo_io_push_ready         ), //o
-    .io_push_payload_addr     (aligned_address                   ), //i
-    .io_push_payload_id       (cch_id                            ), //i
-    .io_push_payload_len      (m2s_ar_len                        ), //i
-    .io_push_payload_size     (3'b010                            ), //i
-    .io_push_payload_burst    (cch_burst_type                    ), //i
-    .io_pop_valid             (m2s_ar_fifo_io_pop_valid          ), //o
-    .io_pop_ready             (m2s_ar_fifo_io_pop_ready          ), //i
-    .io_pop_payload_addr      (m2s_ar_fifo_io_pop_payload_addr   ), //o
-    .io_pop_payload_id        (m2s_ar_fifo_io_pop_payload_id     ), //o
-    .io_pop_payload_len       (m2s_ar_fifo_io_pop_payload_len    ), //o
-    .io_pop_payload_size      (m2s_ar_fifo_io_pop_payload_size   ), //o
-    .io_pop_payload_burst     (m2s_ar_fifo_io_pop_payload_burst  ), //o
-    .io_flush                 (1'b0                              ), //i
-    .io_occupancy             (m2s_ar_fifo_io_occupancy          ), //o
-    .io_availability          (m2s_ar_fifo_io_availability       ), //o
-    .clk                      (clk                               ), //i
-    .resetn                   (resetn                            )  //i
+    .io_push_valid         (m2s_ar_valid                         ), //i
+    .io_push_ready         (m2s_ar_fifo_io_push_ready            ), //o
+    .io_push_payload_addr  (aligned_address[31:0]                ), //i
+    .io_push_payload_id    (cch_id[3:0]                          ), //i
+    .io_push_payload_len   (m2s_ar_len[7:0]                      ), //i
+    .io_push_payload_size  (3'b010                               ), //i
+    .io_push_payload_burst (cch_burst_type[1:0]                  ), //i
+    .io_pop_valid          (m2s_ar_fifo_io_pop_valid             ), //o
+    .io_pop_ready          (m2s_ar_fifo_io_pop_ready             ), //i
+    .io_pop_payload_addr   (m2s_ar_fifo_io_pop_payload_addr[31:0]), //o
+    .io_pop_payload_id     (m2s_ar_fifo_io_pop_payload_id[3:0]   ), //o
+    .io_pop_payload_len    (m2s_ar_fifo_io_pop_payload_len[7:0]  ), //o
+    .io_pop_payload_size   (m2s_ar_fifo_io_pop_payload_size[2:0] ), //o
+    .io_pop_payload_burst  (m2s_ar_fifo_io_pop_payload_burst[1:0]), //o
+    .io_flush              (1'b0                                 ), //i
+    .io_occupancy          (m2s_ar_fifo_io_occupancy[3:0]        ), //o
+    .io_availability       (m2s_ar_fifo_io_availability[3:0]     ), //o
+    .clk                   (clk                                  ), //i
+    .resetn                (resetn                               )  //i
   );
   StreamFifo_1 m2s_trans_bytes_fifo (
-    .io_push_valid      (m2s_ar_valid                          ), //i
-    .io_push_ready      (m2s_trans_bytes_fifo_io_push_ready    ), //o
-    .io_push_payload    (trans_bytes_cnt                       ), //i
-    .io_pop_valid       (m2s_trans_bytes_fifo_io_pop_valid     ), //o
-    .io_pop_ready       (dma_ar_fire                           ), //i
-    .io_pop_payload     (m2s_trans_bytes_fifo_io_pop_payload   ), //o
-    .io_flush           (1'b0                                  ), //i
-    .io_occupancy       (m2s_trans_bytes_fifo_io_occupancy     ), //o
-    .io_availability    (m2s_trans_bytes_fifo_io_availability  ), //o
-    .clk                (clk                                   ), //i
-    .resetn             (resetn                                )  //i
+    .io_push_valid   (m2s_ar_valid                             ), //i
+    .io_push_ready   (m2s_trans_bytes_fifo_io_push_ready       ), //o
+    .io_push_payload (trans_bytes_cnt[29:0]                    ), //i
+    .io_pop_valid    (m2s_trans_bytes_fifo_io_pop_valid        ), //o
+    .io_pop_ready    (dma_ar_fire                              ), //i
+    .io_pop_payload  (m2s_trans_bytes_fifo_io_pop_payload[29:0]), //o
+    .io_flush        (1'b0                                     ), //i
+    .io_occupancy    (m2s_trans_bytes_fifo_io_occupancy[3:0]   ), //o
+    .io_availability (m2s_trans_bytes_fifo_io_availability[3:0]), //o
+    .clk             (clk                                      ), //i
+    .resetn          (resetn                                   )  //i
   );
   StreamFifo_7 m2s_data_fifo (
-    .io_push_valid            (m2s_axis_valid                      ), //i
-    .io_push_ready            (m2s_data_fifo_io_push_ready         ), //o
-    .io_push_payload_data     (m2s_axis_payload                    ), //i
-    .io_push_payload_strb     (m2s_axis_strb_keep                  ), //i
-    .io_push_payload_keep_    (m2s_axis_strb_keep                  ), //i
-    .io_push_payload_last     (m2s_axis_last                       ), //i
-    .io_pop_valid             (m2s_data_fifo_io_pop_valid          ), //o
-    .io_pop_ready             (m2s_data_stream_ready               ), //i
-    .io_pop_payload_data      (m2s_data_fifo_io_pop_payload_data   ), //o
-    .io_pop_payload_strb      (m2s_data_fifo_io_pop_payload_strb   ), //o
-    .io_pop_payload_keep_     (m2s_data_fifo_io_pop_payload_keep_  ), //o
-    .io_pop_payload_last      (m2s_data_fifo_io_pop_payload_last   ), //o
-    .io_flush                 (1'b0                                ), //i
-    .io_occupancy             (m2s_data_fifo_io_occupancy          ), //o
-    .io_availability          (m2s_data_fifo_io_availability       ), //o
-    .clk                      (clk                                 ), //i
-    .resetn                   (resetn                              )  //i
+    .io_push_valid         (m2s_axis_valid                         ), //i
+    .io_push_ready         (m2s_data_fifo_io_push_ready            ), //o
+    .io_push_payload_data  (m2s_axis_payload[31:0]                 ), //i
+    .io_push_payload_strb  (m2s_axis_strb_keep[3:0]                ), //i
+    .io_push_payload_keep_ (m2s_axis_strb_keep[3:0]                ), //i
+    .io_push_payload_last  (m2s_axis_last                          ), //i
+    .io_pop_valid          (m2s_data_fifo_io_pop_valid             ), //o
+    .io_pop_ready          (m2s_data_stream_ready                  ), //i
+    .io_pop_payload_data   (m2s_data_fifo_io_pop_payload_data[31:0]), //o
+    .io_pop_payload_strb   (m2s_data_fifo_io_pop_payload_strb[3:0] ), //o
+    .io_pop_payload_keep_  (m2s_data_fifo_io_pop_payload_keep_[3:0]), //o
+    .io_pop_payload_last   (m2s_data_fifo_io_pop_payload_last      ), //o
+    .io_flush              (1'b0                                   ), //i
+    .io_occupancy          (m2s_data_fifo_io_occupancy[3:0]        ), //o
+    .io_availability       (m2s_data_fifo_io_availability[3:0]     ), //o
+    .clk                   (clk                                    ), //i
+    .resetn                (resetn                                 )  //i
   );
   StreamFifo_3 len_pending_fifo (
-    .io_push_valid      (pending_valid                     ), //i
-    .io_push_ready      (len_pending_fifo_io_push_ready    ), //o
-    .io_push_payload    (len_pending                       ), //i
-    .io_pop_valid       (len_pending_fifo_io_pop_valid     ), //o
-    .io_pop_ready       (pending_fifo_pop_ready            ), //i
-    .io_pop_payload     (len_pending_fifo_io_pop_payload   ), //o
-    .io_flush           (1'b0                              ), //i
-    .io_occupancy       (len_pending_fifo_io_occupancy     ), //o
-    .io_availability    (len_pending_fifo_io_availability  ), //o
-    .clk                (clk                               ), //i
-    .resetn             (resetn                            )  //i
+    .io_push_valid   (pending_valid                        ), //i
+    .io_push_ready   (len_pending_fifo_io_push_ready       ), //o
+    .io_push_payload (len_pending[7:0]                     ), //i
+    .io_pop_valid    (len_pending_fifo_io_pop_valid        ), //o
+    .io_pop_ready    (pending_fifo_pop_ready               ), //i
+    .io_pop_payload  (len_pending_fifo_io_pop_payload[7:0] ), //o
+    .io_flush        (1'b0                                 ), //i
+    .io_occupancy    (len_pending_fifo_io_occupancy[2:0]   ), //o
+    .io_availability (len_pending_fifo_io_availability[2:0]), //o
+    .clk             (clk                                  ), //i
+    .resetn          (resetn                               )  //i
   );
   StreamFifo_4 trans_pending_fifo (
-    .io_push_valid      (pending_valid                       ), //i
-    .io_push_ready      (trans_pending_fifo_io_push_ready    ), //o
-    .io_push_payload    (trans_pending                       ), //i
-    .io_pop_valid       (trans_pending_fifo_io_pop_valid     ), //o
-    .io_pop_ready       (pending_fifo_pop_ready              ), //i
-    .io_pop_payload     (trans_pending_fifo_io_pop_payload   ), //o
-    .io_flush           (1'b0                                ), //i
-    .io_occupancy       (trans_pending_fifo_io_occupancy     ), //o
-    .io_availability    (trans_pending_fifo_io_availability  ), //o
-    .clk                (clk                                 ), //i
-    .resetn             (resetn                              )  //i
+    .io_push_valid   (pending_valid                          ), //i
+    .io_push_ready   (trans_pending_fifo_io_push_ready       ), //o
+    .io_push_payload (trans_pending[29:0]                    ), //i
+    .io_pop_valid    (trans_pending_fifo_io_pop_valid        ), //o
+    .io_pop_ready    (pending_fifo_pop_ready                 ), //i
+    .io_pop_payload  (trans_pending_fifo_io_pop_payload[29:0]), //o
+    .io_flush        (1'b0                                   ), //i
+    .io_occupancy    (trans_pending_fifo_io_occupancy[2:0]   ), //o
+    .io_availability (trans_pending_fifo_io_availability[2:0]), //o
+    .clk             (clk                                    ), //i
+    .resetn          (resetn                                 )  //i
   );
   `ifndef SYNTHESIS
   always @(*) begin
     case(m2s_state)
-      `BDMAm2sStates_binary_sequential_IDLE : m2s_state_string = "IDLE   ";
-      `BDMAm2sStates_binary_sequential_BURST : m2s_state_string = "BURST  ";
-      `BDMAm2sStates_binary_sequential_FINAL_1 : m2s_state_string = "FINAL_1";
+      BDMAm2sStates_IDLE : m2s_state_string = "IDLE   ";
+      BDMAm2sStates_BURST : m2s_state_string = "BURST  ";
+      BDMAm2sStates_FINAL_1 : m2s_state_string = "FINAL_1";
       default : m2s_state_string = "???????";
     endcase
   end
   always @(*) begin
     case(m2s_cch_state)
-      `BDMAcchStates_binary_sequential_IDLE : m2s_cch_state_string = "IDLE     ";
-      `BDMAcchStates_binary_sequential_FIXED_REQ : m2s_cch_state_string = "FIXED_REQ";
-      `BDMAcchStates_binary_sequential_INCR_REQ : m2s_cch_state_string = "INCR_REQ ";
-      `BDMAcchStates_binary_sequential_HALT : m2s_cch_state_string = "HALT     ";
+      BDMAcchStates_IDLE : m2s_cch_state_string = "IDLE     ";
+      BDMAcchStates_FIXED_REQ : m2s_cch_state_string = "FIXED_REQ";
+      BDMAcchStates_INCR_REQ : m2s_cch_state_string = "INCR_REQ ";
+      BDMAcchStates_HALT : m2s_cch_state_string = "HALT     ";
       default : m2s_cch_state_string = "?????????";
     endcase
   end
   always @(*) begin
     case(m2s_r_state)
-      `BDMAm2sStates_binary_sequential_IDLE : m2s_r_state_string = "IDLE   ";
-      `BDMAm2sStates_binary_sequential_BURST : m2s_r_state_string = "BURST  ";
-      `BDMAm2sStates_binary_sequential_FINAL_1 : m2s_r_state_string = "FINAL_1";
+      BDMAm2sStates_IDLE : m2s_r_state_string = "IDLE   ";
+      BDMAm2sStates_BURST : m2s_r_state_string = "BURST  ";
+      BDMAm2sStates_FINAL_1 : m2s_r_state_string = "FINAL_1";
       default : m2s_r_state_string = "???????";
     endcase
   end
@@ -1137,7 +1144,7 @@ module BDMAm2s (
   assign dma_ar_fire = (dma_ar_valid && dma_ar_ready);
   assign keep_strb_full = 4'b1111;
   assign dma_ar_fire_1 = (dma_ar_valid && dma_ar_ready);
-  assign _zz_dma_ar_valid = (! (3'b010 <= len_pending_fifo_io_occupancy));
+  assign _zz_dma_ar_valid = (! (3'b011 <= len_pending_fifo_io_occupancy));
   assign m2s_ar_fifo_io_pop_ready = (dma_ar_ready && _zz_dma_ar_valid);
   assign dma_ar_valid = (m2s_ar_fifo_io_pop_valid && _zz_dma_ar_valid);
   assign dma_ar_payload_addr = m2s_ar_fifo_io_pop_payload_addr;
@@ -1145,7 +1152,7 @@ module BDMAm2s (
   assign dma_ar_payload_len = m2s_ar_fifo_io_pop_payload_len;
   assign dma_ar_payload_size = m2s_ar_fifo_io_pop_payload_size;
   assign dma_ar_payload_burst = m2s_ar_fifo_io_pop_payload_burst;
-  assign ar_finish = (((! len_pending_fifo_io_pop_valid) && (m2s_cch_state == `BDMAcchStates_binary_sequential_HALT)) && (! m2s_ar_fifo_io_pop_valid));
+  assign ar_finish = (((! len_pending_fifo_io_pop_valid) && (m2s_cch_state == BDMAcchStates_HALT)) && (! m2s_ar_fifo_io_pop_valid));
   assign len_pending_fifo_io_pop_fire = (len_pending_fifo_io_pop_valid && pending_fifo_pop_ready);
   assign when_BDMAm2s_l264 = (m2s_axis_trans_bytes < 30'h00000004);
   assign dma_r_fire = (dma_r_valid && dma_r_ready);
@@ -1158,15 +1165,15 @@ module BDMAm2s (
   assign m2s_data_stream_payload_strb = m2s_data_fifo_io_pop_payload_strb;
   assign m2s_data_stream_payload_keep_ = m2s_data_fifo_io_pop_payload_keep_;
   assign m2s_data_stream_payload_last = m2s_data_fifo_io_pop_payload_last;
-  assign when_BDMAm2s_l342 = (m2s_cch_state == `BDMAcchStates_binary_sequential_IDLE);
+  assign when_BDMAm2s_l342 = (m2s_cch_state == BDMAcchStates_IDLE);
   assign m2s_data_fifo_io_pop_fire = (m2s_data_fifo_io_pop_valid && m2s_data_stream_ready);
   assign when_BDMAm2s_l344 = (m2s_data_fifo_io_pop_payload_last && m2s_data_fifo_io_pop_fire);
   assign m2s_intr = cycle_finished;
   assign m2s_state = m2s_r_state;
   always @(posedge clk) begin
     if(!resetn) begin
-      m2s_cch_state <= `BDMAcchStates_binary_sequential_IDLE;
-      m2s_r_state <= `BDMAm2sStates_binary_sequential_IDLE;
+      m2s_cch_state <= BDMAcchStates_IDLE;
+      m2s_r_state <= BDMAm2sStates_IDLE;
       cch_ready <= 1'b0;
       m2s_ar_valid <= 1'b0;
       m2s_ar_halt_exec <= 1'b0;
@@ -1183,25 +1190,25 @@ module BDMAm2s (
       m2s_axis_trans_bytes <= 30'h0;
     end else begin
       case(m2s_cch_state)
-        `BDMAcchStates_binary_sequential_IDLE : begin
+        BDMAcchStates_IDLE : begin
           if(m2s_cch_fire) begin
             cch_ready <= 1'b0;
             m2s_bytes_shift <= m2s_cch_payload_desc_start_addr[1 : 0];
             case(m2s_cch_payload_desc_burst)
               2'b00 : begin
-                m2s_cch_state <= `BDMAcchStates_binary_sequential_FIXED_REQ;
+                m2s_cch_state <= BDMAcchStates_FIXED_REQ;
               end
               default : begin
-                m2s_cch_state <= `BDMAcchStates_binary_sequential_INCR_REQ;
+                m2s_cch_state <= BDMAcchStates_INCR_REQ;
               end
             endcase
           end else begin
             cch_ready <= 1'b1;
           end
         end
-        `BDMAcchStates_binary_sequential_FIXED_REQ : begin
+        BDMAcchStates_FIXED_REQ : begin
           if(when_BDMAm2s_l81) begin
-            m2s_cch_state <= `BDMAcchStates_binary_sequential_HALT;
+            m2s_cch_state <= BDMAcchStates_HALT;
           end else begin
             if(m2s_ar_fifo_io_push_fire) begin
               m2s_ar_halt_exec <= 1'b0;
@@ -1217,9 +1224,9 @@ module BDMAm2s (
             end
           end
         end
-        `BDMAcchStates_binary_sequential_INCR_REQ : begin
+        BDMAcchStates_INCR_REQ : begin
           if(when_BDMAm2s_l111) begin
-            m2s_cch_state <= `BDMAcchStates_binary_sequential_HALT;
+            m2s_cch_state <= BDMAcchStates_HALT;
           end else begin
             if(m2s_ar_fifo_io_push_fire_2) begin
               m2s_ar_halt_exec <= 1'b0;
@@ -1237,7 +1244,7 @@ module BDMAm2s (
         end
         default : begin
           if(when_BDMAm2s_l156) begin
-            m2s_cch_state <= `BDMAcchStates_binary_sequential_IDLE;
+            m2s_cch_state <= BDMAcchStates_IDLE;
             m2s_bytes_shift <= 2'b00;
           end
         end
@@ -1248,12 +1255,12 @@ module BDMAm2s (
         pending_valid <= 1'b0;
       end
       case(m2s_r_state)
-        `BDMAm2sStates_binary_sequential_IDLE : begin
+        BDMAm2sStates_IDLE : begin
           if(len_pending_fifo_io_pop_fire) begin
             m2s_r_valve <= 1'b1;
             pending_fifo_pop_ready <= 1'b0;
             m2s_axis_trans_bytes <= (m2s_axis_trans_bytes + trans_pending_fifo_io_pop_payload);
-            m2s_r_state <= `BDMAm2sStates_binary_sequential_BURST;
+            m2s_r_state <= BDMAm2sStates_BURST;
           end else begin
             m2s_r_valve <= 1'b0;
             pending_fifo_pop_ready <= 1'b1;
@@ -1263,7 +1270,7 @@ module BDMAm2s (
           m2s_r_req <= 1'b0;
           m2s_r_last_cycle <= 1'b0;
         end
-        `BDMAm2sStates_binary_sequential_BURST : begin
+        BDMAm2sStates_BURST : begin
           if(m2s_r_req) begin
             if(when_BDMAm2s_l264) begin
               m2s_axis_trans_bytes <= 30'h0;
@@ -1273,7 +1280,7 @@ module BDMAm2s (
             m2s_axis_valid <= 1'b1;
             if(m2s_r_last_cycle) begin
               pending_fifo_pop_ready <= (! ar_finish);
-              m2s_r_state <= (ar_finish ? `BDMAm2sStates_binary_sequential_FINAL_1 : `BDMAm2sStates_binary_sequential_IDLE);
+              m2s_r_state <= (ar_finish ? BDMAm2sStates_FINAL_1 : BDMAm2sStates_IDLE);
               m2s_axis_last <= (ar_finish && (m2s_axis_trans_bytes <= 30'h00000004));
             end
           end else begin
@@ -1303,7 +1310,7 @@ module BDMAm2s (
             m2s_axis_last <= 1'b0;
           end
           pending_fifo_pop_ready <= 1'b1;
-          m2s_r_state <= `BDMAm2sStates_binary_sequential_IDLE;
+          m2s_r_state <= BDMAm2sStates_IDLE;
         end
       endcase
       if(when_BDMAm2s_l342) begin
@@ -1318,7 +1325,7 @@ module BDMAm2s (
 
   always @(posedge clk) begin
     case(m2s_cch_state)
-      `BDMAcchStates_binary_sequential_IDLE : begin
+      BDMAcchStates_IDLE : begin
         if(m2s_cch_fire) begin
           cch_address <= m2s_cch_payload_desc_start_addr;
           cch_total_bytes <= m2s_cch_payload_desc_total_bytes;
@@ -1326,7 +1333,7 @@ module BDMAm2s (
           cch_id <= m2s_cch_payload_desc_id;
         end
       end
-      `BDMAcchStates_binary_sequential_FIXED_REQ : begin
+      BDMAcchStates_FIXED_REQ : begin
         if(!when_BDMAm2s_l81) begin
           if(m2s_ar_fifo_io_push_fire) begin
             cch_total_bytes <= (cch_total_bytes - trans_bytes_cnt);
@@ -1339,7 +1346,7 @@ module BDMAm2s (
         end
         m2s_ar_len <= _zz_m2s_ar_len[7:0];
       end
-      `BDMAcchStates_binary_sequential_INCR_REQ : begin
+      BDMAcchStates_INCR_REQ : begin
         if(!when_BDMAm2s_l111) begin
           if(m2s_ar_fifo_io_push_fire_2) begin
             cch_address <= (cch_address + _zz_cch_address);
@@ -1369,12 +1376,12 @@ module BDMAm2s (
       trans_pending <= m2s_trans_bytes_fifo_io_pop_payload;
     end
     case(m2s_r_state)
-      `BDMAm2sStates_binary_sequential_IDLE : begin
+      BDMAm2sStates_IDLE : begin
         if(len_pending_fifo_io_pop_fire) begin
           m2s_r_len <= len_pending_fifo_io_pop_payload;
         end
       end
-      `BDMAm2sStates_binary_sequential_BURST : begin
+      BDMAm2sStates_BURST : begin
         if(m2s_r_req) begin
           if(when_BDMAm2s_l264) begin
             m2s_axis_strb_keep <= (keep_strb_full >>> _zz_m2s_axis_strb_keep);
@@ -1428,7 +1435,7 @@ module BDMAs2m (
   input      [3:0]    s2m_data_stream_payload_strb,
   input      [3:0]    s2m_data_stream_payload_keep_,
   input               s2m_data_stream_payload_last,
-  output     `BDMAs2mStates_binary_sequential_type s2m_state,
+  output     [1:0]    s2m_state,
   input               s2m_cch_valid,
   output              s2m_cch_ready,
   input      [31:0]   s2m_cch_payload_desc_start_addr,
@@ -1440,6 +1447,15 @@ module BDMAs2m (
   input               clk,
   input               resetn
 );
+  localparam BDMAs2mStates_IDLE = 2'd0;
+  localparam BDMAs2mStates_REQ = 2'd1;
+  localparam BDMAs2mStates_BURST = 2'd2;
+  localparam BDMAs2mStates_DROP = 2'd3;
+  localparam BDMAcchStates_IDLE = 2'd0;
+  localparam BDMAcchStates_FIXED_REQ = 2'd1;
+  localparam BDMAcchStates_INCR_REQ = 2'd2;
+  localparam BDMAcchStates_HALT = 2'd3;
+
   wire                s2m_aw_fifo_io_pop_ready;
   wire                s2m_aw_fifo_io_push_ready;
   wire                s2m_aw_fifo_io_pop_valid;
@@ -1510,8 +1526,8 @@ module BDMAs2m (
   wire       [126:0]  _zz_s2m_axis_data_4;
   wire       [5:0]    _zz_s2m_axis_data_5;
   wire       [10:0]   _zz_s2m_axis_strb_keep_2;
-  reg        `BDMAcchStates_binary_sequential_type s2m_cch_state;
-  reg        `BDMAs2mStates_binary_sequential_type s2m_w_state;
+  reg        [1:0]    s2m_cch_state;
+  reg        [1:0]    s2m_w_state;
   reg                 cch_ready;
   reg        [29:0]   cch_total_bytes;
   reg        [31:0]   cch_address;
@@ -1623,107 +1639,107 @@ module BDMAs2m (
   assign _zz_s2m_axis_data_5 = (4'b1000 * s2m_bytes_shift);
   assign _zz_s2m_axis_strb_keep_2 = ({3'd0,{s2m_data_stream_payload_keep_,s2m_axis_residual_strb_keep}} <<< s2m_bytes_shift);
   StreamFifo s2m_aw_fifo (
-    .io_push_valid            (s2m_aw_valid                      ), //i
-    .io_push_ready            (s2m_aw_fifo_io_push_ready         ), //o
-    .io_push_payload_addr     (aligned_address                   ), //i
-    .io_push_payload_id       (cch_id                            ), //i
-    .io_push_payload_len      (s2m_aw_len                        ), //i
-    .io_push_payload_size     (3'b010                            ), //i
-    .io_push_payload_burst    (cch_burst_type                    ), //i
-    .io_pop_valid             (s2m_aw_fifo_io_pop_valid          ), //o
-    .io_pop_ready             (s2m_aw_fifo_io_pop_ready          ), //i
-    .io_pop_payload_addr      (s2m_aw_fifo_io_pop_payload_addr   ), //o
-    .io_pop_payload_id        (s2m_aw_fifo_io_pop_payload_id     ), //o
-    .io_pop_payload_len       (s2m_aw_fifo_io_pop_payload_len    ), //o
-    .io_pop_payload_size      (s2m_aw_fifo_io_pop_payload_size   ), //o
-    .io_pop_payload_burst     (s2m_aw_fifo_io_pop_payload_burst  ), //o
-    .io_flush                 (1'b0                              ), //i
-    .io_occupancy             (s2m_aw_fifo_io_occupancy          ), //o
-    .io_availability          (s2m_aw_fifo_io_availability       ), //o
-    .clk                      (clk                               ), //i
-    .resetn                   (resetn                            )  //i
+    .io_push_valid         (s2m_aw_valid                         ), //i
+    .io_push_ready         (s2m_aw_fifo_io_push_ready            ), //o
+    .io_push_payload_addr  (aligned_address[31:0]                ), //i
+    .io_push_payload_id    (cch_id[3:0]                          ), //i
+    .io_push_payload_len   (s2m_aw_len[7:0]                      ), //i
+    .io_push_payload_size  (3'b010                               ), //i
+    .io_push_payload_burst (cch_burst_type[1:0]                  ), //i
+    .io_pop_valid          (s2m_aw_fifo_io_pop_valid             ), //o
+    .io_pop_ready          (s2m_aw_fifo_io_pop_ready             ), //i
+    .io_pop_payload_addr   (s2m_aw_fifo_io_pop_payload_addr[31:0]), //o
+    .io_pop_payload_id     (s2m_aw_fifo_io_pop_payload_id[3:0]   ), //o
+    .io_pop_payload_len    (s2m_aw_fifo_io_pop_payload_len[7:0]  ), //o
+    .io_pop_payload_size   (s2m_aw_fifo_io_pop_payload_size[2:0] ), //o
+    .io_pop_payload_burst  (s2m_aw_fifo_io_pop_payload_burst[1:0]), //o
+    .io_flush              (1'b0                                 ), //i
+    .io_occupancy          (s2m_aw_fifo_io_occupancy[3:0]        ), //o
+    .io_availability       (s2m_aw_fifo_io_availability[3:0]     ), //o
+    .clk                   (clk                                  ), //i
+    .resetn                (resetn                               )  //i
   );
   StreamFifo_1 s2m_trans_bytes_fifo (
-    .io_push_valid      (s2m_aw_valid                          ), //i
-    .io_push_ready      (s2m_trans_bytes_fifo_io_push_ready    ), //o
-    .io_push_payload    (trans_bytes_cnt                       ), //i
-    .io_pop_valid       (s2m_trans_bytes_fifo_io_pop_valid     ), //o
-    .io_pop_ready       (dma_aw_fire                           ), //i
-    .io_pop_payload     (s2m_trans_bytes_fifo_io_pop_payload   ), //o
-    .io_flush           (1'b0                                  ), //i
-    .io_occupancy       (s2m_trans_bytes_fifo_io_occupancy     ), //o
-    .io_availability    (s2m_trans_bytes_fifo_io_availability  ), //o
-    .clk                (clk                                   ), //i
-    .resetn             (resetn                                )  //i
+    .io_push_valid   (s2m_aw_valid                             ), //i
+    .io_push_ready   (s2m_trans_bytes_fifo_io_push_ready       ), //o
+    .io_push_payload (trans_bytes_cnt[29:0]                    ), //i
+    .io_pop_valid    (s2m_trans_bytes_fifo_io_pop_valid        ), //o
+    .io_pop_ready    (dma_aw_fire                              ), //i
+    .io_pop_payload  (s2m_trans_bytes_fifo_io_pop_payload[29:0]), //o
+    .io_flush        (1'b0                                     ), //i
+    .io_occupancy    (s2m_trans_bytes_fifo_io_occupancy[3:0]   ), //o
+    .io_availability (s2m_trans_bytes_fifo_io_availability[3:0]), //o
+    .clk             (clk                                      ), //i
+    .resetn          (resetn                                   )  //i
   );
   StreamFifo_2 s2m_w_fifo (
-    .io_push_valid           (s2m_w_valid                     ), //i
-    .io_push_ready           (s2m_w_fifo_io_push_ready        ), //o
-    .io_push_payload_data    (s2m_w_data                      ), //i
-    .io_push_payload_strb    (s2m_w_strb                      ), //i
-    .io_push_payload_last    (s2m_w_last                      ), //i
-    .io_pop_valid            (s2m_w_fifo_io_pop_valid         ), //o
-    .io_pop_ready            (dma_w_ready                     ), //i
-    .io_pop_payload_data     (s2m_w_fifo_io_pop_payload_data  ), //o
-    .io_pop_payload_strb     (s2m_w_fifo_io_pop_payload_strb  ), //o
-    .io_pop_payload_last     (s2m_w_fifo_io_pop_payload_last  ), //o
-    .io_flush                (1'b0                            ), //i
-    .io_occupancy            (s2m_w_fifo_io_occupancy         ), //o
-    .io_availability         (s2m_w_fifo_io_availability      ), //o
-    .clk                     (clk                             ), //i
-    .resetn                  (resetn                          )  //i
+    .io_push_valid        (s2m_w_valid                         ), //i
+    .io_push_ready        (s2m_w_fifo_io_push_ready            ), //o
+    .io_push_payload_data (s2m_w_data[31:0]                    ), //i
+    .io_push_payload_strb (s2m_w_strb[3:0]                     ), //i
+    .io_push_payload_last (s2m_w_last                          ), //i
+    .io_pop_valid         (s2m_w_fifo_io_pop_valid             ), //o
+    .io_pop_ready         (dma_w_ready                         ), //i
+    .io_pop_payload_data  (s2m_w_fifo_io_pop_payload_data[31:0]), //o
+    .io_pop_payload_strb  (s2m_w_fifo_io_pop_payload_strb[3:0] ), //o
+    .io_pop_payload_last  (s2m_w_fifo_io_pop_payload_last      ), //o
+    .io_flush             (1'b0                                ), //i
+    .io_occupancy         (s2m_w_fifo_io_occupancy[4:0]        ), //o
+    .io_availability      (s2m_w_fifo_io_availability[4:0]     ), //o
+    .clk                  (clk                                 ), //i
+    .resetn               (resetn                              )  //i
   );
   StreamFifo_3 len_pending_fifo (
-    .io_push_valid      (pending_valid                     ), //i
-    .io_push_ready      (len_pending_fifo_io_push_ready    ), //o
-    .io_push_payload    (len_pending                       ), //i
-    .io_pop_valid       (len_pending_fifo_io_pop_valid     ), //o
-    .io_pop_ready       (pending_fifo_pop_ready            ), //i
-    .io_pop_payload     (len_pending_fifo_io_pop_payload   ), //o
-    .io_flush           (1'b0                              ), //i
-    .io_occupancy       (len_pending_fifo_io_occupancy     ), //o
-    .io_availability    (len_pending_fifo_io_availability  ), //o
-    .clk                (clk                               ), //i
-    .resetn             (resetn                            )  //i
+    .io_push_valid   (pending_valid                        ), //i
+    .io_push_ready   (len_pending_fifo_io_push_ready       ), //o
+    .io_push_payload (len_pending[7:0]                     ), //i
+    .io_pop_valid    (len_pending_fifo_io_pop_valid        ), //o
+    .io_pop_ready    (pending_fifo_pop_ready               ), //i
+    .io_pop_payload  (len_pending_fifo_io_pop_payload[7:0] ), //o
+    .io_flush        (1'b0                                 ), //i
+    .io_occupancy    (len_pending_fifo_io_occupancy[2:0]   ), //o
+    .io_availability (len_pending_fifo_io_availability[2:0]), //o
+    .clk             (clk                                  ), //i
+    .resetn          (resetn                               )  //i
   );
   StreamFifo_4 trans_pending_fifo (
-    .io_push_valid      (pending_valid                       ), //i
-    .io_push_ready      (trans_pending_fifo_io_push_ready    ), //o
-    .io_push_payload    (trans_pending                       ), //i
-    .io_pop_valid       (trans_pending_fifo_io_pop_valid     ), //o
-    .io_pop_ready       (pending_fifo_pop_ready              ), //i
-    .io_pop_payload     (trans_pending_fifo_io_pop_payload   ), //o
-    .io_flush           (1'b0                                ), //i
-    .io_occupancy       (trans_pending_fifo_io_occupancy     ), //o
-    .io_availability    (trans_pending_fifo_io_availability  ), //o
-    .clk                (clk                                 ), //i
-    .resetn             (resetn                              )  //i
+    .io_push_valid   (pending_valid                          ), //i
+    .io_push_ready   (trans_pending_fifo_io_push_ready       ), //o
+    .io_push_payload (trans_pending[29:0]                    ), //i
+    .io_pop_valid    (trans_pending_fifo_io_pop_valid        ), //o
+    .io_pop_ready    (pending_fifo_pop_ready                 ), //i
+    .io_pop_payload  (trans_pending_fifo_io_pop_payload[29:0]), //o
+    .io_flush        (1'b0                                   ), //i
+    .io_occupancy    (trans_pending_fifo_io_occupancy[2:0]   ), //o
+    .io_availability (trans_pending_fifo_io_availability[2:0]), //o
+    .clk             (clk                                    ), //i
+    .resetn          (resetn                                 )  //i
   );
   `ifndef SYNTHESIS
   always @(*) begin
     case(s2m_state)
-      `BDMAs2mStates_binary_sequential_IDLE : s2m_state_string = "IDLE ";
-      `BDMAs2mStates_binary_sequential_REQ : s2m_state_string = "REQ  ";
-      `BDMAs2mStates_binary_sequential_BURST : s2m_state_string = "BURST";
-      `BDMAs2mStates_binary_sequential_DROP : s2m_state_string = "DROP ";
+      BDMAs2mStates_IDLE : s2m_state_string = "IDLE ";
+      BDMAs2mStates_REQ : s2m_state_string = "REQ  ";
+      BDMAs2mStates_BURST : s2m_state_string = "BURST";
+      BDMAs2mStates_DROP : s2m_state_string = "DROP ";
       default : s2m_state_string = "?????";
     endcase
   end
   always @(*) begin
     case(s2m_cch_state)
-      `BDMAcchStates_binary_sequential_IDLE : s2m_cch_state_string = "IDLE     ";
-      `BDMAcchStates_binary_sequential_FIXED_REQ : s2m_cch_state_string = "FIXED_REQ";
-      `BDMAcchStates_binary_sequential_INCR_REQ : s2m_cch_state_string = "INCR_REQ ";
-      `BDMAcchStates_binary_sequential_HALT : s2m_cch_state_string = "HALT     ";
+      BDMAcchStates_IDLE : s2m_cch_state_string = "IDLE     ";
+      BDMAcchStates_FIXED_REQ : s2m_cch_state_string = "FIXED_REQ";
+      BDMAcchStates_INCR_REQ : s2m_cch_state_string = "INCR_REQ ";
+      BDMAcchStates_HALT : s2m_cch_state_string = "HALT     ";
       default : s2m_cch_state_string = "?????????";
     endcase
   end
   always @(*) begin
     case(s2m_w_state)
-      `BDMAs2mStates_binary_sequential_IDLE : s2m_w_state_string = "IDLE ";
-      `BDMAs2mStates_binary_sequential_REQ : s2m_w_state_string = "REQ  ";
-      `BDMAs2mStates_binary_sequential_BURST : s2m_w_state_string = "BURST";
-      `BDMAs2mStates_binary_sequential_DROP : s2m_w_state_string = "DROP ";
+      BDMAs2mStates_IDLE : s2m_w_state_string = "IDLE ";
+      BDMAs2mStates_REQ : s2m_w_state_string = "REQ  ";
+      BDMAs2mStates_BURST : s2m_w_state_string = "BURST";
+      BDMAs2mStates_DROP : s2m_w_state_string = "DROP ";
       default : s2m_w_state_string = "?????";
     endcase
   end
@@ -1746,7 +1762,7 @@ module BDMAs2m (
   assign dma_aw_fire = (dma_aw_valid && dma_aw_ready);
   assign strb_full = 4'b1111;
   assign dma_aw_fire_1 = (dma_aw_valid && dma_aw_ready);
-  assign _zz_dma_aw_valid = (! (3'b010 <= len_pending_fifo_io_occupancy));
+  assign _zz_dma_aw_valid = (! (3'b011 <= len_pending_fifo_io_occupancy));
   assign s2m_aw_fifo_io_pop_ready = (dma_aw_ready && _zz_dma_aw_valid);
   assign dma_aw_valid = (s2m_aw_fifo_io_pop_valid && _zz_dma_aw_valid);
   assign dma_aw_payload_addr = s2m_aw_fifo_io_pop_payload_addr;
@@ -1754,7 +1770,7 @@ module BDMAs2m (
   assign dma_aw_payload_len = s2m_aw_fifo_io_pop_payload_len;
   assign dma_aw_payload_size = s2m_aw_fifo_io_pop_payload_size;
   assign dma_aw_payload_burst = s2m_aw_fifo_io_pop_payload_burst;
-  assign aw_finish = (((s2m_cch_state == `BDMAcchStates_binary_sequential_HALT) && (! len_pending_fifo_io_pop_valid)) && (! s2m_aw_fifo_io_pop_valid));
+  assign aw_finish = (((s2m_cch_state == BDMAcchStates_HALT) && (! len_pending_fifo_io_pop_valid)) && (! s2m_aw_fifo_io_pop_valid));
   assign dma_aw_fire_2 = (dma_aw_valid && dma_aw_ready);
   assign len_pending_fifo_io_pop_fire = (len_pending_fifo_io_pop_valid && pending_fifo_pop_ready);
   assign s2m_data_stream_fire = (s2m_data_stream_valid && s2m_data_stream_ready);
@@ -1773,14 +1789,14 @@ module BDMAs2m (
   assign dma_w_payload_data = s2m_w_fifo_io_pop_payload_data;
   assign dma_w_payload_strb = s2m_w_fifo_io_pop_payload_strb;
   assign dma_w_payload_last = s2m_w_fifo_io_pop_payload_last;
-  assign when_BDMAs2m_l401 = (s2m_cch_state == `BDMAcchStates_binary_sequential_IDLE);
-  assign when_BDMAs2m_l403 = ((s2m_w_state == `BDMAs2mStates_binary_sequential_DROP) && aw_finish);
+  assign when_BDMAs2m_l401 = (s2m_cch_state == BDMAcchStates_IDLE);
+  assign when_BDMAs2m_l403 = ((s2m_w_state == BDMAs2mStates_DROP) && aw_finish);
   assign s2m_intr = cycle_finished;
   assign s2m_state = s2m_w_state;
   always @(posedge clk) begin
     if(!resetn) begin
-      s2m_cch_state <= `BDMAcchStates_binary_sequential_IDLE;
-      s2m_w_state <= `BDMAs2mStates_binary_sequential_IDLE;
+      s2m_cch_state <= BDMAcchStates_IDLE;
+      s2m_w_state <= BDMAs2mStates_IDLE;
       cch_ready <= 1'b0;
       s2m_aw_valid <= 1'b0;
       s2m_aw_halt_exec <= 1'b0;
@@ -1804,26 +1820,26 @@ module BDMAs2m (
       pending_fifo_pop_ready <= 1'b0;
     end else begin
       case(s2m_cch_state)
-        `BDMAcchStates_binary_sequential_IDLE : begin
+        BDMAcchStates_IDLE : begin
           if(s2m_cch_fire) begin
             cch_ready <= 1'b0;
             s2m_bytes_shift <= s2m_cch_payload_desc_start_addr[1 : 0];
             s2m_mask_shift <= (s2m_cch_payload_desc_start_addr[1 : 0] + s2m_cch_payload_desc_total_bytes[1 : 0]);
             case(s2m_cch_payload_desc_burst)
               2'b00 : begin
-                s2m_cch_state <= `BDMAcchStates_binary_sequential_FIXED_REQ;
+                s2m_cch_state <= BDMAcchStates_FIXED_REQ;
               end
               default : begin
-                s2m_cch_state <= `BDMAcchStates_binary_sequential_INCR_REQ;
+                s2m_cch_state <= BDMAcchStates_INCR_REQ;
               end
             endcase
           end else begin
             cch_ready <= 1'b1;
           end
         end
-        `BDMAcchStates_binary_sequential_FIXED_REQ : begin
+        BDMAcchStates_FIXED_REQ : begin
           if(when_BDMAs2m_l86) begin
-            s2m_cch_state <= `BDMAcchStates_binary_sequential_HALT;
+            s2m_cch_state <= BDMAcchStates_HALT;
           end else begin
             if(s2m_aw_fifo_io_push_fire) begin
               s2m_aw_halt_exec <= 1'b0;
@@ -1839,9 +1855,9 @@ module BDMAs2m (
             end
           end
         end
-        `BDMAcchStates_binary_sequential_INCR_REQ : begin
+        BDMAcchStates_INCR_REQ : begin
           if(when_BDMAs2m_l116) begin
-            s2m_cch_state <= `BDMAcchStates_binary_sequential_HALT;
+            s2m_cch_state <= BDMAcchStates_HALT;
           end else begin
             if(s2m_aw_fifo_io_push_fire_2) begin
               s2m_aw_halt_exec <= 1'b0;
@@ -1859,7 +1875,7 @@ module BDMAs2m (
         end
         default : begin
           if(when_BDMAs2m_l161) begin
-            s2m_cch_state <= `BDMAcchStates_binary_sequential_IDLE;
+            s2m_cch_state <= BDMAcchStates_IDLE;
             s2m_bytes_shift <= 2'b00;
           end
         end
@@ -1870,9 +1886,9 @@ module BDMAs2m (
         pending_valid <= 1'b0;
       end
       case(s2m_w_state)
-        `BDMAs2mStates_binary_sequential_IDLE : begin
+        BDMAs2mStates_IDLE : begin
           if(dma_aw_fire_2) begin
-            s2m_w_state <= `BDMAs2mStates_binary_sequential_REQ;
+            s2m_w_state <= BDMAs2mStates_REQ;
             s2m_w_final_mask <= (strb_full >>> _zz_s2m_w_final_mask);
           end
           s2m_axis_residual_strb_keep <= 4'b0000;
@@ -1882,11 +1898,11 @@ module BDMAs2m (
           s2m_axis_last_cycle <= 1'b0;
           s2m_axis_final_last <= 1'b0;
         end
-        `BDMAs2mStates_binary_sequential_REQ : begin
+        BDMAs2mStates_REQ : begin
           if(len_pending_fifo_io_pop_fire) begin
             s2m_axis_trans_bytes <= (s2m_axis_trans_bytes + trans_pending_fifo_io_pop_payload);
             pending_fifo_pop_ready <= 1'b0;
-            s2m_w_state <= `BDMAs2mStates_binary_sequential_BURST;
+            s2m_w_state <= BDMAs2mStates_BURST;
             s2m_axis_valve <= (! s2m_axis_final_last);
           end else begin
             pending_fifo_pop_ready <= 1'b1;
@@ -1896,7 +1912,7 @@ module BDMAs2m (
           s2m_w_last <= 1'b0;
           s2m_axis_req <= 1'b0;
         end
-        `BDMAs2mStates_binary_sequential_BURST : begin
+        BDMAs2mStates_BURST : begin
           if(when_BDMAs2m_l271) begin
             s2m_axis_first <= 1'b1;
             s2m_axis_req <= 1'b1;
@@ -1939,7 +1955,7 @@ module BDMAs2m (
             end
             if(when_BDMAs2m_l357) begin
               s2m_w_last <= 1'b1;
-              s2m_w_state <= (aw_finish ? `BDMAs2mStates_binary_sequential_DROP : `BDMAs2mStates_binary_sequential_REQ);
+              s2m_w_state <= (aw_finish ? BDMAs2mStates_DROP : BDMAs2mStates_REQ);
               pending_fifo_pop_ready <= (! aw_finish);
             end else begin
               s2m_w_last <= 1'b0;
@@ -1951,7 +1967,7 @@ module BDMAs2m (
         default : begin
           s2m_w_valid <= 1'b0;
           if(when_BDMAs2m_l371) begin
-            s2m_w_state <= `BDMAs2mStates_binary_sequential_IDLE;
+            s2m_w_state <= BDMAs2mStates_IDLE;
             s2m_axis_leak <= 1'b0;
           end else begin
             s2m_axis_leak <= 1'b1;
@@ -1970,7 +1986,7 @@ module BDMAs2m (
 
   always @(posedge clk) begin
     case(s2m_cch_state)
-      `BDMAcchStates_binary_sequential_IDLE : begin
+      BDMAcchStates_IDLE : begin
         if(s2m_cch_fire) begin
           cch_address <= s2m_cch_payload_desc_start_addr;
           cch_total_bytes <= s2m_cch_payload_desc_total_bytes;
@@ -1978,7 +1994,7 @@ module BDMAs2m (
           cch_id <= s2m_cch_payload_desc_id;
         end
       end
-      `BDMAcchStates_binary_sequential_FIXED_REQ : begin
+      BDMAcchStates_FIXED_REQ : begin
         if(!when_BDMAs2m_l86) begin
           if(s2m_aw_fifo_io_push_fire) begin
             cch_total_bytes <= (cch_total_bytes - trans_bytes_cnt);
@@ -1991,7 +2007,7 @@ module BDMAs2m (
         end
         s2m_aw_len <= _zz_s2m_aw_len[7:0];
       end
-      `BDMAcchStates_binary_sequential_INCR_REQ : begin
+      BDMAcchStates_INCR_REQ : begin
         if(!when_BDMAs2m_l116) begin
           if(s2m_aw_fifo_io_push_fire_2) begin
             cch_address <= (cch_address + _zz_cch_address);
@@ -2021,14 +2037,14 @@ module BDMAs2m (
       len_pending <= dma_aw_payload_len;
     end
     case(s2m_w_state)
-      `BDMAs2mStates_binary_sequential_IDLE : begin
+      BDMAs2mStates_IDLE : begin
       end
-      `BDMAs2mStates_binary_sequential_REQ : begin
+      BDMAs2mStates_REQ : begin
         if(len_pending_fifo_io_pop_fire) begin
           s2m_w_len <= len_pending_fifo_io_pop_payload;
         end
       end
-      `BDMAs2mStates_binary_sequential_BURST : begin
+      BDMAs2mStates_BURST : begin
         if(when_BDMAs2m_l271) begin
           if(when_BDMAs2m_l274) begin
             s2m_axis_data <= _zz_s2m_axis_data[31:0];
@@ -2085,6 +2101,7 @@ module StreamFifo_7 (
   input               clk,
   input               resetn
 );
+
   reg        [40:0]   _zz_logic_ram_port0;
   wire       [2:0]    _zz_logic_pushPtr_valueNext;
   wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
@@ -2115,7 +2132,7 @@ module StreamFifo_7 (
   wire                logic_full;
   reg                 _zz_io_pop_valid;
   wire       [40:0]   _zz_io_pop_payload_data;
-  wire                when_Stream_l933;
+  wire                when_Stream_l1021;
   wire       [2:0]    logic_ptrDif;
   reg [40:0] logic_ram [0:7];
 
@@ -2203,7 +2220,7 @@ module StreamFifo_7 (
   assign io_pop_payload_strb = _zz_io_pop_payload_data[35 : 32];
   assign io_pop_payload_keep_ = _zz_io_pop_payload_data[39 : 36];
   assign io_pop_payload_last = _zz_io_pop_payload_data[40];
-  assign when_Stream_l933 = (logic_pushing != logic_popping);
+  assign when_Stream_l1021 = (logic_pushing != logic_popping);
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
@@ -2217,7 +2234,7 @@ module StreamFifo_7 (
       logic_pushPtr_value <= logic_pushPtr_valueNext;
       logic_popPtr_value <= logic_popPtr_valueNext;
       _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
-      if(when_Stream_l933) begin
+      if(when_Stream_l1021) begin
         logic_risingOccupancy <= logic_pushing;
       end
       if(io_flush) begin
@@ -2241,31 +2258,35 @@ module StreamFifo_4 (
   input               io_pop_ready,
   output     [29:0]   io_pop_payload,
   input               io_flush,
-  output     [2:0]    io_occupancy,
-  output     [2:0]    io_availability,
+  output reg [2:0]    io_occupancy,
+  output reg [2:0]    io_availability,
   input               clk,
   input               resetn
 );
+
   reg        [29:0]   _zz_logic_ram_port0;
-  wire       [1:0]    _zz_logic_pushPtr_valueNext;
+  wire       [2:0]    _zz_logic_pushPtr_valueNext;
   wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
-  wire       [1:0]    _zz_logic_popPtr_valueNext;
+  wire       [2:0]    _zz_logic_popPtr_valueNext;
   wire       [0:0]    _zz_logic_popPtr_valueNext_1;
   wire                _zz_logic_ram_port;
   wire                _zz_io_pop_payload;
   wire       [29:0]   _zz_logic_ram_port_1;
-  wire       [1:0]    _zz_io_availability;
+  wire       [2:0]    _zz_io_occupancy;
+  wire       [2:0]    _zz_io_availability;
+  wire       [2:0]    _zz_io_availability_1;
+  wire       [2:0]    _zz_io_availability_2;
   reg                 _zz_1;
   reg                 logic_pushPtr_willIncrement;
   reg                 logic_pushPtr_willClear;
-  reg        [1:0]    logic_pushPtr_valueNext;
-  reg        [1:0]    logic_pushPtr_value;
+  reg        [2:0]    logic_pushPtr_valueNext;
+  reg        [2:0]    logic_pushPtr_value;
   wire                logic_pushPtr_willOverflowIfInc;
   wire                logic_pushPtr_willOverflow;
   reg                 logic_popPtr_willIncrement;
   reg                 logic_popPtr_willClear;
-  reg        [1:0]    logic_popPtr_valueNext;
-  reg        [1:0]    logic_popPtr_value;
+  reg        [2:0]    logic_popPtr_valueNext;
+  reg        [2:0]    logic_popPtr_value;
   wire                logic_popPtr_willOverflowIfInc;
   wire                logic_popPtr_willOverflow;
   wire                logic_ptrMatch;
@@ -2275,15 +2296,18 @@ module StreamFifo_4 (
   wire                logic_empty;
   wire                logic_full;
   reg                 _zz_io_pop_valid;
-  wire                when_Stream_l933;
-  wire       [1:0]    logic_ptrDif;
-  reg [29:0] logic_ram [0:3];
+  wire                when_Stream_l1021;
+  wire       [2:0]    logic_ptrDif;
+  reg [29:0] logic_ram [0:4];
 
   assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
-  assign _zz_logic_pushPtr_valueNext = {1'd0, _zz_logic_pushPtr_valueNext_1};
+  assign _zz_logic_pushPtr_valueNext = {2'd0, _zz_logic_pushPtr_valueNext_1};
   assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
-  assign _zz_logic_popPtr_valueNext = {1'd0, _zz_logic_popPtr_valueNext_1};
-  assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
+  assign _zz_logic_popPtr_valueNext = {2'd0, _zz_logic_popPtr_valueNext_1};
+  assign _zz_io_occupancy = (3'b101 + logic_ptrDif);
+  assign _zz_io_availability = (3'b101 + _zz_io_availability_1);
+  assign _zz_io_availability_1 = (logic_popPtr_value - logic_pushPtr_value);
+  assign _zz_io_availability_2 = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz_io_pop_payload = 1'b1;
   assign _zz_logic_ram_port_1 = io_push_payload;
   always @(posedge clk) begin
@@ -2319,12 +2343,16 @@ module StreamFifo_4 (
     end
   end
 
-  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 2'b11);
+  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 3'b100);
   assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
   always @(*) begin
-    logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
+    if(logic_pushPtr_willOverflow) begin
+      logic_pushPtr_valueNext = 3'b000;
+    end else begin
+      logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
+    end
     if(logic_pushPtr_willClear) begin
-      logic_pushPtr_valueNext = 2'b00;
+      logic_pushPtr_valueNext = 3'b000;
     end
   end
 
@@ -2342,12 +2370,16 @@ module StreamFifo_4 (
     end
   end
 
-  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 2'b11);
+  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 3'b100);
   assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
   always @(*) begin
-    logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
+    if(logic_popPtr_willOverflow) begin
+      logic_popPtr_valueNext = 3'b000;
+    end else begin
+      logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
+    end
     if(logic_popPtr_willClear) begin
-      logic_popPtr_valueNext = 2'b00;
+      logic_popPtr_valueNext = 3'b000;
     end
   end
 
@@ -2359,21 +2391,35 @@ module StreamFifo_4 (
   assign io_push_ready = (! logic_full);
   assign io_pop_valid = ((! logic_empty) && (! (_zz_io_pop_valid && (! logic_full))));
   assign io_pop_payload = _zz_logic_ram_port0;
-  assign when_Stream_l933 = (logic_pushing != logic_popping);
+  assign when_Stream_l1021 = (logic_pushing != logic_popping);
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
-  assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
-  assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
+  always @(*) begin
+    if(logic_ptrMatch) begin
+      io_occupancy = (logic_risingOccupancy ? 3'b101 : 3'b000);
+    end else begin
+      io_occupancy = ((logic_popPtr_value < logic_pushPtr_value) ? logic_ptrDif : _zz_io_occupancy);
+    end
+  end
+
+  always @(*) begin
+    if(logic_ptrMatch) begin
+      io_availability = (logic_risingOccupancy ? 3'b000 : 3'b101);
+    end else begin
+      io_availability = ((logic_popPtr_value < logic_pushPtr_value) ? _zz_io_availability : _zz_io_availability_2);
+    end
+  end
+
   always @(posedge clk) begin
     if(!resetn) begin
-      logic_pushPtr_value <= 2'b00;
-      logic_popPtr_value <= 2'b00;
+      logic_pushPtr_value <= 3'b000;
+      logic_popPtr_value <= 3'b000;
       logic_risingOccupancy <= 1'b0;
       _zz_io_pop_valid <= 1'b0;
     end else begin
       logic_pushPtr_value <= logic_pushPtr_valueNext;
       logic_popPtr_value <= logic_popPtr_valueNext;
       _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
-      if(when_Stream_l933) begin
+      if(when_Stream_l1021) begin
         logic_risingOccupancy <= logic_pushing;
       end
       if(io_flush) begin
@@ -2393,31 +2439,35 @@ module StreamFifo_3 (
   input               io_pop_ready,
   output     [7:0]    io_pop_payload,
   input               io_flush,
-  output     [2:0]    io_occupancy,
-  output     [2:0]    io_availability,
+  output reg [2:0]    io_occupancy,
+  output reg [2:0]    io_availability,
   input               clk,
   input               resetn
 );
+
   reg        [7:0]    _zz_logic_ram_port0;
-  wire       [1:0]    _zz_logic_pushPtr_valueNext;
+  wire       [2:0]    _zz_logic_pushPtr_valueNext;
   wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
-  wire       [1:0]    _zz_logic_popPtr_valueNext;
+  wire       [2:0]    _zz_logic_popPtr_valueNext;
   wire       [0:0]    _zz_logic_popPtr_valueNext_1;
   wire                _zz_logic_ram_port;
   wire                _zz_io_pop_payload;
   wire       [7:0]    _zz_logic_ram_port_1;
-  wire       [1:0]    _zz_io_availability;
+  wire       [2:0]    _zz_io_occupancy;
+  wire       [2:0]    _zz_io_availability;
+  wire       [2:0]    _zz_io_availability_1;
+  wire       [2:0]    _zz_io_availability_2;
   reg                 _zz_1;
   reg                 logic_pushPtr_willIncrement;
   reg                 logic_pushPtr_willClear;
-  reg        [1:0]    logic_pushPtr_valueNext;
-  reg        [1:0]    logic_pushPtr_value;
+  reg        [2:0]    logic_pushPtr_valueNext;
+  reg        [2:0]    logic_pushPtr_value;
   wire                logic_pushPtr_willOverflowIfInc;
   wire                logic_pushPtr_willOverflow;
   reg                 logic_popPtr_willIncrement;
   reg                 logic_popPtr_willClear;
-  reg        [1:0]    logic_popPtr_valueNext;
-  reg        [1:0]    logic_popPtr_value;
+  reg        [2:0]    logic_popPtr_valueNext;
+  reg        [2:0]    logic_popPtr_value;
   wire                logic_popPtr_willOverflowIfInc;
   wire                logic_popPtr_willOverflow;
   wire                logic_ptrMatch;
@@ -2427,15 +2477,18 @@ module StreamFifo_3 (
   wire                logic_empty;
   wire                logic_full;
   reg                 _zz_io_pop_valid;
-  wire                when_Stream_l933;
-  wire       [1:0]    logic_ptrDif;
-  reg [7:0] logic_ram [0:3];
+  wire                when_Stream_l1021;
+  wire       [2:0]    logic_ptrDif;
+  reg [7:0] logic_ram [0:4];
 
   assign _zz_logic_pushPtr_valueNext_1 = logic_pushPtr_willIncrement;
-  assign _zz_logic_pushPtr_valueNext = {1'd0, _zz_logic_pushPtr_valueNext_1};
+  assign _zz_logic_pushPtr_valueNext = {2'd0, _zz_logic_pushPtr_valueNext_1};
   assign _zz_logic_popPtr_valueNext_1 = logic_popPtr_willIncrement;
-  assign _zz_logic_popPtr_valueNext = {1'd0, _zz_logic_popPtr_valueNext_1};
-  assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
+  assign _zz_logic_popPtr_valueNext = {2'd0, _zz_logic_popPtr_valueNext_1};
+  assign _zz_io_occupancy = (3'b101 + logic_ptrDif);
+  assign _zz_io_availability = (3'b101 + _zz_io_availability_1);
+  assign _zz_io_availability_1 = (logic_popPtr_value - logic_pushPtr_value);
+  assign _zz_io_availability_2 = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz_io_pop_payload = 1'b1;
   assign _zz_logic_ram_port_1 = io_push_payload;
   always @(posedge clk) begin
@@ -2471,12 +2524,16 @@ module StreamFifo_3 (
     end
   end
 
-  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 2'b11);
+  assign logic_pushPtr_willOverflowIfInc = (logic_pushPtr_value == 3'b100);
   assign logic_pushPtr_willOverflow = (logic_pushPtr_willOverflowIfInc && logic_pushPtr_willIncrement);
   always @(*) begin
-    logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
+    if(logic_pushPtr_willOverflow) begin
+      logic_pushPtr_valueNext = 3'b000;
+    end else begin
+      logic_pushPtr_valueNext = (logic_pushPtr_value + _zz_logic_pushPtr_valueNext);
+    end
     if(logic_pushPtr_willClear) begin
-      logic_pushPtr_valueNext = 2'b00;
+      logic_pushPtr_valueNext = 3'b000;
     end
   end
 
@@ -2494,12 +2551,16 @@ module StreamFifo_3 (
     end
   end
 
-  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 2'b11);
+  assign logic_popPtr_willOverflowIfInc = (logic_popPtr_value == 3'b100);
   assign logic_popPtr_willOverflow = (logic_popPtr_willOverflowIfInc && logic_popPtr_willIncrement);
   always @(*) begin
-    logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
+    if(logic_popPtr_willOverflow) begin
+      logic_popPtr_valueNext = 3'b000;
+    end else begin
+      logic_popPtr_valueNext = (logic_popPtr_value + _zz_logic_popPtr_valueNext);
+    end
     if(logic_popPtr_willClear) begin
-      logic_popPtr_valueNext = 2'b00;
+      logic_popPtr_valueNext = 3'b000;
     end
   end
 
@@ -2511,21 +2572,35 @@ module StreamFifo_3 (
   assign io_push_ready = (! logic_full);
   assign io_pop_valid = ((! logic_empty) && (! (_zz_io_pop_valid && (! logic_full))));
   assign io_pop_payload = _zz_logic_ram_port0;
-  assign when_Stream_l933 = (logic_pushing != logic_popping);
+  assign when_Stream_l1021 = (logic_pushing != logic_popping);
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
-  assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
-  assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
+  always @(*) begin
+    if(logic_ptrMatch) begin
+      io_occupancy = (logic_risingOccupancy ? 3'b101 : 3'b000);
+    end else begin
+      io_occupancy = ((logic_popPtr_value < logic_pushPtr_value) ? logic_ptrDif : _zz_io_occupancy);
+    end
+  end
+
+  always @(*) begin
+    if(logic_ptrMatch) begin
+      io_availability = (logic_risingOccupancy ? 3'b000 : 3'b101);
+    end else begin
+      io_availability = ((logic_popPtr_value < logic_pushPtr_value) ? _zz_io_availability : _zz_io_availability_2);
+    end
+  end
+
   always @(posedge clk) begin
     if(!resetn) begin
-      logic_pushPtr_value <= 2'b00;
-      logic_popPtr_value <= 2'b00;
+      logic_pushPtr_value <= 3'b000;
+      logic_popPtr_value <= 3'b000;
       logic_risingOccupancy <= 1'b0;
       _zz_io_pop_valid <= 1'b0;
     end else begin
       logic_pushPtr_value <= logic_pushPtr_valueNext;
       logic_popPtr_value <= logic_popPtr_valueNext;
       _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
-      if(when_Stream_l933) begin
+      if(when_Stream_l1021) begin
         logic_risingOccupancy <= logic_pushing;
       end
       if(io_flush) begin
@@ -2554,6 +2629,7 @@ module StreamFifo_2 (
   input               clk,
   input               resetn
 );
+
   reg        [36:0]   _zz_logic_ram_port0;
   wire       [3:0]    _zz_logic_pushPtr_valueNext;
   wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
@@ -2584,7 +2660,7 @@ module StreamFifo_2 (
   wire                logic_full;
   reg                 _zz_io_pop_valid;
   wire       [36:0]   _zz_io_pop_payload_data;
-  wire                when_Stream_l933;
+  wire                when_Stream_l1021;
   wire       [3:0]    logic_ptrDif;
   reg [36:0] logic_ram [0:15];
 
@@ -2671,7 +2747,7 @@ module StreamFifo_2 (
   assign io_pop_payload_data = _zz_io_pop_payload_data[31 : 0];
   assign io_pop_payload_strb = _zz_io_pop_payload_data[35 : 32];
   assign io_pop_payload_last = _zz_io_pop_payload_data[36];
-  assign when_Stream_l933 = (logic_pushing != logic_popping);
+  assign when_Stream_l1021 = (logic_pushing != logic_popping);
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
@@ -2685,7 +2761,7 @@ module StreamFifo_2 (
       logic_pushPtr_value <= logic_pushPtr_valueNext;
       logic_popPtr_value <= logic_popPtr_valueNext;
       _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
-      if(when_Stream_l933) begin
+      if(when_Stream_l1021) begin
         logic_risingOccupancy <= logic_pushing;
       end
       if(io_flush) begin
@@ -2710,6 +2786,7 @@ module StreamFifo_1 (
   input               clk,
   input               resetn
 );
+
   reg        [29:0]   _zz_logic_ram_port0;
   wire       [2:0]    _zz_logic_pushPtr_valueNext;
   wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
@@ -2739,7 +2816,7 @@ module StreamFifo_1 (
   wire                logic_empty;
   wire                logic_full;
   reg                 _zz_io_pop_valid;
-  wire                when_Stream_l933;
+  wire                when_Stream_l1021;
   wire       [2:0]    logic_ptrDif;
   reg [29:0] logic_ram [0:7];
 
@@ -2823,7 +2900,7 @@ module StreamFifo_1 (
   assign io_push_ready = (! logic_full);
   assign io_pop_valid = ((! logic_empty) && (! (_zz_io_pop_valid && (! logic_full))));
   assign io_pop_payload = _zz_logic_ram_port0;
-  assign when_Stream_l933 = (logic_pushing != logic_popping);
+  assign when_Stream_l1021 = (logic_pushing != logic_popping);
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
@@ -2837,7 +2914,7 @@ module StreamFifo_1 (
       logic_pushPtr_value <= logic_pushPtr_valueNext;
       logic_popPtr_value <= logic_popPtr_valueNext;
       _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
-      if(when_Stream_l933) begin
+      if(when_Stream_l1021) begin
         logic_risingOccupancy <= logic_pushing;
       end
       if(io_flush) begin
@@ -2870,6 +2947,7 @@ module StreamFifo (
   input               clk,
   input               resetn
 );
+
   reg        [48:0]   _zz_logic_ram_port0;
   wire       [2:0]    _zz_logic_pushPtr_valueNext;
   wire       [0:0]    _zz_logic_pushPtr_valueNext_1;
@@ -2900,7 +2978,7 @@ module StreamFifo (
   wire                logic_full;
   reg                 _zz_io_pop_valid;
   wire       [48:0]   _zz_io_pop_payload_addr;
-  wire                when_Stream_l933;
+  wire                when_Stream_l1021;
   wire       [2:0]    logic_ptrDif;
   reg [48:0] logic_ram [0:7];
 
@@ -2989,7 +3067,7 @@ module StreamFifo (
   assign io_pop_payload_len = _zz_io_pop_payload_addr[43 : 36];
   assign io_pop_payload_size = _zz_io_pop_payload_addr[46 : 44];
   assign io_pop_payload_burst = _zz_io_pop_payload_addr[48 : 47];
-  assign when_Stream_l933 = (logic_pushing != logic_popping);
+  assign when_Stream_l1021 = (logic_pushing != logic_popping);
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
@@ -3003,7 +3081,7 @@ module StreamFifo (
       logic_pushPtr_value <= logic_pushPtr_valueNext;
       logic_popPtr_value <= logic_popPtr_valueNext;
       _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
-      if(when_Stream_l933) begin
+      if(when_Stream_l1021) begin
         logic_risingOccupancy <= logic_pushing;
       end
       if(io_flush) begin

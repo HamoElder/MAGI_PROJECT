@@ -40,12 +40,12 @@ void VLoopBackTest::_initial__TOP__1(VLoopBackTest__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VLoopBackTest::_initial__TOP__1\n"); );
     VLoopBackTest* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Variables
-    WData/*1215:0*/ __Vtemp1[38];
-    WData/*1183:0*/ __Vtemp2[37];
-    WData/*1119:0*/ __Vtemp3[35];
-    WData/*1119:0*/ __Vtemp4[35];
-    WData/*1151:0*/ __Vtemp5[36];
-    WData/*1151:0*/ __Vtemp6[36];
+    WData/*1023:0*/ __Vtemp1[32];
+    WData/*991:0*/ __Vtemp2[31];
+    WData/*927:0*/ __Vtemp3[29];
+    WData/*927:0*/ __Vtemp4[29];
+    WData/*959:0*/ __Vtemp5[30];
+    WData/*959:0*/ __Vtemp6[30];
     // Body
     vlTOPp->axil4Ctrl_rresp = 0U;
     vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_header_extender__DOT____Vxrand1 
@@ -75,26 +75,20 @@ void VLoopBackTest::_initial__TOP__1(VLoopBackTest__Syms* __restrict vlSymsp) {
     __Vtemp1[0x10U] = 0x6573742eU;
     __Vtemp1[0x11U] = 0x61636b54U;
     __Vtemp1[0x12U] = 0x6f6f7042U;
-    __Vtemp1[0x13U] = 0x746c2f4cU;
-    __Vtemp1[0x14U] = 0x73742f72U;
-    __Vtemp1[0x15U] = 0x636b5465U;
-    __Vtemp1[0x16U] = 0x6f704261U;
-    __Vtemp1[0x17U] = 0x652f4c6fU;
-    __Vtemp1[0x18U] = 0x73706163U;
-    __Vtemp1[0x19U] = 0x576f726bU;
-    __Vtemp1[0x1aU] = 0x2f73696dU;
-    __Vtemp1[0x1bU] = 0x43542f2eU;
-    __Vtemp1[0x1cU] = 0x524f4a45U;
-    __Vtemp1[0x1dU] = 0x47495f50U;
-    __Vtemp1[0x1eU] = 0x732f4d41U;
-    __Vtemp1[0x1fU] = 0x6a656374U;
-    __Vtemp1[0x20U] = 0x6150726fU;
-    __Vtemp1[0x21U] = 0x2f496465U;
-    __Vtemp1[0x22U] = 0x646f776eU;
-    __Vtemp1[0x23U] = 0x6d697373U;
-    __Vtemp1[0x24U] = 0x6f6d652fU;
-    __Vtemp1[0x25U] = 0x2f68U;
-    VL_READMEM_N(false, 6, 128, 0, VL_CVT_PACK_STR_NW(38, __Vtemp1)
+    __Vtemp1[0x13U] = 0x5f312f4cU;
+    __Vtemp1[0x14U] = 0x2f6a6f62U;
+    __Vtemp1[0x15U] = 0x2f746d70U;
+    __Vtemp1[0x16U] = 0x4a454354U;
+    __Vtemp1[0x17U] = 0x5f50524fU;
+    __Vtemp1[0x18U] = 0x4d414749U;
+    __Vtemp1[0x19U] = 0x6374732fU;
+    __Vtemp1[0x1aU] = 0x726f6a65U;
+    __Vtemp1[0x1bU] = 0x64656150U;
+    __Vtemp1[0x1cU] = 0x776e2f49U;
+    __Vtemp1[0x1dU] = 0x7373646fU;
+    __Vtemp1[0x1eU] = 0x652f6d69U;
+    __Vtemp1[0x1fU] = 0x2f686f6dU;
+    VL_READMEM_N(false, 6, 128, 0, VL_CVT_PACK_STR_NW(32, __Vtemp1)
                  , vlTOPp->LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__tbu_core__DOT__states_shift_rom
                  , 0, ~VL_ULL(0));
     vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_information_gen__DOT__dataFifo__DOT____Vxrand1 
@@ -117,26 +111,20 @@ void VLoopBackTest::_initial__TOP__1(VLoopBackTest__Syms* __restrict vlSymsp) {
     __Vtemp2[0xfU] = 0x54657374U;
     __Vtemp2[0x10U] = 0x4261636bU;
     __Vtemp2[0x11U] = 0x4c6f6f70U;
-    __Vtemp2[0x12U] = 0x72746c2fU;
-    __Vtemp2[0x13U] = 0x6573742fU;
-    __Vtemp2[0x14U] = 0x61636b54U;
-    __Vtemp2[0x15U] = 0x6f6f7042U;
-    __Vtemp2[0x16U] = 0x63652f4cU;
-    __Vtemp2[0x17U] = 0x6b737061U;
-    __Vtemp2[0x18U] = 0x6d576f72U;
-    __Vtemp2[0x19U] = 0x2e2f7369U;
-    __Vtemp2[0x1aU] = 0x4543542fU;
-    __Vtemp2[0x1bU] = 0x50524f4aU;
-    __Vtemp2[0x1cU] = 0x4147495fU;
-    __Vtemp2[0x1dU] = 0x74732f4dU;
-    __Vtemp2[0x1eU] = 0x6f6a6563U;
-    __Vtemp2[0x1fU] = 0x65615072U;
-    __Vtemp2[0x20U] = 0x6e2f4964U;
-    __Vtemp2[0x21U] = 0x73646f77U;
-    __Vtemp2[0x22U] = 0x2f6d6973U;
-    __Vtemp2[0x23U] = 0x686f6d65U;
-    __Vtemp2[0x24U] = 0x2fU;
-    VL_READMEM_N(false, 1, 128, 0, VL_CVT_PACK_STR_NW(37, __Vtemp2)
+    __Vtemp2[0x12U] = 0x625f312fU;
+    __Vtemp2[0x13U] = 0x702f6a6fU;
+    __Vtemp2[0x14U] = 0x542f746dU;
+    __Vtemp2[0x15U] = 0x4f4a4543U;
+    __Vtemp2[0x16U] = 0x495f5052U;
+    __Vtemp2[0x17U] = 0x2f4d4147U;
+    __Vtemp2[0x18U] = 0x65637473U;
+    __Vtemp2[0x19U] = 0x50726f6aU;
+    __Vtemp2[0x1aU] = 0x49646561U;
+    __Vtemp2[0x1bU] = 0x6f776e2fU;
+    __Vtemp2[0x1cU] = 0x69737364U;
+    __Vtemp2[0x1dU] = 0x6d652f6dU;
+    __Vtemp2[0x1eU] = 0x2f686fU;
+    VL_READMEM_N(false, 1, 128, 0, VL_CVT_PACK_STR_NW(31, __Vtemp2)
                  , vlTOPp->LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__tbu_core__DOT__in_data_rom
                  , 0, ~VL_ULL(0));
     vlTOPp->LoopBackTest__DOT__receiver__DOT__phy_rx_crc_checker__DOT__data_fifo__DOT____Vxrand1 
@@ -157,26 +145,20 @@ void VLoopBackTest::_initial__TOP__1(VLoopBackTest__Syms* __restrict vlSymsp) {
     __Vtemp3[0xdU] = 0x54657374U;
     __Vtemp3[0xeU] = 0x4261636bU;
     __Vtemp3[0xfU] = 0x4c6f6f70U;
-    __Vtemp3[0x10U] = 0x72746c2fU;
-    __Vtemp3[0x11U] = 0x6573742fU;
-    __Vtemp3[0x12U] = 0x61636b54U;
-    __Vtemp3[0x13U] = 0x6f6f7042U;
-    __Vtemp3[0x14U] = 0x63652f4cU;
-    __Vtemp3[0x15U] = 0x6b737061U;
-    __Vtemp3[0x16U] = 0x6d576f72U;
-    __Vtemp3[0x17U] = 0x2e2f7369U;
-    __Vtemp3[0x18U] = 0x4543542fU;
-    __Vtemp3[0x19U] = 0x50524f4aU;
-    __Vtemp3[0x1aU] = 0x4147495fU;
-    __Vtemp3[0x1bU] = 0x74732f4dU;
-    __Vtemp3[0x1cU] = 0x6f6a6563U;
-    __Vtemp3[0x1dU] = 0x65615072U;
-    __Vtemp3[0x1eU] = 0x6e2f4964U;
-    __Vtemp3[0x1fU] = 0x73646f77U;
-    __Vtemp3[0x20U] = 0x2f6d6973U;
-    __Vtemp3[0x21U] = 0x686f6d65U;
-    __Vtemp3[0x22U] = 0x2fU;
-    VL_READMEM_N(false, 12, 16, 0, VL_CVT_PACK_STR_NW(35, __Vtemp3)
+    __Vtemp3[0x10U] = 0x625f312fU;
+    __Vtemp3[0x11U] = 0x702f6a6fU;
+    __Vtemp3[0x12U] = 0x542f746dU;
+    __Vtemp3[0x13U] = 0x4f4a4543U;
+    __Vtemp3[0x14U] = 0x495f5052U;
+    __Vtemp3[0x15U] = 0x2f4d4147U;
+    __Vtemp3[0x16U] = 0x65637473U;
+    __Vtemp3[0x17U] = 0x50726f6aU;
+    __Vtemp3[0x18U] = 0x49646561U;
+    __Vtemp3[0x19U] = 0x6f776e2fU;
+    __Vtemp3[0x1aU] = 0x69737364U;
+    __Vtemp3[0x1bU] = 0x6d652f6dU;
+    __Vtemp3[0x1cU] = 0x2f686fU;
+    VL_READMEM_N(false, 12, 16, 0, VL_CVT_PACK_STR_NW(29, __Vtemp3)
                  , vlTOPp->LoopBackTest__DOT__transmitter__DOT__stf_preamble_adder__DOT__I_mem
                  , 0, ~VL_ULL(0));
     __Vtemp4[0U] = 0x2e62696eU;
@@ -195,26 +177,20 @@ void VLoopBackTest::_initial__TOP__1(VLoopBackTest__Syms* __restrict vlSymsp) {
     __Vtemp4[0xdU] = 0x54657374U;
     __Vtemp4[0xeU] = 0x4261636bU;
     __Vtemp4[0xfU] = 0x4c6f6f70U;
-    __Vtemp4[0x10U] = 0x72746c2fU;
-    __Vtemp4[0x11U] = 0x6573742fU;
-    __Vtemp4[0x12U] = 0x61636b54U;
-    __Vtemp4[0x13U] = 0x6f6f7042U;
-    __Vtemp4[0x14U] = 0x63652f4cU;
-    __Vtemp4[0x15U] = 0x6b737061U;
-    __Vtemp4[0x16U] = 0x6d576f72U;
-    __Vtemp4[0x17U] = 0x2e2f7369U;
-    __Vtemp4[0x18U] = 0x4543542fU;
-    __Vtemp4[0x19U] = 0x50524f4aU;
-    __Vtemp4[0x1aU] = 0x4147495fU;
-    __Vtemp4[0x1bU] = 0x74732f4dU;
-    __Vtemp4[0x1cU] = 0x6f6a6563U;
-    __Vtemp4[0x1dU] = 0x65615072U;
-    __Vtemp4[0x1eU] = 0x6e2f4964U;
-    __Vtemp4[0x1fU] = 0x73646f77U;
-    __Vtemp4[0x20U] = 0x2f6d6973U;
-    __Vtemp4[0x21U] = 0x686f6d65U;
-    __Vtemp4[0x22U] = 0x2fU;
-    VL_READMEM_N(false, 12, 16, 0, VL_CVT_PACK_STR_NW(35, __Vtemp4)
+    __Vtemp4[0x10U] = 0x625f312fU;
+    __Vtemp4[0x11U] = 0x702f6a6fU;
+    __Vtemp4[0x12U] = 0x542f746dU;
+    __Vtemp4[0x13U] = 0x4f4a4543U;
+    __Vtemp4[0x14U] = 0x495f5052U;
+    __Vtemp4[0x15U] = 0x2f4d4147U;
+    __Vtemp4[0x16U] = 0x65637473U;
+    __Vtemp4[0x17U] = 0x50726f6aU;
+    __Vtemp4[0x18U] = 0x49646561U;
+    __Vtemp4[0x19U] = 0x6f776e2fU;
+    __Vtemp4[0x1aU] = 0x69737364U;
+    __Vtemp4[0x1bU] = 0x6d652f6dU;
+    __Vtemp4[0x1cU] = 0x2f686fU;
+    VL_READMEM_N(false, 12, 16, 0, VL_CVT_PACK_STR_NW(29, __Vtemp4)
                  , vlTOPp->LoopBackTest__DOT__transmitter__DOT__stf_preamble_adder__DOT__Q_mem
                  , 0, ~VL_ULL(0));
     vlTOPp->LoopBackTest__DOT__receiver__DOT__de_scrambling_to_de_puncher_fifo__DOT____Vxrand1 
@@ -236,26 +212,20 @@ void VLoopBackTest::_initial__TOP__1(VLoopBackTest__Syms* __restrict vlSymsp) {
     __Vtemp5[0xeU] = 0x6573742eU;
     __Vtemp5[0xfU] = 0x61636b54U;
     __Vtemp5[0x10U] = 0x6f6f7042U;
-    __Vtemp5[0x11U] = 0x746c2f4cU;
-    __Vtemp5[0x12U] = 0x73742f72U;
-    __Vtemp5[0x13U] = 0x636b5465U;
-    __Vtemp5[0x14U] = 0x6f704261U;
-    __Vtemp5[0x15U] = 0x652f4c6fU;
-    __Vtemp5[0x16U] = 0x73706163U;
-    __Vtemp5[0x17U] = 0x576f726bU;
-    __Vtemp5[0x18U] = 0x2f73696dU;
-    __Vtemp5[0x19U] = 0x43542f2eU;
-    __Vtemp5[0x1aU] = 0x524f4a45U;
-    __Vtemp5[0x1bU] = 0x47495f50U;
-    __Vtemp5[0x1cU] = 0x732f4d41U;
-    __Vtemp5[0x1dU] = 0x6a656374U;
-    __Vtemp5[0x1eU] = 0x6150726fU;
-    __Vtemp5[0x1fU] = 0x2f496465U;
-    __Vtemp5[0x20U] = 0x646f776eU;
-    __Vtemp5[0x21U] = 0x6d697373U;
-    __Vtemp5[0x22U] = 0x6f6d652fU;
-    __Vtemp5[0x23U] = 0x2f68U;
-    VL_READMEM_N(false, 12, 16, 0, VL_CVT_PACK_STR_NW(36, __Vtemp5)
+    __Vtemp5[0x11U] = 0x5f312f4cU;
+    __Vtemp5[0x12U] = 0x2f6a6f62U;
+    __Vtemp5[0x13U] = 0x2f746d70U;
+    __Vtemp5[0x14U] = 0x4a454354U;
+    __Vtemp5[0x15U] = 0x5f50524fU;
+    __Vtemp5[0x16U] = 0x4d414749U;
+    __Vtemp5[0x17U] = 0x6374732fU;
+    __Vtemp5[0x18U] = 0x726f6a65U;
+    __Vtemp5[0x19U] = 0x64656150U;
+    __Vtemp5[0x1aU] = 0x776e2f49U;
+    __Vtemp5[0x1bU] = 0x7373646fU;
+    __Vtemp5[0x1cU] = 0x652f6d69U;
+    __Vtemp5[0x1dU] = 0x2f686f6dU;
+    VL_READMEM_N(false, 12, 16, 0, VL_CVT_PACK_STR_NW(30, __Vtemp5)
                  , vlTOPp->LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__I_mem
                  , 0, ~VL_ULL(0));
     __Vtemp6[0U] = 0x2e62696eU;
@@ -275,26 +245,20 @@ void VLoopBackTest::_initial__TOP__1(VLoopBackTest__Syms* __restrict vlSymsp) {
     __Vtemp6[0xeU] = 0x6573742eU;
     __Vtemp6[0xfU] = 0x61636b54U;
     __Vtemp6[0x10U] = 0x6f6f7042U;
-    __Vtemp6[0x11U] = 0x746c2f4cU;
-    __Vtemp6[0x12U] = 0x73742f72U;
-    __Vtemp6[0x13U] = 0x636b5465U;
-    __Vtemp6[0x14U] = 0x6f704261U;
-    __Vtemp6[0x15U] = 0x652f4c6fU;
-    __Vtemp6[0x16U] = 0x73706163U;
-    __Vtemp6[0x17U] = 0x576f726bU;
-    __Vtemp6[0x18U] = 0x2f73696dU;
-    __Vtemp6[0x19U] = 0x43542f2eU;
-    __Vtemp6[0x1aU] = 0x524f4a45U;
-    __Vtemp6[0x1bU] = 0x47495f50U;
-    __Vtemp6[0x1cU] = 0x732f4d41U;
-    __Vtemp6[0x1dU] = 0x6a656374U;
-    __Vtemp6[0x1eU] = 0x6150726fU;
-    __Vtemp6[0x1fU] = 0x2f496465U;
-    __Vtemp6[0x20U] = 0x646f776eU;
-    __Vtemp6[0x21U] = 0x6d697373U;
-    __Vtemp6[0x22U] = 0x6f6d652fU;
-    __Vtemp6[0x23U] = 0x2f68U;
-    VL_READMEM_N(false, 12, 16, 0, VL_CVT_PACK_STR_NW(36, __Vtemp6)
+    __Vtemp6[0x11U] = 0x5f312f4cU;
+    __Vtemp6[0x12U] = 0x2f6a6f62U;
+    __Vtemp6[0x13U] = 0x2f746d70U;
+    __Vtemp6[0x14U] = 0x4a454354U;
+    __Vtemp6[0x15U] = 0x5f50524fU;
+    __Vtemp6[0x16U] = 0x4d414749U;
+    __Vtemp6[0x17U] = 0x6374732fU;
+    __Vtemp6[0x18U] = 0x726f6a65U;
+    __Vtemp6[0x19U] = 0x64656150U;
+    __Vtemp6[0x1aU] = 0x776e2f49U;
+    __Vtemp6[0x1bU] = 0x7373646fU;
+    __Vtemp6[0x1cU] = 0x652f6d69U;
+    __Vtemp6[0x1dU] = 0x2f686f6dU;
+    VL_READMEM_N(false, 12, 16, 0, VL_CVT_PACK_STR_NW(30, __Vtemp6)
                  , vlTOPp->LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__cross_corr_core__DOT__Q_mem
                  , 0, ~VL_ULL(0));
 }

@@ -66,7 +66,6 @@ void VLoopBackTest::_ctor_var_reset_1() {
     LoopBackTest__DOT__transmitter__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popPtr_value = VL_RAND_RESET_I(5);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__transmitter__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_pushing = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popping = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_full = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__transmitter__DOT__phy_tx_front_result_data_queueWithAvailability__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
@@ -90,7 +89,6 @@ void VLoopBackTest::_ctor_var_reset_1() {
             LoopBackTest__DOT__trans_to_recv_fifo__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(24);
     }}
     LoopBackTest__DOT__receiver__DOT__phy_rx_crc_checker_raw_data_valid = VL_RAND_RESET_I(1);
-    LoopBackTest__DOT__receiver__DOT__phy_rx_crc_checker_raw_data_payload_fragment = VL_RAND_RESET_I(8);
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder_decoded_data_toStream_fifo_io_pop_ready = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_header_extender_sdf_not_found = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_descrambling_result_data_valid = VL_RAND_RESET_I(1);
@@ -103,6 +101,7 @@ void VLoopBackTest::_ctor_var_reset_1() {
     LoopBackTest__DOT__receiver__DOT__phy_rx_crc_checker_phy_rx_finish = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder_decoded_data_toStream_fifo_io_pop_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT___zz___05Fzz_raw_data_payload_fragment = VL_RAND_RESET_I(6);
+    LoopBackTest__DOT__receiver__DOT___zz_raw_data_payload_fragment_1 = VL_RAND_RESET_I(8);
     LoopBackTest__DOT__receiver__DOT__phy_rx_reset = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT___zz_raw_data_valid = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT___zz_raw_data_valid_1 = VL_RAND_RESET_I(3);
@@ -519,12 +518,12 @@ void VLoopBackTest::_ctor_var_reset_1() {
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__cordic_pipeline_core__DOT___zz_result_payload_x_48 = VL_RAND_RESET_I(25);
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__cordic_pipeline_core__DOT___zz_result_payload_x_49 = VL_RAND_RESET_I(25);
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__cordic_pipeline_core__DOT___zz_result_payload_x_50 = VL_RAND_RESET_I(25);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__cordic_pipeline_core__DOT___zz_result_payload_x_51 = VL_RAND_RESET_I(25);
 }
 
 void VLoopBackTest::_ctor_var_reset_2() {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VLoopBackTest::_ctor_var_reset_2\n"); );
     // Body
-    LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__cordic_pipeline_core__DOT___zz_result_payload_x_51 = VL_RAND_RESET_I(25);
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__cordic_pipeline_core__DOT___zz_result_payload_x_52 = VL_RAND_RESET_I(25);
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__cordic_pipeline_core__DOT___zz_result_payload_x_53 = VL_RAND_RESET_I(25);
     LoopBackTest__DOT__receiver__DOT__phy_rx_cfo__DOT__coarse_cfo_inst__DOT__phase_rotator__DOT__cordic_pipeline_core__DOT___zz_result_payload_x_54 = VL_RAND_RESET_I(25);
@@ -1031,12 +1030,12 @@ void VLoopBackTest::_ctor_var_reset_2() {
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__pmu_core__DOT__candidate_branches_115 = VL_RAND_RESET_I(3);
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__pmu_core__DOT__candidate_branches_116 = VL_RAND_RESET_I(3);
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__pmu_core__DOT__candidate_branches_117 = VL_RAND_RESET_I(3);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__pmu_core__DOT__candidate_branches_118 = VL_RAND_RESET_I(3);
 }
 
 void VLoopBackTest::_ctor_var_reset_3() {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VLoopBackTest::_ctor_var_reset_3\n"); );
     // Body
-    LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__pmu_core__DOT__candidate_branches_118 = VL_RAND_RESET_I(3);
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__pmu_core__DOT__candidate_branches_119 = VL_RAND_RESET_I(3);
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__pmu_core__DOT__candidate_branches_120 = VL_RAND_RESET_I(3);
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__pmu_core__DOT__candidate_branches_121 = VL_RAND_RESET_I(3);
@@ -1549,12 +1548,12 @@ void VLoopBackTest::_ctor_var_reset_3() {
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_90 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_91 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_92 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_93 = VL_RAND_RESET_I(1);
 }
 
 void VLoopBackTest::_ctor_var_reset_4() {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VLoopBackTest::_ctor_var_reset_4\n"); );
     // Body
-    LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_93 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_94 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_95 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__lifo_core__DOT__decoded_lifo_0__DOT__lifo_data_96 = VL_RAND_RESET_I(1);
@@ -2055,4 +2054,5 @@ void VLoopBackTest::_ctor_var_reset_4() {
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_49 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_50 = VL_RAND_RESET_I(1);
     LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_51 = VL_RAND_RESET_I(1);
+    LoopBackTest__DOT__receiver__DOT__phy_rx_decoder__DOT__lifo_core__DOT__decoded_lifo_1__DOT__lifo_data_52 = VL_RAND_RESET_I(1);
 }

@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.7.0    git head : eca519e78d4e6022e34911ec300a432ed9db8220
 // Component : RFBenchAD9361
-// Git hash  : 0240102a76eecaa6bbac330dce402f7991dcd343
+// Git hash  : 5d7ff74cd2cfb579fca78f32093b885428898498
 
 `timescale 1ns/1ps
 
@@ -47,6 +47,7 @@ module RFBenchAD9361 (
   output     [5:0]    rf_if_tx_if_data_p,
   output     [5:0]    rf_if_tx_if_data_n,
   output              recv_intr,
+  output              ad9361_rx_clk,
   input               clk,
   input               resetn
 );
@@ -65,7 +66,7 @@ module RFBenchAD9361 (
   wire                rf_interface_dac_data_ready;
   wire                rf_interface_adc_error;
   wire                rf_interface_data_clk;
-  wire                rf_interface_ad9361_rf_clk;
+  wire                rf_interface_O;
   wire       [7:0]    stream_package_gen_slices_cnt;
   wire                stream_package_gen_raw_data_tready;
   wire                stream_package_gen_pkg_data_valid;
@@ -75,8 +76,8 @@ module RFBenchAD9361 (
   wire                core_to_rf_fifoCc_io_pop_valid;
   wire                core_to_rf_fifoCc_io_pop_payload_last;
   wire       [7:0]    core_to_rf_fifoCc_io_pop_payload_fragment;
-  wire       [4:0]    core_to_rf_fifoCc_io_pushOccupancy;
-  wire       [4:0]    core_to_rf_fifoCc_io_popOccupancy;
+  wire       [6:0]    core_to_rf_fifoCc_io_pushOccupancy;
+  wire       [6:0]    core_to_rf_fifoCc_io_popOccupancy;
   wire                rf_to_core_fifoCc_io_push_ready;
   wire                rf_to_core_fifoCc_io_pop_valid;
   wire       [31:0]   rf_to_core_fifoCc_io_pop_payload_data;
@@ -141,16 +142,6 @@ module RFBenchAD9361 (
   wire                _zz_axil4Ctrl_rvalid;
   wire                writeOccur;
   wire                readOccur;
-  wire       [0:0]    dac_data_valid_b;
-  wire       [11:0]   dac_data_payload_0_cha_i_b;
-  wire       [11:0]   dac_data_payload_0_cha_q_b;
-  wire       [11:0]   dac_data_payload_1_cha_i_b;
-  wire       [11:0]   dac_data_payload_1_cha_q_b;
-  wire       [0:0]    adc_data_valid_b;
-  wire       [11:0]   adc_data_payload_0_cha_i_b;
-  wire       [11:0]   adc_data_payload_0_cha_q_b;
-  wire       [11:0]   adc_data_payload_1_cha_i_b;
-  wire       [11:0]   adc_data_payload_1_cha_q_b;
   wire       [7:0]    pkg_gen_bridge_slices_limit;
   wire       [7:0]    pkg_gen_bridge_slices_cnt;
   reg        [7:0]    pkg_gen_bridge_slices_limit_driver;
@@ -175,8 +166,8 @@ module RFBenchAD9361 (
   AD9361Interface rf_interface (
     .dac_data_valid           (rfTxClockArea_transmitter_rf_data_valid              ), //i
     .dac_data_ready           (rf_interface_dac_data_ready                          ), //o
-    .dac_data_payload_0_cha_i (12'h0                                                ), //i
-    .dac_data_payload_0_cha_q (12'h0                                                ), //i
+    .dac_data_payload_0_cha_i (rfTxClockArea_transmitter_rf_data_payload_cha_i[11:0]), //i
+    .dac_data_payload_0_cha_q (rfTxClockArea_transmitter_rf_data_payload_cha_q[11:0]), //i
     .dac_data_payload_1_cha_i (rfTxClockArea_transmitter_rf_data_payload_cha_i[11:0]), //i
     .dac_data_payload_1_cha_q (rfTxClockArea_transmitter_rf_data_payload_cha_q[11:0]), //i
     .dac_t1_mod               (1'b0                                                 ), //i
@@ -200,8 +191,8 @@ module RFBenchAD9361 (
     .tx_if_data_p             (rf_interface_tx_if_data_p[5:0]                       ), //o
     .tx_if_data_n             (rf_interface_tx_if_data_n[5:0]                       ), //o
     .data_clk                 (rf_interface_data_clk                                ), //o
-    .ad9361_rf_clk            (rf_interface_ad9361_rf_clk                           ), //o
-    .resetn                   (resetn                                               )  //i
+    .resetn                   (resetn                                               ), //i
+    .O                        (rf_interface_O                                       )  //o
   );
   StreamPkgGen stream_package_gen (
     .slices_limit              (clkCrossing_10_dataOut[7:0]                      ), //i
@@ -227,11 +218,11 @@ module RFBenchAD9361 (
     .io_pop_ready             (rfTxClockArea_transmitter_raw_data_ready         ), //i
     .io_pop_payload_last      (core_to_rf_fifoCc_io_pop_payload_last            ), //o
     .io_pop_payload_fragment  (core_to_rf_fifoCc_io_pop_payload_fragment[7:0]   ), //o
-    .io_pushOccupancy         (core_to_rf_fifoCc_io_pushOccupancy[4:0]          ), //o
-    .io_popOccupancy          (core_to_rf_fifoCc_io_popOccupancy[4:0]           ), //o
+    .io_pushOccupancy         (core_to_rf_fifoCc_io_pushOccupancy[6:0]          ), //o
+    .io_popOccupancy          (core_to_rf_fifoCc_io_popOccupancy[6:0]           ), //o
     .clk                      (clk                                              ), //i
     .resetn                   (resetn                                           ), //i
-    .ad9361_rf_clk            (rf_interface_ad9361_rf_clk                       )  //i
+    .O                        (rf_interface_O                                   )  //i
   );
   StreamFifoCC_1 rf_to_core_fifoCc (
     .io_push_valid         (rfRxClockArea_stream_package_restructured_stream_data_tvalid     ), //i
@@ -246,7 +237,7 @@ module RFBenchAD9361 (
     .io_pop_payload_last   (rf_to_core_fifoCc_io_pop_payload_last                            ), //o
     .io_pushOccupancy      (rf_to_core_fifoCc_io_pushOccupancy[6:0]                          ), //o
     .io_popOccupancy       (rf_to_core_fifoCc_io_popOccupancy[6:0]                           ), //o
-    .ad9361_rf_clk         (rf_interface_ad9361_rf_clk                                       ), //i
+    .O                     (rf_interface_O                                                   ), //i
     .resetn                (resetn                                                           ), //i
     .clk                   (clk                                                              )  //i
   );
@@ -280,16 +271,8 @@ module RFBenchAD9361 (
     .div_cnt_step              (clkCrossing_13_dataOut[3:0]                          ), //i
     .div_cnt_limit             (clkCrossing_14_dataOut[3:0]                          ), //i
     .mod_method_select         (clkCrossing_15_dataOut[1:0]                          ), //i
-    .ad9361_rf_clk             (rf_interface_ad9361_rf_clk                           ), //i
+    .O                         (rf_interface_O                                       ), //i
     .resetn                    (resetn                                               )  //i
-  );
-  ila0 ila (
-    .clk    (rf_interface_ad9361_rf_clk      ), //i
-    .probe0 (dac_data_valid_b                ), //i
-    .probe1 (dac_data_payload_0_cha_i_b[11:0]), //i
-    .probe2 (dac_data_payload_0_cha_q_b[11:0]), //i
-    .probe3 (dac_data_payload_1_cha_i_b[11:0]), //i
-    .probe4 (dac_data_payload_1_cha_q_b[11:0])  //i
   );
   RX rfRxClockArea_receiver (
     .raw_data_valid               (rf_interface_adc_data_valid                             ), //i
@@ -303,7 +286,7 @@ module RFBenchAD9361 (
     .pa_shift_dir                 (clkCrossing_17_dataOut                                  ), //i
     .min_plateau                  (clkCrossing_18_dataOut[7:0]                             ), //i
     .phase_corrector_shift        (clkCrossing_19_dataOut[5:0]                             ), //i
-    .ad9361_rf_clk                (rf_interface_ad9361_rf_clk                              ), //i
+    .O                            (rf_interface_O                                          ), //i
     .resetn                       (resetn                                                  )  //i
   );
   StreamPackageRestructured rfRxClockArea_stream_package_restructured (
@@ -316,16 +299,8 @@ module RFBenchAD9361 (
     .stream_data_tdata         (rfRxClockArea_stream_package_restructured_stream_data_tdata[31:0]), //o
     .stream_data_tkeep         (rfRxClockArea_stream_package_restructured_stream_data_tkeep[3:0] ), //o
     .stream_data_tlast         (rfRxClockArea_stream_package_restructured_stream_data_tlast      ), //o
-    .ad9361_rf_clk             (rf_interface_ad9361_rf_clk                                       ), //i
+    .O                         (rf_interface_O                                                   ), //i
     .resetn                    (resetn                                                           )  //i
-  );
-  ila1 ila_1 (
-    .clk    (rf_interface_ad9361_rf_clk      ), //i
-    .probe0 (adc_data_valid_b                ), //i
-    .probe1 (adc_data_payload_0_cha_i_b[11:0]), //i
-    .probe2 (adc_data_payload_0_cha_q_b[11:0]), //i
-    .probe3 (adc_data_payload_1_cha_i_b[11:0]), //i
-    .probe4 (adc_data_payload_1_cha_q_b[11:0])  //i
   );
   ClkCrossing clkCrossing_10 (
     .dataIn  (pkg_gen_bridge_slices_limit[7:0]), //i
@@ -340,60 +315,60 @@ module RFBenchAD9361 (
     .resetn  (resetn                            )  //i
   );
   ClkCrossing_2 clkCrossing_12 (
-    .dataIn        (transmitter_bridge_div_enable), //i
-    .dataOut       (clkCrossing_12_dataOut       ), //o
-    .clk           (clk                          ), //i
-    .resetn        (resetn                       ), //i
-    .ad9361_rf_clk (rf_interface_ad9361_rf_clk   )  //i
+    .dataIn  (transmitter_bridge_div_enable), //i
+    .dataOut (clkCrossing_12_dataOut       ), //o
+    .clk     (clk                          ), //i
+    .resetn  (resetn                       ), //i
+    .O       (rf_interface_O               )  //i
   );
   ClkCrossing_3 clkCrossing_13 (
-    .dataIn        (transmitter_bridge_div_cnt_step[3:0]), //i
-    .dataOut       (clkCrossing_13_dataOut[3:0]         ), //o
-    .clk           (clk                                 ), //i
-    .resetn        (resetn                              ), //i
-    .ad9361_rf_clk (rf_interface_ad9361_rf_clk          )  //i
+    .dataIn  (transmitter_bridge_div_cnt_step[3:0]), //i
+    .dataOut (clkCrossing_13_dataOut[3:0]         ), //o
+    .clk     (clk                                 ), //i
+    .resetn  (resetn                              ), //i
+    .O       (rf_interface_O                      )  //i
   );
   ClkCrossing_3 clkCrossing_14 (
-    .dataIn        (transmitter_bridge_div_cnt_limit[3:0]), //i
-    .dataOut       (clkCrossing_14_dataOut[3:0]          ), //o
-    .clk           (clk                                  ), //i
-    .resetn        (resetn                               ), //i
-    .ad9361_rf_clk (rf_interface_ad9361_rf_clk           )  //i
+    .dataIn  (transmitter_bridge_div_cnt_limit[3:0]), //i
+    .dataOut (clkCrossing_14_dataOut[3:0]          ), //o
+    .clk     (clk                                  ), //i
+    .resetn  (resetn                               ), //i
+    .O       (rf_interface_O                       )  //i
   );
   ClkCrossing_5 clkCrossing_15 (
-    .dataIn        (transmitter_bridge_mod_method_select[1:0]), //i
-    .dataOut       (clkCrossing_15_dataOut[1:0]              ), //o
-    .clk           (clk                                      ), //i
-    .resetn        (resetn                                   ), //i
-    .ad9361_rf_clk (rf_interface_ad9361_rf_clk               )  //i
+    .dataIn  (transmitter_bridge_mod_method_select[1:0]), //i
+    .dataOut (clkCrossing_15_dataOut[1:0]              ), //o
+    .clk     (clk                                      ), //i
+    .resetn  (resetn                                   ), //i
+    .O       (rf_interface_O                           )  //i
   );
   ClkCrossing_5 clkCrossing_16 (
-    .dataIn        (receiver_bridge_pa_shift_bias[1:0]), //i
-    .dataOut       (clkCrossing_16_dataOut[1:0]       ), //o
-    .clk           (clk                               ), //i
-    .resetn        (resetn                            ), //i
-    .ad9361_rf_clk (rf_interface_ad9361_rf_clk        )  //i
+    .dataIn  (receiver_bridge_pa_shift_bias[1:0]), //i
+    .dataOut (clkCrossing_16_dataOut[1:0]       ), //o
+    .clk     (clk                               ), //i
+    .resetn  (resetn                            ), //i
+    .O       (rf_interface_O                    )  //i
   );
   ClkCrossing_2 clkCrossing_17 (
-    .dataIn        (receiver_bridge_pa_shift_dir), //i
-    .dataOut       (clkCrossing_17_dataOut      ), //o
-    .clk           (clk                         ), //i
-    .resetn        (resetn                      ), //i
-    .ad9361_rf_clk (rf_interface_ad9361_rf_clk  )  //i
+    .dataIn  (receiver_bridge_pa_shift_dir), //i
+    .dataOut (clkCrossing_17_dataOut      ), //o
+    .clk     (clk                         ), //i
+    .resetn  (resetn                      ), //i
+    .O       (rf_interface_O              )  //i
   );
   ClkCrossing_8 clkCrossing_18 (
-    .dataIn        (receiver_bridge_min_plateau[7:0]), //i
-    .dataOut       (clkCrossing_18_dataOut[7:0]     ), //o
-    .clk           (clk                             ), //i
-    .resetn        (resetn                          ), //i
-    .ad9361_rf_clk (rf_interface_ad9361_rf_clk      )  //i
+    .dataIn  (receiver_bridge_min_plateau[7:0]), //i
+    .dataOut (clkCrossing_18_dataOut[7:0]     ), //o
+    .clk     (clk                             ), //i
+    .resetn  (resetn                          ), //i
+    .O       (rf_interface_O                  )  //i
   );
   ClkCrossing_9 clkCrossing_19 (
-    .dataIn        (receiver_bridge_phase_corrector_shift[5:0]), //i
-    .dataOut       (clkCrossing_19_dataOut[5:0]               ), //o
-    .clk           (clk                                       ), //i
-    .resetn        (resetn                                    ), //i
-    .ad9361_rf_clk (rf_interface_ad9361_rf_clk                )  //i
+    .dataIn  (receiver_bridge_phase_corrector_shift[5:0]), //i
+    .dataOut (clkCrossing_19_dataOut[5:0]               ), //o
+    .clk     (clk                                       ), //i
+    .resetn  (resetn                                    ), //i
+    .O       (rf_interface_O                            )  //i
   );
   assign readHaltRequest = 1'b0;
   assign writeHaltRequest = 1'b0;
@@ -490,22 +465,13 @@ module RFBenchAD9361 (
   assign recv_data_tkeep = rx_intr_ctrl_result_data_stream_payload_keep_;
   assign recv_data_tlast = rx_intr_ctrl_result_data_stream_payload_last;
   assign recv_intr = rx_intr_ctrl_intr;
+  assign ad9361_rx_clk = rf_interface_data_clk;
   assign rf_if_tx_if_frame_p = rf_interface_tx_if_frame_p;
   assign rf_if_tx_if_frame_n = rf_interface_tx_if_frame_n;
   assign rf_if_tx_fb_clk_p = rf_interface_tx_fb_clk_p;
   assign rf_if_tx_fb_clk_n = rf_interface_tx_fb_clk_n;
   assign rf_if_tx_if_data_p = rf_interface_tx_if_data_p;
   assign rf_if_tx_if_data_n = rf_interface_tx_if_data_n;
-  assign dac_data_valid_b = rfTxClockArea_transmitter_rf_data_valid;
-  assign dac_data_payload_0_cha_i_b = 12'h0;
-  assign dac_data_payload_0_cha_q_b = 12'h0;
-  assign dac_data_payload_1_cha_i_b = rfTxClockArea_transmitter_rf_data_payload_cha_i;
-  assign dac_data_payload_1_cha_q_b = rfTxClockArea_transmitter_rf_data_payload_cha_q;
-  assign adc_data_valid_b = rf_interface_adc_data_valid;
-  assign adc_data_payload_0_cha_i_b = rf_interface_adc_data_payload_0_cha_i;
-  assign adc_data_payload_0_cha_q_b = rf_interface_adc_data_payload_0_cha_q;
-  assign adc_data_payload_1_cha_i_b = rf_interface_adc_data_payload_1_cha_i;
-  assign adc_data_payload_1_cha_q_b = rf_interface_adc_data_payload_1_cha_q;
   assign pkg_gen_bridge_slices_limit = pkg_gen_bridge_slices_limit_driver;
   assign pkg_gen_bridge_slices_cnt = clkCrossing_11_dataOut;
   assign transmitter_bridge_div_enable = transmitter_bridge_div_enable_driver;
@@ -615,7 +581,7 @@ module ClkCrossing_9 (
   output     [5:0]    dataOut,
   input               clk,
   input               resetn,
-  input               ad9361_rf_clk
+  input               O
 );
 
   reg        [5:0]    area_clkI_reg;
@@ -627,7 +593,7 @@ module ClkCrossing_9 (
     area_clkI_reg <= dataIn;
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     area_clkO_buf0 <= area_clkI_reg;
     area_clkO_buf1 <= area_clkO_buf0;
   end
@@ -640,7 +606,7 @@ module ClkCrossing_8 (
   output     [7:0]    dataOut,
   input               clk,
   input               resetn,
-  input               ad9361_rf_clk
+  input               O
 );
 
   reg        [7:0]    area_clkI_reg;
@@ -652,7 +618,7 @@ module ClkCrossing_8 (
     area_clkI_reg <= dataIn;
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     area_clkO_buf0 <= area_clkI_reg;
     area_clkO_buf1 <= area_clkO_buf0;
   end
@@ -669,7 +635,7 @@ module ClkCrossing_5 (
   output     [1:0]    dataOut,
   input               clk,
   input               resetn,
-  input               ad9361_rf_clk
+  input               O
 );
 
   reg        [1:0]    area_clkI_reg;
@@ -681,7 +647,7 @@ module ClkCrossing_5 (
     area_clkI_reg <= dataIn;
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     area_clkO_buf0 <= area_clkI_reg;
     area_clkO_buf1 <= area_clkO_buf0;
   end
@@ -696,7 +662,7 @@ module ClkCrossing_3 (
   output     [3:0]    dataOut,
   input               clk,
   input               resetn,
-  input               ad9361_rf_clk
+  input               O
 );
 
   reg        [3:0]    area_clkI_reg;
@@ -708,7 +674,7 @@ module ClkCrossing_3 (
     area_clkI_reg <= dataIn;
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     area_clkO_buf0 <= area_clkI_reg;
     area_clkO_buf1 <= area_clkO_buf0;
   end
@@ -721,7 +687,7 @@ module ClkCrossing_2 (
   output              dataOut,
   input               clk,
   input               resetn,
-  input               ad9361_rf_clk
+  input               O
 );
 
   reg                 area_clkI_reg;
@@ -733,7 +699,7 @@ module ClkCrossing_2 (
     area_clkI_reg <= dataIn;
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     area_clkO_buf0 <= area_clkI_reg;
     area_clkO_buf1 <= area_clkO_buf0;
   end
@@ -774,7 +740,7 @@ module StreamPackageRestructured (
   output     [31:0]   stream_data_tdata,
   output     [3:0]    stream_data_tkeep,
   output              stream_data_tlast,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -868,7 +834,7 @@ module StreamPackageRestructured (
   assign stream_data_tkeep = _zz_stream_data_tkeep;
   assign stream_data_tdata = _zz_stream_data_tdata;
   assign stream_data_tlast = pkg_last;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       buf_select <= 1'b0;
       pkg_last <= 1'b0;
@@ -898,7 +864,7 @@ module StreamPackageRestructured (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(when_StreamPackageRestructured_l54) begin
       if(pkg_last) begin
         if(_zz_2) begin
@@ -945,7 +911,7 @@ module RX (
   input               pa_shift_dir,
   input      [7:0]    min_plateau,
   input      [5:0]    phase_corrector_shift,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -1063,7 +1029,7 @@ module RX (
     .adjusted_data_payload_cha_q (phy_rx_power_adjustor_adjusted_data_payload_cha_q[11:0]), //o
     .shift_bias                  (pa_shift_bias[1:0]                                     ), //i
     .shift_dir                   (pa_shift_dir                                           ), //i
-    .ad9361_rf_clk               (ad9361_rf_clk                                          ), //i
+    .O                           (O                                                      ), //i
     .resetn                      (resetn                                                 )  //i
   );
   PhyRxPreambleDetector phy_rx_preamble_detector (
@@ -1076,7 +1042,7 @@ module RX (
     .min_plateau               (min_plateau[7:0]                                        ), //i
     .detector_reset            (phy_rx_reset                                            ), //i
     .pkg_handling              (phy_rx_preamble_detector_pkg_handling                   ), //o
-    .ad9361_rf_clk             (ad9361_rf_clk                                           ), //i
+    .O                         (O                                                       ), //i
     .resetn                    (resetn                                                  )  //i
   );
   PhyRxCFO phy_rx_cfo (
@@ -1090,7 +1056,7 @@ module RX (
     .cfo_reset                 (phy_rx_reset                                            ), //i
     .pkg_detected              (phy_rx_preamble_detector_pkg_handling                   ), //i
     .phase_corrected           (phy_rx_cfo_phase_corrected                              ), //o
-    .ad9361_rf_clk             (ad9361_rf_clk                                           ), //i
+    .O                         (O                                                       ), //i
     .resetn                    (resetn                                                  )  //i
   );
   PhyRxFilter phy_rx_filter (
@@ -1100,7 +1066,7 @@ module RX (
     .result_data_valid         (phy_rx_filter_result_data_valid              ), //o
     .result_data_payload_cha_i (phy_rx_filter_result_data_payload_cha_i[11:0]), //o
     .result_data_payload_cha_q (phy_rx_filter_result_data_payload_cha_q[11:0]), //o
-    .ad9361_rf_clk             (ad9361_rf_clk                                ), //i
+    .O                         (O                                            ), //i
     .resetn                    (resetn                                       )  //i
   );
   PhyRxDecimator phy_rx_decimator (
@@ -1111,7 +1077,7 @@ module RX (
     .result_data_payload_cha_i (phy_rx_decimator_result_data_payload_cha_i[11:0]), //o
     .result_data_payload_cha_q (phy_rx_decimator_result_data_payload_cha_q[11:0]), //o
     .enable                    (phy_rx_cfo_phase_corrected                      ), //i
-    .ad9361_rf_clk             (ad9361_rf_clk                                   ), //i
+    .O                         (O                                               ), //i
     .resetn                    (resetn                                          )  //i
   );
   PhyRxHeaderExtender phy_rx_header_extender (
@@ -1126,7 +1092,7 @@ module RX (
     .header_message_valid                (phy_rx_header_extender_header_message_valid                    ), //o
     .header_message_payload_pkg_size     (phy_rx_header_extender_header_message_payload_pkg_size[7:0]    ), //o
     .header_message_payload_demod_method (phy_rx_header_extender_header_message_payload_demod_method[1:0]), //o
-    .ad9361_rf_clk                       (ad9361_rf_clk                                                  ), //i
+    .O                                   (O                                                              ), //i
     .resetn                              (resetn                                                         )  //i
   );
   PhyRxDemodulator phy_rx_demodulator (
@@ -1139,7 +1105,7 @@ module RX (
     .header_message_valid                (phy_rx_header_extender_header_message_valid                    ), //i
     .header_message_payload_pkg_size     (phy_rx_header_extender_header_message_payload_pkg_size[7:0]    ), //i
     .header_message_payload_demod_method (phy_rx_header_extender_header_message_payload_demod_method[1:0]), //i
-    .ad9361_rf_clk                       (ad9361_rf_clk                                                  ), //i
+    .O                                   (O                                                              ), //i
     .resetn                              (resetn                                                         )  //i
   );
   PhyRxDataCombination phy_rx_data_combination (
@@ -1153,7 +1119,7 @@ module RX (
     .header_message_payload_pkg_size     (phy_rx_header_extender_header_message_payload_pkg_size[7:0]    ), //i
     .header_message_payload_demod_method (phy_rx_header_extender_header_message_payload_demod_method[1:0]), //i
     .enable                              (phy_rx_cfo_phase_corrected                                     ), //i
-    .ad9361_rf_clk                       (ad9361_rf_clk                                                  ), //i
+    .O                                   (O                                                              ), //i
     .resetn                              (resetn                                                         )  //i
   );
   PhyRxDescrambling phy_rx_descrambling (
@@ -1163,7 +1129,7 @@ module RX (
     .result_data_valid            (phy_rx_descrambling_result_data_valid                     ), //o
     .result_data_payload_last     (phy_rx_descrambling_result_data_payload_last              ), //o
     .result_data_payload_fragment (phy_rx_descrambling_result_data_payload_fragment[15:0]    ), //o
-    .ad9361_rf_clk                (ad9361_rf_clk                                             ), //i
+    .O                            (O                                                         ), //i
     .resetn                       (resetn                                                    )  //i
   );
   StreamFifo_14 de_scrambling_to_de_puncher_fifo (
@@ -1178,7 +1144,7 @@ module RX (
     .io_flush                 (phy_rx_reset                                                   ), //i
     .io_occupancy             (de_scrambling_to_de_puncher_fifo_io_occupancy[6:0]             ), //o
     .io_availability          (de_scrambling_to_de_puncher_fifo_io_availability[6:0]          ), //o
-    .ad9361_rf_clk            (ad9361_rf_clk                                                  ), //i
+    .O                        (O                                                              ), //i
     .resetn                   (resetn                                                         )  //i
   );
   DePuncturing phy_rx_de_puncher (
@@ -1191,7 +1157,7 @@ module RX (
     .de_punched_data_payload_last              (phy_rx_de_puncher_de_punched_data_payload_last                  ), //o
     .de_punched_data_payload_fragment_data     (phy_rx_de_puncher_de_punched_data_payload_fragment_data[1:0]    ), //o
     .de_punched_data_payload_fragment_indicate (phy_rx_de_puncher_de_punched_data_payload_fragment_indicate[1:0]), //o
-    .ad9361_rf_clk                             (ad9361_rf_clk                                                   ), //i
+    .O                                         (O                                                               ), //i
     .resetn                                    (resetn                                                          )  //i
   );
   ViterbiDecoder phy_rx_decoder (
@@ -1203,7 +1169,7 @@ module RX (
     .decoded_data_valid                 (phy_rx_decoder_decoded_data_valid                                           ), //o
     .decoded_data_payload_last          (phy_rx_decoder_decoded_data_payload_last                                    ), //o
     .decoded_data_payload_fragment      (phy_rx_decoder_decoded_data_payload_fragment                                ), //o
-    .ad9361_rf_clk                      (ad9361_rf_clk                                                               ), //i
+    .O                                  (O                                                                           ), //i
     .resetn                             (resetn                                                                      )  //i
   );
   StreamFifo_15 phy_rx_de_puncher_de_punched_data_fifo (
@@ -1220,7 +1186,7 @@ module RX (
     .io_flush                          (1'b0                                                                        ), //i
     .io_occupancy                      (phy_rx_de_puncher_de_punched_data_fifo_io_occupancy[5:0]                    ), //o
     .io_availability                   (phy_rx_de_puncher_de_punched_data_fifo_io_availability[5:0]                 ), //o
-    .ad9361_rf_clk                     (ad9361_rf_clk                                                               ), //i
+    .O                                 (O                                                                           ), //i
     .resetn                            (resetn                                                                      )  //i
   );
   PhyRxCrcChecker phy_rx_crc_checker (
@@ -1236,7 +1202,7 @@ module RX (
     .header_message_payload_pkg_size     (phy_rx_header_extender_header_message_payload_pkg_size[7:0]    ), //i
     .header_message_payload_demod_method (phy_rx_header_extender_header_message_payload_demod_method[1:0]), //i
     .phy_rx_finish                       (phy_rx_crc_checker_phy_rx_finish                               ), //o
-    .ad9361_rf_clk                       (ad9361_rf_clk                                                  ), //i
+    .O                                   (O                                                              ), //i
     .resetn                              (resetn                                                         )  //i
   );
   StreamFifo_16 phy_rx_decoder_decoded_data_toStream_fifo (
@@ -1251,7 +1217,7 @@ module RX (
     .io_flush                 (1'b0                                                             ), //i
     .io_occupancy             (phy_rx_decoder_decoded_data_toStream_fifo_io_occupancy[5:0]      ), //o
     .io_availability          (phy_rx_decoder_decoded_data_toStream_fifo_io_availability[5:0]   ), //o
-    .ad9361_rf_clk            (ad9361_rf_clk                                                    ), //i
+    .O                        (O                                                                ), //i
     .resetn                   (resetn                                                           )  //i
   );
   assign phy_rx_descrambling_result_data_toStream_valid = phy_rx_descrambling_result_data_valid;
@@ -1286,7 +1252,7 @@ module RX (
   assign result_data_payload_last = phy_rx_crc_checker_result_data_payload_last;
   assign result_data_payload_fragment = phy_rx_crc_checker_result_data_payload_fragment;
   assign phy_rx_reset = (phy_rx_header_extender_sdf_not_found || phy_rx_crc_checker_phy_rx_finish);
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       _zz_raw_data_valid_2 <= 3'b000;
     end else begin
@@ -1294,7 +1260,7 @@ module RX (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(phy_rx_decoder_decoded_data_toStream_fifo_io_pop_fire_1) begin
       _zz_raw_data_payload_fragment <= {phy_rx_decoder_decoded_data_toStream_fifo_io_pop_payload_fragment,_zz__zz_raw_data_payload_fragment};
     end
@@ -1316,7 +1282,7 @@ module TX (
   input      [3:0]    div_cnt_step,
   input      [3:0]    div_cnt_limit,
   input      [1:0]    mod_method_select,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -1486,7 +1452,7 @@ module TX (
     .pkg_size_valid               (phy_tx_information_gen_pkg_size_valid                                 ), //o
     .pkg_size_ready               (phy_header_extender_pkg_size_ready                                    ), //i
     .pkg_size_payload             (phy_tx_information_gen_pkg_size_payload[7:0]                          ), //o
-    .ad9361_rf_clk                (ad9361_rf_clk                                                         ), //i
+    .O                            (O                                                                     ), //i
     .resetn                       (resetn                                                                )  //i
   );
   StreamFifo_5 phy_tx_information_gen_result_data_queueWithAvailability (
@@ -1501,7 +1467,7 @@ module TX (
     .io_flush                 (1'b0                                                                                 ), //i
     .io_occupancy             (phy_tx_information_gen_result_data_queueWithAvailability_io_occupancy[5:0]           ), //o
     .io_availability          (phy_tx_information_gen_result_data_queueWithAvailability_io_availability[5:0]        ), //o
-    .ad9361_rf_clk            (ad9361_rf_clk                                                                        ), //i
+    .O                        (O                                                                                    ), //i
     .resetn                   (resetn                                                                               )  //i
   );
   PhyTxCrc phy_tx_crc (
@@ -1513,7 +1479,7 @@ module TX (
     .result_data_ready            (phy_tx_crc_result_data_queueWithAvailability_io_push_ready                           ), //i
     .result_data_payload_last     (phy_tx_crc_result_data_payload_last                                                  ), //o
     .result_data_payload_fragment (phy_tx_crc_result_data_payload_fragment[7:0]                                         ), //o
-    .ad9361_rf_clk                (ad9361_rf_clk                                                                        ), //i
+    .O                            (O                                                                                    ), //i
     .resetn                       (resetn                                                                               )  //i
   );
   StreamFifo_5 phy_tx_crc_result_data_queueWithAvailability (
@@ -1528,7 +1494,7 @@ module TX (
     .io_flush                 (1'b0                                                                     ), //i
     .io_occupancy             (phy_tx_crc_result_data_queueWithAvailability_io_occupancy[5:0]           ), //o
     .io_availability          (phy_tx_crc_result_data_queueWithAvailability_io_availability[5:0]        ), //o
-    .ad9361_rf_clk            (ad9361_rf_clk                                                            ), //i
+    .O                        (O                                                                        ), //i
     .resetn                   (resetn                                                                   )  //i
   );
   PhyTxPadder phy_tx_padder (
@@ -1540,7 +1506,7 @@ module TX (
     .result_data_ready            (phy_tx_padder_result_data_queueWithAvailability_io_push_ready            ), //i
     .result_data_payload_last     (phy_tx_padder_result_data_payload_last                                   ), //o
     .result_data_payload_fragment (phy_tx_padder_result_data_payload_fragment[7:0]                          ), //o
-    .ad9361_rf_clk                (ad9361_rf_clk                                                            ), //i
+    .O                            (O                                                                        ), //i
     .resetn                       (resetn                                                                   )  //i
   );
   StreamFifo_5 phy_tx_padder_result_data_queueWithAvailability (
@@ -1555,7 +1521,7 @@ module TX (
     .io_flush                 (1'b0                                                                        ), //i
     .io_occupancy             (phy_tx_padder_result_data_queueWithAvailability_io_occupancy[5:0]           ), //o
     .io_availability          (phy_tx_padder_result_data_queueWithAvailability_io_availability[5:0]        ), //o
-    .ad9361_rf_clk            (ad9361_rf_clk                                                               ), //i
+    .O                        (O                                                                           ), //i
     .resetn                   (resetn                                                                      )  //i
   );
   PhyTxEncoder phy_tx_encoder (
@@ -1567,7 +1533,7 @@ module TX (
     .result_data_ready            (phy_tx_puncher_raw_data_ready                                               ), //i
     .result_data_payload_last     (phy_tx_encoder_result_data_payload_last                                     ), //o
     .result_data_payload_fragment (phy_tx_encoder_result_data_payload_fragment[15:0]                           ), //o
-    .ad9361_rf_clk                (ad9361_rf_clk                                                               ), //i
+    .O                            (O                                                                           ), //i
     .resetn                       (resetn                                                                      )  //i
   );
   Puncturing phy_tx_puncher (
@@ -1578,7 +1544,7 @@ module TX (
     .punched_data_valid            (phy_tx_puncher_punched_data_valid                 ), //o
     .punched_data_payload_last     (phy_tx_puncher_punched_data_payload_last          ), //o
     .punched_data_payload_fragment (phy_tx_puncher_punched_data_payload_fragment[15:0]), //o
-    .ad9361_rf_clk                 (ad9361_rf_clk                                     ), //i
+    .O                             (O                                                 ), //i
     .resetn                        (resetn                                            )  //i
   );
   StreamFifo_8 phy_tx_puncher_punched_data_toStream_queueWithAvailability (
@@ -1593,7 +1559,7 @@ module TX (
     .io_flush                 (1'b0                                                                                    ), //i
     .io_occupancy             (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_occupancy[5:0]            ), //o
     .io_availability          (phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_availability[5:0]         ), //o
-    .ad9361_rf_clk            (ad9361_rf_clk                                                                           ), //i
+    .O                        (O                                                                                       ), //i
     .resetn                   (resetn                                                                                  )  //i
   );
   PhyTxScrambler phy_tx_scrambler (
@@ -1605,7 +1571,7 @@ module TX (
     .result_data_ready            (phy_tx_scrambler_result_data_queueWithAvailability_io_push_ready                        ), //i
     .result_data_payload_last     (phy_tx_scrambler_result_data_payload_last                                               ), //o
     .result_data_payload_fragment (phy_tx_scrambler_result_data_payload_fragment[15:0]                                     ), //o
-    .ad9361_rf_clk                (ad9361_rf_clk                                                                           ), //i
+    .O                            (O                                                                                       ), //i
     .resetn                       (resetn                                                                                  )  //i
   );
   StreamFifo_8 phy_tx_scrambler_result_data_queueWithAvailability (
@@ -1620,7 +1586,7 @@ module TX (
     .io_flush                 (1'b0                                                                            ), //i
     .io_occupancy             (phy_tx_scrambler_result_data_queueWithAvailability_io_occupancy[5:0]            ), //o
     .io_availability          (phy_tx_scrambler_result_data_queueWithAvailability_io_availability[5:0]         ), //o
-    .ad9361_rf_clk            (ad9361_rf_clk                                                                   ), //i
+    .O                        (O                                                                               ), //i
     .resetn                   (resetn                                                                          )  //i
   );
   dataDivDynamic mod_data_div (
@@ -1634,7 +1600,7 @@ module TX (
     .unit_data_valid            (mod_data_div_unit_data_valid                                                    ), //o
     .unit_data_payload_last     (mod_data_div_unit_data_payload_last                                             ), //o
     .unit_data_payload_fragment (mod_data_div_unit_data_payload_fragment[15:0]                                   ), //o
-    .ad9361_rf_clk              (ad9361_rf_clk                                                                   ), //i
+    .O                          (O                                                                               ), //i
     .resetn                     (resetn                                                                          )  //i
   );
   ModulatorRTL mod_rtl (
@@ -1646,7 +1612,7 @@ module TX (
     .data_flow_mod_iq_payload_fragment_cha_i (mod_rtl_data_flow_mod_iq_payload_fragment_cha_i[11:0]), //o
     .data_flow_mod_iq_payload_fragment_cha_q (mod_rtl_data_flow_mod_iq_payload_fragment_cha_q[11:0]), //o
     .select_1                                (mod_method_select[1:0]                               ), //i
-    .ad9361_rf_clk                           (ad9361_rf_clk                                        ), //i
+    .O                                       (O                                                    ), //i
     .resetn                                  (resetn                                               )  //i
   );
   StreamFifo_10 mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability (
@@ -1663,7 +1629,7 @@ module TX (
     .io_flush                       (1'b0                                                                                       ), //i
     .io_occupancy                   (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_occupancy[5:0]                  ), //o
     .io_availability                (mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_availability[5:0]               ), //o
-    .ad9361_rf_clk                  (ad9361_rf_clk                                                                              ), //i
+    .O                              (O                                                                                          ), //i
     .resetn                         (resetn                                                                                     )  //i
   );
   PhyHeaderExtender phy_header_extender (
@@ -1681,7 +1647,7 @@ module TX (
     .result_data_payload_last           (phy_header_extender_result_data_payload_last                                               ), //o
     .result_data_payload_fragment_cha_i (phy_header_extender_result_data_payload_fragment_cha_i[11:0]                               ), //o
     .result_data_payload_fragment_cha_q (phy_header_extender_result_data_payload_fragment_cha_q[11:0]                               ), //o
-    .ad9361_rf_clk                      (ad9361_rf_clk                                                                              ), //i
+    .O                                  (O                                                                                          ), //i
     .resetn                             (resetn                                                                                     )  //i
   );
   StreamFifo_10 phy_header_extender_result_data_queueWithAvailability (
@@ -1698,7 +1664,7 @@ module TX (
     .io_flush                       (1'b0                                                                                     ), //i
     .io_occupancy                   (phy_header_extender_result_data_queueWithAvailability_io_occupancy[5:0]                  ), //o
     .io_availability                (phy_header_extender_result_data_queueWithAvailability_io_availability[5:0]               ), //o
-    .ad9361_rf_clk                  (ad9361_rf_clk                                                                            ), //i
+    .O                              (O                                                                                        ), //i
     .resetn                         (resetn                                                                                   )  //i
   );
   PhyTxOverSampling phy_tx_oversampling (
@@ -1712,7 +1678,7 @@ module TX (
     .result_data_payload_last           (phy_tx_oversampling_result_data_payload_last                                             ), //o
     .result_data_payload_fragment_cha_i (phy_tx_oversampling_result_data_payload_fragment_cha_i[11:0]                             ), //o
     .result_data_payload_fragment_cha_q (phy_tx_oversampling_result_data_payload_fragment_cha_q[11:0]                             ), //o
-    .ad9361_rf_clk                      (ad9361_rf_clk                                                                            ), //i
+    .O                                  (O                                                                                        ), //i
     .resetn                             (resetn                                                                                   )  //i
   );
   PhyTxFilter phy_tx_filter (
@@ -1726,7 +1692,7 @@ module TX (
     .result_data_payload_last           (phy_tx_filter_result_data_payload_last                       ), //o
     .result_data_payload_fragment_cha_i (phy_tx_filter_result_data_payload_fragment_cha_i[11:0]       ), //o
     .result_data_payload_fragment_cha_q (phy_tx_filter_result_data_payload_fragment_cha_q[11:0]       ), //o
-    .ad9361_rf_clk                      (ad9361_rf_clk                                                ), //i
+    .O                                  (O                                                            ), //i
     .resetn                             (resetn                                                       )  //i
   );
   StreamFifo_10 phy_tx_filter_result_data_queueWithAvailability (
@@ -1743,7 +1709,7 @@ module TX (
     .io_flush                       (1'b0                                                                               ), //i
     .io_occupancy                   (phy_tx_filter_result_data_queueWithAvailability_io_occupancy[5:0]                  ), //o
     .io_availability                (phy_tx_filter_result_data_queueWithAvailability_io_availability[5:0]               ), //o
-    .ad9361_rf_clk                  (ad9361_rf_clk                                                                      ), //i
+    .O                              (O                                                                                  ), //i
     .resetn                         (resetn                                                                             )  //i
   );
   PreambleExtender stf_preamble_adder (
@@ -1757,7 +1723,7 @@ module TX (
     .preamble_data_payload_last           (stf_preamble_adder_preamble_data_payload_last                                      ), //o
     .preamble_data_payload_fragment_cha_i (stf_preamble_adder_preamble_data_payload_fragment_cha_i[11:0]                      ), //o
     .preamble_data_payload_fragment_cha_q (stf_preamble_adder_preamble_data_payload_fragment_cha_q[11:0]                      ), //o
-    .ad9361_rf_clk                        (ad9361_rf_clk                                                                      ), //i
+    .O                                    (O                                                                                  ), //i
     .resetn                               (resetn                                                                             )  //i
   );
   PhyTxICFront phy_tx_front (
@@ -1783,7 +1749,7 @@ module TX (
     .io_flush              (1'b0                                                                     ), //i
     .io_occupancy          (phy_tx_front_result_data_queueWithAvailability_io_occupancy[5:0]         ), //o
     .io_availability       (phy_tx_front_result_data_queueWithAvailability_io_availability[5:0]      ), //o
-    .ad9361_rf_clk         (ad9361_rf_clk                                                            ), //i
+    .O                     (O                                                                        ), //i
     .resetn                (resetn                                                                   )  //i
   );
   assign raw_data_ready = phy_tx_information_gen_raw_data_ready;
@@ -1936,7 +1902,7 @@ module StreamFifoCC_1 (
   output              io_pop_payload_last,
   output     [6:0]    io_pushOccupancy,
   output     [6:0]    io_popOccupancy,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn,
   input               clk
 );
@@ -1994,7 +1960,7 @@ module StreamFifoCC_1 (
   assign _zz__zz_io_pop_payload_data_1 = _zz_io_pop_payload_data[5:0];
   assign _zz_ram_port_1 = {io_push_payload_last,{io_push_payload_keep_,io_push_payload_data}};
   assign _zz__zz_io_pop_payload_data_1_1 = 1'b1;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_1) begin
       ram[_zz_ram_port] <= _zz_ram_port_1;
     end
@@ -2007,10 +1973,10 @@ module StreamFifoCC_1 (
   end
 
   BufferCC_3 popToPushGray_buffercc (
-    .io_dataIn     (popToPushGray[6:0]                    ), //i
-    .io_dataOut    (popToPushGray_buffercc_io_dataOut[6:0]), //o
-    .ad9361_rf_clk (ad9361_rf_clk                         ), //i
-    .resetn        (resetn                                )  //i
+    .io_dataIn  (popToPushGray[6:0]                    ), //i
+    .io_dataOut (popToPushGray_buffercc_io_dataOut[6:0]), //o
+    .O          (O                                     ), //i
+    .resetn     (resetn                                )  //i
   );
   BufferCC_4 bufferCC_6 (
     .io_dataIn  (1'b1                 ), //i
@@ -2066,7 +2032,7 @@ module StreamFifoCC_1 (
   assign io_popOccupancy = ({_zz_io_popOccupancy_5,{_zz_io_popOccupancy_4,{_zz_io_popOccupancy_3,{_zz_io_popOccupancy_2,{_zz_io_popOccupancy_1,{_zz_io_popOccupancy,(popCC_pushPtrGray[0] ^ _zz_io_popOccupancy)}}}}}} - popCC_popPtr);
   assign pushToPopGray = pushCC_pushPtrGray;
   assign popToPushGray = popCC_popPtrGray;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       pushCC_pushPtr <= 7'h0;
       pushCC_pushPtrGray <= 7'h0;
@@ -2106,60 +2072,64 @@ module StreamFifoCC (
   input               io_pop_ready,
   output              io_pop_payload_last,
   output     [7:0]    io_pop_payload_fragment,
-  output     [4:0]    io_pushOccupancy,
-  output     [4:0]    io_popOccupancy,
+  output     [6:0]    io_pushOccupancy,
+  output     [6:0]    io_popOccupancy,
   input               clk,
   input               resetn,
-  input               ad9361_rf_clk
+  input               O
 );
 
   reg        [8:0]    _zz_ram_port1;
-  wire       [4:0]    popToPushGray_buffercc_io_dataOut;
+  wire       [6:0]    popToPushGray_buffercc_io_dataOut;
   wire                bufferCC_6_io_dataOut;
-  wire       [4:0]    pushToPopGray_buffercc_io_dataOut;
-  wire       [4:0]    _zz_pushCC_pushPtrGray;
-  wire       [3:0]    _zz_ram_port;
+  wire       [6:0]    pushToPopGray_buffercc_io_dataOut;
+  wire       [6:0]    _zz_pushCC_pushPtrGray;
+  wire       [5:0]    _zz_ram_port;
   wire       [8:0]    _zz_ram_port_1;
-  wire       [4:0]    _zz_popCC_popPtrGray;
-  wire       [3:0]    _zz_ram_port_2;
+  wire       [6:0]    _zz_popCC_popPtrGray;
+  wire       [5:0]    _zz_ram_port_2;
   wire                _zz_ram_port_3;
-  wire       [3:0]    _zz__zz_io_pop_payload_last_1;
+  wire       [5:0]    _zz__zz_io_pop_payload_last_1;
   wire                _zz__zz_io_pop_payload_last_1_1;
   reg                 _zz_1;
-  wire       [4:0]    popToPushGray;
-  wire       [4:0]    pushToPopGray;
-  reg        [4:0]    pushCC_pushPtr;
-  wire       [4:0]    pushCC_pushPtrPlus;
+  wire       [6:0]    popToPushGray;
+  wire       [6:0]    pushToPopGray;
+  reg        [6:0]    pushCC_pushPtr;
+  wire       [6:0]    pushCC_pushPtrPlus;
   wire                io_push_fire;
-  reg        [4:0]    pushCC_pushPtrGray;
-  wire       [4:0]    pushCC_popPtrGray;
+  reg        [6:0]    pushCC_pushPtrGray;
+  wire       [6:0]    pushCC_popPtrGray;
   wire                pushCC_full;
   wire                io_push_fire_1;
   wire                _zz_io_pushOccupancy;
   wire                _zz_io_pushOccupancy_1;
   wire                _zz_io_pushOccupancy_2;
   wire                _zz_io_pushOccupancy_3;
+  wire                _zz_io_pushOccupancy_4;
+  wire                _zz_io_pushOccupancy_5;
   wire                resetn_syncronized;
-  reg        [4:0]    popCC_popPtr;
-  wire       [4:0]    popCC_popPtrPlus;
+  reg        [6:0]    popCC_popPtr;
+  wire       [6:0]    popCC_popPtrPlus;
   wire                io_pop_fire;
-  reg        [4:0]    popCC_popPtrGray;
-  wire       [4:0]    popCC_pushPtrGray;
+  reg        [6:0]    popCC_popPtrGray;
+  wire       [6:0]    popCC_pushPtrGray;
   wire                popCC_empty;
   wire                io_pop_fire_1;
-  wire       [4:0]    _zz_io_pop_payload_last;
+  wire       [6:0]    _zz_io_pop_payload_last;
   wire       [8:0]    _zz_io_pop_payload_last_1;
   wire                io_pop_fire_2;
   wire                _zz_io_popOccupancy;
   wire                _zz_io_popOccupancy_1;
   wire                _zz_io_popOccupancy_2;
   wire                _zz_io_popOccupancy_3;
-  reg [8:0] ram [0:15];
+  wire                _zz_io_popOccupancy_4;
+  wire                _zz_io_popOccupancy_5;
+  reg [8:0] ram [0:63];
 
   assign _zz_pushCC_pushPtrGray = (pushCC_pushPtrPlus >>> 1'b1);
-  assign _zz_ram_port = pushCC_pushPtr[3:0];
+  assign _zz_ram_port = pushCC_pushPtr[5:0];
   assign _zz_popCC_popPtrGray = (popCC_popPtrPlus >>> 1'b1);
-  assign _zz__zz_io_pop_payload_last_1 = _zz_io_pop_payload_last[3:0];
+  assign _zz__zz_io_pop_payload_last_1 = _zz_io_pop_payload_last[5:0];
   assign _zz_ram_port_1 = {io_push_payload_fragment,io_push_payload_last};
   assign _zz__zz_io_pop_payload_last_1_1 = 1'b1;
   always @(posedge clk) begin
@@ -2168,28 +2138,28 @@ module StreamFifoCC (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz__zz_io_pop_payload_last_1_1) begin
       _zz_ram_port1 <= ram[_zz__zz_io_pop_payload_last_1];
     end
   end
 
   BufferCC popToPushGray_buffercc (
-    .io_dataIn  (popToPushGray[4:0]                    ), //i
-    .io_dataOut (popToPushGray_buffercc_io_dataOut[4:0]), //o
+    .io_dataIn  (popToPushGray[6:0]                    ), //i
+    .io_dataOut (popToPushGray_buffercc_io_dataOut[6:0]), //o
     .clk        (clk                                   ), //i
     .resetn     (resetn                                )  //i
   );
   BufferCC_1 bufferCC_6 (
-    .io_dataIn     (1'b1                 ), //i
-    .io_dataOut    (bufferCC_6_io_dataOut), //o
-    .ad9361_rf_clk (ad9361_rf_clk        ), //i
-    .resetn        (resetn               )  //i
+    .io_dataIn  (1'b1                 ), //i
+    .io_dataOut (bufferCC_6_io_dataOut), //o
+    .O          (O                    ), //i
+    .resetn     (resetn               )  //i
   );
   BufferCC_2 pushToPopGray_buffercc (
-    .io_dataIn          (pushToPopGray[4:0]                    ), //i
-    .io_dataOut         (pushToPopGray_buffercc_io_dataOut[4:0]), //o
-    .ad9361_rf_clk      (ad9361_rf_clk                         ), //i
+    .io_dataIn          (pushToPopGray[6:0]                    ), //i
+    .io_dataOut         (pushToPopGray_buffercc_io_dataOut[6:0]), //o
+    .O                  (O                                     ), //i
     .resetn_syncronized (resetn_syncronized                    )  //i
   );
   always @(*) begin
@@ -2199,19 +2169,21 @@ module StreamFifoCC (
     end
   end
 
-  assign pushCC_pushPtrPlus = (pushCC_pushPtr + 5'h01);
+  assign pushCC_pushPtrPlus = (pushCC_pushPtr + 7'h01);
   assign io_push_fire = (io_push_valid && io_push_ready);
   assign pushCC_popPtrGray = popToPushGray_buffercc_io_dataOut;
-  assign pushCC_full = ((pushCC_pushPtrGray[4 : 3] == (~ pushCC_popPtrGray[4 : 3])) && (pushCC_pushPtrGray[2 : 0] == pushCC_popPtrGray[2 : 0]));
+  assign pushCC_full = ((pushCC_pushPtrGray[6 : 5] == (~ pushCC_popPtrGray[6 : 5])) && (pushCC_pushPtrGray[4 : 0] == pushCC_popPtrGray[4 : 0]));
   assign io_push_ready = (! pushCC_full);
   assign io_push_fire_1 = (io_push_valid && io_push_ready);
   assign _zz_io_pushOccupancy = (pushCC_popPtrGray[1] ^ _zz_io_pushOccupancy_1);
   assign _zz_io_pushOccupancy_1 = (pushCC_popPtrGray[2] ^ _zz_io_pushOccupancy_2);
   assign _zz_io_pushOccupancy_2 = (pushCC_popPtrGray[3] ^ _zz_io_pushOccupancy_3);
-  assign _zz_io_pushOccupancy_3 = pushCC_popPtrGray[4];
-  assign io_pushOccupancy = (pushCC_pushPtr - {_zz_io_pushOccupancy_3,{_zz_io_pushOccupancy_2,{_zz_io_pushOccupancy_1,{_zz_io_pushOccupancy,(pushCC_popPtrGray[0] ^ _zz_io_pushOccupancy)}}}});
+  assign _zz_io_pushOccupancy_3 = (pushCC_popPtrGray[4] ^ _zz_io_pushOccupancy_4);
+  assign _zz_io_pushOccupancy_4 = (pushCC_popPtrGray[5] ^ _zz_io_pushOccupancy_5);
+  assign _zz_io_pushOccupancy_5 = pushCC_popPtrGray[6];
+  assign io_pushOccupancy = (pushCC_pushPtr - {_zz_io_pushOccupancy_5,{_zz_io_pushOccupancy_4,{_zz_io_pushOccupancy_3,{_zz_io_pushOccupancy_2,{_zz_io_pushOccupancy_1,{_zz_io_pushOccupancy,(pushCC_popPtrGray[0] ^ _zz_io_pushOccupancy)}}}}}});
   assign resetn_syncronized = bufferCC_6_io_dataOut;
-  assign popCC_popPtrPlus = (popCC_popPtr + 5'h01);
+  assign popCC_popPtrPlus = (popCC_popPtr + 7'h01);
   assign io_pop_fire = (io_pop_valid && io_pop_ready);
   assign popCC_pushPtrGray = pushToPopGray_buffercc_io_dataOut;
   assign popCC_empty = (popCC_popPtrGray == popCC_pushPtrGray);
@@ -2225,14 +2197,16 @@ module StreamFifoCC (
   assign _zz_io_popOccupancy = (popCC_pushPtrGray[1] ^ _zz_io_popOccupancy_1);
   assign _zz_io_popOccupancy_1 = (popCC_pushPtrGray[2] ^ _zz_io_popOccupancy_2);
   assign _zz_io_popOccupancy_2 = (popCC_pushPtrGray[3] ^ _zz_io_popOccupancy_3);
-  assign _zz_io_popOccupancy_3 = popCC_pushPtrGray[4];
-  assign io_popOccupancy = ({_zz_io_popOccupancy_3,{_zz_io_popOccupancy_2,{_zz_io_popOccupancy_1,{_zz_io_popOccupancy,(popCC_pushPtrGray[0] ^ _zz_io_popOccupancy)}}}} - popCC_popPtr);
+  assign _zz_io_popOccupancy_3 = (popCC_pushPtrGray[4] ^ _zz_io_popOccupancy_4);
+  assign _zz_io_popOccupancy_4 = (popCC_pushPtrGray[5] ^ _zz_io_popOccupancy_5);
+  assign _zz_io_popOccupancy_5 = popCC_pushPtrGray[6];
+  assign io_popOccupancy = ({_zz_io_popOccupancy_5,{_zz_io_popOccupancy_4,{_zz_io_popOccupancy_3,{_zz_io_popOccupancy_2,{_zz_io_popOccupancy_1,{_zz_io_popOccupancy,(popCC_pushPtrGray[0] ^ _zz_io_popOccupancy)}}}}}} - popCC_popPtr);
   assign pushToPopGray = pushCC_pushPtrGray;
   assign popToPushGray = popCC_popPtrGray;
   always @(posedge clk) begin
     if(!resetn) begin
-      pushCC_pushPtr <= 5'h0;
-      pushCC_pushPtrGray <= 5'h0;
+      pushCC_pushPtr <= 7'h0;
+      pushCC_pushPtrGray <= 7'h0;
     end else begin
       if(io_push_fire) begin
         pushCC_pushPtrGray <= (_zz_pushCC_pushPtrGray ^ pushCC_pushPtrPlus);
@@ -2243,10 +2217,10 @@ module StreamFifoCC (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn_syncronized) begin
-      popCC_popPtr <= 5'h0;
-      popCC_popPtrGray <= 5'h0;
+      popCC_popPtr <= 7'h0;
+      popCC_popPtrGray <= 7'h0;
     end else begin
       if(io_pop_fire) begin
         popCC_popPtrGray <= (_zz_popCC_popPtrGray ^ popCC_popPtrPlus);
@@ -2364,8 +2338,8 @@ module AD9361Interface (
   output reg [5:0]    tx_if_data_p,
   output reg [5:0]    tx_if_data_n,
   output              data_clk,
-  output              ad9361_rf_clk,
-  input               resetn
+  input               resetn,
+  output              O
 );
 
   wire                iBUFDS_1_I;
@@ -2393,7 +2367,7 @@ module AD9361Interface (
   wire                oDDR_6_D1;
   wire                oDDR_6_D2;
   wire                iBUFGDS_1_O;
-  wire                bUFG_1_ad9361_rf_clk;
+  wire                bUFG_1_O;
   wire                iBUFDS_1_O;
   wire                iDDR_1_Q1;
   wire                iDDR_1_Q2;
@@ -2483,8 +2457,8 @@ module AD9361Interface (
     .O  (iBUFGDS_1_O  )  //o
   );
   BUFG bUFG_1 (
-    .I             (iBUFGDS_1_O         ), //i
-    .ad9361_rf_clk (bUFG_1_ad9361_rf_clk)  //o
+    .I (iBUFGDS_1_O), //i
+    .O (bUFG_1_O   )  //o
   );
   IBUFDS iBUFDS_1 (
     .I  (iBUFDS_1_I ), //i
@@ -2497,13 +2471,13 @@ module AD9361Interface (
     .INIT_Q2(0),
     .SRTYPE("ASYNC")
   ) iDDR_1 (
-    .CE (1'b1                ), //i
-    .R  (1'b0                ), //i
-    .S  (1'b0                ), //i
-    .C  (bUFG_1_ad9361_rf_clk), //i
-    .D  (iBUFDS_1_O          ), //i
-    .Q1 (iDDR_1_Q1           ), //o
-    .Q2 (iDDR_1_Q2           )  //o
+    .CE (1'b1      ), //i
+    .R  (1'b0      ), //i
+    .S  (1'b0      ), //i
+    .C  (bUFG_1_O  ), //i
+    .D  (iBUFDS_1_O), //i
+    .Q1 (iDDR_1_Q1 ), //o
+    .Q2 (iDDR_1_Q2 )  //o
   );
   IBUFDS iBUFDS_2 (
     .I  (iBUFDS_2_I ), //i
@@ -2516,13 +2490,13 @@ module AD9361Interface (
     .INIT_Q2(0),
     .SRTYPE("ASYNC")
   ) iDDR_2 (
-    .CE (1'b1                ), //i
-    .R  (1'b0                ), //i
-    .S  (1'b0                ), //i
-    .C  (bUFG_1_ad9361_rf_clk), //i
-    .D  (iBUFDS_2_O          ), //i
-    .Q1 (iDDR_2_Q1           ), //o
-    .Q2 (iDDR_2_Q2           )  //o
+    .CE (1'b1      ), //i
+    .R  (1'b0      ), //i
+    .S  (1'b0      ), //i
+    .C  (bUFG_1_O  ), //i
+    .D  (iBUFDS_2_O), //i
+    .Q1 (iDDR_2_Q1 ), //o
+    .Q2 (iDDR_2_Q2 )  //o
   );
   IBUFDS iBUFDS_3 (
     .I  (iBUFDS_3_I ), //i
@@ -2535,13 +2509,13 @@ module AD9361Interface (
     .INIT_Q2(0),
     .SRTYPE("ASYNC")
   ) iDDR_3 (
-    .CE (1'b1                ), //i
-    .R  (1'b0                ), //i
-    .S  (1'b0                ), //i
-    .C  (bUFG_1_ad9361_rf_clk), //i
-    .D  (iBUFDS_3_O          ), //i
-    .Q1 (iDDR_3_Q1           ), //o
-    .Q2 (iDDR_3_Q2           )  //o
+    .CE (1'b1      ), //i
+    .R  (1'b0      ), //i
+    .S  (1'b0      ), //i
+    .C  (bUFG_1_O  ), //i
+    .D  (iBUFDS_3_O), //i
+    .Q1 (iDDR_3_Q1 ), //o
+    .Q2 (iDDR_3_Q2 )  //o
   );
   IBUFDS iBUFDS_4 (
     .I  (iBUFDS_4_I ), //i
@@ -2554,13 +2528,13 @@ module AD9361Interface (
     .INIT_Q2(0),
     .SRTYPE("ASYNC")
   ) iDDR_4 (
-    .CE (1'b1                ), //i
-    .R  (1'b0                ), //i
-    .S  (1'b0                ), //i
-    .C  (bUFG_1_ad9361_rf_clk), //i
-    .D  (iBUFDS_4_O          ), //i
-    .Q1 (iDDR_4_Q1           ), //o
-    .Q2 (iDDR_4_Q2           )  //o
+    .CE (1'b1      ), //i
+    .R  (1'b0      ), //i
+    .S  (1'b0      ), //i
+    .C  (bUFG_1_O  ), //i
+    .D  (iBUFDS_4_O), //i
+    .Q1 (iDDR_4_Q1 ), //o
+    .Q2 (iDDR_4_Q2 )  //o
   );
   IBUFDS iBUFDS_5 (
     .I  (iBUFDS_5_I ), //i
@@ -2573,13 +2547,13 @@ module AD9361Interface (
     .INIT_Q2(0),
     .SRTYPE("ASYNC")
   ) iDDR_5 (
-    .CE (1'b1                ), //i
-    .R  (1'b0                ), //i
-    .S  (1'b0                ), //i
-    .C  (bUFG_1_ad9361_rf_clk), //i
-    .D  (iBUFDS_5_O          ), //i
-    .Q1 (iDDR_5_Q1           ), //o
-    .Q2 (iDDR_5_Q2           )  //o
+    .CE (1'b1      ), //i
+    .R  (1'b0      ), //i
+    .S  (1'b0      ), //i
+    .C  (bUFG_1_O  ), //i
+    .D  (iBUFDS_5_O), //i
+    .Q1 (iDDR_5_Q1 ), //o
+    .Q2 (iDDR_5_Q2 )  //o
   );
   IBUFDS iBUFDS_6 (
     .I  (iBUFDS_6_I ), //i
@@ -2592,13 +2566,13 @@ module AD9361Interface (
     .INIT_Q2(0),
     .SRTYPE("ASYNC")
   ) iDDR_6 (
-    .CE (1'b1                ), //i
-    .R  (1'b0                ), //i
-    .S  (1'b0                ), //i
-    .C  (bUFG_1_ad9361_rf_clk), //i
-    .D  (iBUFDS_6_O          ), //i
-    .Q1 (iDDR_6_Q1           ), //o
-    .Q2 (iDDR_6_Q2           )  //o
+    .CE (1'b1      ), //i
+    .R  (1'b0      ), //i
+    .S  (1'b0      ), //i
+    .C  (bUFG_1_O  ), //i
+    .D  (iBUFDS_6_O), //i
+    .Q1 (iDDR_6_Q1 ), //o
+    .Q2 (iDDR_6_Q2 )  //o
   );
   IBUFDS iBUFDS_7 (
     .I  (rx_if_frame_p), //i
@@ -2614,7 +2588,7 @@ module AD9361Interface (
     .CE (1'b1                     ), //i
     .R  (1'b0                     ), //i
     .S  (1'b0                     ), //i
-    .C  (bUFG_1_ad9361_rf_clk     ), //i
+    .C  (bUFG_1_O                 ), //i
     .D  (iBUFDS_7_O               ), //i
     .Q1 (rxClockArea_iddr_frame_Q1), //o
     .Q2 (rxClockArea_iddr_frame_Q2)  //o
@@ -2624,13 +2598,13 @@ module AD9361Interface (
     .INIT(0),
     .SRTYPE("ASYNC")
   ) oDDR_1 (
-    .CE (1'b1                ), //i
-    .R  (1'b0                ), //i
-    .S  (1'b0                ), //i
-    .C  (bUFG_1_ad9361_rf_clk), //i
-    .D1 (oDDR_1_D1           ), //i
-    .D2 (oDDR_1_D2           ), //i
-    .Q  (oDDR_1_Q            )  //o
+    .CE (1'b1     ), //i
+    .R  (1'b0     ), //i
+    .S  (1'b0     ), //i
+    .C  (bUFG_1_O ), //i
+    .D1 (oDDR_1_D1), //i
+    .D2 (oDDR_1_D2), //i
+    .Q  (oDDR_1_Q )  //o
   );
   OBUFDS oBUFDS_1 (
     .I  (oDDR_1_Q   ), //i
@@ -2642,13 +2616,13 @@ module AD9361Interface (
     .INIT(0),
     .SRTYPE("ASYNC")
   ) oDDR_2 (
-    .CE (1'b1                ), //i
-    .R  (1'b0                ), //i
-    .S  (1'b0                ), //i
-    .C  (bUFG_1_ad9361_rf_clk), //i
-    .D1 (oDDR_2_D1           ), //i
-    .D2 (oDDR_2_D2           ), //i
-    .Q  (oDDR_2_Q            )  //o
+    .CE (1'b1     ), //i
+    .R  (1'b0     ), //i
+    .S  (1'b0     ), //i
+    .C  (bUFG_1_O ), //i
+    .D1 (oDDR_2_D1), //i
+    .D2 (oDDR_2_D2), //i
+    .Q  (oDDR_2_Q )  //o
   );
   OBUFDS oBUFDS_2 (
     .I  (oDDR_2_Q   ), //i
@@ -2660,13 +2634,13 @@ module AD9361Interface (
     .INIT(0),
     .SRTYPE("ASYNC")
   ) oDDR_3 (
-    .CE (1'b1                ), //i
-    .R  (1'b0                ), //i
-    .S  (1'b0                ), //i
-    .C  (bUFG_1_ad9361_rf_clk), //i
-    .D1 (oDDR_3_D1           ), //i
-    .D2 (oDDR_3_D2           ), //i
-    .Q  (oDDR_3_Q            )  //o
+    .CE (1'b1     ), //i
+    .R  (1'b0     ), //i
+    .S  (1'b0     ), //i
+    .C  (bUFG_1_O ), //i
+    .D1 (oDDR_3_D1), //i
+    .D2 (oDDR_3_D2), //i
+    .Q  (oDDR_3_Q )  //o
   );
   OBUFDS oBUFDS_3 (
     .I  (oDDR_3_Q   ), //i
@@ -2678,13 +2652,13 @@ module AD9361Interface (
     .INIT(0),
     .SRTYPE("ASYNC")
   ) oDDR_4 (
-    .CE (1'b1                ), //i
-    .R  (1'b0                ), //i
-    .S  (1'b0                ), //i
-    .C  (bUFG_1_ad9361_rf_clk), //i
-    .D1 (oDDR_4_D1           ), //i
-    .D2 (oDDR_4_D2           ), //i
-    .Q  (oDDR_4_Q            )  //o
+    .CE (1'b1     ), //i
+    .R  (1'b0     ), //i
+    .S  (1'b0     ), //i
+    .C  (bUFG_1_O ), //i
+    .D1 (oDDR_4_D1), //i
+    .D2 (oDDR_4_D2), //i
+    .Q  (oDDR_4_Q )  //o
   );
   OBUFDS oBUFDS_4 (
     .I  (oDDR_4_Q   ), //i
@@ -2696,13 +2670,13 @@ module AD9361Interface (
     .INIT(0),
     .SRTYPE("ASYNC")
   ) oDDR_5 (
-    .CE (1'b1                ), //i
-    .R  (1'b0                ), //i
-    .S  (1'b0                ), //i
-    .C  (bUFG_1_ad9361_rf_clk), //i
-    .D1 (oDDR_5_D1           ), //i
-    .D2 (oDDR_5_D2           ), //i
-    .Q  (oDDR_5_Q            )  //o
+    .CE (1'b1     ), //i
+    .R  (1'b0     ), //i
+    .S  (1'b0     ), //i
+    .C  (bUFG_1_O ), //i
+    .D1 (oDDR_5_D1), //i
+    .D2 (oDDR_5_D2), //i
+    .Q  (oDDR_5_Q )  //o
   );
   OBUFDS oBUFDS_5 (
     .I  (oDDR_5_Q   ), //i
@@ -2714,13 +2688,13 @@ module AD9361Interface (
     .INIT(0),
     .SRTYPE("ASYNC")
   ) oDDR_6 (
-    .CE (1'b1                ), //i
-    .R  (1'b0                ), //i
-    .S  (1'b0                ), //i
-    .C  (bUFG_1_ad9361_rf_clk), //i
-    .D1 (oDDR_6_D1           ), //i
-    .D2 (oDDR_6_D2           ), //i
-    .Q  (oDDR_6_Q            )  //o
+    .CE (1'b1     ), //i
+    .R  (1'b0     ), //i
+    .S  (1'b0     ), //i
+    .C  (bUFG_1_O ), //i
+    .D1 (oDDR_6_D1), //i
+    .D2 (oDDR_6_D2), //i
+    .Q  (oDDR_6_Q )  //o
   );
   OBUFDS oBUFDS_6 (
     .I  (oDDR_6_Q   ), //i
@@ -2735,7 +2709,7 @@ module AD9361Interface (
     .CE (1'b1                       ), //i
     .R  (1'b0                       ), //i
     .S  (1'b0                       ), //i
-    .C  (bUFG_1_ad9361_rf_clk       ), //i
+    .C  (bUFG_1_O                   ), //i
     .D1 (txClockArea_tx_frame       ), //i
     .D2 (txClockArea_tx_frame       ), //i
     .Q  (txClockArea_tx_frame_oddr_Q)  //o
@@ -2753,7 +2727,7 @@ module AD9361Interface (
     .CE (1'b1                     ), //i
     .R  (1'b0                     ), //i
     .S  (1'b0                     ), //i
-    .C  (bUFG_1_ad9361_rf_clk     ), //i
+    .C  (bUFG_1_O                 ), //i
     .D1 (1'b0                     ), //i
     .D2 (1'b1                     ), //i
     .Q  (txClockArea_tx_clk_oddr_Q)  //o
@@ -2887,9 +2861,9 @@ module AD9361Interface (
   assign txClockArea_tx_clk_buf = txClockArea_tx_clk_oddr_Q;
   assign tx_fb_clk_p = txClockArea_tx_clk_obuf_O;
   assign tx_fb_clk_n = txClockArea_tx_clk_obuf_OB;
-  assign data_clk = bUFG_1_ad9361_rf_clk;
-  assign ad9361_rf_clk = bUFG_1_ad9361_rf_clk;
-  always @(posedge bUFG_1_ad9361_rf_clk) begin
+  assign data_clk = bUFG_1_O;
+  assign O = bUFG_1_O;
+  always @(posedge bUFG_1_O) begin
     if(!resetn) begin
       rxClockArea_rx_data_n <= 6'h0;
       rxClockArea_rx_frame_n <= 1'b0;
@@ -2933,7 +2907,7 @@ module AD9361Interface (
     end
   end
 
-  always @(posedge bUFG_1_ad9361_rf_clk) begin
+  always @(posedge bUFG_1_O) begin
     if(when_AD9361Interface_l117) begin
       rxClockArea_rx_data_i_r1 <= {rxClockArea_rx_data_d[11 : 6],rxClockArea_rx_data[11 : 6]};
       rxClockArea_rx_data_q_r1 <= {rxClockArea_rx_data_d[5 : 0],rxClockArea_rx_data[5 : 0]};
@@ -3008,7 +2982,7 @@ module StreamFifo_16 (
   input               io_flush,
   output     [5:0]    io_occupancy,
   output     [5:0]    io_availability,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -3053,13 +3027,13 @@ module StreamFifo_16 (
   assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz__zz_io_pop_payload_last = 1'b1;
   assign _zz_logic_ram_port_1 = {io_push_payload_fragment,io_push_payload_last};
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz__zz_io_pop_payload_last) begin
       _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_1) begin
       logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
     end
@@ -3132,7 +3106,7 @@ module StreamFifo_16 (
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       logic_pushPtr_value <= 5'h0;
       logic_popPtr_value <= 5'h0;
@@ -3167,7 +3141,7 @@ module PhyRxCrcChecker (
   input      [7:0]    header_message_payload_pkg_size,
   input      [1:0]    header_message_payload_demod_method,
   output reg          phy_rx_finish,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
   localparam PhyRxCrcCheckerStatus_IDLE = 3'd0;
@@ -3220,7 +3194,7 @@ module PhyRxCrcChecker (
     .input_payload (raw_data_payload_fragment[7:0]), //i
     .result        (crc_2_result[31:0]            ), //o
     .resultNext    (crc_2_resultNext[31:0]        ), //o
-    .ad9361_rf_clk (ad9361_rf_clk                 ), //i
+    .O             (O                             ), //i
     .resetn        (resetn                        )  //i
   );
   StreamFifo_1 data_fifo (
@@ -3235,7 +3209,7 @@ module PhyRxCrcChecker (
     .io_flush                 (phy_rx_finish                         ), //i
     .io_occupancy             (data_fifo_io_occupancy[7:0]           ), //o
     .io_availability          (data_fifo_io_availability[7:0]        ), //o
-    .ad9361_rf_clk            (ad9361_rf_clk                         ), //i
+    .O                        (O                                     ), //i
     .resetn                   (resetn                                )  //i
   );
   always @(*) begin
@@ -3315,7 +3289,7 @@ module PhyRxCrcChecker (
   assign result_data_valid = (data_fifo_io_pop_valid && _zz_result_data_valid);
   assign result_data_payload_last = data_fifo_io_pop_payload_last;
   assign result_data_payload_fragment = data_fifo_io_pop_payload_fragment;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       crc_status <= PhyRxCrcCheckerStatus_IDLE;
       fifo_push_valve <= 1'b0;
@@ -3366,7 +3340,7 @@ module PhyRxCrcChecker (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     case(crc_status)
       PhyRxCrcCheckerStatus_IDLE : begin
         pkg_cnt <= 8'h0;
@@ -3421,7 +3395,7 @@ module StreamFifo_15 (
   input               io_flush,
   output     [5:0]    io_occupancy,
   output     [5:0]    io_availability,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -3467,13 +3441,13 @@ module StreamFifo_15 (
   assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz__zz_io_pop_payload_last = 1'b1;
   assign _zz_logic_ram_port_1 = {{io_push_payload_fragment_indicate,io_push_payload_fragment_data},io_push_payload_last};
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz__zz_io_pop_payload_last) begin
       _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_1) begin
       logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
     end
@@ -3548,7 +3522,7 @@ module StreamFifo_15 (
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       logic_pushPtr_value <= 5'h0;
       logic_popPtr_value <= 5'h0;
@@ -3579,7 +3553,7 @@ module ViterbiDecoder (
   output              decoded_data_valid,
   output              decoded_data_payload_last,
   output     [0:0]    decoded_data_payload_fragment,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -3609,7 +3583,7 @@ module ViterbiDecoder (
     .s_path_valid                       (pmu_core_s_path_valid                  ), //o
     .s_path_payload_last                (pmu_core_s_path_payload_last           ), //o
     .s_path_payload_fragment            (pmu_core_s_path_payload_fragment[63:0] ), //o
-    .ad9361_rf_clk                      (ad9361_rf_clk                          ), //i
+    .O                                  (O                                      ), //i
     .resetn                             (resetn                                 )  //i
   );
   Traceback tbu_core (
@@ -3622,7 +3596,7 @@ module ViterbiDecoder (
     .tb_node_payload_fragment (tbu_core_tb_node_payload_fragment[1:0]), //o
     .halt                     (tbu_core_halt                         ), //o
     .finished                 (tbu_core_finished                     ), //o
-    .ad9361_rf_clk            (ad9361_rf_clk                         ), //i
+    .O                        (O                                     ), //i
     .resetn                   (resetn                                )  //i
   );
   ReorderLifo lifo_core (
@@ -3632,7 +3606,7 @@ module ViterbiDecoder (
     .decoded_data_valid              (lifo_core_decoded_data_valid           ), //o
     .decoded_data_payload_last       (lifo_core_decoded_data_payload_last    ), //o
     .decoded_data_payload_fragment   (lifo_core_decoded_data_payload_fragment), //o
-    .ad9361_rf_clk                   (ad9361_rf_clk                          ), //i
+    .O                               (O                                      ), //i
     .resetn                          (resetn                                 )  //i
   );
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
@@ -3653,7 +3627,7 @@ module DePuncturing (
   output              de_punched_data_payload_last,
   output     [1:0]    de_punched_data_payload_fragment_data,
   output     [1:0]    de_punched_data_payload_fragment_indicate,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -3767,7 +3741,7 @@ module DePuncturing (
   assign de_punched_data_valid = (cnt != 4'b0000);
   assign de_punched_data_payload_last = ((cnt == 4'b0001) && raw_data_last);
   assign raw_data_ready = ((cnt == 4'b0000) && (! raw_data_last));
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       mask_cnt <= 4'b0000;
       cnt <= 4'b0000;
@@ -3791,7 +3765,7 @@ module DePuncturing (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!when_DePuncturing_l52) begin
       if(raw_data_fire) begin
         raw_data_fragment <= raw_data_payload_fragment;
@@ -3818,7 +3792,7 @@ module StreamFifo_14 (
   input               io_flush,
   output reg [6:0]    io_occupancy,
   output reg [6:0]    io_availability,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -3869,13 +3843,13 @@ module StreamFifo_14 (
   assign _zz_io_availability_2 = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz__zz_io_pop_payload_last = 1'b1;
   assign _zz_logic_ram_port_1 = {io_push_payload_fragment,io_push_payload_last};
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz__zz_io_pop_payload_last) begin
       _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_1) begin
       logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
     end
@@ -3970,7 +3944,7 @@ module StreamFifo_14 (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       logic_pushPtr_value <= 7'h0;
       logic_popPtr_value <= 7'h0;
@@ -3999,7 +3973,7 @@ module PhyRxDescrambling (
   output reg          result_data_valid,
   output              result_data_payload_last,
   output     [15:0]   result_data_payload_fragment,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
   localparam PhyRxDescramblerStatus_IDLE = 2'd0;
@@ -4023,7 +3997,7 @@ module PhyRxDescrambling (
     .scram_data_valid   (descrambler_scram_data_valid        ), //o
     .scram_data_ready   (descrambler_scram_data_ready        ), //i
     .scram_data_payload (descrambler_scram_data_payload[15:0]), //o
-    .ad9361_rf_clk      (ad9361_rf_clk                       ), //i
+    .O                  (O                                   ), //i
     .resetn             (resetn                              )  //i
   );
   `ifndef SYNTHESIS
@@ -4081,7 +4055,7 @@ module PhyRxDescrambling (
   end
 
   assign when_PhyRx_l375 = (raw_data_valid && raw_data_payload_last);
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       descrambler_status <= PhyRxDescramblerStatus_FINAL_1;
     end else begin
@@ -4115,7 +4089,7 @@ module PhyRxDataCombination (
   input      [7:0]    header_message_payload_pkg_size,
   input      [1:0]    header_message_payload_demod_method,
   input               enable,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -4144,7 +4118,7 @@ module PhyRxDataCombination (
     .enable                     (enable                                           ), //i
     .cnt_step                   (data_combination_cnt_step[3:0]                   ), //i
     .cnt_limit                  (data_combination_cnt_limit[3:0]                  ), //i
-    .ad9361_rf_clk              (ad9361_rf_clk                                    ), //i
+    .O                          (O                                                ), //i
     .resetn                     (resetn                                           )  //i
   );
   always @(*) begin
@@ -4172,7 +4146,7 @@ module PhyRxDataCombination (
   assign result_data_valid = data_combination_base_data_valid;
   assign result_data_payload_last = data_combination_base_data_payload_last;
   assign result_data_payload_fragment = data_combination_base_data_payload_fragment;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(header_message_valid) begin
       demod_method <= header_message_payload_demod_method;
     end
@@ -4191,7 +4165,7 @@ module PhyRxDemodulator (
   input               header_message_valid,
   input      [7:0]    header_message_payload_pkg_size,
   input      [1:0]    header_message_payload_demod_method,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
   localparam PhyRxDemodualtorStatus_IDLE = 2'd0;
@@ -4236,7 +4210,7 @@ module PhyRxDemodulator (
     .data_flow_mod_iq_payload_last           (demodulator_inst_data_flow_mod_iq_payload_last            ), //i
     .data_flow_mod_iq_payload_fragment_cha_i (raw_data_payload_cha_i[11:0]                              ), //i
     .data_flow_mod_iq_payload_fragment_cha_q (raw_data_payload_cha_q[11:0]                              ), //i
-    .ad9361_rf_clk                           (ad9361_rf_clk                                             ), //i
+    .O                                       (O                                                         ), //i
     .resetn                                  (resetn                                                    )  //i
   );
   `ifndef SYNTHESIS
@@ -4273,7 +4247,7 @@ module PhyRxDemodulator (
   assign result_data_valid = demodulator_inst_data_flow_unit_data_valid;
   assign result_data_payload_last = demodulator_inst_data_flow_unit_data_payload_last;
   assign result_data_payload_fragment = demodulator_inst_data_flow_unit_data_payload_fragment;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       desc_cnt <= 11'h0;
       symbol_cnt <= 11'h0;
@@ -4302,7 +4276,7 @@ module PhyRxDemodulator (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     case(demodulator_states)
       PhyRxDemodualtorStatus_IDLE : begin
         if(header_message_valid) begin
@@ -4332,7 +4306,7 @@ module PhyRxHeaderExtender (
   output              header_message_valid,
   output     [7:0]    header_message_payload_pkg_size,
   output     [1:0]    header_message_payload_demod_method,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
   localparam PhyRxHeaderStatus_SDF = 2'd0;
@@ -4431,7 +4405,7 @@ module PhyRxHeaderExtender (
   assign header_message_payload_pkg_size = pkg_size;
   assign header_message_payload_demod_method = demod_method;
   assign header_message_valid = message_valid;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       cnt <= 4'b0000;
       sdf_i_win <= 8'h0;
@@ -4499,7 +4473,7 @@ module PhyRxHeaderExtender (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     case(header_status)
       PhyRxHeaderStatus_SDF : begin
       end
@@ -4531,7 +4505,7 @@ module PhyRxDecimator (
   output     [11:0]   result_data_payload_cha_i,
   output     [11:0]   result_data_payload_cha_q,
   input               enable,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -4549,7 +4523,7 @@ module PhyRxDecimator (
     .out_valid         (decimator_out_valid                  ), //o
     .out_payload_cha_i (decimator_out_payload_cha_i[11:0]    ), //o
     .out_payload_cha_q (decimator_out_payload_cha_q[11:0]    ), //o
-    .ad9361_rf_clk     (ad9361_rf_clk                        ), //i
+    .O                 (O                                    ), //i
     .resetn            (resetn                               )  //i
   );
   assign raw_data_takeWhen_valid = (raw_data_valid && enable);
@@ -4568,7 +4542,7 @@ module PhyRxFilter (
   output              result_data_valid,
   output     [11:0]   result_data_payload_cha_i,
   output     [11:0]   result_data_payload_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -4583,7 +4557,7 @@ module PhyRxFilter (
     .filtered_data_valid     (fir_filter_iq_filtered_data_valid          ), //o
     .filtered_data_payload_0 (fir_filter_iq_filtered_data_payload_0[18:0]), //o
     .filtered_data_payload_1 (fir_filter_iq_filtered_data_payload_1[18:0]), //o
-    .ad9361_rf_clk           (ad9361_rf_clk                              ), //i
+    .O                       (O                                          ), //i
     .resetn                  (resetn                                     )  //i
   );
   assign result_data_valid = fir_filter_iq_filtered_data_valid;
@@ -4603,7 +4577,7 @@ module PhyRxCFO (
   input               cfo_reset,
   input               pkg_detected,
   output              phase_corrected,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -4636,7 +4610,7 @@ module PhyRxCFO (
     .rotated_data_payload_cha_q (coarse_cfo_inst_rotated_data_payload_cha_q[11:0]), //o
     .enable                     (cfo_enable                                      ), //i
     .phi_correct_valid          (coarse_cfo_inst_phi_correct_valid               ), //o
-    .ad9361_rf_clk              (ad9361_rf_clk                                   ), //i
+    .O                          (O                                               ), //i
     .resetn                     (resetn                                          )  //i
   );
   CrossCorrelator cross_corr_core (
@@ -4646,7 +4620,7 @@ module PhyRxCFO (
     .corr_result_valid         (cross_corr_core_corr_result_valid               ), //o
     .corr_result_payload_cha_i (cross_corr_core_corr_result_payload_cha_i[35:0] ), //o
     .corr_result_payload_cha_q (cross_corr_core_corr_result_payload_cha_q[35:0] ), //o
-    .ad9361_rf_clk             (ad9361_rf_clk                                   ), //i
+    .O                         (O                                               ), //i
     .resetn                    (resetn                                          )  //i
   );
   assign header_corrected = 1'b0;
@@ -4659,7 +4633,7 @@ module PhyRxCFO (
   assign result_data_valid = coarse_cfo_inst_rotated_data_valid;
   assign result_data_payload_cha_i = coarse_cfo_inst_rotated_data_payload_cha_i;
   assign result_data_payload_cha_q = coarse_cfo_inst_rotated_data_payload_cha_q;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       cfo_corrected <= 1'b0;
       cfo_enable <= 1'b0;
@@ -4703,7 +4677,7 @@ module PhyRxCFO (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     pkg_detected_regNext <= pkg_detected;
   end
 
@@ -4720,7 +4694,7 @@ module PhyRxPreambleDetector (
   input      [7:0]    min_plateau,
   input               detector_reset,
   output              pkg_handling,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -4745,14 +4719,14 @@ module PhyRxPreambleDetector (
     .corr_result_valid          (preamble_detector_corr_result_valid               ), //o
     .corr_result_payload_cha_i  (preamble_detector_corr_result_payload_cha_i[35:0] ), //o
     .corr_result_payload_cha_q  (preamble_detector_corr_result_payload_cha_q[35:0] ), //o
-    .ad9361_rf_clk              (ad9361_rf_clk                                     ), //i
+    .O                          (O                                                 ), //i
     .resetn                     (resetn                                            )  //i
   );
   assign pkg_handling = pkg_handling_1;
   assign result_data_valid = preamble_detector_raw_data_out_valid;
   assign result_data_payload_cha_i = preamble_detector_raw_data_out_payload_cha_i;
   assign result_data_payload_cha_q = preamble_detector_raw_data_out_payload_cha_q;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       pkg_handling_1 <= 1'b0;
     end else begin
@@ -4778,7 +4752,7 @@ module PowerAdjustor (
   output     [11:0]   adjusted_data_payload_cha_q,
   input      [1:0]    shift_bias,
   input               shift_dir,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -4795,7 +4769,7 @@ module PowerAdjustor (
 
   assign adjusted_data_payload_cha_i = shifted_data_cha_i;
   assign adjusted_data_payload_cha_q = shifted_data_cha_q;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(raw_data_valid) begin
       if(shift_dir) begin
         shifted_data_cha_i <= ($signed(raw_data_payload_cha_i) >>> shift_bias);
@@ -4838,7 +4812,7 @@ module StreamFifo_13 (
   input               io_flush,
   output     [5:0]    io_occupancy,
   output     [5:0]    io_availability,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -4883,13 +4857,13 @@ module StreamFifo_13 (
   assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz__zz_io_pop_payload_cha_i = 1'b1;
   assign _zz_logic_ram_port_1 = {io_push_payload_cha_q,io_push_payload_cha_i};
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz__zz_io_pop_payload_cha_i) begin
       _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_1) begin
       logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
     end
@@ -4962,7 +4936,7 @@ module StreamFifo_13 (
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       logic_pushPtr_value <= 5'h0;
       logic_popPtr_value <= 5'h0;
@@ -5000,7 +4974,7 @@ module PhyTxICFront (
   assign raw_data_ready = result_data_ready;
   assign result_data_payload_cha_i = (raw_data_valid ? raw_data_payload_fragment_cha_i : 12'h0);
   assign result_data_payload_cha_q = (raw_data_valid ? raw_data_payload_fragment_cha_q : 12'h0);
-  assign result_data_valid = raw_data_valid;
+  assign result_data_valid = (raw_data_valid || 1'b1);
 
 endmodule
 
@@ -5015,7 +4989,7 @@ module PreambleExtender (
   output              preamble_data_payload_last,
   output     [11:0]   preamble_data_payload_fragment_cha_i,
   output     [11:0]   preamble_data_payload_fragment_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
   localparam PreambleExtenderStates_IDLE = 2'd0;
@@ -5064,13 +5038,13 @@ module PreambleExtender (
   initial begin
     $readmemb("RFBenchAD9361.sv_toplevel_rfTxClockArea_transmitter_stf_preamble_adder_I_mem.bin",I_mem);
   end
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_preamble_data_i) begin
       _zz_I_mem_port0 <= I_mem[cnt];
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_preamble_data_i_1) begin
       _zz_I_mem_port1 <= I_mem[cnt];
     end
@@ -5079,13 +5053,13 @@ module PreambleExtender (
   initial begin
     $readmemb("RFBenchAD9361.sv_toplevel_rfTxClockArea_transmitter_stf_preamble_adder_Q_mem.bin",Q_mem);
   end
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_preamble_data_q) begin
       _zz_Q_mem_port0 <= Q_mem[cnt];
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_preamble_data_q_1) begin
       _zz_Q_mem_port1 <= Q_mem[cnt];
     end
@@ -5113,7 +5087,7 @@ module PreambleExtender (
   assign preamble_data_payload_fragment_cha_i = preamble_data_i;
   assign preamble_data_payload_fragment_cha_q = preamble_data_q;
   assign preamble_data_payload_last = preamble_last;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       cnt <= 4'b0000;
       repeatCnt <= 5'h0;
@@ -5164,7 +5138,7 @@ module PreambleExtender (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     case(preamble_states)
       PreambleExtenderStates_IDLE : begin
         preamble_data_i <= _zz_I_mem_port0;
@@ -5199,7 +5173,7 @@ module PhyTxFilter (
   output              result_data_payload_last,
   output     [11:0]   result_data_payload_fragment_cha_i,
   output     [11:0]   result_data_payload_fragment_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -5251,7 +5225,7 @@ module PhyTxFilter (
     .filtered_data_valid     (fir_filter_iq_filtered_data_valid          ), //o
     .filtered_data_payload_0 (fir_filter_iq_filtered_data_payload_0[18:0]), //o
     .filtered_data_payload_1 (fir_filter_iq_filtered_data_payload_1[18:0]), //o
-    .ad9361_rf_clk           (ad9361_rf_clk                              ), //i
+    .O                       (O                                          ), //i
     .resetn                  (resetn                                     )  //i
   );
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
@@ -5266,7 +5240,7 @@ module PhyTxFilter (
   assign result_data_payload_fragment_cha_i = (fir_filter_iq_filtered_data_payload_0 >>> 7);
   assign result_data_payload_fragment_cha_q = (fir_filter_iq_filtered_data_payload_1 >>> 7);
   assign result_data_payload_last = raw_data_payload_last_delay_25;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       last_padding <= 1'b0;
       raw_data_payload_last_delay_1 <= 1'b0;
@@ -5394,7 +5368,7 @@ module PhyTxOverSampling (
   output              result_data_payload_last,
   output     [11:0]   result_data_payload_fragment_cha_i,
   output     [11:0]   result_data_payload_fragment_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -5416,7 +5390,7 @@ module PhyTxOverSampling (
   assign result_data_payload_last = (raw_last && (cnt == 3'b111));
   assign result_data_payload_fragment_cha_i = ((cnt == 3'b000) ? raw_data_payload_fragment_cha_i : _zz_result_data_payload_fragment_cha_i);
   assign result_data_payload_fragment_cha_q = ((cnt == 3'b000) ? raw_data_payload_fragment_cha_q : _zz_result_data_payload_fragment_cha_q);
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       cnt <= 3'b000;
       raw_last <= 1'b0;
@@ -5450,7 +5424,7 @@ module PhyHeaderExtender (
   output reg          result_data_payload_last,
   output reg [11:0]   result_data_payload_fragment_cha_i,
   output reg [11:0]   result_data_payload_fragment_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
   localparam PhyTxHeaderStatus_IDLE = 2'd0;
@@ -5625,7 +5599,7 @@ module PhyHeaderExtender (
   assign result_data_fire_2 = (result_data_valid && result_data_ready);
   assign when_PhyTx_l339 = (result_data_fire_2 && result_data_payload_last);
   assign pkg_size_ready = pkg_size_ready_1;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       header_status <= PhyTxHeaderStatus_IDLE;
       counter <= 5'h0;
@@ -5670,7 +5644,7 @@ module PhyHeaderExtender (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     case(header_status)
       PhyTxHeaderStatus_IDLE : begin
       end
@@ -5703,7 +5677,7 @@ module StreamFifo_10 (
   input               io_flush,
   output     [5:0]    io_occupancy,
   output     [5:0]    io_availability,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -5749,13 +5723,13 @@ module StreamFifo_10 (
   assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz__zz_io_pop_payload_last = 1'b1;
   assign _zz_logic_ram_port_1 = {{io_push_payload_fragment_cha_q,io_push_payload_fragment_cha_i},io_push_payload_last};
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz__zz_io_pop_payload_last) begin
       _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_1) begin
       logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
     end
@@ -5830,7 +5804,7 @@ module StreamFifo_10 (
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       logic_pushPtr_value <= 5'h0;
       logic_popPtr_value <= 5'h0;
@@ -5861,7 +5835,7 @@ module ModulatorRTL (
   output     [11:0]   data_flow_mod_iq_payload_fragment_cha_i,
   output     [11:0]   data_flow_mod_iq_payload_fragment_cha_q,
   input      [1:0]    select_1,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -5923,7 +5897,7 @@ module ModulatorRTL (
     .mod_iq_payload_last           (mPSK_Modulator_Extension_mod_mod_iq_payload_last                ), //o
     .mod_iq_payload_fragment_cha_i (mPSK_Modulator_Extension_mod_mod_iq_payload_fragment_cha_i[11:0]), //o
     .mod_iq_payload_fragment_cha_q (mPSK_Modulator_Extension_mod_mod_iq_payload_fragment_cha_q[11:0]), //o
-    .ad9361_rf_clk                 (ad9361_rf_clk                                                   ), //i
+    .O                             (O                                                               ), //i
     .resetn                        (resetn                                                          )  //i
   );
   mPSKMod_1 mPSK_Modulator_Extension_mod_1 (
@@ -5934,7 +5908,7 @@ module ModulatorRTL (
     .mod_iq_payload_last           (mPSK_Modulator_Extension_mod_1_mod_iq_payload_last                ), //o
     .mod_iq_payload_fragment_cha_i (mPSK_Modulator_Extension_mod_1_mod_iq_payload_fragment_cha_i[11:0]), //o
     .mod_iq_payload_fragment_cha_q (mPSK_Modulator_Extension_mod_1_mod_iq_payload_fragment_cha_q[11:0]), //o
-    .ad9361_rf_clk                 (ad9361_rf_clk                                                     ), //i
+    .O                             (O                                                                 ), //i
     .resetn                        (resetn                                                            )  //i
   );
   mQAMMod mQAM_Modulator_Extension_mod (
@@ -5945,7 +5919,7 @@ module ModulatorRTL (
     .mod_iq_payload_last           (mQAM_Modulator_Extension_mod_mod_iq_payload_last                ), //o
     .mod_iq_payload_fragment_cha_i (mQAM_Modulator_Extension_mod_mod_iq_payload_fragment_cha_i[11:0]), //o
     .mod_iq_payload_fragment_cha_q (mQAM_Modulator_Extension_mod_mod_iq_payload_fragment_cha_q[11:0]), //o
-    .ad9361_rf_clk                 (ad9361_rf_clk                                                   ), //i
+    .O                             (O                                                               ), //i
     .resetn                        (resetn                                                          )  //i
   );
   FlowMux_1 flowMux_2 (
@@ -5994,7 +5968,7 @@ module dataDivDynamic (
   output              unit_data_valid,
   output              unit_data_payload_last,
   output     [15:0]   unit_data_payload_fragment,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -6018,7 +5992,7 @@ module dataDivDynamic (
   assign unit_data_payload_fragment = base_buffer;
   assign unit_data_payload_last = (base_last && (base_cnt == cnt_limit));
   assign unit_data_valid = unit_valid;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       unit_valid <= 1'b0;
       base_last <= 1'b0;
@@ -6068,7 +6042,7 @@ module PhyTxScrambler (
   input               result_data_ready,
   output              result_data_payload_last,
   output     [15:0]   result_data_payload_fragment,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
   localparam PhyTxScramblerStatus_IDLE = 2'd0;
@@ -6094,7 +6068,7 @@ module PhyTxScrambler (
     .scram_data_valid   (scrambler_2_scram_data_valid        ), //o
     .scram_data_ready   (scrambler_2_scram_data_ready        ), //i
     .scram_data_payload (scrambler_2_scram_data_payload[15:0]), //o
-    .ad9361_rf_clk      (ad9361_rf_clk                       ), //i
+    .O                  (O                                   ), //i
     .resetn             (resetn                              )  //i
   );
   `ifndef SYNTHESIS
@@ -6175,7 +6149,7 @@ module PhyTxScrambler (
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
   assign when_PhyTx_l148 = (raw_data_fire && raw_data_payload_last);
   assign raw_data_fire_1 = (raw_data_valid && raw_data_ready);
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       scrambler_status <= PhyTxScramblerStatus_IDLE;
     end else begin
@@ -6212,7 +6186,7 @@ module StreamFifo_8 (
   input               io_flush,
   output     [5:0]    io_occupancy,
   output     [5:0]    io_availability,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -6257,13 +6231,13 @@ module StreamFifo_8 (
   assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz__zz_io_pop_payload_last = 1'b1;
   assign _zz_logic_ram_port_1 = {io_push_payload_fragment,io_push_payload_last};
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz__zz_io_pop_payload_last) begin
       _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_1) begin
       logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
     end
@@ -6336,7 +6310,7 @@ module StreamFifo_8 (
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       logic_pushPtr_value <= 5'h0;
       logic_popPtr_value <= 5'h0;
@@ -6366,7 +6340,7 @@ module Puncturing (
   output              punched_data_valid,
   output              punched_data_payload_last,
   output     [15:0]   punched_data_payload_fragment,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -6384,11 +6358,11 @@ module Puncturing (
   assign punched_data_valid = raw_data_valid_1;
   assign punched_data_payload_last = raw_data_last;
   assign punched_data_payload_fragment = {{{{{{{{{{{_zz_punched_data_payload_fragment,_zz_punched_data_payload_fragment_1},_zz_punched_data_payload_fragment_2},raw_data_fragment[4]},raw_data_fragment[11]},raw_data_fragment[3]},raw_data_fragment[10]},raw_data_fragment[2]},raw_data_fragment[9]},raw_data_fragment[1]},raw_data_fragment[8]},raw_data_fragment[0]};
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     raw_data_fragment <= raw_data_payload_fragment;
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       raw_data_valid_1 <= 1'b0;
       raw_data_last <= 1'b0;
@@ -6410,7 +6384,7 @@ module PhyTxEncoder (
   input               result_data_ready,
   output              result_data_payload_last,
   output     [15:0]   result_data_payload_fragment,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -6439,7 +6413,7 @@ module PhyTxEncoder (
     .coded_data_valid            (phy_tx_encoder_coded_data_valid                 ), //o
     .coded_data_payload_last     (phy_tx_encoder_coded_data_payload_last          ), //o
     .coded_data_payload_fragment (phy_tx_encoder_coded_data_payload_fragment[15:0]), //o
-    .ad9361_rf_clk               (ad9361_rf_clk                                   ), //i
+    .O                           (O                                               ), //i
     .resetn                      (resetn                                          )  //i
   );
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
@@ -6483,7 +6457,7 @@ module PhyTxEncoder (
   assign phy_tx_encoder_coded_data_toStream_ready = result_data_ready;
   assign result_data_payload_last = phy_tx_encoder_coded_data_toStream_payload_last;
   assign result_data_payload_fragment = phy_tx_encoder_coded_data_toStream_payload_fragment;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       isEncoding <= 1'b0;
     end else begin
@@ -6511,7 +6485,7 @@ module PhyTxPadder (
   input               result_data_ready,
   output reg          result_data_payload_last,
   output reg [7:0]    result_data_payload_fragment,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -6557,7 +6531,7 @@ module PhyTxPadder (
 
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
   assign when_PhyTx_l78 = (raw_data_fire && raw_data_payload_last);
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       data_last <= 1'b0;
     end else begin
@@ -6587,7 +6561,7 @@ module PhyTxCrc (
   input               result_data_ready,
   output reg          result_data_payload_last,
   output reg [7:0]    result_data_payload_fragment,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -6612,7 +6586,7 @@ module PhyTxCrc (
     .input_payload (raw_data_payload_fragment[7:0]), //i
     .result        (crc_2_result[31:0]            ), //o
     .resultNext    (crc_2_resultNext[31:0]        ), //o
-    .ad9361_rf_clk (ad9361_rf_clk                 ), //i
+    .O             (O                             ), //i
     .resetn        (resetn                        )  //i
   );
   always @(*) begin
@@ -6666,7 +6640,7 @@ module PhyTxCrc (
   end
 
   assign when_PhyTx_l48 = (counter == 2'b11);
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       emitCrc <= 1'b0;
       counter <= 2'b00;
@@ -6705,7 +6679,7 @@ module StreamFifo_5 (
   input               io_flush,
   output     [5:0]    io_occupancy,
   output     [5:0]    io_availability,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -6750,13 +6724,13 @@ module StreamFifo_5 (
   assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz__zz_io_pop_payload_last = 1'b1;
   assign _zz_logic_ram_port_1 = {io_push_payload_fragment,io_push_payload_last};
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz__zz_io_pop_payload_last) begin
       _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_1) begin
       logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
     end
@@ -6829,7 +6803,7 @@ module StreamFifo_5 (
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       logic_pushPtr_value <= 5'h0;
       logic_popPtr_value <= 5'h0;
@@ -6863,7 +6837,7 @@ module PhyPkgInformationGen (
   output              pkg_size_valid,
   input               pkg_size_ready,
   output     [7:0]    pkg_size_payload,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -6903,7 +6877,7 @@ module PhyPkgInformationGen (
     .io_flush                 (1'b0                                 ), //i
     .io_occupancy             (dataFifo_io_occupancy[7:0]           ), //o
     .io_availability          (dataFifo_io_availability[7:0]        ), //o
-    .ad9361_rf_clk            (ad9361_rf_clk                        ), //i
+    .O                        (O                                    ), //i
     .resetn                   (resetn                               )  //i
   );
   StreamFifo_2 pkg_size_fifo (
@@ -6916,7 +6890,7 @@ module PhyPkgInformationGen (
     .io_flush        (1'b0                              ), //i
     .io_occupancy    (pkg_size_fifo_io_occupancy[4:0]   ), //o
     .io_availability (pkg_size_fifo_io_availability[4:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                     ), //i
+    .O               (O                                 ), //i
     .resetn          (resetn                            )  //i
   );
   assign halt = (! pkg_size_fifo_io_push_ready);
@@ -6934,7 +6908,7 @@ module PhyPkgInformationGen (
   assign raw_data_fire_3 = (raw_data_valid && raw_data_ready);
   assign pkg_size_valid = pkg_size_fifo_io_pop_valid;
   assign pkg_size_payload = pkg_size_fifo_io_pop_payload;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       pkg_size_cnt <= 8'h0;
       pkg_size_valid_1 <= 1'b0;
@@ -7203,7 +7177,7 @@ endmodule
 module BufferCC_3 (
   input      [6:0]    io_dataIn,
   output     [6:0]    io_dataOut,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -7211,7 +7185,7 @@ module BufferCC_3 (
   (* async_reg = "true" *) reg        [6:0]    buffers_1;
 
   assign io_dataOut = buffers_1;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       buffers_0 <= 7'h0;
       buffers_1 <= 7'h0;
@@ -7225,20 +7199,20 @@ module BufferCC_3 (
 endmodule
 
 module BufferCC_2 (
-  input      [4:0]    io_dataIn,
-  output     [4:0]    io_dataOut,
-  input               ad9361_rf_clk,
+  input      [6:0]    io_dataIn,
+  output     [6:0]    io_dataOut,
+  input               O,
   input               resetn_syncronized
 );
 
-  (* async_reg = "true" *) reg        [4:0]    buffers_0;
-  (* async_reg = "true" *) reg        [4:0]    buffers_1;
+  (* async_reg = "true" *) reg        [6:0]    buffers_0;
+  (* async_reg = "true" *) reg        [6:0]    buffers_1;
 
   assign io_dataOut = buffers_1;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn_syncronized) begin
-      buffers_0 <= 5'h0;
-      buffers_1 <= 5'h0;
+      buffers_0 <= 7'h0;
+      buffers_1 <= 7'h0;
     end else begin
       buffers_0 <= io_dataIn;
       buffers_1 <= buffers_0;
@@ -7251,7 +7225,7 @@ endmodule
 module BufferCC_1 (
   input               io_dataIn,
   output              io_dataOut,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -7259,7 +7233,7 @@ module BufferCC_1 (
   (* async_reg = "true" *) reg                 buffers_1;
 
   assign io_dataOut = buffers_1;
-  always @(posedge ad9361_rf_clk or negedge resetn) begin
+  always @(posedge O or negedge resetn) begin
     if(!resetn) begin
       buffers_0 <= 1'b0;
       buffers_1 <= 1'b0;
@@ -7273,20 +7247,20 @@ module BufferCC_1 (
 endmodule
 
 module BufferCC (
-  input      [4:0]    io_dataIn,
-  output     [4:0]    io_dataOut,
+  input      [6:0]    io_dataIn,
+  output     [6:0]    io_dataOut,
   input               clk,
   input               resetn
 );
 
-  (* async_reg = "true" *) reg        [4:0]    buffers_0;
-  (* async_reg = "true" *) reg        [4:0]    buffers_1;
+  (* async_reg = "true" *) reg        [6:0]    buffers_0;
+  (* async_reg = "true" *) reg        [6:0]    buffers_1;
 
   assign io_dataOut = buffers_1;
   always @(posedge clk) begin
     if(!resetn) begin
-      buffers_0 <= 5'h0;
-      buffers_1 <= 5'h0;
+      buffers_0 <= 7'h0;
+      buffers_1 <= 7'h0;
     end else begin
       buffers_0 <= io_dataIn;
       buffers_1 <= buffers_0;
@@ -7355,7 +7329,7 @@ module ReorderLifo (
   output              decoded_data_valid,
   output              decoded_data_payload_last,
   output     [0:0]    decoded_data_payload_fragment,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
   localparam ReorderLifoStates_PUSH0POP1 = 1'd0;
@@ -7429,7 +7403,7 @@ module ReorderLifo (
     .io_flush                 (1'b0                                            ), //i
     .io_occupancy             (inverted_order_fifo_io_occupancy[4:0]           ), //o
     .io_availability          (inverted_order_fifo_io_availability[4:0]        ), //o
-    .ad9361_rf_clk            (ad9361_rf_clk                                   ), //i
+    .O                        (O                                               ), //i
     .resetn                   (resetn                                          )  //i
   );
   SISOLifo decoded_lifo_0 (
@@ -7444,7 +7418,7 @@ module ReorderLifo (
     .push_method           (decoded_lifo_0_push_method           ), //i
     .empty                 (decoded_lifo_0_empty                 ), //o
     .full                  (decoded_lifo_0_full                  ), //o
-    .ad9361_rf_clk         (ad9361_rf_clk                        ), //i
+    .O                     (O                                    ), //i
     .resetn                (resetn                               )  //i
   );
   SISOLifo decoded_lifo_1 (
@@ -7459,7 +7433,7 @@ module ReorderLifo (
     .push_method           (decoded_lifo_1_push_method           ), //i
     .empty                 (decoded_lifo_1_empty                 ), //o
     .full                  (decoded_lifo_1_full                  ), //o
-    .ad9361_rf_clk         (ad9361_rf_clk                        ), //i
+    .O                     (O                                    ), //i
     .resetn                (resetn                               )  //i
   );
   LifoDemux lifo_demux (
@@ -7521,7 +7495,7 @@ module ReorderLifo (
   assign decoded_data_valid = lifo_mux_io_output_valid_regNext;
   assign decoded_data_payload_last = lifo_mux_io_output_payload_last_regNext;
   assign decoded_data_payload_fragment = lifo_mux_io_output_payload_fragment_regNext;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       reorder_state <= ReorderLifoStates_PUSH0POP1;
       fifo_pop_valve <= 1'b1;
@@ -7563,7 +7537,7 @@ module ReorderLifo (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     lifo_mux_io_output_payload_fragment_regNext <= lifo_mux_io_output_payload_fragment;
   end
 
@@ -7580,7 +7554,7 @@ module Traceback (
   output     [1:0]    tb_node_payload_fragment,
   output              halt,
   output              finished,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
   localparam TracebackStates_IDLE = 3'd0;
@@ -7693,37 +7667,37 @@ module Traceback (
     $readmemb("RFBenchAD9361.sv_toplevel_rfRxClockArea_receiver_phy_rx_decoder_tbu_core_in_data_rom.bin",in_data_rom);
   end
   assign _zz_in_data_rom_port0 = in_data_rom[cursor];
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_survival_path_ram_0_port_1) begin
       survival_path_ram_0[ram_addr_write] <= _zz_survival_path_ram_0_port;
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_ram_0_value) begin
       _zz_survival_path_ram_0_port1 <= survival_path_ram_0[ram_addr_read];
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_survival_path_ram_1_port_1) begin
       survival_path_ram_1[ram_addr_write] <= _zz_survival_path_ram_1_port;
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_ram_1_value) begin
       _zz_survival_path_ram_1_port1 <= survival_path_ram_1[ram_addr_read];
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_survival_path_ram_2_port_1) begin
       survival_path_ram_2[ram_addr_write] <= _zz_survival_path_ram_2_port;
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_ram_2_value) begin
       _zz_survival_path_ram_2_port1 <= survival_path_ram_2[ram_addr_read];
     end
@@ -7776,7 +7750,7 @@ module Traceback (
   assign tb_node_valid = tb_node_valid_1;
   assign tb_node_payload_fragment = {tb_finish,tb_node_data};
   assign tb_node_payload_last = tb_node_last;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       ram_select <= 2'b00;
       ram_addr_write <= 8'h0;
@@ -7863,7 +7837,7 @@ module Traceback (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     case(traceback_state)
       TracebackStates_FINISH : begin
         tb_finish <= 1'b1;
@@ -7929,7 +7903,7 @@ module PathMetric (
   output              s_path_valid,
   output              s_path_payload_last,
   output     [63:0]   s_path_payload_fragment,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -9544,74 +9518,74 @@ module PathMetric (
     .decision            (addCompareSelect_127_decision          )  //o
   );
   MinVal minVal_1 (
-    .data_0        (node_weight_0[15:0]   ), //i
-    .data_1        (node_weight_1[15:0]   ), //i
-    .data_2        (node_weight_2[15:0]   ), //i
-    .data_3        (node_weight_3[15:0]   ), //i
-    .data_4        (node_weight_4[15:0]   ), //i
-    .data_5        (node_weight_5[15:0]   ), //i
-    .data_6        (node_weight_6[15:0]   ), //i
-    .data_7        (node_weight_7[15:0]   ), //i
-    .data_8        (node_weight_8[15:0]   ), //i
-    .data_9        (node_weight_9[15:0]   ), //i
-    .data_10       (node_weight_10[15:0]  ), //i
-    .data_11       (node_weight_11[15:0]  ), //i
-    .data_12       (node_weight_12[15:0]  ), //i
-    .data_13       (node_weight_13[15:0]  ), //i
-    .data_14       (node_weight_14[15:0]  ), //i
-    .data_15       (node_weight_15[15:0]  ), //i
-    .data_16       (node_weight_16[15:0]  ), //i
-    .data_17       (node_weight_17[15:0]  ), //i
-    .data_18       (node_weight_18[15:0]  ), //i
-    .data_19       (node_weight_19[15:0]  ), //i
-    .data_20       (node_weight_20[15:0]  ), //i
-    .data_21       (node_weight_21[15:0]  ), //i
-    .data_22       (node_weight_22[15:0]  ), //i
-    .data_23       (node_weight_23[15:0]  ), //i
-    .data_24       (node_weight_24[15:0]  ), //i
-    .data_25       (node_weight_25[15:0]  ), //i
-    .data_26       (node_weight_26[15:0]  ), //i
-    .data_27       (node_weight_27[15:0]  ), //i
-    .data_28       (node_weight_28[15:0]  ), //i
-    .data_29       (node_weight_29[15:0]  ), //i
-    .data_30       (node_weight_30[15:0]  ), //i
-    .data_31       (node_weight_31[15:0]  ), //i
-    .data_32       (node_weight_32[15:0]  ), //i
-    .data_33       (node_weight_33[15:0]  ), //i
-    .data_34       (node_weight_34[15:0]  ), //i
-    .data_35       (node_weight_35[15:0]  ), //i
-    .data_36       (node_weight_36[15:0]  ), //i
-    .data_37       (node_weight_37[15:0]  ), //i
-    .data_38       (node_weight_38[15:0]  ), //i
-    .data_39       (node_weight_39[15:0]  ), //i
-    .data_40       (node_weight_40[15:0]  ), //i
-    .data_41       (node_weight_41[15:0]  ), //i
-    .data_42       (node_weight_42[15:0]  ), //i
-    .data_43       (node_weight_43[15:0]  ), //i
-    .data_44       (node_weight_44[15:0]  ), //i
-    .data_45       (node_weight_45[15:0]  ), //i
-    .data_46       (node_weight_46[15:0]  ), //i
-    .data_47       (node_weight_47[15:0]  ), //i
-    .data_48       (node_weight_48[15:0]  ), //i
-    .data_49       (node_weight_49[15:0]  ), //i
-    .data_50       (node_weight_50[15:0]  ), //i
-    .data_51       (node_weight_51[15:0]  ), //i
-    .data_52       (node_weight_52[15:0]  ), //i
-    .data_53       (node_weight_53[15:0]  ), //i
-    .data_54       (node_weight_54[15:0]  ), //i
-    .data_55       (node_weight_55[15:0]  ), //i
-    .data_56       (node_weight_56[15:0]  ), //i
-    .data_57       (node_weight_57[15:0]  ), //i
-    .data_58       (node_weight_58[15:0]  ), //i
-    .data_59       (node_weight_59[15:0]  ), //i
-    .data_60       (node_weight_60[15:0]  ), //i
-    .data_61       (node_weight_61[15:0]  ), //i
-    .data_62       (node_weight_62[15:0]  ), //i
-    .data_63       (node_weight_63[15:0]  ), //i
-    .min_val       (minVal_1_min_val[15:0]), //o
-    .min_idx       (minVal_1_min_idx[5:0] ), //o
-    .ad9361_rf_clk (ad9361_rf_clk         ), //i
-    .resetn        (resetn                )  //i
+    .data_0  (node_weight_0[15:0]   ), //i
+    .data_1  (node_weight_1[15:0]   ), //i
+    .data_2  (node_weight_2[15:0]   ), //i
+    .data_3  (node_weight_3[15:0]   ), //i
+    .data_4  (node_weight_4[15:0]   ), //i
+    .data_5  (node_weight_5[15:0]   ), //i
+    .data_6  (node_weight_6[15:0]   ), //i
+    .data_7  (node_weight_7[15:0]   ), //i
+    .data_8  (node_weight_8[15:0]   ), //i
+    .data_9  (node_weight_9[15:0]   ), //i
+    .data_10 (node_weight_10[15:0]  ), //i
+    .data_11 (node_weight_11[15:0]  ), //i
+    .data_12 (node_weight_12[15:0]  ), //i
+    .data_13 (node_weight_13[15:0]  ), //i
+    .data_14 (node_weight_14[15:0]  ), //i
+    .data_15 (node_weight_15[15:0]  ), //i
+    .data_16 (node_weight_16[15:0]  ), //i
+    .data_17 (node_weight_17[15:0]  ), //i
+    .data_18 (node_weight_18[15:0]  ), //i
+    .data_19 (node_weight_19[15:0]  ), //i
+    .data_20 (node_weight_20[15:0]  ), //i
+    .data_21 (node_weight_21[15:0]  ), //i
+    .data_22 (node_weight_22[15:0]  ), //i
+    .data_23 (node_weight_23[15:0]  ), //i
+    .data_24 (node_weight_24[15:0]  ), //i
+    .data_25 (node_weight_25[15:0]  ), //i
+    .data_26 (node_weight_26[15:0]  ), //i
+    .data_27 (node_weight_27[15:0]  ), //i
+    .data_28 (node_weight_28[15:0]  ), //i
+    .data_29 (node_weight_29[15:0]  ), //i
+    .data_30 (node_weight_30[15:0]  ), //i
+    .data_31 (node_weight_31[15:0]  ), //i
+    .data_32 (node_weight_32[15:0]  ), //i
+    .data_33 (node_weight_33[15:0]  ), //i
+    .data_34 (node_weight_34[15:0]  ), //i
+    .data_35 (node_weight_35[15:0]  ), //i
+    .data_36 (node_weight_36[15:0]  ), //i
+    .data_37 (node_weight_37[15:0]  ), //i
+    .data_38 (node_weight_38[15:0]  ), //i
+    .data_39 (node_weight_39[15:0]  ), //i
+    .data_40 (node_weight_40[15:0]  ), //i
+    .data_41 (node_weight_41[15:0]  ), //i
+    .data_42 (node_weight_42[15:0]  ), //i
+    .data_43 (node_weight_43[15:0]  ), //i
+    .data_44 (node_weight_44[15:0]  ), //i
+    .data_45 (node_weight_45[15:0]  ), //i
+    .data_46 (node_weight_46[15:0]  ), //i
+    .data_47 (node_weight_47[15:0]  ), //i
+    .data_48 (node_weight_48[15:0]  ), //i
+    .data_49 (node_weight_49[15:0]  ), //i
+    .data_50 (node_weight_50[15:0]  ), //i
+    .data_51 (node_weight_51[15:0]  ), //i
+    .data_52 (node_weight_52[15:0]  ), //i
+    .data_53 (node_weight_53[15:0]  ), //i
+    .data_54 (node_weight_54[15:0]  ), //i
+    .data_55 (node_weight_55[15:0]  ), //i
+    .data_56 (node_weight_56[15:0]  ), //i
+    .data_57 (node_weight_57[15:0]  ), //i
+    .data_58 (node_weight_58[15:0]  ), //i
+    .data_59 (node_weight_59[15:0]  ), //i
+    .data_60 (node_weight_60[15:0]  ), //i
+    .data_61 (node_weight_61[15:0]  ), //i
+    .data_62 (node_weight_62[15:0]  ), //i
+    .data_63 (node_weight_63[15:0]  ), //i
+    .min_val (minVal_1_min_val[15:0]), //o
+    .min_idx (minVal_1_min_idx[5:0] ), //o
+    .O       (O                     ), //i
+    .resetn  (resetn                )  //i
   );
   assign when_PathMetric_l29 = (raw_data_payload_last && raw_data_valid);
   assign addCompareSelect_64_dist_0 = {13'd0, candidate_branches_0};
@@ -9747,7 +9721,7 @@ module PathMetric (
   assign s_path_valid = survival_path_valid;
   assign s_path_payload_last = survival_path_last;
   assign min_idx = minVal_1_min_idx;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       raw_data_next <= 1'b0;
       raw_data_last_next <= 1'b0;
@@ -10535,7 +10509,7 @@ module PathMetric (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     candidate_branches_0 <= branchMetric_64_dist_0;
     candidate_branches_1 <= branchMetric_64_dist_1;
     if(tbu_finished) begin
@@ -11257,7 +11231,7 @@ module dataCombination (
   input               enable,
   input      [3:0]    cnt_step,
   input      [3:0]    cnt_limit,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -11280,7 +11254,7 @@ module dataCombination (
   assign base_data_payload_fragment = base_data_buffer;
   assign base_data_valid = base_data_valid_1;
   assign base_data_payload_last = base_data_last;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       base_cnt <= 4'b0000;
       unit_data_buffer <= 16'h0;
@@ -11325,7 +11299,7 @@ module DemodulatorRTL (
   input               data_flow_mod_iq_payload_last,
   input      [11:0]   data_flow_mod_iq_payload_fragment_cha_i,
   input      [11:0]   data_flow_mod_iq_payload_fragment_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -11381,7 +11355,7 @@ module DemodulatorRTL (
     .mod_iq_payload_last           (flowDeMux_2_outputs_0_payload_last                ), //i
     .mod_iq_payload_fragment_cha_i (flowDeMux_2_outputs_0_payload_fragment_cha_i[11:0]), //i
     .mod_iq_payload_fragment_cha_q (flowDeMux_2_outputs_0_payload_fragment_cha_q[11:0]), //i
-    .ad9361_rf_clk                 (ad9361_rf_clk                                     ), //i
+    .O                             (O                                                 ), //i
     .resetn                        (resetn                                            )  //i
   );
   IQDemod_1 demod_1 (
@@ -11392,7 +11366,7 @@ module DemodulatorRTL (
     .mod_iq_payload_last           (flowDeMux_2_outputs_1_payload_last                ), //i
     .mod_iq_payload_fragment_cha_i (flowDeMux_2_outputs_1_payload_fragment_cha_i[11:0]), //i
     .mod_iq_payload_fragment_cha_q (flowDeMux_2_outputs_1_payload_fragment_cha_q[11:0]), //i
-    .ad9361_rf_clk                 (ad9361_rf_clk                                     ), //i
+    .O                             (O                                                 ), //i
     .resetn                        (resetn                                            )  //i
   );
   IQDemod_2 demod_2 (
@@ -11403,7 +11377,7 @@ module DemodulatorRTL (
     .mod_iq_payload_last           (flowDeMux_2_outputs_2_payload_last                ), //i
     .mod_iq_payload_fragment_cha_i (flowDeMux_2_outputs_2_payload_fragment_cha_i[11:0]), //i
     .mod_iq_payload_fragment_cha_q (flowDeMux_2_outputs_2_payload_fragment_cha_q[11:0]), //i
-    .ad9361_rf_clk                 (ad9361_rf_clk                                     ), //i
+    .O                             (O                                                 ), //i
     .resetn                        (resetn                                            )  //i
   );
   FlowMux flowMux_2 (
@@ -11434,7 +11408,7 @@ module DecimatorIQ (
   output              out_valid,
   output     [11:0]   out_payload_cha_i,
   output     [11:0]   out_payload_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -11450,7 +11424,7 @@ module DecimatorIQ (
   assign out_payload_cha_i = out_data_cha_i;
   assign out_payload_cha_q = out_data_cha_q;
   assign out_valid = out_valid_1;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       cnt <= 3'b000;
       out_valid_1 <= 1'b0;
@@ -11470,7 +11444,7 @@ module DecimatorIQ (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(in_valid) begin
       if(when_DecimatorIQ_l23) begin
         out_data_cha_i <= in_payload_cha_i;
@@ -11491,7 +11465,7 @@ module CrossCorrelator (
   output              corr_result_valid,
   output     [35:0]   corr_result_payload_cha_i,
   output     [35:0]   corr_result_payload_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -11525,7 +11499,7 @@ module CrossCorrelator (
   initial begin
     $readmemb("RFBenchAD9361.sv_toplevel_rfRxClockArea_receiver_phy_rx_cfo_cross_corr_core_I_mem.bin",I_mem);
   end
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_iq_cursor_cha_i_2) begin
       _zz_I_mem_port0 <= I_mem[_zz_iq_cursor_cha_i_1];
     end
@@ -11534,7 +11508,7 @@ module CrossCorrelator (
   initial begin
     $readmemb("RFBenchAD9361.sv_toplevel_rfRxClockArea_receiver_phy_rx_cfo_cross_corr_core_Q_mem.bin",Q_mem);
   end
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_iq_cursor_cha_q_2) begin
       _zz_Q_mem_port0 <= Q_mem[_zz_iq_cursor_cha_q_1];
     end
@@ -11550,7 +11524,7 @@ module CrossCorrelator (
     .corr_result_valid         (corr_core_corr_result_valid              ), //o
     .corr_result_payload_cha_i (corr_core_corr_result_payload_cha_i[35:0]), //o
     .corr_result_payload_cha_q (corr_core_corr_result_payload_cha_q[35:0]), //o
-    .ad9361_rf_clk             (ad9361_rf_clk                            ), //i
+    .O                         (O                                        ), //i
     .resetn                    (resetn                                   )  //i
   );
   assign _zz_iq_cursor_cha_i = cnt;
@@ -11560,7 +11534,7 @@ module CrossCorrelator (
   assign corr_result_valid = corr_core_corr_result_valid;
   assign corr_result_payload_cha_i = corr_core_corr_result_payload_cha_i;
   assign corr_result_payload_cha_q = corr_core_corr_result_payload_cha_q;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       cnt <= 5'h0;
     end else begin
@@ -11584,7 +11558,7 @@ module CFOCorrector (
   output     [11:0]   rotated_data_payload_cha_q,
   input               enable,
   output              phi_correct_valid,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -11610,7 +11584,7 @@ module CFOCorrector (
     .rotated_data_payload_cha_q (raw_data_payload_cha_q[11:0]         ), //i
     .delta_phi_valid            (cfo_estimator_delta_phi_valid        ), //o
     .delta_phi_payload          (cfo_estimator_delta_phi_payload[23:0]), //o
-    .ad9361_rf_clk              (ad9361_rf_clk                        ), //i
+    .O                          (O                                    ), //i
     .resetn                     (resetn                               )  //i
   );
   PhaseRotator phase_rotator (
@@ -11622,7 +11596,7 @@ module CFOCorrector (
     .rotated_data_valid         (phase_rotator_rotated_data_valid              ), //o
     .rotated_data_payload_cha_i (phase_rotator_rotated_data_payload_cha_i[11:0]), //o
     .rotated_data_payload_cha_q (phase_rotator_rotated_data_payload_cha_q[11:0]), //o
-    .ad9361_rf_clk              (ad9361_rf_clk                                 ), //i
+    .O                          (O                                             ), //i
     .resetn                     (resetn                                        )  //i
   );
   assign when_CFOCorrector_l45 = (delta_phi_valid || (! enable));
@@ -11631,7 +11605,7 @@ module CFOCorrector (
   assign rotated_data_payload_cha_i = phase_rotator_rotated_data_payload_cha_i;
   assign rotated_data_payload_cha_q = phase_rotator_rotated_data_payload_cha_q;
   assign phi_correct_valid = delta_phi_valid_regNext;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       mean_cnt <= 1'b0;
       delta_phi_mean <= 24'h0;
@@ -11668,7 +11642,7 @@ module PreambleDetector (
   output              corr_result_valid,
   output     [35:0]   corr_result_payload_cha_i,
   output     [35:0]   corr_result_payload_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -11745,7 +11719,7 @@ module PreambleDetector (
     .power_result_valid         (powerMeter_1_power_result_valid              ), //o
     .power_result_payload_cha_i (powerMeter_1_power_result_payload_cha_i[23:0]), //o
     .power_result_payload_cha_q (powerMeter_1_power_result_payload_cha_q[23:0]), //o
-    .ad9361_rf_clk              (ad9361_rf_clk                                ), //i
+    .O                          (O                                            ), //i
     .resetn                     (resetn                                       )  //i
   );
   AutoCorrelator_1 autoCorrelator_2 (
@@ -11755,7 +11729,7 @@ module PreambleDetector (
     .corr_result_valid         (autoCorrelator_2_corr_result_valid              ), //o
     .corr_result_payload_cha_i (autoCorrelator_2_corr_result_payload_cha_i[35:0]), //o
     .corr_result_payload_cha_q (autoCorrelator_2_corr_result_payload_cha_q[35:0]), //o
-    .ad9361_rf_clk             (ad9361_rf_clk                                   ), //i
+    .O                         (O                                               ), //i
     .resetn                    (resetn                                          )  //i
   );
   assign when_PreambleDetector_l66 = (plateau_cnt < 8'hff);
@@ -11766,7 +11740,7 @@ module PreambleDetector (
   assign corr_result_payload_cha_i = autoCorrelator_2_corr_result_payload_cha_i;
   assign corr_result_payload_cha_q = autoCorrelator_2_corr_result_payload_cha_q;
   assign pkg_detected = ((min_plateau <= plateau_cnt) && gate_pkg_det);
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       gate_pkg_det <= 1'b0;
       prod_avg_mag <= 36'h0;
@@ -11798,7 +11772,7 @@ module PreambleDetector (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     raw_data_regNext_payload_cha_i <= raw_data_payload_cha_i;
     raw_data_regNext_payload_cha_q <= raw_data_payload_cha_q;
   end
@@ -11813,7 +11787,7 @@ module TransposeFIR (
   output              filtered_data_valid,
   output     [18:0]   filtered_data_payload_0,
   output     [18:0]   filtered_data_payload_1,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -11925,7 +11899,7 @@ module TransposeFIR (
     .adder_data      (19'h0                                  ), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_132_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_133 (
@@ -11934,7 +11908,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_132_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_133_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_134 (
@@ -11943,7 +11917,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_133_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_134_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_135 (
@@ -11952,7 +11926,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_134_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_135_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_136 (
@@ -11961,7 +11935,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_135_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_136_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_137 (
@@ -11970,7 +11944,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_136_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_137_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_138 (
@@ -11979,7 +11953,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_137_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_138_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_139 (
@@ -11988,7 +11962,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_138_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_139_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_140 (
@@ -11997,7 +11971,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_139_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_140_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_141 (
@@ -12006,7 +11980,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_140_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_141_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_142 (
@@ -12015,7 +11989,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_141_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_142_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_143 (
@@ -12024,7 +11998,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_142_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_143_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_144 (
@@ -12033,7 +12007,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_143_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_144_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_145 (
@@ -12042,7 +12016,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_144_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_145_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_146 (
@@ -12051,7 +12025,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_145_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_146_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_147 (
@@ -12060,7 +12034,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_146_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_147_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_148 (
@@ -12069,7 +12043,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_147_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_148_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_149 (
@@ -12078,7 +12052,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_148_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_149_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_150 (
@@ -12087,7 +12061,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_149_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_150_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_151 (
@@ -12096,7 +12070,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_150_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_151_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_152 (
@@ -12105,7 +12079,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_151_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_152_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_153 (
@@ -12114,7 +12088,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_152_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_153_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_154 (
@@ -12123,7 +12097,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_153_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_154_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_155 (
@@ -12132,7 +12106,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_154_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_155_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_156 (
@@ -12141,7 +12115,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_155_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_156_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_157 (
@@ -12150,7 +12124,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_156_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_157_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_158 (
@@ -12159,7 +12133,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_157_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_158_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_159 (
@@ -12168,7 +12142,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_158_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_159_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_160 (
@@ -12177,7 +12151,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_159_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_160_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_161 (
@@ -12186,7 +12160,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_160_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_161_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_162 (
@@ -12195,7 +12169,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_161_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_162_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_163 (
@@ -12204,7 +12178,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_162_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_163_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_164 (
@@ -12213,7 +12187,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_163_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_164_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_165 (
@@ -12222,7 +12196,7 @@ module TransposeFIR (
     .adder_data      (19'h0                                  ), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_165_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_166 (
@@ -12231,7 +12205,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_165_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_166_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_167 (
@@ -12240,7 +12214,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_166_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_167_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_168 (
@@ -12249,7 +12223,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_167_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_168_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_169 (
@@ -12258,7 +12232,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_168_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_169_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_170 (
@@ -12267,7 +12241,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_169_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_170_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_171 (
@@ -12276,7 +12250,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_170_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_171_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_172 (
@@ -12285,7 +12259,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_171_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_172_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_173 (
@@ -12294,7 +12268,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_172_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_173_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_174 (
@@ -12303,7 +12277,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_173_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_174_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_175 (
@@ -12312,7 +12286,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_174_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_175_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_176 (
@@ -12321,7 +12295,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_175_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_176_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_177 (
@@ -12330,7 +12304,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_176_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_177_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_178 (
@@ -12339,7 +12313,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_177_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_178_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_179 (
@@ -12348,7 +12322,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_178_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_179_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_180 (
@@ -12357,7 +12331,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_179_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_180_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_181 (
@@ -12366,7 +12340,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_180_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_181_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_182 (
@@ -12375,7 +12349,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_181_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_182_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_183 (
@@ -12384,7 +12358,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_182_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_183_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_184 (
@@ -12393,7 +12367,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_183_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_184_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_185 (
@@ -12402,7 +12376,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_184_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_185_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_186 (
@@ -12411,7 +12385,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_185_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_186_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_187 (
@@ -12420,7 +12394,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_186_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_187_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_188 (
@@ -12429,7 +12403,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_187_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_188_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_189 (
@@ -12438,7 +12412,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_188_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_189_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_190 (
@@ -12447,7 +12421,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_189_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_190_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_191 (
@@ -12456,7 +12430,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_190_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_191_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_192 (
@@ -12465,7 +12439,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_191_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_192_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_193 (
@@ -12474,7 +12448,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_192_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_193_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_194 (
@@ -12483,7 +12457,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_193_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_194_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_195 (
@@ -12492,7 +12466,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_194_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_195_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_196 (
@@ -12501,7 +12475,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_195_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_196_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   TransposeCore transposeCore_197 (
@@ -12510,7 +12484,7 @@ module TransposeFIR (
     .adder_data      (transposeCore_196_next_adder_data[18:0]), //i
     .valid           (raw_data_valid                         ), //i
     .next_adder_data (transposeCore_197_next_adder_data[18:0]), //o
-    .ad9361_rf_clk   (ad9361_rf_clk                          ), //i
+    .O               (O                                      ), //i
     .resetn          (resetn                                 )  //i
   );
   assign filtered_data_payload_0 = transposeCore_164_next_adder_data;
@@ -12518,7 +12492,7 @@ module TransposeFIR (
   assign filtered_data_payload_1 = transposeCore_197_next_adder_data;
   assign filtered_data_valid_vec_1 = raw_data_valid;
   assign filtered_data_valid = (filtered_data_valid_vec_0 && filtered_data_valid_vec_1);
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     coff_mem_0 <= 7'h03;
     coff_mem_1 <= 7'h01;
     coff_mem_2 <= 7'h7e;
@@ -12620,7 +12594,7 @@ module mQAMMod (
   output reg          mod_iq_payload_last,
   output reg [11:0]   mod_iq_payload_fragment_cha_i,
   output reg [11:0]   mod_iq_payload_fragment_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -12705,11 +12679,11 @@ module mQAMMod (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     unit_data_payload_regNext_last <= unit_data_payload_last;
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       unit_data_payload_regNext_fragment <= 4'b0000;
       unit_valid <= 1'b0;
@@ -12732,7 +12706,7 @@ module mPSKMod_1 (
   output reg          mod_iq_payload_last,
   output reg [11:0]   mod_iq_payload_fragment_cha_i,
   output reg [11:0]   mod_iq_payload_fragment_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -12799,11 +12773,11 @@ module mPSKMod_1 (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     unit_data_payload_regNext_last <= unit_data_payload_last;
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       unit_data_payload_regNext_fragment <= 2'b00;
       unit_valid <= 1'b0;
@@ -12826,7 +12800,7 @@ module mPSKMod (
   output reg          mod_iq_payload_last,
   output reg [11:0]   mod_iq_payload_fragment_cha_i,
   output reg [11:0]   mod_iq_payload_fragment_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -12887,11 +12861,11 @@ module mPSKMod (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     unit_data_payload_regNext_last <= unit_data_payload_last;
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       unit_data_payload_regNext_fragment <= 1'b0;
       unit_valid <= 1'b0;
@@ -13010,7 +12984,7 @@ module Scrambler (
   output              scram_data_valid,
   input               scram_data_ready,
   output     [15:0]   scram_data_payload,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -13120,7 +13094,7 @@ module Scrambler (
   assign r_scr_15 = _zz_r_scr_15[6:0];
   assign scram_data_payload = scram_data;
   assign scram_data_valid = scram_valid;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       scram_valid <= 1'b0;
     end else begin
@@ -13134,7 +13108,7 @@ module Scrambler (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(init_state_valid) begin
       scram_state <= init_state_payload;
     end else begin
@@ -13158,7 +13132,7 @@ module ConvEncoder (
   output              coded_data_valid,
   output              coded_data_payload_last,
   output     [15:0]   coded_data_payload_fragment,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -13229,7 +13203,7 @@ module ConvEncoder (
   assign coded_data_payload_fragment = coded_data;
   assign coded_data_valid = coded_data_valid_1;
   assign coded_data_payload_last = raw_data_payload_last_regNext;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       coded_data_valid_1 <= 1'b0;
       r_enc_buf <= 7'h0;
@@ -13250,7 +13224,7 @@ module ConvEncoder (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!tail_bits_valid) begin
       if(raw_data_fire) begin
         coded_data <= {code_vec_0,code_vec_1};
@@ -13267,7 +13241,7 @@ module Crc (
   input      [7:0]    input_payload,
   output     [31:0]   result,
   output     [31:0]   resultNext,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -13367,7 +13341,7 @@ module Crc (
   assign accXor = (state_8 ^ 32'hffffffff);
   assign result = {stateXor[0],{stateXor[1],{stateXor[2],{stateXor[3],{stateXor[4],{stateXor[5],{stateXor[6],{stateXor[7],{stateXor[8],{_zz_result,{_zz_result_1,_zz_result_2}}}}}}}}}}};
   assign resultNext = {accXor[0],{accXor[1],{accXor[2],{accXor[3],{accXor[4],{accXor[5],{accXor[6],{accXor[7],{accXor[8],{_zz_resultNext,{_zz_resultNext_1,_zz_resultNext_2}}}}}}}}}}};
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       state <= 32'hffffffff;
     end else begin
@@ -13394,7 +13368,7 @@ module StreamFifo_2 (
   input               io_flush,
   output     [4:0]    io_occupancy,
   output     [4:0]    io_availability,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -13438,13 +13412,13 @@ module StreamFifo_2 (
   assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz_io_pop_payload = 1'b1;
   assign _zz_logic_ram_port_1 = io_push_payload;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_io_pop_payload) begin
       _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_1) begin
       logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
     end
@@ -13515,7 +13489,7 @@ module StreamFifo_2 (
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       logic_pushPtr_value <= 4'b0000;
       logic_popPtr_value <= 4'b0000;
@@ -13549,7 +13523,7 @@ module StreamFifo_1 (
   input               io_flush,
   output reg [7:0]    io_occupancy,
   output reg [7:0]    io_availability,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -13600,13 +13574,13 @@ module StreamFifo_1 (
   assign _zz_io_availability_2 = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz__zz_io_pop_payload_last = 1'b1;
   assign _zz_logic_ram_port_1 = {io_push_payload_fragment,io_push_payload_last};
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz__zz_io_pop_payload_last) begin
       _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_1) begin
       logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
     end
@@ -13701,7 +13675,7 @@ module StreamFifo_1 (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       logic_pushPtr_value <= 8'h0;
       logic_popPtr_value <= 8'h0;
@@ -13834,7 +13808,7 @@ module SISOLifo (
   input               push_method,
   output              empty,
   output              full,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -14947,7 +14921,7 @@ module SISOLifo (
   assign pop_payload_last = (lifo_last && (lifo_head_cursor == 9'h001));
   assign full = (lifo_head_cursor == 9'h10b);
   assign empty = (lifo_head_cursor == 9'h0);
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       lifo_head_cursor <= 9'h0;
     end else begin
@@ -14963,7 +14937,7 @@ module SISOLifo (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(push_method) begin
       if(when_SISOLifo_l25) begin
         if(_zz_1[0]) begin
@@ -16596,7 +16570,7 @@ module StreamFifo (
   input               io_flush,
   output     [4:0]    io_occupancy,
   output     [4:0]    io_availability,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -16641,13 +16615,13 @@ module StreamFifo (
   assign _zz_io_availability = (logic_popPtr_value - logic_pushPtr_value);
   assign _zz__zz_io_pop_payload_last = 1'b1;
   assign _zz_logic_ram_port_1 = {io_push_payload_fragment,io_push_payload_last};
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz__zz_io_pop_payload_last) begin
       _zz_logic_ram_port0 <= logic_ram[logic_popPtr_valueNext];
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(_zz_1) begin
       logic_ram[logic_pushPtr_value] <= _zz_logic_ram_port_1;
     end
@@ -16720,7 +16694,7 @@ module StreamFifo (
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       logic_pushPtr_value <= 4'b0000;
       logic_popPtr_value <= 4'b0000;
@@ -16809,7 +16783,7 @@ module MinVal (
   input      [15:0]   data_63,
   output     [15:0]   min_val,
   output     [5:0]    min_idx,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -16942,7 +16916,7 @@ module MinVal (
 
   assign min_idx = _zz_min_idx_62;
   assign min_val = _zz_min_val_62;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     _zz_min_val <= ((data_0 <= data_1) ? data_0 : data_1);
     _zz_min_idx <= ((data_0 <= data_1) ? 6'h0 : 6'h01);
     _zz_min_val_1 <= ((data_2 <= data_3) ? data_2 : data_3);
@@ -17446,7 +17420,7 @@ module IQDemod_2 (
   input               mod_iq_payload_last,
   input      [11:0]   mod_iq_payload_fragment_cha_i,
   input      [11:0]   mod_iq_payload_fragment_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -17495,7 +17469,7 @@ module IQDemod_2 (
   assign unit_data_payload_fragment = {4'd0, _zz_unit_data_payload_fragment};
   assign unit_data_valid = unit_valid;
   assign unit_data_payload_last = unit_last;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       demod_data_i <= 12'h0;
       demod_valid_i <= 1'b0;
@@ -17528,7 +17502,7 @@ module IQDemod_2 (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(demod_valid) begin
       case(compTable_i)
         3'b000 : begin
@@ -17579,7 +17553,7 @@ module IQDemod_1 (
   input               mod_iq_payload_last,
   input      [11:0]   mod_iq_payload_fragment_cha_i,
   input      [11:0]   mod_iq_payload_fragment_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -17610,7 +17584,7 @@ module IQDemod_1 (
   assign unit_data_payload_fragment = {6'd0, _zz_unit_data_payload_fragment};
   assign unit_data_valid = unit_valid;
   assign unit_data_payload_last = unit_last;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       demod_data_i <= 12'h0;
       demod_valid_i <= 1'b0;
@@ -17643,7 +17617,7 @@ module IQDemod_1 (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(demod_valid) begin
       case(compTable_i)
         1'b0 : begin
@@ -17678,7 +17652,7 @@ module IQDemod (
   input               mod_iq_payload_last,
   input      [11:0]   mod_iq_payload_fragment_cha_i,
   input      [11:0]   mod_iq_payload_fragment_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -17699,7 +17673,7 @@ module IQDemod (
   assign unit_data_payload_fragment = {7'd0, unit_data_i};
   assign unit_data_valid = unit_valid;
   assign unit_data_payload_last = unit_last;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       demod_data_i <= 12'h0;
       demod_valid_i <= 1'b0;
@@ -17724,7 +17698,7 @@ module IQDemod (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     demod_valid <= demod_valid_i;
     if(demod_valid) begin
       case(compTable_i)
@@ -18011,7 +17985,7 @@ module Correlator_2 (
   output              corr_result_valid,
   output     [35:0]   corr_result_payload_cha_i,
   output     [35:0]   corr_result_payload_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -18045,23 +18019,23 @@ module Correlator_2 (
   assign _zz_corr_val_q_2 = {{12{shiftRegister_12_output_1[23]}}, shiftRegister_12_output_1};
   assign _zz_corr_val_q_3 = {{12{_zz_corr_val_q[23]}}, _zz_corr_val_q};
   ShiftRegister_9 shiftRegister_11 (
-    .input_1       (_zz_corr_val_i[23:0]           ), //i
-    .output_1      (shiftRegister_11_output_1[23:0]), //o
-    .enable        (_zz_enable                     ), //i
-    .ad9361_rf_clk (ad9361_rf_clk                  ), //i
-    .resetn        (resetn                         )  //i
+    .input_1  (_zz_corr_val_i[23:0]           ), //i
+    .output_1 (shiftRegister_11_output_1[23:0]), //o
+    .enable   (_zz_enable                     ), //i
+    .O        (O                              ), //i
+    .resetn   (resetn                         )  //i
   );
   ShiftRegister_9 shiftRegister_12 (
-    .input_1       (_zz_corr_val_q[23:0]           ), //i
-    .output_1      (shiftRegister_12_output_1[23:0]), //o
-    .enable        (_zz_enable                     ), //i
-    .ad9361_rf_clk (ad9361_rf_clk                  ), //i
-    .resetn        (resetn                         )  //i
+    .input_1  (_zz_corr_val_q[23:0]           ), //i
+    .output_1 (shiftRegister_12_output_1[23:0]), //o
+    .enable   (_zz_enable                     ), //i
+    .O        (O                              ), //i
+    .resetn   (resetn                         )  //i
   );
   assign corr_result_payload_cha_i = corr_val_i;
   assign corr_result_payload_cha_q = corr_val_q;
   assign corr_result_valid = _zz_corr_result_valid;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       corr_val_i <= 36'h0;
       corr_val_q <= 36'h0;
@@ -18095,7 +18069,7 @@ module PhaseRotator (
   output              rotated_data_valid,
   output     [11:0]   rotated_data_payload_cha_i,
   output     [11:0]   rotated_data_payload_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -18213,16 +18187,16 @@ module PhaseRotator (
     .result_payload_x   (cordic_pipeline_core_result_payload_x[24:0]  ), //o
     .result_payload_y   (cordic_pipeline_core_result_payload_y[24:0]  ), //o
     .result_payload_z   (cordic_pipeline_core_result_payload_z[24:0]  ), //o
-    .ad9361_rf_clk      (ad9361_rf_clk                                ), //i
+    .O                  (O                                            ), //i
     .resetn             (resetn                                       )  //i
   );
   ShiftRegister_8 shiftRegister_11 (
-    .input_1       (xy_symbol                ), //i
-    .output_1      (shiftRegister_11_output_1), //o
-    .enable        (raw_data_valid           ), //i
-    .clc           (shiftRegister_11_clc     ), //i
-    .ad9361_rf_clk (ad9361_rf_clk            ), //i
-    .resetn        (resetn                   )  //i
+    .input_1  (xy_symbol                ), //i
+    .output_1 (shiftRegister_11_output_1), //o
+    .enable   (raw_data_valid           ), //i
+    .clc      (shiftRegister_11_clc     ), //i
+    .O        (O                        ), //i
+    .resetn   (resetn                   )  //i
   );
   assign shiftRegister_11_clc = (! raw_data_valid);
   assign math_pi = 24'h003243;
@@ -18332,7 +18306,7 @@ module PhaseRotator (
   assign rotated_data_valid = cordic_pipeline_core_result_valid;
   assign rotated_data_payload_cha_i = (shiftRegister_11_output_1 ? _zz_rotated_data_payload_cha_i : rotated_x_raw);
   assign rotated_data_payload_cha_q = (shiftRegister_11_output_1 ? _zz_rotated_data_payload_cha_q : rotated_y_raw);
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       xy_symbol <= 1'b0;
       phi <= 24'h0;
@@ -18366,7 +18340,7 @@ module CFOEstimator (
   input      [11:0]   rotated_data_payload_cha_q,
   output              delta_phi_valid,
   output     [23:0]   delta_phi_payload,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -18455,7 +18429,7 @@ module CFOEstimator (
     .corr_result_valid         (auto_corr_core_corr_result_valid              ), //o
     .corr_result_payload_cha_i (auto_corr_core_corr_result_payload_cha_i[27:0]), //o
     .corr_result_payload_cha_q (auto_corr_core_corr_result_payload_cha_q[27:0]), //o
-    .ad9361_rf_clk             (ad9361_rf_clk                                 ), //i
+    .O                         (O                                             ), //i
     .resetn                    (resetn                                        )  //i
   );
   CordicRotator cordic_core (
@@ -18470,7 +18444,7 @@ module CFOEstimator (
     .result_payload_x   (cordic_core_result_payload_x[23:0]), //o
     .result_payload_y   (cordic_core_result_payload_y[23:0]), //o
     .result_payload_z   (cordic_core_result_payload_z[23:0]), //o
-    .ad9361_rf_clk      (ad9361_rf_clk                     ), //i
+    .O                  (O                                 ), //i
     .resetn             (resetn                            )  //i
   );
   assign _zz_when_SInt_l130_1 = {{24'h0,1'b1},3'b000};
@@ -18559,7 +18533,7 @@ module CFOEstimator (
   assign when_SInt_l137_1 = (|_zz_when_SInt_l137_1);
   assign delta_phi_valid = (cordic_core_result_valid && (impulse_cnt == 5'h11));
   assign delta_phi_payload = ($signed(cordic_core_result_payload_z) >>> 4);
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       impulse_cnt <= 5'h0;
     end else begin
@@ -18581,7 +18555,7 @@ module AutoCorrelator_1 (
   output              corr_result_valid,
   output     [35:0]   corr_result_payload_cha_i,
   output     [35:0]   corr_result_payload_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -18600,7 +18574,7 @@ module AutoCorrelator_1 (
     .output_payload_cha_i (shiftRegister_11_output_payload_cha_i[11:0]), //o
     .output_payload_cha_q (shiftRegister_11_output_payload_cha_q[11:0]), //o
     .enable               (raw_data_valid                             ), //i
-    .ad9361_rf_clk        (ad9361_rf_clk                              ), //i
+    .O                    (O                                          ), //i
     .resetn               (resetn                                     )  //i
   );
   Correlator_1 corr_core (
@@ -18613,7 +18587,7 @@ module AutoCorrelator_1 (
     .corr_result_valid         (corr_core_corr_result_valid                ), //o
     .corr_result_payload_cha_i (corr_core_corr_result_payload_cha_i[35:0]  ), //o
     .corr_result_payload_cha_q (corr_core_corr_result_payload_cha_q[35:0]  ), //o
-    .ad9361_rf_clk             (ad9361_rf_clk                              ), //i
+    .O                         (O                                          ), //i
     .resetn                    (resetn                                     )  //i
   );
   assign corr_result_valid = corr_core_corr_result_valid;
@@ -18629,7 +18603,7 @@ module PowerMeter (
   output              power_result_valid,
   output     [23:0]   power_result_payload_cha_i,
   output     [23:0]   power_result_payload_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -18661,18 +18635,18 @@ module PowerMeter (
   assign _zz_power_val_q_1 = {{4{shiftRegister_12_output_1[19]}}, shiftRegister_12_output_1};
   assign _zz_power_val_q_2 = {{4{power_cal_q[19]}}, power_cal_q};
   ShiftRegister_5 shiftRegister_11 (
-    .input_1       (power_cal_i[19:0]              ), //i
-    .output_1      (shiftRegister_11_output_1[19:0]), //o
-    .enable        (power_cal_valid                ), //i
-    .ad9361_rf_clk (ad9361_rf_clk                  ), //i
-    .resetn        (resetn                         )  //i
+    .input_1  (power_cal_i[19:0]              ), //i
+    .output_1 (shiftRegister_11_output_1[19:0]), //o
+    .enable   (power_cal_valid                ), //i
+    .O        (O                              ), //i
+    .resetn   (resetn                         )  //i
   );
   ShiftRegister_5 shiftRegister_12 (
-    .input_1       (power_cal_q[19:0]              ), //i
-    .output_1      (shiftRegister_12_output_1[19:0]), //o
-    .enable        (power_cal_valid                ), //i
-    .ad9361_rf_clk (ad9361_rf_clk                  ), //i
-    .resetn        (resetn                         )  //i
+    .input_1  (power_cal_q[19:0]              ), //i
+    .output_1 (shiftRegister_12_output_1[19:0]), //o
+    .enable   (power_cal_valid                ), //i
+    .O        (O                              ), //i
+    .resetn   (resetn                         )  //i
   );
   assign sq_i = ($signed(raw_data_payload_cha_i) * $signed(raw_data_payload_cha_i));
   assign sq_q = ($signed(raw_data_payload_cha_q) * $signed(raw_data_payload_cha_q));
@@ -18681,7 +18655,7 @@ module PowerMeter (
   assign power_result_payload_cha_i = power_val_cha_i;
   assign power_result_payload_cha_q = power_val_cha_q;
   assign power_result_valid = power_result_valid_1;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       power_val_i <= 24'h0;
       power_val_q <= 24'h0;
@@ -18701,7 +18675,7 @@ module PowerMeter (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     power_val_cha_i <= power_val_i;
     power_val_cha_q <= power_val_q;
     sq_i_regNext <= sq_i;
@@ -18847,7 +18821,7 @@ module TransposeCore (
   input      [18:0]   adder_data,
   input               valid,
   output     [18:0]   next_adder_data,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -18856,7 +18830,7 @@ module TransposeCore (
 
   assign _zz_next_adder_data = ($signed(input_data) * $signed(coff_data));
   assign next_adder_data = ($signed(_zz_next_adder_data) + $signed(previous_adder_data));
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       previous_adder_data <= 19'h0;
     end else begin
@@ -19152,7 +19126,7 @@ module ShiftRegister_9 (
   input      [23:0]   input_1,
   output     [23:0]   output_1,
   input               enable,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -19175,7 +19149,7 @@ module ShiftRegister_9 (
   reg        [23:0]   shift_reg_16;
 
   assign output_1 = shift_reg_16;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       shift_reg_0 <= 24'h0;
       shift_reg_1 <= 24'h0;
@@ -19225,7 +19199,7 @@ module ShiftRegister_8 (
   output              output_1,
   input               enable,
   input               clc,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -19243,7 +19217,7 @@ module ShiftRegister_8 (
   reg                 shift_reg_11;
 
   assign output_1 = shift_reg_11;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       shift_reg_0 <= 1'b0;
       shift_reg_1 <= 1'b0;
@@ -19305,7 +19279,7 @@ module CordicRotator_1 (
   output     [24:0]   result_payload_x,
   output     [24:0]   result_payload_y,
   output     [24:0]   result_payload_z,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -19629,7 +19603,7 @@ module CordicRotator_1 (
   assign result_payload_y = _zz_result_payload_y;
   assign result_payload_z = _zz_result_payload_z;
   assign raw_data_ready = 1'b1;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       _zz_result_valid <= 1'b0;
       _zz_result_valid_1 <= 1'b0;
@@ -19663,7 +19637,7 @@ module CordicRotator_1 (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     _zz_result_payload_x_45 <= 25'h0000c90;
     _zz_result_payload_x_46 <= 25'h000076b;
     _zz_result_payload_x_47 <= 25'h00003eb;
@@ -19873,7 +19847,7 @@ module CordicRotator (
   output     [23:0]   result_payload_x,
   output     [23:0]   result_payload_y,
   output     [23:0]   result_payload_z,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -20197,7 +20171,7 @@ module CordicRotator (
   assign result_payload_y = _zz_result_payload_y;
   assign result_payload_z = _zz_result_payload_z;
   assign raw_data_ready = 1'b1;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       _zz_result_valid <= 1'b0;
       _zz_result_valid_1 <= 1'b0;
@@ -20231,7 +20205,7 @@ module CordicRotator (
     end
   end
 
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     _zz_result_payload_x_45 <= 24'h000c90;
     _zz_result_payload_x_46 <= 24'h00076b;
     _zz_result_payload_x_47 <= 24'h0003eb;
@@ -20436,7 +20410,7 @@ module AutoCorrelator (
   output              corr_result_valid,
   output     [27:0]   corr_result_payload_cha_i,
   output     [27:0]   corr_result_payload_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -20457,7 +20431,7 @@ module AutoCorrelator (
     .output_payload_cha_q (shiftRegister_11_output_payload_cha_q[11:0]), //o
     .enable               (raw_data_valid                             ), //i
     .clc                  (shiftRegister_11_clc                       ), //i
-    .ad9361_rf_clk        (ad9361_rf_clk                              ), //i
+    .O                    (O                                          ), //i
     .resetn               (resetn                                     )  //i
   );
   Correlator corr_core (
@@ -20470,7 +20444,7 @@ module AutoCorrelator (
     .corr_result_valid         (corr_core_corr_result_valid                ), //o
     .corr_result_payload_cha_i (corr_core_corr_result_payload_cha_i[27:0]  ), //o
     .corr_result_payload_cha_q (corr_core_corr_result_payload_cha_q[27:0]  ), //o
-    .ad9361_rf_clk             (ad9361_rf_clk                              ), //i
+    .O                         (O                                          ), //i
     .resetn                    (resetn                                     )  //i
   );
   assign shiftRegister_11_clc = (! raw_data_valid);
@@ -20490,7 +20464,7 @@ module Correlator_1 (
   output              corr_result_valid,
   output     [35:0]   corr_result_payload_cha_i,
   output     [35:0]   corr_result_payload_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -20524,23 +20498,23 @@ module Correlator_1 (
   assign _zz_corr_val_q_2 = {{12{shiftRegister_12_output_1[23]}}, shiftRegister_12_output_1};
   assign _zz_corr_val_q_3 = {{12{_zz_corr_val_q[23]}}, _zz_corr_val_q};
   ShiftRegister_2 shiftRegister_11 (
-    .input_1       (_zz_corr_val_i[23:0]           ), //i
-    .output_1      (shiftRegister_11_output_1[23:0]), //o
-    .enable        (_zz_enable                     ), //i
-    .ad9361_rf_clk (ad9361_rf_clk                  ), //i
-    .resetn        (resetn                         )  //i
+    .input_1  (_zz_corr_val_i[23:0]           ), //i
+    .output_1 (shiftRegister_11_output_1[23:0]), //o
+    .enable   (_zz_enable                     ), //i
+    .O        (O                              ), //i
+    .resetn   (resetn                         )  //i
   );
   ShiftRegister_2 shiftRegister_12 (
-    .input_1       (_zz_corr_val_q[23:0]           ), //i
-    .output_1      (shiftRegister_12_output_1[23:0]), //o
-    .enable        (_zz_enable                     ), //i
-    .ad9361_rf_clk (ad9361_rf_clk                  ), //i
-    .resetn        (resetn                         )  //i
+    .input_1  (_zz_corr_val_q[23:0]           ), //i
+    .output_1 (shiftRegister_12_output_1[23:0]), //o
+    .enable   (_zz_enable                     ), //i
+    .O        (O                              ), //i
+    .resetn   (resetn                         )  //i
   );
   assign corr_result_payload_cha_i = corr_val_i;
   assign corr_result_payload_cha_q = corr_val_q;
   assign corr_result_valid = _zz_corr_result_valid;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       corr_val_i <= 36'h0;
       corr_val_q <= 36'h0;
@@ -20573,7 +20547,7 @@ module ShiftRegister_7 (
   output     [11:0]   output_payload_cha_i,
   output     [11:0]   output_payload_cha_q,
   input               enable,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -20629,7 +20603,7 @@ module ShiftRegister_7 (
   assign output_valid = shift_reg_15_valid;
   assign output_payload_cha_i = shift_reg_15_payload_cha_i;
   assign output_payload_cha_q = shift_reg_15_payload_cha_q;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       shift_reg_0_valid <= 1'b0;
       shift_reg_0_payload_cha_i <= 12'h0;
@@ -20742,7 +20716,7 @@ module ShiftRegister_5 (
   input      [19:0]   input_1,
   output     [19:0]   output_1,
   input               enable,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -20764,7 +20738,7 @@ module ShiftRegister_5 (
   reg        [19:0]   shift_reg_15;
 
   assign output_1 = shift_reg_15;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       shift_reg_0 <= 20'h0;
       shift_reg_1 <= 20'h0;
@@ -20817,7 +20791,7 @@ module Correlator (
   output              corr_result_valid,
   output     [27:0]   corr_result_payload_cha_i,
   output     [27:0]   corr_result_payload_cha_q,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -20853,27 +20827,27 @@ module Correlator (
   assign _zz_corr_val_q_2 = {{4{shiftRegister_12_output_1[23]}}, shiftRegister_12_output_1};
   assign _zz_corr_val_q_3 = {{4{_zz_corr_val_q[23]}}, _zz_corr_val_q};
   ShiftRegister shiftRegister_11 (
-    .input_1       (_zz_corr_val_i[23:0]           ), //i
-    .output_1      (shiftRegister_11_output_1[23:0]), //o
-    .enable        (_zz_enable                     ), //i
-    .clc           (shiftRegister_11_clc           ), //i
-    .ad9361_rf_clk (ad9361_rf_clk                  ), //i
-    .resetn        (resetn                         )  //i
+    .input_1  (_zz_corr_val_i[23:0]           ), //i
+    .output_1 (shiftRegister_11_output_1[23:0]), //o
+    .enable   (_zz_enable                     ), //i
+    .clc      (shiftRegister_11_clc           ), //i
+    .O        (O                              ), //i
+    .resetn   (resetn                         )  //i
   );
   ShiftRegister shiftRegister_12 (
-    .input_1       (_zz_corr_val_q[23:0]           ), //i
-    .output_1      (shiftRegister_12_output_1[23:0]), //o
-    .enable        (_zz_enable                     ), //i
-    .clc           (shiftRegister_12_clc           ), //i
-    .ad9361_rf_clk (ad9361_rf_clk                  ), //i
-    .resetn        (resetn                         )  //i
+    .input_1  (_zz_corr_val_q[23:0]           ), //i
+    .output_1 (shiftRegister_12_output_1[23:0]), //o
+    .enable   (_zz_enable                     ), //i
+    .clc      (shiftRegister_12_clc           ), //i
+    .O        (O                              ), //i
+    .resetn   (resetn                         )  //i
   );
   assign shiftRegister_11_clc = (! _zz_enable);
   assign shiftRegister_12_clc = (! _zz_enable);
   assign corr_result_payload_cha_i = corr_val_i;
   assign corr_result_payload_cha_q = corr_val_q;
   assign corr_result_valid = _zz_corr_result_valid;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       corr_val_i <= 28'h0;
       corr_val_q <= 28'h0;
@@ -20909,7 +20883,7 @@ module ShiftRegister_4 (
   output     [11:0]   output_payload_cha_q,
   input               enable,
   input               clc,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -20965,7 +20939,7 @@ module ShiftRegister_4 (
   assign output_valid = shift_reg_15_valid;
   assign output_payload_cha_i = shift_reg_15_payload_cha_i;
   assign output_payload_cha_q = shift_reg_15_payload_cha_q;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       shift_reg_0_valid <= 1'b0;
       shift_reg_0_payload_cha_i <= 12'h0;
@@ -21129,7 +21103,7 @@ module ShiftRegister_2 (
   input      [23:0]   input_1,
   output     [23:0]   output_1,
   input               enable,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -21151,7 +21125,7 @@ module ShiftRegister_2 (
   reg        [23:0]   shift_reg_15;
 
   assign output_1 = shift_reg_15;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       shift_reg_0 <= 24'h0;
       shift_reg_1 <= 24'h0;
@@ -21201,7 +21175,7 @@ module ShiftRegister (
   output     [23:0]   output_1,
   input               enable,
   input               clc,
-  input               ad9361_rf_clk,
+  input               O,
   input               resetn
 );
 
@@ -21223,7 +21197,7 @@ module ShiftRegister (
   reg        [23:0]   shift_reg_15;
 
   assign output_1 = shift_reg_15;
-  always @(posedge ad9361_rf_clk) begin
+  always @(posedge O) begin
     if(!resetn) begin
       shift_reg_0 <= 24'h0;
       shift_reg_1 <= 24'h0;

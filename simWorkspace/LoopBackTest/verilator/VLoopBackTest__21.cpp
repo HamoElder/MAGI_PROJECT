@@ -2367,49 +2367,6 @@ VL_INLINE_OPT void VLoopBackTest::_sequent__TOP__113(VLoopBackTest__Syms* __rest
         }
     }
     if (vlTOPp->reset) {
-        vlTOPp->LoopBackTest__DOT__axi4_stream_fifo__DOT__logic_risingOccupancy = 0U;
-    } else {
-        if (((IData)(vlTOPp->LoopBackTest__DOT__axi4_stream_fifo__DOT__logic_pushing) 
-             != (IData)(vlTOPp->LoopBackTest__DOT__stream_package_gen__DOT__split_core__DOT__raw_data_fire))) {
-            vlTOPp->LoopBackTest__DOT__axi4_stream_fifo__DOT__logic_risingOccupancy 
-                = vlTOPp->LoopBackTest__DOT__axi4_stream_fifo__DOT__logic_pushing;
-        }
-    }
-    if (vlTOPp->reset) {
-        vlTOPp->__Vdly__LoopBackTest__DOT__transmitter__DOT__phy_tx_padder__DOT__data_last = 0U;
-    } else {
-        if (vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder__DOT__data_last) {
-            if (vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder__DOT__when_PhyTx_l70) {
-                vlTOPp->__Vdly__LoopBackTest__DOT__transmitter__DOT__phy_tx_padder__DOT__data_last = 0U;
-            }
-        } else {
-            if ((((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_raw_data_valid) 
-                  & (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_padder_raw_data_ready)) 
-                 & (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT___zz_logic_ram_port0))) {
-                vlTOPp->__Vdly__LoopBackTest__DOT__transmitter__DOT__phy_tx_padder__DOT__data_last = 1U;
-            }
-        }
-    }
-    if (vlTOPp->reset) {
-        vlTOPp->__Vdly__LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_status = 0U;
-    } else {
-        if ((0U == (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_status))) {
-            if (vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_raw_data_valid) {
-                vlTOPp->__Vdly__LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_status = 1U;
-            }
-        } else {
-            if ((1U == (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_status))) {
-                if ((((IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_raw_data_valid) 
-                      & (IData)(vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler_raw_data_ready)) 
-                     & vlTOPp->LoopBackTest__DOT__transmitter__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT___zz_logic_ram_port0)) {
-                    vlTOPp->__Vdly__LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_status = 2U;
-                }
-            } else {
-                vlTOPp->__Vdly__LoopBackTest__DOT__transmitter__DOT__phy_tx_scrambler__DOT__scrambler_status = 0U;
-            }
-        }
-    }
-    if (vlTOPp->reset) {
         vlTOPp->__Vdly__LoopBackTest__DOT__transmitter__DOT__stf_preamble_adder__DOT__cnt = 0U;
         vlTOPp->__Vdly__LoopBackTest__DOT__transmitter__DOT__stf_preamble_adder__DOT__repeatCnt = 0U;
         vlTOPp->LoopBackTest__DOT__transmitter__DOT__stf_preamble_adder__DOT__raw_ready = 0U;
