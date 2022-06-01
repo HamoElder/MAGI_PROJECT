@@ -72,7 +72,7 @@ case class AxiLite4DDS(config : AxiLite4DDSConfig) extends Component{
 
 object AxiLite4DDSBench {
     def main(args: Array[String]): Unit = {
-        val axi4ddsConfig = AxiLite4DDSConfig(16, 11, 2, 32, 1 Hz, usePhaseChannel = false, usePhaseIncProg = true, usePhaseOffsetProg = true)
+        val axi4ddsConfig = AxiLite4DDSConfig(32, 8, 4, 32, 1 Hz, usePhaseChannel = false, usePhaseIncProg = false, usePhaseOffsetProg = false)
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
             targetDirectory = "rtl/AxiLite4DDS").generateSystemVerilog(new AxiLite4DDS(axi4ddsConfig)).printPruned()
     }

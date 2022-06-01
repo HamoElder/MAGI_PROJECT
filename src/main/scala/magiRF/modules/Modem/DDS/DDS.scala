@@ -48,9 +48,8 @@ case class DDS(config: DDS_Config) extends Component {
     val module_en = io.sync_en && io.channel_en
 
     val phase_cursor = Reg(config.phaseType) init(0)
-    val valid_buf = Reg(Bool) init(False)
 
-    when(module_en && io.data.ready){
+    when(module_en && io.data.fire){
         when(phase_cursor >= io.phase_limit){
             phase_cursor := 0
         }.otherwise{
@@ -62,9 +61,6 @@ case class DDS(config: DDS_Config) extends Component {
                 phase_cursor := phase_cursor + 1
             }
         }
-        valid_buf := True
-    }.otherwise{
-        valid_buf := False
     }
 
     val mem = Mem(config.dataType, initialContent = config.romTable).addAttribute("ram_style", "block")
@@ -78,11 +74,11 @@ case class DDS(config: DDS_Config) extends Component {
     }
 
     io.data.payload := mem.readSync(phase_cursor)
-    io.data.valid := RegNext(valid_buf) init(False)
+    io.data.valid := RegNext(module_en) init(False)
 
     if(config.usePhaseChannel){
         val phase_o_buf = Reg(config.phaseType) init(0)
-        io.phase.valid := RegNext(valid_buf) init(False)
+        io.phase.valid := RegNext(module_en) init(False)
         io.phase.payload := phase_o_buf
         when(module_en){
             phase_o_buf := phase_cursor

@@ -10,12 +10,15 @@ import spinal.core._
 
 object AxiLite4DDSSimApp extends App{
 
-    val axi4ddsConfig = AxiLite4DDSConfig(24, 10, 2, 32, 1 Hz, usePhaseChannel = true, usePhaseIncProg = true, usePhaseOffsetProg = true)
+    val axi4ddsConfig = AxiLite4DDSConfig(32, 8, 4, 32, 1 Hz, usePhaseChannel = false, usePhaseIncProg = false, usePhaseOffsetProg = false)
     SimConfig.withWave.doSim(new AxiLite4DDS(axi4ddsConfig)){ dut =>
         dut.clockDomain.forkStimulus(10)
         dut.rfClockDomain.forkStimulus(3)
         //        SimTimeout(10*50000)
-
+        dut.io.data(0).ready #= false
+        dut.io.data(1).ready #= false
+        dut.io.data(2).ready #= false
+        dut.io.data(3).ready #= false
         val aliteDrv = AxiLite4Driver(dut.io.axil4Ctrl, dut.clockDomain)
         aliteDrv.reset()
         dut.clockDomain.waitSampling(10)
@@ -25,10 +28,10 @@ object AxiLite4DDSSimApp extends App{
         aliteDrv.write(0x00, 0x2)
         aliteDrv.write(0x20, 0x2)
         aliteDrv.write(0x40, 0x2)
+        aliteDrv.write(0x60, 0x2)
         aliteDrv.write(0x00, 0x3)
         dut.clockDomain.waitSampling(1000)
-        aliteDrv.write(0x14, 0x4)
-        aliteDrv.write(0x20, 0x0)
+
         //        aliteDrv.write(0x04, 1023)
         //        aliteDrv.write(0x0, 1)
 
