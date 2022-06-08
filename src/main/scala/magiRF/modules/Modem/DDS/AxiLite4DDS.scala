@@ -14,13 +14,14 @@ case class AxiLite4DDSConfig(
                                 frequency          : HertzNumber     = 1 Hz,
                                 usePhaseChannel    : Boolean         = false,
                                 usePhaseIncProg    : Boolean         = false,
-                                usePhaseOffsetProg : Boolean         = false)
+                                usePhaseOffsetProg : Boolean         = false,
+                                useSysRef          : Boolean         = false)
                             {
 
     def addressWidth = 8
     def ddsConfig: DDS_Config = DDS_Config(dataWidth, phaseWidth, useRam = true,
         frequency = frequency, usePhaseChannel= usePhaseChannel,
-        usePhaseIncProg = usePhaseIncProg, usePhaseOffsetProg= usePhaseOffsetProg)
+        usePhaseIncProg = usePhaseIncProg, usePhaseOffsetProg= usePhaseOffsetProg, useSysRef = useSysRef)
     def axiLite4Config: AxiLite4Config = AxiLite4Config(addressWidth, cfgDataWidth)
 
 }
@@ -30,7 +31,7 @@ case class AxiLite4DDS(config : AxiLite4DDSConfig) extends Component{
         val axil4Ctrl = slave(AxiLite4(config.axiLite4Config))
         val data = Vec(master(Stream(config.ddsConfig.dataType)), config.channelsNum)
         val phase = if(config.usePhaseChannel) Vec(master(Flow(config.ddsConfig.phaseType)), config.channelsNum) else null
-
+        val sysref = if(config.useSysRef) in(Bool()) else null
         val rf_clk = in(Bool())
         val rf_resetn = in(Bool())
     }
@@ -62,6 +63,7 @@ case class AxiLite4DDS(config : AxiLite4DDSConfig) extends Component{
                 io.phase(idx).valid := dds_core.io.phase.valid
             }
             dds_core.io.sync_en := global_en_cross
+            if(config.useSysRef) {dds_core.io.sysref := io.sysref}
         }
         val _ = rfClockArea.dds_core.driveFrom(axil4busCtrl, 0x20 * idx, this.clockDomain, rfClockDomain)
 
@@ -72,7 +74,7 @@ case class AxiLite4DDS(config : AxiLite4DDSConfig) extends Component{
 
 object AxiLite4DDSBench {
     def main(args: Array[String]): Unit = {
-        val axi4ddsConfig = AxiLite4DDSConfig(32, 8, 4, 32, 1 Hz, usePhaseChannel = false, usePhaseIncProg = false, usePhaseOffsetProg = false)
+        val axi4ddsConfig = AxiLite4DDSConfig(32, 8, 4, 32, 1 Hz, usePhaseChannel = false, usePhaseIncProg = false, usePhaseOffsetProg = false, useSysRef = true)
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
             targetDirectory = "rtl/AxiLite4DDS").generateSystemVerilog(new AxiLite4DDS(axi4ddsConfig)).printPruned()
     }

@@ -11,7 +11,8 @@ case class DDS_Config(  dataWidth          : Int,
                         frequency          : HertzNumber     = 1 Hz,
                         usePhaseChannel    : Boolean         = true,
                         usePhaseIncProg    : Boolean         = true,
-                        usePhaseOffsetProg : Boolean         = true){
+                        usePhaseOffsetProg : Boolean         = true,
+                        useSysRef          : Boolean         = false){
 
     def dataType: SInt = SInt(dataWidth bits)
     def phaseType: UInt = UInt(phaseWidth bits)
@@ -42,26 +43,46 @@ case class DDS(config: DDS_Config) extends Component {
         val phase_offset = if(config.usePhaseOffsetProg) in(config.phaseType) else null
         val phase_inc = if(config.usePhaseIncProg) in(config.phaseType) else null
 
+        val sysref = if(config.useSysRef) in(Bool()) else null
+
     }
     noIoPrefix()
 
     val module_en = io.sync_en && io.channel_en
 
     val phase_cursor = Reg(config.phaseType) init(0)
-
-    when(module_en && io.data.fire){
-        when(phase_cursor >= io.phase_limit){
+    if(config.useSysRef){
+        when(io.sysref){
             phase_cursor := 0
-        }.otherwise{
-            if(config.usePhaseIncProg && config.usePhaseOffsetProg){
-                phase_cursor := phase_cursor + io.phase_inc + io.phase_offset
-            }else if(config.usePhaseIncProg){
-                phase_cursor := phase_cursor + io.phase_inc
-            }else{
-                phase_cursor := phase_cursor + 1
+        }.elsewhen(module_en && io.data.fire){
+            when(phase_cursor >= io.phase_limit){
+                phase_cursor := 0
+            }.otherwise{
+                if(config.usePhaseIncProg && config.usePhaseOffsetProg){
+                    phase_cursor := phase_cursor + io.phase_inc + io.phase_offset
+                }else if(config.usePhaseIncProg){
+                    phase_cursor := phase_cursor + io.phase_inc
+                }else{
+                    phase_cursor := phase_cursor + 1
+                }
+            }
+        }
+    }else{
+        when(module_en && io.data.fire){
+            when(phase_cursor >= io.phase_limit){
+                phase_cursor := 0
+            }.otherwise{
+                if(config.usePhaseIncProg && config.usePhaseOffsetProg){
+                    phase_cursor := phase_cursor + io.phase_inc + io.phase_offset
+                }else if(config.usePhaseIncProg){
+                    phase_cursor := phase_cursor + io.phase_inc
+                }else{
+                    phase_cursor := phase_cursor + 1
+                }
             }
         }
     }
+
 
     val mem = Mem(config.dataType, initialContent = config.romTable).addAttribute("ram_style", "block")
 

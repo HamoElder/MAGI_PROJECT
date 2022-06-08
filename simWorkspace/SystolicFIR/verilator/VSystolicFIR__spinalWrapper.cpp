@@ -159,7 +159,7 @@ public:
     uint32_t timeCheck;
     bool waveEnabled;
     VSystolicFIR top;
-    ISignalAccess *signalAccess[7];
+    ISignalAccess *signalAccess[18];
     #ifdef TRACE
 	  VerilatedVcdC tfp;
 	  #endif
@@ -171,24 +171,35 @@ public:
       timeCheck = 0;
       lastFlushAt = high_resolution_clock::now();
       waveEnabled = true;
-      signalAccess[0] = new CDataSignalAccess( top.raw_data_valid );
-      signalAccess[1] = new CDataSignalAccess( top.raw_data_ready );
-      signalAccess[2] = new SDataSignalAccess( top.raw_data_payload_0 );
-      signalAccess[3] = new CDataSignalAccess( top.filtered_data_valid );
-      signalAccess[4] = new IDataSignalAccess( top.filtered_data_payload_0 );
-      signalAccess[5] = new CDataSignalAccess( top.clk );
-      signalAccess[6] = new CDataSignalAccess( top.reset );
+      signalAccess[0] = new CDataSignalAccess( top.raw_data_0_valid );
+      signalAccess[1] = new SDataSignalAccess( top.raw_data_0_payload );
+      signalAccess[2] = new CDataSignalAccess( top.raw_data_1_valid );
+      signalAccess[3] = new SDataSignalAccess( top.raw_data_1_payload );
+      signalAccess[4] = new CDataSignalAccess( top.raw_data_2_valid );
+      signalAccess[5] = new SDataSignalAccess( top.raw_data_2_payload );
+      signalAccess[6] = new CDataSignalAccess( top.raw_data_3_valid );
+      signalAccess[7] = new SDataSignalAccess( top.raw_data_3_payload );
+      signalAccess[8] = new CDataSignalAccess( top.filtered_data_0_valid );
+      signalAccess[9] = new IDataSignalAccess( top.filtered_data_0_payload );
+      signalAccess[10] = new CDataSignalAccess( top.filtered_data_1_valid );
+      signalAccess[11] = new IDataSignalAccess( top.filtered_data_1_payload );
+      signalAccess[12] = new CDataSignalAccess( top.filtered_data_2_valid );
+      signalAccess[13] = new IDataSignalAccess( top.filtered_data_2_payload );
+      signalAccess[14] = new CDataSignalAccess( top.filtered_data_3_valid );
+      signalAccess[15] = new IDataSignalAccess( top.filtered_data_3_payload );
+      signalAccess[16] = new CDataSignalAccess( top.clk );
+      signalAccess[17] = new CDataSignalAccess( top.reset );
 
       #ifdef TRACE
       Verilated::traceEverOn(true);
       top.trace(&tfp, 99);
-      tfp.open((std::string("/home/crystal/project/MAGI_PROJECT/./simWorkspace/SystolicFIR/") + name + ".vcd").c_str());
+      tfp.open((std::string("/home/missdown/IdeaProjects/MAGI_PROJECT/./simWorkspace/SystolicFIR/") + name + ".vcd").c_str());
       #endif
       this->name = name;
     }
 
     virtual ~Wrapper_1(){
-      for(int idx = 0;idx < 7;idx++){
+      for(int idx = 0;idx < 18;idx++){
           delete signalAccess[idx];
       }
 
@@ -197,7 +208,7 @@ public:
       tfp.close();
       #endif
       #ifdef COVERAGE
-      VerilatedCov::write((("/home/crystal/project/MAGI_PROJECT/./simWorkspace/SystolicFIR/") + name + ".dat").c_str());
+      VerilatedCov::write((("/home/missdown/IdeaProjects/MAGI_PROJECT/./simWorkspace/SystolicFIR/") + name + ".dat").c_str());
       #endif
     }
 

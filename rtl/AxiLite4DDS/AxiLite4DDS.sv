@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.7.0    git head : eca519e78d4e6022e34911ec300a432ed9db8220
 // Component : AxiLite4DDS
-// Git hash  : 0ab51a025163f1504abcc6168f565033cee878a1
+// Git hash  : fe8ed706a25b5cda33f96062d5bdc80425e016eb
 
 `timescale 1ns/1ps
 
@@ -36,6 +36,7 @@ module AxiLite4DDS (
   output              data_3_valid,
   input               data_3_ready,
   output     [31:0]   data_3_payload,
+  input               sysref,
   input               rf_clk,
   input               rf_resetn,
   input               clk,
@@ -140,6 +141,7 @@ module AxiLite4DDS (
     .w_addr       (clkCrossing_23_dataOut[7:0] ), //i
     .w_data       (clkCrossing_24_dataOut[31:0]), //i
     .phase_limit  (clkCrossing_26_dataOut[7:0] ), //i
+    .sysref       (sysref                      ), //i
     .rf_clk       (rf_clk                      ), //i
     .rf_resetn    (rf_resetn                   )  //i
   );
@@ -193,6 +195,7 @@ module AxiLite4DDS (
     .w_addr       (clkCrossing_28_dataOut[7:0] ), //i
     .w_data       (clkCrossing_29_dataOut[31:0]), //i
     .phase_limit  (clkCrossing_31_dataOut[7:0] ), //i
+    .sysref       (sysref                      ), //i
     .rf_clk       (rf_clk                      ), //i
     .rf_resetn    (rf_resetn                   )  //i
   );
@@ -246,6 +249,7 @@ module AxiLite4DDS (
     .w_addr       (clkCrossing_33_dataOut[7:0] ), //i
     .w_data       (clkCrossing_34_dataOut[31:0]), //i
     .phase_limit  (clkCrossing_36_dataOut[7:0] ), //i
+    .sysref       (sysref                      ), //i
     .rf_clk       (rf_clk                      ), //i
     .rf_resetn    (rf_resetn                   )  //i
   );
@@ -299,6 +303,7 @@ module AxiLite4DDS (
     .w_addr       (clkCrossing_38_dataOut[7:0] ), //i
     .w_data       (clkCrossing_39_dataOut[31:0]), //i
     .phase_limit  (clkCrossing_41_dataOut[7:0] ), //i
+    .sysref       (sysref                      ), //i
     .rf_clk       (rf_clk                      ), //i
     .rf_resetn    (rf_resetn                   )  //i
   );
@@ -583,6 +588,7 @@ module DDS_3 (
   input      [7:0]    w_addr,
   input      [31:0]   w_data,
   input      [7:0]    phase_limit,
+  input               sysref,
   input               rf_clk,
   input               rf_resetn
 );
@@ -593,9 +599,9 @@ module DDS_3 (
   wire                _zz_data_payload;
   wire                module_en;
   reg        [7:0]    phase_cursor;
+  wire                when_DDS_l58;
   wire                data_fire;
-  wire                when_DDS_l52;
-  wire                when_DDS_l53;
+  wire                when_DDS_l57;
   reg                 module_en_regNext;
   (* ram_style = "block" *) reg [31:0] mem [0:255];
 
@@ -617,9 +623,9 @@ module DDS_3 (
   end
 
   assign module_en = (sync_en && channel_en);
+  assign when_DDS_l58 = (phase_limit <= phase_cursor);
   assign data_fire = (data_valid && data_ready);
-  assign when_DDS_l52 = (module_en && data_fire);
-  assign when_DDS_l53 = (phase_limit <= phase_cursor);
+  assign when_DDS_l57 = (module_en && data_fire);
   assign data_payload = _zz_mem_port1;
   assign data_valid = module_en_regNext;
   always @(posedge rf_clk) begin
@@ -627,11 +633,15 @@ module DDS_3 (
       phase_cursor <= 8'h0;
       module_en_regNext <= 1'b0;
     end else begin
-      if(when_DDS_l52) begin
-        if(when_DDS_l53) begin
-          phase_cursor <= 8'h0;
-        end else begin
-          phase_cursor <= (phase_cursor + 8'h01);
+      if(sysref) begin
+        phase_cursor <= 8'h0;
+      end else begin
+        if(when_DDS_l57) begin
+          if(when_DDS_l58) begin
+            phase_cursor <= 8'h0;
+          end else begin
+            phase_cursor <= (phase_cursor + 8'h01);
+          end
         end
       end
       module_en_regNext <= module_en;
@@ -661,6 +671,7 @@ module DDS_2 (
   input      [7:0]    w_addr,
   input      [31:0]   w_data,
   input      [7:0]    phase_limit,
+  input               sysref,
   input               rf_clk,
   input               rf_resetn
 );
@@ -671,9 +682,9 @@ module DDS_2 (
   wire                _zz_data_payload;
   wire                module_en;
   reg        [7:0]    phase_cursor;
+  wire                when_DDS_l58;
   wire                data_fire;
-  wire                when_DDS_l52;
-  wire                when_DDS_l53;
+  wire                when_DDS_l57;
   reg                 module_en_regNext;
   (* ram_style = "block" *) reg [31:0] mem [0:255];
 
@@ -695,9 +706,9 @@ module DDS_2 (
   end
 
   assign module_en = (sync_en && channel_en);
+  assign when_DDS_l58 = (phase_limit <= phase_cursor);
   assign data_fire = (data_valid && data_ready);
-  assign when_DDS_l52 = (module_en && data_fire);
-  assign when_DDS_l53 = (phase_limit <= phase_cursor);
+  assign when_DDS_l57 = (module_en && data_fire);
   assign data_payload = _zz_mem_port1;
   assign data_valid = module_en_regNext;
   always @(posedge rf_clk) begin
@@ -705,11 +716,15 @@ module DDS_2 (
       phase_cursor <= 8'h0;
       module_en_regNext <= 1'b0;
     end else begin
-      if(when_DDS_l52) begin
-        if(when_DDS_l53) begin
-          phase_cursor <= 8'h0;
-        end else begin
-          phase_cursor <= (phase_cursor + 8'h01);
+      if(sysref) begin
+        phase_cursor <= 8'h0;
+      end else begin
+        if(when_DDS_l57) begin
+          if(when_DDS_l58) begin
+            phase_cursor <= 8'h0;
+          end else begin
+            phase_cursor <= (phase_cursor + 8'h01);
+          end
         end
       end
       module_en_regNext <= module_en;
@@ -739,6 +754,7 @@ module DDS_1 (
   input      [7:0]    w_addr,
   input      [31:0]   w_data,
   input      [7:0]    phase_limit,
+  input               sysref,
   input               rf_clk,
   input               rf_resetn
 );
@@ -749,9 +765,9 @@ module DDS_1 (
   wire                _zz_data_payload;
   wire                module_en;
   reg        [7:0]    phase_cursor;
+  wire                when_DDS_l58;
   wire                data_fire;
-  wire                when_DDS_l52;
-  wire                when_DDS_l53;
+  wire                when_DDS_l57;
   reg                 module_en_regNext;
   (* ram_style = "block" *) reg [31:0] mem [0:255];
 
@@ -773,9 +789,9 @@ module DDS_1 (
   end
 
   assign module_en = (sync_en && channel_en);
+  assign when_DDS_l58 = (phase_limit <= phase_cursor);
   assign data_fire = (data_valid && data_ready);
-  assign when_DDS_l52 = (module_en && data_fire);
-  assign when_DDS_l53 = (phase_limit <= phase_cursor);
+  assign when_DDS_l57 = (module_en && data_fire);
   assign data_payload = _zz_mem_port1;
   assign data_valid = module_en_regNext;
   always @(posedge rf_clk) begin
@@ -783,11 +799,15 @@ module DDS_1 (
       phase_cursor <= 8'h0;
       module_en_regNext <= 1'b0;
     end else begin
-      if(when_DDS_l52) begin
-        if(when_DDS_l53) begin
-          phase_cursor <= 8'h0;
-        end else begin
-          phase_cursor <= (phase_cursor + 8'h01);
+      if(sysref) begin
+        phase_cursor <= 8'h0;
+      end else begin
+        if(when_DDS_l57) begin
+          if(when_DDS_l58) begin
+            phase_cursor <= 8'h0;
+          end else begin
+            phase_cursor <= (phase_cursor + 8'h01);
+          end
         end
       end
       module_en_regNext <= module_en;
@@ -865,6 +885,7 @@ module DDS (
   input      [7:0]    w_addr,
   input      [31:0]   w_data,
   input      [7:0]    phase_limit,
+  input               sysref,
   input               rf_clk,
   input               rf_resetn
 );
@@ -875,9 +896,9 @@ module DDS (
   wire                _zz_data_payload;
   wire                module_en;
   reg        [7:0]    phase_cursor;
+  wire                when_DDS_l58;
   wire                data_fire;
-  wire                when_DDS_l52;
-  wire                when_DDS_l53;
+  wire                when_DDS_l57;
   reg                 module_en_regNext;
   (* ram_style = "block" *) reg [31:0] mem [0:255];
 
@@ -899,9 +920,9 @@ module DDS (
   end
 
   assign module_en = (sync_en && channel_en);
+  assign when_DDS_l58 = (phase_limit <= phase_cursor);
   assign data_fire = (data_valid && data_ready);
-  assign when_DDS_l52 = (module_en && data_fire);
-  assign when_DDS_l53 = (phase_limit <= phase_cursor);
+  assign when_DDS_l57 = (module_en && data_fire);
   assign data_payload = _zz_mem_port1;
   assign data_valid = module_en_regNext;
   always @(posedge rf_clk) begin
@@ -909,11 +930,15 @@ module DDS (
       phase_cursor <= 8'h0;
       module_en_regNext <= 1'b0;
     end else begin
-      if(when_DDS_l52) begin
-        if(when_DDS_l53) begin
-          phase_cursor <= 8'h0;
-        end else begin
-          phase_cursor <= (phase_cursor + 8'h01);
+      if(sysref) begin
+        phase_cursor <= 8'h0;
+      end else begin
+        if(when_DDS_l57) begin
+          if(when_DDS_l58) begin
+            phase_cursor <= 8'h0;
+          end else begin
+            phase_cursor <= (phase_cursor + 8'h01);
+          end
         end
       end
       module_en_regNext <= module_en;
