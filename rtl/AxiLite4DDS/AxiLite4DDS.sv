@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.7.0    git head : eca519e78d4e6022e34911ec300a432ed9db8220
 // Component : AxiLite4DDS
-// Git hash  : fe8ed706a25b5cda33f96062d5bdc80425e016eb
+// Git hash  : 9fb11367d50fe6259b12eed46bdcbc0cd78ce9fb
 
 `timescale 1ns/1ps
 
@@ -599,6 +599,8 @@ module DDS_3 (
   wire                _zz_data_payload;
   wire                module_en;
   reg        [7:0]    phase_cursor;
+  reg                 sysref_regNext;
+  wire                when_DDS_l55;
   wire                when_DDS_l58;
   wire                data_fire;
   wire                when_DDS_l57;
@@ -623,6 +625,7 @@ module DDS_3 (
   end
 
   assign module_en = (sync_en && channel_en);
+  assign when_DDS_l55 = (sysref && (! sysref_regNext));
   assign when_DDS_l58 = (phase_limit <= phase_cursor);
   assign data_fire = (data_valid && data_ready);
   assign when_DDS_l57 = (module_en && data_fire);
@@ -633,7 +636,7 @@ module DDS_3 (
       phase_cursor <= 8'h0;
       module_en_regNext <= 1'b0;
     end else begin
-      if(sysref) begin
+      if(when_DDS_l55) begin
         phase_cursor <= 8'h0;
       end else begin
         if(when_DDS_l57) begin
@@ -646,6 +649,10 @@ module DDS_3 (
       end
       module_en_regNext <= module_en;
     end
+  end
+
+  always @(posedge rf_clk) begin
+    sysref_regNext <= sysref;
   end
 
 
@@ -682,6 +689,8 @@ module DDS_2 (
   wire                _zz_data_payload;
   wire                module_en;
   reg        [7:0]    phase_cursor;
+  reg                 sysref_regNext;
+  wire                when_DDS_l55;
   wire                when_DDS_l58;
   wire                data_fire;
   wire                when_DDS_l57;
@@ -706,6 +715,7 @@ module DDS_2 (
   end
 
   assign module_en = (sync_en && channel_en);
+  assign when_DDS_l55 = (sysref && (! sysref_regNext));
   assign when_DDS_l58 = (phase_limit <= phase_cursor);
   assign data_fire = (data_valid && data_ready);
   assign when_DDS_l57 = (module_en && data_fire);
@@ -716,7 +726,7 @@ module DDS_2 (
       phase_cursor <= 8'h0;
       module_en_regNext <= 1'b0;
     end else begin
-      if(sysref) begin
+      if(when_DDS_l55) begin
         phase_cursor <= 8'h0;
       end else begin
         if(when_DDS_l57) begin
@@ -729,6 +739,10 @@ module DDS_2 (
       end
       module_en_regNext <= module_en;
     end
+  end
+
+  always @(posedge rf_clk) begin
+    sysref_regNext <= sysref;
   end
 
 
@@ -765,6 +779,8 @@ module DDS_1 (
   wire                _zz_data_payload;
   wire                module_en;
   reg        [7:0]    phase_cursor;
+  reg                 sysref_regNext;
+  wire                when_DDS_l55;
   wire                when_DDS_l58;
   wire                data_fire;
   wire                when_DDS_l57;
@@ -789,6 +805,7 @@ module DDS_1 (
   end
 
   assign module_en = (sync_en && channel_en);
+  assign when_DDS_l55 = (sysref && (! sysref_regNext));
   assign when_DDS_l58 = (phase_limit <= phase_cursor);
   assign data_fire = (data_valid && data_ready);
   assign when_DDS_l57 = (module_en && data_fire);
@@ -799,7 +816,7 @@ module DDS_1 (
       phase_cursor <= 8'h0;
       module_en_regNext <= 1'b0;
     end else begin
-      if(sysref) begin
+      if(when_DDS_l55) begin
         phase_cursor <= 8'h0;
       end else begin
         if(when_DDS_l57) begin
@@ -812,6 +829,10 @@ module DDS_1 (
       end
       module_en_regNext <= module_en;
     end
+  end
+
+  always @(posedge rf_clk) begin
+    sysref_regNext <= sysref;
   end
 
 
@@ -896,6 +917,8 @@ module DDS (
   wire                _zz_data_payload;
   wire                module_en;
   reg        [7:0]    phase_cursor;
+  reg                 sysref_regNext;
+  wire                when_DDS_l55;
   wire                when_DDS_l58;
   wire                data_fire;
   wire                when_DDS_l57;
@@ -920,6 +943,7 @@ module DDS (
   end
 
   assign module_en = (sync_en && channel_en);
+  assign when_DDS_l55 = (sysref && (! sysref_regNext));
   assign when_DDS_l58 = (phase_limit <= phase_cursor);
   assign data_fire = (data_valid && data_ready);
   assign when_DDS_l57 = (module_en && data_fire);
@@ -930,7 +954,7 @@ module DDS (
       phase_cursor <= 8'h0;
       module_en_regNext <= 1'b0;
     end else begin
-      if(sysref) begin
+      if(when_DDS_l55) begin
         phase_cursor <= 8'h0;
       end else begin
         if(when_DDS_l57) begin
@@ -943,6 +967,10 @@ module DDS (
       end
       module_en_regNext <= module_en;
     end
+  end
+
+  always @(posedge rf_clk) begin
+    sysref_regNext <= sysref;
   end
 
 

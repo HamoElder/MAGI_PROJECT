@@ -5,193 +5,36 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1d7c38c-7d73-4f67-af7f-9cf19bfff978" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1c3f5853f68e1e5d8246ad55f21813b0f016ec5c/verilator/VSystolicFIR.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1c3f5853f68e1e5d8246ad55f21813b0f016ec5c/verilator/VSystolicFIR.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1c3f5853f68e1e5d8246ad55f21813b0f016ec5c/verilator/VSystolicFIR__ALL.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1c3f5853f68e1e5d8246ad55f21813b0f016ec5c/verilator/VSystolicFIR__Syms.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1c3f5853f68e1e5d8246ad55f21813b0f016ec5c/verilator/VSystolicFIR_classes.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1d70352df2b389ba801f7ed814e2c22ab05710bb/verilator/VSystolicFIR.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1d70352df2b389ba801f7ed814e2c22ab05710bb/verilator/VSystolicFIR.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1d70352df2b389ba801f7ed814e2c22ab05710bb/verilator/VSystolicFIR__ALL.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1d70352df2b389ba801f7ed814e2c22ab05710bb/verilator/VSystolicFIR__Syms.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1d70352df2b389ba801f7ed814e2c22ab05710bb/verilator/VSystolicFIR_classes.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/408093d2d05aa39444a96b9015ae18b97adb92d5/verilator/VSystolicFIR.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/408093d2d05aa39444a96b9015ae18b97adb92d5/verilator/VSystolicFIR.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/408093d2d05aa39444a96b9015ae18b97adb92d5/verilator/VSystolicFIR__ALL.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/408093d2d05aa39444a96b9015ae18b97adb92d5/verilator/VSystolicFIR__Syms.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/408093d2d05aa39444a96b9015ae18b97adb92d5/verilator/VSystolicFIR_classes.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/5e80212de6debbd4aeeb62e1982c90b491defa5b/verilator/VSystolicFIR.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/5e80212de6debbd4aeeb62e1982c90b491defa5b/verilator/VSystolicFIR.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/5e80212de6debbd4aeeb62e1982c90b491defa5b/verilator/VSystolicFIR__ALL.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/5e80212de6debbd4aeeb62e1982c90b491defa5b/verilator/VSystolicFIR__Syms.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/5e80212de6debbd4aeeb62e1982c90b491defa5b/verilator/VSystolicFIR_classes.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a5bda72f58d06cdad9bdcaa5ef54d1baac379649/verilator/VSystolicFIR.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a5bda72f58d06cdad9bdcaa5ef54d1baac379649/verilator/VSystolicFIR.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a5bda72f58d06cdad9bdcaa5ef54d1baac379649/verilator/VSystolicFIR__ALL.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a5bda72f58d06cdad9bdcaa5ef54d1baac379649/verilator/VSystolicFIR__Syms.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a5bda72f58d06cdad9bdcaa5ef54d1baac379649/verilator/VSystolicFIR_classes.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a77f822deafbe714908ede493e538cf9d89b927b/verilator/VSystolicFIR.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a77f822deafbe714908ede493e538cf9d89b927b/verilator/VSystolicFIR.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a77f822deafbe714908ede493e538cf9d89b927b/verilator/VSystolicFIR__ALL.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a77f822deafbe714908ede493e538cf9d89b927b/verilator/VSystolicFIR__Syms.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a77f822deafbe714908ede493e538cf9d89b927b/verilator/VSystolicFIR_classes.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d08e477f301629d3d34837a31d6d638387d8f6f5/verilator/VSystolicFIR.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d08e477f301629d3d34837a31d6d638387d8f6f5/verilator/VSystolicFIR.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d08e477f301629d3d34837a31d6d638387d8f6f5/verilator/VSystolicFIR__ALL.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d08e477f301629d3d34837a31d6d638387d8f6f5/verilator/VSystolicFIR__Syms.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d08e477f301629d3d34837a31d6d638387d8f6f5/verilator/VSystolicFIR_classes.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d78eb5d62c96584ab9fd16f32635fa381b575c13/verilator/VSystolicFIR.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d78eb5d62c96584ab9fd16f32635fa381b575c13/verilator/VSystolicFIR.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d78eb5d62c96584ab9fd16f32635fa381b575c13/verilator/VSystolicFIR__ALL.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d78eb5d62c96584ab9fd16f32635fa381b575c13/verilator/VSystolicFIR__Syms.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d78eb5d62c96584ab9fd16f32635fa381b575c13/verilator/VSystolicFIR_classes.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/dd12be81e32f4c9450e1c717df905530f8594f88/verilator/VSystolicFIR.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/dd12be81e32f4c9450e1c717df905530f8594f88/verilator/VSystolicFIR.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/dd12be81e32f4c9450e1c717df905530f8594f88/verilator/VSystolicFIR__ALL.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/dd12be81e32f4c9450e1c717df905530f8594f88/verilator/VSystolicFIR__Syms.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/dd12be81e32f4c9450e1c717df905530f8594f88/verilator/VSystolicFIR_classes.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/f86e90cfa123e879d07dd13ee83aefb079174c86/verilator/VSystolicFIR.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/f86e90cfa123e879d07dd13ee83aefb079174c86/verilator/VSystolicFIR.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/f86e90cfa123e879d07dd13ee83aefb079174c86/verilator/VSystolicFIR__ALL.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/f86e90cfa123e879d07dd13ee83aefb079174c86/verilator/VSystolicFIR__Syms.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/f86e90cfa123e879d07dd13ee83aefb079174c86/verilator/VSystolicFIR_classes.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/fa101478e0f1bdd3b4ba93da998d1f629e26b8b6/verilator/VSystolicFIR.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/fa101478e0f1bdd3b4ba93da998d1f629e26b8b6/verilator/VSystolicFIR.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/fa101478e0f1bdd3b4ba93da998d1f629e26b8b6/verilator/VSystolicFIR__ALL.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/fa101478e0f1bdd3b4ba93da998d1f629e26b8b6/verilator/VSystolicFIR__Syms.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/fa101478e0f1bdd3b4ba93da998d1f629e26b8b6/verilator/VSystolicFIR_classes.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__1.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__1.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__1.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/scala/magiRF/modules/Filters/SystolicFIRFilterSimApp.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/regFile.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rtl/ASKDemodulator/ASKDemodulator.sv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/Misc/docGen/regFileGen.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/magiRF/top/ASKDemodulator/ASKDemodulator.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIR$$anon$2$$anonfun$2$$anonfun$apply$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIR$$anon$2$$anonfun$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIR$$anon$2$$anonfun$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIR$$anon$2$$anonfun$3$$anonfun$apply$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIR$$anon$2$$anonfun$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIR$$anon$2$$anonfun$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIR$$anon$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIR$$anon$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIR$$anonfun$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIR$$anonfun$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIR$$anonfun$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIR.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIR.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRFilterBench$$anonfun$main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRFilterBench$$anonfun$main$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRFilterBench$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRFilterBench$.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRFilterSimApp$$anonfun$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRFilterSimApp$$anonfun$6$$anonfun$apply$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRFilterSimApp$$anonfun$6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRFilterSimApp$.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRFilterSimApp$delayedInit$body.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRFilterSimApp.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anon$3$$anonfun$7.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anon$3$$anonfun$8.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anon$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anon$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anonfun$9$$anonfun$apply$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anonfun$9.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anonfun$combineStage$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anonfun$combineStage$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anon$1$$anonfun$2$$anonfun$apply$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anon$1$$anonfun$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anon$1$$anonfun$3$$anonfun$apply$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anon$1$$anonfun$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anon$1$$anonfun$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anon$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anon$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anonfun$1$$anon$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anonfun$1$$anon$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anonfun$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anonfun$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDSBench$$anonfun$main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDSBench$$anonfun$main$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDSBench$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDSBench$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDSConfig$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDSConfig$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDSConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDSConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS_Config$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS_Config$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS_Config.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS_Config.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.analysis" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.analysis" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileTestScala.analysis" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileTestScala.analysis" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv" beforeDir="false" afterPath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rtl/SystolicFIR/SystolicFIR.sv" beforeDir="false" afterPath="$PROJECT_DIR$/rtl/SystolicFIR/SystolicFIR.sv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/168450a2d0586393cfa0348db0afc9daab257980/verilator/VLoopBackTest.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/168450a2d0586393cfa0348db0afc9daab257980/verilator/VLoopBackTest.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/168450a2d0586393cfa0348db0afc9daab257980/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/168450a2d0586393cfa0348db0afc9daab257980/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/168450a2d0586393cfa0348db0afc9daab257980/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/184d7f7bf74632bb604aa64717eb4ead10e354a1/verilator/VLoopBackTest.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/184d7f7bf74632bb604aa64717eb4ead10e354a1/verilator/VLoopBackTest.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/184d7f7bf74632bb604aa64717eb4ead10e354a1/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/184d7f7bf74632bb604aa64717eb4ead10e354a1/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/184d7f7bf74632bb604aa64717eb4ead10e354a1/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/1a3692902792f0f4df5189887c3931bcb0a457bc/verilator/VLoopBackTest.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/1a3692902792f0f4df5189887c3931bcb0a457bc/verilator/VLoopBackTest.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/1a3692902792f0f4df5189887c3931bcb0a457bc/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/1a3692902792f0f4df5189887c3931bcb0a457bc/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/1a3692902792f0f4df5189887c3931bcb0a457bc/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/202423e763e0ce89c1b4d549551c51f270dff134/verilator/VLoopBackTest.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/202423e763e0ce89c1b4d549551c51f270dff134/verilator/VLoopBackTest.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/202423e763e0ce89c1b4d549551c51f270dff134/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/202423e763e0ce89c1b4d549551c51f270dff134/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/202423e763e0ce89c1b4d549551c51f270dff134/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/21e6d1805f76e663f5bce8dd70ed37806caf86e5/verilator/VLoopBackTest.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/21e6d1805f76e663f5bce8dd70ed37806caf86e5/verilator/VLoopBackTest.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/21e6d1805f76e663f5bce8dd70ed37806caf86e5/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/21e6d1805f76e663f5bce8dd70ed37806caf86e5/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/21e6d1805f76e663f5bce8dd70ed37806caf86e5/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/225d45b7b2c49cfd4f84dce0ce167198ed6f8128/verilator/VLoopBackTest.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/225d45b7b2c49cfd4f84dce0ce167198ed6f8128/verilator/VLoopBackTest.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/225d45b7b2c49cfd4f84dce0ce167198ed6f8128/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/225d45b7b2c49cfd4f84dce0ce167198ed6f8128/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/225d45b7b2c49cfd4f84dce0ce167198ed6f8128/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/242fdf8c4f57edcac0c0a42cc1f273a03af055cd/verilator/VLoopBackTest.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/242fdf8c4f57edcac0c0a42cc1f273a03af055cd/verilator/VLoopBackTest.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/242fdf8c4f57edcac0c0a42cc1f273a03af055cd/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/242fdf8c4f57edcac0c0a42cc1f273a03af055cd/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/242fdf8c4f57edcac0c0a42cc1f273a03af055cd/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/248cdf20534485f368def131a63b224c73964cf6/verilator/VLoopBackTest.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/248cdf20534485f368def131a63b224c73964cf6/verilator/VLoopBackTest.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/248cdf20534485f368def131a63b224c73964cf6/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/248cdf20534485f368def131a63b224c73964cf6/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/248cdf20534485f368def131a63b224c73964cf6/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/248e60b6508743d0db94b0181a9f70af1f3a8db0/verilator/VLoopBackTest.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/248e60b6508743d0db94b0181a9f70af1f3a8db0/verilator/VLoopBackTest.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/248e60b6508743d0db94b0181a9f70af1f3a8db0/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/248e60b6508743d0db94b0181a9f70af1f3a8db0/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/248e60b6508743d0db94b0181a9f70af1f3a8db0/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/24f42223fe87e38c1e1c1cfb30348221b0a8ff40/verilator/VLoopBackTest.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/24f42223fe87e38c1e1c1cfb30348221b0a8ff40/verilator/VLoopBackTest.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/24f42223fe87e38c1e1c1cfb30348221b0a8ff40/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/24f42223fe87e38c1e1c1cfb30348221b0a8ff40/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/24f42223fe87e38c1e1c1cfb30348221b0a8ff40/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/25dc6be843ccca5885efcf4bca20c0a0b584114e/verilator/VLoopBackTest.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/25dc6be843ccca5885efcf4bca20c0a0b584114e/verilator/VLoopBackTest.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/25dc6be843ccca5885efcf4bca20c0a0b584114e/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/25dc6be843ccca5885efcf4bca20c0a0b584114e/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/25dc6be843ccca5885efcf4bca20c0a0b584114e/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/rtl/SystolicFIR.v" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/rtl/SystolicFIR.v" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/test.vcd" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/test.vcd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR.d" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR.h" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR.mk" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR.mk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__ALL.a" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__ALL.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Slow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Slow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Slow.d" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Slow.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Slow.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Slow.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Syms.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Syms.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Syms.d" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Syms.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Syms.h" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Syms.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Syms.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Syms.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Trace.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Trace.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Trace.d" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Trace.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Trace.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Trace.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Trace__Slow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Trace__Slow.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Trace__Slow.d" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Trace__Slow.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Trace__Slow.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__Trace__Slow.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__spinalWrapper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__spinalWrapper.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__spinalWrapper.d" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__spinalWrapper.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__spinalWrapper.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__spinalWrapper.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__ver.d" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__ver.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__verFiles.dat" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR__verFiles.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR_classes.mk" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/VSystolicFIR_classes.mk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/verilated.d" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/verilated.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/verilated.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/verilated.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/verilated_vcd_c.d" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/verilated_vcd_c.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/verilated_vcd_c.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/verilated_vcd_c.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/verilator_1.so" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/verilator_1.so" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/wrapper_verilator/VerilatorNative.class" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilator/wrapper_verilator/VerilatorNative.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilatorScript.sh" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/SystolicFIR/verilatorScript.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Filters/FIR/SystolicFIR.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Filters/FIR/SystolicFIR.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/DDS/AxiLite4DDS.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/DDS/AxiLite4DDS.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/DDS/DDS.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/DDS/DDS.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp/job_1/SystolicFIR.v" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/job_1/SystolicFIR.v" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -272,13 +115,13 @@
       <recent name="magiRF.interfaces.frontend.AD9375" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SystolicFIRFilterBench">
-    <configuration name="AxiLite4DDSBench" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="magiRF.modules.Modem.DDS.AxiLite4DDSBench" />
+  <component name="RunManager" selected="Application.AxiLite4DDSBench">
+    <configuration name="ASKDemodulatorBench" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="magiRF.top.ASKDemodulator.ASKDemodulatorBench" />
       <module name="MAGI_PROJECT.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="magiRF.modules.Modem.DDS.*" />
+          <option name="PATTERN" value="magiRF.top.ASKDemodulator.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -286,12 +129,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AxiLite4DDSSimApp" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="magiRF.modules.Modem.AxiLite4DDSSimApp" />
-      <module name="MAGI_PROJECT.test" />
+    <configuration name="AxiLite4DDSBench" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="magiRF.modules.Modem.DDS.AxiLite4DDSBench" />
+      <module name="MAGI_PROJECT.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="magiRF.modules.Modem.*" />
+          <option name="PATTERN" value="magiRF.modules.Modem.DDS.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -340,19 +183,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.Unnamed" />
+      <item itemvalue="Application.AxiLite4DDSBench" />
+      <item itemvalue="Application.ASKDemodulatorBench" />
       <item itemvalue="Application.SystolicFIRFilterBench" />
       <item itemvalue="Application.SystolicFIRFilterSimApp" />
       <item itemvalue="Application.RFBenchIQBench" />
-      <item itemvalue="Application.AxiLite4DDSSimApp" />
-      <item itemvalue="Application.AxiLite4DDSBench" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.AxiLite4DDSBench" />
+        <item itemvalue="Application.ASKDemodulatorBench" />
         <item itemvalue="Application.SystolicFIRFilterBench" />
         <item itemvalue="Application.SystolicFIRFilterSimApp" />
         <item itemvalue="Application.RFBenchIQBench" />
-        <item itemvalue="Application.AxiLite4DDSSimApp" />
-        <item itemvalue="Application.AxiLite4DDSBench" />
       </list>
     </recent_temporary>
   </component>

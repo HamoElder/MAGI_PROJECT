@@ -1,5 +1,6 @@
 package magiRF.modules.Modem.DDS
 
+import Misc.regFileGen.{genRegFileByMarkdown, regInsert}
 import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
@@ -69,7 +70,8 @@ case class AxiLite4DDS(config : AxiLite4DDSConfig) extends Component{
 
     }
     axil4busCtrl.printDataModel()
-
+//    axil4busCtrl.addDataModel("AxiLite4DDS", 0x00)
+//    addPrePopTask(()=>genRegFileByMarkdown())
 }
 
 object AxiLite4DDSBench {

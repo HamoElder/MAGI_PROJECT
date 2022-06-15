@@ -52,7 +52,7 @@ case class DDS(config: DDS_Config) extends Component {
 
     val phase_cursor = Reg(config.phaseType) init(0)
     if(config.useSysRef){
-        when(io.sysref){
+        when(io.sysref.rise()){
             phase_cursor := 0
         }.elsewhen(module_en && io.data.fire){
             when(phase_cursor >= io.phase_limit){
