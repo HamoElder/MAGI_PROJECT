@@ -68,7 +68,8 @@ case class SystolicFIR(dataWidth: Int, filteredDataWidth: Int, H: List[Int], cha
 object SystolicFIRFilterBench{
     def main(args: Array[String]): Unit ={
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
-            targetDirectory = "rtl/SystolicFIR").generateSystemVerilog(new SystolicFIR(32, 48, List(0, 0, 0, 1, 1, 3, 5, 7, 10, 13, 16, 19, 21, 23, 23, 23, 21, 19, 16, 13, 10, 7, 5, 3, 1, 1, 0, 0, 0), chaNum = 4)).printUnused()
+            targetDirectory = "rtl/SystolicFIR").generateSystemVerilog(new SystolicFIR(16, 32,
+            List(0, 0, 0, 1, 1, 3, 5, 7, 10, 13, 16, 19, 21, 23, 23, 23, 21, 19, 16, 13, 10, 7, 5, 3, 1, 1, 0, 0, 0), chaNum = 8)).printUnused()
     }
 }
 

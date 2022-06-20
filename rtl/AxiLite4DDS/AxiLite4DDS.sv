@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.7.0    git head : eca519e78d4e6022e34911ec300a432ed9db8220
 // Component : AxiLite4DDS
-// Git hash  : 9fb11367d50fe6259b12eed46bdcbc0cd78ce9fb
+// Git hash  : 4300383b228876766a219b9dd2dc88cbba246199
 
 `timescale 1ns/1ps
 
@@ -102,21 +102,25 @@ module AxiLite4DDS (
   wire                writeOccur;
   wire                readOccur;
   reg                 global_en_driver;
+  reg                 sysref_regNext;
   reg                 _zz_readRsp_data;
   reg                 _zz_dataIn;
   reg        [7:0]    _zz_dataIn_1;
   reg        [31:0]   _zz_dataIn_2;
   reg        [7:0]    _zz_readRsp_data_1;
+  reg                 sysref_regNext_1;
   reg                 _zz_readRsp_data_2;
   reg                 _zz_dataIn_3;
   reg        [7:0]    _zz_dataIn_4;
   reg        [31:0]   _zz_dataIn_5;
   reg        [7:0]    _zz_readRsp_data_3;
+  reg                 sysref_regNext_2;
   reg                 _zz_readRsp_data_4;
   reg                 _zz_dataIn_6;
   reg        [7:0]    _zz_dataIn_7;
   reg        [31:0]   _zz_dataIn_8;
   reg        [7:0]    _zz_readRsp_data_5;
+  reg                 sysref_regNext_3;
   reg                 _zz_readRsp_data_6;
   reg                 _zz_dataIn_9;
   reg        [7:0]    _zz_dataIn_10;
@@ -141,7 +145,7 @@ module AxiLite4DDS (
     .w_addr       (clkCrossing_23_dataOut[7:0] ), //i
     .w_data       (clkCrossing_24_dataOut[31:0]), //i
     .phase_limit  (clkCrossing_26_dataOut[7:0] ), //i
-    .sysref       (sysref                      ), //i
+    .sysref       (sysref_regNext              ), //i
     .rf_clk       (rf_clk                      ), //i
     .rf_resetn    (rf_resetn                   )  //i
   );
@@ -195,7 +199,7 @@ module AxiLite4DDS (
     .w_addr       (clkCrossing_28_dataOut[7:0] ), //i
     .w_data       (clkCrossing_29_dataOut[31:0]), //i
     .phase_limit  (clkCrossing_31_dataOut[7:0] ), //i
-    .sysref       (sysref                      ), //i
+    .sysref       (sysref_regNext_1            ), //i
     .rf_clk       (rf_clk                      ), //i
     .rf_resetn    (rf_resetn                   )  //i
   );
@@ -249,7 +253,7 @@ module AxiLite4DDS (
     .w_addr       (clkCrossing_33_dataOut[7:0] ), //i
     .w_data       (clkCrossing_34_dataOut[31:0]), //i
     .phase_limit  (clkCrossing_36_dataOut[7:0] ), //i
-    .sysref       (sysref                      ), //i
+    .sysref       (sysref_regNext_2            ), //i
     .rf_clk       (rf_clk                      ), //i
     .rf_resetn    (rf_resetn                   )  //i
   );
@@ -303,7 +307,7 @@ module AxiLite4DDS (
     .w_addr       (clkCrossing_38_dataOut[7:0] ), //i
     .w_data       (clkCrossing_39_dataOut[31:0]), //i
     .phase_limit  (clkCrossing_41_dataOut[7:0] ), //i
-    .sysref       (sysref                      ), //i
+    .sysref       (sysref_regNext_3            ), //i
     .rf_clk       (rf_clk                      ), //i
     .rf_resetn    (rf_resetn                   )  //i
   );
@@ -562,6 +566,20 @@ module AxiLite4DDS (
     if(axil4Ctrl_arready) begin
       axil4Ctrl_ar_rData_addr <= axil4Ctrl_araddr;
       axil4Ctrl_ar_rData_prot <= axil4Ctrl_arprot;
+    end
+  end
+
+  always @(posedge rf_clk) begin
+    if(!rf_resetn) begin
+      sysref_regNext <= 1'b0;
+      sysref_regNext_1 <= 1'b0;
+      sysref_regNext_2 <= 1'b0;
+      sysref_regNext_3 <= 1'b0;
+    end else begin
+      sysref_regNext <= sysref;
+      sysref_regNext_1 <= sysref;
+      sysref_regNext_2 <= sysref;
+      sysref_regNext_3 <= sysref;
     end
   end
 

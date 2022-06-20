@@ -1,17 +1,8 @@
-// Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
+// Generator : SpinalHDL v1.7.0    git head : eca519e78d4e6022e34911ec300a432ed9db8220
 // Component : AxiLite4MacEth
-// Git hash  : b90f7fc9b0893d6f01a499c7804b365a21d113e6
+// Git hash  : 4300383b228876766a219b9dd2dc88cbba246199
 
-
-`define push_State_binary_sequential_type [0:0]
-`define push_State_binary_sequential_LENGTH 1'b0
-`define push_State_binary_sequential_DATA 1'b1
-
-`define pop_State_binary_sequential_type [1:0]
-`define pop_State_binary_sequential_LENGTH 2'b00
-`define pop_State_binary_sequential_DATA 2'b01
-`define pop_State_binary_sequential_WAIT_1 2'b10
-
+`timescale 1ns/1ps
 
 module AxiLite4MacEth (
   input               axil4Ctrl_awvalid,
@@ -45,6 +36,7 @@ module AxiLite4MacEth (
   input               resetn,
   input               clk
 );
+
   wire                mac_io_phy_rx_payload_last;
   wire                mac_io_phy_colision;
   wire                mac_io_phy_busy;
@@ -92,15 +84,15 @@ module AxiLite4MacEth (
   wire                _zz_axil4Ctrl_bvalid_1;
   reg                 _zz_axil4Ctrl_bvalid_2;
   reg        [1:0]    _zz_axil4Ctrl_bresp;
-  wire                when_Stream_l342;
-  wire                axil4Ctrl_ar_readDataStage_valid;
-  wire                axil4Ctrl_ar_readDataStage_ready;
-  wire       [7:0]    axil4Ctrl_ar_readDataStage_payload_addr;
-  wire       [2:0]    axil4Ctrl_ar_readDataStage_payload_prot;
+  wire                when_Stream_l368;
+  wire                busCtrl_readDataStage_valid;
+  wire                busCtrl_readDataStage_ready;
+  wire       [7:0]    busCtrl_readDataStage_payload_addr;
+  wire       [2:0]    busCtrl_readDataStage_payload_prot;
   reg                 axil4Ctrl_ar_rValid;
   reg        [7:0]    axil4Ctrl_ar_rData_addr;
   reg        [2:0]    axil4Ctrl_ar_rData_prot;
-  wire                when_Stream_l342_1;
+  wire                when_Stream_l368_1;
   reg        [31:0]   busCtrl_readRsp_data;
   wire       [1:0]    busCtrl_readRsp_resp;
   wire                _zz_axil4Ctrl_rvalid;
@@ -113,49 +105,49 @@ module AxiLite4MacEth (
   reg                 _zz_io_ctrl_tx_stream_valid;
 
   MacEth mac (
-    .io_phy_rx_valid                     (_zz_io_phy_rx_valid_1                 ), //i
-    .io_phy_rx_ready                     (mac_io_phy_rx_ready                   ), //o
-    .io_phy_rx_payload_last              (mac_io_phy_rx_payload_last            ), //i
-    .io_phy_rx_payload_fragment_error    (_zz_io_phy_rx_payload_fragment_error  ), //i
-    .io_phy_rx_payload_fragment_data     (_zz_io_phy_rx_payload_fragment_data   ), //i
-    .io_phy_tx_valid                     (mac_io_phy_tx_valid                   ), //o
-    .io_phy_tx_ready                     (macTxInterFrame_1_io_input_ready      ), //i
-    .io_phy_tx_payload_last              (mac_io_phy_tx_payload_last            ), //o
-    .io_phy_tx_payload_fragment_data     (mac_io_phy_tx_payload_fragment_data   ), //o
-    .io_phy_colision                     (mac_io_phy_colision                   ), //i
-    .io_phy_busy                         (mac_io_phy_busy                       ), //i
-    .io_ctrl_rx_stream_valid             (mac_io_ctrl_rx_stream_valid           ), //o
-    .io_ctrl_rx_stream_ready             (mac_io_ctrl_rx_stream_ready           ), //i
-    .io_ctrl_rx_stream_payload           (mac_io_ctrl_rx_stream_payload         ), //o
-    .io_ctrl_rx_flush                    (mac_io_ctrl_rx_flush_driver           ), //i
-    .io_ctrl_rx_alignerEnable            (mac_io_ctrl_rx_alignerEnable_driver   ), //i
-    .io_ctrl_rx_stats_clear              (mac_io_ctrl_rx_stats_clear            ), //i
-    .io_ctrl_rx_stats_drops              (mac_io_ctrl_rx_stats_drops            ), //o
-    .io_ctrl_rx_stats_errors             (mac_io_ctrl_rx_stats_errors           ), //o
-    .io_ctrl_tx_stream_valid             (_zz_io_ctrl_tx_stream_valid           ), //i
-    .io_ctrl_tx_stream_ready             (mac_io_ctrl_tx_stream_ready           ), //o
-    .io_ctrl_tx_stream_payload           (mac_io_ctrl_tx_stream_payload         ), //i
-    .io_ctrl_tx_availability             (mac_io_ctrl_tx_availability           ), //o
-    .io_ctrl_tx_flush                    (mac_io_ctrl_tx_flush_driver           ), //i
-    .io_ctrl_tx_alignerEnable            (mac_io_ctrl_tx_alignerEnable_driver   ), //i
-    .io_ctrl_pending                     (mac_io_ctrl_pending                   ), //o
-    .io_sim_drop                         (mac_io_sim_drop                       ), //o
-    .io_sim_error                        (mac_io_sim_error                      ), //o
-    .io_sim_commit                       (mac_io_sim_commit                     ), //o
-    .resetn                              (resetn                                ), //i
-    .clk                                 (clk                                   ), //i
-    .phy_clk                             (phy_clk                               )  //i
+    .io_phy_rx_valid                  (_zz_io_phy_rx_valid_1                   ), //i
+    .io_phy_rx_ready                  (mac_io_phy_rx_ready                     ), //o
+    .io_phy_rx_payload_last           (mac_io_phy_rx_payload_last              ), //i
+    .io_phy_rx_payload_fragment_error (_zz_io_phy_rx_payload_fragment_error    ), //i
+    .io_phy_rx_payload_fragment_data  (_zz_io_phy_rx_payload_fragment_data[7:0]), //i
+    .io_phy_tx_valid                  (mac_io_phy_tx_valid                     ), //o
+    .io_phy_tx_ready                  (macTxInterFrame_1_io_input_ready        ), //i
+    .io_phy_tx_payload_last           (mac_io_phy_tx_payload_last              ), //o
+    .io_phy_tx_payload_fragment_data  (mac_io_phy_tx_payload_fragment_data[7:0]), //o
+    .io_phy_colision                  (mac_io_phy_colision                     ), //i
+    .io_phy_busy                      (mac_io_phy_busy                         ), //i
+    .io_ctrl_rx_stream_valid          (mac_io_ctrl_rx_stream_valid             ), //o
+    .io_ctrl_rx_stream_ready          (mac_io_ctrl_rx_stream_ready             ), //i
+    .io_ctrl_rx_stream_payload        (mac_io_ctrl_rx_stream_payload[31:0]     ), //o
+    .io_ctrl_rx_flush                 (mac_io_ctrl_rx_flush_driver             ), //i
+    .io_ctrl_rx_alignerEnable         (mac_io_ctrl_rx_alignerEnable_driver     ), //i
+    .io_ctrl_rx_stats_clear           (mac_io_ctrl_rx_stats_clear              ), //i
+    .io_ctrl_rx_stats_drops           (mac_io_ctrl_rx_stats_drops[7:0]         ), //o
+    .io_ctrl_rx_stats_errors          (mac_io_ctrl_rx_stats_errors[7:0]        ), //o
+    .io_ctrl_tx_stream_valid          (_zz_io_ctrl_tx_stream_valid             ), //i
+    .io_ctrl_tx_stream_ready          (mac_io_ctrl_tx_stream_ready             ), //o
+    .io_ctrl_tx_stream_payload        (mac_io_ctrl_tx_stream_payload[31:0]     ), //i
+    .io_ctrl_tx_availability          (mac_io_ctrl_tx_availability[10:0]       ), //o
+    .io_ctrl_tx_flush                 (mac_io_ctrl_tx_flush_driver             ), //i
+    .io_ctrl_tx_alignerEnable         (mac_io_ctrl_tx_alignerEnable_driver     ), //i
+    .io_ctrl_pending                  (mac_io_ctrl_pending                     ), //o
+    .io_sim_drop                      (mac_io_sim_drop                         ), //o
+    .io_sim_error                     (mac_io_sim_error                        ), //o
+    .io_sim_commit                    (mac_io_sim_commit                       ), //o
+    .resetn                           (resetn                                  ), //i
+    .clk                              (clk                                     ), //i
+    .phy_clk                          (phy_clk                                 )  //i
   );
   MacTxInterFrame macTxInterFrame_1 (
-    .io_input_valid                     (mac_io_phy_tx_valid                                ), //i
-    .io_input_ready                     (macTxInterFrame_1_io_input_ready                   ), //o
-    .io_input_payload_last              (mac_io_phy_tx_payload_last                         ), //i
-    .io_input_payload_fragment_data     (mac_io_phy_tx_payload_fragment_data                ), //i
-    .io_output_valid                    (macTxInterFrame_1_io_output_valid                  ), //o
-    .io_output_payload_last             (macTxInterFrame_1_io_output_payload_last           ), //o
-    .io_output_payload_fragment_data    (macTxInterFrame_1_io_output_payload_fragment_data  ), //o
-    .phy_clk                            (phy_clk                                            ), //i
-    .phy_resetn                         (phy_resetn                                         )  //i
+    .io_input_valid                  (mac_io_phy_tx_valid                                   ), //i
+    .io_input_ready                  (macTxInterFrame_1_io_input_ready                      ), //o
+    .io_input_payload_last           (mac_io_phy_tx_payload_last                            ), //i
+    .io_input_payload_fragment_data  (mac_io_phy_tx_payload_fragment_data[7:0]              ), //i
+    .io_output_valid                 (macTxInterFrame_1_io_output_valid                     ), //o
+    .io_output_payload_last          (macTxInterFrame_1_io_output_payload_last              ), //o
+    .io_output_payload_fragment_data (macTxInterFrame_1_io_output_payload_fragment_data[7:0]), //o
+    .phy_clk                         (phy_clk                                               ), //i
+    .phy_resetn                      (phy_resetn                                            )  //i
   );
   assign gmii_TX_ER = 1'b0;
   assign gmii_TX_TXD = macTxInterFrame_1_io_output_payload_fragment_data_regNext;
@@ -175,36 +167,36 @@ module AxiLite4MacEth (
   assign busCtrl_writeJoinEvent_translated_ready = (_zz_busCtrl_writeJoinEvent_translated_ready && _zz_axil4Ctrl_bvalid);
   always @(*) begin
     _zz_busCtrl_writeJoinEvent_translated_ready = axil4Ctrl_bready;
-    if(when_Stream_l342) begin
+    if(when_Stream_l368) begin
       _zz_busCtrl_writeJoinEvent_translated_ready = 1'b1;
     end
   end
 
-  assign when_Stream_l342 = (! _zz_axil4Ctrl_bvalid_1);
+  assign when_Stream_l368 = (! _zz_axil4Ctrl_bvalid_1);
   assign _zz_axil4Ctrl_bvalid_1 = _zz_axil4Ctrl_bvalid_2;
   assign axil4Ctrl_bvalid = _zz_axil4Ctrl_bvalid_1;
   assign axil4Ctrl_bresp = _zz_axil4Ctrl_bresp;
   always @(*) begin
-    axil4Ctrl_arready = axil4Ctrl_ar_readDataStage_ready;
-    if(when_Stream_l342_1) begin
+    axil4Ctrl_arready = busCtrl_readDataStage_ready;
+    if(when_Stream_l368_1) begin
       axil4Ctrl_arready = 1'b1;
     end
   end
 
-  assign when_Stream_l342_1 = (! axil4Ctrl_ar_readDataStage_valid);
-  assign axil4Ctrl_ar_readDataStage_valid = axil4Ctrl_ar_rValid;
-  assign axil4Ctrl_ar_readDataStage_payload_addr = axil4Ctrl_ar_rData_addr;
-  assign axil4Ctrl_ar_readDataStage_payload_prot = axil4Ctrl_ar_rData_prot;
+  assign when_Stream_l368_1 = (! busCtrl_readDataStage_valid);
+  assign busCtrl_readDataStage_valid = axil4Ctrl_ar_rValid;
+  assign busCtrl_readDataStage_payload_addr = axil4Ctrl_ar_rData_addr;
+  assign busCtrl_readDataStage_payload_prot = axil4Ctrl_ar_rData_prot;
   assign _zz_axil4Ctrl_rvalid = (! busCtrl_readHaltRequest);
-  assign axil4Ctrl_ar_readDataStage_ready = (axil4Ctrl_rready && _zz_axil4Ctrl_rvalid);
-  assign axil4Ctrl_rvalid = (axil4Ctrl_ar_readDataStage_valid && _zz_axil4Ctrl_rvalid);
+  assign busCtrl_readDataStage_ready = (axil4Ctrl_rready && _zz_axil4Ctrl_rvalid);
+  assign axil4Ctrl_rvalid = (busCtrl_readDataStage_valid && _zz_axil4Ctrl_rvalid);
   assign axil4Ctrl_rdata = busCtrl_readRsp_data;
   assign axil4Ctrl_rresp = busCtrl_readRsp_resp;
   assign busCtrl_writeRsp_resp = 2'b00;
   assign busCtrl_readRsp_resp = 2'b00;
   always @(*) begin
     busCtrl_readRsp_data = 32'h0;
-    case(axil4Ctrl_ar_readDataStage_payload_addr)
+    case(busCtrl_readDataStage_payload_addr)
       8'h0 : begin
         busCtrl_readRsp_data[0 : 0] = mac_io_ctrl_tx_flush_driver;
         busCtrl_readRsp_data[1 : 1] = mac_io_ctrl_tx_stream_ready;
@@ -246,7 +238,7 @@ module AxiLite4MacEth (
   assign mac_io_ctrl_tx_stream_payload = axil4Ctrl_wdata[31 : 0];
   always @(*) begin
     mac_io_ctrl_rx_stream_ready = 1'b0;
-    case(axil4Ctrl_ar_readDataStage_payload_addr)
+    case(busCtrl_readDataStage_payload_addr)
       8'h20 : begin
         if(busCtrl_readOccur) begin
           mac_io_ctrl_rx_stream_ready = 1'b1;
@@ -259,7 +251,7 @@ module AxiLite4MacEth (
 
   always @(*) begin
     mac_io_ctrl_rx_stats_clear = 1'b0;
-    case(axil4Ctrl_ar_readDataStage_payload_addr)
+    case(busCtrl_readDataStage_payload_addr)
       8'h2c : begin
         if(busCtrl_readOccur) begin
           mac_io_ctrl_rx_stats_clear = 1'b1;
@@ -336,6 +328,7 @@ module MacTxInterFrame (
   input               phy_clk,
   input               phy_resetn
 );
+
   wire       [3:0]    _zz_counter_valueNext;
   wire       [0:0]    _zz_counter_valueNext_1;
   reg                 counter_willIncrement;
@@ -345,14 +338,14 @@ module MacTxInterFrame (
   wire                counter_willOverflowIfInc;
   wire                counter_willOverflow;
   wire                io_input_fire;
-  wire                when_MacTx_l350;
+  wire                when_MacTx_l348;
   wire                _zz_io_input_ready;
 
   assign _zz_counter_valueNext_1 = counter_willIncrement;
   assign _zz_counter_valueNext = {3'd0, _zz_counter_valueNext_1};
   always @(*) begin
     counter_willIncrement = 1'b0;
-    if(when_MacTx_l350) begin
+    if(when_MacTx_l348) begin
       counter_willIncrement = 1'b1;
     end
   end
@@ -372,7 +365,7 @@ module MacTxInterFrame (
   end
 
   assign io_input_fire = (io_input_valid && io_input_ready);
-  assign when_MacTx_l350 = ((counter_value != 4'b0000) || (io_input_fire && io_input_payload_last));
+  assign when_MacTx_l348 = ((counter_value != 4'b0000) || (io_input_fire && io_input_payload_last));
   assign _zz_io_input_ready = (! (counter_value != 4'b0000));
   assign io_input_ready = (1'b1 && _zz_io_input_ready);
   assign io_output_valid = (io_input_valid && _zz_io_input_ready);
@@ -423,13 +416,14 @@ module MacEth (
   input               clk,
   input               phy_clk
 );
-  wire                bufferCC_14_io_dataOut;
-  wire                bufferCC_15_io_dataOut;
-  wire                rxFrontend_preamble_io_input_ready;
-  wire                rxFrontend_preamble_io_output_valid;
-  wire                rxFrontend_preamble_io_output_payload_last;
-  wire                rxFrontend_preamble_io_output_payload_fragment_error;
-  wire       [7:0]    rxFrontend_preamble_io_output_payload_fragment_data;
+
+  wire                bufferCC_18_io_dataOut;
+  wire                bufferCC_19_io_dataOut;
+  wire                rxFrontend_preamble_input_ready;
+  wire                rxFrontend_preamble_output_valid;
+  wire                rxFrontend_preamble_output_payload_last;
+  wire                rxFrontend_preamble_output_payload_fragment_error;
+  wire       [7:0]    rxFrontend_preamble_output_payload_fragment_data;
   wire                rxFrontend_checker_io_input_ready;
   wire                rxFrontend_checker_io_output_valid;
   wire                rxFrontend_checker_io_output_payload_last;
@@ -479,166 +473,166 @@ module MacEth (
   wire                txBackend_header_io_output_fire;
   reg                 _zz_io_pop_commit;
 
-  BufferCC_10 bufferCC_14 (
-    .io_dataIn     (1'b1                    ), //i
-    .io_dataOut    (bufferCC_14_io_dataOut  ), //o
-    .phy_clk       (phy_clk                 ), //i
-    ._zz_1         (_zz_1                   )  //i
+  BufferCC_14 bufferCC_18 (
+    .io_dataIn  (1'b1                  ), //i
+    .io_dataOut (bufferCC_18_io_dataOut), //o
+    .phy_clk    (phy_clk               ), //i
+    ._zz_1      (_zz_1                 )  //i
   );
-  BufferCC_10 bufferCC_15 (
-    .io_dataIn     (1'b1                    ), //i
-    .io_dataOut    (bufferCC_15_io_dataOut  ), //o
-    .phy_clk       (phy_clk                 ), //i
-    ._zz_1         (_zz_2                   )  //i
+  BufferCC_14 bufferCC_19 (
+    .io_dataIn  (1'b1                  ), //i
+    .io_dataOut (bufferCC_19_io_dataOut), //o
+    .phy_clk    (phy_clk               ), //i
+    ._zz_1      (_zz_2                 )  //i
   );
   MacRxPreamble rxFrontend_preamble (
-    .io_input_valid                      (io_phy_rx_valid                                       ), //i
-    .io_input_ready                      (rxFrontend_preamble_io_input_ready                    ), //o
-    .io_input_payload_last               (io_phy_rx_payload_last                                ), //i
-    .io_input_payload_fragment_error     (io_phy_rx_payload_fragment_error                      ), //i
-    .io_input_payload_fragment_data      (io_phy_rx_payload_fragment_data                       ), //i
-    .io_output_valid                     (rxFrontend_preamble_io_output_valid                   ), //o
-    .io_output_ready                     (rxFrontend_checker_io_input_ready                     ), //i
-    .io_output_payload_last              (rxFrontend_preamble_io_output_payload_last            ), //o
-    .io_output_payload_fragment_error    (rxFrontend_preamble_io_output_payload_fragment_error  ), //o
-    .io_output_payload_fragment_data     (rxFrontend_preamble_io_output_payload_fragment_data   ), //o
-    .phy_clk                             (phy_clk                                               ), //i
-    .rxReset                             (rxReset                                               )  //i
+    .input_valid                   (io_phy_rx_valid                                      ), //i
+    .input_ready                   (rxFrontend_preamble_input_ready                      ), //o
+    .input_payload_last            (io_phy_rx_payload_last                               ), //i
+    .input_payload_fragment_error  (io_phy_rx_payload_fragment_error                     ), //i
+    .input_payload_fragment_data   (io_phy_rx_payload_fragment_data[7:0]                 ), //i
+    .output_valid                  (rxFrontend_preamble_output_valid                     ), //o
+    .output_ready                  (rxFrontend_checker_io_input_ready                    ), //i
+    .output_payload_last           (rxFrontend_preamble_output_payload_last              ), //o
+    .output_payload_fragment_error (rxFrontend_preamble_output_payload_fragment_error    ), //o
+    .output_payload_fragment_data  (rxFrontend_preamble_output_payload_fragment_data[7:0]), //o
+    .phy_clk                       (phy_clk                                              ), //i
+    .rxReset                       (rxReset                                              )  //i
   );
   MacRxChecker rxFrontend_checker (
-    .io_input_valid                      (rxFrontend_preamble_io_output_valid                   ), //i
-    .io_input_ready                      (rxFrontend_checker_io_input_ready                     ), //o
-    .io_input_payload_last               (rxFrontend_preamble_io_output_payload_last            ), //i
-    .io_input_payload_fragment_error     (rxFrontend_preamble_io_output_payload_fragment_error  ), //i
-    .io_input_payload_fragment_data      (rxFrontend_preamble_io_output_payload_fragment_data   ), //i
-    .io_output_valid                     (rxFrontend_checker_io_output_valid                    ), //o
-    .io_output_ready                     (rxFrontend_aligner_io_input_ready                     ), //i
-    .io_output_payload_last              (rxFrontend_checker_io_output_payload_last             ), //o
-    .io_output_payload_fragment_error    (rxFrontend_checker_io_output_payload_fragment_error   ), //o
-    .io_output_payload_fragment_data     (rxFrontend_checker_io_output_payload_fragment_data    ), //o
-    .phy_clk                             (phy_clk                                               ), //i
-    .rxReset                             (rxReset                                               )  //i
+    .io_input_valid                   (rxFrontend_preamble_output_valid                       ), //i
+    .io_input_ready                   (rxFrontend_checker_io_input_ready                      ), //o
+    .io_input_payload_last            (rxFrontend_preamble_output_payload_last                ), //i
+    .io_input_payload_fragment_error  (rxFrontend_preamble_output_payload_fragment_error      ), //i
+    .io_input_payload_fragment_data   (rxFrontend_preamble_output_payload_fragment_data[7:0]  ), //i
+    .io_output_valid                  (rxFrontend_checker_io_output_valid                     ), //o
+    .io_output_ready                  (rxFrontend_aligner_io_input_ready                      ), //i
+    .io_output_payload_last           (rxFrontend_checker_io_output_payload_last              ), //o
+    .io_output_payload_fragment_error (rxFrontend_checker_io_output_payload_fragment_error    ), //o
+    .io_output_payload_fragment_data  (rxFrontend_checker_io_output_payload_fragment_data[7:0]), //o
+    .phy_clk                          (phy_clk                                                ), //i
+    .rxReset                          (rxReset                                                )  //i
   );
   MacRxAligner rxFrontend_aligner (
-    .io_enable                           (io_ctrl_rx_alignerEnable_buffercc_io_dataOut         ), //i
-    .io_input_valid                      (rxFrontend_checker_io_output_valid                   ), //i
-    .io_input_ready                      (rxFrontend_aligner_io_input_ready                    ), //o
-    .io_input_payload_last               (rxFrontend_checker_io_output_payload_last            ), //i
-    .io_input_payload_fragment_error     (rxFrontend_checker_io_output_payload_fragment_error  ), //i
-    .io_input_payload_fragment_data      (rxFrontend_checker_io_output_payload_fragment_data   ), //i
-    .io_output_valid                     (rxFrontend_aligner_io_output_valid                   ), //o
-    .io_output_ready                     (rxFrontend_buffer_io_push_stream_ready               ), //i
-    .io_output_payload_last              (rxFrontend_aligner_io_output_payload_last            ), //o
-    .io_output_payload_fragment_error    (rxFrontend_aligner_io_output_payload_fragment_error  ), //o
-    .io_output_payload_fragment_data     (rxFrontend_aligner_io_output_payload_fragment_data   ), //o
-    .phy_clk                             (phy_clk                                              ), //i
-    .rxReset                             (rxReset                                              )  //i
+    .io_enable                        (io_ctrl_rx_alignerEnable_buffercc_io_dataOut           ), //i
+    .io_input_valid                   (rxFrontend_checker_io_output_valid                     ), //i
+    .io_input_ready                   (rxFrontend_aligner_io_input_ready                      ), //o
+    .io_input_payload_last            (rxFrontend_checker_io_output_payload_last              ), //i
+    .io_input_payload_fragment_error  (rxFrontend_checker_io_output_payload_fragment_error    ), //i
+    .io_input_payload_fragment_data   (rxFrontend_checker_io_output_payload_fragment_data[7:0]), //i
+    .io_output_valid                  (rxFrontend_aligner_io_output_valid                     ), //o
+    .io_output_ready                  (rxFrontend_buffer_io_push_stream_ready                 ), //i
+    .io_output_payload_last           (rxFrontend_aligner_io_output_payload_last              ), //o
+    .io_output_payload_fragment_error (rxFrontend_aligner_io_output_payload_fragment_error    ), //o
+    .io_output_payload_fragment_data  (rxFrontend_aligner_io_output_payload_fragment_data[7:0]), //o
+    .phy_clk                          (phy_clk                                                ), //i
+    .rxReset                          (rxReset                                                )  //i
   );
-  BufferCC_12 io_ctrl_rx_alignerEnable_buffercc (
-    .io_dataIn     (io_ctrl_rx_alignerEnable                      ), //i
-    .io_dataOut    (io_ctrl_rx_alignerEnable_buffercc_io_dataOut  ), //o
-    .phy_clk       (phy_clk                                       ), //i
-    .rxReset       (rxReset                                       )  //i
+  BufferCC_16 io_ctrl_rx_alignerEnable_buffercc (
+    .io_dataIn  (io_ctrl_rx_alignerEnable                    ), //i
+    .io_dataOut (io_ctrl_rx_alignerEnable_buffercc_io_dataOut), //o
+    .phy_clk    (phy_clk                                     ), //i
+    .rxReset    (rxReset                                     )  //i
   );
   MacRxBuffer rxFrontend_buffer (
-    .io_push_stream_valid                     (rxFrontend_aligner_io_output_valid                   ), //i
-    .io_push_stream_ready                     (rxFrontend_buffer_io_push_stream_ready               ), //o
-    .io_push_stream_payload_last              (rxFrontend_aligner_io_output_payload_last            ), //i
-    .io_push_stream_payload_fragment_error    (rxFrontend_aligner_io_output_payload_fragment_error  ), //i
-    .io_push_stream_payload_fragment_data     (rxFrontend_aligner_io_output_payload_fragment_data   ), //i
-    .io_push_drop                             (rxFrontend_buffer_io_push_drop                       ), //o
-    .io_push_commit                           (rxFrontend_buffer_io_push_commit                     ), //o
-    .io_push_error                            (rxFrontend_buffer_io_push_error                      ), //o
-    .io_pop_stream_valid                      (rxFrontend_buffer_io_pop_stream_valid                ), //o
-    .io_pop_stream_ready                      (io_ctrl_rx_stream_ready                              ), //i
-    .io_pop_stream_payload                    (rxFrontend_buffer_io_pop_stream_payload              ), //o
-    .io_pop_stats_clear                       (io_ctrl_rx_stats_clear                               ), //i
-    .io_pop_stats_drops                       (rxFrontend_buffer_io_pop_stats_drops                 ), //o
-    .io_pop_stats_errors                      (rxFrontend_buffer_io_pop_stats_errors                ), //o
-    .phy_clk                                  (phy_clk                                              ), //i
-    .rxReset                                  (rxReset                                              ), //i
-    .clk                                      (clk                                                  ), //i
-    .resetn                                   (resetn                                               ), //i
-    .io_ctrl_rx_flush                         (io_ctrl_rx_flush                                     )  //i
+    .io_push_stream_valid                  (rxFrontend_aligner_io_output_valid                     ), //i
+    .io_push_stream_ready                  (rxFrontend_buffer_io_push_stream_ready                 ), //o
+    .io_push_stream_payload_last           (rxFrontend_aligner_io_output_payload_last              ), //i
+    .io_push_stream_payload_fragment_error (rxFrontend_aligner_io_output_payload_fragment_error    ), //i
+    .io_push_stream_payload_fragment_data  (rxFrontend_aligner_io_output_payload_fragment_data[7:0]), //i
+    .io_push_drop                          (rxFrontend_buffer_io_push_drop                         ), //o
+    .io_push_commit                        (rxFrontend_buffer_io_push_commit                       ), //o
+    .io_push_error                         (rxFrontend_buffer_io_push_error                        ), //o
+    .io_pop_stream_valid                   (rxFrontend_buffer_io_pop_stream_valid                  ), //o
+    .io_pop_stream_ready                   (io_ctrl_rx_stream_ready                                ), //i
+    .io_pop_stream_payload                 (rxFrontend_buffer_io_pop_stream_payload[31:0]          ), //o
+    .io_pop_stats_clear                    (io_ctrl_rx_stats_clear                                 ), //i
+    .io_pop_stats_drops                    (rxFrontend_buffer_io_pop_stats_drops[7:0]              ), //o
+    .io_pop_stats_errors                   (rxFrontend_buffer_io_pop_stats_errors[7:0]             ), //o
+    .phy_clk                               (phy_clk                                                ), //i
+    .rxReset                               (rxReset                                                ), //i
+    .clk                                   (clk                                                    ), //i
+    .resetn                                (resetn                                                 ), //i
+    .io_ctrl_rx_flush                      (io_ctrl_rx_flush                                       )  //i
   );
   MacTxBuffer txFrontend_buffer (
-    .io_push_stream_valid                   (io_ctrl_tx_stream_valid                                ), //i
-    .io_push_stream_ready                   (txFrontend_buffer_io_push_stream_ready                 ), //o
-    .io_push_stream_payload                 (io_ctrl_tx_stream_payload                              ), //i
-    .io_push_availability                   (txFrontend_buffer_io_push_availability                 ), //o
-    .io_pop_stream_valid                    (txFrontend_buffer_io_pop_stream_valid                  ), //o
-    .io_pop_stream_ready                    (txBackend_aligner_io_input_ready                       ), //i
-    .io_pop_stream_payload_last             (txFrontend_buffer_io_pop_stream_payload_last           ), //o
-    .io_pop_stream_payload_fragment_data    (txFrontend_buffer_io_pop_stream_payload_fragment_data  ), //o
-    .io_pop_redo                            (1'b0                                                   ), //i
-    .io_pop_commit                          (_zz_io_pop_commit                                      ), //i
-    .clk                                    (clk                                                    ), //i
-    .resetn                                 (resetn                                                 ), //i
-    .io_ctrl_tx_flush                       (io_ctrl_tx_flush                                       ), //i
-    .phy_clk                                (phy_clk                                                ), //i
-    .txReset                                (txReset                                                )  //i
+    .io_push_stream_valid                (io_ctrl_tx_stream_valid                                   ), //i
+    .io_push_stream_ready                (txFrontend_buffer_io_push_stream_ready                    ), //o
+    .io_push_stream_payload              (io_ctrl_tx_stream_payload[31:0]                           ), //i
+    .io_push_availability                (txFrontend_buffer_io_push_availability[10:0]              ), //o
+    .io_pop_stream_valid                 (txFrontend_buffer_io_pop_stream_valid                     ), //o
+    .io_pop_stream_ready                 (txBackend_aligner_io_input_ready                          ), //i
+    .io_pop_stream_payload_last          (txFrontend_buffer_io_pop_stream_payload_last              ), //o
+    .io_pop_stream_payload_fragment_data (txFrontend_buffer_io_pop_stream_payload_fragment_data[7:0]), //o
+    .io_pop_redo                         (1'b0                                                      ), //i
+    .io_pop_commit                       (_zz_io_pop_commit                                         ), //i
+    .clk                                 (clk                                                       ), //i
+    .resetn                              (resetn                                                    ), //i
+    .io_ctrl_tx_flush                    (io_ctrl_tx_flush                                          ), //i
+    .phy_clk                             (phy_clk                                                   ), //i
+    .txReset                             (txReset                                                   )  //i
   );
   MacTxAligner txBackend_aligner (
-    .io_enable                          (io_ctrl_tx_alignerEnable_buffercc_io_dataOut           ), //i
-    .io_input_valid                     (txFrontend_buffer_io_pop_stream_valid                  ), //i
-    .io_input_ready                     (txBackend_aligner_io_input_ready                       ), //o
-    .io_input_payload_last              (txFrontend_buffer_io_pop_stream_payload_last           ), //i
-    .io_input_payload_fragment_data     (txFrontend_buffer_io_pop_stream_payload_fragment_data  ), //i
-    .io_output_valid                    (txBackend_aligner_io_output_valid                      ), //o
-    .io_output_ready                    (txBackend_padder_io_input_ready                        ), //i
-    .io_output_payload_last             (txBackend_aligner_io_output_payload_last               ), //o
-    .io_output_payload_fragment_data    (txBackend_aligner_io_output_payload_fragment_data      ), //o
-    .phy_clk                            (phy_clk                                                ), //i
-    .txReset                            (txReset                                                )  //i
+    .io_enable                       (io_ctrl_tx_alignerEnable_buffercc_io_dataOut              ), //i
+    .io_input_valid                  (txFrontend_buffer_io_pop_stream_valid                     ), //i
+    .io_input_ready                  (txBackend_aligner_io_input_ready                          ), //o
+    .io_input_payload_last           (txFrontend_buffer_io_pop_stream_payload_last              ), //i
+    .io_input_payload_fragment_data  (txFrontend_buffer_io_pop_stream_payload_fragment_data[7:0]), //i
+    .io_output_valid                 (txBackend_aligner_io_output_valid                         ), //o
+    .io_output_ready                 (txBackend_padder_io_input_ready                           ), //i
+    .io_output_payload_last          (txBackend_aligner_io_output_payload_last                  ), //o
+    .io_output_payload_fragment_data (txBackend_aligner_io_output_payload_fragment_data[7:0]    ), //o
+    .phy_clk                         (phy_clk                                                   ), //i
+    .txReset                         (txReset                                                   )  //i
   );
-  BufferCC_13 io_ctrl_tx_alignerEnable_buffercc (
-    .io_dataIn     (io_ctrl_tx_alignerEnable                      ), //i
-    .io_dataOut    (io_ctrl_tx_alignerEnable_buffercc_io_dataOut  ), //o
-    .phy_clk       (phy_clk                                       ), //i
-    .txReset       (txReset                                       )  //i
+  BufferCC_17 io_ctrl_tx_alignerEnable_buffercc (
+    .io_dataIn  (io_ctrl_tx_alignerEnable                    ), //i
+    .io_dataOut (io_ctrl_tx_alignerEnable_buffercc_io_dataOut), //o
+    .phy_clk    (phy_clk                                     ), //i
+    .txReset    (txReset                                     )  //i
   );
   MacTxPadder txBackend_padder (
-    .io_input_valid                     (txBackend_aligner_io_output_valid                  ), //i
-    .io_input_ready                     (txBackend_padder_io_input_ready                    ), //o
-    .io_input_payload_last              (txBackend_aligner_io_output_payload_last           ), //i
-    .io_input_payload_fragment_data     (txBackend_aligner_io_output_payload_fragment_data  ), //i
-    .io_output_valid                    (txBackend_padder_io_output_valid                   ), //o
-    .io_output_ready                    (txBackend_crc_io_input_ready                       ), //i
-    .io_output_payload_last             (txBackend_padder_io_output_payload_last            ), //o
-    .io_output_payload_fragment_data    (txBackend_padder_io_output_payload_fragment_data   ), //o
-    .phy_clk                            (phy_clk                                            ), //i
-    .txReset                            (txReset                                            )  //i
+    .io_input_valid                  (txBackend_aligner_io_output_valid                     ), //i
+    .io_input_ready                  (txBackend_padder_io_input_ready                       ), //o
+    .io_input_payload_last           (txBackend_aligner_io_output_payload_last              ), //i
+    .io_input_payload_fragment_data  (txBackend_aligner_io_output_payload_fragment_data[7:0]), //i
+    .io_output_valid                 (txBackend_padder_io_output_valid                      ), //o
+    .io_output_ready                 (txBackend_crc_io_input_ready                          ), //i
+    .io_output_payload_last          (txBackend_padder_io_output_payload_last               ), //o
+    .io_output_payload_fragment_data (txBackend_padder_io_output_payload_fragment_data[7:0] ), //o
+    .phy_clk                         (phy_clk                                               ), //i
+    .txReset                         (txReset                                               )  //i
   );
   MacTxCrc txBackend_crc (
-    .io_input_valid                     (txBackend_padder_io_output_valid                  ), //i
-    .io_input_ready                     (txBackend_crc_io_input_ready                      ), //o
-    .io_input_payload_last              (txBackend_padder_io_output_payload_last           ), //i
-    .io_input_payload_fragment_data     (txBackend_padder_io_output_payload_fragment_data  ), //i
-    .io_output_valid                    (txBackend_crc_io_output_valid                     ), //o
-    .io_output_ready                    (txBackend_header_io_input_ready                   ), //i
-    .io_output_payload_last             (txBackend_crc_io_output_payload_last              ), //o
-    .io_output_payload_fragment_data    (txBackend_crc_io_output_payload_fragment_data     ), //o
-    .phy_clk                            (phy_clk                                           ), //i
-    .txReset                            (txReset                                           )  //i
+    .io_input_valid                  (txBackend_padder_io_output_valid                     ), //i
+    .io_input_ready                  (txBackend_crc_io_input_ready                         ), //o
+    .io_input_payload_last           (txBackend_padder_io_output_payload_last              ), //i
+    .io_input_payload_fragment_data  (txBackend_padder_io_output_payload_fragment_data[7:0]), //i
+    .io_output_valid                 (txBackend_crc_io_output_valid                        ), //o
+    .io_output_ready                 (txBackend_header_io_input_ready                      ), //i
+    .io_output_payload_last          (txBackend_crc_io_output_payload_last                 ), //o
+    .io_output_payload_fragment_data (txBackend_crc_io_output_payload_fragment_data[7:0]   ), //o
+    .phy_clk                         (phy_clk                                              ), //i
+    .txReset                         (txReset                                              )  //i
   );
   MacTxHeader txBackend_header (
-    .io_input_valid                     (txBackend_crc_io_output_valid                     ), //i
-    .io_input_ready                     (txBackend_header_io_input_ready                   ), //o
-    .io_input_payload_last              (txBackend_crc_io_output_payload_last              ), //i
-    .io_input_payload_fragment_data     (txBackend_crc_io_output_payload_fragment_data     ), //i
-    .io_output_valid                    (txBackend_header_io_output_valid                  ), //o
-    .io_output_ready                    (io_phy_tx_ready                                   ), //i
-    .io_output_payload_last             (txBackend_header_io_output_payload_last           ), //o
-    .io_output_payload_fragment_data    (txBackend_header_io_output_payload_fragment_data  ), //o
-    .phy_clk                            (phy_clk                                           ), //i
-    .txReset                            (txReset                                           )  //i
+    .io_input_valid                  (txBackend_crc_io_output_valid                        ), //i
+    .io_input_ready                  (txBackend_header_io_input_ready                      ), //o
+    .io_input_payload_last           (txBackend_crc_io_output_payload_last                 ), //i
+    .io_input_payload_fragment_data  (txBackend_crc_io_output_payload_fragment_data[7:0]   ), //i
+    .io_output_valid                 (txBackend_header_io_output_valid                     ), //o
+    .io_output_ready                 (io_phy_tx_ready                                      ), //i
+    .io_output_payload_last          (txBackend_header_io_output_payload_last              ), //o
+    .io_output_payload_fragment_data (txBackend_header_io_output_payload_fragment_data[7:0]), //o
+    .phy_clk                         (phy_clk                                              ), //i
+    .txReset                         (txReset                                              )  //i
   );
   assign io_ctrl_pending = io_ctrl_rx_stream_valid_regNext;
   assign _zz_1 = ((! resetn) || io_ctrl_rx_flush);
-  assign rxReset = bufferCC_14_io_dataOut;
+  assign rxReset = bufferCC_18_io_dataOut;
   assign _zz_2 = ((! resetn) || io_ctrl_tx_flush);
-  assign txReset = bufferCC_15_io_dataOut;
-  assign io_phy_rx_ready = rxFrontend_preamble_io_input_ready;
+  assign txReset = bufferCC_19_io_dataOut;
+  assign io_phy_rx_ready = rxFrontend_preamble_input_ready;
   assign io_sim_drop = rxFrontend_buffer_io_push_drop;
   assign io_sim_commit = rxFrontend_buffer_io_push_commit;
   assign io_sim_error = rxFrontend_buffer_io_push_error;
@@ -683,31 +677,32 @@ module MacTxHeader (
   input               phy_clk,
   input               txReset
 );
+
   reg        [3:0]    state;
-  wire                when_MacTx_l295;
-  wire                when_MacTx_l302;
+  wire                when_MacTx_l293;
+  wire                when_MacTx_l300;
   wire                io_output_fire;
   wire                io_input_fire;
-  wire                when_MacTx_l307;
+  wire                when_MacTx_l305;
 
   assign io_output_valid = io_input_valid;
   always @(*) begin
     io_output_payload_last = 1'b0;
-    if(when_MacTx_l295) begin
+    if(when_MacTx_l293) begin
       io_output_payload_last = io_input_payload_last;
     end
   end
 
   always @(*) begin
     io_input_ready = 1'b0;
-    if(when_MacTx_l295) begin
+    if(when_MacTx_l293) begin
       io_input_ready = io_output_ready;
     end
   end
 
-  assign when_MacTx_l295 = (state == 4'b1000);
+  assign when_MacTx_l293 = (state == 4'b1000);
   always @(*) begin
-    if(when_MacTx_l295) begin
+    if(when_MacTx_l293) begin
       io_output_payload_fragment_data = io_input_payload_fragment_data;
     end else begin
       io_output_payload_fragment_data = 8'h0;
@@ -715,26 +710,26 @@ module MacTxHeader (
       io_output_payload_fragment_data[2] = 1'b1;
       io_output_payload_fragment_data[4] = 1'b1;
       io_output_payload_fragment_data[6] = 1'b1;
-      if(when_MacTx_l302) begin
+      if(when_MacTx_l300) begin
         io_output_payload_fragment_data[7] = 1'b1;
       end
     end
   end
 
-  assign when_MacTx_l302 = (state == 4'b0111);
+  assign when_MacTx_l300 = (state == 4'b0111);
   assign io_output_fire = (io_output_valid && io_output_ready);
   assign io_input_fire = (io_input_valid && io_input_ready);
-  assign when_MacTx_l307 = (io_input_fire && io_input_payload_last);
+  assign when_MacTx_l305 = (io_input_fire && io_input_payload_last);
   always @(posedge phy_clk) begin
     if(!txReset) begin
       state <= 4'b0000;
     end else begin
-      if(!when_MacTx_l295) begin
+      if(!when_MacTx_l293) begin
         if(io_output_fire) begin
           state <= (state + 4'b0001);
         end
       end
-      if(when_MacTx_l307) begin
+      if(when_MacTx_l305) begin
         state <= 4'b0000;
       end
     end
@@ -755,6 +750,7 @@ module MacTxCrc (
   input               phy_clk,
   input               txReset
 );
+
   wire                crc_2_flush;
   wire       [31:0]   crc_2_result;
   wire       [31:0]   crc_2_resultNext;
@@ -767,32 +763,24 @@ module MacTxCrc (
   reg        [1:0]    counter;
   wire                io_input_fire_1;
   wire                io_output_fire_1;
-  wire                when_MacTx_l236;
-  wire                when_MacTx_l244;
+  wire                when_MacTx_l234;
+  wire                when_MacTx_l242;
 
   Crc_1 crc_2 (
-    .flush            (crc_2_flush                     ), //i
-    .input_valid      (io_input_fire_1                 ), //i
-    .input_payload    (io_input_payload_fragment_data  ), //i
-    .result           (crc_2_result                    ), //o
-    .resultNext       (crc_2_resultNext                ), //o
-    .phy_clk          (phy_clk                         ), //i
-    .txReset          (txReset                         )  //i
+    .flush         (crc_2_flush                        ), //i
+    .input_valid   (io_input_fire_1                    ), //i
+    .input_payload (io_input_payload_fragment_data[7:0]), //i
+    .result        (crc_2_result[31:0]                 ), //o
+    .resultNext    (crc_2_resultNext[31:0]             ), //o
+    .phy_clk       (phy_clk                            ), //i
+    .txReset       (txReset                            )  //i
   );
   always @(*) begin
     case(counter)
-      2'b00 : begin
-        _zz_io_output_payload_fragment_data = crc_2_result[7 : 0];
-      end
-      2'b01 : begin
-        _zz_io_output_payload_fragment_data = crc_2_result[15 : 8];
-      end
-      2'b10 : begin
-        _zz_io_output_payload_fragment_data = crc_2_result[23 : 16];
-      end
-      default : begin
-        _zz_io_output_payload_fragment_data = crc_2_result[31 : 24];
-      end
+      2'b00 : _zz_io_output_payload_fragment_data = crc_2_result[7 : 0];
+      2'b01 : _zz_io_output_payload_fragment_data = crc_2_result[15 : 8];
+      2'b10 : _zz_io_output_payload_fragment_data = crc_2_result[23 : 16];
+      default : _zz_io_output_payload_fragment_data = crc_2_result[31 : 24];
     endcase
   end
 
@@ -805,16 +793,16 @@ module MacTxCrc (
   assign crc_2_flush = (io_output_fire_1 && io_output_payload_last);
   always @(*) begin
     io_output_payload_last = 1'b0;
-    if(!when_MacTx_l236) begin
-      if(when_MacTx_l244) begin
+    if(!when_MacTx_l234) begin
+      if(when_MacTx_l242) begin
         io_output_payload_last = 1'b1;
       end
     end
   end
 
-  assign when_MacTx_l236 = (! emitCrc);
+  assign when_MacTx_l234 = (! emitCrc);
   always @(*) begin
-    if(when_MacTx_l236) begin
+    if(when_MacTx_l234) begin
       io_output_valid = io_input_valid;
     end else begin
       io_output_valid = 1'b1;
@@ -822,7 +810,7 @@ module MacTxCrc (
   end
 
   always @(*) begin
-    if(when_MacTx_l236) begin
+    if(when_MacTx_l234) begin
       io_output_payload_fragment_data = io_input_payload_fragment_data;
     end else begin
       io_output_payload_fragment_data = _zz_io_output_payload_fragment_data;
@@ -830,14 +818,14 @@ module MacTxCrc (
   end
 
   always @(*) begin
-    if(when_MacTx_l236) begin
+    if(when_MacTx_l234) begin
       io_input_ready = io_output_ready;
     end else begin
       io_input_ready = 1'b0;
     end
   end
 
-  assign when_MacTx_l244 = (counter == 2'b11);
+  assign when_MacTx_l242 = (counter == 2'b11);
   always @(posedge phy_clk) begin
     if(!txReset) begin
       emitCrc <= 1'b0;
@@ -849,8 +837,8 @@ module MacTxCrc (
       if(when_MacTx_l227_1) begin
         emitCrc <= 1'b0;
       end
-      if(!when_MacTx_l236) begin
-        if(when_MacTx_l244) begin
+      if(!when_MacTx_l234) begin
+        if(when_MacTx_l242) begin
           if(io_output_ready) begin
             emitCrc <= 1'b0;
           end
@@ -877,25 +865,26 @@ module MacTxPadder (
   input               phy_clk,
   input               txReset
 );
+
   reg        [5:0]    counter;
   wire                ok;
   wire                io_input_fire;
   reg                 io_input_payload_first;
   wire                fill;
   wire                io_output_fire;
-  wire                when_MacTx_l324;
+  wire                when_MacTx_l322;
   wire                io_output_fire_1;
-  wire                when_MacTx_l327;
+  wire                when_MacTx_l325;
   wire                _zz_io_input_ready;
-  wire                when_MacTx_l331;
+  wire                when_MacTx_l329;
 
   assign ok = (counter == 6'h3b);
   assign io_input_fire = (io_input_valid && io_input_ready);
   assign fill = ((counter != 6'h0) && io_input_payload_first);
   assign io_output_fire = (io_output_valid && io_output_ready);
-  assign when_MacTx_l324 = ((! ok) && io_output_fire);
+  assign when_MacTx_l322 = ((! ok) && io_output_fire);
   assign io_output_fire_1 = (io_output_valid && io_output_ready);
-  assign when_MacTx_l327 = (io_output_fire_1 && io_output_payload_last);
+  assign when_MacTx_l325 = (io_output_fire_1 && io_output_payload_last);
   assign _zz_io_input_ready = (! fill);
   assign io_input_ready = (io_output_ready && _zz_io_input_ready);
   always @(*) begin
@@ -907,7 +896,7 @@ module MacTxPadder (
 
   always @(*) begin
     io_output_payload_last = io_input_payload_last;
-    if(when_MacTx_l331) begin
+    if(when_MacTx_l329) begin
       io_output_payload_last = 1'b0;
     end
     if(fill) begin
@@ -922,7 +911,7 @@ module MacTxPadder (
     end
   end
 
-  assign when_MacTx_l331 = (! ok);
+  assign when_MacTx_l329 = (! ok);
   always @(posedge phy_clk) begin
     if(!txReset) begin
       counter <= 6'h0;
@@ -931,10 +920,10 @@ module MacTxPadder (
       if(io_input_fire) begin
         io_input_payload_first <= io_input_payload_last;
       end
-      if(when_MacTx_l324) begin
+      if(when_MacTx_l322) begin
         counter <= (counter + 6'h01);
       end
-      if(when_MacTx_l327) begin
+      if(when_MacTx_l325) begin
         counter <= 6'h0;
       end
     end
@@ -943,12 +932,13 @@ module MacTxPadder (
 
 endmodule
 
-module BufferCC_13 (
+module BufferCC_17 (
   input               io_dataIn,
   output              io_dataOut,
   input               phy_clk,
   input               txReset
 );
+
   (* async_reg = "true" *) reg                 buffers_0;
   (* async_reg = "true" *) reg                 buffers_1;
 
@@ -974,40 +964,41 @@ module MacTxAligner (
   input               phy_clk,
   input               txReset
 );
+
   reg        [1:0]    state;
-  wire                when_MacTx_l269;
+  wire                when_MacTx_l267;
   wire                io_input_fire;
-  wire                when_MacTx_l277;
+  wire                when_MacTx_l275;
 
   always @(*) begin
     io_output_valid = io_input_valid;
-    if(when_MacTx_l269) begin
+    if(when_MacTx_l267) begin
       io_output_valid = 1'b0;
     end
   end
 
   always @(*) begin
     io_input_ready = io_output_ready;
-    if(when_MacTx_l269) begin
+    if(when_MacTx_l267) begin
       io_input_ready = 1'b1;
     end
   end
 
   assign io_output_payload_last = io_input_payload_last;
   assign io_output_payload_fragment_data = io_input_payload_fragment_data;
-  assign when_MacTx_l269 = (io_enable && (state != 2'b10));
+  assign when_MacTx_l267 = (io_enable && (state != 2'b10));
   assign io_input_fire = (io_input_valid && io_input_ready);
-  assign when_MacTx_l277 = (io_input_fire && io_input_payload_last);
+  assign when_MacTx_l275 = (io_input_fire && io_input_payload_last);
   always @(posedge phy_clk) begin
     if(!txReset) begin
       state <= 2'b00;
     end else begin
-      if(when_MacTx_l269) begin
+      if(when_MacTx_l267) begin
         if(io_input_valid) begin
           state <= (state + 2'b01);
         end
       end
-      if(when_MacTx_l277) begin
+      if(when_MacTx_l275) begin
         state <= 2'b00;
       end
     end
@@ -1033,6 +1024,12 @@ module MacTxBuffer (
   input               phy_clk,
   input               txReset
 );
+  localparam push_State_LENGTH = 1'd0;
+  localparam push_State_DATA = 1'd1;
+  localparam pop_State_LENGTH = 2'd0;
+  localparam pop_State_DATA = 2'd1;
+  localparam pop_State_WAIT_1 = 2'd2;
+
   reg                 fifo_io_pop_stream_ready;
   wire                fifo_io_push_stream_ready;
   wire       [10:0]   fifo_io_push_availability;
@@ -1043,14 +1040,14 @@ module MacTxBuffer (
   reg        [7:0]    _zz_io_pop_stream_payload_fragment_data;
   wire       [31:0]   _zz_pop_length;
   reg                 push_commit;
-  reg        `push_State_binary_sequential_type push_state_1;
+  reg        [0:0]    push_state_1;
   reg        [14:0]   push_length;
   wire       [9:0]    push_wordCountMinusOne;
   reg        [9:0]    push_wordCounter;
   wire                fifo_io_push_stream_fire;
   wire                io_push_stream_fire;
   wire                when_MacTx_l151;
-  reg        `pop_State_binary_sequential_type pop_state_1;
+  reg        [1:0]    pop_state_1;
   reg        [14:0]   pop_length;
   wire       [14:0]   pop_lengthMinusOne;
   reg        [9:0]    pop_wordCounter;
@@ -1069,52 +1066,44 @@ module MacTxBuffer (
   assign _zz_push_length = io_push_stream_payload;
   assign _zz_pop_length = fifo_io_pop_stream_payload;
   MacTxManagedStreamFifoCc fifo (
-    .io_push_stream_valid      (io_push_stream_valid        ), //i
-    .io_push_stream_ready      (fifo_io_push_stream_ready   ), //o
-    .io_push_stream_payload    (io_push_stream_payload      ), //i
-    .io_push_commit            (push_commit                 ), //i
-    .io_push_availability      (fifo_io_push_availability   ), //o
-    .io_pop_stream_valid       (fifo_io_pop_stream_valid    ), //o
-    .io_pop_stream_ready       (fifo_io_pop_stream_ready    ), //i
-    .io_pop_stream_payload     (fifo_io_pop_stream_payload  ), //o
-    .io_pop_redo               (io_pop_redo                 ), //i
-    .io_pop_commit             (io_pop_commit               ), //i
-    .clk                       (clk                         ), //i
-    .resetn                    (resetn                      ), //i
-    .io_ctrl_tx_flush          (io_ctrl_tx_flush            ), //i
-    .phy_clk                   (phy_clk                     ), //i
-    .txReset                   (txReset                     )  //i
+    .io_push_stream_valid   (io_push_stream_valid            ), //i
+    .io_push_stream_ready   (fifo_io_push_stream_ready       ), //o
+    .io_push_stream_payload (io_push_stream_payload[31:0]    ), //i
+    .io_push_commit         (push_commit                     ), //i
+    .io_push_availability   (fifo_io_push_availability[10:0] ), //o
+    .io_pop_stream_valid    (fifo_io_pop_stream_valid        ), //o
+    .io_pop_stream_ready    (fifo_io_pop_stream_ready        ), //i
+    .io_pop_stream_payload  (fifo_io_pop_stream_payload[31:0]), //o
+    .io_pop_redo            (io_pop_redo                     ), //i
+    .io_pop_commit          (io_pop_commit                   ), //i
+    .clk                    (clk                             ), //i
+    .resetn                 (resetn                          ), //i
+    .io_ctrl_tx_flush       (io_ctrl_tx_flush                ), //i
+    .phy_clk                (phy_clk                         ), //i
+    .txReset                (txReset                         )  //i
   );
   always @(*) begin
     case(pop_spliter)
-      2'b00 : begin
-        _zz_io_pop_stream_payload_fragment_data = fifo_io_pop_stream_payload[7 : 0];
-      end
-      2'b01 : begin
-        _zz_io_pop_stream_payload_fragment_data = fifo_io_pop_stream_payload[15 : 8];
-      end
-      2'b10 : begin
-        _zz_io_pop_stream_payload_fragment_data = fifo_io_pop_stream_payload[23 : 16];
-      end
-      default : begin
-        _zz_io_pop_stream_payload_fragment_data = fifo_io_pop_stream_payload[31 : 24];
-      end
+      2'b00 : _zz_io_pop_stream_payload_fragment_data = fifo_io_pop_stream_payload[7 : 0];
+      2'b01 : _zz_io_pop_stream_payload_fragment_data = fifo_io_pop_stream_payload[15 : 8];
+      2'b10 : _zz_io_pop_stream_payload_fragment_data = fifo_io_pop_stream_payload[23 : 16];
+      default : _zz_io_pop_stream_payload_fragment_data = fifo_io_pop_stream_payload[31 : 24];
     endcase
   end
 
   `ifndef SYNTHESIS
   always @(*) begin
     case(push_state_1)
-      `push_State_binary_sequential_LENGTH : push_state_1_string = "LENGTH";
-      `push_State_binary_sequential_DATA : push_state_1_string = "DATA  ";
+      push_State_LENGTH : push_state_1_string = "LENGTH";
+      push_State_DATA : push_state_1_string = "DATA  ";
       default : push_state_1_string = "??????";
     endcase
   end
   always @(*) begin
     case(pop_state_1)
-      `pop_State_binary_sequential_LENGTH : pop_state_1_string = "LENGTH";
-      `pop_State_binary_sequential_DATA : pop_state_1_string = "DATA  ";
-      `pop_State_binary_sequential_WAIT_1 : pop_state_1_string = "WAIT_1";
+      pop_State_LENGTH : pop_state_1_string = "LENGTH";
+      pop_State_DATA : pop_state_1_string = "DATA  ";
+      pop_State_WAIT_1 : pop_state_1_string = "WAIT_1";
       default : pop_state_1_string = "??????";
     endcase
   end
@@ -1132,12 +1121,12 @@ module MacTxBuffer (
   always @(*) begin
     fifo_io_pop_stream_ready = 1'b0;
     case(pop_state_1)
-      `pop_State_binary_sequential_LENGTH : begin
+      pop_State_LENGTH : begin
         if(fifo_io_pop_stream_valid) begin
           fifo_io_pop_stream_ready = 1'b1;
         end
       end
-      `pop_State_binary_sequential_DATA : begin
+      pop_State_DATA : begin
         if(io_pop_stream_ready) begin
           if(when_MacTx_l196) begin
             fifo_io_pop_stream_ready = 1'b1;
@@ -1155,9 +1144,9 @@ module MacTxBuffer (
   always @(*) begin
     io_pop_stream_valid = 1'b0;
     case(pop_state_1)
-      `pop_State_binary_sequential_LENGTH : begin
+      pop_State_LENGTH : begin
       end
-      `pop_State_binary_sequential_DATA : begin
+      pop_State_DATA : begin
         io_pop_stream_valid = 1'b1;
       end
       default : begin
@@ -1168,9 +1157,9 @@ module MacTxBuffer (
   always @(*) begin
     io_pop_stream_payload_last = 1'b0;
     case(pop_state_1)
-      `pop_State_binary_sequential_LENGTH : begin
+      pop_State_LENGTH : begin
       end
-      `pop_State_binary_sequential_DATA : begin
+      pop_State_DATA : begin
         if(io_pop_stream_ready) begin
           if(when_MacTx_l196) begin
             io_pop_stream_payload_last = 1'b1;
@@ -1188,7 +1177,7 @@ module MacTxBuffer (
   always @(posedge clk) begin
     push_commit <= 1'b0;
     case(push_state_1)
-      `push_State_binary_sequential_LENGTH : begin
+      push_State_LENGTH : begin
         push_wordCounter <= 10'h0;
         if(fifo_io_push_stream_fire) begin
           push_length <= _zz_push_length[14:0];
@@ -1207,18 +1196,18 @@ module MacTxBuffer (
 
   always @(posedge clk) begin
     if(!resetn || io_ctrl_tx_flush) begin
-      push_state_1 <= `push_State_binary_sequential_LENGTH;
+      push_state_1 <= push_State_LENGTH;
     end else begin
       case(push_state_1)
-        `push_State_binary_sequential_LENGTH : begin
+        push_State_LENGTH : begin
           if(fifo_io_push_stream_fire) begin
-            push_state_1 <= `push_State_binary_sequential_DATA;
+            push_state_1 <= push_State_DATA;
           end
         end
         default : begin
           if(io_push_stream_fire) begin
             if(when_MacTx_l151) begin
-              push_state_1 <= `push_State_binary_sequential_LENGTH;
+              push_state_1 <= push_State_LENGTH;
             end
           end
         end
@@ -1228,43 +1217,43 @@ module MacTxBuffer (
 
   always @(posedge phy_clk) begin
     if(!txReset) begin
-      pop_state_1 <= `pop_State_binary_sequential_LENGTH;
+      pop_state_1 <= pop_State_LENGTH;
     end else begin
       case(pop_state_1)
-        `pop_State_binary_sequential_LENGTH : begin
+        pop_State_LENGTH : begin
           if(fifo_io_pop_stream_valid) begin
-            pop_state_1 <= `pop_State_binary_sequential_DATA;
+            pop_state_1 <= pop_State_DATA;
           end
         end
-        `pop_State_binary_sequential_DATA : begin
+        pop_State_DATA : begin
           if(io_pop_stream_ready) begin
             if(when_MacTx_l196) begin
-              pop_state_1 <= `pop_State_binary_sequential_WAIT_1;
+              pop_state_1 <= pop_State_WAIT_1;
             end
           end
         end
         default : begin
           if(io_pop_commit) begin
-            pop_state_1 <= `pop_State_binary_sequential_LENGTH;
+            pop_state_1 <= pop_State_LENGTH;
           end
         end
       endcase
       if(io_pop_redo) begin
-        pop_state_1 <= `pop_State_binary_sequential_LENGTH;
+        pop_state_1 <= pop_State_LENGTH;
       end
     end
   end
 
   always @(posedge phy_clk) begin
     case(pop_state_1)
-      `pop_State_binary_sequential_LENGTH : begin
+      pop_State_LENGTH : begin
         pop_wordCounter <= 10'h0;
         pop_spliter <= 2'b00;
         if(fifo_io_pop_stream_valid) begin
           pop_length <= _zz_pop_length[14:0];
         end
       end
-      `pop_State_binary_sequential_DATA : begin
+      pop_State_DATA : begin
         if(io_pop_stream_ready) begin
           pop_spliter <= (pop_spliter + 2'b01);
           if(when_MacTx_l201) begin
@@ -1301,6 +1290,7 @@ module MacRxBuffer (
   input               resetn,
   input               io_ctrl_rx_flush
 );
+
   wire                pulseCCByToggle_2_io_pulseIn;
   wire                pulseCCByToggle_3_io_pulseIn;
   reg        [31:0]   _zz_ram_port1;
@@ -1310,6 +1300,7 @@ module MacRxBuffer (
   wire                pushToPop_io_input_ready;
   wire                pushToPop_io_output_valid;
   wire       [10:0]   pushToPop_io_output_payload;
+  wire                pushToPop_mac_rxReset_syncronized_1;
   wire                pulseCCByToggle_2_io_pulseOut;
   wire                pulseCCByToggle_3_io_pulseOut;
   wire       [14:0]   _zz_push_port_payload_data;
@@ -1331,19 +1322,19 @@ module MacRxBuffer (
   reg                 push_error;
   reg                 push_drop;
   wire                io_push_stream_fire;
-  wire                when_MacRx_l152;
+  wire                when_MacRx_l191;
   reg                 push_doWrite;
   wire                io_push_stream_fire_1;
-  wire                when_MacRx_l160;
-  wire                when_MacRx_l160_1;
-  wire                when_MacRx_l160_2;
-  wire                when_MacRx_l163;
+  wire                when_MacRx_l199;
+  wire                when_MacRx_l199_1;
+  wire                when_MacRx_l199_2;
+  wire                when_MacRx_l202;
   wire                push_full;
   wire                io_push_stream_fire_2;
   reg                 push_cleanup;
   reg                 push_commit;
-  wire                when_MacRx_l185;
-  wire                when_MacRx_l190;
+  wire                when_MacRx_l224;
+  wire                when_MacRx_l229;
   reg        [10:0]   pop_currentPtr;
   reg        [10:0]   pop_pushPtr;
   wire                pop_cmd_valid;
@@ -1375,48 +1366,44 @@ module MacRxBuffer (
   end
 
   StreamCCByToggle_2 popToPush (
-    .io_input_valid       (1'b1                         ), //i
-    .io_input_ready       (popToPush_io_input_ready     ), //o
-    .io_input_payload     (pop_currentPtr               ), //i
-    .io_output_valid      (popToPush_io_output_valid    ), //o
-    .io_output_ready      (1'b1                         ), //i
-    .io_output_payload    (popToPush_io_output_payload  ), //o
-    .clk                  (clk                          ), //i
-    .resetn               (resetn                       ), //i
-    .io_ctrl_rx_flush     (io_ctrl_rx_flush             ), //i
-    .phy_clk              (phy_clk                      ), //i
-    .rxReset              (rxReset                      )  //i
+    .io_input_valid    (1'b1                             ), //i
+    .io_input_ready    (popToPush_io_input_ready         ), //o
+    .io_input_payload  (pop_currentPtr[10:0]             ), //i
+    .io_output_valid   (popToPush_io_output_valid        ), //o
+    .io_output_ready   (1'b1                             ), //i
+    .io_output_payload (popToPush_io_output_payload[10:0]), //o
+    .clk               (clk                              ), //i
+    .resetn            (resetn                           ), //i
+    .io_ctrl_rx_flush  (io_ctrl_rx_flush                 ), //i
+    .phy_clk           (phy_clk                          )  //i
   );
   StreamCCByToggle_3 pushToPop (
-    .io_input_valid       (1'b1                         ), //i
-    .io_input_ready       (pushToPop_io_input_ready     ), //o
-    .io_input_payload     (push_oldPtr                  ), //i
-    .io_output_valid      (pushToPop_io_output_valid    ), //o
-    .io_output_ready      (1'b1                         ), //i
-    .io_output_payload    (pushToPop_io_output_payload  ), //o
-    .phy_clk              (phy_clk                      ), //i
-    .rxReset              (rxReset                      ), //i
-    .clk                  (clk                          ), //i
-    .resetn               (resetn                       ), //i
-    .io_ctrl_rx_flush     (io_ctrl_rx_flush             )  //i
+    .io_input_valid            (1'b1                               ), //i
+    .io_input_ready            (pushToPop_io_input_ready           ), //o
+    .io_input_payload          (push_oldPtr[10:0]                  ), //i
+    .io_output_valid           (pushToPop_io_output_valid          ), //o
+    .io_output_ready           (1'b1                               ), //i
+    .io_output_payload         (pushToPop_io_output_payload[10:0]  ), //o
+    .phy_clk                   (phy_clk                            ), //i
+    .rxReset                   (rxReset                            ), //i
+    .clk                       (clk                                ), //i
+    .mac_rxReset_syncronized_1 (pushToPop_mac_rxReset_syncronized_1)  //o
   );
   PulseCCByToggle pulseCCByToggle_2 (
-    .io_pulseIn          (pulseCCByToggle_2_io_pulseIn   ), //i
-    .io_pulseOut         (pulseCCByToggle_2_io_pulseOut  ), //o
-    .phy_clk             (phy_clk                        ), //i
-    .rxReset             (rxReset                        ), //i
-    .clk                 (clk                            ), //i
-    .resetn              (resetn                         ), //i
-    .io_ctrl_rx_flush    (io_ctrl_rx_flush               )  //i
+    .io_pulseIn                (pulseCCByToggle_2_io_pulseIn       ), //i
+    .io_pulseOut               (pulseCCByToggle_2_io_pulseOut      ), //o
+    .phy_clk                   (phy_clk                            ), //i
+    .rxReset                   (rxReset                            ), //i
+    .clk                       (clk                                ), //i
+    .mac_rxReset_syncronized_1 (pushToPop_mac_rxReset_syncronized_1)  //i
   );
   PulseCCByToggle pulseCCByToggle_3 (
-    .io_pulseIn          (pulseCCByToggle_3_io_pulseIn   ), //i
-    .io_pulseOut         (pulseCCByToggle_3_io_pulseOut  ), //o
-    .phy_clk             (phy_clk                        ), //i
-    .rxReset             (rxReset                        ), //i
-    .clk                 (clk                            ), //i
-    .resetn              (resetn                         ), //i
-    .io_ctrl_rx_flush    (io_ctrl_rx_flush               )  //i
+    .io_pulseIn                (pulseCCByToggle_3_io_pulseIn       ), //i
+    .io_pulseOut               (pulseCCByToggle_3_io_pulseOut      ), //o
+    .phy_clk                   (phy_clk                            ), //i
+    .rxReset                   (rxReset                            ), //i
+    .clk                       (clk                                ), //i
+    .mac_rxReset_syncronized_1 (pushToPop_mac_rxReset_syncronized_1)  //i
   );
   always @(*) begin
     _zz_1 = 1'b0;
@@ -1434,7 +1421,7 @@ module MacRxBuffer (
       end
     end
     if(push_commit) begin
-      if(!when_MacRx_l190) begin
+      if(!when_MacRx_l229) begin
         push_port_valid = 1'b1;
       end
     end
@@ -1448,7 +1435,7 @@ module MacRxBuffer (
       end
     end
     if(push_commit) begin
-      if(!when_MacRx_l190) begin
+      if(!when_MacRx_l229) begin
         push_port_payload_address = push_oldPtr[9:0];
       end
     end
@@ -1462,36 +1449,36 @@ module MacRxBuffer (
       end
     end
     if(push_commit) begin
-      if(!when_MacRx_l190) begin
+      if(!when_MacRx_l229) begin
         push_port_payload_data = {17'd0, _zz_push_port_payload_data};
       end
     end
   end
 
   assign io_push_stream_fire = (io_push_stream_valid && io_push_stream_ready);
-  assign when_MacRx_l152 = (io_push_stream_fire && io_push_stream_payload_fragment_error);
+  assign when_MacRx_l191 = (io_push_stream_fire && io_push_stream_payload_fragment_error);
   always @(*) begin
     push_doWrite = 1'b0;
     if(io_push_stream_fire_1) begin
-      if(when_MacRx_l163) begin
+      if(when_MacRx_l202) begin
         push_doWrite = 1'b1;
       end
     end
-    if(when_MacRx_l185) begin
+    if(when_MacRx_l224) begin
       push_doWrite = 1'b1;
     end
   end
 
   assign io_push_stream_fire_1 = (io_push_stream_valid && io_push_stream_ready);
-  assign when_MacRx_l160 = (push_state_1 == 2'b00);
-  assign when_MacRx_l160_1 = (push_state_1 == 2'b01);
-  assign when_MacRx_l160_2 = (push_state_1 == 2'b10);
-  assign when_MacRx_l163 = (push_state_1 == 2'b11);
+  assign when_MacRx_l199 = (push_state_1 == 2'b00);
+  assign when_MacRx_l199_1 = (push_state_1 == 2'b01);
+  assign when_MacRx_l199_2 = (push_state_1 == 2'b10);
+  assign when_MacRx_l202 = (push_state_1 == 2'b11);
   assign push_full = ((push_currentPtrPlusOne[10] != push_popPtr[10]) && (push_currentPtrPlusOne[9 : 0] == push_popPtr[9 : 0]));
   assign io_push_stream_fire_2 = (io_push_stream_valid && io_push_stream_ready);
   assign io_push_stream_ready = ((! push_cleanup) && (! push_commit));
-  assign when_MacRx_l185 = (push_cleanup && (push_state_1 != 2'b00));
-  assign when_MacRx_l190 = ((push_error || push_drop) || push_full);
+  assign when_MacRx_l224 = (push_cleanup && (push_state_1 != 2'b00));
+  assign when_MacRx_l229 = ((push_error || push_drop) || push_full);
   assign io_push_drop = (push_drop || (push_commit && push_full));
   assign io_push_commit = push_commit;
   assign io_push_error = push_error;
@@ -1522,7 +1509,7 @@ module MacRxBuffer (
       if(popToPush_io_output_valid) begin
         push_popPtr <= popToPush_io_output_payload;
       end
-      if(when_MacRx_l152) begin
+      if(when_MacRx_l191) begin
         push_error <= 1'b1;
       end
       if(io_push_stream_fire_1) begin
@@ -1539,7 +1526,7 @@ module MacRxBuffer (
       push_cleanup <= (io_push_stream_fire_2 && io_push_stream_payload_last);
       push_commit <= push_cleanup;
       if(push_commit) begin
-        if(when_MacRx_l190) begin
+        if(when_MacRx_l229) begin
           push_currentPtr <= push_oldPtr;
         end else begin
           push_oldPtr <= push_currentPtrPlusOne;
@@ -1555,13 +1542,13 @@ module MacRxBuffer (
 
   always @(posedge phy_clk) begin
     if(io_push_stream_fire_1) begin
-      if(when_MacRx_l160) begin
+      if(when_MacRx_l199) begin
         push_buffer[7 : 0] <= io_push_stream_payload_fragment_data;
       end
-      if(when_MacRx_l160_1) begin
+      if(when_MacRx_l199_1) begin
         push_buffer[15 : 8] <= io_push_stream_payload_fragment_data;
       end
-      if(when_MacRx_l160_2) begin
+      if(when_MacRx_l199_2) begin
         push_buffer[23 : 16] <= io_push_stream_payload_fragment_data;
       end
     end
@@ -1599,12 +1586,13 @@ module MacRxBuffer (
 
 endmodule
 
-module BufferCC_12 (
+module BufferCC_16 (
   input               io_dataIn,
   output              io_dataOut,
   input               phy_clk,
   input               rxReset
 );
+
   (* async_reg = "true" *) reg                 buffers_0;
   (* async_reg = "true" *) reg                 buffers_1;
 
@@ -1632,53 +1620,54 @@ module MacRxAligner (
   input               phy_clk,
   input               rxReset
 );
+
   reg        [1:0]    state;
-  wire                when_MacRx_l74;
+  wire                when_MacRx_l113;
   wire                io_input_fire;
-  wire                when_MacRx_l84;
+  wire                when_MacRx_l123;
 
   always @(*) begin
     io_output_valid = io_input_valid;
-    if(when_MacRx_l74) begin
+    if(when_MacRx_l113) begin
       io_output_valid = 1'b1;
     end
   end
 
   always @(*) begin
     io_input_ready = io_output_ready;
-    if(when_MacRx_l74) begin
+    if(when_MacRx_l113) begin
       io_input_ready = 1'b0;
     end
   end
 
   always @(*) begin
     io_output_payload_last = io_input_payload_last;
-    if(when_MacRx_l74) begin
+    if(when_MacRx_l113) begin
       io_output_payload_last = 1'b0;
     end
   end
 
   always @(*) begin
     io_output_payload_fragment_error = io_input_payload_fragment_error;
-    if(when_MacRx_l74) begin
+    if(when_MacRx_l113) begin
       io_output_payload_fragment_error = 1'b0;
     end
   end
 
   assign io_output_payload_fragment_data = io_input_payload_fragment_data;
-  assign when_MacRx_l74 = (io_enable && (state != 2'b10));
+  assign when_MacRx_l113 = (io_enable && (state != 2'b10));
   assign io_input_fire = (io_input_valid && io_input_ready);
-  assign when_MacRx_l84 = (io_input_fire && io_input_payload_last);
+  assign when_MacRx_l123 = (io_input_fire && io_input_payload_last);
   always @(posedge phy_clk) begin
     if(!rxReset) begin
       state <= 2'b00;
     end else begin
-      if(when_MacRx_l74) begin
+      if(when_MacRx_l113) begin
         if(io_output_ready) begin
           state <= (state + 2'b01);
         end
       end
-      if(when_MacRx_l84) begin
+      if(when_MacRx_l123) begin
         state <= 2'b00;
       end
     end
@@ -1701,81 +1690,138 @@ module MacRxChecker (
   input               phy_clk,
   input               rxReset
 );
+
   wire                crc_2_flush;
   wire       [31:0]   crc_2_result;
   wire       [31:0]   crc_2_resultNext;
   wire                io_output_fire;
-  wire                crcHit;
 
   Crc crc_2 (
-    .flush            (crc_2_flush                     ), //i
-    .input_valid      (io_input_valid                  ), //i
-    .input_payload    (io_input_payload_fragment_data  ), //i
-    .result           (crc_2_result                    ), //o
-    .resultNext       (crc_2_resultNext                ), //o
-    .phy_clk          (phy_clk                         ), //i
-    .rxReset          (rxReset                         )  //i
+    .flush         (crc_2_flush                        ), //i
+    .input_valid   (io_input_valid                     ), //i
+    .input_payload (io_input_payload_fragment_data[7:0]), //i
+    .result        (crc_2_result[31:0]                 ), //o
+    .resultNext    (crc_2_resultNext[31:0]             ), //o
+    .phy_clk       (phy_clk                            ), //i
+    .rxReset       (rxReset                            )  //i
   );
   assign io_output_fire = (io_output_valid && io_output_ready);
   assign crc_2_flush = (io_output_fire && io_output_payload_last);
-  assign crcHit = (crc_2_resultNext == 32'h2144df1c);
   assign io_output_valid = io_input_valid;
   assign io_output_payload_last = io_input_payload_last;
   assign io_output_payload_fragment_data = io_input_payload_fragment_data;
-  assign io_output_payload_fragment_error = (io_input_payload_fragment_error || (io_input_payload_last && (! crcHit)));
+  assign io_output_payload_fragment_error = (io_input_payload_fragment_error || io_input_payload_last);
   assign io_input_ready = io_output_ready;
 
 endmodule
 
 module MacRxPreamble (
-  input               io_input_valid,
-  output              io_input_ready,
-  input               io_input_payload_last,
-  input               io_input_payload_fragment_error,
-  input      [7:0]    io_input_payload_fragment_data,
-  output reg          io_output_valid,
-  input               io_output_ready,
-  output              io_output_payload_last,
-  output              io_output_payload_fragment_error,
-  output     [7:0]    io_output_payload_fragment_data,
+  input               input_valid,
+  output              input_ready,
+  input               input_payload_last,
+  input               input_payload_fragment_error,
+  input      [7:0]    input_payload_fragment_data,
+  output reg          output_valid,
+  input               output_ready,
+  output              output_payload_last,
+  output              output_payload_fragment_error,
+  output     [7:0]    output_payload_fragment_data,
   input               phy_clk,
   input               rxReset
 );
-  wire                io_input_fire;
+
+  wire                input_fire;
   wire                history_0_valid;
   wire                history_0_ready;
   wire                history_0_payload_last;
   wire                history_0_payload_fragment_error;
   wire       [7:0]    history_0_payload_fragment_data;
-  wire       [7:0]    historyDataCat;
+  wire                history_1_valid;
+  wire                history_1_ready;
+  wire                history_1_payload_last;
+  wire                history_1_payload_fragment_error;
+  wire       [7:0]    history_1_payload_fragment_data;
+  wire                history_2_valid;
+  wire                history_2_ready;
+  wire                history_2_payload_last;
+  wire                history_2_payload_fragment_error;
+  wire       [7:0]    history_2_payload_fragment_data;
+  wire                _zz_history_0_valid;
+  wire                _zz_history_0_ready;
+  wire                _zz_history_0_payload_last;
+  wire                _zz_history_0_payload_fragment_error;
+  wire       [7:0]    _zz_history_0_payload_fragment_data;
+  reg                 _zz_history_1_valid;
+  reg                 _zz_history_1_ready;
+  reg                 _zz_history_1_payload_last;
+  reg                 _zz_history_1_payload_fragment_error;
+  reg        [7:0]    _zz_history_1_payload_fragment_data;
+  reg                 _zz_history_2_valid;
+  reg                 _zz_history_2_ready;
+  reg                 _zz_history_2_payload_last;
+  reg                 _zz_history_2_payload_fragment_error;
+  reg        [7:0]    _zz_history_2_payload_fragment_data;
+  wire       [23:0]   historyDataCat;
   wire                hit;
   reg                 inFrame;
   wire                when_MacRx_l25;
   wire                when_MacRx_l32;
 
-  assign io_input_fire = (io_input_valid && io_input_ready);
-  assign history_0_valid = io_input_valid;
-  assign history_0_ready = io_input_ready;
-  assign history_0_payload_last = io_input_payload_last;
-  assign history_0_payload_fragment_error = io_input_payload_fragment_error;
-  assign history_0_payload_fragment_data = io_input_payload_fragment_data;
-  assign historyDataCat = history_0_payload_fragment_data;
-  assign hit = (history_0_valid && (historyDataCat == 8'hd5));
+  assign input_fire = (input_valid && input_ready);
+  assign _zz_history_0_valid = input_valid;
+  assign _zz_history_0_ready = input_ready;
+  assign _zz_history_0_payload_last = input_payload_last;
+  assign _zz_history_0_payload_fragment_error = input_payload_fragment_error;
+  assign _zz_history_0_payload_fragment_data = input_payload_fragment_data;
+  assign history_0_valid = _zz_history_0_valid;
+  assign history_0_ready = _zz_history_0_ready;
+  assign history_0_payload_last = _zz_history_0_payload_last;
+  assign history_0_payload_fragment_error = _zz_history_0_payload_fragment_error;
+  assign history_0_payload_fragment_data = _zz_history_0_payload_fragment_data;
+  assign history_1_valid = _zz_history_1_valid;
+  assign history_1_ready = _zz_history_1_ready;
+  assign history_1_payload_last = _zz_history_1_payload_last;
+  assign history_1_payload_fragment_error = _zz_history_1_payload_fragment_error;
+  assign history_1_payload_fragment_data = _zz_history_1_payload_fragment_data;
+  assign history_2_valid = _zz_history_2_valid;
+  assign history_2_ready = _zz_history_2_ready;
+  assign history_2_payload_last = _zz_history_2_payload_last;
+  assign history_2_payload_fragment_error = _zz_history_2_payload_fragment_error;
+  assign history_2_payload_fragment_data = _zz_history_2_payload_fragment_data;
+  assign historyDataCat = {history_0_payload_fragment_data,{history_1_payload_fragment_data,history_2_payload_fragment_data}};
+  assign hit = (((history_0_valid && history_1_valid) && history_2_valid) && (historyDataCat == 24'h5555d5));
   always @(*) begin
-    io_output_valid = 1'b0;
+    output_valid = 1'b0;
     if(!when_MacRx_l25) begin
-      if(io_input_valid) begin
-        io_output_valid = 1'b1;
+      if(input_valid) begin
+        output_valid = 1'b1;
       end
     end
   end
 
-  assign io_output_payload_last = io_input_payload_last;
-  assign io_output_payload_fragment_error = io_input_payload_fragment_error;
-  assign io_output_payload_fragment_data = io_input_payload_fragment_data;
-  assign io_input_ready = ((! inFrame) || io_output_ready);
+  assign output_payload_last = input_payload_last;
+  assign output_payload_fragment_error = input_payload_fragment_error;
+  assign output_payload_fragment_data = input_payload_fragment_data;
+  assign input_ready = ((! inFrame) || output_ready);
   assign when_MacRx_l25 = (! inFrame);
-  assign when_MacRx_l32 = (io_output_ready && io_input_payload_last);
+  assign when_MacRx_l32 = (output_ready && input_payload_last);
+  always @(posedge phy_clk) begin
+    if(input_fire) begin
+      _zz_history_1_valid <= _zz_history_0_valid;
+      _zz_history_1_ready <= _zz_history_0_ready;
+      _zz_history_1_payload_last <= _zz_history_0_payload_last;
+      _zz_history_1_payload_fragment_error <= _zz_history_0_payload_fragment_error;
+      _zz_history_1_payload_fragment_data <= _zz_history_0_payload_fragment_data;
+    end
+    if(input_fire) begin
+      _zz_history_2_valid <= _zz_history_1_valid;
+      _zz_history_2_ready <= _zz_history_1_ready;
+      _zz_history_2_payload_last <= _zz_history_1_payload_last;
+      _zz_history_2_payload_fragment_error <= _zz_history_1_payload_fragment_error;
+      _zz_history_2_payload_fragment_data <= _zz_history_1_payload_fragment_data;
+    end
+  end
+
   always @(posedge phy_clk) begin
     if(!rxReset) begin
       inFrame <= 1'b0;
@@ -1785,7 +1831,7 @@ module MacRxPreamble (
           inFrame <= 1'b1;
         end
       end else begin
-        if(io_input_valid) begin
+        if(input_valid) begin
           if(when_MacRx_l32) begin
             inFrame <= 1'b0;
           end
@@ -1797,14 +1843,15 @@ module MacRxPreamble (
 
 endmodule
 
-//BufferCC_10 replaced by BufferCC_10
+//BufferCC_14 replaced by BufferCC_14
 
-module BufferCC_10 (
+module BufferCC_14 (
   input               io_dataIn,
   output              io_dataOut,
   input               phy_clk,
   input               _zz_1
 );
+
   (* async_reg = "true" *) reg                 buffers_0;
   (* async_reg = "true" *) reg                 buffers_1;
 
@@ -1831,6 +1878,7 @@ module Crc_1 (
   input               phy_clk,
   input               txReset
 );
+
   wire       [31:0]   _zz_state_1;
   wire       [31:0]   _zz_state_2;
   wire       [31:0]   _zz_state_3;
@@ -1961,6 +2009,7 @@ module MacTxManagedStreamFifoCc (
   input               phy_clk,
   input               txReset
 );
+
   reg        [31:0]   _zz_ram_port1;
   wire                popToPush_io_input_ready;
   wire                popToPush_io_output_valid;
@@ -2005,30 +2054,27 @@ module MacTxManagedStreamFifoCc (
   end
 
   StreamCCByToggle popToPush (
-    .io_input_valid       (1'b1                         ), //i
-    .io_input_ready       (popToPush_io_input_ready     ), //o
-    .io_input_payload     (pop_oldPtr                   ), //i
-    .io_output_valid      (popToPush_io_output_valid    ), //o
-    .io_output_ready      (1'b1                         ), //i
-    .io_output_payload    (popToPush_io_output_payload  ), //o
-    .phy_clk              (phy_clk                      ), //i
-    .txReset              (txReset                      ), //i
-    .clk                  (clk                          ), //i
-    .resetn               (resetn                       ), //i
-    .io_ctrl_tx_flush     (io_ctrl_tx_flush             )  //i
+    .io_input_valid    (1'b1                             ), //i
+    .io_input_ready    (popToPush_io_input_ready         ), //o
+    .io_input_payload  (pop_oldPtr[10:0]                 ), //i
+    .io_output_valid   (popToPush_io_output_valid        ), //o
+    .io_output_ready   (1'b1                             ), //i
+    .io_output_payload (popToPush_io_output_payload[10:0]), //o
+    .phy_clk           (phy_clk                          ), //i
+    .txReset           (txReset                          ), //i
+    .clk               (clk                              )  //i
   );
   StreamCCByToggle_1 pushToPop (
-    .io_input_valid       (1'b1                         ), //i
-    .io_input_ready       (pushToPop_io_input_ready     ), //o
-    .io_input_payload     (push_oldPtr                  ), //i
-    .io_output_valid      (pushToPop_io_output_valid    ), //o
-    .io_output_ready      (1'b1                         ), //i
-    .io_output_payload    (pushToPop_io_output_payload  ), //o
-    .clk                  (clk                          ), //i
-    .resetn               (resetn                       ), //i
-    .io_ctrl_tx_flush     (io_ctrl_tx_flush             ), //i
-    .phy_clk              (phy_clk                      ), //i
-    .txReset              (txReset                      )  //i
+    .io_input_valid    (1'b1                             ), //i
+    .io_input_ready    (pushToPop_io_input_ready         ), //o
+    .io_input_payload  (push_oldPtr[10:0]                ), //i
+    .io_output_valid   (pushToPop_io_output_valid        ), //o
+    .io_output_ready   (1'b1                             ), //i
+    .io_output_payload (pushToPop_io_output_payload[10:0]), //o
+    .clk               (clk                              ), //i
+    .resetn            (resetn                           ), //i
+    .io_ctrl_tx_flush  (io_ctrl_tx_flush                 ), //i
+    .phy_clk           (phy_clk                          )  //i
   );
   always @(*) begin
     _zz_1 = 1'b0;
@@ -2125,20 +2171,19 @@ module PulseCCByToggle (
   input               phy_clk,
   input               rxReset,
   input               clk,
-  input               resetn,
-  input               io_ctrl_rx_flush
+  input               mac_rxReset_syncronized_1
 );
+
   wire                inArea_target_buffercc_io_dataOut;
   reg                 inArea_target;
   wire                outArea_target;
   reg                 outArea_target_regNext;
 
-  BufferCC_4 inArea_target_buffercc (
-    .io_dataIn           (inArea_target                      ), //i
-    .io_dataOut          (inArea_target_buffercc_io_dataOut  ), //o
-    .clk                 (clk                                ), //i
-    .resetn              (resetn                             ), //i
-    .io_ctrl_rx_flush    (io_ctrl_rx_flush                   )  //i
+  BufferCC_11 inArea_target_buffercc (
+    .io_dataIn               (inArea_target                    ), //i
+    .io_dataOut              (inArea_target_buffercc_io_dataOut), //o
+    .clk                     (clk                              ), //i
+    .mac_rxReset_syncronized (mac_rxReset_syncronized_1        )  //i
   );
   assign outArea_target = inArea_target_buffercc_io_dataOut;
   assign io_pulseOut = (outArea_target ^ outArea_target_regNext);
@@ -2153,7 +2198,7 @@ module PulseCCByToggle (
   end
 
   always @(posedge clk) begin
-    if(!resetn || io_ctrl_rx_flush) begin
+    if(!mac_rxReset_syncronized_1) begin
       outArea_target_regNext <= 1'b0;
     end else begin
       outArea_target_regNext <= outArea_target;
@@ -2173,10 +2218,11 @@ module StreamCCByToggle_3 (
   input               phy_clk,
   input               rxReset,
   input               clk,
-  input               resetn,
-  input               io_ctrl_rx_flush
+  output              mac_rxReset_syncronized_1
 );
+
   wire                outHitSignal_buffercc_io_dataOut;
+  wire                bufferCC_18_io_dataOut;
   wire                pushArea_target_buffercc_io_dataOut;
   wire                outHitSignal;
   wire                pushArea_hit;
@@ -2184,6 +2230,7 @@ module StreamCCByToggle_3 (
   reg                 pushArea_target;
   reg        [10:0]   pushArea_data;
   wire                io_input_fire;
+  wire                mac_rxReset_syncronized;
   wire                popArea_stream_valid;
   wire                popArea_stream_ready;
   wire       [10:0]   popArea_stream_payload;
@@ -2191,23 +2238,29 @@ module StreamCCByToggle_3 (
   wire                popArea_stream_fire;
   reg                 popArea_hit;
 
-  BufferCC_5 outHitSignal_buffercc (
-    .io_dataIn     (outHitSignal                      ), //i
-    .io_dataOut    (outHitSignal_buffercc_io_dataOut  ), //o
-    .phy_clk       (phy_clk                           ), //i
-    .rxReset       (rxReset                           )  //i
+  BufferCC_9 outHitSignal_buffercc (
+    .io_dataIn  (outHitSignal                    ), //i
+    .io_dataOut (outHitSignal_buffercc_io_dataOut), //o
+    .phy_clk    (phy_clk                         ), //i
+    .rxReset    (rxReset                         )  //i
   );
-  BufferCC_4 pushArea_target_buffercc (
-    .io_dataIn           (pushArea_target                      ), //i
-    .io_dataOut          (pushArea_target_buffercc_io_dataOut  ), //o
-    .clk                 (clk                                  ), //i
-    .resetn              (resetn                               ), //i
-    .io_ctrl_rx_flush    (io_ctrl_rx_flush                     )  //i
+  BufferCC_10 bufferCC_18 (
+    .io_dataIn  (1'b1                  ), //i
+    .io_dataOut (bufferCC_18_io_dataOut), //o
+    .clk        (clk                   ), //i
+    .rxReset    (rxReset               )  //i
+  );
+  BufferCC_11 pushArea_target_buffercc (
+    .io_dataIn               (pushArea_target                    ), //i
+    .io_dataOut              (pushArea_target_buffercc_io_dataOut), //o
+    .clk                     (clk                                ), //i
+    .mac_rxReset_syncronized (mac_rxReset_syncronized            )  //i
   );
   assign pushArea_hit = outHitSignal_buffercc_io_dataOut;
   assign io_input_fire = (io_input_valid && io_input_ready);
   assign pushArea_accept = io_input_fire;
   assign io_input_ready = (pushArea_hit == pushArea_target);
+  assign mac_rxReset_syncronized = bufferCC_18_io_dataOut;
   assign popArea_target = pushArea_target_buffercc_io_dataOut;
   assign popArea_stream_fire = (popArea_stream_valid && popArea_stream_ready);
   assign outHitSignal = popArea_hit;
@@ -2216,6 +2269,7 @@ module StreamCCByToggle_3 (
   assign io_output_valid = popArea_stream_valid;
   assign popArea_stream_ready = io_output_ready;
   assign io_output_payload = popArea_stream_payload;
+  assign mac_rxReset_syncronized_1 = mac_rxReset_syncronized;
   always @(posedge phy_clk) begin
     if(!rxReset) begin
       pushArea_target <= 1'b0;
@@ -2231,7 +2285,7 @@ module StreamCCByToggle_3 (
   end
 
   always @(posedge clk) begin
-    if(!resetn || io_ctrl_rx_flush) begin
+    if(!mac_rxReset_syncronized) begin
       popArea_hit <= 1'b0;
     end else begin
       if(popArea_stream_fire) begin
@@ -2253,10 +2307,11 @@ module StreamCCByToggle_2 (
   input               clk,
   input               resetn,
   input               io_ctrl_rx_flush,
-  input               phy_clk,
-  input               rxReset
+  input               phy_clk
 );
+
   wire                outHitSignal_buffercc_io_dataOut;
+  wire                bufferCC_18_io_dataOut;
   wire                pushArea_target_buffercc_io_dataOut;
   wire                outHitSignal;
   wire                pushArea_hit;
@@ -2264,6 +2319,7 @@ module StreamCCByToggle_2 (
   reg                 pushArea_target;
   reg        [10:0]   pushArea_data;
   wire                io_input_fire;
+  wire                resetn_syncronized;
   wire                popArea_stream_valid;
   wire                popArea_stream_ready;
   wire       [10:0]   popArea_stream_payload;
@@ -2271,23 +2327,30 @@ module StreamCCByToggle_2 (
   wire                popArea_stream_fire;
   reg                 popArea_hit;
 
-  BufferCC_4 outHitSignal_buffercc (
-    .io_dataIn           (outHitSignal                      ), //i
-    .io_dataOut          (outHitSignal_buffercc_io_dataOut  ), //o
-    .clk                 (clk                               ), //i
-    .resetn              (resetn                            ), //i
-    .io_ctrl_rx_flush    (io_ctrl_rx_flush                  )  //i
+  BufferCC_6 outHitSignal_buffercc (
+    .io_dataIn        (outHitSignal                    ), //i
+    .io_dataOut       (outHitSignal_buffercc_io_dataOut), //o
+    .clk              (clk                             ), //i
+    .resetn           (resetn                          ), //i
+    .io_ctrl_rx_flush (io_ctrl_rx_flush                )  //i
+  );
+  BufferCC_4 bufferCC_18 (
+    .io_dataIn  (1'b1                  ), //i
+    .io_dataOut (bufferCC_18_io_dataOut), //o
+    .phy_clk    (phy_clk               ), //i
+    .resetn     (resetn                )  //i
   );
   BufferCC_5 pushArea_target_buffercc (
-    .io_dataIn     (pushArea_target                      ), //i
-    .io_dataOut    (pushArea_target_buffercc_io_dataOut  ), //o
-    .phy_clk       (phy_clk                              ), //i
-    .rxReset       (rxReset                              )  //i
+    .io_dataIn          (pushArea_target                    ), //i
+    .io_dataOut         (pushArea_target_buffercc_io_dataOut), //o
+    .phy_clk            (phy_clk                            ), //i
+    .resetn_syncronized (resetn_syncronized                 )  //i
   );
   assign pushArea_hit = outHitSignal_buffercc_io_dataOut;
   assign io_input_fire = (io_input_valid && io_input_ready);
   assign pushArea_accept = io_input_fire;
   assign io_input_ready = (pushArea_hit == pushArea_target);
+  assign resetn_syncronized = bufferCC_18_io_dataOut;
   assign popArea_target = pushArea_target_buffercc_io_dataOut;
   assign popArea_stream_fire = (popArea_stream_valid && popArea_stream_ready);
   assign outHitSignal = popArea_hit;
@@ -2311,7 +2374,7 @@ module StreamCCByToggle_2 (
   end
 
   always @(posedge phy_clk) begin
-    if(!rxReset) begin
+    if(!resetn_syncronized) begin
       popArea_hit <= 1'b0;
     end else begin
       if(popArea_stream_fire) begin
@@ -2332,6 +2395,7 @@ module Crc (
   input               phy_clk,
   input               rxReset
 );
+
   wire       [31:0]   _zz_state_1;
   wire       [31:0]   _zz_state_2;
   wire       [31:0]   _zz_state_3;
@@ -2455,10 +2519,11 @@ module StreamCCByToggle_1 (
   input               clk,
   input               resetn,
   input               io_ctrl_tx_flush,
-  input               phy_clk,
-  input               txReset
+  input               phy_clk
 );
+
   wire                outHitSignal_buffercc_io_dataOut;
+  wire                bufferCC_18_io_dataOut;
   wire                pushArea_target_buffercc_io_dataOut;
   wire                outHitSignal;
   wire                pushArea_hit;
@@ -2466,6 +2531,7 @@ module StreamCCByToggle_1 (
   reg                 pushArea_target;
   reg        [10:0]   pushArea_data;
   wire                io_input_fire;
+  wire                resetn_syncronized;
   wire                popArea_stream_valid;
   wire                popArea_stream_ready;
   wire       [10:0]   popArea_stream_payload;
@@ -2473,23 +2539,30 @@ module StreamCCByToggle_1 (
   wire                popArea_stream_fire;
   reg                 popArea_hit;
 
-  BufferCC_1 outHitSignal_buffercc (
-    .io_dataIn           (outHitSignal                      ), //i
-    .io_dataOut          (outHitSignal_buffercc_io_dataOut  ), //o
-    .clk                 (clk                               ), //i
-    .resetn              (resetn                            ), //i
-    .io_ctrl_tx_flush    (io_ctrl_tx_flush                  )  //i
+  BufferCC_3 outHitSignal_buffercc (
+    .io_dataIn        (outHitSignal                    ), //i
+    .io_dataOut       (outHitSignal_buffercc_io_dataOut), //o
+    .clk              (clk                             ), //i
+    .resetn           (resetn                          ), //i
+    .io_ctrl_tx_flush (io_ctrl_tx_flush                )  //i
   );
-  BufferCC pushArea_target_buffercc (
-    .io_dataIn     (pushArea_target                      ), //i
-    .io_dataOut    (pushArea_target_buffercc_io_dataOut  ), //o
-    .phy_clk       (phy_clk                              ), //i
-    .txReset       (txReset                              )  //i
+  BufferCC_4 bufferCC_18 (
+    .io_dataIn  (1'b1                  ), //i
+    .io_dataOut (bufferCC_18_io_dataOut), //o
+    .phy_clk    (phy_clk               ), //i
+    .resetn     (resetn                )  //i
+  );
+  BufferCC_5 pushArea_target_buffercc (
+    .io_dataIn          (pushArea_target                    ), //i
+    .io_dataOut         (pushArea_target_buffercc_io_dataOut), //o
+    .phy_clk            (phy_clk                            ), //i
+    .resetn_syncronized (resetn_syncronized                 )  //i
   );
   assign pushArea_hit = outHitSignal_buffercc_io_dataOut;
   assign io_input_fire = (io_input_valid && io_input_ready);
   assign pushArea_accept = io_input_fire;
   assign io_input_ready = (pushArea_hit == pushArea_target);
+  assign resetn_syncronized = bufferCC_18_io_dataOut;
   assign popArea_target = pushArea_target_buffercc_io_dataOut;
   assign popArea_stream_fire = (popArea_stream_valid && popArea_stream_ready);
   assign outHitSignal = popArea_hit;
@@ -2513,7 +2586,7 @@ module StreamCCByToggle_1 (
   end
 
   always @(posedge phy_clk) begin
-    if(!txReset) begin
+    if(!resetn_syncronized) begin
       popArea_hit <= 1'b0;
     end else begin
       if(popArea_stream_fire) begin
@@ -2534,11 +2607,11 @@ module StreamCCByToggle (
   output     [10:0]   io_output_payload,
   input               phy_clk,
   input               txReset,
-  input               clk,
-  input               resetn,
-  input               io_ctrl_tx_flush
+  input               clk
 );
+
   wire                outHitSignal_buffercc_io_dataOut;
+  wire                bufferCC_18_io_dataOut;
   wire                pushArea_target_buffercc_io_dataOut;
   wire                outHitSignal;
   wire                pushArea_hit;
@@ -2546,6 +2619,7 @@ module StreamCCByToggle (
   reg                 pushArea_target;
   reg        [10:0]   pushArea_data;
   wire                io_input_fire;
+  wire                mac_txReset_syncronized;
   wire                popArea_stream_valid;
   wire                popArea_stream_ready;
   wire       [10:0]   popArea_stream_payload;
@@ -2554,22 +2628,28 @@ module StreamCCByToggle (
   reg                 popArea_hit;
 
   BufferCC outHitSignal_buffercc (
-    .io_dataIn     (outHitSignal                      ), //i
-    .io_dataOut    (outHitSignal_buffercc_io_dataOut  ), //o
-    .phy_clk       (phy_clk                           ), //i
-    .txReset       (txReset                           )  //i
+    .io_dataIn  (outHitSignal                    ), //i
+    .io_dataOut (outHitSignal_buffercc_io_dataOut), //o
+    .phy_clk    (phy_clk                         ), //i
+    .txReset    (txReset                         )  //i
   );
-  BufferCC_1 pushArea_target_buffercc (
-    .io_dataIn           (pushArea_target                      ), //i
-    .io_dataOut          (pushArea_target_buffercc_io_dataOut  ), //o
-    .clk                 (clk                                  ), //i
-    .resetn              (resetn                               ), //i
-    .io_ctrl_tx_flush    (io_ctrl_tx_flush                     )  //i
+  BufferCC_1 bufferCC_18 (
+    .io_dataIn  (1'b1                  ), //i
+    .io_dataOut (bufferCC_18_io_dataOut), //o
+    .clk        (clk                   ), //i
+    .txReset    (txReset               )  //i
+  );
+  BufferCC_2 pushArea_target_buffercc (
+    .io_dataIn               (pushArea_target                    ), //i
+    .io_dataOut              (pushArea_target_buffercc_io_dataOut), //o
+    .clk                     (clk                                ), //i
+    .mac_txReset_syncronized (mac_txReset_syncronized            )  //i
   );
   assign pushArea_hit = outHitSignal_buffercc_io_dataOut;
   assign io_input_fire = (io_input_valid && io_input_ready);
   assign pushArea_accept = io_input_fire;
   assign io_input_ready = (pushArea_hit == pushArea_target);
+  assign mac_txReset_syncronized = bufferCC_18_io_dataOut;
   assign popArea_target = pushArea_target_buffercc_io_dataOut;
   assign popArea_stream_fire = (popArea_stream_valid && popArea_stream_ready);
   assign outHitSignal = popArea_hit;
@@ -2593,7 +2673,7 @@ module StreamCCByToggle (
   end
 
   always @(posedge clk) begin
-    if(!resetn || io_ctrl_tx_flush) begin
+    if(!mac_txReset_syncronized) begin
       popArea_hit <= 1'b0;
     end else begin
       if(popArea_stream_fire) begin
@@ -2605,20 +2685,65 @@ module StreamCCByToggle (
 
 endmodule
 
-//BufferCC_4 replaced by BufferCC_4
+//BufferCC_11 replaced by BufferCC_11
 
-//BufferCC_4 replaced by BufferCC_4
+//BufferCC_11 replaced by BufferCC_11
 
-//BufferCC_4 replaced by BufferCC_4
+module BufferCC_11 (
+  input               io_dataIn,
+  output              io_dataOut,
+  input               clk,
+  input               mac_rxReset_syncronized
+);
 
-//BufferCC_5 replaced by BufferCC_5
+  (* async_reg = "true" *) reg                 buffers_0;
+  (* async_reg = "true" *) reg                 buffers_1;
 
-module BufferCC_5 (
+  assign io_dataOut = buffers_1;
+  always @(posedge clk) begin
+    if(!mac_rxReset_syncronized) begin
+      buffers_0 <= 1'b0;
+      buffers_1 <= 1'b0;
+    end else begin
+      buffers_0 <= io_dataIn;
+      buffers_1 <= buffers_0;
+    end
+  end
+
+
+endmodule
+
+module BufferCC_10 (
+  input               io_dataIn,
+  output              io_dataOut,
+  input               clk,
+  input               rxReset
+);
+
+  (* async_reg = "true" *) reg                 buffers_0;
+  (* async_reg = "true" *) reg                 buffers_1;
+
+  assign io_dataOut = buffers_1;
+  always @(posedge clk or negedge rxReset) begin
+    if(!rxReset) begin
+      buffers_0 <= 1'b0;
+      buffers_1 <= 1'b0;
+    end else begin
+      buffers_0 <= io_dataIn;
+      buffers_1 <= buffers_0;
+    end
+  end
+
+
+endmodule
+
+module BufferCC_9 (
   input               io_dataIn,
   output              io_dataOut,
   input               phy_clk,
   input               rxReset
 );
+
   (* async_reg = "true" *) reg                 buffers_0;
   (* async_reg = "true" *) reg                 buffers_1;
 
@@ -2636,13 +2761,18 @@ module BufferCC_5 (
 
 endmodule
 
-module BufferCC_4 (
+//BufferCC_5 replaced by BufferCC_5
+
+//BufferCC_4 replaced by BufferCC_4
+
+module BufferCC_6 (
   input               io_dataIn,
   output              io_dataOut,
   input               clk,
   input               resetn,
   input               io_ctrl_rx_flush
 );
+
   (* async_reg = "true" *) reg                 buffers_0;
   (* async_reg = "true" *) reg                 buffers_1;
 
@@ -2660,17 +2790,62 @@ module BufferCC_4 (
 
 endmodule
 
-//BufferCC replaced by BufferCC
+module BufferCC_5 (
+  input               io_dataIn,
+  output              io_dataOut,
+  input               phy_clk,
+  input               resetn_syncronized
+);
 
-//BufferCC_1 replaced by BufferCC_1
+  (* async_reg = "true" *) reg                 buffers_0;
+  (* async_reg = "true" *) reg                 buffers_1;
 
-module BufferCC_1 (
+  assign io_dataOut = buffers_1;
+  always @(posedge phy_clk) begin
+    if(!resetn_syncronized) begin
+      buffers_0 <= 1'b0;
+      buffers_1 <= 1'b0;
+    end else begin
+      buffers_0 <= io_dataIn;
+      buffers_1 <= buffers_0;
+    end
+  end
+
+
+endmodule
+
+module BufferCC_4 (
+  input               io_dataIn,
+  output              io_dataOut,
+  input               phy_clk,
+  input               resetn
+);
+
+  (* async_reg = "true" *) reg                 buffers_0;
+  (* async_reg = "true" *) reg                 buffers_1;
+
+  assign io_dataOut = buffers_1;
+  always @(posedge phy_clk or negedge resetn) begin
+    if(!resetn) begin
+      buffers_0 <= 1'b0;
+      buffers_1 <= 1'b0;
+    end else begin
+      buffers_0 <= io_dataIn;
+      buffers_1 <= buffers_0;
+    end
+  end
+
+
+endmodule
+
+module BufferCC_3 (
   input               io_dataIn,
   output              io_dataOut,
   input               clk,
   input               resetn,
   input               io_ctrl_tx_flush
 );
+
   (* async_reg = "true" *) reg                 buffers_0;
   (* async_reg = "true" *) reg                 buffers_1;
 
@@ -2688,12 +2863,61 @@ module BufferCC_1 (
 
 endmodule
 
+module BufferCC_2 (
+  input               io_dataIn,
+  output              io_dataOut,
+  input               clk,
+  input               mac_txReset_syncronized
+);
+
+  (* async_reg = "true" *) reg                 buffers_0;
+  (* async_reg = "true" *) reg                 buffers_1;
+
+  assign io_dataOut = buffers_1;
+  always @(posedge clk) begin
+    if(!mac_txReset_syncronized) begin
+      buffers_0 <= 1'b0;
+      buffers_1 <= 1'b0;
+    end else begin
+      buffers_0 <= io_dataIn;
+      buffers_1 <= buffers_0;
+    end
+  end
+
+
+endmodule
+
+module BufferCC_1 (
+  input               io_dataIn,
+  output              io_dataOut,
+  input               clk,
+  input               txReset
+);
+
+  (* async_reg = "true" *) reg                 buffers_0;
+  (* async_reg = "true" *) reg                 buffers_1;
+
+  assign io_dataOut = buffers_1;
+  always @(posedge clk or negedge txReset) begin
+    if(!txReset) begin
+      buffers_0 <= 1'b0;
+      buffers_1 <= 1'b0;
+    end else begin
+      buffers_0 <= io_dataIn;
+      buffers_1 <= buffers_0;
+    end
+  end
+
+
+endmodule
+
 module BufferCC (
   input               io_dataIn,
   output              io_dataOut,
   input               phy_clk,
   input               txReset
 );
+
   (* async_reg = "true" *) reg                 buffers_0;
   (* async_reg = "true" *) reg                 buffers_1;
 

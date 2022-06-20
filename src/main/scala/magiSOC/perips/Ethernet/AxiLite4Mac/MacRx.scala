@@ -87,12 +87,12 @@ case class MacRxChecker(dataWidth : Int) extends Component {
     crc.io.input.payload := io.input.data
     crc.io.flush := io.output.lastFire
 
-    val crcHit = crc.io.resultNext === io.input.data
+//    val crcHit = crc.io.resultNext === io.input.data
 
     io.output.valid := io.input.valid
     io.output.last := io.input.last
     io.output.data := io.input.data
-    io.output.error := io.input.error | (io.input.last && !crcHit)
+    io.output.error := io.input.error | (io.input.last)
     io.input.ready := io.output.ready
 }
 

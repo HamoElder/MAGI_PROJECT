@@ -64,7 +64,7 @@ case class AxiLite4DDS(config : AxiLite4DDSConfig) extends Component{
                 io.phase(idx).valid := dds_core.io.phase.valid
             }
             dds_core.io.sync_en := global_en_cross
-            if(config.useSysRef) {dds_core.io.sysref := io.sysref}
+            if(config.useSysRef) {dds_core.io.sysref := RegNext(io.sysref)init(False)}
         }
         val _ = rfClockArea.dds_core.driveFrom(axil4busCtrl, 0x20 * idx, this.clockDomain, rfClockDomain)
 
