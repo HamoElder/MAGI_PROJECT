@@ -19,7 +19,7 @@ case class AxiLite4BDMAConfig(
 
                                  axil4DataWidth : Int     = 32,
                                  bytesLimit     : BigInt  = 1 GiB,
-                                 outStandingLen : Int     = 2,
+                                 outStandingLen : Int     = 3,
                                  endianness     : Endianness = LITTLE
                              ){
     val bdmaConfig: BDMAConfig = BDMAConfig(axi4AddrWidth, axi4DataWidth, axi4MaxBurstLen, axi4IDWidth, axis4StrbEn, axis4KeepEn,

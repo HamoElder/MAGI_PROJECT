@@ -1,7 +1,9 @@
 package magiSOC.perips.DMA.SGDMA
 
+import magiSOC.perips.DMA.BlockDMA.BDMAConfig
 import spinal.lib._
 import spinal.core._
+import utils.bus.AxiLite.AxiLite4Config
 
 case class AxiLite4SGDMAConfig(
                                   axi4AddrWidth  : Int = 32,
@@ -19,7 +21,10 @@ case class AxiLite4SGDMAConfig(
                                   outStandingLen : Int     = 2,
                                   endianness     : Endianness = LITTLE
                               ){
-
+    val bdmaConfig: BDMAConfig = BDMAConfig(axi4AddrWidth, axi4DataWidth, axi4MaxBurstLen, axi4IDWidth, axis4StrbEn, axis4KeepEn,
+        axis4IDEn, axis4LastEn, bytesLimit, outStandingLen, endianness)
+    def addressWidth = 10
+    def axiLite4Config: AxiLite4Config = AxiLite4Config(addressWidth, axil4DataWidth)
 }
 
 

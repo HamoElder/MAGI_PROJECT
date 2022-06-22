@@ -5,88 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1d7c38c-7d73-4f67-af7f-9cf19bfff978" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/rtl/AxiLite4ASKSymbolCounter/AxiLite4ASKSymbolCounter.sv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/magiRF/top/ASKDemodulator/ASKSymbolCounter.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/magiRF/top/ASKDemodulator/AxiLite4ASKSymbolCounter.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Graphic/VGA/DisplayVgaCtrl.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Graphic/VGA/VgaTimings.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRFilterBench$$anonfun$main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRFilterBench$$anonfun$main$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRFilterBench$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRFilterBench$.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anon$3$$anonfun$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anon$3$$anonfun$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anon$3$$anonfun$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anon$3$$anonfun$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anon$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anon$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anonfun$6$$anonfun$apply$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anonfun$6$$anonfun$apply$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anonfun$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anonfun$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anonfun$combineStage$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$$anonfun$combineStage$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala$.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/SystolicFIRUltraScala.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anon$1$$anonfun$3$$anonfun$apply$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anon$1$$anonfun$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anon$1$$anonfun$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anon$1$$anonfun$4$$anonfun$apply$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anon$1$$anonfun$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anon$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anon$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anonfun$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDSBench$$anonfun$main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDSBench$$anonfun$main$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDSBench$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDSBench$.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/ASKDemodulator/ASKDemodulator$.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/ASKDemodulator/ASKDemodulator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/ASKDemodulator/ASKDemodulatorBench$$anonfun$main$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/ASKDemodulator/ASKDemodulatorBench$.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/ASKDemodulator/ASKDemodulatorBench.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxAligner$$anon$3$$anonfun$24$$anonfun$apply$8.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxAligner$$anon$3$$anonfun$24.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxAligner$$anon$3$$anonfun$25$$anonfun$apply$9.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxAligner$$anon$3$$anonfun$25.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxAligner$$anon$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxAligner$$anonfun$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxAligner$$anonfun$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxAligner.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxAligner.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anon$4$$anon$5$$anonfun$27$$anonfun$apply$10.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anon$4$$anon$5$$anonfun$27.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anon$4$$anon$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anon$4$$anon$6$$anon$7.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anon$4$$anon$6$$anonfun$28.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anon$4$$anon$6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anon$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anonfun$32.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anonfun$32.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anonfun$33.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anonfun$33.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anonfun$34$$anon$9$$anonfun$8$$anonfun$apply$mcV$sp$15$$anonfun$apply$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anonfun$34$$anon$9$$anonfun$8$$anonfun$apply$mcV$sp$15$$anonfun$apply$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anonfun$34$$anon$9$$anonfun$9$$anonfun$apply$mcV$sp$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anonfun$34$$anon$9$$anonfun$9$$anonfun$apply$mcV$sp$12.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anonfun$34$$anon$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anonfun$34$$anon$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anonfun$40$$anon$10$$anon$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anonfun$40$$anon$10$$anon$11.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anonfun$40$$anon$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anonfun$40$$anon$10.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxChecker$$anon$2$$anonfun$22$$anonfun$apply$6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxChecker$$anon$2$$anonfun$22.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxChecker$$anon$2$$anonfun$23$$anonfun$apply$7.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxChecker$$anon$2$$anonfun$23.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxChecker$$anon$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxChecker.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxChecker.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter$$anon$8$$anonfun$18$$anonfun$apply$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter$$anon$8$$anonfun$18.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter$$anon$8$$anonfun$19$$anonfun$apply$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter$$anon$8$$anonfun$19.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter$$anon$8.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter$$anonfun$3$$anonfun$apply$mcV$sp$6$$anonfun$apply$mcV$sp$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter$$anonfun$3$$anonfun$apply$mcV$sp$6$$anonfun$apply$mcV$sp$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter$$anonfun$3$$anonfun$apply$mcV$sp$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter$$anonfun$3$$anonfun$apply$mcV$sp$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter$$anonfun$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter$$anonfun$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter$$anonfun$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter$$anonfun$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxPreamble$$anonfun$2$$anonfun$apply$mcV$sp$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxPreamble$$anonfun$2$$anonfun$apply$mcV$sp$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxPreamble$$anonfun$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxPreamble$$anonfun$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anon$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anon$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMAConfig$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMAConfig$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMAConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMAConfig.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.analysis" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.analysis" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv" beforeDir="false" afterPath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rtl/AxiLite4MacEth/AxiLite4MacEth.sv" beforeDir="false" afterPath="$PROJECT_DIR$/rtl/AxiLite4MacEth/AxiLite4MacEth.sv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rtl/SystolicFIR/SystolicFIR.sv" beforeDir="false" afterPath="$PROJECT_DIR$/rtl/SystolicFIR/SystolicFIR.sv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Filters/FIR/SystolicFIR.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Filters/FIR/SystolicFIR.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/DDS/AxiLite4DDS.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/DDS/AxiLite4DDS.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/top/ASKDemodulator/ASKDemodulator.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMACore.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiLite4Mac/MacRx.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiLite4Mac/MacRx.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/DMA/BlockDMA/AxiLite4BDMA.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/DMA/BlockDMA/AxiLite4BDMA.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/DMA/BlockDMA/BDMACore.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/DMA/BlockDMA/BDMACore.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/DMA/SGDMA/SGDMACore.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/DMA/SGDMA/SGDMACore.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/DMA/VideoDMA/VideoDMA.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Graphic/VGA/Axi4VgaCtrl.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Graphic/VGA/VgaCtrl.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Graphic/VGA/VgaCtrl.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +106,7 @@
       <recent name="magiRF.interfaces.frontend.AD9375" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.AxiLite4ASKSymbolCounterBench">
+  <component name="RunManager" selected="Application.VgaTimingPrint">
     <configuration name="ASKDemodulatorBench" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="magiRF.top.ASKDemodulator.ASKDemodulatorBench" />
       <module name="MAGI_PROJECT.main" />
@@ -220,12 +159,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SystolicFIRFilterBench" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="magiRF.modules.Filters.FIR.SystolicFIRFilterBench" />
+    <configuration name="VgaTimingPrint" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="magiSOC.perips.Graphic.VGA.VgaTimingPrint" />
       <module name="MAGI_PROJECT.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="magiRF.modules.Filters.FIR.*" />
+          <option name="PATTERN" value="magiSOC.perips.Graphic.VGA.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -235,19 +174,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.Unnamed" />
+      <item itemvalue="Application.VgaTimingPrint" />
       <item itemvalue="Application.AxiLite4ASKSymbolCounterBench" />
       <item itemvalue="Application.AxiLite4DDSBench" />
       <item itemvalue="Application.AxiLite4MacEthBench" />
       <item itemvalue="Application.ASKDemodulatorBench" />
-      <item itemvalue="Application.SystolicFIRFilterBench" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.VgaTimingPrint" />
         <item itemvalue="Application.AxiLite4ASKSymbolCounterBench" />
         <item itemvalue="Application.AxiLite4MacEthBench" />
         <item itemvalue="Application.AxiLite4DDSBench" />
         <item itemvalue="Application.ASKDemodulatorBench" />
-        <item itemvalue="Application.SystolicFIRFilterBench" />
       </list>
     </recent_temporary>
   </component>

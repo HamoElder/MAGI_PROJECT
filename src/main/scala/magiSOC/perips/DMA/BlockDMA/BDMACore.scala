@@ -6,7 +6,7 @@ import spinal.lib.bus.amba4.axi.{Axi4, Axi4Config, Axi4SpecRenamer}
 import spinal.lib.bus.misc.BusSlaveFactory
 import utils.bus.AxiStream4.{AxiStream4, AxiStream4Config, AxiStream4SpecRenamer}
 
-object BDMAcchStates extends SpinalEnum{
+object  BDMAcchStates extends SpinalEnum{
     val IDLE, FIXED_REQ, INCR_REQ, HALT = newElement()
 }
 
