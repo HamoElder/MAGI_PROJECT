@@ -224,6 +224,9 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 //Path to a file.
 EIGEN3_INCLUDE_DIR:PATH=/usr/local/includes/eigen3
 
+//The directory containing a CMake configuration file for Eigen3.
+Eigen3_DIR:PATH=/lib/cmake/eigen3
+
 //Path to a file.
 FREETYPE_INCLUDE_DIR_freetype2:PATH=/usr/includes/freetype2
 

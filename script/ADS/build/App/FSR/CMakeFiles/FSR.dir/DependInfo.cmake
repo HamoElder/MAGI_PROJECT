@@ -12,23 +12,25 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/imgui_tables.cpp" "/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_tables.cpp.o"
   "/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/imgui_widgets.cpp" "/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_widgets.cpp.o"
   "/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/App/FSR/main.cpp" "/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/FSR/CMakeFiles/FSR.dir/main.cpp.o"
+  "/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/App/FSR/src/EASUPass.cpp" "/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/FSR/CMakeFiles/FSR.dir/src/EASUPass.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
-# The includes file search paths:
+# The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "configuration"
-  "../include"
+  "../includes"
   "../3rdParty"
-  "/usr/local/include/eigen3"
   "../3rdParty/imgui"
   "../3rdParty/imgui/backends"
+  "../App/FSR/includes"
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
   "/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles/STB_IMAGE.dir/DependInfo.cmake"
   "/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles/GLAD.dir/DependInfo.cmake"
+  "/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles/MAGI_ENGINE.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

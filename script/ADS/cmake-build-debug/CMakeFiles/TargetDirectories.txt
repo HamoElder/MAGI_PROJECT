@@ -14,3 +14,6 @@
 /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/FSR/CMakeFiles/FSR.dir
 /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/FSR/CMakeFiles/edit_cache.dir
 /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/FSR/CMakeFiles/rebuild_cache.dir
+/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir
+/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/MAGI_EDITOR/CMakeFiles/edit_cache.dir
+/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/MAGI_EDITOR/CMakeFiles/rebuild_cache.dir

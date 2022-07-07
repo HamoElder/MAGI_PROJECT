@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named MAGI_Engine
+# Target rules for targets named MAGI_ENGINE
 
 # Build rule for target.
-MAGI_Engine: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 MAGI_Engine
-.PHONY : MAGI_Engine
+MAGI_ENGINE: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 MAGI_ENGINE
+.PHONY : MAGI_ENGINE
 
 # fast build rule for target.
-MAGI_Engine/fast:
-	$(MAKE) -f CMakeFiles/MAGI_Engine.dir/build.make CMakeFiles/MAGI_Engine.dir/build
-.PHONY : MAGI_Engine/fast
+MAGI_ENGINE/fast:
+	$(MAKE) -f CMakeFiles/MAGI_ENGINE.dir/build.make CMakeFiles/MAGI_ENGINE.dir/build
+.PHONY : MAGI_ENGINE/fast
 
 #=============================================================================
 # Target rules for targets named GLAD
@@ -221,7 +221,7 @@ src/engine/shader.o: src/engine/shader.cpp.o
 
 # target to build an object file
 src/engine/shader.cpp.o:
-	$(MAKE) -f CMakeFiles/MAGI_Engine.dir/build.make CMakeFiles/MAGI_Engine.dir/src/engine/shader.cpp.o
+	$(MAKE) -f CMakeFiles/MAGI_ENGINE.dir/build.make CMakeFiles/MAGI_ENGINE.dir/src/engine/shader.cpp.o
 .PHONY : src/engine/shader.cpp.o
 
 src/engine/shader.i: src/engine/shader.cpp.i
@@ -230,7 +230,7 @@ src/engine/shader.i: src/engine/shader.cpp.i
 
 # target to preprocess a source file
 src/engine/shader.cpp.i:
-	$(MAKE) -f CMakeFiles/MAGI_Engine.dir/build.make CMakeFiles/MAGI_Engine.dir/src/engine/shader.cpp.i
+	$(MAKE) -f CMakeFiles/MAGI_ENGINE.dir/build.make CMakeFiles/MAGI_ENGINE.dir/src/engine/shader.cpp.i
 .PHONY : src/engine/shader.cpp.i
 
 src/engine/shader.s: src/engine/shader.cpp.s
@@ -239,7 +239,7 @@ src/engine/shader.s: src/engine/shader.cpp.s
 
 # target to generate assembly for a file
 src/engine/shader.cpp.s:
-	$(MAKE) -f CMakeFiles/MAGI_Engine.dir/build.make CMakeFiles/MAGI_Engine.dir/src/engine/shader.cpp.s
+	$(MAKE) -f CMakeFiles/MAGI_ENGINE.dir/build.make CMakeFiles/MAGI_ENGINE.dir/src/engine/shader.cpp.s
 .PHONY : src/engine/shader.cpp.s
 
 src/stb/stb_image.o: src/stb/stb_image.cpp.o
@@ -276,7 +276,7 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... MAGI_Engine"
+	@echo "... MAGI_ENGINE"
 	@echo "... edit_cache"
 	@echo "... GLAD"
 	@echo "... STB_IMAGE"

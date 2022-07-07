@@ -16,10 +16,12 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.16.3/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.16.3/CMakeSystem.cmake"
   "../cmake_modules/FindASSIMP.cmake"
-  "../cmake_modules/FindEigen3.cmake"
   "../cmake_modules/FindGLFW3.cmake"
   "../cmake_modules/FindGLM.cmake"
   "../configuration/root_directory.h.in"
+  "/lib/cmake/eigen3/Eigen3Config.cmake"
+  "/lib/cmake/eigen3/Eigen3ConfigVersion.cmake"
+  "/lib/cmake/eigen3/Eigen3Targets.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeCInformation.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeCXXInformation.cmake"
   "/usr/share/cmake-3.16/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake"
@@ -69,7 +71,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/MAGI_Engine.dir/DependInfo.cmake"
+  "CMakeFiles/MAGI_ENGINE.dir/DependInfo.cmake"
   "CMakeFiles/GLAD.dir/DependInfo.cmake"
   "CMakeFiles/STB_IMAGE.dir/DependInfo.cmake"
   "App/editor/CMakeFiles/ADS_EDITOR.dir/DependInfo.cmake"

@@ -48,6 +48,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/editor/cmake_install.cmake")
   include("/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/DI/cmake_install.cmake")
   include("/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/FSR/cmake_install.cmake")
+  include("/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/App/MAGI_EDITOR/cmake_install.cmake")
 
 endif()
 

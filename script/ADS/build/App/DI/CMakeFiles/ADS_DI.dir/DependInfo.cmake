@@ -15,12 +15,11 @@ set(CMAKE_DEPENDS_CHECK_CXX
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
-# The includes file search paths:
+# The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "configuration"
-  "../include"
+  "../includes"
   "../3rdParty"
-  "/usr/local/include/eigen3"
   "../3rdParty/imgui"
   "../3rdParty/imgui/backends"
   )
@@ -29,6 +28,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 set(CMAKE_TARGET_LINKED_INFO_FILES
   "/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles/STB_IMAGE.dir/DependInfo.cmake"
   "/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles/GLAD.dir/DependInfo.cmake"
+  "/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles/MAGI_ENGINE.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.

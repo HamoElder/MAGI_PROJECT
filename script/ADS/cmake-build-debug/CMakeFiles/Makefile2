@@ -45,10 +45,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /snap/clion/189/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /snap/clion/198/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /snap/clion/189/bin/cmake/linux/bin/cmake -E rm -f
+RM = /snap/clion/198/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -70,6 +70,7 @@ all: 3rdParty/all
 all: App/editor/all
 all: App/DI/all
 all: App/FSR/all
+all: App/MAGI_EDITOR/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -77,6 +78,7 @@ preinstall: 3rdParty/preinstall
 preinstall: App/editor/preinstall
 preinstall: App/DI/preinstall
 preinstall: App/FSR/preinstall
+preinstall: App/MAGI_EDITOR/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
@@ -87,6 +89,7 @@ clean: 3rdParty/clean
 clean: App/editor/clean
 clean: App/DI/clean
 clean: App/FSR/clean
+clean: App/MAGI_EDITOR/clean
 .PHONY : clean
 
 #=============================================================================
@@ -135,6 +138,21 @@ App/FSR/clean: App/FSR/CMakeFiles/FSR.dir/clean
 .PHONY : App/FSR/clean
 
 #=============================================================================
+# Directory level rules for directory App/MAGI_EDITOR
+
+# Recursive "all" directory target.
+App/MAGI_EDITOR/all: App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/all
+.PHONY : App/MAGI_EDITOR/all
+
+# Recursive "preinstall" directory target.
+App/MAGI_EDITOR/preinstall:
+.PHONY : App/MAGI_EDITOR/preinstall
+
+# Recursive "clean" directory target.
+App/MAGI_EDITOR/clean: App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/clean
+.PHONY : App/MAGI_EDITOR/clean
+
+#=============================================================================
 # Directory level rules for directory App/editor
 
 # Recursive "all" directory target.
@@ -156,7 +174,7 @@ App/editor/clean: App/editor/CMakeFiles/ADS_EDITOR.dir/clean
 CMakeFiles/STB_IMAGE.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/STB_IMAGE.dir/build.make CMakeFiles/STB_IMAGE.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/STB_IMAGE.dir/build.make CMakeFiles/STB_IMAGE.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/CMakeFiles --progress-num=33,34 "Built target STB_IMAGE"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/CMakeFiles --progress-num=42,43 "Built target STB_IMAGE"
 .PHONY : CMakeFiles/STB_IMAGE.dir/all
 
 # Build rule for subdir invocation for target.
@@ -208,7 +226,7 @@ CMakeFiles/GLAD.dir/clean:
 CMakeFiles/MAGI_ENGINE.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MAGI_ENGINE.dir/build.make CMakeFiles/MAGI_ENGINE.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MAGI_ENGINE.dir/build.make CMakeFiles/MAGI_ENGINE.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/CMakeFiles --progress-num=31,32 "Built target MAGI_ENGINE"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/CMakeFiles --progress-num=40,41 "Built target MAGI_ENGINE"
 .PHONY : CMakeFiles/MAGI_ENGINE.dir/all
 
 # Build rule for subdir invocation for target.
@@ -310,6 +328,34 @@ FSR: App/FSR/CMakeFiles/FSR.dir/rule
 App/FSR/CMakeFiles/FSR.dir/clean:
 	$(MAKE) $(MAKESILENT) -f App/FSR/CMakeFiles/FSR.dir/build.make App/FSR/CMakeFiles/FSR.dir/clean
 .PHONY : App/FSR/CMakeFiles/FSR.dir/clean
+
+#=============================================================================
+# Target rules for target App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir
+
+# All Build rule for target.
+App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/all: CMakeFiles/STB_IMAGE.dir/all
+App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/all: CMakeFiles/GLAD.dir/all
+App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/all: CMakeFiles/MAGI_ENGINE.dir/all
+	$(MAKE) $(MAKESILENT) -f App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/build.make App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/depend
+	$(MAKE) $(MAKESILENT) -f App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/build.make App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/CMakeFiles --progress-num=31,32,33,34,35,36,37,38,39 "Built target MAGI_EDITOR"
+.PHONY : App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/all
+
+# Build rule for subdir invocation for target.
+App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/CMakeFiles 15
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/CMakeFiles 0
+.PHONY : App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/rule
+
+# Convenience name for target.
+MAGI_EDITOR: App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/rule
+.PHONY : MAGI_EDITOR
+
+# clean rule for target.
+App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/clean:
+	$(MAKE) $(MAKESILENT) -f App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/build.make App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/clean
+.PHONY : App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

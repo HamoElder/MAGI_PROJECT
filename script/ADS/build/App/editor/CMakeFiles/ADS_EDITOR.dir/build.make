@@ -188,6 +188,7 @@ ADS_EDITOR_EXTERNAL_OBJECTS =
 ../bin/ADS_EDITOR/ADS_EDITOR: /usr/lib/x86_64-linux-gnu/libassimp.so
 ../bin/ADS_EDITOR/ADS_EDITOR: libSTB_IMAGE.a
 ../bin/ADS_EDITOR/ADS_EDITOR: libGLAD.a
+../bin/ADS_EDITOR/ADS_EDITOR: libMAGI_ENGINE.a
 ../bin/ADS_EDITOR/ADS_EDITOR: App/editor/CMakeFiles/ADS_EDITOR.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable ../../../bin/ADS_EDITOR/ADS_EDITOR"
 	cd /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/editor && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ADS_EDITOR.dir/link.txt --verbose=$(VERBOSE)

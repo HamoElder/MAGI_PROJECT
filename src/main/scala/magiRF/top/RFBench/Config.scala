@@ -35,13 +35,13 @@ import utils.common.CRC.CrcKind
  * 01      =>     QPSK
  * 10      =>     16QAM
  * 11      =>     LookUpMethod
- * ENCODER FLOW:
+ * TRANSMITTER FLOW:
  * Data From DMA(4 bytes) => StreamPkgGen (1 bytes) => PADDING => CRC => Convolutional Code (16 bits) => Puncturing
  *                                                                                                          ||
  *                                                                                                          \/
  * RF Interface <= Preambler Extend <= Filter <= UpSampling <= HeaderExtend <= Modulation(12 bits * 2) <=  Scrambling
  *
- * DECODER FLOW:
+ * RECEIVER FLOW:
  * RF Interface(12 bits * 2) => Preambler Detector => CFO Estimator => CFO Corrector => Filter => DownSampling => DeModulation(1 bits * 2)
  *                                                                                                                      ||
  *                                                                                                                      \/

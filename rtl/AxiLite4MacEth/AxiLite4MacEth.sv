@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.7.0    git head : eca519e78d4e6022e34911ec300a432ed9db8220
 // Component : AxiLite4MacEth
-// Git hash  : 4300383b228876766a219b9dd2dc88cbba246199
+// Git hash  : 0727f9ff86b0428c52b898049d05b42f47380ee0
 
 `timescale 1ns/1ps
 

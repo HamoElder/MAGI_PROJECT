@@ -341,6 +341,33 @@ main.cpp.s:
 	cd /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build && $(MAKE) -f App/FSR/CMakeFiles/FSR.dir/build.make App/FSR/CMakeFiles/FSR.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+src/EASUPass.o: src/EASUPass.cpp.o
+
+.PHONY : src/EASUPass.o
+
+# target to build an object file
+src/EASUPass.cpp.o:
+	cd /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build && $(MAKE) -f App/FSR/CMakeFiles/FSR.dir/build.make App/FSR/CMakeFiles/FSR.dir/src/EASUPass.cpp.o
+.PHONY : src/EASUPass.cpp.o
+
+src/EASUPass.i: src/EASUPass.cpp.i
+
+.PHONY : src/EASUPass.i
+
+# target to preprocess a source file
+src/EASUPass.cpp.i:
+	cd /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build && $(MAKE) -f App/FSR/CMakeFiles/FSR.dir/build.make App/FSR/CMakeFiles/FSR.dir/src/EASUPass.cpp.i
+.PHONY : src/EASUPass.cpp.i
+
+src/EASUPass.s: src/EASUPass.cpp.s
+
+.PHONY : src/EASUPass.s
+
+# target to generate assembly for a file
+src/EASUPass.cpp.s:
+	cd /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build && $(MAKE) -f App/FSR/CMakeFiles/FSR.dir/build.make App/FSR/CMakeFiles/FSR.dir/src/EASUPass.cpp.s
+.PHONY : src/EASUPass.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -374,6 +401,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... src/EASUPass.o"
+	@echo "... src/EASUPass.i"
+	@echo "... src/EASUPass.s"
 .PHONY : help
 
 

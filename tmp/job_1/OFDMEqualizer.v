@@ -1,8 +1,8 @@
-// Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
+// Generator : SpinalHDL v1.7.0    git head : eca519e78d4e6022e34911ec300a432ed9db8220
 // Component : OFDMEqualizer
-// Git hash  : c25aef4ce126c6f2485d3659049da526d3e7b24f
+// Git hash  : 0727f9ff86b0428c52b898049d05b42f47380ee0
 
-
+`timescale 1ns/1ps
 
 module OFDMEqualizer (
   input               raw_data_valid,
@@ -17,6 +17,7 @@ module OFDMEqualizer (
   input               clk,
   input               reset
 );
+
   wire       [15:0]   i_zf_eq_scale;
   wire       [15:0]   i_zf_eq_ref_data;
   wire       [15:0]   q_zf_eq_scale;
@@ -325,28 +326,28 @@ module OFDMEqualizer (
   assign _zz_equalized_data_payload_fragment_cha_i = 16'h0;
   assign _zz_equalized_data_payload_fragment_cha_q = 16'h0;
   ZeroForcing i_zf_eq (
-    .raw_data_valid         (raw_data_valid                   ), //i
-    .raw_data_ready         (i_zf_eq_raw_data_ready           ), //o
-    .raw_data_payload       (raw_data_payload_fragment_cha_i  ), //i
-    .scale                  (i_zf_eq_scale                    ), //i
-    .ref_data               (i_zf_eq_ref_data                 ), //i
-    .train_en               (train_en                         ), //i
-    .result_data_valid      (i_zf_eq_result_data_valid        ), //o
-    .result_data_payload    (i_zf_eq_result_data_payload      ), //o
-    .clk                    (clk                              ), //i
-    .reset                  (reset                            )  //i
+    .raw_data_valid      (raw_data_valid                       ), //i
+    .raw_data_ready      (i_zf_eq_raw_data_ready               ), //o
+    .raw_data_payload    (raw_data_payload_fragment_cha_i[15:0]), //i
+    .scale               (i_zf_eq_scale[15:0]                  ), //i
+    .ref_data            (i_zf_eq_ref_data[15:0]               ), //i
+    .train_en            (train_en                             ), //i
+    .result_data_valid   (i_zf_eq_result_data_valid            ), //o
+    .result_data_payload (i_zf_eq_result_data_payload[15:0]    ), //o
+    .clk                 (clk                                  ), //i
+    .reset               (reset                                )  //i
   );
   ZeroForcing q_zf_eq (
-    .raw_data_valid         (raw_data_valid                   ), //i
-    .raw_data_ready         (q_zf_eq_raw_data_ready           ), //o
-    .raw_data_payload       (raw_data_payload_fragment_cha_q  ), //i
-    .scale                  (q_zf_eq_scale                    ), //i
-    .ref_data               (q_zf_eq_ref_data                 ), //i
-    .train_en               (train_en                         ), //i
-    .result_data_valid      (q_zf_eq_result_data_valid        ), //o
-    .result_data_payload    (q_zf_eq_result_data_payload      ), //o
-    .clk                    (clk                              ), //i
-    .reset                  (reset                            )  //i
+    .raw_data_valid      (raw_data_valid                       ), //i
+    .raw_data_ready      (q_zf_eq_raw_data_ready               ), //o
+    .raw_data_payload    (raw_data_payload_fragment_cha_q[15:0]), //i
+    .scale               (q_zf_eq_scale[15:0]                  ), //i
+    .ref_data            (q_zf_eq_ref_data[15:0]               ), //i
+    .train_en            (train_en                             ), //i
+    .result_data_valid   (q_zf_eq_result_data_valid            ), //o
+    .result_data_payload (q_zf_eq_result_data_payload[15:0]    ), //o
+    .clk                 (clk                                  ), //i
+    .reset               (reset                                )  //i
   );
   always @(*) begin
     case(cnt)
@@ -1350,6 +1351,7 @@ module ZeroForcing (
   input               clk,
   input               reset
 );
+
   wire                cal_core_rotate_mode;
   wire       [15:0]   cal_core_raw_data_payload_x;
   wire       [15:0]   cal_core_raw_data_payload_y;
@@ -1413,19 +1415,19 @@ module ZeroForcing (
   assign _zz_mul_result = (- cal_core_result_payload_y);
   assign _zz_div_result = (- cal_core_result_payload_z);
   CordicRotator cal_core (
-    .rotate_mode           (cal_core_rotate_mode         ), //i
-    .x_u                   (2'b01                        ), //i
-    .raw_data_valid        (raw_data_valid               ), //i
-    .raw_data_ready        (cal_core_raw_data_ready      ), //o
-    .raw_data_payload_x    (cal_core_raw_data_payload_x  ), //i
-    .raw_data_payload_y    (cal_core_raw_data_payload_y  ), //i
-    .raw_data_payload_z    (cal_core_raw_data_payload_z  ), //i
-    .result_valid          (cal_core_result_valid        ), //o
-    .result_payload_x      (cal_core_result_payload_x    ), //o
-    .result_payload_y      (cal_core_result_payload_y    ), //o
-    .result_payload_z      (cal_core_result_payload_z    ), //o
-    .clk                   (clk                          ), //i
-    .reset                 (reset                        )  //i
+    .rotate_mode        (cal_core_rotate_mode             ), //i
+    .x_u                (2'b01                            ), //i
+    .raw_data_valid     (raw_data_valid                   ), //i
+    .raw_data_ready     (cal_core_raw_data_ready          ), //o
+    .raw_data_payload_x (cal_core_raw_data_payload_x[15:0]), //i
+    .raw_data_payload_y (cal_core_raw_data_payload_y[15:0]), //i
+    .raw_data_payload_z (cal_core_raw_data_payload_z[15:0]), //i
+    .result_valid       (cal_core_result_valid            ), //o
+    .result_payload_x   (cal_core_result_payload_x[15:0]  ), //o
+    .result_payload_y   (cal_core_result_payload_y[15:0]  ), //o
+    .result_payload_z   (cal_core_result_payload_z[15:0]  ), //o
+    .clk                (clk                              ), //i
+    .reset              (reset                            )  //i
   );
   assign cal_core_raw_data_payload_x = _zz_raw_data_payload_x;
   assign cal_core_raw_data_payload_y = (train_en ? ref_data : _zz_raw_data_payload_y);
@@ -1491,6 +1493,7 @@ module CordicRotator (
   input               clk,
   input               reset
 );
+
   wire       [15:0]   _zz__zz_result_payload_x_1;
   wire       [15:0]   _zz__zz_result_payload_x_1_1;
   wire       [15:0]   _zz__zz_result_payload_x_1_2;

@@ -6,5 +6,5 @@ CXX_FLAGS = -std=c++11 -O3 -DNDEBUG
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/configuration -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/include -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty -I/usr/local/include/eigen3 -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends 
+CXX_INCLUDES = -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/configuration -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/includes -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends 
 

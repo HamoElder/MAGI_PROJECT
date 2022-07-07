@@ -48,10 +48,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /snap/clion/189/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /snap/clion/198/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /snap/clion/189/bin/cmake/linux/bin/cmake -E rm -f
+RM = /snap/clion/198/bin/cmake/linux/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-bui
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/snap/clion/189/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/snap/clion/198/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -78,7 +78,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/snap/clion/189/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/snap/clion/198/bin/cmake/linux/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -194,6 +194,19 @@ FSR/fast:
 	$(MAKE) $(MAKESILENT) -f App/FSR/CMakeFiles/FSR.dir/build.make App/FSR/CMakeFiles/FSR.dir/build
 .PHONY : FSR/fast
 
+#=============================================================================
+# Target rules for targets named MAGI_EDITOR
+
+# Build rule for target.
+MAGI_EDITOR: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 MAGI_EDITOR
+.PHONY : MAGI_EDITOR
+
+# fast build rule for target.
+MAGI_EDITOR/fast:
+	$(MAKE) $(MAKESILENT) -f App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/build.make App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/build
+.PHONY : MAGI_EDITOR/fast
+
 3rdParty/glad/glad.o: 3rdParty/glad/glad.c.o
 .PHONY : 3rdParty/glad/glad.o
 
@@ -278,6 +291,7 @@ help:
 	@echo "... ADS_EDITOR"
 	@echo "... FSR"
 	@echo "... GLAD"
+	@echo "... MAGI_EDITOR"
 	@echo "... MAGI_ENGINE"
 	@echo "... STB_IMAGE"
 	@echo "... 3rdParty/glad/glad.o"

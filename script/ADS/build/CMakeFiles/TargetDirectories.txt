@@ -1,5 +1,5 @@
 /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles/rebuild_cache.dir
-/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles/MAGI_Engine.dir
+/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles/MAGI_ENGINE.dir
 /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles/edit_cache.dir
 /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles/GLAD.dir
 /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles/STB_IMAGE.dir

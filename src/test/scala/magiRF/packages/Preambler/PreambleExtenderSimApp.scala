@@ -1,9 +1,11 @@
 package magiRF.packages.Preambler
 
 import magiRF.packages.Preamble.{PreambleConfig, PreambleExtender}
+import magiRF.top.RFBench.Config
 import spinal.core.sim._
 import utils.bus.AxiLite.sim.AxiLite4Driver
 import spinal.lib.sim.{StreamDriver, StreamMonitor, StreamReadyRandomizer}
+
 import scala.util.Random
 import spinal.core._
 import spinal.lib._
@@ -12,7 +14,6 @@ import spinal.lib._
 object PreambleExtenderSimApp extends App{
 
 
-    import magiRF.top.OAM_BETA.Config
     val preamble_config = PreambleConfig(16, Config.stf)
     SimConfig.withWave.doSim(new PreambleExtender(preamble_config)){ dut =>
         dut.clockDomain.forkStimulus(5)

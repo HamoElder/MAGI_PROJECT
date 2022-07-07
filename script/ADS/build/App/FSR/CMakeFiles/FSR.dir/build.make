@@ -70,9 +70,22 @@ App/FSR/CMakeFiles/FSR.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FSR.dir/main.cpp.s"
 	cd /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/FSR && /bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/App/FSR/main.cpp -o CMakeFiles/FSR.dir/main.cpp.s
 
+App/FSR/CMakeFiles/FSR.dir/src/EASUPass.cpp.o: App/FSR/CMakeFiles/FSR.dir/flags.make
+App/FSR/CMakeFiles/FSR.dir/src/EASUPass.cpp.o: ../App/FSR/src/EASUPass.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object App/FSR/CMakeFiles/FSR.dir/src/EASUPass.cpp.o"
+	cd /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/FSR && /bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/FSR.dir/src/EASUPass.cpp.o -c /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/App/FSR/src/EASUPass.cpp
+
+App/FSR/CMakeFiles/FSR.dir/src/EASUPass.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/FSR.dir/src/EASUPass.cpp.i"
+	cd /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/FSR && /bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/App/FSR/src/EASUPass.cpp > CMakeFiles/FSR.dir/src/EASUPass.cpp.i
+
+App/FSR/CMakeFiles/FSR.dir/src/EASUPass.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/FSR.dir/src/EASUPass.cpp.s"
+	cd /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/FSR && /bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/App/FSR/src/EASUPass.cpp -o CMakeFiles/FSR.dir/src/EASUPass.cpp.s
+
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui.cpp.o: App/FSR/CMakeFiles/FSR.dir/flags.make
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui.cpp.o: ../3rdParty/imgui/imgui.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui.cpp.o"
 	cd /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/FSR && /bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui.cpp.o -c /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/imgui.cpp
 
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui.cpp.i: cmake_force
@@ -85,7 +98,7 @@ App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui.cpp.s: cmake_force
 
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_demo.cpp.o: App/FSR/CMakeFiles/FSR.dir/flags.make
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_demo.cpp.o: ../3rdParty/imgui/imgui_demo.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_demo.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_demo.cpp.o"
 	cd /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/FSR && /bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_demo.cpp.o -c /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/imgui_demo.cpp
 
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_demo.cpp.i: cmake_force
@@ -98,7 +111,7 @@ App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_demo.cpp.s: cmake_force
 
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_draw.cpp.o: App/FSR/CMakeFiles/FSR.dir/flags.make
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_draw.cpp.o: ../3rdParty/imgui/imgui_draw.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_draw.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_draw.cpp.o"
 	cd /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/FSR && /bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_draw.cpp.o -c /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/imgui_draw.cpp
 
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_draw.cpp.i: cmake_force
@@ -111,7 +124,7 @@ App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_draw.cpp.s: cmake_force
 
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_tables.cpp.o: App/FSR/CMakeFiles/FSR.dir/flags.make
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_tables.cpp.o: ../3rdParty/imgui/imgui_tables.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_tables.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_tables.cpp.o"
 	cd /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/FSR && /bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_tables.cpp.o -c /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/imgui_tables.cpp
 
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_tables.cpp.i: cmake_force
@@ -124,7 +137,7 @@ App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_tables.cpp.s: cmake_force
 
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_widgets.cpp.o: App/FSR/CMakeFiles/FSR.dir/flags.make
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_widgets.cpp.o: ../3rdParty/imgui/imgui_widgets.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_widgets.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_widgets.cpp.o"
 	cd /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/FSR && /bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_widgets.cpp.o -c /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/imgui_widgets.cpp
 
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_widgets.cpp.i: cmake_force
@@ -137,7 +150,7 @@ App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_widgets.cpp.s: cmake_force
 
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/backends/imgui_impl_opengl3.cpp.o: App/FSR/CMakeFiles/FSR.dir/flags.make
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/backends/imgui_impl_opengl3.cpp.o: ../3rdParty/imgui/backends/imgui_impl_opengl3.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/backends/imgui_impl_opengl3.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/backends/imgui_impl_opengl3.cpp.o"
 	cd /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/FSR && /bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/FSR.dir/__/__/3rdParty/imgui/backends/imgui_impl_opengl3.cpp.o -c /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends/imgui_impl_opengl3.cpp
 
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/backends/imgui_impl_opengl3.cpp.i: cmake_force
@@ -150,7 +163,7 @@ App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/backends/imgui_impl_opengl3.cpp.
 
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/backends/imgui_impl_glfw.cpp.o: App/FSR/CMakeFiles/FSR.dir/flags.make
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/backends/imgui_impl_glfw.cpp.o: ../3rdParty/imgui/backends/imgui_impl_glfw.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/backends/imgui_impl_glfw.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/backends/imgui_impl_glfw.cpp.o"
 	cd /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/FSR && /bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/FSR.dir/__/__/3rdParty/imgui/backends/imgui_impl_glfw.cpp.o -c /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends/imgui_impl_glfw.cpp
 
 App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/backends/imgui_impl_glfw.cpp.i: cmake_force
@@ -164,6 +177,7 @@ App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/backends/imgui_impl_glfw.cpp.s: 
 # Object files for target FSR
 FSR_OBJECTS = \
 "CMakeFiles/FSR.dir/main.cpp.o" \
+"CMakeFiles/FSR.dir/src/EASUPass.cpp.o" \
 "CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui.cpp.o" \
 "CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_demo.cpp.o" \
 "CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_draw.cpp.o" \
@@ -176,6 +190,7 @@ FSR_OBJECTS = \
 FSR_EXTERNAL_OBJECTS =
 
 ../bin/FSR/FSR: App/FSR/CMakeFiles/FSR.dir/main.cpp.o
+../bin/FSR/FSR: App/FSR/CMakeFiles/FSR.dir/src/EASUPass.cpp.o
 ../bin/FSR/FSR: App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui.cpp.o
 ../bin/FSR/FSR: App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_demo.cpp.o
 ../bin/FSR/FSR: App/FSR/CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_draw.cpp.o
@@ -188,8 +203,9 @@ FSR_EXTERNAL_OBJECTS =
 ../bin/FSR/FSR: /usr/lib/x86_64-linux-gnu/libassimp.so
 ../bin/FSR/FSR: libSTB_IMAGE.a
 ../bin/FSR/FSR: libGLAD.a
+../bin/FSR/FSR: libMAGI_ENGINE.a
 ../bin/FSR/FSR: App/FSR/CMakeFiles/FSR.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable ../../../bin/FSR/FSR"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable ../../../bin/FSR/FSR"
 	cd /home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/build/App/FSR && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/FSR.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

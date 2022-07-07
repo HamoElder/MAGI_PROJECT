@@ -30,7 +30,7 @@ message(STATUS "Found GLFW3 in ${GLFW3_INCLUDE_DIR}")
 find_package(ASSIMP REQUIRED)
 message(STATUS "Found ASSIMP in ${ASSIMP_INCLUDE_DIR}")
 find_package(Eigen3 REQUIRED)
-message(STATUS "Found Eigen3 in ${EIGEN3_INCLUDE_DIR}")
+#message(STATUS "Found Eigen3 in ${EIGEN3_INCLUDE_DIR}")
 # find_package(SOIL REQUIRED)
 # message(STATUS "Found SOIL in ${SOIL_INCLUDE_DIR}")
 # find_package(GLEW REQUIRED)
@@ -77,7 +77,7 @@ endmacro()
 
 include_directories(${PROJECT_SOURCE_DIR}/includes
         ${PROJECT_SOURCE_DIR}/3rdParty
-        ${EIGEN3_INCLUDE_DIR}
+#        ${EIGEN3_INCLUDE_DIR}
         )
 
 add_subdirectory(${PROJECT_SOURCE_DIR}/3rdParty)
@@ -89,6 +89,7 @@ set(LIBS ${LIBS} MAGI_ENGINE)
 add_subdirectory(App/editor)
 add_subdirectory(App/DI)
 add_subdirectory(App/FSR)
+add_subdirectory(App/MAGI_EDITOR)
 # then create a project file per tutorial
 #foreach(CHAPTER ${CHAPTERS})
 #    foreach(DEMO ${${CHAPTER}})

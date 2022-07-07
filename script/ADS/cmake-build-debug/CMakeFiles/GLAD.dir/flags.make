@@ -4,7 +4,7 @@
 # compile C with /bin/cc
 C_DEFINES = 
 
-C_INCLUDES = -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/configuration -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/includes -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty -I/usr/local/include/eigen3 -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends
+C_INCLUDES = -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/cmake-build-debug/configuration -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/includes -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui -I/home/missdown/IdeaProjects/MAGI_PROJECT/script/ADS/3rdParty/imgui/backends
 
 C_FLAGS = -g
 

@@ -12,8 +12,8 @@ object PreambleExtenderStates extends SpinalEnum(defaultEncoding=binarySequentia
 
 case class PreambleConfig(
                          iqWidth: Int,
-												 preamble: Array[Complex],
-												 repeat: Int = 8,
+						 preamble: Array[Complex],
+						 repeat: Int = 8,
                          scale: Double = 1.0
                          ){
 	require(iqWidth > 0, "iqWidth must larger than 0")

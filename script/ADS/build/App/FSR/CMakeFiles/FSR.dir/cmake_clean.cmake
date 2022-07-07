@@ -9,6 +9,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_tables.cpp.o"
   "CMakeFiles/FSR.dir/__/__/3rdParty/imgui/imgui_widgets.cpp.o"
   "CMakeFiles/FSR.dir/main.cpp.o"
+  "CMakeFiles/FSR.dir/src/EASUPass.cpp.o"
 )
 
 # Per-language clean rules from dependency scanning.

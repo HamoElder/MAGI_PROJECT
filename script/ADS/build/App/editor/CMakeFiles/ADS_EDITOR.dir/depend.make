@@ -29,7 +29,6 @@ App/editor/CMakeFiles/ADS_EDITOR.dir/__/__/3rdParty/imgui/imgui_draw.cpp.o: ../3
 App/editor/CMakeFiles/ADS_EDITOR.dir/__/__/3rdParty/imgui/imgui_draw.cpp.o: ../3rdParty/imgui/imstb_rectpack.h
 App/editor/CMakeFiles/ADS_EDITOR.dir/__/__/3rdParty/imgui/imgui_draw.cpp.o: ../3rdParty/imgui/imstb_textedit.h
 App/editor/CMakeFiles/ADS_EDITOR.dir/__/__/3rdParty/imgui/imgui_draw.cpp.o: ../3rdParty/imgui/imstb_truetype.h
-App/editor/CMakeFiles/ADS_EDITOR.dir/__/__/3rdParty/imgui/imgui_draw.cpp.o: ../3rdParty/imgui/misc/freetype/imgui_freetype.h
 
 App/editor/CMakeFiles/ADS_EDITOR.dir/__/__/3rdParty/imgui/imgui_tables.cpp.o: ../3rdParty/imgui/imconfig.h
 App/editor/CMakeFiles/ADS_EDITOR.dir/__/__/3rdParty/imgui/imgui_tables.cpp.o: ../3rdParty/imgui/imgui.h

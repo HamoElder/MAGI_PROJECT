@@ -10,7 +10,6 @@ case class SCEqualizer(
                           dataTypePeak          : ExpNumber = 8 exp,
                           dataTypeResolution    : ExpNumber = -2 exp,
                           refSeqArray           : Array[Complex],
-                          divisionFactor        : Int = -1,
                           iterations            : Int
                       ) extends Component{
     def dataWidth: Int = dataTypePeak.value - dataTypeResolution.value + 1
@@ -18,8 +17,7 @@ case class SCEqualizer(
     def dataType: SInt = SInt(dataWidth bits)
     def cntDataWidth: Int = log2Up(seqSize)
     def cntDataType: UInt = UInt(cntDataWidth bits)
-    def divFactor: Int = if(divisionFactor < 0) log2Up(seqSize) else divisionFactor
-    println(divFactor)
+
     val io = new Bundle{
         val raw_data = slave(Stream(Fragment(IQBundle(dataType))))
         val equalized_data = master(Flow(Fragment(IQBundle(dataType))))
@@ -78,8 +76,14 @@ case class SCEqualizer(
         when(train_cnt === (seqSize - 1)){
             train_finished := True
         }
-        cha_i_scale := cha_i_scale + (i_zf_eq.io.result_data.payload |>> divFactor)
-        cha_q_scale := cha_q_scale +  (q_zf_eq.io.result_data.payload |>> divFactor)
+        when(train_cnt === 0){
+            cha_i_scale := i_zf_eq.io.result_data.payload
+            cha_q_scale := q_zf_eq.io.result_data.payload
+        }.otherwise{
+            cha_i_scale := (cha_i_scale |>> 1) + (i_zf_eq.io.result_data.payload |>> 1)
+            cha_q_scale := (cha_q_scale |>> 1) + (q_zf_eq.io.result_data.payload |>> 1)
+        }
+
     }
     val raw_data_ready = Reg(Bool()) init(True)
     when(io.raw_data.last && io.raw_data.fire){
@@ -100,10 +104,10 @@ case class SCEqualizer(
 object SCEqualizerSimApp extends App {
     import spinal.core.sim._
     val ref_data = IEEE802_11.ltfFreq.map(i=>{i*(1 << 7)})
-    println(ref_data.mkString("Array(", ", ", ")"))
+//    println(ref_data.mkString("Array(", ", ", ")"))
     SimConfig.withWave.allOptimisation
-        .doSim(new OFDMEqualizer(3 exp, -12 exp, ref_data,
-            16)) { dut =>
+        .doSim(new SCEqualizer(3 exp, -12 exp, ref_data, 16))
+        { dut =>
             dut.clockDomain.forkStimulus(5)
             dut.io.raw_data.valid #= false
             dut.io.raw_data.last #= false
@@ -123,6 +127,13 @@ object SCEqualizerSimApp extends App {
             /**
              * Eq
              */
+            for(data <- ref_data){
+                dut.io.raw_data.cha_i #= (data.re*0.707).toInt
+                dut.io.raw_data.cha_q #= (data.im*0.618).toInt
+                dut.io.raw_data.valid #= true
+                // dut.io.raw_data.valid.randomize()
+                dut.clockDomain.waitSampling(1)
+            }
             for(data <- ref_data){
                 dut.io.raw_data.cha_i #= (data.re*0.707).toInt
                 dut.io.raw_data.cha_q #= (data.im*0.618).toInt

@@ -1,0 +1,2 @@
+/bin/ar qc libMAGI_ENGINE.a  CMakeFiles/MAGI_ENGINE.dir/src/engine/shader.cpp.o
+/bin/ranlib libMAGI_ENGINE.a

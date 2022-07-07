@@ -73,7 +73,7 @@ object LoopBackTestSimApp extends App {
             aliteDrv.write(0x44, 0x1)
             aliteDrv.write(0x48, 3488428)
             aliteDrv.write(0x4C, 16)
-            for (idx <- 0 until 2) {
+            for (idx <- 0 until 3) {
                 dut.io.trans_data.stream.valid #= true
                 dut.io.trans_data.stream.ready #= true
                 dut.io.trans_data.stream.data #= idx
@@ -106,7 +106,7 @@ object LoopBackTestSimApp extends App {
             dut.io.trans_data.stream.last #= false
             dut.io.trans_data.stream.valid #= false
 
-            dut.clockDomain.waitSampling(3100)
+            dut.clockDomain.waitSampling(5100)
         }
 }
 
