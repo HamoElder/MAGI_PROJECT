@@ -1,10 +1,10 @@
 // Generator : SpinalHDL v1.7.0    git head : eca519e78d4e6022e34911ec300a432ed9db8220
-// Component : LoopListSGDMA
+// Component : AxiLite4SGDMA
 // Git hash  : 45beed740f640493a6ea4b63775589487bb29649
 
 `timescale 1ns/1ps
 
-module LoopListSGDMA (
+module AxiLite4SGDMA (
   input               axil4Ctrl_awvalid,
   output              axil4Ctrl_awready,
   input      [7:0]    axil4Ctrl_awaddr,
@@ -24,6 +24,25 @@ module LoopListSGDMA (
   input               axil4Ctrl_rready,
   output     [31:0]   axil4Ctrl_rdata,
   output     [1:0]    axil4Ctrl_rresp,
+  output              axil4SG_awvalid,
+  input               axil4SG_awready,
+  output     [31:0]   axil4SG_awaddr,
+  output     [2:0]    axil4SG_awprot,
+  output              axil4SG_wvalid,
+  input               axil4SG_wready,
+  output     [31:0]   axil4SG_wdata,
+  output     [3:0]    axil4SG_wstrb,
+  input               axil4SG_bvalid,
+  output              axil4SG_bready,
+  input      [1:0]    axil4SG_bresp,
+  output              axil4SG_arvalid,
+  input               axil4SG_arready,
+  output     [31:0]   axil4SG_araddr,
+  output     [2:0]    axil4SG_arprot,
+  input               axil4SG_rvalid,
+  output              axil4SG_rready,
+  input      [31:0]   axil4SG_rdata,
+  input      [1:0]    axil4SG_rresp,
   output              axi4S2M_awvalid,
   input               axi4S2M_awready,
   output     [31:0]   axi4S2M_awaddr,
@@ -97,6 +116,15 @@ module LoopListSGDMA (
   input               clk,
   input               resetn
 );
+  localparam SGDMAErrorStates_NONE = 1'd0;
+  localparam SGDMAErrorStates_PREAMBLE_ERR = 1'd1;
+  localparam SGDMAStates_INIT = 3'd0;
+  localparam SGDMAStates_AXIL4_AR_REQ = 3'd1;
+  localparam SGDMAStates_CHECK_PREAMBLE = 3'd2;
+  localparam SGDMAStates_GET_ADDR = 3'd3;
+  localparam SGDMAStates_GET_BYTES = 3'd4;
+  localparam SGDMAStates_PUSH_REQ = 3'd5;
+  localparam SGDMAStates_SGHALT = 3'd6;
   localparam BDMAs2mStates_IDLE = 2'd0;
   localparam BDMAs2mStates_REQ = 2'd1;
   localparam BDMAs2mStates_BURST = 2'd2;
@@ -107,7 +135,6 @@ module LoopListSGDMA (
 
   wire                bdma_core_cchS2M_valid;
   wire                bdma_core_cchM2S_valid;
-  reg        [68:0]   _zz_bdma_linked_list_port1;
   wire                bdma_core_axi4S2M_arvalid;
   wire       [31:0]   bdma_core_axi4S2M_araddr;
   wire       [3:0]    bdma_core_axi4S2M_arid;
@@ -156,10 +183,8 @@ module LoopListSGDMA (
   wire       [1:0]    bdma_core_indicatorM2S;
   wire                bdma_core_intrS2M;
   wire                bdma_core_intrM2S;
-  wire       [68:0]   _zz_bdma_linked_list_port;
-  wire                _zz_bdma_linked_list_port_1;
-  wire                _zz__zz_sgdma_ctrl_desc_start_addr;
-  wire       [3:0]    _zz_bdma_cursor;
+  wire       [7:0]    _zz_desc_id;
+  wire       [31:0]   _zz_desc_total_bytes;
   wire                readHaltRequest;
   wire                writeHaltRequest;
   wire                writeJoinEvent_valid;
@@ -188,146 +213,185 @@ module LoopListSGDMA (
   wire                _zz_axil4Ctrl_rvalid;
   wire                writeOccur;
   wire                readOccur;
-  wire       [3:0]    bdma_cursor_limit;
-  wire                bdma_enable;
-  wire       [3:0]    bdma_linked_list_write_addr;
-  wire       [31:0]   bdma_linked_list_write_data_desc_start_addr;
-  wire       [29:0]   bdma_linked_list_write_data_desc_total_bytes;
-  wire       [1:0]    bdma_linked_list_write_data_desc_burst;
-  wire       [3:0]    bdma_linked_list_write_data_desc_id;
-  wire                bdma_linked_list_write_data_desc_is_s2m;
-  wire                bdma_linked_list_write_enable;
-  reg                 bdma_enable_driver;
-  reg                 bdma_linked_list_write_enable_driver;
-  reg        [3:0]    bdma_cursor_limit_driver;
-  reg        [3:0]    bdma_linked_list_write_addr_driver;
-  reg        [31:0]   bdma_linked_list_write_data_desc_start_addr_driver;
-  reg        [29:0]   bdma_linked_list_write_data_desc_total_bytes_driver;
-  reg        [3:0]    bdma_linked_list_write_data_desc_id_driver;
-  reg        [1:0]    bdma_linked_list_write_data_desc_burst_driver;
-  reg                 bdma_linked_list_write_data_desc_is_s2m_driver;
-  reg        [3:0]    bdma_cursor;
-  reg                 bdma_reset;
-  wire       [31:0]   sgdma_ctrl_desc_start_addr;
-  wire       [29:0]   sgdma_ctrl_desc_total_bytes;
-  wire       [1:0]    sgdma_ctrl_desc_burst;
-  wire       [3:0]    sgdma_ctrl_desc_id;
-  wire                sgdma_ctrl_desc_is_s2m;
-  wire       [68:0]   _zz_sgdma_ctrl_desc_start_addr;
-  wire                when_LoopListSGDMA_l98;
-  wire                bdma_core_cchS2M_fire;
+  wire                sgdma_enable;
+  wire                sgdma_reset;
+  wire                sgdma_intr_indicate;
+  reg        [0:0]    sgdma_error;
+  wire       [31:0]   sg_linked_list_address_startup;
+  reg        [31:0]   sg_linked_list_address_cursor;
+  reg                 sgdma_enable_driver;
+  reg                 sgdma_reset_driver;
+  wire                _zz_readRsp_data;
+  reg        [31:0]   sg_linked_list_address_startup_driver;
+  reg        [31:0]   desc_start_addr;
+  reg        [29:0]   desc_total_bytes;
+  reg        [1:0]    desc_burst;
+  reg        [3:0]    desc_id;
+  reg                 desc_is_s2m;
+  reg                 is_finish;
+  reg        [2:0]    sgdma_next_state;
+  reg        [2:0]    sgdma_current_states;
+  reg        [2:0]    dual_next_state;
+  wire                axil4SG_ar_fire;
+  wire                axil4SG_r_fire;
+  wire                axil4SG_r_fire_1;
+  wire                axil4SG_r_fire_2;
   wire                bdma_core_cchM2S_fire;
-  wire                when_LoopListSGDMA_l100;
-  wire                when_LoopListSGDMA_l103;
-  reg [68:0] bdma_linked_list [0:15];
+  wire                bdma_core_cchS2M_fire;
+  wire                when_AxiLite4SGDMA_l147;
+  wire                axil4SG_ar_fire_1;
+  wire                axil4SG_r_fire_3;
+  wire                when_AxiLite4SGDMA_l177;
+  wire                axil4SG_r_fire_4;
+  wire                axil4SG_r_fire_5;
+  `ifndef SYNTHESIS
+  reg [95:0] sgdma_error_string;
+  reg [111:0] sgdma_next_state_string;
+  reg [111:0] sgdma_current_states_string;
+  reg [111:0] dual_next_state_string;
+  `endif
 
-  assign _zz_bdma_cursor = (bdma_cursor + 4'b0001);
-  assign _zz_bdma_linked_list_port = {bdma_linked_list_write_data_desc_is_s2m,{bdma_linked_list_write_data_desc_id,{bdma_linked_list_write_data_desc_burst,{bdma_linked_list_write_data_desc_total_bytes,bdma_linked_list_write_data_desc_start_addr}}}};
-  assign _zz__zz_sgdma_ctrl_desc_start_addr = 1'b1;
-  always @(posedge clk) begin
-    if(bdma_linked_list_write_enable) begin
-      bdma_linked_list[bdma_linked_list_write_addr] <= _zz_bdma_linked_list_port;
-    end
-  end
 
-  always @(posedge clk) begin
-    if(_zz__zz_sgdma_ctrl_desc_start_addr) begin
-      _zz_bdma_linked_list_port1 <= bdma_linked_list[bdma_cursor];
-    end
-  end
-
+  assign _zz_desc_id = axil4SG_rdata[9 : 2];
+  assign _zz_desc_total_bytes = axil4SG_rdata;
   BDMACore bdma_core (
-    .axi4S2M_awvalid                 (bdma_core_axi4S2M_awvalid        ), //o
-    .axi4S2M_awready                 (axi4S2M_awready                  ), //i
-    .axi4S2M_awaddr                  (bdma_core_axi4S2M_awaddr[31:0]   ), //o
-    .axi4S2M_awid                    (bdma_core_axi4S2M_awid[3:0]      ), //o
-    .axi4S2M_awlen                   (bdma_core_axi4S2M_awlen[7:0]     ), //o
-    .axi4S2M_awsize                  (bdma_core_axi4S2M_awsize[2:0]    ), //o
-    .axi4S2M_awburst                 (bdma_core_axi4S2M_awburst[1:0]   ), //o
-    .axi4S2M_wvalid                  (bdma_core_axi4S2M_wvalid         ), //o
-    .axi4S2M_wready                  (axi4S2M_wready                   ), //i
-    .axi4S2M_wdata                   (bdma_core_axi4S2M_wdata[31:0]    ), //o
-    .axi4S2M_wstrb                   (bdma_core_axi4S2M_wstrb[3:0]     ), //o
-    .axi4S2M_wlast                   (bdma_core_axi4S2M_wlast          ), //o
-    .axi4S2M_bvalid                  (axi4S2M_bvalid                   ), //i
-    .axi4S2M_bready                  (bdma_core_axi4S2M_bready         ), //o
-    .axi4S2M_bid                     (axi4S2M_bid[3:0]                 ), //i
-    .axi4S2M_bresp                   (axi4S2M_bresp[1:0]               ), //i
-    .axi4S2M_arvalid                 (bdma_core_axi4S2M_arvalid        ), //o
-    .axi4S2M_arready                 (axi4S2M_arready                  ), //i
-    .axi4S2M_araddr                  (bdma_core_axi4S2M_araddr[31:0]   ), //o
-    .axi4S2M_arid                    (bdma_core_axi4S2M_arid[3:0]      ), //o
-    .axi4S2M_arlen                   (bdma_core_axi4S2M_arlen[7:0]     ), //o
-    .axi4S2M_arsize                  (bdma_core_axi4S2M_arsize[2:0]    ), //o
-    .axi4S2M_arburst                 (bdma_core_axi4S2M_arburst[1:0]   ), //o
-    .axi4S2M_rvalid                  (axi4S2M_rvalid                   ), //i
-    .axi4S2M_rready                  (bdma_core_axi4S2M_rready         ), //o
-    .axi4S2M_rdata                   (axi4S2M_rdata[31:0]              ), //i
-    .axi4S2M_rid                     (axi4S2M_rid[3:0]                 ), //i
-    .axi4S2M_rresp                   (axi4S2M_rresp[1:0]               ), //i
-    .axi4S2M_rlast                   (axi4S2M_rlast                    ), //i
-    .axi4M2S_awvalid                 (bdma_core_axi4M2S_awvalid        ), //o
-    .axi4M2S_awready                 (axi4M2S_awready                  ), //i
-    .axi4M2S_awaddr                  (bdma_core_axi4M2S_awaddr[31:0]   ), //o
-    .axi4M2S_awid                    (bdma_core_axi4M2S_awid[3:0]      ), //o
-    .axi4M2S_awlen                   (bdma_core_axi4M2S_awlen[7:0]     ), //o
-    .axi4M2S_awsize                  (bdma_core_axi4M2S_awsize[2:0]    ), //o
-    .axi4M2S_awburst                 (bdma_core_axi4M2S_awburst[1:0]   ), //o
-    .axi4M2S_wvalid                  (bdma_core_axi4M2S_wvalid         ), //o
-    .axi4M2S_wready                  (axi4M2S_wready                   ), //i
-    .axi4M2S_wdata                   (bdma_core_axi4M2S_wdata[31:0]    ), //o
-    .axi4M2S_wstrb                   (bdma_core_axi4M2S_wstrb[3:0]     ), //o
-    .axi4M2S_wlast                   (bdma_core_axi4M2S_wlast          ), //o
-    .axi4M2S_bvalid                  (axi4M2S_bvalid                   ), //i
-    .axi4M2S_bready                  (bdma_core_axi4M2S_bready         ), //o
-    .axi4M2S_bid                     (axi4M2S_bid[3:0]                 ), //i
-    .axi4M2S_bresp                   (axi4M2S_bresp[1:0]               ), //i
-    .axi4M2S_arvalid                 (bdma_core_axi4M2S_arvalid        ), //o
-    .axi4M2S_arready                 (axi4M2S_arready                  ), //i
-    .axi4M2S_araddr                  (bdma_core_axi4M2S_araddr[31:0]   ), //o
-    .axi4M2S_arid                    (bdma_core_axi4M2S_arid[3:0]      ), //o
-    .axi4M2S_arlen                   (bdma_core_axi4M2S_arlen[7:0]     ), //o
-    .axi4M2S_arsize                  (bdma_core_axi4M2S_arsize[2:0]    ), //o
-    .axi4M2S_arburst                 (bdma_core_axi4M2S_arburst[1:0]   ), //o
-    .axi4M2S_rvalid                  (axi4M2S_rvalid                   ), //i
-    .axi4M2S_rready                  (bdma_core_axi4M2S_rready         ), //o
-    .axi4M2S_rdata                   (axi4M2S_rdata[31:0]              ), //i
-    .axi4M2S_rid                     (axi4M2S_rid[3:0]                 ), //i
-    .axi4M2S_rresp                   (axi4M2S_rresp[1:0]               ), //i
-    .axi4M2S_rlast                   (axi4M2S_rlast                    ), //i
-    .dataS2M_tvalid                  (dataS2M_tvalid                   ), //i
-    .dataS2M_tready                  (bdma_core_dataS2M_tready         ), //o
-    .dataS2M_tdata                   (dataS2M_tdata[31:0]              ), //i
-    .dataS2M_tstrb                   (dataS2M_tstrb[3:0]               ), //i
-    .dataS2M_tkeep                   (dataS2M_tkeep[3:0]               ), //i
-    .dataS2M_tlast                   (dataS2M_tlast                    ), //i
-    .dataM2S_tvalid                  (bdma_core_dataM2S_tvalid         ), //o
-    .dataM2S_tready                  (dataM2S_tready                   ), //i
-    .dataM2S_tdata                   (bdma_core_dataM2S_tdata[31:0]    ), //o
-    .dataM2S_tstrb                   (bdma_core_dataM2S_tstrb[3:0]     ), //o
-    .dataM2S_tkeep                   (bdma_core_dataM2S_tkeep[3:0]     ), //o
-    .dataM2S_tlast                   (bdma_core_dataM2S_tlast          ), //o
-    .cchS2M_valid                    (bdma_core_cchS2M_valid           ), //i
-    .cchS2M_ready                    (bdma_core_cchS2M_ready           ), //o
-    .cchS2M_payload_desc_start_addr  (sgdma_ctrl_desc_start_addr[31:0] ), //i
-    .cchS2M_payload_desc_total_bytes (sgdma_ctrl_desc_total_bytes[29:0]), //i
-    .cchS2M_payload_desc_burst       (sgdma_ctrl_desc_burst[1:0]       ), //i
-    .cchS2M_payload_desc_id          (sgdma_ctrl_desc_id[3:0]          ), //i
-    .cchS2M_payload_desc_reset       (bdma_reset                       ), //i
-    .cchM2S_valid                    (bdma_core_cchM2S_valid           ), //i
-    .cchM2S_ready                    (bdma_core_cchM2S_ready           ), //o
-    .cchM2S_payload_desc_start_addr  (sgdma_ctrl_desc_start_addr[31:0] ), //i
-    .cchM2S_payload_desc_total_bytes (sgdma_ctrl_desc_total_bytes[29:0]), //i
-    .cchM2S_payload_desc_burst       (sgdma_ctrl_desc_burst[1:0]       ), //i
-    .cchM2S_payload_desc_id          (sgdma_ctrl_desc_id[3:0]          ), //i
-    .cchM2S_payload_desc_reset       (bdma_reset                       ), //i
-    .indicatorS2M                    (bdma_core_indicatorS2M[1:0]      ), //o
-    .indicatorM2S                    (bdma_core_indicatorM2S[1:0]      ), //o
-    .intrS2M                         (bdma_core_intrS2M                ), //o
-    .intrM2S                         (bdma_core_intrM2S                ), //o
-    .clk                             (clk                              ), //i
-    .resetn                          (resetn                           )  //i
+    .axi4S2M_awvalid                 (bdma_core_axi4S2M_awvalid     ), //o
+    .axi4S2M_awready                 (axi4S2M_awready               ), //i
+    .axi4S2M_awaddr                  (bdma_core_axi4S2M_awaddr[31:0]), //o
+    .axi4S2M_awid                    (bdma_core_axi4S2M_awid[3:0]   ), //o
+    .axi4S2M_awlen                   (bdma_core_axi4S2M_awlen[7:0]  ), //o
+    .axi4S2M_awsize                  (bdma_core_axi4S2M_awsize[2:0] ), //o
+    .axi4S2M_awburst                 (bdma_core_axi4S2M_awburst[1:0]), //o
+    .axi4S2M_wvalid                  (bdma_core_axi4S2M_wvalid      ), //o
+    .axi4S2M_wready                  (axi4S2M_wready                ), //i
+    .axi4S2M_wdata                   (bdma_core_axi4S2M_wdata[31:0] ), //o
+    .axi4S2M_wstrb                   (bdma_core_axi4S2M_wstrb[3:0]  ), //o
+    .axi4S2M_wlast                   (bdma_core_axi4S2M_wlast       ), //o
+    .axi4S2M_bvalid                  (axi4S2M_bvalid                ), //i
+    .axi4S2M_bready                  (bdma_core_axi4S2M_bready      ), //o
+    .axi4S2M_bid                     (axi4S2M_bid[3:0]              ), //i
+    .axi4S2M_bresp                   (axi4S2M_bresp[1:0]            ), //i
+    .axi4S2M_arvalid                 (bdma_core_axi4S2M_arvalid     ), //o
+    .axi4S2M_arready                 (axi4S2M_arready               ), //i
+    .axi4S2M_araddr                  (bdma_core_axi4S2M_araddr[31:0]), //o
+    .axi4S2M_arid                    (bdma_core_axi4S2M_arid[3:0]   ), //o
+    .axi4S2M_arlen                   (bdma_core_axi4S2M_arlen[7:0]  ), //o
+    .axi4S2M_arsize                  (bdma_core_axi4S2M_arsize[2:0] ), //o
+    .axi4S2M_arburst                 (bdma_core_axi4S2M_arburst[1:0]), //o
+    .axi4S2M_rvalid                  (axi4S2M_rvalid                ), //i
+    .axi4S2M_rready                  (bdma_core_axi4S2M_rready      ), //o
+    .axi4S2M_rdata                   (axi4S2M_rdata[31:0]           ), //i
+    .axi4S2M_rid                     (axi4S2M_rid[3:0]              ), //i
+    .axi4S2M_rresp                   (axi4S2M_rresp[1:0]            ), //i
+    .axi4S2M_rlast                   (axi4S2M_rlast                 ), //i
+    .axi4M2S_awvalid                 (bdma_core_axi4M2S_awvalid     ), //o
+    .axi4M2S_awready                 (axi4M2S_awready               ), //i
+    .axi4M2S_awaddr                  (bdma_core_axi4M2S_awaddr[31:0]), //o
+    .axi4M2S_awid                    (bdma_core_axi4M2S_awid[3:0]   ), //o
+    .axi4M2S_awlen                   (bdma_core_axi4M2S_awlen[7:0]  ), //o
+    .axi4M2S_awsize                  (bdma_core_axi4M2S_awsize[2:0] ), //o
+    .axi4M2S_awburst                 (bdma_core_axi4M2S_awburst[1:0]), //o
+    .axi4M2S_wvalid                  (bdma_core_axi4M2S_wvalid      ), //o
+    .axi4M2S_wready                  (axi4M2S_wready                ), //i
+    .axi4M2S_wdata                   (bdma_core_axi4M2S_wdata[31:0] ), //o
+    .axi4M2S_wstrb                   (bdma_core_axi4M2S_wstrb[3:0]  ), //o
+    .axi4M2S_wlast                   (bdma_core_axi4M2S_wlast       ), //o
+    .axi4M2S_bvalid                  (axi4M2S_bvalid                ), //i
+    .axi4M2S_bready                  (bdma_core_axi4M2S_bready      ), //o
+    .axi4M2S_bid                     (axi4M2S_bid[3:0]              ), //i
+    .axi4M2S_bresp                   (axi4M2S_bresp[1:0]            ), //i
+    .axi4M2S_arvalid                 (bdma_core_axi4M2S_arvalid     ), //o
+    .axi4M2S_arready                 (axi4M2S_arready               ), //i
+    .axi4M2S_araddr                  (bdma_core_axi4M2S_araddr[31:0]), //o
+    .axi4M2S_arid                    (bdma_core_axi4M2S_arid[3:0]   ), //o
+    .axi4M2S_arlen                   (bdma_core_axi4M2S_arlen[7:0]  ), //o
+    .axi4M2S_arsize                  (bdma_core_axi4M2S_arsize[2:0] ), //o
+    .axi4M2S_arburst                 (bdma_core_axi4M2S_arburst[1:0]), //o
+    .axi4M2S_rvalid                  (axi4M2S_rvalid                ), //i
+    .axi4M2S_rready                  (bdma_core_axi4M2S_rready      ), //o
+    .axi4M2S_rdata                   (axi4M2S_rdata[31:0]           ), //i
+    .axi4M2S_rid                     (axi4M2S_rid[3:0]              ), //i
+    .axi4M2S_rresp                   (axi4M2S_rresp[1:0]            ), //i
+    .axi4M2S_rlast                   (axi4M2S_rlast                 ), //i
+    .dataS2M_tvalid                  (dataS2M_tvalid                ), //i
+    .dataS2M_tready                  (bdma_core_dataS2M_tready      ), //o
+    .dataS2M_tdata                   (dataS2M_tdata[31:0]           ), //i
+    .dataS2M_tstrb                   (dataS2M_tstrb[3:0]            ), //i
+    .dataS2M_tkeep                   (dataS2M_tkeep[3:0]            ), //i
+    .dataS2M_tlast                   (dataS2M_tlast                 ), //i
+    .dataM2S_tvalid                  (bdma_core_dataM2S_tvalid      ), //o
+    .dataM2S_tready                  (dataM2S_tready                ), //i
+    .dataM2S_tdata                   (bdma_core_dataM2S_tdata[31:0] ), //o
+    .dataM2S_tstrb                   (bdma_core_dataM2S_tstrb[3:0]  ), //o
+    .dataM2S_tkeep                   (bdma_core_dataM2S_tkeep[3:0]  ), //o
+    .dataM2S_tlast                   (bdma_core_dataM2S_tlast       ), //o
+    .cchS2M_valid                    (bdma_core_cchS2M_valid        ), //i
+    .cchS2M_ready                    (bdma_core_cchS2M_ready        ), //o
+    .cchS2M_payload_desc_start_addr  (desc_start_addr[31:0]         ), //i
+    .cchS2M_payload_desc_total_bytes (desc_total_bytes[29:0]        ), //i
+    .cchS2M_payload_desc_burst       (desc_burst[1:0]               ), //i
+    .cchS2M_payload_desc_id          (desc_id[3:0]                  ), //i
+    .cchS2M_payload_desc_reset       (sgdma_reset                   ), //i
+    .cchM2S_valid                    (bdma_core_cchM2S_valid        ), //i
+    .cchM2S_ready                    (bdma_core_cchM2S_ready        ), //o
+    .cchM2S_payload_desc_start_addr  (desc_start_addr[31:0]         ), //i
+    .cchM2S_payload_desc_total_bytes (desc_total_bytes[29:0]        ), //i
+    .cchM2S_payload_desc_burst       (desc_burst[1:0]               ), //i
+    .cchM2S_payload_desc_id          (desc_id[3:0]                  ), //i
+    .cchM2S_payload_desc_reset       (sgdma_reset                   ), //i
+    .indicatorS2M                    (bdma_core_indicatorS2M[1:0]   ), //o
+    .indicatorM2S                    (bdma_core_indicatorM2S[1:0]   ), //o
+    .intrS2M                         (bdma_core_intrS2M             ), //o
+    .intrM2S                         (bdma_core_intrM2S             ), //o
+    .clk                             (clk                           ), //i
+    .resetn                          (resetn                        )  //i
   );
+  `ifndef SYNTHESIS
+  always @(*) begin
+    case(sgdma_error)
+      SGDMAErrorStates_NONE : sgdma_error_string = "NONE        ";
+      SGDMAErrorStates_PREAMBLE_ERR : sgdma_error_string = "PREAMBLE_ERR";
+      default : sgdma_error_string = "????????????";
+    endcase
+  end
+  always @(*) begin
+    case(sgdma_next_state)
+      SGDMAStates_INIT : sgdma_next_state_string = "INIT          ";
+      SGDMAStates_AXIL4_AR_REQ : sgdma_next_state_string = "AXIL4_AR_REQ  ";
+      SGDMAStates_CHECK_PREAMBLE : sgdma_next_state_string = "CHECK_PREAMBLE";
+      SGDMAStates_GET_ADDR : sgdma_next_state_string = "GET_ADDR      ";
+      SGDMAStates_GET_BYTES : sgdma_next_state_string = "GET_BYTES     ";
+      SGDMAStates_PUSH_REQ : sgdma_next_state_string = "PUSH_REQ      ";
+      SGDMAStates_SGHALT : sgdma_next_state_string = "SGHALT        ";
+      default : sgdma_next_state_string = "??????????????";
+    endcase
+  end
+  always @(*) begin
+    case(sgdma_current_states)
+      SGDMAStates_INIT : sgdma_current_states_string = "INIT          ";
+      SGDMAStates_AXIL4_AR_REQ : sgdma_current_states_string = "AXIL4_AR_REQ  ";
+      SGDMAStates_CHECK_PREAMBLE : sgdma_current_states_string = "CHECK_PREAMBLE";
+      SGDMAStates_GET_ADDR : sgdma_current_states_string = "GET_ADDR      ";
+      SGDMAStates_GET_BYTES : sgdma_current_states_string = "GET_BYTES     ";
+      SGDMAStates_PUSH_REQ : sgdma_current_states_string = "PUSH_REQ      ";
+      SGDMAStates_SGHALT : sgdma_current_states_string = "SGHALT        ";
+      default : sgdma_current_states_string = "??????????????";
+    endcase
+  end
+  always @(*) begin
+    case(dual_next_state)
+      SGDMAStates_INIT : dual_next_state_string = "INIT          ";
+      SGDMAStates_AXIL4_AR_REQ : dual_next_state_string = "AXIL4_AR_REQ  ";
+      SGDMAStates_CHECK_PREAMBLE : dual_next_state_string = "CHECK_PREAMBLE";
+      SGDMAStates_GET_ADDR : dual_next_state_string = "GET_ADDR      ";
+      SGDMAStates_GET_BYTES : dual_next_state_string = "GET_BYTES     ";
+      SGDMAStates_PUSH_REQ : dual_next_state_string = "PUSH_REQ      ";
+      SGDMAStates_SGHALT : dual_next_state_string = "SGHALT        ";
+      default : dual_next_state_string = "??????????????";
+    endcase
+  end
+  `endif
+
   assign readHaltRequest = 1'b0;
   assign writeHaltRequest = 1'b0;
   assign writeJoinEvent_fire = (writeJoinEvent_valid && writeJoinEvent_ready);
@@ -372,29 +436,18 @@ module LoopListSGDMA (
     readRsp_data = 32'h0;
     case(readDataStage_payload_addr)
       8'h0 : begin
-        readRsp_data[0 : 0] = bdma_enable_driver;
-        readRsp_data[1 : 1] = bdma_linked_list_write_enable_driver;
+        readRsp_data[0 : 0] = sgdma_enable_driver;
+        readRsp_data[1 : 1] = sgdma_reset_driver;
+        readRsp_data[2 : 2] = _zz_readRsp_data;
       end
       8'h04 : begin
-        readRsp_data[3 : 0] = bdma_cursor_limit_driver;
+        readRsp_data[31 : 0] = sg_linked_list_address_startup_driver;
       end
       8'h08 : begin
-        readRsp_data[3 : 0] = bdma_linked_list_write_addr_driver;
+        readRsp_data[31 : 0] = sg_linked_list_address_cursor;
       end
       8'h0c : begin
-        readRsp_data[31 : 0] = bdma_linked_list_write_data_desc_start_addr_driver;
-      end
-      8'h10 : begin
-        readRsp_data[29 : 0] = bdma_linked_list_write_data_desc_total_bytes_driver;
-      end
-      8'h14 : begin
-        readRsp_data[3 : 0] = bdma_linked_list_write_data_desc_id_driver;
-      end
-      8'h18 : begin
-        readRsp_data[1 : 0] = bdma_linked_list_write_data_desc_burst_driver;
-      end
-      8'h1c : begin
-        readRsp_data[0 : 0] = bdma_linked_list_write_data_desc_is_s2m_driver;
+        readRsp_data[0 : 0] = sgdma_error;
       end
       default : begin
       end
@@ -403,28 +456,78 @@ module LoopListSGDMA (
 
   assign writeOccur = (writeJoinEvent_valid && writeJoinEvent_ready);
   assign readOccur = (axil4Ctrl_rvalid && axil4Ctrl_rready);
-  assign bdma_enable = bdma_enable_driver;
-  assign bdma_linked_list_write_enable = bdma_linked_list_write_enable_driver;
-  assign bdma_cursor_limit = bdma_cursor_limit_driver;
-  assign bdma_linked_list_write_addr = bdma_linked_list_write_addr_driver;
-  assign bdma_linked_list_write_data_desc_start_addr = bdma_linked_list_write_data_desc_start_addr_driver;
-  assign bdma_linked_list_write_data_desc_total_bytes = bdma_linked_list_write_data_desc_total_bytes_driver;
-  assign bdma_linked_list_write_data_desc_id = bdma_linked_list_write_data_desc_id_driver;
-  assign bdma_linked_list_write_data_desc_burst = bdma_linked_list_write_data_desc_burst_driver;
-  assign bdma_linked_list_write_data_desc_is_s2m = bdma_linked_list_write_data_desc_is_s2m_driver;
-  assign _zz_sgdma_ctrl_desc_start_addr = _zz_bdma_linked_list_port1;
-  assign sgdma_ctrl_desc_start_addr = _zz_sgdma_ctrl_desc_start_addr[31 : 0];
-  assign sgdma_ctrl_desc_total_bytes = _zz_sgdma_ctrl_desc_start_addr[61 : 32];
-  assign sgdma_ctrl_desc_burst = _zz_sgdma_ctrl_desc_start_addr[63 : 62];
-  assign sgdma_ctrl_desc_id = _zz_sgdma_ctrl_desc_start_addr[67 : 64];
-  assign sgdma_ctrl_desc_is_s2m = _zz_sgdma_ctrl_desc_start_addr[68];
-  assign when_LoopListSGDMA_l98 = (! bdma_enable);
-  assign bdma_core_cchS2M_fire = (bdma_core_cchS2M_valid && bdma_core_cchS2M_ready);
+  assign sgdma_enable = sgdma_enable_driver;
+  assign sgdma_reset = sgdma_reset_driver;
+  assign _zz_readRsp_data = 1'b0;
+  assign sg_linked_list_address_startup = sg_linked_list_address_startup_driver;
+  always @(*) begin
+    case(sgdma_current_states)
+      SGDMAStates_INIT : begin
+        if(sgdma_enable) begin
+          sgdma_next_state = SGDMAStates_AXIL4_AR_REQ;
+        end else begin
+          sgdma_next_state = SGDMAStates_INIT;
+        end
+      end
+      SGDMAStates_AXIL4_AR_REQ : begin
+        if(axil4SG_ar_fire) begin
+          sgdma_next_state = dual_next_state;
+        end else begin
+          sgdma_next_state = SGDMAStates_AXIL4_AR_REQ;
+        end
+      end
+      SGDMAStates_CHECK_PREAMBLE : begin
+        if(axil4SG_r_fire) begin
+          sgdma_next_state = SGDMAStates_AXIL4_AR_REQ;
+        end else begin
+          sgdma_next_state = SGDMAStates_CHECK_PREAMBLE;
+        end
+      end
+      SGDMAStates_GET_ADDR : begin
+        if(axil4SG_r_fire_1) begin
+          sgdma_next_state = SGDMAStates_AXIL4_AR_REQ;
+        end else begin
+          sgdma_next_state = SGDMAStates_GET_ADDR;
+        end
+      end
+      SGDMAStates_GET_BYTES : begin
+        if(axil4SG_r_fire_2) begin
+          sgdma_next_state = SGDMAStates_AXIL4_AR_REQ;
+        end else begin
+          sgdma_next_state = SGDMAStates_GET_BYTES;
+        end
+      end
+      SGDMAStates_PUSH_REQ : begin
+        if(when_AxiLite4SGDMA_l147) begin
+          sgdma_next_state = (is_finish ? SGDMAStates_SGHALT : SGDMAStates_AXIL4_AR_REQ);
+        end else begin
+          sgdma_next_state = SGDMAStates_PUSH_REQ;
+        end
+      end
+      default : begin
+        if(sgdma_reset) begin
+          sgdma_next_state = SGDMAStates_INIT;
+        end else begin
+          sgdma_next_state = SGDMAStates_SGHALT;
+        end
+      end
+    endcase
+  end
+
+  assign axil4SG_ar_fire = (axil4SG_arvalid && axil4SG_arready);
+  assign axil4SG_r_fire = (axil4SG_rvalid && axil4SG_rready);
+  assign axil4SG_r_fire_1 = (axil4SG_rvalid && axil4SG_rready);
+  assign axil4SG_r_fire_2 = (axil4SG_rvalid && axil4SG_rready);
   assign bdma_core_cchM2S_fire = (bdma_core_cchM2S_valid && bdma_core_cchM2S_ready);
-  assign when_LoopListSGDMA_l100 = (bdma_core_cchS2M_fire || bdma_core_cchM2S_fire);
-  assign when_LoopListSGDMA_l103 = (bdma_core_intrM2S || bdma_core_intrS2M);
-  assign bdma_core_cchM2S_valid = (bdma_enable && (! sgdma_ctrl_desc_is_s2m));
-  assign bdma_core_cchS2M_valid = (bdma_enable && sgdma_ctrl_desc_is_s2m);
+  assign bdma_core_cchS2M_fire = (bdma_core_cchS2M_valid && bdma_core_cchS2M_ready);
+  assign when_AxiLite4SGDMA_l147 = (bdma_core_cchM2S_fire || bdma_core_cchS2M_fire);
+  assign axil4SG_ar_fire_1 = (axil4SG_arvalid && axil4SG_arready);
+  assign axil4SG_r_fire_3 = (axil4SG_rvalid && axil4SG_rready);
+  assign when_AxiLite4SGDMA_l177 = (axil4SG_rdata[31 : 16] == 16'h5555);
+  assign axil4SG_r_fire_4 = (axil4SG_rvalid && axil4SG_rready);
+  assign axil4SG_r_fire_5 = (axil4SG_rvalid && axil4SG_rready);
+  assign bdma_core_cchM2S_valid = ((sgdma_current_states == SGDMAStates_PUSH_REQ) && (! desc_is_s2m));
+  assign bdma_core_cchS2M_valid = ((sgdma_current_states == SGDMAStates_PUSH_REQ) && desc_is_s2m);
   assign axi4S2M_awvalid = bdma_core_axi4S2M_awvalid;
   assign axi4S2M_awaddr = bdma_core_axi4S2M_awaddr;
   assign axi4S2M_awid = bdma_core_axi4S2M_awid;
@@ -467,21 +570,25 @@ module LoopListSGDMA (
   assign dataM2S_tstrb = bdma_core_dataM2S_tstrb;
   assign dataM2S_tkeep = bdma_core_dataM2S_tkeep;
   assign dataM2S_tlast = bdma_core_dataM2S_tlast;
+  assign axil4SG_arprot = 3'b000;
+  assign axil4SG_araddr = sg_linked_list_address_cursor;
+  assign axil4SG_arvalid = (sgdma_current_states == SGDMAStates_AXIL4_AR_REQ);
+  assign axil4SG_rready = 1'b0;
+  assign axil4SG_awvalid = 1'b0;
+  assign axil4SG_awaddr = 32'h0;
+  assign axil4SG_awprot = 3'b000;
+  assign axil4SG_wvalid = 1'b0;
+  assign axil4SG_wdata = 32'h0;
+  assign axil4SG_wstrb = 4'b0000;
+  assign axil4SG_bready = 1'b0;
   always @(posedge clk) begin
     if(!resetn) begin
       _zz_axil4Ctrl_bvalid_2 <= 1'b0;
       axil4Ctrl_ar_rValid <= 1'b0;
-      bdma_enable_driver <= 1'b0;
-      bdma_linked_list_write_enable_driver <= 1'b0;
-      bdma_cursor_limit_driver <= 4'b0000;
-      bdma_linked_list_write_addr_driver <= 4'b0000;
-      bdma_linked_list_write_data_desc_start_addr_driver <= 32'h0;
-      bdma_linked_list_write_data_desc_total_bytes_driver <= 30'h0;
-      bdma_linked_list_write_data_desc_id_driver <= 4'b0000;
-      bdma_linked_list_write_data_desc_burst_driver <= 2'b00;
-      bdma_linked_list_write_data_desc_is_s2m_driver <= 1'b0;
-      bdma_cursor <= 4'b0000;
-      bdma_reset <= 1'b0;
+      sgdma_enable_driver <= 1'b0;
+      sgdma_reset_driver <= 1'b0;
+      sg_linked_list_address_startup_driver <= 32'h0;
+      sgdma_current_states <= SGDMAStates_INIT;
     end else begin
       if(_zz_writeJoinEvent_translated_ready) begin
         _zz_axil4Ctrl_bvalid_2 <= (writeJoinEvent_translated_valid && _zz_axil4Ctrl_bvalid);
@@ -489,58 +596,17 @@ module LoopListSGDMA (
       if(axil4Ctrl_arready) begin
         axil4Ctrl_ar_rValid <= axil4Ctrl_arvalid;
       end
-      if(when_LoopListSGDMA_l98) begin
-        bdma_cursor <= 4'b0000;
-      end else begin
-        if(when_LoopListSGDMA_l100) begin
-          bdma_cursor <= ((bdma_cursor == bdma_cursor_limit) ? 4'b0000 : _zz_bdma_cursor);
-        end
-      end
-      if(when_LoopListSGDMA_l103) begin
-        bdma_reset <= 1'b1;
-      end else begin
-        bdma_reset <= 1'b0;
-      end
+      sgdma_current_states <= sgdma_next_state;
       case(axil4Ctrl_awaddr)
         8'h0 : begin
           if(writeOccur) begin
-            bdma_enable_driver <= axil4Ctrl_wdata[0];
-            bdma_linked_list_write_enable_driver <= axil4Ctrl_wdata[1];
+            sgdma_enable_driver <= axil4Ctrl_wdata[0];
+            sgdma_reset_driver <= axil4Ctrl_wdata[1];
           end
         end
         8'h04 : begin
           if(writeOccur) begin
-            bdma_cursor_limit_driver <= axil4Ctrl_wdata[3 : 0];
-          end
-        end
-        8'h08 : begin
-          if(writeOccur) begin
-            bdma_linked_list_write_addr_driver <= axil4Ctrl_wdata[3 : 0];
-          end
-        end
-        8'h0c : begin
-          if(writeOccur) begin
-            bdma_linked_list_write_data_desc_start_addr_driver <= axil4Ctrl_wdata[31 : 0];
-          end
-        end
-        8'h10 : begin
-          if(writeOccur) begin
-            bdma_linked_list_write_data_desc_total_bytes_driver <= axil4Ctrl_wdata[29 : 0];
-          end
-        end
-        8'h14 : begin
-          if(writeOccur) begin
-            bdma_linked_list_write_data_desc_id_driver <= axil4Ctrl_wdata[3 : 0];
-          end
-        end
-        8'h18 : begin
-          if(writeOccur) begin
-            bdma_linked_list_write_data_desc_burst_driver <= axil4Ctrl_wdata[1 : 0];
-          end
-        end
-        8'h1c : begin
-          if(writeOccur) begin
-            bdma_linked_list_write_data_desc_is_s2m_driver <= axil4Ctrl_wdata[0];
+            sg_linked_list_address_startup_driver <= axil4Ctrl_wdata[31 : 0];
           end
         end
         default : begin
@@ -557,6 +623,47 @@ module LoopListSGDMA (
       axil4Ctrl_ar_rData_addr <= axil4Ctrl_araddr;
       axil4Ctrl_ar_rData_prot <= axil4Ctrl_arprot;
     end
+    case(sgdma_current_states)
+      SGDMAStates_INIT : begin
+        sg_linked_list_address_cursor <= sg_linked_list_address_startup;
+        is_finish <= 1'b0;
+        sgdma_error <= SGDMAErrorStates_NONE;
+        dual_next_state <= SGDMAStates_CHECK_PREAMBLE;
+      end
+      SGDMAStates_AXIL4_AR_REQ : begin
+        if(axil4SG_ar_fire_1) begin
+          sg_linked_list_address_cursor <= (sg_linked_list_address_cursor + 32'h00000004);
+        end
+      end
+      SGDMAStates_CHECK_PREAMBLE : begin
+        if(axil4SG_r_fire_3) begin
+          if(when_AxiLite4SGDMA_l177) begin
+            dual_next_state <= SGDMAStates_GET_ADDR;
+          end else begin
+            dual_next_state <= SGDMAStates_SGHALT;
+            sgdma_error <= SGDMAErrorStates_PREAMBLE_ERR;
+          end
+          is_finish <= axil4SG_rdata[0];
+          desc_is_s2m <= axil4SG_rdata[1];
+          desc_id <= _zz_desc_id[3:0];
+          desc_burst <= axil4SG_rdata[11 : 10];
+        end
+      end
+      SGDMAStates_GET_ADDR : begin
+        if(axil4SG_r_fire_4) begin
+          desc_start_addr <= axil4SG_rdata;
+        end
+        dual_next_state <= SGDMAStates_GET_BYTES;
+      end
+      SGDMAStates_GET_BYTES : begin
+        if(axil4SG_r_fire_5) begin
+          desc_total_bytes <= _zz_desc_total_bytes[29:0];
+        end
+        dual_next_state <= SGDMAStates_PUSH_REQ;
+      end
+      default : begin
+      end
+    endcase
   end
 
 

@@ -1,22 +1,16 @@
 // Generator : SpinalHDL v1.7.0    git head : eca519e78d4e6022e34911ec300a432ed9db8220
-// Component : DisplayVgaCtrl
+// Component : BlinkingVgaCtrl
 // Git hash  : 45beed740f640493a6ea4b63775589487bb29649
 
 `timescale 1ns/1ps
 
-module DisplayVgaCtrl (
-  output              frameStart,
-  input               pixels_valid,
-  output              pixels_ready,
-  input      [7:0]    pixels_payload_r,
-  input      [7:0]    pixels_payload_g,
-  input      [7:0]    pixels_payload_b,
-  output              vga_vSync,
-  output              vga_hSync,
-  output              vga_colorEn,
-  output     [7:0]    vga_color_r,
-  output     [7:0]    vga_color_g,
-  output     [7:0]    vga_color_b,
+module BlinkingVgaCtrl (
+  output              io_vga_vSync,
+  output              io_vga_hSync,
+  output              io_vga_colorEn,
+  output     [7:0]    io_vga_color_r,
+  output     [7:0]    io_vga_color_g,
+  output     [7:0]    io_vga_color_b,
   input               clk,
   input               resetn
 );
@@ -29,6 +23,7 @@ module DisplayVgaCtrl (
   wire       [7:0]    ctrl_vga_color_r;
   wire       [7:0]    ctrl_vga_color_g;
   wire       [7:0]    ctrl_vga_color_b;
+  reg        [7:0]    counter;
 
   VgaCtrl ctrl (
     .softReset            (1'b0                 ), //i
@@ -43,11 +38,11 @@ module DisplayVgaCtrl (
     .timings_v_colorEnd   (12'h460              ), //i
     .timings_v_polarity   (1'b1                 ), //i
     .frameStart           (ctrl_frameStart      ), //o
-    .pixels_valid         (pixels_valid         ), //i
+    .pixels_valid         (1'b1                 ), //i
     .pixels_ready         (ctrl_pixels_ready    ), //o
-    .pixels_payload_r     (pixels_payload_r[7:0]), //i
-    .pixels_payload_g     (pixels_payload_g[7:0]), //i
-    .pixels_payload_b     (pixels_payload_b[7:0]), //i
+    .pixels_payload_r     (8'h0                 ), //i
+    .pixels_payload_g     (counter[7:0]         ), //i
+    .pixels_payload_b     (8'h0                 ), //i
     .vga_vSync            (ctrl_vga_vSync       ), //o
     .vga_hSync            (ctrl_vga_hSync       ), //o
     .vga_colorEn          (ctrl_vga_colorEn     ), //o
@@ -57,14 +52,18 @@ module DisplayVgaCtrl (
     .clk                  (clk                  ), //i
     .resetn               (resetn               )  //i
   );
-  assign pixels_ready = ctrl_pixels_ready;
-  assign frameStart = ctrl_frameStart;
-  assign vga_vSync = ctrl_vga_vSync;
-  assign vga_hSync = ctrl_vga_hSync;
-  assign vga_colorEn = ctrl_vga_colorEn;
-  assign vga_color_r = ctrl_vga_color_r;
-  assign vga_color_g = ctrl_vga_color_g;
-  assign vga_color_b = ctrl_vga_color_b;
+  assign io_vga_vSync = ctrl_vga_vSync;
+  assign io_vga_hSync = ctrl_vga_hSync;
+  assign io_vga_colorEn = ctrl_vga_colorEn;
+  assign io_vga_color_r = ctrl_vga_color_r;
+  assign io_vga_color_g = ctrl_vga_color_g;
+  assign io_vga_color_b = ctrl_vga_color_b;
+  always @(posedge clk) begin
+    if(ctrl_frameStart) begin
+      counter <= (counter + 8'h01);
+    end
+  end
+
 
 endmodule
 
