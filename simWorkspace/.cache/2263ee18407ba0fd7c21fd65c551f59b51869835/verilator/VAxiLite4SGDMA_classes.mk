@@ -2,7 +2,7 @@
 # DESCRIPTION: Verilator output: Make include file with class lists
 #
 # This file lists generated Verilated files, for including in higher level makefiles.
-# See VLoopBackTest.mk for the caller.
+# See VAxiLite4SGDMA.mk for the caller.
 
 ### Switches...
 # Coverage output mode?  0/1 (from --coverage)
@@ -17,29 +17,21 @@ VM_TRACE_THREADED = 0
 ### Object file lists...
 # Generated module classes, fast-path, compile with highest optimization
 VM_CLASSES_FAST += \
-	VLoopBackTest \
-	VLoopBackTest__1 \
-	VLoopBackTest__2 \
-	VLoopBackTest__3 \
-	VLoopBackTest__4 \
+	VAxiLite4SGDMA \
+	VAxiLite4SGDMA__1 \
 
 # Generated module classes, non-fast-path, compile with low/medium optimization
 VM_CLASSES_SLOW += \
-	VLoopBackTest__Slow \
-	VLoopBackTest__1__Slow \
-	VLoopBackTest__2__Slow \
+	VAxiLite4SGDMA__Slow \
 
 # Generated support classes, fast-path, compile with highest optimization
 VM_SUPPORT_FAST += \
-	VLoopBackTest__Trace \
-	VLoopBackTest__Trace__1 \
+	VAxiLite4SGDMA__Trace \
 
 # Generated support classes, non-fast-path, compile with low/medium optimization
 VM_SUPPORT_SLOW += \
-	VLoopBackTest__Syms \
-	VLoopBackTest__Trace__Slow \
-	VLoopBackTest__Trace__1__Slow \
-	VLoopBackTest__Trace__2__Slow \
+	VAxiLite4SGDMA__Syms \
+	VAxiLite4SGDMA__Trace__Slow \
 
 # Global classes, need linked once per executable, fast-path, compile with highest optimization
 VM_GLOBAL_FAST += \

@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.7.0    git head : eca519e78d4e6022e34911ec300a432ed9db8220
 // Component : AxiLite4SGDMA
-// Git hash  : 45beed740f640493a6ea4b63775589487bb29649
+// Git hash  : f4c386050db0dcfdf1ed432b4ffe2080c0865fdb
 
 `timescale 1ns/1ps
 
@@ -113,6 +113,7 @@ module AxiLite4SGDMA (
   output     [3:0]    dataM2S_tstrb,
   output     [3:0]    dataM2S_tkeep,
   output              dataM2S_tlast,
+  output              intr,
   input               clk,
   input               resetn
 );
@@ -215,13 +216,11 @@ module AxiLite4SGDMA (
   wire                readOccur;
   wire                sgdma_enable;
   wire                sgdma_reset;
-  wire                sgdma_intr_indicate;
   reg        [0:0]    sgdma_error;
   wire       [31:0]   sg_linked_list_address_startup;
   reg        [31:0]   sg_linked_list_address_cursor;
   reg                 sgdma_enable_driver;
   reg                 sgdma_reset_driver;
-  wire                _zz_readRsp_data;
   reg        [31:0]   sg_linked_list_address_startup_driver;
   reg        [31:0]   desc_start_addr;
   reg        [29:0]   desc_total_bytes;
@@ -238,10 +237,10 @@ module AxiLite4SGDMA (
   wire                axil4SG_r_fire_2;
   wire                bdma_core_cchM2S_fire;
   wire                bdma_core_cchS2M_fire;
-  wire                when_AxiLite4SGDMA_l147;
+  wire                when_AxiLite4SGDMA_l146;
   wire                axil4SG_ar_fire_1;
   wire                axil4SG_r_fire_3;
-  wire                when_AxiLite4SGDMA_l177;
+  wire                when_AxiLite4SGDMA_l176;
   wire                axil4SG_r_fire_4;
   wire                axil4SG_r_fire_5;
   `ifndef SYNTHESIS
@@ -438,7 +437,7 @@ module AxiLite4SGDMA (
       8'h0 : begin
         readRsp_data[0 : 0] = sgdma_enable_driver;
         readRsp_data[1 : 1] = sgdma_reset_driver;
-        readRsp_data[2 : 2] = _zz_readRsp_data;
+        readRsp_data[2 : 2] = intr;
       end
       8'h04 : begin
         readRsp_data[31 : 0] = sg_linked_list_address_startup_driver;
@@ -458,7 +457,6 @@ module AxiLite4SGDMA (
   assign readOccur = (axil4Ctrl_rvalid && axil4Ctrl_rready);
   assign sgdma_enable = sgdma_enable_driver;
   assign sgdma_reset = sgdma_reset_driver;
-  assign _zz_readRsp_data = 1'b0;
   assign sg_linked_list_address_startup = sg_linked_list_address_startup_driver;
   always @(*) begin
     case(sgdma_current_states)
@@ -498,7 +496,7 @@ module AxiLite4SGDMA (
         end
       end
       SGDMAStates_PUSH_REQ : begin
-        if(when_AxiLite4SGDMA_l147) begin
+        if(when_AxiLite4SGDMA_l146) begin
           sgdma_next_state = (is_finish ? SGDMAStates_SGHALT : SGDMAStates_AXIL4_AR_REQ);
         end else begin
           sgdma_next_state = SGDMAStates_PUSH_REQ;
@@ -520,10 +518,10 @@ module AxiLite4SGDMA (
   assign axil4SG_r_fire_2 = (axil4SG_rvalid && axil4SG_rready);
   assign bdma_core_cchM2S_fire = (bdma_core_cchM2S_valid && bdma_core_cchM2S_ready);
   assign bdma_core_cchS2M_fire = (bdma_core_cchS2M_valid && bdma_core_cchS2M_ready);
-  assign when_AxiLite4SGDMA_l147 = (bdma_core_cchM2S_fire || bdma_core_cchS2M_fire);
+  assign when_AxiLite4SGDMA_l146 = (bdma_core_cchM2S_fire || bdma_core_cchS2M_fire);
   assign axil4SG_ar_fire_1 = (axil4SG_arvalid && axil4SG_arready);
   assign axil4SG_r_fire_3 = (axil4SG_rvalid && axil4SG_rready);
-  assign when_AxiLite4SGDMA_l177 = (axil4SG_rdata[31 : 16] == 16'h5555);
+  assign when_AxiLite4SGDMA_l176 = (axil4SG_rdata[31 : 16] == 16'h5555);
   assign axil4SG_r_fire_4 = (axil4SG_rvalid && axil4SG_rready);
   assign axil4SG_r_fire_5 = (axil4SG_rvalid && axil4SG_rready);
   assign bdma_core_cchM2S_valid = ((sgdma_current_states == SGDMAStates_PUSH_REQ) && (! desc_is_s2m));
@@ -581,6 +579,7 @@ module AxiLite4SGDMA (
   assign axil4SG_wdata = 32'h0;
   assign axil4SG_wstrb = 4'b0000;
   assign axil4SG_bready = 1'b0;
+  assign intr = (sgdma_current_states == SGDMAStates_SGHALT);
   always @(posedge clk) begin
     if(!resetn) begin
       _zz_axil4Ctrl_bvalid_2 <= 1'b0;
@@ -637,7 +636,7 @@ module AxiLite4SGDMA (
       end
       SGDMAStates_CHECK_PREAMBLE : begin
         if(axil4SG_r_fire_3) begin
-          if(when_AxiLite4SGDMA_l177) begin
+          if(when_AxiLite4SGDMA_l176) begin
             dual_next_state <= SGDMAStates_GET_ADDR;
           end else begin
             dual_next_state <= SGDMAStates_SGHALT;

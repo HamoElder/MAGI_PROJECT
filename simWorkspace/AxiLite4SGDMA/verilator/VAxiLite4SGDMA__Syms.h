@@ -4,16 +4,16 @@
 // Internal details; most calling programs do not need this header,
 // unless using verilator public meta comments.
 
-#ifndef _VLOOPBACKTEST__SYMS_H_
-#define _VLOOPBACKTEST__SYMS_H_  // guard
+#ifndef _VAXILITE4SGDMA__SYMS_H_
+#define _VAXILITE4SGDMA__SYMS_H_  // guard
 
-#include "verilated_heavy.h"
+#include "verilated.h"
 
 // INCLUDE MODULE CLASSES
-#include "VLoopBackTest.h"
+#include "VAxiLite4SGDMA.h"
 
 // SYMS CLASS
-class VLoopBackTest__Syms : public VerilatedSyms {
+class VAxiLite4SGDMA__Syms : public VerilatedSyms {
   public:
     
     // LOCAL STATE
@@ -22,11 +22,11 @@ class VLoopBackTest__Syms : public VerilatedSyms {
     bool __Vm_didInit;
     
     // SUBCELL STATE
-    VLoopBackTest*                 TOPp;
+    VAxiLite4SGDMA*                TOPp;
     
     // CREATORS
-    VLoopBackTest__Syms(VLoopBackTest* topp, const char* namep);
-    ~VLoopBackTest__Syms() {}
+    VAxiLite4SGDMA__Syms(VAxiLite4SGDMA* topp, const char* namep);
+    ~VAxiLite4SGDMA__Syms() {}
     
     // METHODS
     inline const char* name() { return __Vm_namep; }

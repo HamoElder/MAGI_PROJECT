@@ -2,9 +2,9 @@
 # DESCRIPTION: Verilator output: Makefile for building Verilated archive or executable
 #
 # Execute this makefile from the object directory:
-#    make -f VLoopBackTest.mk
+#    make -f VAxiLite4SGDMA.mk
 
-default: VLoopBackTest
+default: VAxiLite4SGDMA
 
 ### Constants...
 # Perl executable (from $PERL)
@@ -28,17 +28,17 @@ VM_SC_TARGET_ARCH = linux
 
 ### Vars...
 # Design prefix (from --prefix)
-VM_PREFIX = VLoopBackTest
+VM_PREFIX = VAxiLite4SGDMA
 # Module prefix (from --prefix)
-VM_MODPREFIX = VLoopBackTest
+VM_MODPREFIX = VAxiLite4SGDMA
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
 	-fPIC \
 	-m64 \
 	-shared \
 	-Wno-attributes \
-	-I/usr/lib/jvm/java-11-openjdk-amd64/include \
-	-I/usr/lib/jvm/java-11-openjdk-amd64/include/linux \
+	-I/home/missdown/.jdks/corretto-15.0.2/include \
+	-I/home/missdown/.jdks/corretto-15.0.2/include/linux \
 	-fvisibility=hidden \
 	-std=c++11 \
 	-O3 \
@@ -55,7 +55,7 @@ VM_USER_LDLIBS = \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
-	VLoopBackTest__spinalWrapper \
+	VAxiLite4SGDMA__spinalWrapper \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
@@ -64,18 +64,18 @@ VM_USER_DIR = \
 
 ### Default rules...
 # Include list of all generated classes
-include VLoopBackTest_classes.mk
+include VAxiLite4SGDMA_classes.mk
 # Include global rules
 include $(VERILATOR_ROOT)/include/verilated.mk
 
 ### Executable rules... (from --exe)
 VPATH += $(VM_USER_DIR)
 
-VLoopBackTest__spinalWrapper.o: verilator/VLoopBackTest__spinalWrapper.cpp
+VAxiLite4SGDMA__spinalWrapper.o: verilator/VAxiLite4SGDMA__spinalWrapper.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 
 ### Link rules... (from --exe)
-VLoopBackTest: $(VK_USER_OBJS) $(VK_GLOBAL_OBJS) $(VM_PREFIX)__ALL.a
+VAxiLite4SGDMA: $(VK_USER_OBJS) $(VK_GLOBAL_OBJS) $(VM_PREFIX)__ALL.a
 	$(LINK) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@ $(LIBS) $(SC_LIBS)
 
 

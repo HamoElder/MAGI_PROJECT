@@ -64,7 +64,7 @@ case class AxiLite4SGDMA(config: AxiLite4SGDMAConfig) extends Component {
         val dataS2M = slave(AxiStream4(config.bdmaConfig.axisConfig))
         val dataM2S = master(AxiStream4(config.bdmaConfig.axisConfig))
 
-//        val intr = out(Bool())
+        val intr = out(Bool())
     }
     noIoPrefix()
     Axi4SpecRenamer(io.axi4M2S)
@@ -77,7 +77,6 @@ case class AxiLite4SGDMA(config: AxiLite4SGDMAConfig) extends Component {
     val axil4busCtrl = new AxiLite4SlaveFactory(io.axil4Ctrl).setName("")
     val sgdma_enable = Bool()
     val sgdma_reset = Bool()
-    val sgdma_intr_indicate = Bool()
     val sgdma_error = Reg(SGDMAErrorStates())
     val sg_linked_list_address_startup = config.sgAddrDataType
     val sg_linked_list_address_cursor = Reg(config.sgAddrDataType)
@@ -86,8 +85,8 @@ case class AxiLite4SGDMA(config: AxiLite4SGDMAConfig) extends Component {
         documentation = s"AxiLite4 SGDMA Enable Reg. (1 bits)") init(False)
     axil4busCtrl.driveAndRead(sgdma_reset, address = config.baseAddress + 0x00, bitOffset = 1,
         documentation = s"AxiLite4 SGDMA Reset Reg. (1 bits)") init(False)
-    axil4busCtrl.createReadOnly(sgdma_intr_indicate, address = config.baseAddress + 0x00, bitOffset = 2,
-        documentation = s"AxiLite4 SGDMA Interrupt Indicator. (1 bits)") init(False)
+    axil4busCtrl.read(io.intr, address = config.baseAddress + 0x00, bitOffset = 2,
+        documentation = s"AxiLite4 SGDMA Interrupt Indicator. (1 bits)")
     axil4busCtrl.driveAndRead(sg_linked_list_address_startup, address = config.baseAddress + 0x04, bitOffset = 0,
         documentation = s"AxiLite4 SGDMA Linked List StartUp Address Reg. (${sg_linked_list_address_startup.getBitsWidth} bits)") init(0)
     axil4busCtrl.read(sg_linked_list_address_cursor, address = config.baseAddress + 0x08, bitOffset = 0,
@@ -236,7 +235,7 @@ case class AxiLite4SGDMA(config: AxiLite4SGDMAConfig) extends Component {
     io.axil4SG.ar.addr := sg_linked_list_address_cursor
     io.axil4SG.ar.valid := sgdma_current_states === SGDMAStates.AXIL4_AR_REQ
 
-    io.axil4SG.r.ready := False
+    io.axil4SG.r.ready := (sgdma_current_states === SGDMAStates.GET_ADDR) || (sgdma_current_states === SGDMAStates.CHECK_PREAMBLE) || (sgdma_current_states === SGDMAStates.GET_BYTES)
     // Without Using Write Channel
     io.axil4SG.aw.valid := False
     io.axil4SG.aw.addr := 0
@@ -248,6 +247,8 @@ case class AxiLite4SGDMA(config: AxiLite4SGDMAConfig) extends Component {
 
     io.axil4SG.b.ready := False
 
+    // interrupt
+    io.intr := sgdma_current_states === SGDMAStates.SGHALT
 }
 
 
