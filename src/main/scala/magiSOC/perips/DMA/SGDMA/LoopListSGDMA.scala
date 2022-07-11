@@ -12,6 +12,7 @@ import utils.bus.AxiStream4.{AxiStream4, AxiStream4SpecRenamer}
 case class LLSGDMAConfig(
                               cfgDataWidth   : Int = 32,
                               sgListSize     : Int = 32,
+                              baseAddress    : BigInt = 0,
 
                               axi4AddrWidth  : Int = 32,
                               axi4DataWidth  : Int = 32,
@@ -31,7 +32,7 @@ case class LLSGDMAConfig(
     def addressWidth = 8
     def sgLinkedListDepth: Int = sgListSize
     def sgLinkedListCursorDataType: UInt = UInt(log2Up(sgLinkedListDepth) bits)
-    val bdmaConfig: BDMAConfig = BDMAConfig(axi4AddrWidth, axi4DataWidth, axi4MaxBurstLen, axi4IDWidth, axis4StrbEn, axis4KeepEn,
+    def bdmaConfig: BDMAConfig = BDMAConfig(axi4AddrWidth, axi4DataWidth, axi4MaxBurstLen, axi4IDWidth, axis4StrbEn, axis4KeepEn,
         axis4IDEn, axis4LastEn, bytesLimit, outStandingLen, endianness)
     def axiLite4Config: AxiLite4Config = AxiLite4Config(addressWidth, cfgDataWidth)
 }
@@ -70,23 +71,23 @@ case class LoopListSGDMA(config: LLSGDMAConfig) extends Component {
     val bdma_linked_list_write_data = LLSGDMAControlReg(config.bdmaConfig)
     val bdma_linked_list_write_enable = Bool()
 
-    axil4busCtrl.driveAndRead(bdma_enable, address = 0x00, bitOffset = 0,
+    axil4busCtrl.driveAndRead(bdma_enable, address = config.baseAddress + 0x00, bitOffset = 0,
         documentation = s"LoopList SGDMA Enable Reg. (1 bits)") init(False)
-    axil4busCtrl.driveAndRead(bdma_linked_list_write_enable, address = 0x00, bitOffset = 1,
+    axil4busCtrl.driveAndRead(bdma_linked_list_write_enable, address = config.baseAddress + 0x00, bitOffset = 1,
         documentation = s"LoopList SGDMA Men Write Enable Reg. (1 bits)") init(False)
     axil4busCtrl.driveAndRead(bdma_cursor_limit, address = 0x04, bitOffset = 0,
         documentation = s"LoopList SGDMA Cursor Limit Reg. (${config.sgLinkedListCursorDataType.getBitsWidth} bits)") init(0)
-    axil4busCtrl.driveAndRead(bdma_linked_list_write_addr, address = 0x08, bitOffset = 0,
+    axil4busCtrl.driveAndRead(bdma_linked_list_write_addr, address = config.baseAddress + 0x08, bitOffset = 0,
         documentation = s"LoopList SGDMA Men Write Addr Reg. (${bdma_linked_list_write_addr.getBitsWidth} bits)") init(0)
-    axil4busCtrl.driveAndRead(bdma_linked_list_write_data.desc_start_addr, address = 0x0C, bitOffset = 0,
+    axil4busCtrl.driveAndRead(bdma_linked_list_write_data.desc_start_addr, address = config.baseAddress + 0x0C, bitOffset = 0,
         documentation = s"LoopList SGDMA Men Write Data Start Addr Reg. (${bdma_linked_list_write_data.desc_start_addr.getBitsWidth} bits)") init(0)
-    axil4busCtrl.driveAndRead(bdma_linked_list_write_data.desc_total_bytes, address = 0x10, bitOffset = 0,
+    axil4busCtrl.driveAndRead(bdma_linked_list_write_data.desc_total_bytes, address = config.baseAddress + 0x10, bitOffset = 0,
         documentation = s"LoopList SGDMA Men Write Data Total Bytes Reg. (${bdma_linked_list_write_data.desc_total_bytes.getBitsWidth} bits)") init(0)
-    axil4busCtrl.driveAndRead(bdma_linked_list_write_data.desc_id, address = 0x14, bitOffset = 0,
+    axil4busCtrl.driveAndRead(bdma_linked_list_write_data.desc_id, address  =config.baseAddress + 0x14, bitOffset = 0,
         documentation = s"LoopList SGDMA Men Write Data ID Reg. (${bdma_linked_list_write_data.desc_id.getBitsWidth} bits)") init(0)
-    axil4busCtrl.driveAndRead(bdma_linked_list_write_data.desc_burst, address = 0x18, bitOffset = 0,
+    axil4busCtrl.driveAndRead(bdma_linked_list_write_data.desc_burst, address = config.baseAddress + 0x18, bitOffset = 0,
         documentation = s"LoopList SGDMA Men Write Data Burst Type Reg. (${bdma_linked_list_write_data.desc_burst.getBitsWidth} bits)") init(0)
-    axil4busCtrl.driveAndRead(bdma_linked_list_write_data.desc_is_s2m, address = 0x1C, bitOffset = 0,
+    axil4busCtrl.driveAndRead(bdma_linked_list_write_data.desc_is_s2m, address = config.baseAddress + 0x1C, bitOffset = 0,
         documentation = s"LoopList SGDMA Men Write Data s2m or m2s Type Reg. (${bdma_linked_list_write_data.desc_is_s2m.getBitsWidth} bits)") init(False)
 
     bdma_linked_list.write(bdma_linked_list_write_addr, bdma_linked_list_write_data, bdma_linked_list_write_enable)
@@ -139,7 +140,7 @@ case class LoopListSGDMA(config: LLSGDMAConfig) extends Component {
 
 object LoopListSGDMABench{
     def main(args: Array[String]): Unit = {
-        val ll_sgdma_config = LLSGDMAConfig(axi4DataWidth = 32)
+        val ll_sgdma_config = LLSGDMAConfig(sgListSize = 16, axi4DataWidth = 32)
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
             defaultClockDomainFrequency = FixedFrequency(100 MHz), targetDirectory = "rtl/LoopListSGDMA").
             generateSystemVerilog(new LoopListSGDMA(ll_sgdma_config)).printPruned()

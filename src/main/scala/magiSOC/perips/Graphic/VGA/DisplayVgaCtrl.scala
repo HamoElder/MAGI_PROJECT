@@ -21,6 +21,36 @@ case class DisplayVgaCtrl(rgbConfig: RgbConfig, timingsWidth: Int = 12, fifoSize
 
 object DisplayVgaCtrlBench {
     def main(args: Array[String]): Unit = {
-        SpinalConfig(targetDirectory = "rtl/DisplayVgaCtrl").generateSystemVerilog(new DisplayVgaCtrl(RgbConfig(8, 8, 8), timingsWidth=16, fifoSize = 1024)).printPruned()
+        SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
+            defaultClockDomainFrequency = FixedFrequency(148 MHz), targetDirectory = "rtl/DisplayVgaCtrl").
+            generateSystemVerilog(new DisplayVgaCtrl(RgbConfig(8, 8, 8), timingsWidth=16, fifoSize = 1024)).printPruned()
+    }
+}
+
+case class BlinkingVgaCtrl(rgbConfig: RgbConfig) extends Component{
+    val io = new Bundle{
+        val vga = master(Vga(rgbConfig))
+    }
+    noIoPrefix()
+    val counter = Reg(UInt(rgbConfig.gWidth bits))
+    val ctrl = new VgaCtrl(rgbConfig)
+    ctrl.io.softReset := False
+    ctrl.io.timings.setAs_h1920_v1080_r60
+    ctrl.io.pixels.valid := True
+    ctrl.io.pixels.r := 0
+    ctrl.io.pixels.g := counter
+    ctrl.io.pixels.b := 0
+    ctrl.io.vga <> io.vga
+
+    when(ctrl.io.frameStart){
+        counter := counter + 1
+    }
+}
+
+object BlinkingVgaCtrlBench {
+    def main(args: Array[String]): Unit = {
+        SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
+            defaultClockDomainFrequency = FixedFrequency(148 MHz), targetDirectory = "rtl/BlinkingVgaCtrl").
+            generateSystemVerilog(new BlinkingVgaCtrl(RgbConfig(8, 8, 8))).printPruned()
     }
 }
