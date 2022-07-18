@@ -5,104 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1d7c38c-7d73-4f67-af7f-9cf19bfff978" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/2263ee18407ba0fd7c21fd65c551f59b51869835/verilator/VAxiLite4SGDMA.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/2263ee18407ba0fd7c21fd65c551f59b51869835/verilator/VAxiLite4SGDMA.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/2263ee18407ba0fd7c21fd65c551f59b51869835/verilator/VAxiLite4SGDMA__ALL.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/2263ee18407ba0fd7c21fd65c551f59b51869835/verilator/VAxiLite4SGDMA__Syms.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/2263ee18407ba0fd7c21fd65c551f59b51869835/verilator/VAxiLite4SGDMA_classes.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/695d107bfe885351943a503c7c9cae9344c2ec50/verilator/VAxiLite4SGDMA.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/695d107bfe885351943a503c7c9cae9344c2ec50/verilator/VAxiLite4SGDMA.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/695d107bfe885351943a503c7c9cae9344c2ec50/verilator/VAxiLite4SGDMA__ALL.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/695d107bfe885351943a503c7c9cae9344c2ec50/verilator/VAxiLite4SGDMA__Syms.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/695d107bfe885351943a503c7c9cae9344c2ec50/verilator/VAxiLite4SGDMA_classes.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/AxiLite4SGDMA/rtl/AxiLite4SGDMA.v" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/AxiLite4SGDMA/test.vcd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/AxiLite4SGDMA/verilator/VAxiLite4SGDMA" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/AxiLite4SGDMA/verilator/VAxiLite4SGDMA.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/AxiLite4SGDMA/verilator/VAxiLite4SGDMA.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/AxiLite4SGDMA/verilator/VAxiLite4SGDMA__ALL.a" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/AxiLite4SGDMA/verilator/VAxiLite4SGDMA__Syms.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/AxiLite4SGDMA/verilator/VAxiLite4SGDMA__spinalWrapper.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/AxiLite4SGDMA/verilator/VAxiLite4SGDMA__spinalWrapper.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/AxiLite4SGDMA/verilator/VAxiLite4SGDMA__spinalWrapper.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/AxiLite4SGDMA/verilator/VAxiLite4SGDMA_classes.mk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/AxiLite4SGDMA/verilator/libcode.version" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/AxiLite4SGDMA/verilator/verilated.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/AxiLite4SGDMA/verilator/verilated.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/AxiLite4SGDMA/verilator/verilated_vcd_c.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/AxiLite4SGDMA/verilator/verilated_vcd_c.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/AxiLite4SGDMA/verilator/verilator_1.so" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/AxiLite4SGDMA/verilator/wrapper_verilator/VerilatorNative.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/simWorkspace/AxiLite4SGDMA/verilatorScript.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/scala/magiSOC/perips/SGDMA/AxiLite4SGDMASimApp.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp/job_1/AxiLite4SGDMA.v" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiStream4Mac/MacRx.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anon$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anon$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$1$$anonfun$apply$mcV$sp$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$1$$anonfun$apply$mcV$sp$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$1$$anonfun$apply$mcV$sp$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$1$$anonfun$apply$mcV$sp$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$10$$anonfun$apply$mcV$sp$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$10$$anonfun$apply$mcV$sp$11.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$10$$anonfun$apply$mcV$sp$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$10$$anonfun$apply$mcV$sp$12.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$10.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$13$$anonfun$apply$mcV$sp$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$13$$anonfun$apply$mcV$sp$14.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$13$$anonfun$apply$mcV$sp$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$13$$anonfun$apply$mcV$sp$15.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$13.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$13.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$16$$anonfun$apply$mcV$sp$17.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$16$$anonfun$apply$mcV$sp$17.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$16$$anonfun$apply$mcV$sp$18.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$16$$anonfun$apply$mcV$sp$18.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$16.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$16.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$19$$anonfun$apply$mcV$sp$20.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$19$$anonfun$apply$mcV$sp$20.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$19$$anonfun$apply$mcV$sp$21.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$19$$anonfun$apply$mcV$sp$21.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$19.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$19.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$4$$anonfun$apply$mcV$sp$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$4$$anonfun$apply$mcV$sp$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$4$$anonfun$apply$mcV$sp$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$4$$anonfun$apply$mcV$sp$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$7$$anonfun$apply$mcV$sp$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$7$$anonfun$apply$mcV$sp$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$7$$anonfun$apply$mcV$sp$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$7$$anonfun$apply$mcV$sp$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1$$anonfun$apply$mcV$sp$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$10.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$11.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$12.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$22.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$22.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$23$$anonfun$apply$mcV$sp$24.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$23$$anonfun$apply$mcV$sp$24.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$23.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$23.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$25$$anonfun$apply$mcV$sp$26$$anonfun$apply$mcV$sp$27.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$25$$anonfun$apply$mcV$sp$26$$anonfun$apply$mcV$sp$27.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$25$$anonfun$apply$mcV$sp$26$$anonfun$apply$mcV$sp$28.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$25$$anonfun$apply$mcV$sp$26$$anonfun$apply$mcV$sp$28.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$25$$anonfun$apply$mcV$sp$26.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$25$$anonfun$apply$mcV$sp$26.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$25.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$25.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$29$$anonfun$apply$mcV$sp$30.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$29$$anonfun$apply$mcV$sp$30.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$29.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$29.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$31$$anonfun$apply$mcV$sp$32.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$31$$anonfun$apply$mcV$sp$32.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$31.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2$$anonfun$apply$mcV$sp$31.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA$$anonfun$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMABench$$anonfun$main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMABench$$anonfun$main$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMABench$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMABench$.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.analysis" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.analysis" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileTestScala.analysis" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileTestScala.analysis" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rtl/AxiLite4SGDMA/AxiLite4SGDMA.sv" beforeDir="false" afterPath="$PROJECT_DIR$/rtl/AxiLite4SGDMA/AxiLite4SGDMA.sv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/4f185a57641ea56941748a1d105a334900e48e58/verilator/VLoopBackTest.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/4f185a57641ea56941748a1d105a334900e48e58/verilator/VLoopBackTest.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/4f185a57641ea56941748a1d105a334900e48e58/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/4f185a57641ea56941748a1d105a334900e48e58/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/4f185a57641ea56941748a1d105a334900e48e58/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/4ff066fa8ba350fdf9d230bbd6b44edc90b420b7/verilator/VLoopBackTest.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/4ff066fa8ba350fdf9d230bbd6b44edc90b420b7/verilator/VLoopBackTest.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/4ff066fa8ba350fdf9d230bbd6b44edc90b420b7/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/4ff066fa8ba350fdf9d230bbd6b44edc90b420b7/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/4ff066fa8ba350fdf9d230bbd6b44edc90b420b7/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/DMA/SGDMA/AxiLite4SGDMA.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiLite4Mac/MacTx.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiLite4Mac/MacTx.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiStream4Mac/AxiStream4MacEth.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiStream4Mac/AxiStream4EthMac.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiStream4Mac/StreamMac.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiStream4Mac/StreamMac.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiStream4Mac/StreamMacTx.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiStream4Mac/MacTx.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Timer/Timer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Timer/Timer.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,7 +101,7 @@
       <recent name="magiRF.interfaces.frontend.AD9375" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.AxiLite4SGDMASimApp">
+  <component name="RunManager" selected="Application.StreamMacBench">
     <configuration name="AxiLite4SGDMABench" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="magiSOC.perips.DMA.SGDMA.AxiLite4SGDMABench" />
       <module name="MAGI_PROJECT.main" />
@@ -226,12 +141,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DisplayVgaCtrlBench" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="magiSOC.perips.Graphic.VGA.DisplayVgaCtrlBench" />
+    <configuration name="StreamMacBench" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="magiSOC.perips.Ethernet.AxiStream4Mac.StreamMacBench" />
       <module name="MAGI_PROJECT.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="magiSOC.perips.Graphic.VGA.*" />
+          <option name="PATTERN" value="magiSOC.perips.Ethernet.AxiStream4Mac.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -257,16 +172,16 @@
       <item itemvalue="Application.AxiLite4SGDMABench" />
       <item itemvalue="Application.AxiLite4SGDMASimApp" />
       <item itemvalue="Application.BlinkingVgaCtrlBench" />
+      <item itemvalue="Application.StreamMacBench" />
       <item itemvalue="Application.VgaTimingPrint" />
-      <item itemvalue="Application.DisplayVgaCtrlBench" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.StreamMacBench" />
         <item itemvalue="Application.AxiLite4SGDMASimApp" />
         <item itemvalue="Application.AxiLite4SGDMABench" />
         <item itemvalue="Application.BlinkingVgaCtrlBench" />
         <item itemvalue="Application.VgaTimingPrint" />
-        <item itemvalue="Application.DisplayVgaCtrlBench" />
       </list>
     </recent_temporary>
   </component>

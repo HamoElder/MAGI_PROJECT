@@ -189,7 +189,7 @@ case class Timer(config : timerConfig) extends Component {
         io.oc_n := oc_module.io.oc_n
     }
 
-    def driveFrom(busCtrl : BusSlaveFactory,baseAddress : BigInt) = new Area {
+    def driveFrom(busCtrl : BusSlaveFactory,baseAddress : BigInt): Area = new Area {
         busCtrl.driveAndRead(io.enable, address = baseAddress + 0x00, bitOffset = 0,
             documentation = "Timer Enable (1 bits)") init(False)
         busCtrl.driveAndRead(io.interrupt_en, address = baseAddress + 0x00, bitOffset = 1,
