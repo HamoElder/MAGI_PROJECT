@@ -31,7 +31,7 @@ case class DualSampling(val dataWidth: Int) extends Component {
 
 object DualSamplingBench{
     def main(args: Array[String]): Unit = {
-        SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
+        SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(clockEdge = RISING, resetKind = SYNC, resetActiveLevel = LOW),
             targetDirectory = "rtl").generateSystemVerilog(new DualSampling(1)).printPruned()
     }
 }

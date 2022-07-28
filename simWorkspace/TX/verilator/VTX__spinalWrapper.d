@@ -1,6 +1,6 @@
 VTX__spinalWrapper.o: ../verilator/VTX__spinalWrapper.cpp \
- /usr/lib/jvm/java-11-openjdk-amd64/include/jni.h \
- /usr/lib/jvm/java-11-openjdk-amd64/include/linux/jni_md.h \
+ /home/missdown/.jdks/corretto-15.0.2/include/jni.h \
+ /home/missdown/.jdks/corretto-15.0.2/include/linux/jni_md.h \
  ../verilator/VTX.h /usr/share/verilator/include/verilated_heavy.h \
  /usr/share/verilator/include/verilated.h \
  /usr/share/verilator/include/verilatedos.h \

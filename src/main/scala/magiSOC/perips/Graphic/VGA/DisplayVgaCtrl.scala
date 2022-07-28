@@ -11,7 +11,7 @@ case class DisplayVgaCtrl(rgbConfig: RgbConfig, timingsWidth: Int = 12, fifoSize
         val vga = master(Vga(rgbConfig))
     }
     noIoPrefix()
-    val ctrl = new VgaCtrl(rgbConfig)
+    val ctrl = new VgaCtrl(rgbConfig, timingsWidth, fifoSize)
     ctrl.io.softReset := False
     ctrl.io.timings.setAs_h1920_v1080_r60
     ctrl.io.pixels << io.pixels
@@ -23,7 +23,7 @@ object DisplayVgaCtrlBench {
     def main(args: Array[String]): Unit = {
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
             defaultClockDomainFrequency = FixedFrequency(148 MHz), targetDirectory = "rtl/DisplayVgaCtrl").
-            generateSystemVerilog(new DisplayVgaCtrl(RgbConfig(8, 8, 8), timingsWidth=16, fifoSize = 1024)).printPruned()
+            generateSystemVerilog(new DisplayVgaCtrl(RgbConfig(8, 8, 8), timingsWidth=16, fifoSize = 512)).printPruned()
     }
 }
 

@@ -6,7 +6,7 @@
 #include "VTX__Syms.h"
 
 //==========
-SData/*11:0*/ VTX::__Vtable1_TX__DOT__phy_header_extender__DOT___zz_result_data_payload_fragment_cha_i_1[8];
+SData/*11:0*/ VTX::__Vtable1_TX__DOT__phy_header_extender__DOT___zz_result_data_payload_fragment_cha_i[8];
 
 VL_CTOR_IMP(VTX) {
     VTX__Syms* __restrict vlSymsp = __VlSymsp = new VTX__Syms(this, name());
@@ -30,8 +30,8 @@ void VTX::_initial__TOP__1(VTX__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VTX::_initial__TOP__1\n"); );
     VTX* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Variables
-    WData/*863:0*/ __Vtemp1[27];
-    WData/*863:0*/ __Vtemp2[27];
+    WData/*767:0*/ __Vtemp1[24];
+    WData/*767:0*/ __Vtemp2[24];
     // Body
     vlTOPp->TX__DOT__phy_header_extender__DOT____Vxrand1 
         = VL_RAND_RESET_I(1);
@@ -47,24 +47,21 @@ void VTX::_initial__TOP__1(VTX__Syms* __restrict vlSymsp) {
     __Vtemp1[7U] = 0x76656c5fU;
     __Vtemp1[8U] = 0x6f706c65U;
     __Vtemp1[9U] = 0x2e765f74U;
-    __Vtemp1[0xaU] = 0x6c2f5458U;
-    __Vtemp1[0xbU] = 0x582f7274U;
-    __Vtemp1[0xcU] = 0x63652f54U;
-    __Vtemp1[0xdU] = 0x6b737061U;
-    __Vtemp1[0xeU] = 0x6d576f72U;
-    __Vtemp1[0xfU] = 0x2e2f7369U;
-    __Vtemp1[0x10U] = 0x4543542fU;
-    __Vtemp1[0x11U] = 0x50524f4aU;
-    __Vtemp1[0x12U] = 0x4147495fU;
-    __Vtemp1[0x13U] = 0x74732f4dU;
-    __Vtemp1[0x14U] = 0x6f6a6563U;
-    __Vtemp1[0x15U] = 0x65615072U;
-    __Vtemp1[0x16U] = 0x6e2f4964U;
-    __Vtemp1[0x17U] = 0x73646f77U;
-    __Vtemp1[0x18U] = 0x2f6d6973U;
-    __Vtemp1[0x19U] = 0x686f6d65U;
-    __Vtemp1[0x1aU] = 0x2fU;
-    VL_READMEM_N(false, 12, 16, 0, VL_CVT_PACK_STR_NW(27, __Vtemp1)
+    __Vtemp1[0xaU] = 0x312f5458U;
+    __Vtemp1[0xbU] = 0x6a6f625fU;
+    __Vtemp1[0xcU] = 0x746d702fU;
+    __Vtemp1[0xdU] = 0x4543542fU;
+    __Vtemp1[0xeU] = 0x50524f4aU;
+    __Vtemp1[0xfU] = 0x4147495fU;
+    __Vtemp1[0x10U] = 0x74732f4dU;
+    __Vtemp1[0x11U] = 0x6f6a6563U;
+    __Vtemp1[0x12U] = 0x65615072U;
+    __Vtemp1[0x13U] = 0x6e2f4964U;
+    __Vtemp1[0x14U] = 0x73646f77U;
+    __Vtemp1[0x15U] = 0x2f6d6973U;
+    __Vtemp1[0x16U] = 0x686f6d65U;
+    __Vtemp1[0x17U] = 0x2fU;
+    VL_READMEM_N(false, 12, 16, 0, VL_CVT_PACK_STR_NW(24, __Vtemp1)
                  , vlTOPp->TX__DOT__stf_preamble_adder__DOT__I_mem
                  , 0, ~VL_ULL(0));
     __Vtemp2[0U] = 0x2e62696eU;
@@ -77,41 +74,40 @@ void VTX::_initial__TOP__1(VTX__Syms* __restrict vlSymsp) {
     __Vtemp2[7U] = 0x76656c5fU;
     __Vtemp2[8U] = 0x6f706c65U;
     __Vtemp2[9U] = 0x2e765f74U;
-    __Vtemp2[0xaU] = 0x6c2f5458U;
-    __Vtemp2[0xbU] = 0x582f7274U;
-    __Vtemp2[0xcU] = 0x63652f54U;
-    __Vtemp2[0xdU] = 0x6b737061U;
-    __Vtemp2[0xeU] = 0x6d576f72U;
-    __Vtemp2[0xfU] = 0x2e2f7369U;
-    __Vtemp2[0x10U] = 0x4543542fU;
-    __Vtemp2[0x11U] = 0x50524f4aU;
-    __Vtemp2[0x12U] = 0x4147495fU;
-    __Vtemp2[0x13U] = 0x74732f4dU;
-    __Vtemp2[0x14U] = 0x6f6a6563U;
-    __Vtemp2[0x15U] = 0x65615072U;
-    __Vtemp2[0x16U] = 0x6e2f4964U;
-    __Vtemp2[0x17U] = 0x73646f77U;
-    __Vtemp2[0x18U] = 0x2f6d6973U;
-    __Vtemp2[0x19U] = 0x686f6d65U;
-    __Vtemp2[0x1aU] = 0x2fU;
-    VL_READMEM_N(false, 12, 16, 0, VL_CVT_PACK_STR_NW(27, __Vtemp2)
+    __Vtemp2[0xaU] = 0x312f5458U;
+    __Vtemp2[0xbU] = 0x6a6f625fU;
+    __Vtemp2[0xcU] = 0x746d702fU;
+    __Vtemp2[0xdU] = 0x4543542fU;
+    __Vtemp2[0xeU] = 0x50524f4aU;
+    __Vtemp2[0xfU] = 0x4147495fU;
+    __Vtemp2[0x10U] = 0x74732f4dU;
+    __Vtemp2[0x11U] = 0x6f6a6563U;
+    __Vtemp2[0x12U] = 0x65615072U;
+    __Vtemp2[0x13U] = 0x6e2f4964U;
+    __Vtemp2[0x14U] = 0x73646f77U;
+    __Vtemp2[0x15U] = 0x2f6d6973U;
+    __Vtemp2[0x16U] = 0x686f6d65U;
+    __Vtemp2[0x17U] = 0x2fU;
+    VL_READMEM_N(false, 12, 16, 0, VL_CVT_PACK_STR_NW(24, __Vtemp2)
                  , vlTOPp->TX__DOT__stf_preamble_adder__DOT__Q_mem
                  , 0, ~VL_ULL(0));
 }
 
-void VTX::_settle__TOP__21(VTX__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTX::_settle__TOP__21\n"); );
+void VTX::_settle__TOP__19(VTX__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTX::_settle__TOP__19\n"); );
     VTX* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->rf_data_payload_cha_i = (0xfffU & vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT___zz_logic_ram_port0);
     vlTOPp->rf_data_payload_cha_q = (0xfffU & (vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT___zz_logic_ram_port0 
                                                >> 0xcU));
-    vlTOPp->TX__DOT__phy_header_extender__DOT__when_PhyTx_l336 
-        = (5U == (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__counter));
-    vlTOPp->TX__DOT__phy_header_extender__DOT__when_PhyTx_l348 
+    vlTOPp->TX__DOT__phy_header_extender__DOT__when_PhyTx_l316 
+        = (7U == (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__counter));
+    vlTOPp->TX__DOT__phy_header_extender__DOT__when_PhyTx_l328 
         = (0U == (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__counter));
     vlTOPp->TX__DOT__phy_tx_oversampling__DOT___zz_cnt 
         = (7U & ((IData)(1U) + (IData)(vlTOPp->TX__DOT__phy_tx_oversampling__DOT__cnt)));
+    vlTOPp->TX__DOT__stf_preamble_adder__DOT__when_PreambleExtender_l76 
+        = (9U == (IData)(vlTOPp->TX__DOT__stf_preamble_adder__DOT__repeatCnt));
     vlTOPp->TX__DOT__phy_header_extender_result_data_payload_last = 0U;
     if ((0U != (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__header_status))) {
         if ((1U != (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__header_status))) {
@@ -215,27 +211,22 @@ void VTX::_settle__TOP__21(VTX__Syms* __restrict vlSymsp) {
                                                                                 & (~ 
                                                                                 (vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state 
                                                                                 >> 0x1fU)))))))))))))))))))))));
+    vlTOPp->__Vtableidx1 = (7U & (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__counter));
+    vlTOPp->TX__DOT__phy_header_extender__DOT___zz_result_data_payload_fragment_cha_i 
+        = vlTOPp->__Vtable1_TX__DOT__phy_header_extender__DOT___zz_result_data_payload_fragment_cha_i
+        [vlTOPp->__Vtableidx1];
     vlTOPp->TX__DOT__mod_rtl__DOT__mPSK_Modulator_Extension_mod_1__DOT___zz___05Fzz_mod_iq_0 
         = ((0U == (IData)(vlTOPp->TX__DOT__mod_rtl__DOT__mPSK_Modulator_Extension_mod_1__DOT__unit_data_payload_regNext_fragment))
             ? 0xa59a59U : ((1U == (IData)(vlTOPp->TX__DOT__mod_rtl__DOT__mPSK_Modulator_Extension_mod_1__DOT__unit_data_payload_regNext_fragment))
                             ? 0xa595a7U : ((2U == (IData)(vlTOPp->TX__DOT__mod_rtl__DOT__mPSK_Modulator_Extension_mod_1__DOT__unit_data_payload_regNext_fragment))
                                             ? 0x5a7a59U
                                             : 0x5a75a7U)));
-    vlTOPp->__Vtableidx1 = (7U & (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__counter));
-    vlTOPp->TX__DOT__phy_header_extender__DOT___zz_result_data_payload_fragment_cha_i_1 
-        = vlTOPp->__Vtable1_TX__DOT__phy_header_extender__DOT___zz_result_data_payload_fragment_cha_i_1
-        [vlTOPp->__Vtableidx1];
-    vlTOPp->TX__DOT__phy_tx_padder__DOT__fill = ((0U 
-                                                  != (IData)(vlTOPp->TX__DOT__phy_tx_padder__DOT__counter)) 
-                                                 & (IData)(vlTOPp->TX__DOT__phy_tx_padder__DOT__raw_data_payload_first));
     vlTOPp->TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_0 
         = (1U & (((IData)(vlTOPp->TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__scram_state) 
                   >> 6U) ^ ((IData)(vlTOPp->TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__scram_state) 
                             >> 3U)));
     vlTOPp->TX__DOT__phy_tx_crc__DOT__when_PhyTx_l40 
         = (1U & (~ (IData)(vlTOPp->TX__DOT__phy_tx_crc__DOT__emitCrc)));
-    vlTOPp->TX__DOT__stf_preamble_adder__DOT__when_PreambleExtender_l76 
-        = (9U == (IData)(vlTOPp->TX__DOT__stf_preamble_adder__DOT__repeatCnt));
     vlTOPp->TX__DOT__phy_tx_crc_result_data_payload_last = 0U;
     if (vlTOPp->TX__DOT__phy_tx_crc__DOT__emitCrc) {
         if ((3U == (IData)(vlTOPp->TX__DOT__phy_tx_crc__DOT__counter))) {
@@ -258,30 +249,30 @@ void VTX::_settle__TOP__21(VTX__Syms* __restrict vlSymsp) {
     vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_ptrMatch 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_value) 
            == (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_value));
+    vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_ptrMatch 
+        = ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
+           == (IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popPtr_value));
     vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_ptrMatch 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
            == (IData)(vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popPtr_value));
     vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_ptrMatch 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
            == (IData)(vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_value));
+    vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_ptrMatch 
+        = ((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
+           == (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popPtr_value));
     vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_ptrMatch 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
            == (IData)(vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_popPtr_value));
-    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_ptrMatch 
-        = ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
-           == (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_value));
     vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_ptrMatch 
         = ((IData)(vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_pushPtr_value) 
            == (IData)(vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_popPtr_value));
     vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_ptrMatch 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_pushPtr_value) 
            == (IData)(vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_popPtr_value));
-    vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_ptrMatch 
-        = ((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
-           == (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popPtr_value));
-    vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_ptrMatch 
-        = ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
-           == (IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popPtr_value));
+    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_ptrMatch 
+        = ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
+           == (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_value));
     vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_ptrMatch 
         = ((IData)(vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
            == (IData)(vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_value));
@@ -294,14 +285,14 @@ void VTX::_settle__TOP__21(VTX__Syms* __restrict vlSymsp) {
         = (0xfU == (IData)(vlTOPp->TX__DOT__stf_preamble_adder__DOT__cnt));
     vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_1 
         = ((vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state 
-            << 1U) ^ ((1U & (((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
+            << 1U) ^ ((1U & (((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
                               >> 1U) ^ (vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state 
                                         >> 0x1fU)))
                        ? 0x4c11db7U : 0U));
     vlTOPp->TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder_raw_data_payload_fragment 
-        = ((IData)(vlTOPp->TX__DOT__phy_tx_encoder__DOT__emitEncoding)
-            ? 0U : (0xffU & ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
-                             >> 1U)));
+        = ((IData)(vlTOPp->TX__DOT__phy_tx_encoder__DOT__isEncoding)
+            ? (0xffU & ((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
+                        >> 1U)) : 0U);
     vlTOPp->TX__DOT__phy_tx_oversampling_result_data_payload_last 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_oversampling__DOT__raw_last) 
            & (7U == (IData)(vlTOPp->TX__DOT__phy_tx_oversampling__DOT__cnt)));
@@ -367,6 +358,30 @@ void VTX::_settle__TOP__21(VTX__Syms* __restrict vlSymsp) {
                                                                           >> 0xaU)) 
                                                                         << 0x15U)) 
                                                                     | vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT___zz_result_2)))))))))));
+    vlTOPp->TX__DOT__phy_header_extender_result_data_payload_fragment_cha_i = 0U;
+    if ((0U != (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__header_status))) {
+        vlTOPp->TX__DOT__phy_header_extender_result_data_payload_fragment_cha_i 
+            = (0xfffU & ((1U == (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__header_status))
+                          ? (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT___zz_result_data_payload_fragment_cha_i)
+                          : ((2U == (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__header_status))
+                              ? ((1U & ((9U >= (0xfU 
+                                                & (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__counter)))
+                                         ? ((((IData)(vlTOPp->mod_method_select) 
+                                              << 8U) 
+                                             | (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__pkg_size_payload_1)) 
+                                            >> (0xfU 
+                                                & (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__counter)))
+                                         : (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT____Vxrand1)))
+                                  ? 0x3ffU : 0xc01U)
+                              : (vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT___zz_logic_ram_port0 
+                                 >> 1U))));
+    }
+}
+
+void VTX::_settle__TOP__20(VTX__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTX::_settle__TOP__20\n"); );
+    VTX* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
     vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT___zz_logic_ram_port_1 
         = ((0x1ffe000U & (((0U == (IData)(vlTOPp->mod_method_select))
                             ? ((IData)(vlTOPp->TX__DOT__mod_rtl__DOT__mPSK_Modulator_Extension_mod__DOT__unit_valid)
@@ -450,42 +465,6 @@ void VTX::_settle__TOP__21(VTX__Syms* __restrict vlSymsp) {
                                                   & (IData)(vlTOPp->TX__DOT__mod_rtl__DOT__mPSK_Modulator_Extension_mod_1__DOT__unit_last))
                                                : ((IData)(vlTOPp->TX__DOT__mod_rtl__DOT__mQAM_Modulator_Extension_mod__DOT__unit_valid) 
                                                   & (IData)(vlTOPp->TX__DOT__mod_rtl__DOT__mQAM_Modulator_Extension_mod__DOT__unit_last))))));
-}
-
-void VTX::_settle__TOP__22(VTX__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTX::_settle__TOP__22\n"); );
-    VTX* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
-    vlTOPp->TX__DOT__phy_header_extender_result_data_payload_fragment_cha_i = 0U;
-    if ((0U != (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__header_status))) {
-        vlTOPp->TX__DOT__phy_header_extender_result_data_payload_fragment_cha_i 
-            = (0xfffU & ((1U == (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__header_status))
-                          ? (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT___zz_result_data_payload_fragment_cha_i_1)
-                          : ((2U == (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__header_status))
-                              ? vlTOPp->TX__DOT__phy_header_extender__DOT__header_mod_array
-                             [(1U & ((9U >= (0xfU & (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__counter)))
-                                      ? ((((IData)(vlTOPp->mod_method_select) 
-                                           << 8U) | (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__pkg_size_payload_1)) 
-                                         >> (0xfU & (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__counter)))
-                                      : (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT____Vxrand1)))]
-                              : (vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT___zz_logic_ram_port0 
-                                 >> 1U))));
-    }
-    vlTOPp->TX__DOT__phy_tx_padder_result_data_payload_fragment 
-        = (0xffU & ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
-                    >> 1U));
-    if (vlTOPp->TX__DOT__phy_tx_padder__DOT__fill) {
-        vlTOPp->TX__DOT__phy_tx_padder_result_data_payload_fragment = 0U;
-    }
-    vlTOPp->TX__DOT__phy_tx_padder_result_data_payload_last 
-        = (1U & (IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_logic_ram_port0));
-    if ((7U != (IData)(vlTOPp->TX__DOT__phy_tx_padder__DOT__counter))) {
-        vlTOPp->TX__DOT__phy_tx_padder_result_data_payload_last = 0U;
-    }
-    if (vlTOPp->TX__DOT__phy_tx_padder__DOT__fill) {
-        vlTOPp->TX__DOT__phy_tx_padder_result_data_payload_last 
-            = (7U == (IData)(vlTOPp->TX__DOT__phy_tx_padder__DOT__counter));
-    }
     vlTOPp->TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_0 
         = (((IData)(vlTOPp->TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__scram_state) 
             << 1U) | (IData)(vlTOPp->TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_0));
@@ -504,42 +483,42 @@ void VTX::_settle__TOP__22(VTX__Syms* __restrict vlSymsp) {
     vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_full 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_ptrMatch) 
            & (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_risingOccupancy));
+    vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_full 
+        = ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
+           & (IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_risingOccupancy));
     vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_full 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
            & (IData)(vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_risingOccupancy));
     vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_full 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
            & (IData)(vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_risingOccupancy));
+    vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_full 
+        = ((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
+           & (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_risingOccupancy));
     vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_full 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
            & (IData)(vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_risingOccupancy));
-    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_full 
-        = ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
-           & (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_risingOccupancy));
     vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_full 
         = ((IData)(vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_ptrMatch) 
            & (IData)(vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_risingOccupancy));
     vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_full 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_ptrMatch) 
            & (IData)(vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_risingOccupancy));
-    vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_full 
-        = ((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
-           & (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_risingOccupancy));
-    vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_full 
-        = ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
-           & (IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_risingOccupancy));
+    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_full 
+        = ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
+           & (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_risingOccupancy));
     vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_full 
         = ((IData)(vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
            & (IData)(vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_risingOccupancy));
-    vlTOPp->TX__DOT__pipeline_halt = ((0x1feU & (IData)(vlTOPp->TX__DOT__pipeline_halt)) 
+    vlTOPp->TX__DOT__pipeline_halt = ((0xfeU & (IData)(vlTOPp->TX__DOT__pipeline_halt)) 
                                       | (0x12U > ((
-                                                   ((~ (IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_risingOccupancy)) 
-                                                    & (IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_ptrMatch)) 
+                                                   ((~ (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_risingOccupancy)) 
+                                                    & (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_ptrMatch)) 
                                                    << 5U) 
                                                   | (0x1fU 
-                                                     & ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
-                                                        - (IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushPtr_value))))));
-    vlTOPp->TX__DOT__pipeline_halt = ((0x1fdU & (IData)(vlTOPp->TX__DOT__pipeline_halt)) 
+                                                     & ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
+                                                        - (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_value))))));
+    vlTOPp->TX__DOT__pipeline_halt = ((0xfdU & (IData)(vlTOPp->TX__DOT__pipeline_halt)) 
                                       | ((0x12U > (
                                                    (((~ (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_risingOccupancy)) 
                                                      & (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_ptrMatch)) 
@@ -548,16 +527,7 @@ void VTX::_settle__TOP__22(VTX__Syms* __restrict vlSymsp) {
                                                       & ((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
                                                          - (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushPtr_value))))) 
                                          << 1U));
-    vlTOPp->TX__DOT__pipeline_halt = ((0x1fbU & (IData)(vlTOPp->TX__DOT__pipeline_halt)) 
-                                      | ((0x12U > (
-                                                   (((~ (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_risingOccupancy)) 
-                                                     & (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_ptrMatch)) 
-                                                    << 5U) 
-                                                   | (0x1fU 
-                                                      & ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
-                                                         - (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_value))))) 
-                                         << 2U));
-    vlTOPp->TX__DOT__pipeline_halt = ((0x1f7U & (IData)(vlTOPp->TX__DOT__pipeline_halt)) 
+    vlTOPp->TX__DOT__pipeline_halt = ((0xfbU & (IData)(vlTOPp->TX__DOT__pipeline_halt)) 
                                       | ((0x12U > (
                                                    (((~ (IData)(vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_risingOccupancy)) 
                                                      & (IData)(vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_ptrMatch)) 
@@ -565,8 +535,8 @@ void VTX::_settle__TOP__22(VTX__Syms* __restrict vlSymsp) {
                                                    | (0x1fU 
                                                       & ((IData)(vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_popPtr_value) 
                                                          - (IData)(vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_pushPtr_value))))) 
-                                         << 3U));
-    vlTOPp->TX__DOT__pipeline_halt = ((0x1efU & (IData)(vlTOPp->TX__DOT__pipeline_halt)) 
+                                         << 2U));
+    vlTOPp->TX__DOT__pipeline_halt = ((0xf7U & (IData)(vlTOPp->TX__DOT__pipeline_halt)) 
                                       | ((0x12U > (
                                                    (((~ (IData)(vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_risingOccupancy)) 
                                                      & (IData)(vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_ptrMatch)) 
@@ -574,8 +544,8 @@ void VTX::_settle__TOP__22(VTX__Syms* __restrict vlSymsp) {
                                                    | (0x1fU 
                                                       & ((IData)(vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
                                                          - (IData)(vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushPtr_value))))) 
-                                         << 4U));
-    vlTOPp->TX__DOT__pipeline_halt = ((0x1dfU & (IData)(vlTOPp->TX__DOT__pipeline_halt)) 
+                                         << 3U));
+    vlTOPp->TX__DOT__pipeline_halt = ((0xefU & (IData)(vlTOPp->TX__DOT__pipeline_halt)) 
                                       | ((0x12U > (
                                                    (((~ (IData)(vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_risingOccupancy)) 
                                                      & (IData)(vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_ptrMatch)) 
@@ -583,8 +553,8 @@ void VTX::_settle__TOP__22(VTX__Syms* __restrict vlSymsp) {
                                                    | (0x1fU 
                                                       & ((IData)(vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_popPtr_value) 
                                                          - (IData)(vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_pushPtr_value))))) 
-                                         << 5U));
-    vlTOPp->TX__DOT__pipeline_halt = ((0x1bfU & (IData)(vlTOPp->TX__DOT__pipeline_halt)) 
+                                         << 4U));
+    vlTOPp->TX__DOT__pipeline_halt = ((0xdfU & (IData)(vlTOPp->TX__DOT__pipeline_halt)) 
                                       | ((0x12U > (
                                                    (((~ (IData)(vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_risingOccupancy)) 
                                                      & (IData)(vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_ptrMatch)) 
@@ -592,8 +562,8 @@ void VTX::_settle__TOP__22(VTX__Syms* __restrict vlSymsp) {
                                                    | (0x1fU 
                                                       & ((IData)(vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
                                                          - (IData)(vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushPtr_value))))) 
-                                         << 6U));
-    vlTOPp->TX__DOT__pipeline_halt = ((0x17fU & (IData)(vlTOPp->TX__DOT__pipeline_halt)) 
+                                         << 5U));
+    vlTOPp->TX__DOT__pipeline_halt = ((0xbfU & (IData)(vlTOPp->TX__DOT__pipeline_halt)) 
                                       | ((0x12U > (
                                                    (((~ (IData)(vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_risingOccupancy)) 
                                                      & (IData)(vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_ptrMatch)) 
@@ -601,8 +571,8 @@ void VTX::_settle__TOP__22(VTX__Syms* __restrict vlSymsp) {
                                                    | (0x1fU 
                                                       & ((IData)(vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
                                                          - (IData)(vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_pushPtr_value))))) 
-                                         << 7U));
-    vlTOPp->TX__DOT__pipeline_halt = ((0xffU & (IData)(vlTOPp->TX__DOT__pipeline_halt)) 
+                                         << 6U));
+    vlTOPp->TX__DOT__pipeline_halt = ((0x7fU & (IData)(vlTOPp->TX__DOT__pipeline_halt)) 
                                       | ((0x12U > (
                                                    (((~ (IData)(vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_risingOccupancy)) 
                                                      & (IData)(vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_ptrMatch)) 
@@ -610,10 +580,10 @@ void VTX::_settle__TOP__22(VTX__Syms* __restrict vlSymsp) {
                                                    | (0x1fU 
                                                       & ((IData)(vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
                                                          - (IData)(vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_pushPtr_value))))) 
-                                         << 8U));
+                                         << 7U));
     vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_2 
         = ((vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_1 
-            << 1U) ^ ((1U & (((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
+            << 1U) ^ ((1U & (((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
                               >> 2U) ^ (vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_1 
                                         >> 0x1fU)))
                        ? 0x4c11db7U : 0U));
@@ -635,11 +605,19 @@ void VTX::_settle__TOP__22(VTX__Syms* __restrict vlSymsp) {
     vlTOPp->TX__DOT__phy_tx_information_gen_raw_data_ready 
         = (1U & ((~ (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_full)) 
                  & (~ (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_full))));
+    vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushing 
+        = (((IData)(vlTOPp->raw_data_valid) & (~ (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_full))) 
+           & (~ (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_full)));
     vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo_io_pop_valid 
         = (1U & ((~ ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_ptrMatch) 
                      & (~ (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_risingOccupancy)))) 
                  & (~ ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT___zz_io_pop_valid) 
                        & (~ (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_full))))));
+    vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability_io_pop_valid 
+        = (1U & ((~ ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
+                     & (~ (IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_risingOccupancy)))) 
+                 & (~ ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_io_pop_valid) 
+                       & (~ (IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_full))))));
     vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_pushing 
         = ((IData)(vlTOPp->TX__DOT__stf_preamble_adder__DOT__preamble_valid) 
            & (~ (IData)(vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_full)));
@@ -663,6 +641,20 @@ void VTX::_settle__TOP__22(VTX__Syms* __restrict vlSymsp) {
                      & (~ (IData)(vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_risingOccupancy)))) 
                  & (~ ((IData)(vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT___zz_io_pop_valid) 
                        & (~ (IData)(vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_full))))));
+    vlTOPp->TX__DOT__phy_tx_padder_raw_data_ready = 
+        (1U & ((~ (IData)(vlTOPp->TX__DOT__phy_tx_padder__DOT__data_last)) 
+               & (~ (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_full))));
+    vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability_io_pop_valid 
+        = (1U & ((~ ((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
+                     & (~ (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_risingOccupancy)))) 
+                 & (~ ((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_io_pop_valid) 
+                       & (~ (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_full))))));
+}
+
+void VTX::_settle__TOP__21(VTX__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTX::_settle__TOP__21\n"); );
+    VTX* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
     vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability_io_pop_valid 
         = (1U & ((~ ((IData)(vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
                      & (~ (IData)(vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_risingOccupancy)))) 
@@ -671,14 +663,6 @@ void VTX::_settle__TOP__22(VTX__Syms* __restrict vlSymsp) {
     vlTOPp->TX__DOT__phy_tx_filter_raw_data_ready = 
         (1U & ((~ (IData)(vlTOPp->TX__DOT__phy_tx_filter__DOT__last_padding)) 
                & (~ (IData)(vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_full))));
-    vlTOPp->TX__DOT__phy_tx_crc_raw_data_ready = (1U 
-                                                  & ((~ (IData)(vlTOPp->TX__DOT__phy_tx_crc__DOT__emitCrc)) 
-                                                     & (~ (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_full))));
-    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability_io_pop_valid 
-        = (1U & ((~ ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
-                     & (~ (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_risingOccupancy)))) 
-                 & (~ ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT___zz_io_pop_valid) 
-                       & (~ (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_full))))));
     vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_pushing 
         = (((0U == (IData)(vlTOPp->mod_method_select))
              ? (IData)(vlTOPp->TX__DOT__mod_rtl__DOT__mPSK_Modulator_Extension_mod__DOT__unit_valid)
@@ -694,30 +678,19 @@ void VTX::_settle__TOP__22(VTX__Syms* __restrict vlSymsp) {
     vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_pushing 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_puncher__DOT__raw_data_valid_1) 
            & (~ (IData)(vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_full)));
-}
-
-void VTX::_settle__TOP__23(VTX__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTX::_settle__TOP__23\n"); );
-    VTX* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
     vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_valid 
         = (1U & ((~ ((IData)(vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_ptrMatch) 
                      & (~ (IData)(vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_risingOccupancy)))) 
                  & (~ ((IData)(vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT___zz_io_pop_valid) 
                        & (~ (IData)(vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_full))))));
-    vlTOPp->TX__DOT__phy_tx_padder_raw_data_ready = 
-        (1U & ((~ (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_full)) 
-               & (~ (IData)(vlTOPp->TX__DOT__phy_tx_padder__DOT__fill))));
-    vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability_io_pop_valid 
-        = (1U & ((~ ((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
-                     & (~ (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_risingOccupancy)))) 
-                 & (~ ((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_io_pop_valid) 
-                       & (~ (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_full))))));
-    vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability_io_pop_valid 
-        = (1U & ((~ ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
-                     & (~ (IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_risingOccupancy)))) 
-                 & (~ ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_io_pop_valid) 
-                       & (~ (IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_full))))));
+    vlTOPp->TX__DOT__phy_tx_crc_raw_data_ready = (1U 
+                                                  & ((~ (IData)(vlTOPp->TX__DOT__phy_tx_crc__DOT__emitCrc)) 
+                                                     & (~ (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_full))));
+    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability_io_pop_valid 
+        = (1U & ((~ ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_ptrMatch) 
+                     & (~ (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_risingOccupancy)))) 
+                 & (~ ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT___zz_io_pop_valid) 
+                       & (~ (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_full))))));
     vlTOPp->TX__DOT__phy_header_extender_raw_data_ready = 0U;
     if ((0U != (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__header_status))) {
         if ((1U != (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__header_status))) {
@@ -732,11 +705,9 @@ void VTX::_settle__TOP__23(VTX__Syms* __restrict vlSymsp) {
                      & (~ (IData)(vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_risingOccupancy)))) 
                  & (~ ((IData)(vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT___zz_io_pop_valid) 
                        & (~ (IData)(vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_full))))));
-    vlTOPp->TX__DOT__phy_tx_information_gen_raw_data_valid 
-        = ((IData)(vlTOPp->raw_data_valid) & (~ (IData)(vlTOPp->TX__DOT__pipeline_halt)));
     vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_3 
         = ((vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_2 
-            << 1U) ^ ((1U & (((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
+            << 1U) ^ ((1U & (((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
                               >> 3U) ^ (vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_2 
                                         >> 0x1fU)))
                        ? 0x4c11db7U : 0U));
@@ -755,14 +726,28 @@ void VTX::_settle__TOP__23(VTX__Syms* __restrict vlSymsp) {
     if (vlTOPp->TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_pushing) {
         vlTOPp->TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_pushPtr_willIncrement = 1U;
     }
-    vlTOPp->TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_popping 
+    vlTOPp->TX__DOT__phy_header_extender__DOT__pkg_size_fire 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo_io_pop_valid) 
            & (IData)(vlTOPp->TX__DOT__phy_header_extender__DOT__pkg_size_ready_1));
-    vlTOPp->raw_data_ready = ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_raw_data_ready) 
-                              & (~ (IData)(vlTOPp->TX__DOT__pipeline_halt)));
-    vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popping 
+    vlTOPp->raw_data_ready = vlTOPp->TX__DOT__phy_tx_information_gen_raw_data_ready;
+    vlTOPp->TX__DOT__phy_tx_information_gen__DOT__raw_data_fire_3 
+        = ((IData)(vlTOPp->raw_data_valid) & (IData)(vlTOPp->TX__DOT__phy_tx_information_gen_raw_data_ready));
+    vlTOPp->TX__DOT__phy_tx_information_gen__DOT__when_PhyTx_l252 
+        = (((IData)(vlTOPp->raw_data_valid) & (IData)(vlTOPp->TX__DOT__phy_tx_information_gen_raw_data_ready)) 
+           & (IData)(vlTOPp->raw_data_payload_last));
+    vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT___zz_1 = 0U;
+    if (vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushing) {
+        vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT___zz_1 = 1U;
+    }
+    vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_willIncrement = 0U;
+    if (vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushing) {
+        vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_willIncrement = 1U;
+    }
+    vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushing 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo_io_pop_valid) 
            & (~ (IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_full)));
+    vlTOPp->TX__DOT__phy_tx_crc_raw_data_valid = ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability_io_pop_valid) 
+                                                  & (~ (IData)(vlTOPp->TX__DOT__pipeline_halt)));
     vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT___zz_1 = 0U;
     if (vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_pushing) {
         vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT___zz_1 = 1U;
@@ -778,33 +763,33 @@ void VTX::_settle__TOP__23(VTX__Syms* __restrict vlSymsp) {
     vlTOPp->TX__DOT__mod_data_div__DOT__base_data_fire 
         = (((IData)(vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability_io_pop_valid) 
             & (~ ((IData)(vlTOPp->TX__DOT__pipeline_halt) 
-                  >> 5U))) & (IData)(vlTOPp->TX__DOT__mod_data_div__DOT__base_ready));
+                  >> 4U))) & (IData)(vlTOPp->TX__DOT__mod_data_div__DOT__base_ready));
     vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popping 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability_io_pop_valid) 
            & ((IData)(vlTOPp->TX__DOT__mod_data_div__DOT__base_ready) 
               & (~ ((IData)(vlTOPp->TX__DOT__pipeline_halt) 
-                    >> 5U))));
+                    >> 4U))));
+    vlTOPp->TX__DOT__phy_tx_encoder_raw_data_valid 
+        = ((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability_io_pop_valid) 
+           & (~ ((IData)(vlTOPp->TX__DOT__pipeline_halt) 
+                 >> 2U)));
+    vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popping 
+        = ((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability_io_pop_valid) 
+           & ((IData)(vlTOPp->TX__DOT__phy_tx_encoder__DOT__isEncoding) 
+              & (~ ((IData)(vlTOPp->TX__DOT__pipeline_halt) 
+                    >> 2U))));
     vlTOPp->TX__DOT__stf_preamble_adder_raw_data_valid 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability_io_pop_valid) 
            & (~ ((IData)(vlTOPp->TX__DOT__pipeline_halt) 
-                 >> 8U)));
+                 >> 7U)));
     vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_popping 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability_io_pop_valid) 
            & ((IData)(vlTOPp->TX__DOT__stf_preamble_adder_raw_data_ready) 
               & (~ ((IData)(vlTOPp->TX__DOT__pipeline_halt) 
-                    >> 8U))));
+                    >> 7U))));
     vlTOPp->TX__DOT__phy_tx_oversampling_raw_data_ready 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_filter_raw_data_ready) 
            & (0U == (IData)(vlTOPp->TX__DOT__phy_tx_oversampling__DOT__cnt)));
-    vlTOPp->TX__DOT__phy_tx_encoder_raw_data_valid 
-        = ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability_io_pop_valid) 
-           & (~ ((IData)(vlTOPp->TX__DOT__pipeline_halt) 
-                 >> 3U)));
-    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popping 
-        = ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability_io_pop_valid) 
-           & ((~ (IData)(vlTOPp->TX__DOT__phy_tx_encoder__DOT__emitEncoding)) 
-              & (~ ((IData)(vlTOPp->TX__DOT__pipeline_halt) 
-                    >> 3U))));
     vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT___zz_1 = 0U;
     if (vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_pushing) {
         vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT___zz_1 = 1U;
@@ -816,7 +801,7 @@ void VTX::_settle__TOP__23(VTX__Syms* __restrict vlSymsp) {
     vlTOPp->TX__DOT__phy_header_extender_raw_data_valid 
         = ((IData)(vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_valid) 
            & (~ ((IData)(vlTOPp->TX__DOT__pipeline_halt) 
-                 >> 6U)));
+                 >> 5U)));
     vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT___zz_1 = 0U;
     if (vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_pushing) {
         vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT___zz_1 = 1U;
@@ -829,52 +814,36 @@ void VTX::_settle__TOP__23(VTX__Syms* __restrict vlSymsp) {
         = ((IData)(vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_valid) 
            & ((IData)(vlTOPp->TX__DOT__phy_tx_scrambler_raw_data_ready) 
               & (~ ((IData)(vlTOPp->TX__DOT__pipeline_halt) 
-                    >> 4U))));
+                    >> 3U))));
     vlTOPp->TX__DOT__phy_tx_scrambler_raw_data_valid 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_valid) 
            & (~ ((IData)(vlTOPp->TX__DOT__pipeline_halt) 
-                 >> 4U)));
-    vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popping 
-        = ((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability_io_pop_valid) 
-           & ((IData)(vlTOPp->TX__DOT__phy_tx_crc_raw_data_ready) 
-              & (~ ((IData)(vlTOPp->TX__DOT__pipeline_halt) 
-                    >> 2U))));
-    vlTOPp->TX__DOT__phy_tx_crc_raw_data_valid = ((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability_io_pop_valid) 
-                                                  & (~ 
-                                                     ((IData)(vlTOPp->TX__DOT__pipeline_halt) 
-                                                      >> 2U)));
+                 >> 3U)));
     vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popping 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability_io_pop_valid) 
+           & ((IData)(vlTOPp->TX__DOT__phy_tx_crc_raw_data_ready) 
+              & (~ (IData)(vlTOPp->TX__DOT__pipeline_halt))));
+    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popping 
+        = ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability_io_pop_valid) 
            & ((IData)(vlTOPp->TX__DOT__phy_tx_padder_raw_data_ready) 
               & (~ ((IData)(vlTOPp->TX__DOT__pipeline_halt) 
                     >> 1U))));
     vlTOPp->TX__DOT__phy_tx_padder_raw_data_valid = 
-        ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability_io_pop_valid) 
+        ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability_io_pop_valid) 
          & (~ ((IData)(vlTOPp->TX__DOT__pipeline_halt) 
                >> 1U)));
     vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_popping 
         = ((IData)(vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_valid) 
            & ((IData)(vlTOPp->TX__DOT__phy_header_extender_raw_data_ready) 
               & (~ ((IData)(vlTOPp->TX__DOT__pipeline_halt) 
-                    >> 6U))));
+                    >> 5U))));
     vlTOPp->TX__DOT__phy_tx_oversampling_raw_data_valid 
         = ((IData)(vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability_io_pop_valid) 
            & (~ ((IData)(vlTOPp->TX__DOT__pipeline_halt) 
-                 >> 7U)));
-    vlTOPp->TX__DOT__phy_tx_information_gen__DOT__raw_data_fire_3 
-        = ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_raw_data_valid) 
-           & (IData)(vlTOPp->TX__DOT__phy_tx_information_gen_raw_data_ready));
-    vlTOPp->TX__DOT__phy_tx_information_gen__DOT__when_PhyTx_l272 
-        = (((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_raw_data_valid) 
-            & (IData)(vlTOPp->TX__DOT__phy_tx_information_gen_raw_data_ready)) 
-           & (IData)(vlTOPp->raw_data_payload_last));
-    vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushing 
-        = (((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_raw_data_valid) 
-            & (~ (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_full))) 
-           & (~ (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_full)));
+                 >> 6U)));
     vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_4 
         = ((vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_3 
-            << 1U) ^ ((1U & (((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
+            << 1U) ^ ((1U & (((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
                               >> 4U) ^ (vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_3 
                                         >> 0x1fU)))
                        ? 0x4c11db7U : 0U));
@@ -890,21 +859,35 @@ void VTX::_settle__TOP__23(VTX__Syms* __restrict vlSymsp) {
         = (0xfU & ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_pushPtr_value) 
                    + (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_pushPtr_willIncrement)));
     vlTOPp->TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_popPtr_willIncrement = 0U;
-    if (vlTOPp->TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_popping) {
+    if (vlTOPp->TX__DOT__phy_header_extender__DOT__pkg_size_fire) {
         vlTOPp->TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_popPtr_willIncrement = 1U;
     }
+    vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_valueNext 
+        = (((0xfbU == (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_value)) 
+            & (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_willIncrement))
+            ? 0U : (0xffU & ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_value) 
+                             + (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_willIncrement))));
+}
+
+void VTX::_settle__TOP__22(VTX__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTX::_settle__TOP__22\n"); );
+    VTX* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
     vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_1 = 0U;
-    if (vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popping) {
+    if (vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushing) {
         vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_1 = 1U;
     }
     vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_willIncrement = 0U;
-    if (vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popping) {
+    if (vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushing) {
         vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_willIncrement = 1U;
     }
     vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 0U;
-    if (vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popping) {
+    if (vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushing) {
         vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 1U;
     }
+    vlTOPp->TX__DOT__phy_tx_crc_result_data_valid = 
+        ((IData)(vlTOPp->TX__DOT__phy_tx_crc__DOT__emitCrc) 
+         | (IData)(vlTOPp->TX__DOT__phy_tx_crc_raw_data_valid));
     vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext 
         = (0x1fU & ((IData)(vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
                     + (IData)(vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement)));
@@ -912,15 +895,20 @@ void VTX::_settle__TOP__23(VTX__Syms* __restrict vlSymsp) {
     if (vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popping) {
         vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 1U;
     }
-}
-
-void VTX::_settle__TOP__24(VTX__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTX::_settle__TOP__24\n"); );
-    VTX* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
     vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 0U;
     if (vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popping) {
         vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 1U;
+    }
+    vlTOPp->TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder_raw_data_valid 
+        = ((IData)(vlTOPp->TX__DOT__phy_tx_encoder__DOT__isEncoding) 
+           & (IData)(vlTOPp->TX__DOT__phy_tx_encoder_raw_data_valid));
+    vlTOPp->TX__DOT__phy_tx_encoder__DOT__when_PhyTx_l97 
+        = (((IData)(vlTOPp->TX__DOT__phy_tx_encoder_raw_data_valid) 
+            & (IData)(vlTOPp->TX__DOT__phy_tx_encoder__DOT__isEncoding)) 
+           & (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_logic_ram_port0));
+    vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 0U;
+    if (vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popping) {
+        vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 1U;
     }
     vlTOPp->TX__DOT__stf_preamble_adder__DOT__raw_data_fire 
         = ((IData)(vlTOPp->TX__DOT__stf_preamble_adder_raw_data_valid) 
@@ -933,18 +921,7 @@ void VTX::_settle__TOP__24(VTX__Syms* __restrict vlSymsp) {
         = ((IData)(vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability_io_pop_valid) 
            & ((IData)(vlTOPp->TX__DOT__phy_tx_oversampling_raw_data_ready) 
               & (~ ((IData)(vlTOPp->TX__DOT__pipeline_halt) 
-                    >> 7U))));
-    vlTOPp->TX__DOT__phy_tx_encoder__DOT__when_PhyTx_l96 
-        = (((IData)(vlTOPp->TX__DOT__phy_tx_encoder_raw_data_valid) 
-            & (~ (IData)(vlTOPp->TX__DOT__phy_tx_encoder__DOT__emitEncoding))) 
-           & (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT___zz_logic_ram_port0));
-    vlTOPp->TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder_raw_data_valid 
-        = ((IData)(vlTOPp->TX__DOT__phy_tx_encoder__DOT__emitEncoding) 
-           | (IData)(vlTOPp->TX__DOT__phy_tx_encoder_raw_data_valid));
-    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 0U;
-    if (vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popping) {
-        vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 1U;
-    }
+                    >> 6U))));
     vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_pushPtr_valueNext 
         = (0x1fU & ((IData)(vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_pushPtr_value) 
                     + (IData)(vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_pushPtr_willIncrement)));
@@ -980,23 +957,17 @@ void VTX::_settle__TOP__24(VTX__Syms* __restrict vlSymsp) {
                    & (IData)(vlTOPp->TX__DOT__phy_tx_scrambler_raw_data_valid));
         }
     }
-    vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 0U;
-    if (vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popping) {
-        vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 1U;
-    }
-    vlTOPp->TX__DOT__phy_tx_crc_result_data_valid = 
-        ((IData)(vlTOPp->TX__DOT__phy_tx_crc__DOT__emitCrc) 
-         | (IData)(vlTOPp->TX__DOT__phy_tx_crc_raw_data_valid));
     vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 0U;
     if (vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popping) {
         vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 1U;
     }
-    vlTOPp->TX__DOT__phy_tx_padder_result_data_valid 
-        = ((IData)(vlTOPp->TX__DOT__phy_tx_padder_raw_data_valid) 
-           & (~ (IData)(vlTOPp->TX__DOT__phy_tx_padder__DOT__fill)));
-    if (vlTOPp->TX__DOT__phy_tx_padder__DOT__fill) {
-        vlTOPp->TX__DOT__phy_tx_padder_result_data_valid = 1U;
+    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 0U;
+    if (vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popping) {
+        vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 1U;
     }
+    vlTOPp->TX__DOT__phy_tx_padder_result_data_valid 
+        = ((IData)(vlTOPp->TX__DOT__phy_tx_padder__DOT__data_last) 
+           | (IData)(vlTOPp->TX__DOT__phy_tx_padder_raw_data_valid));
     vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_popPtr_willIncrement = 0U;
     if (vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_popping) {
         vlTOPp->TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_popPtr_willIncrement = 1U;
@@ -1004,17 +975,9 @@ void VTX::_settle__TOP__24(VTX__Syms* __restrict vlSymsp) {
     vlTOPp->TX__DOT__phy_tx_oversampling_result_data_valid 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_oversampling_raw_data_valid) 
            | (0U != (IData)(vlTOPp->TX__DOT__phy_tx_oversampling__DOT__cnt)));
-    vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT___zz_1 = 0U;
-    if (vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushing) {
-        vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT___zz_1 = 1U;
-    }
-    vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_willIncrement = 0U;
-    if (vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushing) {
-        vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_willIncrement = 1U;
-    }
     vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_5 
         = ((vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_4 
-            << 1U) ^ ((1U & (((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
+            << 1U) ^ ((1U & (((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
                               >> 5U) ^ (vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_4 
                                         >> 0x1fU)))
                        ? 0x4c11db7U : 0U));
@@ -1029,19 +992,25 @@ void VTX::_settle__TOP__24(VTX__Syms* __restrict vlSymsp) {
         = (0xfU & ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_popPtr_value) 
                    + (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_popPtr_willIncrement)));
     vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_valueNext 
-        = (((0x80U == (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_value)) 
+        = (((0xfbU == (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_value)) 
             & (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_willIncrement))
             ? 0U : (0xffU & ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_value) 
                              + (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_willIncrement))));
     vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext 
         = (0x1fU & ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
                     + (IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement)));
+    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushing 
+        = ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_valid) 
+           & (~ (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_full)));
     vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext 
         = (0x1fU & ((IData)(vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
                     + (IData)(vlTOPp->TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
     vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext 
         = (0x1fU & ((IData)(vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
                     + (IData)(vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
+    vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext 
+        = (0x1fU & ((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
+                    + (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
     vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext 
         = (0x1fU & ((IData)(vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
                     + (IData)(vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
@@ -1049,12 +1018,6 @@ void VTX::_settle__TOP__24(VTX__Syms* __restrict vlSymsp) {
     if (vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popping) {
         vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = 1U;
     }
-    vlTOPp->TX__DOT__phy_tx_encoder__DOT__when_PhyTx_l96_1 
-        = ((IData)(vlTOPp->TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder_raw_data_valid) 
-           & (IData)(vlTOPp->TX__DOT__phy_tx_encoder__DOT__emitEncoding));
-    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext 
-        = (0x1fU & ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
-                    + (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
     vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushing 
         = ((IData)(vlTOPp->TX__DOT__phy_header_extender_result_data_valid) 
            & (~ (IData)(vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_full)));
@@ -1064,19 +1027,16 @@ void VTX::_settle__TOP__24(VTX__Syms* __restrict vlSymsp) {
     vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushing 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_scrambler_result_data_valid) 
            & (~ (IData)(vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_full)));
-    vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext 
-        = (0x1fU & ((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
-                    + (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
-    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushing 
-        = ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_valid) 
-           & (~ (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_full)));
     vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext 
         = (0x1fU & ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
                     + (IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
-    vlTOPp->TX__DOT__phy_tx_padder__DOT__when_PhyTx_l72 
-        = ((7U != (IData)(vlTOPp->TX__DOT__phy_tx_padder__DOT__counter)) 
-           & ((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_valid) 
-              & (~ (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_full))));
+    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext 
+        = (0x1fU & ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
+                    + (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
+    vlTOPp->TX__DOT__phy_tx_padder__DOT__when_PhyTx_l70 
+        = (((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_valid) 
+            & (~ (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_full))) 
+           & (IData)(vlTOPp->TX__DOT__phy_tx_padder__DOT__data_last));
     vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushing 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_valid) 
            & (~ (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_full)));
@@ -1086,14 +1046,9 @@ void VTX::_settle__TOP__24(VTX__Syms* __restrict vlSymsp) {
     vlTOPp->TX__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid 
         = ((IData)(vlTOPp->TX__DOT__phy_tx_oversampling_result_data_valid) 
            | (IData)(vlTOPp->TX__DOT__phy_tx_filter__DOT__last_padding));
-    vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_valueNext 
-        = (((0x80U == (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_value)) 
-            & (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_willIncrement))
-            ? 0U : (0xffU & ((IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_value) 
-                             + (IData)(vlTOPp->TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_willIncrement))));
     vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_6 
         = ((vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_5 
-            << 1U) ^ ((1U & (((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
+            << 1U) ^ ((1U & (((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
                               >> 6U) ^ (vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_5 
                                         >> 0x1fU)))
                        ? 0x4c11db7U : 0U));
@@ -1105,6 +1060,14 @@ void VTX::_settle__TOP__24(VTX__Syms* __restrict vlSymsp) {
         = (1U & (((IData)(vlTOPp->TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_2) 
                   >> 6U) ^ ((IData)(vlTOPp->TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_2) 
                             >> 3U)));
+    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT___zz_1 = 0U;
+    if (vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushing) {
+        vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT___zz_1 = 1U;
+    }
+    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 0U;
+    if (vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushing) {
+        vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 1U;
+    }
     vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext 
         = (0x1fU & ((IData)(vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_value) 
                     + (IData)(vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement)));
@@ -1124,18 +1087,10 @@ void VTX::_settle__TOP__24(VTX__Syms* __restrict vlSymsp) {
     if (vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushing) {
         vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 1U;
     }
-    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT___zz_1 = 0U;
-    if (vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushing) {
-        vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT___zz_1 = 1U;
-    }
-    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 0U;
-    if (vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushing) {
-        vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = 1U;
-    }
 }
 
-void VTX::_settle__TOP__25(VTX__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTX::_settle__TOP__25\n"); );
+void VTX::_settle__TOP__23(VTX__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTX::_settle__TOP__23\n"); );
     VTX* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_1 = 0U;
@@ -1151,7 +1106,7 @@ void VTX::_settle__TOP__25(VTX__Syms* __restrict vlSymsp) {
            & (~ (IData)(vlTOPp->TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_full)));
     vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_7 
         = ((vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_6 
-            << 1U) ^ ((1U & (((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
+            << 1U) ^ ((1U & (((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
                               >> 7U) ^ (vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_6 
                                         >> 0x1fU)))
                        ? 0x4c11db7U : 0U));
@@ -1162,15 +1117,15 @@ void VTX::_settle__TOP__25(VTX__Syms* __restrict vlSymsp) {
     vlTOPp->TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_3 
         = ((0xfeU & ((IData)(vlTOPp->TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_2) 
                      << 1U)) | (IData)(vlTOPp->TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_3));
+    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext 
+        = (0x1fU & ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
+                    + (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement)));
     vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext 
         = (0x1fU & ((IData)(vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
                     + (IData)(vlTOPp->TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement)));
     vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext 
         = (0x1fU & ((IData)(vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
                     + (IData)(vlTOPp->TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement)));
-    vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext 
-        = (0x1fU & ((IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
-                    + (IData)(vlTOPp->TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement)));
     vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext 
         = (0x1fU & ((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushPtr_value) 
                     + (IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement)));
@@ -1184,7 +1139,7 @@ void VTX::_settle__TOP__25(VTX__Syms* __restrict vlSymsp) {
     }
     vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_8 
         = ((vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_7 
-            << 1U) ^ ((1U & (((IData)(vlTOPp->TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
+            << 1U) ^ ((1U & (((IData)(vlTOPp->TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_logic_ram_port0) 
                               >> 8U) ^ (vlTOPp->TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_7 
                                         >> 0x1fU)))
                        ? 0x4c11db7U : 0U));
@@ -1380,8 +1335,8 @@ void VTX::_settle__TOP__25(VTX__Syms* __restrict vlSymsp) {
                        ^ (0xffffff80U & (IData)(vlTOPp->TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_7)))));
 }
 
-void VTX::_settle__TOP__26(VTX__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    VTX::_settle__TOP__26\n"); );
+void VTX::_settle__TOP__24(VTX__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTX::_settle__TOP__24\n"); );
     VTX* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
     vlTOPp->TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT__code_vec_1 
@@ -1569,11 +1524,551 @@ void VTX::_eval_settle(VTX__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    VTX::_eval_settle\n"); );
     VTX* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->_settle__TOP__21(vlSymsp);
+    vlTOPp->_settle__TOP__19(vlSymsp);
     vlTOPp->__Vm_traceActivity = (1U | vlTOPp->__Vm_traceActivity);
+    vlTOPp->_settle__TOP__20(vlSymsp);
+    vlTOPp->_settle__TOP__21(vlSymsp);
     vlTOPp->_settle__TOP__22(vlSymsp);
     vlTOPp->_settle__TOP__23(vlSymsp);
     vlTOPp->_settle__TOP__24(vlSymsp);
-    vlTOPp->_settle__TOP__25(vlSymsp);
-    vlTOPp->_settle__TOP__26(vlSymsp);
+}
+
+void VTX::_ctor_var_reset() {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    VTX::_ctor_var_reset\n"); );
+    // Body
+    raw_data_valid = VL_RAND_RESET_I(1);
+    raw_data_ready = VL_RAND_RESET_I(1);
+    raw_data_payload_last = VL_RAND_RESET_I(1);
+    raw_data_payload_fragment = VL_RAND_RESET_I(8);
+    rf_data_valid = VL_RAND_RESET_I(1);
+    rf_data_ready = VL_RAND_RESET_I(1);
+    rf_data_payload_cha_i = VL_RAND_RESET_I(12);
+    rf_data_payload_cha_q = VL_RAND_RESET_I(12);
+    div_enable = VL_RAND_RESET_I(1);
+    div_cnt_step = VL_RAND_RESET_I(4);
+    div_cnt_limit = VL_RAND_RESET_I(4);
+    mod_method_select = VL_RAND_RESET_I(2);
+    clk = 0;
+    reset = 0;
+    TX__DOT__phy_tx_crc_raw_data_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_padder_raw_data_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_encoder_raw_data_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler_raw_data_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_header_extender_raw_data_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_oversampling_raw_data_valid = VL_RAND_RESET_I(1);
+    TX__DOT__stf_preamble_adder_raw_data_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen_raw_data_ready = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_crc_raw_data_ready = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_crc_result_data_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_crc_result_data_payload_last = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_crc_result_data_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_padder_raw_data_ready = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_padder_result_data_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_padder_result_data_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler_raw_data_ready = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler_result_data_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
+    TX__DOT__mod_data_div_unit_data_payload_last = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_header_extender_raw_data_ready = VL_RAND_RESET_I(1);
+    TX__DOT__phy_header_extender_result_data_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_header_extender_result_data_payload_last = VL_RAND_RESET_I(1);
+    TX__DOT__phy_header_extender_result_data_payload_fragment_cha_i = VL_RAND_RESET_I(12);
+    TX__DOT__phy_header_extender_result_data_payload_fragment_cha_q = VL_RAND_RESET_I(12);
+    TX__DOT__phy_header_extender_result_data_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_oversampling_raw_data_ready = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_oversampling_result_data_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_oversampling_result_data_payload_last = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter_raw_data_ready = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter_result_data_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
+    TX__DOT__stf_preamble_adder_raw_data_ready = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_front_result_data_queueWithAvailability_io_pop_valid = VL_RAND_RESET_I(1);
+    TX__DOT__pipeline_halt = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_information_gen__DOT__dataFifo_io_pop_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo_io_pop_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen__DOT__pkg_size_cnt = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_information_gen__DOT__pkg_size_valid_1 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen__DOT__pkg_size_payload_1 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_information_gen__DOT__when_PhyTx_l252 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen__DOT__raw_data_fire_3 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT____Vxrand1 = VL_RAND_RESET_I(9);
+    TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(9);
+    TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT___zz_1 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushPtr_value = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_popPtr_value = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_pushing = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_full = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
+    { int __Vi0=0; for (; __Vi0<252; ++__Vi0) {
+            TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(9);
+    }}
+    TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT____Vlvbound2 = VL_RAND_RESET_I(9);
+    TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT___zz_1 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(4);
+    TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_pushPtr_value = VL_RAND_RESET_I(4);
+    TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(4);
+    TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_popPtr_value = VL_RAND_RESET_I(4);
+    TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_pushing = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_full = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
+    { int __Vi0=0; for (; __Vi0<16; ++__Vi0) {
+            TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(8);
+    }}
+    TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(9);
+    TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_1 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushPtr_value = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popPtr_value = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_pushing = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_popping = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_full = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
+    { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
+            TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(9);
+    }}
+    TX__DOT__phy_tx_crc__DOT__crc_1_result = VL_RAND_RESET_I(32);
+    TX__DOT__phy_tx_crc__DOT__emitCrc = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_crc__DOT__counter = VL_RAND_RESET_I(2);
+    TX__DOT__phy_tx_crc__DOT__when_PhyTx_l40 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_crc__DOT__crc_1__DOT___zz_result_2 = VL_RAND_RESET_I(21);
+    TX__DOT__phy_tx_crc__DOT__crc_1__DOT___zz_resultNext_2 = VL_RAND_RESET_I(21);
+    TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_8 = VL_RAND_RESET_I(32);
+    TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_7 = VL_RAND_RESET_I(32);
+    TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_6 = VL_RAND_RESET_I(32);
+    TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_5 = VL_RAND_RESET_I(32);
+    TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_4 = VL_RAND_RESET_I(32);
+    TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_3 = VL_RAND_RESET_I(32);
+    TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_2 = VL_RAND_RESET_I(32);
+    TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state_1 = VL_RAND_RESET_I(32);
+    TX__DOT__phy_tx_crc__DOT__crc_1__DOT__state = VL_RAND_RESET_I(32);
+    TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(9);
+    TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT___zz_1 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushPtr_value = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popPtr_value = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_pushing = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_popping = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_full = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
+    { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
+            TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(9);
+    }}
+    TX__DOT__phy_tx_padder__DOT__data_last = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_padder__DOT__when_PhyTx_l70 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(9);
+    TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_1 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushPtr_value = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popPtr_value = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_pushing = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_popping = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_full = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
+    { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
+            TX__DOT__phy_tx_padder_result_data_queueWithAvailability__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(9);
+    }}
+    TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder_raw_data_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder_raw_data_payload_fragment = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_encoder__DOT__isEncoding = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_encoder__DOT__when_PhyTx_l97 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_0 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_1 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_2 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_3 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_4 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_5 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_6 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT___zz_r_enc_7 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT__coded_data = VL_RAND_RESET_I(16);
+    TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT__coded_data_valid_1 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT__r_enc_buf = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT__code_vec_0 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT__code_vec_1 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_encoder__DOT__phy_tx_encoder__DOT__raw_data_payload_last_regNext = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_puncher__DOT__raw_data_fragment = VL_RAND_RESET_I(16);
+    TX__DOT__phy_tx_puncher__DOT__raw_data_valid_1 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_puncher__DOT__raw_data_last = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(17);
+    TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT___zz_1 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_pushPtr_value = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_popPtr_value = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_pushing = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_popping = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_full = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
+    { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
+            TX__DOT__phy_tx_puncher_punched_data_toStream_queueWithAvailability__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(17);
+    }}
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1_init_state_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1_scram_data_ready = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_status = VL_RAND_RESET_I(2);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_0 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_1 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_2 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_3 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_4 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_5 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_6 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_7 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_8 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_9 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_10 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_11 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_12 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_13 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT___zz_r_scr_14 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__scram_state = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_0 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_1 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_2 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_3 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_4 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_5 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_6 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_7 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_8 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_9 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_10 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_11 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_12 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_13 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_14 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__feed_back_15 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__scram_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler__DOT__scrambler_1__DOT__scram_data = VL_RAND_RESET_I(16);
+    TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(17);
+    TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT___zz_1 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushPtr_value = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popPtr_value = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_pushing = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_popping = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_full = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
+    { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
+            TX__DOT__phy_tx_scrambler_result_data_queueWithAvailability__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(17);
+    }}
+    TX__DOT__mod_data_div__DOT___zz_base_cnt = VL_RAND_RESET_I(4);
+    TX__DOT__mod_data_div__DOT__unit_valid = VL_RAND_RESET_I(1);
+    TX__DOT__mod_data_div__DOT__base_last = VL_RAND_RESET_I(1);
+    TX__DOT__mod_data_div__DOT__base_cnt = VL_RAND_RESET_I(4);
+    TX__DOT__mod_data_div__DOT__base_ready = VL_RAND_RESET_I(1);
+    TX__DOT__mod_data_div__DOT__base_buffer = VL_RAND_RESET_I(16);
+    TX__DOT__mod_data_div__DOT__loaded = VL_RAND_RESET_I(1);
+    TX__DOT__mod_data_div__DOT__base_data_fire = VL_RAND_RESET_I(1);
+    TX__DOT__mod_data_div__DOT__when_dataDivDynamic_l52 = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl__DOT__flowDeMux_1_outputs_0_payload_last = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl__DOT__flowDeMux_1_outputs_1_payload_last = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl__DOT__flowDeMux_1_outputs_2_payload_last = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl__DOT__mPSK_Modulator_Extension_mod__DOT__unit_data_payload_regNext_last = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl__DOT__mPSK_Modulator_Extension_mod__DOT__unit_data_payload_regNext_fragment = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl__DOT__mPSK_Modulator_Extension_mod__DOT__unit_valid = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl__DOT__mPSK_Modulator_Extension_mod__DOT__unit_last = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl__DOT__mPSK_Modulator_Extension_mod_1__DOT___zz___05Fzz_mod_iq_0 = VL_RAND_RESET_I(24);
+    TX__DOT__mod_rtl__DOT__mPSK_Modulator_Extension_mod_1__DOT__unit_data_payload_regNext_last = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl__DOT__mPSK_Modulator_Extension_mod_1__DOT__unit_data_payload_regNext_fragment = VL_RAND_RESET_I(2);
+    TX__DOT__mod_rtl__DOT__mPSK_Modulator_Extension_mod_1__DOT__unit_valid = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl__DOT__mPSK_Modulator_Extension_mod_1__DOT__unit_last = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl__DOT__mQAM_Modulator_Extension_mod__DOT__unit_data_payload_regNext_last = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl__DOT__mQAM_Modulator_Extension_mod__DOT__unit_data_payload_regNext_fragment = VL_RAND_RESET_I(4);
+    TX__DOT__mod_rtl__DOT__mQAM_Modulator_Extension_mod__DOT__unit_valid = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl__DOT__mQAM_Modulator_Extension_mod__DOT__unit_last = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(25);
+    TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT___zz_logic_ram_port_1 = VL_RAND_RESET_I(25);
+    TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT___zz_1 = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(5);
+    TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_pushPtr_value = VL_RAND_RESET_I(5);
+    TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(5);
+    TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_popPtr_value = VL_RAND_RESET_I(5);
+    TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_pushing = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_popping = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_full = VL_RAND_RESET_I(1);
+    TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
+    { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
+            TX__DOT__mod_rtl_data_flow_mod_iq_toStream_queueWithAvailability__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(25);
+    }}
+    TX__DOT__phy_header_extender__DOT____Vxrand1 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_header_extender__DOT___zz_result_data_payload_fragment_cha_i = VL_RAND_RESET_I(12);
+    TX__DOT__phy_header_extender__DOT__header_status = VL_RAND_RESET_I(2);
+    TX__DOT__phy_header_extender__DOT__counter = VL_RAND_RESET_I(5);
+    TX__DOT__phy_header_extender__DOT__pkg_size_ready_1 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_header_extender__DOT__pkg_size_payload_1 = VL_RAND_RESET_I(8);
+    TX__DOT__phy_header_extender__DOT__pkg_size_fire = VL_RAND_RESET_I(1);
+    TX__DOT__phy_header_extender__DOT__when_PhyTx_l316 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_header_extender__DOT__when_PhyTx_l328 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(25);
+    TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT___zz_1 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(5);
+    TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushPtr_value = VL_RAND_RESET_I(5);
+    TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(5);
+    TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popPtr_value = VL_RAND_RESET_I(5);
+    TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
+    TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
+    TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_pushing = VL_RAND_RESET_I(1);
+    TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_popping = VL_RAND_RESET_I(1);
+    TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_full = VL_RAND_RESET_I(1);
+    TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
+    { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
+            TX__DOT__phy_header_extender_result_data_queueWithAvailability__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(25);
+    }}
+    TX__DOT__phy_tx_oversampling__DOT___zz_cnt = VL_RAND_RESET_I(3);
+    TX__DOT__phy_tx_oversampling__DOT__cnt = VL_RAND_RESET_I(3);
+    TX__DOT__phy_tx_oversampling__DOT__raw_last = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_valid = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_payload_0 = VL_RAND_RESET_I(12);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq_raw_data_payload_1 = VL_RAND_RESET_I(12);
+    TX__DOT__phy_tx_filter__DOT__last_padding = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_1 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_2 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_3 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_4 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_5 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_6 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_7 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_8 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_9 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_10 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_11 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_12 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_13 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_14 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_15 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_16 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_17 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_18 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_19 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_20 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_21 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_22 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_23 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_24 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__raw_data_payload_last_delay_25 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_0 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_1 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_2 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_3 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_4 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_5 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_6 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_7 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_8 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_9 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_10 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_11 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_12 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_13 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_14 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_15 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_16 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_17 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_18 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_19 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_20 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_21 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_22 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_23 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_24 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_25 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_26 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_29 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_30 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_31 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__coff_mem_32 = VL_RAND_RESET_I(7);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_66__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_67__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_68__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_69__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_70__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_71__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_72__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_73__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_74__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_75__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_76__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_77__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_78__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_79__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_80__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_81__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_82__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_83__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_84__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_85__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_86__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_87__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_88__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_89__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_90__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_91__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_92__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_93__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_94__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_95__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_96__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_97__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_98__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_99__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_100__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_101__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_102__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_103__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_104__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_105__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_106__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_107__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_108__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_109__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_110__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_111__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_112__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_113__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_114__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_115__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_116__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_117__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_118__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_119__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_120__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_121__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_122__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_123__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_124__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_125__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_126__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_127__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_128__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_129__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_130__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter__DOT__fir_filter_iq__DOT__transposeCore_131__DOT__previous_adder_data = VL_RAND_RESET_I(19);
+    TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(25);
+    TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT___zz_1 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_pushPtr_value = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_popPtr_value = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_pushing = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_popping = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_full = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
+    { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
+            TX__DOT__phy_tx_filter_result_data_queueWithAvailability__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(25);
+    }}
+    TX__DOT__stf_preamble_adder__DOT___zz_I_mem_port0 = VL_RAND_RESET_I(12);
+    TX__DOT__stf_preamble_adder__DOT___zz_Q_mem_port0 = VL_RAND_RESET_I(12);
+    TX__DOT__stf_preamble_adder__DOT___zz_cnt = VL_RAND_RESET_I(4);
+    TX__DOT__stf_preamble_adder__DOT__cnt = VL_RAND_RESET_I(4);
+    TX__DOT__stf_preamble_adder__DOT__repeatCnt = VL_RAND_RESET_I(5);
+    TX__DOT__stf_preamble_adder__DOT__raw_ready = VL_RAND_RESET_I(1);
+    TX__DOT__stf_preamble_adder__DOT__preamble_data_i = VL_RAND_RESET_I(12);
+    TX__DOT__stf_preamble_adder__DOT__preamble_data_q = VL_RAND_RESET_I(12);
+    TX__DOT__stf_preamble_adder__DOT__preamble_valid = VL_RAND_RESET_I(1);
+    TX__DOT__stf_preamble_adder__DOT__preamble_last = VL_RAND_RESET_I(1);
+    TX__DOT__stf_preamble_adder__DOT__preamble_states = VL_RAND_RESET_I(2);
+    TX__DOT__stf_preamble_adder__DOT__when_PreambleExtender_l74 = VL_RAND_RESET_I(1);
+    TX__DOT__stf_preamble_adder__DOT__when_PreambleExtender_l76 = VL_RAND_RESET_I(1);
+    TX__DOT__stf_preamble_adder__DOT__raw_data_fire = VL_RAND_RESET_I(1);
+    { int __Vi0=0; for (; __Vi0<16; ++__Vi0) {
+            TX__DOT__stf_preamble_adder__DOT__I_mem[__Vi0] = VL_RAND_RESET_I(12);
+    }}
+    { int __Vi0=0; for (; __Vi0<16; ++__Vi0) {
+            TX__DOT__stf_preamble_adder__DOT__Q_mem[__Vi0] = VL_RAND_RESET_I(12);
+    }}
+    TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT___zz_logic_ram_port0 = VL_RAND_RESET_I(24);
+    TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT___zz_1 = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_pushPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_pushPtr_valueNext = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_pushPtr_value = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popPtr_willIncrement = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popPtr_valueNext = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popPtr_value = VL_RAND_RESET_I(5);
+    TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_ptrMatch = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_risingOccupancy = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_pushing = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_popping = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_full = VL_RAND_RESET_I(1);
+    TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT___zz_io_pop_valid = VL_RAND_RESET_I(1);
+    { int __Vi0=0; for (; __Vi0<32; ++__Vi0) {
+            TX__DOT__phy_tx_front_result_data_queueWithAvailability__DOT__logic_ram[__Vi0] = VL_RAND_RESET_I(24);
+    }}
+    __Vtableidx1 = 0;
+    __Vtable1_TX__DOT__phy_header_extender__DOT___zz_result_data_payload_fragment_cha_i[0] = 0xc01U;
+    __Vtable1_TX__DOT__phy_header_extender__DOT___zz_result_data_payload_fragment_cha_i[1] = 0xc01U;
+    __Vtable1_TX__DOT__phy_header_extender__DOT___zz_result_data_payload_fragment_cha_i[2] = 0x3ffU;
+    __Vtable1_TX__DOT__phy_header_extender__DOT___zz_result_data_payload_fragment_cha_i[3] = 0x3ffU;
+    __Vtable1_TX__DOT__phy_header_extender__DOT___zz_result_data_payload_fragment_cha_i[4] = 0xc01U;
+    __Vtable1_TX__DOT__phy_header_extender__DOT___zz_result_data_payload_fragment_cha_i[5] = 0xc01U;
+    __Vtable1_TX__DOT__phy_header_extender__DOT___zz_result_data_payload_fragment_cha_i[6] = 0x3ffU;
+    __Vtable1_TX__DOT__phy_header_extender__DOT___zz_result_data_payload_fragment_cha_i[7] = 0xc01U;
+    __Vdly__TX__DOT__phy_tx_information_gen__DOT__pkg_size_cnt = VL_RAND_RESET_I(8);
+    __Vdly__TX__DOT__phy_tx_crc__DOT__counter = VL_RAND_RESET_I(2);
+    __Vdly__TX__DOT__phy_tx_padder__DOT__data_last = VL_RAND_RESET_I(1);
+    __Vdly__TX__DOT__phy_tx_scrambler__DOT__scrambler_status = VL_RAND_RESET_I(2);
+    __Vdly__TX__DOT__mod_data_div__DOT__base_cnt = VL_RAND_RESET_I(4);
+    __Vdly__TX__DOT__mod_data_div__DOT__base_buffer = VL_RAND_RESET_I(16);
+    __Vdly__TX__DOT__phy_header_extender__DOT__header_status = VL_RAND_RESET_I(2);
+    __Vdly__TX__DOT__phy_header_extender__DOT__counter = VL_RAND_RESET_I(5);
+    __Vdly__TX__DOT__phy_tx_oversampling__DOT__cnt = VL_RAND_RESET_I(3);
+    __Vdly__TX__DOT__stf_preamble_adder__DOT__cnt = VL_RAND_RESET_I(4);
+    __Vdly__TX__DOT__stf_preamble_adder__DOT__repeatCnt = VL_RAND_RESET_I(5);
+    __Vdly__TX__DOT__stf_preamble_adder__DOT__preamble_states = VL_RAND_RESET_I(2);
+    __Vdlyvdim0__TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_ram__v0 = 0;
+    __Vdlyvval__TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_ram__v0 = VL_RAND_RESET_I(9);
+    __Vdlyvset__TX__DOT__phy_tx_information_gen__DOT__dataFifo__DOT__logic_ram__v0 = 0;
+    __Vdlyvdim0__TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_ram__v0 = 0;
+    __Vdlyvval__TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_ram__v0 = VL_RAND_RESET_I(8);
+    __Vdlyvset__TX__DOT__phy_tx_information_gen__DOT__pkg_size_fifo__DOT__logic_ram__v0 = 0;
+    __Vdlyvdim0__TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_ram__v0 = 0;
+    __Vdlyvval__TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_ram__v0 = VL_RAND_RESET_I(9);
+    __Vdlyvset__TX__DOT__phy_tx_information_gen_result_data_queueWithAvailability__DOT__logic_ram__v0 = 0;
+    __Vdlyvdim0__TX__DOT__phy_tx_crc_result_data_queueWithAvailability__DOT__logic_ram__v0 = 0;
+    _ctor_var_reset_1();
 }

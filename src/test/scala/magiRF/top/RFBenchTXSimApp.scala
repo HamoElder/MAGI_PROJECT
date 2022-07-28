@@ -50,7 +50,10 @@ object RFBenchTXSimApp extends App{
       dut.clockDomain.waitSampling(1)
       dut.io.raw_data.last #= false
       dut.io.raw_data.valid #= false
-      dut.clockDomain.waitSampling(5000)
+        for(idx <- 0 until 5000){
+            dut.io.rf_data.ready.randomize()
+            dut.clockDomain.waitSampling(1)
+        }
     }
 }
 

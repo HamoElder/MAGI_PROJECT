@@ -5,19 +5,337 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1d7c38c-7d73-4f67-af7f-9cf19bfff978" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiStream4Mac/MacRx.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rtl/ClockDivider/ClockDivider.sv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1076893acb501ffac78f2a42288a1d7f2c1dd089/verilator/VClockDivider.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1076893acb501ffac78f2a42288a1d7f2c1dd089/verilator/VClockDivider.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1076893acb501ffac78f2a42288a1d7f2c1dd089/verilator/VClockDivider__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1076893acb501ffac78f2a42288a1d7f2c1dd089/verilator/VClockDivider__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1076893acb501ffac78f2a42288a1d7f2c1dd089/verilator/VClockDivider_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1da6107000f0a0858a194e8bbd208d30a443981e/verilator/VClockDivider.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1da6107000f0a0858a194e8bbd208d30a443981e/verilator/VClockDivider.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1da6107000f0a0858a194e8bbd208d30a443981e/verilator/VClockDivider__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1da6107000f0a0858a194e8bbd208d30a443981e/verilator/VClockDivider__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/1da6107000f0a0858a194e8bbd208d30a443981e/verilator/VClockDivider_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/317c5a50de38b1f0227d7584f9f9174aec50e051/verilator/VClockDivider.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/317c5a50de38b1f0227d7584f9f9174aec50e051/verilator/VClockDivider.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/317c5a50de38b1f0227d7584f9f9174aec50e051/verilator/VClockDivider__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/317c5a50de38b1f0227d7584f9f9174aec50e051/verilator/VClockDivider__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/317c5a50de38b1f0227d7584f9f9174aec50e051/verilator/VClockDivider_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/3e6a003bee9bffe46634449170b212ba1a11ed4c/verilator/VTX.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/3e6a003bee9bffe46634449170b212ba1a11ed4c/verilator/VTX.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/3e6a003bee9bffe46634449170b212ba1a11ed4c/verilator/VTX__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/3e6a003bee9bffe46634449170b212ba1a11ed4c/verilator/VTX__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/3e6a003bee9bffe46634449170b212ba1a11ed4c/verilator/VTX_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/4a16f7e010667beb7bf48c31c25d2178ee7099de/verilator/VDynamicClockDivider.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/4a16f7e010667beb7bf48c31c25d2178ee7099de/verilator/VDynamicClockDivider.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/4a16f7e010667beb7bf48c31c25d2178ee7099de/verilator/VDynamicClockDivider__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/4a16f7e010667beb7bf48c31c25d2178ee7099de/verilator/VDynamicClockDivider__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/4a16f7e010667beb7bf48c31c25d2178ee7099de/verilator/VDynamicClockDivider_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/59594ee0ec635b4976f6bb733cb0fda81e2645f2/verilator/VClockDivider.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/59594ee0ec635b4976f6bb733cb0fda81e2645f2/verilator/VClockDivider.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/59594ee0ec635b4976f6bb733cb0fda81e2645f2/verilator/VClockDivider__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/59594ee0ec635b4976f6bb733cb0fda81e2645f2/verilator/VClockDivider__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/59594ee0ec635b4976f6bb733cb0fda81e2645f2/verilator/VClockDivider_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/812acfe04edc1f30f48c692479d4ff5cd537d4d0/verilator/VTX.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/812acfe04edc1f30f48c692479d4ff5cd537d4d0/verilator/VTX.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/812acfe04edc1f30f48c692479d4ff5cd537d4d0/verilator/VTX__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/812acfe04edc1f30f48c692479d4ff5cd537d4d0/verilator/VTX__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/812acfe04edc1f30f48c692479d4ff5cd537d4d0/verilator/VTX_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/87ae708ed52a283172203a7958a6a0e2e060489c/verilator/VDynamicClockDivider.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/87ae708ed52a283172203a7958a6a0e2e060489c/verilator/VDynamicClockDivider.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/87ae708ed52a283172203a7958a6a0e2e060489c/verilator/VDynamicClockDivider__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/87ae708ed52a283172203a7958a6a0e2e060489c/verilator/VDynamicClockDivider__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/87ae708ed52a283172203a7958a6a0e2e060489c/verilator/VDynamicClockDivider_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/8800a162eced70b9ae3b3ce836c325ef557cd831/verilator/VClockDivider.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/8800a162eced70b9ae3b3ce836c325ef557cd831/verilator/VClockDivider.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/8800a162eced70b9ae3b3ce836c325ef557cd831/verilator/VClockDivider__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/8800a162eced70b9ae3b3ce836c325ef557cd831/verilator/VClockDivider__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/8800a162eced70b9ae3b3ce836c325ef557cd831/verilator/VClockDivider_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/90bc4b599842a95581cf908d3dc07c7bbef1c1a5/verilator/VClockDivider.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/90bc4b599842a95581cf908d3dc07c7bbef1c1a5/verilator/VClockDivider.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/90bc4b599842a95581cf908d3dc07c7bbef1c1a5/verilator/VClockDivider__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/90bc4b599842a95581cf908d3dc07c7bbef1c1a5/verilator/VClockDivider__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/90bc4b599842a95581cf908d3dc07c7bbef1c1a5/verilator/VClockDivider_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a01c29a970816d7bbb7bf170d520d1c92ed42b2e/verilator/VClockDivider.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a01c29a970816d7bbb7bf170d520d1c92ed42b2e/verilator/VClockDivider.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a01c29a970816d7bbb7bf170d520d1c92ed42b2e/verilator/VClockDivider__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a01c29a970816d7bbb7bf170d520d1c92ed42b2e/verilator/VClockDivider__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a01c29a970816d7bbb7bf170d520d1c92ed42b2e/verilator/VClockDivider_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/ad1db6601144f9e68a9af2729df8a355c7f9a091/verilator/VClockDivider.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/ad1db6601144f9e68a9af2729df8a355c7f9a091/verilator/VClockDivider.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/ad1db6601144f9e68a9af2729df8a355c7f9a091/verilator/VClockDivider__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/ad1db6601144f9e68a9af2729df8a355c7f9a091/verilator/VClockDivider__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/ad1db6601144f9e68a9af2729df8a355c7f9a091/verilator/VClockDivider_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/ba12bef343e480f69e206da8991d972c434dbbfd/verilator/VClockDivider.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/ba12bef343e480f69e206da8991d972c434dbbfd/verilator/VClockDivider.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/ba12bef343e480f69e206da8991d972c434dbbfd/verilator/VClockDivider__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/ba12bef343e480f69e206da8991d972c434dbbfd/verilator/VClockDivider__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/ba12bef343e480f69e206da8991d972c434dbbfd/verilator/VClockDivider_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d5b68acb91218c6db718a1f62dde57a4c0cd839b/verilator/VClockDivider.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d5b68acb91218c6db718a1f62dde57a4c0cd839b/verilator/VClockDivider.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d5b68acb91218c6db718a1f62dde57a4c0cd839b/verilator/VClockDivider__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d5b68acb91218c6db718a1f62dde57a4c0cd839b/verilator/VClockDivider__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d5b68acb91218c6db718a1f62dde57a4c0cd839b/verilator/VClockDivider_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d8371033a39716dcb34cc724d5f987eb3ce896c0/verilator/VClockDivider.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d8371033a39716dcb34cc724d5f987eb3ce896c0/verilator/VClockDivider.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d8371033a39716dcb34cc724d5f987eb3ce896c0/verilator/VClockDivider__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d8371033a39716dcb34cc724d5f987eb3ce896c0/verilator/VClockDivider__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/d8371033a39716dcb34cc724d5f987eb3ce896c0/verilator/VClockDivider_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/eb9a42c3a44ba11dbd85d33462598d3f26c0392c/verilator/VClockDivider.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/eb9a42c3a44ba11dbd85d33462598d3f26c0392c/verilator/VClockDivider.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/eb9a42c3a44ba11dbd85d33462598d3f26c0392c/verilator/VClockDivider__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/eb9a42c3a44ba11dbd85d33462598d3f26c0392c/verilator/VClockDivider__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/eb9a42c3a44ba11dbd85d33462598d3f26c0392c/verilator/VClockDivider_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/f1cdc8edd1719e8f5f23372f693b20ef4259aa26/verilator/VClockDivider.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/f1cdc8edd1719e8f5f23372f693b20ef4259aa26/verilator/VClockDivider.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/f1cdc8edd1719e8f5f23372f693b20ef4259aa26/verilator/VClockDivider__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/f1cdc8edd1719e8f5f23372f693b20ef4259aa26/verilator/VClockDivider__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/f1cdc8edd1719e8f5f23372f693b20ef4259aa26/verilator/VClockDivider_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/rtl/ClockDivider.v" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/test.vcd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider__Syms.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider__Syms.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider__Syms.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider__Trace.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider__Trace.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider__Trace.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider__Trace__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider__Trace__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider__Trace__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider__spinalWrapper.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider__spinalWrapper.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider__spinalWrapper.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider__ver.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider__verFiles.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/VClockDivider_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/libcode.version" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/verilated.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/verilated.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/verilated_vcd_c.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/verilated_vcd_c.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/verilator_1.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilator/wrapper_verilator/VerilatorNative.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ClockDivider/verilatorScript.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/rtl/DynamicClockDivider.v" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/test.vcd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider__Syms.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider__Syms.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider__Syms.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider__Trace.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider__Trace.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider__Trace.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider__Trace__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider__Trace__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider__Trace__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider__spinalWrapper.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider__spinalWrapper.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider__spinalWrapper.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider__ver.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider__verFiles.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/VDynamicClockDivider_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/libcode.version" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/verilated.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/verilated.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/verilated_vcd_c.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/verilated_vcd_c.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/verilator_1.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilator/wrapper_verilator/VerilatorNative.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/DynamicClockDivider/verilatorScript.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/magiRF/top/OFDMBench/OFDMConfig.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/magiRF/top/OFDMBench/Transmitter/PhyTx.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/magiRF/top/OFDMBench/Transmitter/TX.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/utils/common/ClockDiv/ClockDivider.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/utils/common/ClockDiv/DynamicClockDivider.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmp/job_1/ClockDivider.v" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tmp/job_1/DynamicClockDivider.v" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/interfaces/misc/lvds/DualSamplingBench$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/interfaces/misc/lvds/DualSamplingBench$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/IEEE802_11/Config$.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/IEEE802_11/Config.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyHeaderExtender$$anonfun$21$$anonfun$apply$mcV$sp$12.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyHeaderExtender$$anonfun$21$$anonfun$apply$mcV$sp$12.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyHeaderExtender$$anonfun$21$$anonfun$apply$mcV$sp$14$$anonfun$apply$mcV$sp$15.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyHeaderExtender$$anonfun$21$$anonfun$apply$mcV$sp$14$$anonfun$apply$mcV$sp$15.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyHeaderExtender$$anonfun$21$$anonfun$apply$mcV$sp$14.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyHeaderExtender$$anonfun$21$$anonfun$apply$mcV$sp$14.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyHeaderExtender$$anonfun$21$$anonfun$apply$mcV$sp$19.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyHeaderExtender$$anonfun$21$$anonfun$apply$mcV$sp$19.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyHeaderExtender$$anonfun$21$$anonfun$apply$mcV$sp$23.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyHeaderExtender$$anonfun$21$$anonfun$apply$mcV$sp$23.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyHeaderExtender.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyHeaderExtender.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyPkgInformationGen.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyPkgInformationGen.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxCrc$$anonfun$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxCrc$$anonfun$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxCrc$$anonfun$2$$anonfun$apply$mcV$sp$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxCrc$$anonfun$2$$anonfun$apply$mcV$sp$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxCrc$$anonfun$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxCrc$$anonfun$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxEncoder$$anonfun$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxEncoder$$anonfun$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxEncoder$$anonfun$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxEncoder$$anonfun$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxICFront.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxICFront.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxOverSampling$$anonfun$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxOverSampling$$anonfun$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxPadder$$anonfun$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxPadder$$anonfun$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxPadder$$anonfun$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxPadder$$anonfun$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxScrambler$$anonfun$9$$anonfun$apply$mcV$sp$11.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxScrambler$$anonfun$9$$anonfun$apply$mcV$sp$11.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxScrambler$$anonfun$9$$anonfun$apply$mcV$sp$6$$anonfun$apply$mcV$sp$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxScrambler$$anonfun$9$$anonfun$apply$mcV$sp$6$$anonfun$apply$mcV$sp$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxScrambler$$anonfun$9$$anonfun$apply$mcV$sp$6$$anonfun$apply$mcV$sp$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxScrambler$$anonfun$9$$anonfun$apply$mcV$sp$6$$anonfun$apply$mcV$sp$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxScrambler$$anonfun$9$$anonfun$apply$mcV$sp$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxScrambler$$anonfun$9$$anonfun$apply$mcV$sp$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxScrambler$$anonfun$9$$anonfun$apply$mcV$sp$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/RFBench/Transmitter/PhyTxScrambler$$anonfun$9$$anonfun$apply$mcV$sp$9.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Graphic/VGA/DisplayVgaCtrl.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Graphic/VGA/DisplayVgaCtrl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Graphic/VGA/DisplayVgaCtrlBench$$anonfun$main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Graphic/VGA/DisplayVgaCtrlBench$$anonfun$main$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/test/magiRF/top/RFBenchTXSimApp$$anonfun$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/test/magiRF/top/RFBenchTXSimApp$$anonfun$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.analysis" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.analysis" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiLite4Mac/MacTx.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiLite4Mac/MacTx.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiStream4Mac/AxiStream4MacEth.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiStream4Mac/AxiStream4EthMac.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiStream4Mac/StreamMac.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiStream4Mac/StreamMac.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiStream4Mac/StreamMacTx.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Ethernet/AxiStream4Mac/MacTx.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Timer/Timer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Timer/Timer.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileTestScala.analysis" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileTestScala.analysis" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rtl/DisplayVgaCtrl/DisplayVgaCtrl.sv" beforeDir="false" afterPath="$PROJECT_DIR$/rtl/DisplayVgaCtrl/DisplayVgaCtrl.sv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script/ADS/cmake-build-debug/.cmake/api/v1/reply/index-2022-06-30T17-58-38-0564.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script/ADS/cmake-build-debug/App/FSR/CMakeFiles/FSR.dir/compiler_depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script/ADS/cmake-build-debug/App/FSR/CMakeFiles/FSR.dir/compiler_depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/script/ADS/cmake-build-debug/App/FSR/CMakeFiles/FSR.dir/compiler_depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script/ADS/cmake-build-debug/App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/compiler_depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script/ADS/cmake-build-debug/App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/compiler_depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/script/ADS/cmake-build-debug/App/MAGI_EDITOR/CMakeFiles/MAGI_EDITOR.dir/compiler_depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script/ADS/cmake-build-debug/CMakeFiles/GLAD.dir/compiler_depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script/ADS/cmake-build-debug/CMakeFiles/GLAD.dir/compiler_depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/script/ADS/cmake-build-debug/CMakeFiles/GLAD.dir/compiler_depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script/ADS/cmake-build-debug/CMakeFiles/MAGI_ENGINE.dir/compiler_depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script/ADS/cmake-build-debug/CMakeFiles/MAGI_ENGINE.dir/compiler_depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/script/ADS/cmake-build-debug/CMakeFiles/MAGI_ENGINE.dir/compiler_depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script/ADS/cmake-build-debug/CMakeFiles/STB_IMAGE.dir/compiler_depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script/ADS/cmake-build-debug/CMakeFiles/STB_IMAGE.dir/compiler_depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/script/ADS/cmake-build-debug/CMakeFiles/STB_IMAGE.dir/compiler_depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script/ADS/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/script/ADS/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/5036255befd7a977b523fd3055e086d9e3f4e430/verilator/VCordicRotator.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/5036255befd7a977b523fd3055e086d9e3f4e430/verilator/VCordicRotator.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/5036255befd7a977b523fd3055e086d9e3f4e430/verilator/VCordicRotator__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/5036255befd7a977b523fd3055e086d9e3f4e430/verilator/VCordicRotator__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/5036255befd7a977b523fd3055e086d9e3f4e430/verilator/VCordicRotator_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/52b392db276e70e2e8c063356027006b90e02ef0/verilator/VLoopBackTest.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/52b392db276e70e2e8c063356027006b90e02ef0/verilator/VLoopBackTest.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/52b392db276e70e2e8c063356027006b90e02ef0/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/52b392db276e70e2e8c063356027006b90e02ef0/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/52b392db276e70e2e8c063356027006b90e02ef0/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/54a385657e71427921c9bd4d8a54a3c5cc60a1a8/verilator/VLoopBackTest.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/54a385657e71427921c9bd4d8a54a3c5cc60a1a8/verilator/VLoopBackTest.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/54a385657e71427921c9bd4d8a54a3c5cc60a1a8/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/54a385657e71427921c9bd4d8a54a3c5cc60a1a8/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/54a385657e71427921c9bd4d8a54a3c5cc60a1a8/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/559bde4c885b2290009140cf59b1c4c4c01c7acc/verilator/VLoopBackTest.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/559bde4c885b2290009140cf59b1c4c4c01c7acc/verilator/VLoopBackTest.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/559bde4c885b2290009140cf59b1c4c4c01c7acc/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/559bde4c885b2290009140cf59b1c4c4c01c7acc/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/559bde4c885b2290009140cf59b1c4c4c01c7acc/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/5bb411b1caf763e1832d9eb77753cbfda946467d/verilator/VLoopBackTest.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/5bb411b1caf763e1832d9eb77753cbfda946467d/verilator/VLoopBackTest.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/5bb411b1caf763e1832d9eb77753cbfda946467d/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/5bb411b1caf763e1832d9eb77753cbfda946467d/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/5bb411b1caf763e1832d9eb77753cbfda946467d/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/5c4fb1c9c28388d4cd6ae57ccd854efb64a37c84/verilator/VLoopBackTest.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/5c4fb1c9c28388d4cd6ae57ccd854efb64a37c84/verilator/VLoopBackTest.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/5c4fb1c9c28388d4cd6ae57ccd854efb64a37c84/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/5c4fb1c9c28388d4cd6ae57ccd854efb64a37c84/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/5c4fb1c9c28388d4cd6ae57ccd854efb64a37c84/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/61c7e04ee9ed563b4d369193b2ef941924f19e3a/verilator/VLoopBackTest.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/61c7e04ee9ed563b4d369193b2ef941924f19e3a/verilator/VLoopBackTest.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/61c7e04ee9ed563b4d369193b2ef941924f19e3a/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/61c7e04ee9ed563b4d369193b2ef941924f19e3a/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/61c7e04ee9ed563b4d369193b2ef941924f19e3a/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6355af4fe26bb2b44a417cb1ab177a8e116650f4/verilator/VLoopBackTest.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6355af4fe26bb2b44a417cb1ab177a8e116650f4/verilator/VLoopBackTest.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6355af4fe26bb2b44a417cb1ab177a8e116650f4/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6355af4fe26bb2b44a417cb1ab177a8e116650f4/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6355af4fe26bb2b44a417cb1ab177a8e116650f4/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/69c84ce45c5d261d90b6bc1ca7adab39a6d6266f/verilator/VLoopBackTest.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/69c84ce45c5d261d90b6bc1ca7adab39a6d6266f/verilator/VLoopBackTest.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/69c84ce45c5d261d90b6bc1ca7adab39a6d6266f/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/69c84ce45c5d261d90b6bc1ca7adab39a6d6266f/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/69c84ce45c5d261d90b6bc1ca7adab39a6d6266f/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6a8564ca31565d8b67ee9164a0dff5d47d669bde/verilator/VLoopBackTest.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6a8564ca31565d8b67ee9164a0dff5d47d669bde/verilator/VLoopBackTest.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6a8564ca31565d8b67ee9164a0dff5d47d669bde/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6a8564ca31565d8b67ee9164a0dff5d47d669bde/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6a8564ca31565d8b67ee9164a0dff5d47d669bde/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6a8cfb404ca6b7a996f014d8faa7d3e0175ed7a6/verilator/VLoopBackTest.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6a8cfb404ca6b7a996f014d8faa7d3e0175ed7a6/verilator/VLoopBackTest.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6a8cfb404ca6b7a996f014d8faa7d3e0175ed7a6/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6a8cfb404ca6b7a996f014d8faa7d3e0175ed7a6/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6a8cfb404ca6b7a996f014d8faa7d3e0175ed7a6/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6aa451c525da9d7b2ed76e2a67c3487389b07ea8/verilator/VLoopBackTest.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6aa451c525da9d7b2ed76e2a67c3487389b07ea8/verilator/VLoopBackTest.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6aa451c525da9d7b2ed76e2a67c3487389b07ea8/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6aa451c525da9d7b2ed76e2a67c3487389b07ea8/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6aa451c525da9d7b2ed76e2a67c3487389b07ea8/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6ef885412f7c80a71f6b46b284e33a9ad52b1fee/verilator/VPreambleDetector.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6ef885412f7c80a71f6b46b284e33a9ad52b1fee/verilator/VPreambleDetector.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6ef885412f7c80a71f6b46b284e33a9ad52b1fee/verilator/VPreambleDetector__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6ef885412f7c80a71f6b46b284e33a9ad52b1fee/verilator/VPreambleDetector__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6ef885412f7c80a71f6b46b284e33a9ad52b1fee/verilator/VPreambleDetector_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6f64cb5b93f4293425da70bb5c7fdbebe04bf664/verilator/VLoopBackTest.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6f64cb5b93f4293425da70bb5c7fdbebe04bf664/verilator/VLoopBackTest.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6f64cb5b93f4293425da70bb5c7fdbebe04bf664/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6f64cb5b93f4293425da70bb5c7fdbebe04bf664/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/6f64cb5b93f4293425da70bb5c7fdbebe04bf664/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/709fe41a22e2807747322ab13e2e32cfd1cdc42d/verilator/VLoopBackTest.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/709fe41a22e2807747322ab13e2e32cfd1cdc42d/verilator/VLoopBackTest.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/709fe41a22e2807747322ab13e2e32cfd1cdc42d/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/709fe41a22e2807747322ab13e2e32cfd1cdc42d/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/709fe41a22e2807747322ab13e2e32cfd1cdc42d/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/73908ee610b0fe978868b339a0d340ed485b71d1/verilator/VLoopBackTest.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/73908ee610b0fe978868b339a0d340ed485b71d1/verilator/VLoopBackTest.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/73908ee610b0fe978868b339a0d340ed485b71d1/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/73908ee610b0fe978868b339a0d340ed485b71d1/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/73908ee610b0fe978868b339a0d340ed485b71d1/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/787a145c5dc02b361aaae5f2d1b5afb577f94559/verilator/VLoopBackTest.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/787a145c5dc02b361aaae5f2d1b5afb577f94559/verilator/VLoopBackTest.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/787a145c5dc02b361aaae5f2d1b5afb577f94559/verilator/VLoopBackTest__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/787a145c5dc02b361aaae5f2d1b5afb577f94559/verilator/VLoopBackTest__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/787a145c5dc02b361aaae5f2d1b5afb577f94559/verilator/VLoopBackTest_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/rtl/TX.v" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/rtl/TX.v" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/test.vcd" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/test.vcd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX.h" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX.mk" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__1.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__1.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__1.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__1.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__1__Slow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__1__Slow.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__1__Slow.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__1__Slow.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__ALL.a" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__ALL.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__Slow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__Slow.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__Slow.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__Slow.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__Trace.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__Trace.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__Trace.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__Trace.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__Trace__1__Slow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__Trace__1__Slow.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__Trace__1__Slow.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__Trace__1__Slow.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__Trace__Slow.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__Trace__Slow.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__Trace__Slow.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__Trace__Slow.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__spinalWrapper.d" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__spinalWrapper.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__spinalWrapper.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__spinalWrapper.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__verFiles.dat" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/VTX__verFiles.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/verilator_1.so" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/verilator_1.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilator/wrapper_verilator/VerilatorNative.class" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilator/wrapper_verilator/VerilatorNative.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/TX/verilatorScript.sh" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/TX/verilatorScript.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/interfaces/misc/lvds/DualSampling.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/interfaces/misc/lvds/DualSampling.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/top/RFBench/Transmitter/PhyTx.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/top/RFBench/Transmitter/PhyTx.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Graphic/VGA/DisplayVgaCtrl.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Graphic/VGA/DisplayVgaCtrl.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/scala/magiRF/top/RFBenchTXSimApp.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/scala/magiRF/top/RFBenchTXSimApp.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/job_1/TX.v" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/job_1/TX.v" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,18 +393,18 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "last_opened_file_path": "/home/missdown/IdeaProjects/sp21-ble-baseband",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.scala.compiler.ScalaCompileServerForm"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/missdown/IdeaProjects/sp21-ble-baseband&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.scala.compiler.ScalaCompileServerForm&quot;
   }
-}]]></component>
+}</component>
   <component name="ReaderModeSettings">
     <option name="enabled" value="false" />
   </component>
@@ -97,17 +415,18 @@
       <recent name="$PROJECT_DIR$/src/main/scala/magiRF/interfaces/frontend/AD9361" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="magiRF.top.OFDMBench" />
       <recent name="magiRF.interfaces.misc.lvds" />
       <recent name="magiRF.interfaces.frontend.AD9375" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.StreamMacBench">
-    <configuration name="AxiLite4SGDMABench" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="magiSOC.perips.DMA.SGDMA.AxiLite4SGDMABench" />
+  <component name="RunManager" selected="Application.DynamicClockDividerSimApp">
+    <configuration name="Axi4RomSimApp" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="utils.common.ClockDiv.Axi4RomSimApp" />
       <module name="MAGI_PROJECT.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="magiSOC.perips.DMA.SGDMA.*" />
+          <option name="PATTERN" value="utils.common.ClockDiv.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -115,51 +434,51 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AxiLite4SGDMASimApp" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="magiSOC.perips.SGDMA.AxiLite4SGDMASimApp" />
+    <configuration name="ClockDividerBench" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="utils.common.ClockDiv.ClockDividerBench" />
+      <module name="MAGI_PROJECT.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="utils.common.ClockDiv.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ClockDividerSimApp" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="utils.common.ClockDiv.ClockDividerSimApp" />
+      <module name="MAGI_PROJECT.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="utils.common.ClockDiv.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DynamicClockDividerSimApp" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="utils.common.ClockDiv.DynamicClockDividerSimApp" />
+      <module name="MAGI_PROJECT.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="utils.common.ClockDiv.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RFBenchTXSimApp" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="magiRF.top.RFBenchTXSimApp" />
       <module name="MAGI_PROJECT.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="magiSOC.perips.SGDMA.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="BlinkingVgaCtrlBench" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="magiSOC.perips.Graphic.VGA.BlinkingVgaCtrlBench" />
-      <module name="MAGI_PROJECT.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="magiSOC.perips.Graphic.VGA.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="StreamMacBench" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="magiSOC.perips.Ethernet.AxiStream4Mac.StreamMacBench" />
-      <module name="MAGI_PROJECT.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="magiSOC.perips.Ethernet.AxiStream4Mac.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="VgaTimingPrint" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="magiSOC.perips.Graphic.VGA.VgaTimingPrint" />
-      <module name="MAGI_PROJECT.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="magiSOC.perips.Graphic.VGA.*" />
+          <option name="PATTERN" value="magiRF.top.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -169,19 +488,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.Unnamed" />
-      <item itemvalue="Application.AxiLite4SGDMABench" />
-      <item itemvalue="Application.AxiLite4SGDMASimApp" />
-      <item itemvalue="Application.BlinkingVgaCtrlBench" />
-      <item itemvalue="Application.StreamMacBench" />
-      <item itemvalue="Application.VgaTimingPrint" />
+      <item itemvalue="Application.DynamicClockDividerSimApp" />
+      <item itemvalue="Application.Axi4RomSimApp" />
+      <item itemvalue="Application.ClockDividerBench" />
+      <item itemvalue="Application.ClockDividerSimApp" />
+      <item itemvalue="Application.RFBenchTXSimApp" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.StreamMacBench" />
-        <item itemvalue="Application.AxiLite4SGDMASimApp" />
-        <item itemvalue="Application.AxiLite4SGDMABench" />
-        <item itemvalue="Application.BlinkingVgaCtrlBench" />
-        <item itemvalue="Application.VgaTimingPrint" />
+        <item itemvalue="Application.DynamicClockDividerSimApp" />
+        <item itemvalue="Application.ClockDividerSimApp" />
+        <item itemvalue="Application.Axi4RomSimApp" />
+        <item itemvalue="Application.ClockDividerBench" />
+        <item itemvalue="Application.RFBenchTXSimApp" />
       </list>
     </recent_temporary>
   </component>
