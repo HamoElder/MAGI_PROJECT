@@ -1,8 +1,8 @@
-// Generator : SpinalHDL v1.6.4    git head : 598c18959149eb18e5eee5b0aa3eef01ecaa41a1
+// Generator : SpinalHDL v1.7.0    git head : eca519e78d4e6022e34911ec300a432ed9db8220
 // Component : DirectFIR
-// Git hash  : 41d71cf9ab449e73a475f6b0f32b020b0dbe98fe
+// Git hash  : c0e4fc9af9270a176d30fc862bf9a16b08561082
 
-`timescale 1ns/1ps 
+`timescale 1ns/1ps
 
 module DirectFIR (
   input               raw_data_valid,
@@ -39,33 +39,33 @@ module DirectFIR (
   wire                filtered_valid_vec_0;
 
   DirectFIRCore directFIRCore_1 (
-    .raw_data_valid           (raw_data_valid                               ), //i
-    .raw_data_payload         (raw_data_payload_0[11:0]                     ), //i
-    .coff_data_0              (coff_mem_0[7:0]                              ), //i
-    .coff_data_1              (coff_mem_1[7:0]                              ), //i
-    .coff_data_2              (coff_mem_2[7:0]                              ), //i
-    .coff_data_3              (coff_mem_3[7:0]                              ), //i
-    .coff_data_4              (coff_mem_4[7:0]                              ), //i
-    .coff_data_5              (coff_mem_5[7:0]                              ), //i
-    .coff_data_6              (coff_mem_6[7:0]                              ), //i
-    .coff_data_7              (coff_mem_7[7:0]                              ), //i
-    .coff_data_8              (coff_mem_8[7:0]                              ), //i
-    .coff_data_9              (coff_mem_9[7:0]                              ), //i
-    .coff_data_10             (coff_mem_10[7:0]                             ), //i
-    .coff_data_11             (coff_mem_11[7:0]                             ), //i
-    .coff_data_12             (coff_mem_12[7:0]                             ), //i
-    .coff_data_13             (coff_mem_13[7:0]                             ), //i
-    .coff_data_14             (coff_mem_14[7:0]                             ), //i
-    .coff_data_15             (coff_mem_15[7:0]                             ), //i
-    .coff_data_16             (coff_mem_16[7:0]                             ), //i
-    .coff_data_17             (coff_mem_17[7:0]                             ), //i
-    .coff_data_18             (coff_mem_18[7:0]                             ), //i
-    .coff_data_19             (coff_mem_19[7:0]                             ), //i
-    .coff_data_20             (coff_mem_20[7:0]                             ), //i
-    .filtered_data_valid      (directFIRCore_1_filtered_data_valid          ), //o
-    .filtered_data_payload    (directFIRCore_1_filtered_data_payload[28:0]  ), //o
-    .clk                      (clk                                          ), //i
-    .resetn                   (resetn                                       )  //i
+    .raw_data_valid        (raw_data_valid                             ), //i
+    .raw_data_payload      (raw_data_payload_0[11:0]                   ), //i
+    .coff_data_0           (coff_mem_0[7:0]                            ), //i
+    .coff_data_1           (coff_mem_1[7:0]                            ), //i
+    .coff_data_2           (coff_mem_2[7:0]                            ), //i
+    .coff_data_3           (coff_mem_3[7:0]                            ), //i
+    .coff_data_4           (coff_mem_4[7:0]                            ), //i
+    .coff_data_5           (coff_mem_5[7:0]                            ), //i
+    .coff_data_6           (coff_mem_6[7:0]                            ), //i
+    .coff_data_7           (coff_mem_7[7:0]                            ), //i
+    .coff_data_8           (coff_mem_8[7:0]                            ), //i
+    .coff_data_9           (coff_mem_9[7:0]                            ), //i
+    .coff_data_10          (coff_mem_10[7:0]                           ), //i
+    .coff_data_11          (coff_mem_11[7:0]                           ), //i
+    .coff_data_12          (coff_mem_12[7:0]                           ), //i
+    .coff_data_13          (coff_mem_13[7:0]                           ), //i
+    .coff_data_14          (coff_mem_14[7:0]                           ), //i
+    .coff_data_15          (coff_mem_15[7:0]                           ), //i
+    .coff_data_16          (coff_mem_16[7:0]                           ), //i
+    .coff_data_17          (coff_mem_17[7:0]                           ), //i
+    .coff_data_18          (coff_mem_18[7:0]                           ), //i
+    .coff_data_19          (coff_mem_19[7:0]                           ), //i
+    .coff_data_20          (coff_mem_20[7:0]                           ), //i
+    .filtered_data_valid   (directFIRCore_1_filtered_data_valid        ), //o
+    .filtered_data_payload (directFIRCore_1_filtered_data_payload[28:0]), //o
+    .clk                   (clk                                        ), //i
+    .resetn                (resetn                                     )  //i
   );
   assign filtered_data_payload_0 = directFIRCore_1_filtered_data_payload;
   assign filtered_valid_vec_0 = directFIRCore_1_filtered_data_valid;

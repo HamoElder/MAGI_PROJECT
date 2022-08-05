@@ -57,7 +57,7 @@ case class DirectFIR(dataWidth: Int, filteredDataWidth: Int, H: List[Int],  chaN
     }
     noIoPrefix()
 
-    val coff_mem = Vec(Reg(SInt(coffDataWidth bits)), H.length)
+    val coff_mem = Vec(Reg(coffDataType), H.length)
     if(reloadableCoff){
         when(io.w_en){
             coff_mem(io.w_addr) := io.w_data
