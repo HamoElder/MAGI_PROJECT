@@ -4,7 +4,7 @@ import magiRF.modules.Modem.Misc.modUnitInterface
 import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
-import utils.common.ClkCrossing.ClkCrossing
+import utils.common.ClkCrossing.FFSynchronizer
 
 case class lookUpModConfig(
                               modDataWidth       : Int,
@@ -113,11 +113,11 @@ case class lookUpMod(config: lookUpModConfig) extends Component {
             val cnt_limit = cloneOf(io.cnt_limit)
             busCtrl.drive(cnt_limit, address = baseAddress + 0x0C, bitOffset = 0,
                 documentation = "Look Up Modulator Play Mode T Limit.") init(0)
-            io.cnt_limit := ClkCrossing(coreClockDomain, rfClockDomain, cnt_limit)
+            io.cnt_limit := FFSynchronizer(coreClockDomain, rfClockDomain, cnt_limit)
         }
-        io.w_en := ClkCrossing(coreClockDomain, rfClockDomain, w_en)
-        io.w_addr := ClkCrossing(coreClockDomain, rfClockDomain, w_addr)
-        io.w_data := ClkCrossing(coreClockDomain, rfClockDomain, w_data)
+        io.w_en := FFSynchronizer(coreClockDomain, rfClockDomain, w_en)
+        io.w_addr := FFSynchronizer(coreClockDomain, rfClockDomain, w_addr)
+        io.w_data := FFSynchronizer(coreClockDomain, rfClockDomain, w_data)
     }
 }
 

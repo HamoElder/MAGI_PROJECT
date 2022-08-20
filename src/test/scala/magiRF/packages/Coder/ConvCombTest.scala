@@ -82,7 +82,7 @@ object ConvCombTestSimApp extends App{
         dut.io.tail_bits.valid #= false
         dut.clockDomain.waitSampling(1)
         dut.io.raw_data.valid #= true
-        for(idx <- 100 until 300){
+        for(idx <- 100 until 140){
 //            dut.io.raw_data.fragment.randomize() // 85
             dut.io.raw_data.fragment #= idx % 256
             dut.clockDomain.waitSampling(1)

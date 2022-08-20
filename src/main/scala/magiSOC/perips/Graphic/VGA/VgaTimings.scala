@@ -3,7 +3,7 @@ package magiSOC.perips.Graphic.VGA
 import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
-import utils.common.ClkCrossing.ClkCrossing
+import utils.common.ClkCrossing.FFSynchronizer
 
 case class VgaTimingsHV(timingsWidth: Int) extends Bundle {
     val syncStart = UInt(timingsWidth bit)
@@ -132,16 +132,16 @@ case class VgaTimings(timingsWidth: Int) extends Bundle {
         busCtrl.drive(v_polarity   ,baseAddress + 0x20, bitOffset = 1, documentation = s"VGA Timing Vertical Polarity Setting.(${v_polarity.getBitsWidth} bits)") init(False)
 
 
-        h.syncStart  := ClkCrossing(coreClockDomain, vgaClockDomain, h_syncStart)
-        h.syncEnd    := ClkCrossing(coreClockDomain, vgaClockDomain, h_syncEnd)
-        h.colorStart := ClkCrossing(coreClockDomain, vgaClockDomain, h_colorStart)
-        h.colorEnd   := ClkCrossing(coreClockDomain, vgaClockDomain, h_colorEnd)
-        v.syncStart  := ClkCrossing(coreClockDomain, vgaClockDomain, v_syncStart)
-        v.syncEnd    := ClkCrossing(coreClockDomain, vgaClockDomain, v_syncEnd)
-        v.colorStart := ClkCrossing(coreClockDomain, vgaClockDomain, v_colorStart)
-        v.colorEnd   := ClkCrossing(coreClockDomain, vgaClockDomain, v_colorEnd)
-        h.polarity   := ClkCrossing(coreClockDomain, vgaClockDomain, h_polarity)
-        v.polarity   := ClkCrossing(coreClockDomain, vgaClockDomain, v_polarity)
+        h.syncStart  := FFSynchronizer(coreClockDomain, vgaClockDomain, h_syncStart)
+        h.syncEnd    := FFSynchronizer(coreClockDomain, vgaClockDomain, h_syncEnd)
+        h.colorStart := FFSynchronizer(coreClockDomain, vgaClockDomain, h_colorStart)
+        h.colorEnd   := FFSynchronizer(coreClockDomain, vgaClockDomain, h_colorEnd)
+        v.syncStart  := FFSynchronizer(coreClockDomain, vgaClockDomain, v_syncStart)
+        v.syncEnd    := FFSynchronizer(coreClockDomain, vgaClockDomain, v_syncEnd)
+        v.colorStart := FFSynchronizer(coreClockDomain, vgaClockDomain, v_colorStart)
+        v.colorEnd   := FFSynchronizer(coreClockDomain, vgaClockDomain, v_colorEnd)
+        h.polarity   := FFSynchronizer(coreClockDomain, vgaClockDomain, h_polarity)
+        v.polarity   := FFSynchronizer(coreClockDomain, vgaClockDomain, v_polarity)
 
     }
 }

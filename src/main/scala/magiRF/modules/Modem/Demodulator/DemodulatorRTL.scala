@@ -7,7 +7,7 @@ import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
 import utils.bus.IQBundle.IQBundle
-import utils.common.ClkCrossing.ClkCrossing
+import utils.common.ClkCrossing.FFSynchronizer
 import utils.common.Mux.{FlowDeMux, FlowMux}
 
 case class DemodulatorRTLConfig(
@@ -81,20 +81,20 @@ case class DemodulatorRTL(config: DemodulatorRTLConfig) extends Component{
                 documentation = "Look Up Demodulator Ram Write Address Set.") init(0)
             busCtrl.drive(w_data, address = baseAddress + 0x08, bitOffset = 0,
                 documentation = "Look Up Demodulator Ram Write Data Set.") init(0)
-            io.w_en := ClkCrossing(coreClockDomain, rfClockDomain, w_en)
-            io.w_sel := ClkCrossing(coreClockDomain, rfClockDomain, w_sel)
-            io.w_addr := ClkCrossing(coreClockDomain, rfClockDomain, w_addr)
-            io.w_data := ClkCrossing(coreClockDomain, rfClockDomain, w_data)
+            io.w_en := FFSynchronizer(coreClockDomain, rfClockDomain, w_en)
+            io.w_sel := FFSynchronizer(coreClockDomain, rfClockDomain, w_sel)
+            io.w_addr := FFSynchronizer(coreClockDomain, rfClockDomain, w_addr)
+            io.w_data := FFSynchronizer(coreClockDomain, rfClockDomain, w_data)
         }
         if(config.lookUpNum > 0){
             val iq_shift = cloneOf(io.iq_shift)
             busCtrl.driveAndRead(iq_shift, address = baseAddress + 0x0C, bitOffset = 0,
                 documentation = "Look Up Demodulator Ram IQ Shift.") init(0)
-            io.iq_shift := ClkCrossing(coreClockDomain, rfClockDomain, iq_shift)
+            io.iq_shift := FFSynchronizer(coreClockDomain, rfClockDomain, iq_shift)
         }
         busCtrl.drive(select, address = baseAddress + 0x10, bitOffset = 0,
             documentation = "Demodulator Ram Write Select Channels") init(0)
-        io.select := ClkCrossing(coreClockDomain, rfClockDomain, select)
+        io.select := FFSynchronizer(coreClockDomain, rfClockDomain, select)
     }
 
 }

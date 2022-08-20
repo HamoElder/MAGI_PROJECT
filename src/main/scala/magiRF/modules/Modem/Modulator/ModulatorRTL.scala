@@ -6,7 +6,7 @@ import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
 import utils.bus.IQBundle.IQBundle
-import utils.common.ClkCrossing.ClkCrossing
+import utils.common.ClkCrossing.FFSynchronizer
 import utils.common.Mux.{FlowDeMux, FlowMux}
 
 case class modRTLConfig(
@@ -78,17 +78,17 @@ case class ModulatorRTL(config: modRTLConfig) extends Component {
                 documentation = "Look Up Modulator Ram Write Address Set.") init(0)
             busCtrl.drive(w_data, address = baseAddress + 0x0C, bitOffset = 0,
                 documentation = "Look Up Modulator Ram Write Data Set.") init(0)
-            io.w_en := ClkCrossing(coreClockDomain, rfClockDomain, w_en)
-            io.w_addr := ClkCrossing(coreClockDomain, rfClockDomain, w_addr)
-            io.w_data := ClkCrossing(coreClockDomain, rfClockDomain, w_data)
+            io.w_en := FFSynchronizer(coreClockDomain, rfClockDomain, w_en)
+            io.w_addr := FFSynchronizer(coreClockDomain, rfClockDomain, w_addr)
+            io.w_data := FFSynchronizer(coreClockDomain, rfClockDomain, w_data)
         }
         if(config.useTPlay){
             val cnt_limit = cloneOf(io.cnt_limit)
             busCtrl.drive(cnt_limit, address = baseAddress + 0x10, bitOffset = 0,
                 documentation = "Look Up Modulator Play Mode T Limit.") init(0)
-            io.cnt_limit := ClkCrossing(coreClockDomain, rfClockDomain, cnt_limit)
+            io.cnt_limit := FFSynchronizer(coreClockDomain, rfClockDomain, cnt_limit)
         }
-        io.select := ClkCrossing(coreClockDomain, rfClockDomain, select)
+        io.select := FFSynchronizer(coreClockDomain, rfClockDomain, select)
     }
 }
 

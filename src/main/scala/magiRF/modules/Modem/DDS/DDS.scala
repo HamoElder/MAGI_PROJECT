@@ -3,7 +3,7 @@ package magiRF.modules.Modem.DDS
 import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
-import utils.common.ClkCrossing.ClkCrossing
+import utils.common.ClkCrossing.FFSynchronizer
 
 case class DDS_Config(  dataWidth          : Int,
                         phaseWidth         : Int,
@@ -125,9 +125,9 @@ case class DDS(config: DDS_Config) extends Component {
                 documentation = "DDS Ram Address Value Set") init(0)
             busCtrl.drive(w_data, address = baseAddress + 0x08, bitOffset = 0,
                 documentation = "DDS Ram Data Value Set") init(0)
-            io.w_en := ClkCrossing(coreClockDomain, rfClockDomain, w_en)
-            io.w_addr := ClkCrossing(coreClockDomain, rfClockDomain, w_addr)
-            io.w_data := ClkCrossing(coreClockDomain, rfClockDomain, w_data)
+            io.w_en := FFSynchronizer(coreClockDomain, rfClockDomain, w_en)
+            io.w_addr := FFSynchronizer(coreClockDomain, rfClockDomain, w_addr)
+            io.w_data := FFSynchronizer(coreClockDomain, rfClockDomain, w_data)
         }
 
         busCtrl.driveAndRead(phase_limit, address = baseAddress + 0x0C, bitOffset = 0,
@@ -136,16 +136,16 @@ case class DDS(config: DDS_Config) extends Component {
         if(config.usePhaseOffsetProg){
             busCtrl.driveAndRead(phase_offset, address = baseAddress + 0x10, bitOffset = 0,
                 documentation = "DDS phase offset Value") init(0)
-            io.phase_offset := ClkCrossing(coreClockDomain, rfClockDomain, phase_offset)
+            io.phase_offset := FFSynchronizer(coreClockDomain, rfClockDomain, phase_offset)
         }
         if(config.usePhaseIncProg){
             busCtrl.driveAndRead(phase_inc, address = baseAddress + 0x14, bitOffset = 0,
                 documentation = "DDS phase increment Step") init(1)
-            io.phase_inc := ClkCrossing(coreClockDomain, rfClockDomain, phase_inc)
+            io.phase_inc := FFSynchronizer(coreClockDomain, rfClockDomain, phase_inc)
         }
 
-        io.channel_en := ClkCrossing(coreClockDomain, rfClockDomain, channel_en)
-        io.phase_limit := ClkCrossing(coreClockDomain, rfClockDomain, phase_limit)
+        io.channel_en := FFSynchronizer(coreClockDomain, rfClockDomain, channel_en)
+        io.phase_limit := FFSynchronizer(coreClockDomain, rfClockDomain, phase_limit)
     }
 
 }

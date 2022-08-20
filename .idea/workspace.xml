@@ -5,19 +5,514 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1d7c38c-7d73-4f67-af7f-9cf19bfff978" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/Misc/math/GaussianLPF.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Filters/FIR/DirectSFixFIR.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/Modulator/extensions/GMSKMod.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/utils/common/DataSplitUnite/DynamicWidthConvertor/DynamicWidthConvertor.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/7.2/fileChanges/last-build.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gradle/7.2/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/421099e07d1bd32ce94a5230907abe8c67d03183/verilator/VConvCombTest.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/421099e07d1bd32ce94a5230907abe8c67d03183/verilator/VConvCombTest.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/421099e07d1bd32ce94a5230907abe8c67d03183/verilator/VConvCombTest__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/421099e07d1bd32ce94a5230907abe8c67d03183/verilator/VConvCombTest__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/421099e07d1bd32ce94a5230907abe8c67d03183/verilator/VConvCombTest_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/808c61659bb4418bbcfb34f1a1c65a8aba7bc312/verilator/VLoopBackTest.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/808c61659bb4418bbcfb34f1a1c65a8aba7bc312/verilator/VLoopBackTest.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/808c61659bb4418bbcfb34f1a1c65a8aba7bc312/verilator/VLoopBackTest__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/808c61659bb4418bbcfb34f1a1c65a8aba7bc312/verilator/VLoopBackTest__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/808c61659bb4418bbcfb34f1a1c65a8aba7bc312/verilator/VLoopBackTest_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a59ee1b36d6052946586de9c6855494188d4872e/verilator/VConvCombTest.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a59ee1b36d6052946586de9c6855494188d4872e/verilator/VConvCombTest.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a59ee1b36d6052946586de9c6855494188d4872e/verilator/VConvCombTest__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a59ee1b36d6052946586de9c6855494188d4872e/verilator/VConvCombTest__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/a59ee1b36d6052946586de9c6855494188d4872e/verilator/VConvCombTest_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/bf97db2f2a7345eb2ad0e8f0c0c8597067507de5/verilator/VConvEncoder.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/bf97db2f2a7345eb2ad0e8f0c0c8597067507de5/verilator/VConvEncoder.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/bf97db2f2a7345eb2ad0e8f0c0c8597067507de5/verilator/VConvEncoder__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/bf97db2f2a7345eb2ad0e8f0c0c8597067507de5/verilator/VConvEncoder__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/.cache/bf97db2f2a7345eb2ad0e8f0c0c8597067507de5/verilator/VConvEncoder_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__1.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__1.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__1.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__10.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__10.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__10.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__11.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__11.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__11.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__12.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__12.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__12.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__13.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__13.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__13.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__14.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__14.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__14.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__15.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__15.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__15.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__16.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__16.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__16.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__17.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__17.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__17.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__18.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__18.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__18.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__19.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__19.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__19.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__1__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__1__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__1__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__2.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__2.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__2.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__20.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__20.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__20.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__21.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__21.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__21.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__22.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__22.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__22.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__23.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__23.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__23.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__24.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__24.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__24.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__2__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__2__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__2__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__3.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__3.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__3.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__4.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__4.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__4.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__5.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__5.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__5.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__6.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__6.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__6.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__7.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__7.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__7.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__8.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__8.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__8.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__9.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__9.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__9.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Syms.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Syms.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Syms.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Trace.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Trace.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Trace.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Trace__1.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Trace__1.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Trace__1.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Trace__1__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Trace__1__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Trace__1__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Trace__2__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Trace__2__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Trace__2__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Trace__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Trace__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Trace__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__ver.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__verFiles.dat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvEncoder/rtl/ConvEncoder.v" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvEncoder/test.vcd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvEncoder/verilator/VConvEncoder" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvEncoder/verilator/VConvEncoder.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvEncoder/verilator/VConvEncoder.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvEncoder/verilator/VConvEncoder__ALL.a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvEncoder/verilator/VConvEncoder__Syms.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvEncoder/verilator/VConvEncoder__spinalWrapper.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvEncoder/verilator/VConvEncoder__spinalWrapper.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvEncoder/verilator/VConvEncoder__spinalWrapper.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvEncoder/verilator/VConvEncoder_classes.mk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvEncoder/verilator/libcode.version" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvEncoder/verilator/verilated.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvEncoder/verilator/verilated.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvEncoder/verilator/verilated_vcd_c.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvEncoder/verilator/verilated_vcd_c.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvEncoder/verilator/verilator_1.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvEncoder/verilator/wrapper_verilator/VerilatorNative.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/ConvEncoder/verilatorScript.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__1.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__1.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__1.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__10.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__10.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__10.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__11.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__11.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__11.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__12.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__12.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__12.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__13.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__13.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__13.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__14.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__14.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__14.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__15.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__15.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__15.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__16.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__16.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__16.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__17.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__17.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__17.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__18.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__18.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__18.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__19.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__19.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__19.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__1__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__1__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__1__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__2.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__2.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__2.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__20.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__20.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__20.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__21.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__21.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__21.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__22.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__22.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__22.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__23.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__23.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__23.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__24.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__24.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__24.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__25.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__25.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__25.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__26.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__26.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__26.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__27.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__27.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__27.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__28.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__28.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__28.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__2__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__2__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__2__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__3.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__3.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__3.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__3__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__3__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__3__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__4.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__4.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__4.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__4__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__4__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__4__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__5.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__5.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__5.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__6.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__6.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__6.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__7.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__7.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__7.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__8.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__8.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__8.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__9.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__9.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__9.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Syms.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Syms.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Syms.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__1.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__1.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__1.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__1__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__1__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__1__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__2.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__2.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__2.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__2__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__2__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__2__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__3__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__3__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__3__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__4__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__4__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__4__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__Slow.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__Slow.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__Trace__Slow.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__ver.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__verFiles.dat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.0.2/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIR$$anon$2$$anonfun$11$$anonfun$apply$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIR$$anon$2$$anonfun$11.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIR$$anon$2$$anonfun$12$$anonfun$apply$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIR$$anon$2$$anonfun$12.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIR$$anon$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIR$$anon$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIR$$anonfun$13$$anonfun$apply$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIR$$anonfun$13.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIR.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIR.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIRCore$$anon$1$$anonfun$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIRCore$$anon$1$$anonfun$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIRCore$$anon$1$$anonfun$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIRCore$$anon$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIRCore$$anon$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIRCore$$anonfun$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIRCore$$anonfun$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIRCore$$anonfun$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIRCore$$anonfun$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIRCore$$anonfun$2$$anonfun$apply$mcV$sp$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIRCore$$anonfun$2$$anonfun$apply$mcV$sp$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIRCore$$anonfun$7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIRCore$$anonfun$8$$anonfun$apply$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIRCore$$anonfun$8.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIRCore$$anonfun$9$$anonfun$apply$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIRCore$$anonfun$9.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIRCore.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Filters/FIR/DirectSFixFIRCore.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS_Config$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS_Config$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS_Config.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS_Config.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxBufferPadding$$anon$4$$anonfun$17$$anonfun$apply$7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxBufferPadding$$anon$4$$anonfun$17.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxBufferPadding$$anon$4$$anonfun$18$$anonfun$apply$8.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxBufferPadding$$anon$4$$anonfun$18.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxBufferPadding$$anon$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxBufferPadding.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxBufferPadding.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxCrc$$anon$2$$anonfun$12$$anonfun$apply$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxCrc$$anon$2$$anonfun$12.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxCrc$$anon$2$$anonfun$13$$anonfun$apply$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxCrc$$anon$2$$anonfun$13.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxCrc$$anon$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxCrc.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxCrc.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxEndFlag$$anon$3$$anonfun$15$$anonfun$apply$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxEndFlag$$anon$3$$anonfun$15.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxEndFlag$$anon$3$$anonfun$16$$anonfun$apply$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxEndFlag$$anon$3$$anonfun$16.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxEndFlag$$anon$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxEndFlag.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxEndFlag.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxPreambleExtender$$anon$1$$anonfun$8$$anonfun$apply$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxPreambleExtender$$anon$1$$anonfun$8.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxPreambleExtender$$anon$1$$anonfun$9$$anonfun$apply$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxPreambleExtender$$anon$1$$anonfun$9.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxPreambleExtender$$anon$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxPreambleExtender.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/top/AIS/Transmitter/PhyTxPreambleExtender.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacEth$$anon$4$$anon$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacEth$$anon$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacEth.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacEth.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacEthCtrl$$anon$1$$anon$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacEthCtrl$$anon$1$$anonfun$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacEthCtrl$$anon$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacEthCtrl$$anon$3$$anonfun$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacEthCtrl$$anon$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacEthCtrl$$anon$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacEthCtrl.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacEthCtrl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxAligner$$anon$4$$anonfun$24$$anonfun$apply$8.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxAligner$$anon$4$$anonfun$24.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxAligner$$anon$4$$anonfun$25$$anonfun$apply$9.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxAligner$$anon$4$$anonfun$25.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxAligner$$anon$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxAligner.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxAligner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anon$5$$anon$6$$anonfun$27$$anonfun$apply$10.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anon$5$$anon$6$$anonfun$27.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anon$5$$anon$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anon$5$$anon$7$$anon$8.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anon$5$$anon$7$$anonfun$28.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anon$5$$anon$7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer$$anon$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxBuffer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxChecker$$anon$3$$anonfun$22$$anonfun$apply$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxChecker$$anon$3$$anonfun$22.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxChecker$$anon$3$$anonfun$23$$anonfun$apply$7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxChecker$$anon$3$$anonfun$23.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxChecker$$anon$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxChecker.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxChecker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter$$anon$2$$anonfun$18$$anonfun$apply$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter$$anon$2$$anonfun$18.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter$$anon$2$$anonfun$19$$anonfun$apply$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter$$anon$2$$anonfun$19.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter$$anon$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacRxFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxAligner$$anon$8$$anonfun$45$$anonfun$apply$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxAligner$$anon$8$$anonfun$45.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxAligner$$anon$8$$anonfun$46$$anonfun$apply$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxAligner$$anon$8$$anonfun$46.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxAligner$$anon$8.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxAligner.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxAligner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxBuffer$$anon$4$$anon$5$$anonfun$32.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxBuffer$$anon$4$$anon$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxBuffer$$anon$4$$anon$6$$anonfun$33$$anonfun$apply$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxBuffer$$anon$4$$anon$6$$anonfun$33.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxBuffer$$anon$4$$anon$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxBuffer$$anon$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxBuffer.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxBuffer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxCrc$$anon$7$$anonfun$42$$anonfun$apply$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxCrc$$anon$7$$anonfun$42.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxCrc$$anon$7$$anonfun$43$$anonfun$apply$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxCrc$$anon$7$$anonfun$43.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxCrc$$anon$7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxCrc.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxCrc.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxHeader$$anon$9$$anonfun$48$$anonfun$apply$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxHeader$$anon$9$$anonfun$48.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxHeader$$anon$9$$anonfun$49$$anonfun$apply$7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxHeader$$anon$9$$anonfun$49.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxHeader$$anon$9.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxHeader.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxHeader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxManagedStreamFifoCc$$anon$1$$anon$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxManagedStreamFifoCc$$anon$1$$anon$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxManagedStreamFifoCc$$anon$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxManagedStreamFifoCc.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxManagedStreamFifoCc.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxPadder$$anon$10$$anonfun$51$$anonfun$apply$8.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxPadder$$anon$10$$anonfun$51.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxPadder$$anon$10$$anonfun$52$$anonfun$apply$9.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxPadder$$anon$10$$anonfun$52.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxPadder$$anon$10.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxPadder.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Ethernet/AxiLite4Mac/MacTxPadder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/Timer$$anon$4$$anonfun$17.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/Timer$$anon$4$$anonfun$18.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/Timer$$anon$4$$anonfun$19.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/Timer$$anon$4$$anonfun$20.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/Timer$$anon$4$$anonfun$21.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/Timer$$anon$4$$anonfun$22.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/Timer$$anon$4$$anonfun$23.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/Timer$$anon$4$$anonfun$24.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/Timer$$anon$4$$anonfun$25.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/Timer$$anon$4$$anonfun$26.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/Timer$$anon$4$$anonfun$27.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/Timer$$anon$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/Timer.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/Timer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/inputCapture$$anon$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/inputCapture.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/inputCapture.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/outputCompare$$anon$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/outputCompare.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/outputCompare.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/preClockDivider$$anon$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/preClockDivider.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/preClockDivider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/timerConfig$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/timerConfig$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/timerConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/perips/Timer/timerConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/utils/common/DataSplitUnite/DataWidthConvert/StreamFragmentWidthConvert$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/utils/common/DataSplitUnite/DataWidthConvert/StreamFragmentWidthConvert$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/utils/common/DataSplitUnite/DataWidthConvert/StreamFragmentWidthConvert.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/utils/common/DataSplitUnite/DataWidthConvert/StreamFragmentWidthConvert.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/test/magiRF/packages/Coder/ConvCombTestSimApp$$anonfun$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/test/magiRF/packages/Coder/ConvCombTestSimApp$$anonfun$7.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.analysis" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.analysis" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rtl/DirectFIR/DirectFIR.sv" beforeDir="false" afterPath="$PROJECT_DIR$/rtl/DirectFIR/DirectFIR.sv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Filters/FIR/DirectFIR.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Filters/FIR/DirectFIR.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.mapping" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.mapping" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileTestScala.analysis" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileTestScala.analysis" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/23405f79f8a8c263f7c94b20ef755092c66fa3a3/verilator/VAIS_TX.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/23405f79f8a8c263f7c94b20ef755092c66fa3a3/verilator/VAIS_TX.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/23405f79f8a8c263f7c94b20ef755092c66fa3a3/verilator/VAIS_TX__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/23405f79f8a8c263f7c94b20ef755092c66fa3a3/verilator/VAIS_TX__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/23405f79f8a8c263f7c94b20ef755092c66fa3a3/verilator/VAIS_TX_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/2342d16de67d5b924a5b1a44402c5648b463d174/verilator/VAxiLite4DDS.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/2342d16de67d5b924a5b1a44402c5648b463d174/verilator/VAxiLite4DDS.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/2342d16de67d5b924a5b1a44402c5648b463d174/verilator/VAxiLite4DDS__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/2342d16de67d5b924a5b1a44402c5648b463d174/verilator/VAxiLite4DDS__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/2342d16de67d5b924a5b1a44402c5648b463d174/verilator/VAxiLite4DDS_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/37d868aae0d01aab237eb659119020103327d389/verilator/VAxiLite4DDS.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/37d868aae0d01aab237eb659119020103327d389/verilator/VAxiLite4DDS.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/37d868aae0d01aab237eb659119020103327d389/verilator/VAxiLite4DDS__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/37d868aae0d01aab237eb659119020103327d389/verilator/VAxiLite4DDS__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/37d868aae0d01aab237eb659119020103327d389/verilator/VAxiLite4DDS_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/501e4e16c44dce209e757c5a13dcf0d9e5283517/verilator/VAxiLite4DDS.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/501e4e16c44dce209e757c5a13dcf0d9e5283517/verilator/VAxiLite4DDS.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/501e4e16c44dce209e757c5a13dcf0d9e5283517/verilator/VAxiLite4DDS__ALL.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/501e4e16c44dce209e757c5a13dcf0d9e5283517/verilator/VAxiLite4DDS__Syms.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/.cache/501e4e16c44dce209e757c5a13dcf0d9e5283517/verilator/VAxiLite4DDS_classes.mk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/ConvCombTest/rtl/ConvCombTest.v" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/rtl/ConvCombTest.v" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/ConvCombTest/test.vcd" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/test.vcd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest.h" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest.mk" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__ALL.a" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__ALL.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Syms.h" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__Syms.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__spinalWrapper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__spinalWrapper.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__spinalWrapper.d" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__spinalWrapper.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__spinalWrapper.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest__spinalWrapper.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest_classes.mk" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/VConvCombTest_classes.mk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/verilated.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/verilated.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/verilated_vcd_c.d" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/verilated_vcd_c.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/verilated_vcd_c.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/verilated_vcd_c.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/verilator_1.so" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/verilator_1.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/wrapper_verilator/VerilatorNative.class" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilator/wrapper_verilator/VerilatorNative.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilatorScript.sh" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/ConvCombTest/verilatorScript.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/LoopBackTest/rtl/LoopBackTest.v" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/rtl/LoopBackTest.v" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/LoopBackTest/test.vcd" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/test.vcd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest.h" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__ALL.a" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__ALL.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__spinalWrapper.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__spinalWrapper.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__spinalWrapper.o" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/VLoopBackTest__spinalWrapper.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/verilator_1.so" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/verilator_1.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/wrapper_verilator/VerilatorNative.class" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilator/wrapper_verilator/VerilatorNative.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilatorScript.sh" beforeDir="false" afterPath="$PROJECT_DIR$/simWorkspace/LoopBackTest/verilatorScript.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/modules/DSP/CORDIC/CordicRotator.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/DSP/CORDIC/CordicRotator.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/modules/DSP/PowerAdjustor/PowerAdjustor.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/DSP/PowerAdjustor/PowerAdjustor.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/DDS/AxiLite4DDS.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/DDS/AxiLite4DDS.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/DDS/DDS.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/DDS/DDS.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/Demodulator/DemodulatorRTL.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/Demodulator/DemodulatorRTL.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/Demodulator/extensions/lookUpDemod.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/Demodulator/extensions/lookUpDemod.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/Misc/dataCombination.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/Misc/dataCombination.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/Misc/dataDivDynamic.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/Misc/dataDivDynamic.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/Modulator/ModulatorRTL.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/Modulator/ModulatorRTL.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/Modulator/extensions/lookUpMod.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/Modulator/extensions/lookUpMod.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/packages/CDMA/Despreador/CDMADespreading.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/packages/CDMA/Despreador/CDMADespreading.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/packages/CDMA/Spreador/CDMASpreading.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/packages/CDMA/Spreador/CDMASpreading.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/packages/CyclicPrefix/CyclicPrefix.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/packages/CyclicPrefix/CyclicPrefix.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/packages/MIMO/Receiver/MIMOReceiver.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/packages/MIMO/Receiver/MIMOReceiver.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/packages/MIMO/Transmitter/MIMOTransmitter.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/packages/MIMO/Transmitter/MIMOTransmitter.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/packages/OAM/Spinor/OAMSpinor.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/packages/OAM/Spinor/OAMSpinor.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/packages/OAM/Unspinor/OAMUnspinor.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/packages/OAM/Unspinor/OAMUnspinor.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/packages/PackageGen/StreamPackageGen.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/packages/PackageGen/StreamPackageGen.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/top/ASKDemodulator/ASKSymbolCounter.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/top/ASKDemodulator/ASKSymbolCounter.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/top/RFBench/Receiver/RX.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/top/RFBench/Receiver/RX.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/top/RFBench/Transmitter/TX.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/top/RFBench/Transmitter/TX.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Graphic/VGA/VgaTimings.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/perips/Graphic/VGA/VgaTimings.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/utils/common/ClkCrossing/ClkCrossing.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/utils/common/ClkCrossing/FFSynchronizer.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/scala/magiRF/packages/Coder/ConvCombTest.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/scala/magiRF/packages/Coder/ConvCombTest.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/job_1/ConvCombTest.v" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/job_1/ConvCombTest.v" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/job_1/ConvEncoder.v" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/job_1/ConvEncoder.v" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tmp/job_1/LoopBackTest.v" beforeDir="false" afterPath="$PROJECT_DIR$/tmp/job_1/LoopBackTest.v" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,18 +570,18 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/missdown/IdeaProjects/sp21-ble-baseband&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;CodeWithMe&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "/mnt/BackUp/IdeaProjects/MAGI_PROJECT",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
   }
-}</component>
+}]]></component>
   <component name="ReaderModeSettings">
     <option name="enabled" value="false" />
   </component>
@@ -102,13 +597,13 @@
       <recent name="magiRF.interfaces.frontend.AD9375" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.DirectFIRFilterBench">
-    <configuration name="Axi4RomSimApp" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="utils.common.ClockDiv.Axi4RomSimApp" />
-      <module name="MAGI_PROJECT.main" />
+  <component name="RunManager" selected="Application.ConvCombTestSimApp">
+    <configuration name="ConvCombTestSimApp" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="magiRF.packages.Coder.ConvCombTestSimApp" />
+      <module name="MAGI_PROJECT.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="utils.common.ClockDiv.*" />
+          <option name="PATTERN" value="magiRF.packages.Coder.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -116,12 +611,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ClockDividerSimApp" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="utils.common.ClockDiv.ClockDividerSimApp" />
-      <module name="MAGI_PROJECT.main" />
+    <configuration name="ConvEncoderSimApp" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="magiRF.packages.Coder.ConvEncoderSimApp" />
+      <module name="MAGI_PROJECT.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="utils.common.ClockDiv.*" />
+          <option name="PATTERN" value="magiRF.packages.Coder.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -129,12 +624,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DirectFIRFilterBench" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="magiRF.modules.Filters.FIR.DirectFIRFilterBench" />
-      <module name="MAGI_PROJECT.main" />
+    <configuration name="LoopBackTestSimApp" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="magiRF.top.LoopBackTestSimApp" />
+      <module name="MAGI_PROJECT.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="magiRF.modules.Filters.FIR.*" />
+          <option name="PATTERN" value="magiRF.top.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -142,47 +637,63 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DynamicClockDividerSimApp" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="utils.common.ClockDiv.DynamicClockDividerSimApp" />
-      <module name="MAGI_PROJECT.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="utils.common.ClockDiv.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="/mnt/BackUp/IdeaProjects/MAGI_PROJECT/build.gradle [AD9361InterfaceBench_sourceGenerator]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/build.gradle" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="AD9361InterfaceBench_sourceGenerator" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
     </configuration>
-    <configuration name="LPF_BENCH" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="Misc.math.LPF_BENCH" />
-      <module name="MAGI_PROJECT.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Misc.math.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="/mnt/BackUp/IdeaProjects/MAGI_PROJECT/build.gradle [DirectFIRFilterBench_sourceGenerator]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/build.gradle" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="DirectFIRFilterBench_sourceGenerator" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Application.Unnamed" />
-      <item itemvalue="Application.DirectFIRFilterBench" />
-      <item itemvalue="Application.LPF_BENCH" />
-      <item itemvalue="Application.DynamicClockDividerSimApp" />
-      <item itemvalue="Application.Axi4RomSimApp" />
-      <item itemvalue="Application.ClockDividerSimApp" />
+      <item itemvalue="Application.ConvCombTestSimApp" />
+      <item itemvalue="Application.ConvEncoderSimApp" />
+      <item itemvalue="Application.LoopBackTestSimApp" />
+      <item itemvalue="Gradle./mnt/BackUp/IdeaProjects/MAGI_PROJECT/build.gradle [AD9361InterfaceBench_sourceGenerator]" />
+      <item itemvalue="Gradle./mnt/BackUp/IdeaProjects/MAGI_PROJECT/build.gradle [DirectFIRFilterBench_sourceGenerator]" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.DirectFIRFilterBench" />
-        <item itemvalue="Application.LPF_BENCH" />
-        <item itemvalue="Application.DynamicClockDividerSimApp" />
-        <item itemvalue="Application.ClockDividerSimApp" />
-        <item itemvalue="Application.Axi4RomSimApp" />
+        <item itemvalue="Gradle./mnt/BackUp/IdeaProjects/MAGI_PROJECT/build.gradle [DirectFIRFilterBench_sourceGenerator]" />
+        <item itemvalue="Gradle./mnt/BackUp/IdeaProjects/MAGI_PROJECT/build.gradle [AD9361InterfaceBench_sourceGenerator]" />
+        <item itemvalue="Application.ConvCombTestSimApp" />
+        <item itemvalue="Application.ConvEncoderSimApp" />
+        <item itemvalue="Application.LoopBackTestSimApp" />
       </list>
     </recent_temporary>
   </component>

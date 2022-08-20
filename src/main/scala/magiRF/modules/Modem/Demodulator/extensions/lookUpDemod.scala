@@ -4,7 +4,7 @@ import magiRF.modules.Modem.Misc.modUnitInterface
 import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
-import utils.common.ClkCrossing.ClkCrossing
+import utils.common.ClkCrossing.FFSynchronizer
 
 case class lookUpDemodConfig(
                             unitDataWidth      : Int,
@@ -132,11 +132,11 @@ case class lookUpDemod(config: lookUpDemodConfig) extends Component {
         busCtrl.drive(w_data, address = baseAddress + 0x08, bitOffset = 0,
             documentation = "Look Up Demodulator Ram Write Data Set.") init(0)
 
-        io.w_en := ClkCrossing(coreClockDomain, rfClockDomain, w_en)
-        io.w_sel := ClkCrossing(coreClockDomain, rfClockDomain, w_sel)
-        io.iq_shift := ClkCrossing(coreClockDomain, rfClockDomain, iq_shift)
-        io.w_addr := ClkCrossing(coreClockDomain, rfClockDomain, w_addr)
-        io.w_data := ClkCrossing(coreClockDomain, rfClockDomain, w_data)
+        io.w_en := FFSynchronizer(coreClockDomain, rfClockDomain, w_en)
+        io.w_sel := FFSynchronizer(coreClockDomain, rfClockDomain, w_sel)
+        io.iq_shift := FFSynchronizer(coreClockDomain, rfClockDomain, iq_shift)
+        io.w_addr := FFSynchronizer(coreClockDomain, rfClockDomain, w_addr)
+        io.w_data := FFSynchronizer(coreClockDomain, rfClockDomain, w_data)
     }
 }
 

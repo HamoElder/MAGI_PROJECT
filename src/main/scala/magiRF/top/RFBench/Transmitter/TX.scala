@@ -10,7 +10,7 @@ import magiRF.top.RFBench.Config.{codedDataWidth, genModulatorConfig, genModulat
 import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
-import utils.common.ClkCrossing.ClkCrossing
+import utils.common.ClkCrossing.FFSynchronizer
 
 case class TX() extends Component{
     val io = new Bundle{
@@ -104,14 +104,14 @@ case class TX() extends Component{
             documentation = s"Data Divide Dynamic Module Counter Step (${div_cnt_step.getBitsWidth} bits).") init (0)
         busCtrl.driveAndRead(div_cnt_limit, address = baseAddress + 0x08, bitOffset = 0,
             documentation = s"Data Divide Dynamic Module Counter Max Value (${div_cnt_limit.getBitsWidth} bits).") init (0)
-        io.div_enable := ClkCrossing(coreClockDomain, rfClockDomain, div_enable)
-        io.div_cnt_step := ClkCrossing(coreClockDomain, rfClockDomain, div_cnt_step)
-        io.div_cnt_limit := ClkCrossing(coreClockDomain, rfClockDomain, div_cnt_limit)
+        io.div_enable := FFSynchronizer(coreClockDomain, rfClockDomain, div_enable)
+        io.div_cnt_step := FFSynchronizer(coreClockDomain, rfClockDomain, div_cnt_step)
+        io.div_cnt_limit := FFSynchronizer(coreClockDomain, rfClockDomain, div_cnt_limit)
 
         val mod_method_select = cloneOf(io.mod_method_select)
         busCtrl.driveAndRead(mod_method_select, address = baseAddress + 0x10, bitOffset = 0,
             documentation = s"Modulator RTL select (${mod_method_select.getBitsWidth} bits).") init(0)
-        io.mod_method_select := ClkCrossing(coreClockDomain, rfClockDomain, mod_method_select)
+        io.mod_method_select := FFSynchronizer(coreClockDomain, rfClockDomain, mod_method_select)
         if(genModulatorConfig.editable){
             val mod_w_en = cloneOf(io.mod_w_en)
             val mod_w_addr = cloneOf(io.mod_w_addr)
@@ -122,15 +122,15 @@ case class TX() extends Component{
                 documentation = s"Look Up Modulator Ram Write Address Set (${mod_w_addr.getBitsWidth} bits).") init(0)
             busCtrl.drive(mod_w_data, address = baseAddress + 0x1C, bitOffset = 0,
                 documentation = s"Look Up Modulator Ram Write Data Set (${mod_w_data.getBitsWidth} bits).") init(0)
-            io.mod_w_en := ClkCrossing(coreClockDomain, rfClockDomain, mod_w_en)
-            io.mod_w_addr := ClkCrossing(coreClockDomain, rfClockDomain, mod_w_addr)
-            io.mod_w_data := ClkCrossing(coreClockDomain, rfClockDomain, mod_w_data)
+            io.mod_w_en := FFSynchronizer(coreClockDomain, rfClockDomain, mod_w_en)
+            io.mod_w_addr := FFSynchronizer(coreClockDomain, rfClockDomain, mod_w_addr)
+            io.mod_w_data := FFSynchronizer(coreClockDomain, rfClockDomain, mod_w_data)
         }
         if(genModulatorConfig.useTPlay){
             val mod_cnt_limit = cloneOf(io.mod_cnt_limit)
             busCtrl.drive(mod_cnt_limit, address = baseAddress + 0x20, bitOffset = 0,
                 documentation = s"Look Up Modulator Play Mode T Limit (${mod_cnt_limit.getBitsWidth} bits).") init(0)
-            io.mod_cnt_limit := ClkCrossing(coreClockDomain, rfClockDomain, mod_cnt_limit)
+            io.mod_cnt_limit := FFSynchronizer(coreClockDomain, rfClockDomain, mod_cnt_limit)
         }
     }
 

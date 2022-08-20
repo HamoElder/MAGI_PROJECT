@@ -4,7 +4,7 @@ import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
 import utils.bus.IQBundle.IQBundle
-import utils.common.ClkCrossing.ClkCrossing
+import utils.common.ClkCrossing.FFSynchronizer
 
 
 case class CDMASpreading(iqWidth: Int, codeWidth: Int, codeSize: Int, useDynamic:Boolean = true, codeTable: Seq[BigInt] = null) extends Component {
@@ -73,7 +73,7 @@ case class CDMASpreading(iqWidth: Int, codeWidth: Int, codeSize: Int, useDynamic
         val clc: Bool = cloneOf(io.clc)
         busCtrl.driveAndRead(clc, address = baseAddress + 0x00, bitOffset = 0,
             documentation = "CDMA Clear Set.") init(True)
-        io.clc := ClkCrossing(coreClockDomain, rfClockDomain, clc)
+        io.clc := FFSynchronizer(coreClockDomain, rfClockDomain, clc)
         if(useDynamic){
             val w_en = cloneOf(io.w_en)
             val w_addr = cloneOf(io.w_addr)
@@ -87,10 +87,10 @@ case class CDMASpreading(iqWidth: Int, codeWidth: Int, codeSize: Int, useDynamic
                 documentation = "CDMA Code Map Ram Write Data Set.") init(0)
             busCtrl.drive(cnt_limit, address = baseAddress + 0x0C, bitOffset = 0,
                 documentation = "CDMA Code Map Counter Limit Upper Bound.")
-            io.w_en := ClkCrossing(coreClockDomain, rfClockDomain, w_en)
-            io.w_addr := ClkCrossing(coreClockDomain, rfClockDomain, w_addr)
-            io.w_data := ClkCrossing(coreClockDomain, rfClockDomain, w_data)
-            io.cnt_limit := ClkCrossing(coreClockDomain,  rfClockDomain, cnt_limit)
+            io.w_en := FFSynchronizer(coreClockDomain, rfClockDomain, w_en)
+            io.w_addr := FFSynchronizer(coreClockDomain, rfClockDomain, w_addr)
+            io.w_data := FFSynchronizer(coreClockDomain, rfClockDomain, w_data)
+            io.cnt_limit := FFSynchronizer(coreClockDomain,  rfClockDomain, cnt_limit)
         }
 
     }

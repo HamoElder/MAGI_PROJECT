@@ -1,8 +1,8 @@
-// Generator : SpinalHDL v1.6.4    git head : 598c18959149eb18e5eee5b0aa3eef01ecaa41a1
+// Generator : SpinalHDL v1.7.0    git head : eca519e78d4e6022e34911ec300a432ed9db8220
 // Component : ConvCombTest
-// Git hash  : 8d2c64a14bad8227774c74e2a7d5ea571705d609
+// Git hash  : d47a2b4b2826148d75a008bb36a10246b9e9f377
 
-`timescale 1ns/1ps 
+`timescale 1ns/1ps
 
 module ConvCombTest (
   input               tail_bits_valid,
@@ -60,6 +60,7 @@ module ConvCombTest (
   wire       [2:0]    _zz__zz_decoded_data_valid_1;
   wire       [0:0]    _zz__zz_decoded_data_valid_1_1;
   wire       [5:0]    _zz__zz_decoded_data_payload_fragment;
+  wire       [7:0]    _zz_decoded_data_payload_fragment_1;
   wire                encoder_coded_data_toStream_valid;
   wire                encoder_coded_data_toStream_ready;
   wire                encoder_coded_data_toStream_payload_last;
@@ -83,103 +84,104 @@ module ConvCombTest (
   assign _zz__zz_decoded_data_valid_1_1 = _zz_decoded_data_valid;
   assign _zz__zz_decoded_data_valid_1 = {2'd0, _zz__zz_decoded_data_valid_1_1};
   assign _zz__zz_decoded_data_payload_fragment = (_zz_decoded_data_payload_fragment >>> 1);
+  assign _zz_decoded_data_payload_fragment_1 = {decoder_decoded_data_toStream_fifo_io_pop_payload_fragment,_zz_decoded_data_payload_fragment};
   ConvEncoder encoder (
-    .tail_bits_valid                (tail_bits_valid                            ), //i
-    .tail_bits_payload              (tail_bits_payload[6:0]                     ), //i
-    .raw_data_valid                 (raw_data_valid                             ), //i
-    .raw_data_ready                 (encoder_raw_data_ready                     ), //o
-    .raw_data_payload_last          (raw_data_payload_last                      ), //i
-    .raw_data_payload_fragment      (raw_data_payload_fragment[7:0]             ), //i
-    .coded_data_valid               (encoder_coded_data_valid                   ), //o
-    .coded_data_payload_last        (encoder_coded_data_payload_last            ), //o
-    .coded_data_payload_fragment    (encoder_coded_data_payload_fragment[15:0]  ), //o
-    .clk                            (clk                                        ), //i
-    .reset                          (reset                                      )  //i
+    .tail_bits_valid             (tail_bits_valid                          ), //i
+    .tail_bits_payload           (tail_bits_payload[6:0]                   ), //i
+    .raw_data_valid              (raw_data_valid                           ), //i
+    .raw_data_ready              (encoder_raw_data_ready                   ), //o
+    .raw_data_payload_last       (raw_data_payload_last                    ), //i
+    .raw_data_payload_fragment   (raw_data_payload_fragment[7:0]           ), //i
+    .coded_data_valid            (encoder_coded_data_valid                 ), //o
+    .coded_data_payload_last     (encoder_coded_data_payload_last          ), //o
+    .coded_data_payload_fragment (encoder_coded_data_payload_fragment[15:0]), //o
+    .clk                         (clk                                      ), //i
+    .reset                       (reset                                    )  //i
   );
   MultiPuncturing puncture_core (
-    .raw_data_valid                   (encoder_coded_data_toStream_valid                   ), //i
-    .raw_data_ready                   (puncture_core_raw_data_ready                        ), //o
-    .raw_data_payload_last            (encoder_coded_data_toStream_payload_last            ), //i
-    .raw_data_payload_fragment        (encoder_coded_data_toStream_payload_fragment[15:0]  ), //i
-    .punched_data_valid               (puncture_core_punched_data_valid                    ), //o
-    .punched_data_payload_last        (puncture_core_punched_data_payload_last             ), //o
-    .punched_data_payload_fragment    (puncture_core_punched_data_payload_fragment[15:0]   ), //o
-    .sel                              (sel                                                 ), //i
-    .clk                              (clk                                                 ), //i
-    .reset                            (reset                                               )  //i
+    .raw_data_valid                (encoder_coded_data_toStream_valid                 ), //i
+    .raw_data_ready                (puncture_core_raw_data_ready                      ), //o
+    .raw_data_payload_last         (encoder_coded_data_toStream_payload_last          ), //i
+    .raw_data_payload_fragment     (encoder_coded_data_toStream_payload_fragment[15:0]), //i
+    .punched_data_valid            (puncture_core_punched_data_valid                  ), //o
+    .punched_data_payload_last     (puncture_core_punched_data_payload_last           ), //o
+    .punched_data_payload_fragment (puncture_core_punched_data_payload_fragment[15:0] ), //o
+    .sel                           (sel                                               ), //i
+    .clk                           (clk                                               ), //i
+    .reset                         (reset                                             )  //i
   );
   MultiDePuncturing de_puncture_core (
-    .raw_data_valid                               (puncture_core_punched_data_toStream_fifo_io_pop_valid                   ), //i
-    .raw_data_ready                               (de_puncture_core_raw_data_ready                                         ), //o
-    .raw_data_payload_last                        (puncture_core_punched_data_toStream_fifo_io_pop_payload_last            ), //i
-    .raw_data_payload_fragment                    (puncture_core_punched_data_toStream_fifo_io_pop_payload_fragment[15:0]  ), //i
-    .de_punched_data_valid                        (de_puncture_core_de_punched_data_valid                                  ), //o
-    .de_punched_data_ready                        (de_puncture_core_de_punched_data_fifo_io_push_ready                     ), //i
-    .de_punched_data_payload_last                 (de_puncture_core_de_punched_data_payload_last                           ), //o
-    .de_punched_data_payload_fragment_data        (de_puncture_core_de_punched_data_payload_fragment_data[1:0]             ), //o
-    .de_punched_data_payload_fragment_indicate    (de_puncture_core_de_punched_data_payload_fragment_indicate[1:0]         ), //o
-    .sel                                          (sel                                                                     ), //i
-    .clk                                          (clk                                                                     ), //i
-    .reset                                        (reset                                                                   )  //i
+    .raw_data_valid                            (puncture_core_punched_data_toStream_fifo_io_pop_valid                 ), //i
+    .raw_data_ready                            (de_puncture_core_raw_data_ready                                       ), //o
+    .raw_data_payload_last                     (puncture_core_punched_data_toStream_fifo_io_pop_payload_last          ), //i
+    .raw_data_payload_fragment                 (puncture_core_punched_data_toStream_fifo_io_pop_payload_fragment[15:0]), //i
+    .de_punched_data_valid                     (de_puncture_core_de_punched_data_valid                                ), //o
+    .de_punched_data_ready                     (de_puncture_core_de_punched_data_fifo_io_push_ready                   ), //i
+    .de_punched_data_payload_last              (de_puncture_core_de_punched_data_payload_last                         ), //o
+    .de_punched_data_payload_fragment_data     (de_puncture_core_de_punched_data_payload_fragment_data[1:0]           ), //o
+    .de_punched_data_payload_fragment_indicate (de_puncture_core_de_punched_data_payload_fragment_indicate[1:0]       ), //o
+    .sel                                       (sel                                                                   ), //i
+    .clk                                       (clk                                                                   ), //i
+    .reset                                     (reset                                                                 )  //i
   );
   StreamFifo_1 puncture_core_punched_data_toStream_fifo (
-    .io_push_valid               (puncture_core_punched_data_toStream_valid                               ), //i
-    .io_push_ready               (puncture_core_punched_data_toStream_fifo_io_push_ready                  ), //o
-    .io_push_payload_last        (puncture_core_punched_data_toStream_payload_last                        ), //i
-    .io_push_payload_fragment    (puncture_core_punched_data_toStream_payload_fragment[15:0]              ), //i
-    .io_pop_valid                (puncture_core_punched_data_toStream_fifo_io_pop_valid                   ), //o
-    .io_pop_ready                (de_puncture_core_raw_data_ready                                         ), //i
-    .io_pop_payload_last         (puncture_core_punched_data_toStream_fifo_io_pop_payload_last            ), //o
-    .io_pop_payload_fragment     (puncture_core_punched_data_toStream_fifo_io_pop_payload_fragment[15:0]  ), //o
-    .io_flush                    (1'b0                                                                    ), //i
-    .io_occupancy                (puncture_core_punched_data_toStream_fifo_io_occupancy[11:0]             ), //o
-    .io_availability             (puncture_core_punched_data_toStream_fifo_io_availability[11:0]          ), //o
-    .clk                         (clk                                                                     ), //i
-    .reset                       (reset                                                                   )  //i
+    .io_push_valid            (puncture_core_punched_data_toStream_valid                             ), //i
+    .io_push_ready            (puncture_core_punched_data_toStream_fifo_io_push_ready                ), //o
+    .io_push_payload_last     (puncture_core_punched_data_toStream_payload_last                      ), //i
+    .io_push_payload_fragment (puncture_core_punched_data_toStream_payload_fragment[15:0]            ), //i
+    .io_pop_valid             (puncture_core_punched_data_toStream_fifo_io_pop_valid                 ), //o
+    .io_pop_ready             (de_puncture_core_raw_data_ready                                       ), //i
+    .io_pop_payload_last      (puncture_core_punched_data_toStream_fifo_io_pop_payload_last          ), //o
+    .io_pop_payload_fragment  (puncture_core_punched_data_toStream_fifo_io_pop_payload_fragment[15:0]), //o
+    .io_flush                 (1'b0                                                                  ), //i
+    .io_occupancy             (puncture_core_punched_data_toStream_fifo_io_occupancy[11:0]           ), //o
+    .io_availability          (puncture_core_punched_data_toStream_fifo_io_availability[11:0]        ), //o
+    .clk                      (clk                                                                   ), //i
+    .reset                    (reset                                                                 )  //i
   );
   ViterbiDecoder decoder (
-    .raw_data_valid                        (de_puncture_core_de_punched_data_fifo_io_pop_valid                           ), //i
-    .raw_data_ready                        (decoder_raw_data_ready                                                       ), //o
-    .raw_data_payload_last                 (de_puncture_core_de_punched_data_fifo_io_pop_payload_last                    ), //i
-    .raw_data_payload_fragment_data        (de_puncture_core_de_punched_data_fifo_io_pop_payload_fragment_data[1:0]      ), //i
-    .raw_data_payload_fragment_indicate    (de_puncture_core_de_punched_data_fifo_io_pop_payload_fragment_indicate[1:0]  ), //i
-    .decoded_data_valid                    (decoder_decoded_data_valid                                                   ), //o
-    .decoded_data_payload_last             (decoder_decoded_data_payload_last                                            ), //o
-    .decoded_data_payload_fragment         (decoder_decoded_data_payload_fragment                                        ), //o
-    .clk                                   (clk                                                                          ), //i
-    .reset                                 (reset                                                                        )  //i
+    .raw_data_valid                     (de_puncture_core_de_punched_data_fifo_io_pop_valid                         ), //i
+    .raw_data_ready                     (decoder_raw_data_ready                                                     ), //o
+    .raw_data_payload_last              (de_puncture_core_de_punched_data_fifo_io_pop_payload_last                  ), //i
+    .raw_data_payload_fragment_data     (de_puncture_core_de_punched_data_fifo_io_pop_payload_fragment_data[1:0]    ), //i
+    .raw_data_payload_fragment_indicate (de_puncture_core_de_punched_data_fifo_io_pop_payload_fragment_indicate[1:0]), //i
+    .decoded_data_valid                 (decoder_decoded_data_valid                                                 ), //o
+    .decoded_data_payload_last          (decoder_decoded_data_payload_last                                          ), //o
+    .decoded_data_payload_fragment      (decoder_decoded_data_payload_fragment                                      ), //o
+    .clk                                (clk                                                                        ), //i
+    .reset                              (reset                                                                      )  //i
   );
   StreamFifo_2 de_puncture_core_de_punched_data_fifo (
-    .io_push_valid                        (de_puncture_core_de_punched_data_valid                                       ), //i
-    .io_push_ready                        (de_puncture_core_de_punched_data_fifo_io_push_ready                          ), //o
-    .io_push_payload_last                 (de_puncture_core_de_punched_data_payload_last                                ), //i
-    .io_push_payload_fragment_data        (de_puncture_core_de_punched_data_payload_fragment_data[1:0]                  ), //i
-    .io_push_payload_fragment_indicate    (de_puncture_core_de_punched_data_payload_fragment_indicate[1:0]              ), //i
-    .io_pop_valid                         (de_puncture_core_de_punched_data_fifo_io_pop_valid                           ), //o
-    .io_pop_ready                         (decoder_raw_data_ready                                                       ), //i
-    .io_pop_payload_last                  (de_puncture_core_de_punched_data_fifo_io_pop_payload_last                    ), //o
-    .io_pop_payload_fragment_data         (de_puncture_core_de_punched_data_fifo_io_pop_payload_fragment_data[1:0]      ), //o
-    .io_pop_payload_fragment_indicate     (de_puncture_core_de_punched_data_fifo_io_pop_payload_fragment_indicate[1:0]  ), //o
-    .io_flush                             (1'b0                                                                         ), //i
-    .io_occupancy                         (de_puncture_core_de_punched_data_fifo_io_occupancy[3:0]                      ), //o
-    .io_availability                      (de_puncture_core_de_punched_data_fifo_io_availability[3:0]                   ), //o
-    .clk                                  (clk                                                                          ), //i
-    .reset                                (reset                                                                        )  //i
+    .io_push_valid                     (de_puncture_core_de_punched_data_valid                                     ), //i
+    .io_push_ready                     (de_puncture_core_de_punched_data_fifo_io_push_ready                        ), //o
+    .io_push_payload_last              (de_puncture_core_de_punched_data_payload_last                              ), //i
+    .io_push_payload_fragment_data     (de_puncture_core_de_punched_data_payload_fragment_data[1:0]                ), //i
+    .io_push_payload_fragment_indicate (de_puncture_core_de_punched_data_payload_fragment_indicate[1:0]            ), //i
+    .io_pop_valid                      (de_puncture_core_de_punched_data_fifo_io_pop_valid                         ), //o
+    .io_pop_ready                      (decoder_raw_data_ready                                                     ), //i
+    .io_pop_payload_last               (de_puncture_core_de_punched_data_fifo_io_pop_payload_last                  ), //o
+    .io_pop_payload_fragment_data      (de_puncture_core_de_punched_data_fifo_io_pop_payload_fragment_data[1:0]    ), //o
+    .io_pop_payload_fragment_indicate  (de_puncture_core_de_punched_data_fifo_io_pop_payload_fragment_indicate[1:0]), //o
+    .io_flush                          (1'b0                                                                       ), //i
+    .io_occupancy                      (de_puncture_core_de_punched_data_fifo_io_occupancy[3:0]                    ), //o
+    .io_availability                   (de_puncture_core_de_punched_data_fifo_io_availability[3:0]                 ), //o
+    .clk                               (clk                                                                        ), //i
+    .reset                             (reset                                                                      )  //i
   );
   StreamFifo_3 decoder_decoded_data_toStream_fifo (
-    .io_push_valid               (decoder_decoded_data_toStream_valid                         ), //i
-    .io_push_ready               (decoder_decoded_data_toStream_fifo_io_push_ready            ), //o
-    .io_push_payload_last        (decoder_decoded_data_toStream_payload_last                  ), //i
-    .io_push_payload_fragment    (decoder_decoded_data_toStream_payload_fragment              ), //i
-    .io_pop_valid                (decoder_decoded_data_toStream_fifo_io_pop_valid             ), //o
-    .io_pop_ready                (decoder_decoded_data_toStream_fifo_io_pop_ready             ), //i
-    .io_pop_payload_last         (decoder_decoded_data_toStream_fifo_io_pop_payload_last      ), //o
-    .io_pop_payload_fragment     (decoder_decoded_data_toStream_fifo_io_pop_payload_fragment  ), //o
-    .io_flush                    (1'b0                                                        ), //i
-    .io_occupancy                (decoder_decoded_data_toStream_fifo_io_occupancy[11:0]       ), //o
-    .io_availability             (decoder_decoded_data_toStream_fifo_io_availability[11:0]    ), //o
-    .clk                         (clk                                                         ), //i
-    .reset                       (reset                                                       )  //i
+    .io_push_valid            (decoder_decoded_data_toStream_valid                       ), //i
+    .io_push_ready            (decoder_decoded_data_toStream_fifo_io_push_ready          ), //o
+    .io_push_payload_last     (decoder_decoded_data_toStream_payload_last                ), //i
+    .io_push_payload_fragment (decoder_decoded_data_toStream_payload_fragment            ), //i
+    .io_pop_valid             (decoder_decoded_data_toStream_fifo_io_pop_valid           ), //o
+    .io_pop_ready             (decoder_decoded_data_toStream_fifo_io_pop_ready           ), //i
+    .io_pop_payload_last      (decoder_decoded_data_toStream_fifo_io_pop_payload_last    ), //o
+    .io_pop_payload_fragment  (decoder_decoded_data_toStream_fifo_io_pop_payload_fragment), //o
+    .io_flush                 (1'b0                                                      ), //i
+    .io_occupancy             (decoder_decoded_data_toStream_fifo_io_occupancy[11:0]     ), //o
+    .io_availability          (decoder_decoded_data_toStream_fifo_io_availability[11:0]  ), //o
+    .clk                      (clk                                                       ), //i
+    .reset                    (reset                                                     )  //i
   );
   assign raw_data_ready = encoder_raw_data_ready;
   assign encoder_coded_data_toStream_valid = encoder_coded_data_valid;
@@ -214,7 +216,7 @@ module ConvCombTest (
   assign decoder_decoded_data_toStream_fifo_io_pop_ready = (! ((! decoded_data_ready) && _zz_decoded_data_valid_3));
   assign decoded_data_valid = (decoder_decoded_data_toStream_fifo_io_pop_valid && _zz_decoded_data_valid_3);
   assign decoded_data_payload_last = decoder_decoded_data_toStream_fifo_io_pop_payload_last;
-  assign decoded_data_payload_fragment = {decoder_decoded_data_toStream_fifo_io_pop_payload_fragment,_zz_decoded_data_payload_fragment};
+  assign decoded_data_payload_fragment = _zz_decoded_data_payload_fragment_1;
   always @(posedge clk or posedge reset) begin
     if(reset) begin
       _zz_decoded_data_valid_2 <= 3'b000;
@@ -278,7 +280,7 @@ module StreamFifo_3 (
   wire                logic_full;
   reg                 _zz_io_pop_valid;
   wire       [1:0]    _zz_io_pop_payload_last;
-  wire                when_Stream_l954;
+  wire                when_Stream_l1021;
   wire       [10:0]   logic_ptrDif;
   reg [1:0] logic_ram [0:2047];
 
@@ -364,7 +366,7 @@ module StreamFifo_3 (
   assign _zz_io_pop_payload_last = _zz_logic_ram_port0;
   assign io_pop_payload_last = _zz_io_pop_payload_last[0];
   assign io_pop_payload_fragment = _zz_io_pop_payload_last[1 : 1];
-  assign when_Stream_l954 = (logic_pushing != logic_popping);
+  assign when_Stream_l1021 = (logic_pushing != logic_popping);
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
@@ -378,7 +380,7 @@ module StreamFifo_3 (
       logic_pushPtr_value <= logic_pushPtr_valueNext;
       logic_popPtr_value <= logic_popPtr_valueNext;
       _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
-      if(when_Stream_l954) begin
+      if(when_Stream_l1021) begin
         logic_risingOccupancy <= logic_pushing;
       end
       if(io_flush) begin
@@ -439,7 +441,7 @@ module StreamFifo_2 (
   reg                 _zz_io_pop_valid;
   wire       [4:0]    _zz_io_pop_payload_last;
   wire       [3:0]    _zz_io_pop_payload_fragment_data;
-  wire                when_Stream_l954;
+  wire                when_Stream_l1021;
   wire       [2:0]    logic_ptrDif;
   reg [4:0] logic_ram [0:7];
 
@@ -527,7 +529,7 @@ module StreamFifo_2 (
   assign io_pop_payload_last = _zz_io_pop_payload_last[0];
   assign io_pop_payload_fragment_data = _zz_io_pop_payload_fragment_data[1 : 0];
   assign io_pop_payload_fragment_indicate = _zz_io_pop_payload_fragment_data[3 : 2];
-  assign when_Stream_l954 = (logic_pushing != logic_popping);
+  assign when_Stream_l1021 = (logic_pushing != logic_popping);
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
@@ -541,7 +543,7 @@ module StreamFifo_2 (
       logic_pushPtr_value <= logic_pushPtr_valueNext;
       logic_popPtr_value <= logic_popPtr_valueNext;
       _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
-      if(when_Stream_l954) begin
+      if(when_Stream_l1021) begin
         logic_risingOccupancy <= logic_pushing;
       end
       if(io_flush) begin
@@ -582,41 +584,41 @@ module ViterbiDecoder (
   wire                raw_data_fire;
 
   PathMetric pmu_core (
-    .raw_data_valid                        (raw_data_fire                            ), //i
-    .raw_data_ready                        (pmu_core_raw_data_ready                  ), //o
-    .raw_data_payload_last                 (raw_data_payload_last                    ), //i
-    .raw_data_payload_fragment_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_payload_fragment_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .tbu_finished                          (tbu_core_finished                        ), //i
-    .min_idx                               (pmu_core_min_idx[5:0]                    ), //o
-    .s_path_valid                          (pmu_core_s_path_valid                    ), //o
-    .s_path_payload_last                   (pmu_core_s_path_payload_last             ), //o
-    .s_path_payload_fragment               (pmu_core_s_path_payload_fragment[63:0]   ), //o
-    .clk                                   (clk                                      ), //i
-    .reset                                 (reset                                    )  //i
+    .raw_data_valid                     (raw_data_fire                          ), //i
+    .raw_data_ready                     (pmu_core_raw_data_ready                ), //o
+    .raw_data_payload_last              (raw_data_payload_last                  ), //i
+    .raw_data_payload_fragment_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_payload_fragment_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .tbu_finished                       (tbu_core_finished                      ), //i
+    .min_idx                            (pmu_core_min_idx[5:0]                  ), //o
+    .s_path_valid                       (pmu_core_s_path_valid                  ), //o
+    .s_path_payload_last                (pmu_core_s_path_payload_last           ), //o
+    .s_path_payload_fragment            (pmu_core_s_path_payload_fragment[63:0] ), //o
+    .clk                                (clk                                    ), //i
+    .reset                              (reset                                  )  //i
   );
   Traceback tbu_core (
-    .min_idx                     (pmu_core_min_idx[5:0]                   ), //i
-    .s_path_valid                (pmu_core_s_path_valid                   ), //i
-    .s_path_payload_last         (pmu_core_s_path_payload_last            ), //i
-    .s_path_payload_fragment     (pmu_core_s_path_payload_fragment[63:0]  ), //i
-    .tb_node_valid               (tbu_core_tb_node_valid                  ), //o
-    .tb_node_payload_last        (tbu_core_tb_node_payload_last           ), //o
-    .tb_node_payload_fragment    (tbu_core_tb_node_payload_fragment[1:0]  ), //o
-    .halt                        (tbu_core_halt                           ), //o
-    .finished                    (tbu_core_finished                       ), //o
-    .clk                         (clk                                     ), //i
-    .reset                       (reset                                   )  //i
+    .min_idx                  (pmu_core_min_idx[5:0]                 ), //i
+    .s_path_valid             (pmu_core_s_path_valid                 ), //i
+    .s_path_payload_last      (pmu_core_s_path_payload_last          ), //i
+    .s_path_payload_fragment  (pmu_core_s_path_payload_fragment[63:0]), //i
+    .tb_node_valid            (tbu_core_tb_node_valid                ), //o
+    .tb_node_payload_last     (tbu_core_tb_node_payload_last         ), //o
+    .tb_node_payload_fragment (tbu_core_tb_node_payload_fragment[1:0]), //o
+    .halt                     (tbu_core_halt                         ), //o
+    .finished                 (tbu_core_finished                     ), //o
+    .clk                      (clk                                   ), //i
+    .reset                    (reset                                 )  //i
   );
   ReorderLifo lifo_core (
-    .inverted_order_valid               (tbu_core_tb_node_valid                   ), //i
-    .inverted_order_payload_last        (tbu_core_tb_node_payload_last            ), //i
-    .inverted_order_payload_fragment    (tbu_core_tb_node_payload_fragment[1:0]   ), //i
-    .decoded_data_valid                 (lifo_core_decoded_data_valid             ), //o
-    .decoded_data_payload_last          (lifo_core_decoded_data_payload_last      ), //o
-    .decoded_data_payload_fragment      (lifo_core_decoded_data_payload_fragment  ), //o
-    .clk                                (clk                                      ), //i
-    .reset                              (reset                                    )  //i
+    .inverted_order_valid            (tbu_core_tb_node_valid                 ), //i
+    .inverted_order_payload_last     (tbu_core_tb_node_payload_last          ), //i
+    .inverted_order_payload_fragment (tbu_core_tb_node_payload_fragment[1:0] ), //i
+    .decoded_data_valid              (lifo_core_decoded_data_valid           ), //o
+    .decoded_data_payload_last       (lifo_core_decoded_data_payload_last    ), //o
+    .decoded_data_payload_fragment   (lifo_core_decoded_data_payload_fragment), //o
+    .clk                             (clk                                    ), //i
+    .reset                           (reset                                  )  //i
   );
   assign raw_data_fire = (raw_data_valid && raw_data_ready);
   assign raw_data_ready = ((! tbu_core_halt) && pmu_core_raw_data_ready);
@@ -672,7 +674,7 @@ module StreamFifo_1 (
   wire                logic_full;
   reg                 _zz_io_pop_valid;
   wire       [16:0]   _zz_io_pop_payload_last;
-  wire                when_Stream_l954;
+  wire                when_Stream_l1021;
   wire       [10:0]   logic_ptrDif;
   reg [16:0] logic_ram [0:2047];
 
@@ -758,7 +760,7 @@ module StreamFifo_1 (
   assign _zz_io_pop_payload_last = _zz_logic_ram_port0;
   assign io_pop_payload_last = _zz_io_pop_payload_last[0];
   assign io_pop_payload_fragment = _zz_io_pop_payload_last[16 : 1];
-  assign when_Stream_l954 = (logic_pushing != logic_popping);
+  assign when_Stream_l1021 = (logic_pushing != logic_popping);
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
@@ -772,7 +774,7 @@ module StreamFifo_1 (
       logic_pushPtr_value <= logic_pushPtr_valueNext;
       logic_popPtr_value <= logic_popPtr_valueNext;
       _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
-      if(when_Stream_l954) begin
+      if(when_Stream_l1021) begin
         logic_risingOccupancy <= logic_pushing;
       end
       if(io_flush) begin
@@ -825,63 +827,63 @@ module MultiDePuncturing (
   wire       [1:0]    streamMux_1_io_output_payload_fragment_indicate;
 
   StreamDemux streamDemux_2 (
-    .io_select                        (sel                                                ), //i
-    .io_input_valid                   (raw_data_valid                                     ), //i
-    .io_input_ready                   (streamDemux_2_io_input_ready                       ), //o
-    .io_input_payload_last            (raw_data_payload_last                              ), //i
-    .io_input_payload_fragment        (raw_data_payload_fragment[15:0]                    ), //i
-    .io_outputs_0_valid               (streamDemux_2_io_outputs_0_valid                   ), //o
-    .io_outputs_0_ready               (dePuncturing_2_raw_data_ready                      ), //i
-    .io_outputs_0_payload_last        (streamDemux_2_io_outputs_0_payload_last            ), //o
-    .io_outputs_0_payload_fragment    (streamDemux_2_io_outputs_0_payload_fragment[15:0]  ), //o
-    .io_outputs_1_valid               (streamDemux_2_io_outputs_1_valid                   ), //o
-    .io_outputs_1_ready               (dePuncturing_3_raw_data_ready                      ), //i
-    .io_outputs_1_payload_last        (streamDemux_2_io_outputs_1_payload_last            ), //o
-    .io_outputs_1_payload_fragment    (streamDemux_2_io_outputs_1_payload_fragment[15:0]  )  //o
+    .io_select                     (sel                                              ), //i
+    .io_input_valid                (raw_data_valid                                   ), //i
+    .io_input_ready                (streamDemux_2_io_input_ready                     ), //o
+    .io_input_payload_last         (raw_data_payload_last                            ), //i
+    .io_input_payload_fragment     (raw_data_payload_fragment[15:0]                  ), //i
+    .io_outputs_0_valid            (streamDemux_2_io_outputs_0_valid                 ), //o
+    .io_outputs_0_ready            (dePuncturing_2_raw_data_ready                    ), //i
+    .io_outputs_0_payload_last     (streamDemux_2_io_outputs_0_payload_last          ), //o
+    .io_outputs_0_payload_fragment (streamDemux_2_io_outputs_0_payload_fragment[15:0]), //o
+    .io_outputs_1_valid            (streamDemux_2_io_outputs_1_valid                 ), //o
+    .io_outputs_1_ready            (dePuncturing_3_raw_data_ready                    ), //i
+    .io_outputs_1_payload_last     (streamDemux_2_io_outputs_1_payload_last          ), //o
+    .io_outputs_1_payload_fragment (streamDemux_2_io_outputs_1_payload_fragment[15:0])  //o
   );
   DePuncturing dePuncturing_2 (
-    .raw_data_valid                               (streamDemux_2_io_outputs_0_valid                               ), //i
-    .raw_data_ready                               (dePuncturing_2_raw_data_ready                                  ), //o
-    .raw_data_payload_last                        (streamDemux_2_io_outputs_0_payload_last                        ), //i
-    .raw_data_payload_fragment                    (streamDemux_2_io_outputs_0_payload_fragment[15:0]              ), //i
-    .de_punched_data_valid                        (dePuncturing_2_de_punched_data_valid                           ), //o
-    .de_punched_data_ready                        (streamMux_1_io_inputs_0_ready                                  ), //i
-    .de_punched_data_payload_last                 (dePuncturing_2_de_punched_data_payload_last                    ), //o
-    .de_punched_data_payload_fragment_data        (dePuncturing_2_de_punched_data_payload_fragment_data[1:0]      ), //o
-    .de_punched_data_payload_fragment_indicate    (dePuncturing_2_de_punched_data_payload_fragment_indicate[1:0]  ), //o
-    .clk                                          (clk                                                            ), //i
-    .reset                                        (reset                                                          )  //i
+    .raw_data_valid                            (streamDemux_2_io_outputs_0_valid                             ), //i
+    .raw_data_ready                            (dePuncturing_2_raw_data_ready                                ), //o
+    .raw_data_payload_last                     (streamDemux_2_io_outputs_0_payload_last                      ), //i
+    .raw_data_payload_fragment                 (streamDemux_2_io_outputs_0_payload_fragment[15:0]            ), //i
+    .de_punched_data_valid                     (dePuncturing_2_de_punched_data_valid                         ), //o
+    .de_punched_data_ready                     (streamMux_1_io_inputs_0_ready                                ), //i
+    .de_punched_data_payload_last              (dePuncturing_2_de_punched_data_payload_last                  ), //o
+    .de_punched_data_payload_fragment_data     (dePuncturing_2_de_punched_data_payload_fragment_data[1:0]    ), //o
+    .de_punched_data_payload_fragment_indicate (dePuncturing_2_de_punched_data_payload_fragment_indicate[1:0]), //o
+    .clk                                       (clk                                                          ), //i
+    .reset                                     (reset                                                        )  //i
   );
   DePuncturing_1 dePuncturing_3 (
-    .raw_data_valid                               (streamDemux_2_io_outputs_1_valid                               ), //i
-    .raw_data_ready                               (dePuncturing_3_raw_data_ready                                  ), //o
-    .raw_data_payload_last                        (streamDemux_2_io_outputs_1_payload_last                        ), //i
-    .raw_data_payload_fragment                    (dePuncturing_3_raw_data_payload_fragment[11:0]                 ), //i
-    .de_punched_data_valid                        (dePuncturing_3_de_punched_data_valid                           ), //o
-    .de_punched_data_ready                        (streamMux_1_io_inputs_1_ready                                  ), //i
-    .de_punched_data_payload_last                 (dePuncturing_3_de_punched_data_payload_last                    ), //o
-    .de_punched_data_payload_fragment_data        (dePuncturing_3_de_punched_data_payload_fragment_data[1:0]      ), //o
-    .de_punched_data_payload_fragment_indicate    (dePuncturing_3_de_punched_data_payload_fragment_indicate[1:0]  ), //o
-    .clk                                          (clk                                                            ), //i
-    .reset                                        (reset                                                          )  //i
+    .raw_data_valid                            (streamDemux_2_io_outputs_1_valid                             ), //i
+    .raw_data_ready                            (dePuncturing_3_raw_data_ready                                ), //o
+    .raw_data_payload_last                     (streamDemux_2_io_outputs_1_payload_last                      ), //i
+    .raw_data_payload_fragment                 (dePuncturing_3_raw_data_payload_fragment[11:0]               ), //i
+    .de_punched_data_valid                     (dePuncturing_3_de_punched_data_valid                         ), //o
+    .de_punched_data_ready                     (streamMux_1_io_inputs_1_ready                                ), //i
+    .de_punched_data_payload_last              (dePuncturing_3_de_punched_data_payload_last                  ), //o
+    .de_punched_data_payload_fragment_data     (dePuncturing_3_de_punched_data_payload_fragment_data[1:0]    ), //o
+    .de_punched_data_payload_fragment_indicate (dePuncturing_3_de_punched_data_payload_fragment_indicate[1:0]), //o
+    .clk                                       (clk                                                          ), //i
+    .reset                                     (reset                                                        )  //i
   );
   StreamMux streamMux_1 (
-    .io_select                                (sel                                                            ), //i
-    .io_inputs_0_valid                        (dePuncturing_2_de_punched_data_valid                           ), //i
-    .io_inputs_0_ready                        (streamMux_1_io_inputs_0_ready                                  ), //o
-    .io_inputs_0_payload_last                 (dePuncturing_2_de_punched_data_payload_last                    ), //i
-    .io_inputs_0_payload_fragment_data        (dePuncturing_2_de_punched_data_payload_fragment_data[1:0]      ), //i
-    .io_inputs_0_payload_fragment_indicate    (dePuncturing_2_de_punched_data_payload_fragment_indicate[1:0]  ), //i
-    .io_inputs_1_valid                        (dePuncturing_3_de_punched_data_valid                           ), //i
-    .io_inputs_1_ready                        (streamMux_1_io_inputs_1_ready                                  ), //o
-    .io_inputs_1_payload_last                 (dePuncturing_3_de_punched_data_payload_last                    ), //i
-    .io_inputs_1_payload_fragment_data        (dePuncturing_3_de_punched_data_payload_fragment_data[1:0]      ), //i
-    .io_inputs_1_payload_fragment_indicate    (dePuncturing_3_de_punched_data_payload_fragment_indicate[1:0]  ), //i
-    .io_output_valid                          (streamMux_1_io_output_valid                                    ), //o
-    .io_output_ready                          (de_punched_data_ready                                          ), //i
-    .io_output_payload_last                   (streamMux_1_io_output_payload_last                             ), //o
-    .io_output_payload_fragment_data          (streamMux_1_io_output_payload_fragment_data[1:0]               ), //o
-    .io_output_payload_fragment_indicate      (streamMux_1_io_output_payload_fragment_indicate[1:0]           )  //o
+    .io_select                             (sel                                                          ), //i
+    .io_inputs_0_valid                     (dePuncturing_2_de_punched_data_valid                         ), //i
+    .io_inputs_0_ready                     (streamMux_1_io_inputs_0_ready                                ), //o
+    .io_inputs_0_payload_last              (dePuncturing_2_de_punched_data_payload_last                  ), //i
+    .io_inputs_0_payload_fragment_data     (dePuncturing_2_de_punched_data_payload_fragment_data[1:0]    ), //i
+    .io_inputs_0_payload_fragment_indicate (dePuncturing_2_de_punched_data_payload_fragment_indicate[1:0]), //i
+    .io_inputs_1_valid                     (dePuncturing_3_de_punched_data_valid                         ), //i
+    .io_inputs_1_ready                     (streamMux_1_io_inputs_1_ready                                ), //o
+    .io_inputs_1_payload_last              (dePuncturing_3_de_punched_data_payload_last                  ), //i
+    .io_inputs_1_payload_fragment_data     (dePuncturing_3_de_punched_data_payload_fragment_data[1:0]    ), //i
+    .io_inputs_1_payload_fragment_indicate (dePuncturing_3_de_punched_data_payload_fragment_indicate[1:0]), //i
+    .io_output_valid                       (streamMux_1_io_output_valid                                  ), //o
+    .io_output_ready                       (de_punched_data_ready                                        ), //i
+    .io_output_payload_last                (streamMux_1_io_output_payload_last                           ), //o
+    .io_output_payload_fragment_data       (streamMux_1_io_output_payload_fragment_data[1:0]             ), //o
+    .io_output_payload_fragment_indicate   (streamMux_1_io_output_payload_fragment_indicate[1:0]         )  //o
   );
   assign raw_data_ready = streamDemux_2_io_input_ready;
   assign dePuncturing_3_raw_data_payload_fragment = streamDemux_2_io_outputs_1_payload_fragment[11:0];
@@ -930,53 +932,53 @@ module MultiPuncturing (
   wire                _zz_inputs_1_payload_last;
 
   StreamDemux streamDemux_2 (
-    .io_select                        (sel                                                ), //i
-    .io_input_valid                   (raw_data_valid                                     ), //i
-    .io_input_ready                   (streamDemux_2_io_input_ready                       ), //o
-    .io_input_payload_last            (raw_data_payload_last                              ), //i
-    .io_input_payload_fragment        (raw_data_payload_fragment[15:0]                    ), //i
-    .io_outputs_0_valid               (streamDemux_2_io_outputs_0_valid                   ), //o
-    .io_outputs_0_ready               (puncturing_2_raw_data_ready                        ), //i
-    .io_outputs_0_payload_last        (streamDemux_2_io_outputs_0_payload_last            ), //o
-    .io_outputs_0_payload_fragment    (streamDemux_2_io_outputs_0_payload_fragment[15:0]  ), //o
-    .io_outputs_1_valid               (streamDemux_2_io_outputs_1_valid                   ), //o
-    .io_outputs_1_ready               (puncturing_3_raw_data_ready                        ), //i
-    .io_outputs_1_payload_last        (streamDemux_2_io_outputs_1_payload_last            ), //o
-    .io_outputs_1_payload_fragment    (streamDemux_2_io_outputs_1_payload_fragment[15:0]  )  //o
+    .io_select                     (sel                                              ), //i
+    .io_input_valid                (raw_data_valid                                   ), //i
+    .io_input_ready                (streamDemux_2_io_input_ready                     ), //o
+    .io_input_payload_last         (raw_data_payload_last                            ), //i
+    .io_input_payload_fragment     (raw_data_payload_fragment[15:0]                  ), //i
+    .io_outputs_0_valid            (streamDemux_2_io_outputs_0_valid                 ), //o
+    .io_outputs_0_ready            (puncturing_2_raw_data_ready                      ), //i
+    .io_outputs_0_payload_last     (streamDemux_2_io_outputs_0_payload_last          ), //o
+    .io_outputs_0_payload_fragment (streamDemux_2_io_outputs_0_payload_fragment[15:0]), //o
+    .io_outputs_1_valid            (streamDemux_2_io_outputs_1_valid                 ), //o
+    .io_outputs_1_ready            (puncturing_3_raw_data_ready                      ), //i
+    .io_outputs_1_payload_last     (streamDemux_2_io_outputs_1_payload_last          ), //o
+    .io_outputs_1_payload_fragment (streamDemux_2_io_outputs_1_payload_fragment[15:0])  //o
   );
   Puncturing puncturing_2 (
-    .raw_data_valid                   (streamDemux_2_io_outputs_0_valid                   ), //i
-    .raw_data_ready                   (puncturing_2_raw_data_ready                        ), //o
-    .raw_data_payload_last            (streamDemux_2_io_outputs_0_payload_last            ), //i
-    .raw_data_payload_fragment        (streamDemux_2_io_outputs_0_payload_fragment[15:0]  ), //i
-    .punched_data_valid               (puncturing_2_punched_data_valid                    ), //o
-    .punched_data_payload_last        (puncturing_2_punched_data_payload_last             ), //o
-    .punched_data_payload_fragment    (puncturing_2_punched_data_payload_fragment[15:0]   ), //o
-    .clk                              (clk                                                ), //i
-    .reset                            (reset                                              )  //i
+    .raw_data_valid                (streamDemux_2_io_outputs_0_valid                 ), //i
+    .raw_data_ready                (puncturing_2_raw_data_ready                      ), //o
+    .raw_data_payload_last         (streamDemux_2_io_outputs_0_payload_last          ), //i
+    .raw_data_payload_fragment     (streamDemux_2_io_outputs_0_payload_fragment[15:0]), //i
+    .punched_data_valid            (puncturing_2_punched_data_valid                  ), //o
+    .punched_data_payload_last     (puncturing_2_punched_data_payload_last           ), //o
+    .punched_data_payload_fragment (puncturing_2_punched_data_payload_fragment[15:0] ), //o
+    .clk                           (clk                                              ), //i
+    .reset                         (reset                                            )  //i
   );
   Puncturing_1 puncturing_3 (
-    .raw_data_valid                   (streamDemux_2_io_outputs_1_valid                   ), //i
-    .raw_data_ready                   (puncturing_3_raw_data_ready                        ), //o
-    .raw_data_payload_last            (streamDemux_2_io_outputs_1_payload_last            ), //i
-    .raw_data_payload_fragment        (streamDemux_2_io_outputs_1_payload_fragment[15:0]  ), //i
-    .punched_data_valid               (puncturing_3_punched_data_valid                    ), //o
-    .punched_data_payload_last        (puncturing_3_punched_data_payload_last             ), //o
-    .punched_data_payload_fragment    (puncturing_3_punched_data_payload_fragment[11:0]   ), //o
-    .clk                              (clk                                                ), //i
-    .reset                            (reset                                              )  //i
+    .raw_data_valid                (streamDemux_2_io_outputs_1_valid                 ), //i
+    .raw_data_ready                (puncturing_3_raw_data_ready                      ), //o
+    .raw_data_payload_last         (streamDemux_2_io_outputs_1_payload_last          ), //i
+    .raw_data_payload_fragment     (streamDemux_2_io_outputs_1_payload_fragment[15:0]), //i
+    .punched_data_valid            (puncturing_3_punched_data_valid                  ), //o
+    .punched_data_payload_last     (puncturing_3_punched_data_payload_last           ), //o
+    .punched_data_payload_fragment (puncturing_3_punched_data_payload_fragment[11:0] ), //o
+    .clk                           (clk                                              ), //i
+    .reset                         (reset                                            )  //i
   );
   FlowMux flowMux_1 (
-    .inputs_0_valid               (_zz_inputs_0_valid                                ), //i
-    .inputs_0_payload_last        (_zz_inputs_0_payload_last                         ), //i
-    .inputs_0_payload_fragment    (puncturing_2_punched_data_payload_fragment[15:0]  ), //i
-    .inputs_1_valid               (_zz_inputs_1_valid                                ), //i
-    .inputs_1_payload_last        (_zz_inputs_1_payload_last                         ), //i
-    .inputs_1_payload_fragment    (flowMux_1_inputs_1_payload_fragment[15:0]         ), //i
-    .select_1                     (sel                                               ), //i
-    .output_valid                 (flowMux_1_output_valid                            ), //o
-    .output_payload_last          (flowMux_1_output_payload_last                     ), //o
-    .output_payload_fragment      (flowMux_1_output_payload_fragment[15:0]           )  //o
+    .inputs_0_valid            (_zz_inputs_0_valid                              ), //i
+    .inputs_0_payload_last     (_zz_inputs_0_payload_last                       ), //i
+    .inputs_0_payload_fragment (puncturing_2_punched_data_payload_fragment[15:0]), //i
+    .inputs_1_valid            (_zz_inputs_1_valid                              ), //i
+    .inputs_1_payload_last     (_zz_inputs_1_payload_last                       ), //i
+    .inputs_1_payload_fragment (flowMux_1_inputs_1_payload_fragment[15:0]       ), //i
+    .select_1                  (sel                                             ), //i
+    .output_valid              (flowMux_1_output_valid                          ), //o
+    .output_payload_last       (flowMux_1_output_payload_last                   ), //o
+    .output_payload_fragment   (flowMux_1_output_payload_fragment[15:0]         )  //o
   );
   assign raw_data_ready = streamDemux_2_io_input_ready;
   assign _zz_inputs_0_valid = puncturing_2_punched_data_valid;
@@ -1173,79 +1175,79 @@ module ReorderLifo (
 
 
   StreamFifo inverted_order_fifo (
-    .io_push_valid               (inverted_order_toStream_valid                     ), //i
-    .io_push_ready               (inverted_order_fifo_io_push_ready                 ), //o
-    .io_push_payload_last        (inverted_order_toStream_payload_last              ), //i
-    .io_push_payload_fragment    (inverted_order_toStream_payload_fragment[1:0]     ), //i
-    .io_pop_valid                (inverted_order_fifo_io_pop_valid                  ), //o
-    .io_pop_ready                (inverted_order_fifo_io_pop_ready                  ), //i
-    .io_pop_payload_last         (inverted_order_fifo_io_pop_payload_last           ), //o
-    .io_pop_payload_fragment     (inverted_order_fifo_io_pop_payload_fragment[1:0]  ), //o
-    .io_flush                    (1'b0                                              ), //i
-    .io_occupancy                (inverted_order_fifo_io_occupancy[4:0]             ), //o
-    .io_availability             (inverted_order_fifo_io_availability[4:0]          ), //o
-    .clk                         (clk                                               ), //i
-    .reset                       (reset                                             )  //i
+    .io_push_valid            (inverted_order_toStream_valid                   ), //i
+    .io_push_ready            (inverted_order_fifo_io_push_ready               ), //o
+    .io_push_payload_last     (inverted_order_toStream_payload_last            ), //i
+    .io_push_payload_fragment (inverted_order_toStream_payload_fragment[1:0]   ), //i
+    .io_pop_valid             (inverted_order_fifo_io_pop_valid                ), //o
+    .io_pop_ready             (inverted_order_fifo_io_pop_ready                ), //i
+    .io_pop_payload_last      (inverted_order_fifo_io_pop_payload_last         ), //o
+    .io_pop_payload_fragment  (inverted_order_fifo_io_pop_payload_fragment[1:0]), //o
+    .io_flush                 (1'b0                                            ), //i
+    .io_occupancy             (inverted_order_fifo_io_occupancy[4:0]           ), //o
+    .io_availability          (inverted_order_fifo_io_availability[4:0]        ), //o
+    .clk                      (clk                                             ), //i
+    .reset                    (reset                                           )  //i
   );
   SISOLifo decoded_lifo_0 (
-    .push_valid               (lifo_demux_outputs_0_valid             ), //i
-    .push_ready               (decoded_lifo_0_push_ready              ), //o
-    .push_payload_last        (lifo_demux_outputs_0_payload_last      ), //i
-    .push_payload_fragment    (lifo_demux_outputs_0_payload_fragment  ), //i
-    .pop_valid                (decoded_lifo_0_pop_valid               ), //o
-    .pop_ready                (lifo_mux_io_inputs_0_ready             ), //i
-    .pop_payload_last         (decoded_lifo_0_pop_payload_last        ), //o
-    .pop_payload_fragment     (decoded_lifo_0_pop_payload_fragment    ), //o
-    .push_method              (decoded_lifo_0_push_method             ), //i
-    .empty                    (decoded_lifo_0_empty                   ), //o
-    .full                     (decoded_lifo_0_full                    ), //o
-    .clk                      (clk                                    ), //i
-    .reset                    (reset                                  )  //i
+    .push_valid            (lifo_demux_outputs_0_valid           ), //i
+    .push_ready            (decoded_lifo_0_push_ready            ), //o
+    .push_payload_last     (lifo_demux_outputs_0_payload_last    ), //i
+    .push_payload_fragment (lifo_demux_outputs_0_payload_fragment), //i
+    .pop_valid             (decoded_lifo_0_pop_valid             ), //o
+    .pop_ready             (lifo_mux_io_inputs_0_ready           ), //i
+    .pop_payload_last      (decoded_lifo_0_pop_payload_last      ), //o
+    .pop_payload_fragment  (decoded_lifo_0_pop_payload_fragment  ), //o
+    .push_method           (decoded_lifo_0_push_method           ), //i
+    .empty                 (decoded_lifo_0_empty                 ), //o
+    .full                  (decoded_lifo_0_full                  ), //o
+    .clk                   (clk                                  ), //i
+    .reset                 (reset                                )  //i
   );
   SISOLifo decoded_lifo_1 (
-    .push_valid               (lifo_demux_outputs_1_valid             ), //i
-    .push_ready               (decoded_lifo_1_push_ready              ), //o
-    .push_payload_last        (lifo_demux_outputs_1_payload_last      ), //i
-    .push_payload_fragment    (lifo_demux_outputs_1_payload_fragment  ), //i
-    .pop_valid                (decoded_lifo_1_pop_valid               ), //o
-    .pop_ready                (lifo_mux_io_inputs_1_ready             ), //i
-    .pop_payload_last         (decoded_lifo_1_pop_payload_last        ), //o
-    .pop_payload_fragment     (decoded_lifo_1_pop_payload_fragment    ), //o
-    .push_method              (decoded_lifo_1_push_method             ), //i
-    .empty                    (decoded_lifo_1_empty                   ), //o
-    .full                     (decoded_lifo_1_full                    ), //o
-    .clk                      (clk                                    ), //i
-    .reset                    (reset                                  )  //i
+    .push_valid            (lifo_demux_outputs_1_valid           ), //i
+    .push_ready            (decoded_lifo_1_push_ready            ), //o
+    .push_payload_last     (lifo_demux_outputs_1_payload_last    ), //i
+    .push_payload_fragment (lifo_demux_outputs_1_payload_fragment), //i
+    .pop_valid             (decoded_lifo_1_pop_valid             ), //o
+    .pop_ready             (lifo_mux_io_inputs_1_ready           ), //i
+    .pop_payload_last      (decoded_lifo_1_pop_payload_last      ), //o
+    .pop_payload_fragment  (decoded_lifo_1_pop_payload_fragment  ), //o
+    .push_method           (decoded_lifo_1_push_method           ), //i
+    .empty                 (decoded_lifo_1_empty                 ), //o
+    .full                  (decoded_lifo_1_full                  ), //o
+    .clk                   (clk                                  ), //i
+    .reset                 (reset                                )  //i
   );
   LifoDemux lifo_demux (
-    .select_1                      (lifo_push_sel                          ), //i
-    .input_valid                   (lifo_demux_input_valid                 ), //i
-    .input_ready                   (lifo_demux_input_ready                 ), //o
-    .input_payload_last            (lifo_demux_input_payload_last          ), //i
-    .input_payload_fragment        (lifo_demux_input_payload_fragment      ), //i
-    .outputs_0_valid               (lifo_demux_outputs_0_valid             ), //o
-    .outputs_0_ready               (decoded_lifo_0_push_ready              ), //i
-    .outputs_0_payload_last        (lifo_demux_outputs_0_payload_last      ), //o
-    .outputs_0_payload_fragment    (lifo_demux_outputs_0_payload_fragment  ), //o
-    .outputs_1_valid               (lifo_demux_outputs_1_valid             ), //o
-    .outputs_1_ready               (decoded_lifo_1_push_ready              ), //i
-    .outputs_1_payload_last        (lifo_demux_outputs_1_payload_last      ), //o
-    .outputs_1_payload_fragment    (lifo_demux_outputs_1_payload_fragment  )  //o
+    .select_1                   (lifo_push_sel                        ), //i
+    .input_valid                (lifo_demux_input_valid               ), //i
+    .input_ready                (lifo_demux_input_ready               ), //o
+    .input_payload_last         (lifo_demux_input_payload_last        ), //i
+    .input_payload_fragment     (lifo_demux_input_payload_fragment    ), //i
+    .outputs_0_valid            (lifo_demux_outputs_0_valid           ), //o
+    .outputs_0_ready            (decoded_lifo_0_push_ready            ), //i
+    .outputs_0_payload_last     (lifo_demux_outputs_0_payload_last    ), //o
+    .outputs_0_payload_fragment (lifo_demux_outputs_0_payload_fragment), //o
+    .outputs_1_valid            (lifo_demux_outputs_1_valid           ), //o
+    .outputs_1_ready            (decoded_lifo_1_push_ready            ), //i
+    .outputs_1_payload_last     (lifo_demux_outputs_1_payload_last    ), //o
+    .outputs_1_payload_fragment (lifo_demux_outputs_1_payload_fragment)  //o
   );
   LifoMux lifo_mux (
-    .io_select                       (lifo_mux_io_select                   ), //i
-    .io_inputs_0_valid               (decoded_lifo_0_pop_valid             ), //i
-    .io_inputs_0_ready               (lifo_mux_io_inputs_0_ready           ), //o
-    .io_inputs_0_payload_last        (decoded_lifo_0_pop_payload_last      ), //i
-    .io_inputs_0_payload_fragment    (decoded_lifo_0_pop_payload_fragment  ), //i
-    .io_inputs_1_valid               (decoded_lifo_1_pop_valid             ), //i
-    .io_inputs_1_ready               (lifo_mux_io_inputs_1_ready           ), //o
-    .io_inputs_1_payload_last        (decoded_lifo_1_pop_payload_last      ), //i
-    .io_inputs_1_payload_fragment    (decoded_lifo_1_pop_payload_fragment  ), //i
-    .io_output_valid                 (lifo_mux_io_output_valid             ), //o
-    .io_output_ready                 (1'b1                                 ), //i
-    .io_output_payload_last          (lifo_mux_io_output_payload_last      ), //o
-    .io_output_payload_fragment      (lifo_mux_io_output_payload_fragment  )  //o
+    .io_select                    (lifo_mux_io_select                 ), //i
+    .io_inputs_0_valid            (decoded_lifo_0_pop_valid           ), //i
+    .io_inputs_0_ready            (lifo_mux_io_inputs_0_ready         ), //o
+    .io_inputs_0_payload_last     (decoded_lifo_0_pop_payload_last    ), //i
+    .io_inputs_0_payload_fragment (decoded_lifo_0_pop_payload_fragment), //i
+    .io_inputs_1_valid            (decoded_lifo_1_pop_valid           ), //i
+    .io_inputs_1_ready            (lifo_mux_io_inputs_1_ready         ), //o
+    .io_inputs_1_payload_last     (decoded_lifo_1_pop_payload_last    ), //i
+    .io_inputs_1_payload_fragment (decoded_lifo_1_pop_payload_fragment), //i
+    .io_output_valid              (lifo_mux_io_output_valid           ), //o
+    .io_output_ready              (1'b1                               ), //i
+    .io_output_payload_last       (lifo_mux_io_output_payload_last    ), //o
+    .io_output_payload_fragment   (lifo_mux_io_output_payload_fragment)  //o
   );
   `ifndef SYNTHESIS
   always @(*) begin
@@ -1441,11 +1443,11 @@ module Traceback (
   assign _zz_survival_path_ram_2_port_1 = ((ram_select == 2'b10) && s_path_valid);
   assign _zz_ram_2_value = 1'b1;
   initial begin
-    $readmemb("/home/missdown/IdeaProjects/MAGI_PROJECT/./simWorkspace/ConvCombTest/rtl/ConvCombTest.v_toplevel_decoder_tbu_core_states_shift_rom.bin",states_shift_rom);
+    $readmemb("/mnt/BackUp/IdeaProjects/MAGI_PROJECT/tmp/job_1/ConvCombTest.v_toplevel_decoder_tbu_core_states_shift_rom.bin",states_shift_rom);
   end
   assign _zz_states_shift_rom_port0 = states_shift_rom[cursor];
   initial begin
-    $readmemb("/home/missdown/IdeaProjects/MAGI_PROJECT/./simWorkspace/ConvCombTest/rtl/ConvCombTest.v_toplevel_decoder_tbu_core_in_data_rom.bin",in_data_rom);
+    $readmemb("/mnt/BackUp/IdeaProjects/MAGI_PROJECT/tmp/job_1/ConvCombTest.v_toplevel_decoder_tbu_core_in_data_rom.bin",in_data_rom);
   end
   assign _zz_in_data_rom_port0 = in_data_rom[cursor];
   always @(posedge clk) begin
@@ -2275,1098 +2277,1098 @@ module PathMetric (
   wire                when_PathMetric_l29;
 
   BranchMetric branchMetric_64 (
-    .trellis_unit_0       (2'b00                                    ), //i
-    .trellis_unit_1       (2'b11                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_64_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_64_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b00                                  ), //i
+    .trellis_unit_1    (2'b11                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_64_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_64_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_64 (
-    .last_state_weight_0    (node_weight_0[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_1[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_64_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_64_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_64_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_64_decision            )  //o
+    .last_state_weight_0 (node_weight_0[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_1[15:0]                   ), //i
+    .dist_0              (addCompareSelect_64_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_64_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_64_state_weight[15:0]), //o
+    .decision            (addCompareSelect_64_decision          )  //o
   );
   BranchMetric branchMetric_65 (
-    .trellis_unit_0       (2'b10                                    ), //i
-    .trellis_unit_1       (2'b01                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_65_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_65_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b10                                  ), //i
+    .trellis_unit_1    (2'b01                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_65_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_65_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_65 (
-    .last_state_weight_0    (node_weight_2[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_3[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_65_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_65_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_65_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_65_decision            )  //o
+    .last_state_weight_0 (node_weight_2[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_3[15:0]                   ), //i
+    .dist_0              (addCompareSelect_65_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_65_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_65_state_weight[15:0]), //o
+    .decision            (addCompareSelect_65_decision          )  //o
   );
   BranchMetric branchMetric_66 (
-    .trellis_unit_0       (2'b00                                    ), //i
-    .trellis_unit_1       (2'b11                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_66_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_66_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b00                                  ), //i
+    .trellis_unit_1    (2'b11                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_66_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_66_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_66 (
-    .last_state_weight_0    (node_weight_4[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_5[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_66_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_66_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_66_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_66_decision            )  //o
+    .last_state_weight_0 (node_weight_4[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_5[15:0]                   ), //i
+    .dist_0              (addCompareSelect_66_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_66_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_66_state_weight[15:0]), //o
+    .decision            (addCompareSelect_66_decision          )  //o
   );
   BranchMetric branchMetric_67 (
-    .trellis_unit_0       (2'b10                                    ), //i
-    .trellis_unit_1       (2'b01                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_67_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_67_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b10                                  ), //i
+    .trellis_unit_1    (2'b01                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_67_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_67_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_67 (
-    .last_state_weight_0    (node_weight_6[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_7[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_67_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_67_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_67_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_67_decision            )  //o
+    .last_state_weight_0 (node_weight_6[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_7[15:0]                   ), //i
+    .dist_0              (addCompareSelect_67_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_67_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_67_state_weight[15:0]), //o
+    .decision            (addCompareSelect_67_decision          )  //o
   );
   BranchMetric branchMetric_68 (
-    .trellis_unit_0       (2'b11                                    ), //i
-    .trellis_unit_1       (2'b00                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_68_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_68_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b11                                  ), //i
+    .trellis_unit_1    (2'b00                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_68_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_68_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_68 (
-    .last_state_weight_0    (node_weight_8[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_9[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_68_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_68_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_68_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_68_decision            )  //o
+    .last_state_weight_0 (node_weight_8[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_9[15:0]                   ), //i
+    .dist_0              (addCompareSelect_68_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_68_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_68_state_weight[15:0]), //o
+    .decision            (addCompareSelect_68_decision          )  //o
   );
   BranchMetric branchMetric_69 (
-    .trellis_unit_0       (2'b01                                    ), //i
-    .trellis_unit_1       (2'b10                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_69_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_69_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b01                                  ), //i
+    .trellis_unit_1    (2'b10                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_69_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_69_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_69 (
-    .last_state_weight_0    (node_weight_10[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_11[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_69_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_69_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_69_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_69_decision            )  //o
+    .last_state_weight_0 (node_weight_10[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_11[15:0]                  ), //i
+    .dist_0              (addCompareSelect_69_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_69_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_69_state_weight[15:0]), //o
+    .decision            (addCompareSelect_69_decision          )  //o
   );
   BranchMetric branchMetric_70 (
-    .trellis_unit_0       (2'b11                                    ), //i
-    .trellis_unit_1       (2'b00                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_70_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_70_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b11                                  ), //i
+    .trellis_unit_1    (2'b00                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_70_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_70_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_70 (
-    .last_state_weight_0    (node_weight_12[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_13[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_70_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_70_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_70_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_70_decision            )  //o
+    .last_state_weight_0 (node_weight_12[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_13[15:0]                  ), //i
+    .dist_0              (addCompareSelect_70_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_70_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_70_state_weight[15:0]), //o
+    .decision            (addCompareSelect_70_decision          )  //o
   );
   BranchMetric branchMetric_71 (
-    .trellis_unit_0       (2'b01                                    ), //i
-    .trellis_unit_1       (2'b10                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_71_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_71_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b01                                  ), //i
+    .trellis_unit_1    (2'b10                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_71_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_71_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_71 (
-    .last_state_weight_0    (node_weight_14[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_15[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_71_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_71_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_71_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_71_decision            )  //o
+    .last_state_weight_0 (node_weight_14[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_15[15:0]                  ), //i
+    .dist_0              (addCompareSelect_71_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_71_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_71_state_weight[15:0]), //o
+    .decision            (addCompareSelect_71_decision          )  //o
   );
   BranchMetric branchMetric_72 (
-    .trellis_unit_0       (2'b11                                    ), //i
-    .trellis_unit_1       (2'b00                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_72_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_72_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b11                                  ), //i
+    .trellis_unit_1    (2'b00                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_72_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_72_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_72 (
-    .last_state_weight_0    (node_weight_16[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_17[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_72_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_72_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_72_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_72_decision            )  //o
+    .last_state_weight_0 (node_weight_16[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_17[15:0]                  ), //i
+    .dist_0              (addCompareSelect_72_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_72_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_72_state_weight[15:0]), //o
+    .decision            (addCompareSelect_72_decision          )  //o
   );
   BranchMetric branchMetric_73 (
-    .trellis_unit_0       (2'b01                                    ), //i
-    .trellis_unit_1       (2'b10                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_73_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_73_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b01                                  ), //i
+    .trellis_unit_1    (2'b10                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_73_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_73_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_73 (
-    .last_state_weight_0    (node_weight_18[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_19[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_73_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_73_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_73_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_73_decision            )  //o
+    .last_state_weight_0 (node_weight_18[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_19[15:0]                  ), //i
+    .dist_0              (addCompareSelect_73_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_73_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_73_state_weight[15:0]), //o
+    .decision            (addCompareSelect_73_decision          )  //o
   );
   BranchMetric branchMetric_74 (
-    .trellis_unit_0       (2'b11                                    ), //i
-    .trellis_unit_1       (2'b00                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_74_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_74_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b11                                  ), //i
+    .trellis_unit_1    (2'b00                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_74_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_74_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_74 (
-    .last_state_weight_0    (node_weight_20[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_21[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_74_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_74_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_74_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_74_decision            )  //o
+    .last_state_weight_0 (node_weight_20[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_21[15:0]                  ), //i
+    .dist_0              (addCompareSelect_74_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_74_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_74_state_weight[15:0]), //o
+    .decision            (addCompareSelect_74_decision          )  //o
   );
   BranchMetric branchMetric_75 (
-    .trellis_unit_0       (2'b01                                    ), //i
-    .trellis_unit_1       (2'b10                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_75_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_75_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b01                                  ), //i
+    .trellis_unit_1    (2'b10                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_75_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_75_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_75 (
-    .last_state_weight_0    (node_weight_22[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_23[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_75_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_75_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_75_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_75_decision            )  //o
+    .last_state_weight_0 (node_weight_22[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_23[15:0]                  ), //i
+    .dist_0              (addCompareSelect_75_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_75_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_75_state_weight[15:0]), //o
+    .decision            (addCompareSelect_75_decision          )  //o
   );
   BranchMetric branchMetric_76 (
-    .trellis_unit_0       (2'b00                                    ), //i
-    .trellis_unit_1       (2'b11                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_76_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_76_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b00                                  ), //i
+    .trellis_unit_1    (2'b11                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_76_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_76_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_76 (
-    .last_state_weight_0    (node_weight_24[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_25[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_76_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_76_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_76_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_76_decision            )  //o
+    .last_state_weight_0 (node_weight_24[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_25[15:0]                  ), //i
+    .dist_0              (addCompareSelect_76_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_76_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_76_state_weight[15:0]), //o
+    .decision            (addCompareSelect_76_decision          )  //o
   );
   BranchMetric branchMetric_77 (
-    .trellis_unit_0       (2'b10                                    ), //i
-    .trellis_unit_1       (2'b01                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_77_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_77_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b10                                  ), //i
+    .trellis_unit_1    (2'b01                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_77_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_77_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_77 (
-    .last_state_weight_0    (node_weight_26[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_27[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_77_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_77_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_77_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_77_decision            )  //o
+    .last_state_weight_0 (node_weight_26[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_27[15:0]                  ), //i
+    .dist_0              (addCompareSelect_77_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_77_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_77_state_weight[15:0]), //o
+    .decision            (addCompareSelect_77_decision          )  //o
   );
   BranchMetric branchMetric_78 (
-    .trellis_unit_0       (2'b00                                    ), //i
-    .trellis_unit_1       (2'b11                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_78_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_78_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b00                                  ), //i
+    .trellis_unit_1    (2'b11                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_78_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_78_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_78 (
-    .last_state_weight_0    (node_weight_28[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_29[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_78_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_78_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_78_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_78_decision            )  //o
+    .last_state_weight_0 (node_weight_28[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_29[15:0]                  ), //i
+    .dist_0              (addCompareSelect_78_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_78_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_78_state_weight[15:0]), //o
+    .decision            (addCompareSelect_78_decision          )  //o
   );
   BranchMetric branchMetric_79 (
-    .trellis_unit_0       (2'b10                                    ), //i
-    .trellis_unit_1       (2'b01                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_79_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_79_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b10                                  ), //i
+    .trellis_unit_1    (2'b01                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_79_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_79_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_79 (
-    .last_state_weight_0    (node_weight_30[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_31[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_79_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_79_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_79_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_79_decision            )  //o
+    .last_state_weight_0 (node_weight_30[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_31[15:0]                  ), //i
+    .dist_0              (addCompareSelect_79_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_79_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_79_state_weight[15:0]), //o
+    .decision            (addCompareSelect_79_decision          )  //o
   );
   BranchMetric branchMetric_80 (
-    .trellis_unit_0       (2'b01                                    ), //i
-    .trellis_unit_1       (2'b10                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_80_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_80_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b01                                  ), //i
+    .trellis_unit_1    (2'b10                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_80_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_80_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_80 (
-    .last_state_weight_0    (node_weight_32[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_33[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_80_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_80_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_80_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_80_decision            )  //o
+    .last_state_weight_0 (node_weight_32[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_33[15:0]                  ), //i
+    .dist_0              (addCompareSelect_80_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_80_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_80_state_weight[15:0]), //o
+    .decision            (addCompareSelect_80_decision          )  //o
   );
   BranchMetric branchMetric_81 (
-    .trellis_unit_0       (2'b11                                    ), //i
-    .trellis_unit_1       (2'b00                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_81_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_81_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b11                                  ), //i
+    .trellis_unit_1    (2'b00                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_81_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_81_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_81 (
-    .last_state_weight_0    (node_weight_34[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_35[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_81_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_81_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_81_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_81_decision            )  //o
+    .last_state_weight_0 (node_weight_34[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_35[15:0]                  ), //i
+    .dist_0              (addCompareSelect_81_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_81_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_81_state_weight[15:0]), //o
+    .decision            (addCompareSelect_81_decision          )  //o
   );
   BranchMetric branchMetric_82 (
-    .trellis_unit_0       (2'b01                                    ), //i
-    .trellis_unit_1       (2'b10                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_82_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_82_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b01                                  ), //i
+    .trellis_unit_1    (2'b10                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_82_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_82_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_82 (
-    .last_state_weight_0    (node_weight_36[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_37[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_82_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_82_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_82_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_82_decision            )  //o
+    .last_state_weight_0 (node_weight_36[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_37[15:0]                  ), //i
+    .dist_0              (addCompareSelect_82_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_82_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_82_state_weight[15:0]), //o
+    .decision            (addCompareSelect_82_decision          )  //o
   );
   BranchMetric branchMetric_83 (
-    .trellis_unit_0       (2'b11                                    ), //i
-    .trellis_unit_1       (2'b00                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_83_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_83_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b11                                  ), //i
+    .trellis_unit_1    (2'b00                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_83_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_83_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_83 (
-    .last_state_weight_0    (node_weight_38[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_39[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_83_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_83_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_83_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_83_decision            )  //o
+    .last_state_weight_0 (node_weight_38[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_39[15:0]                  ), //i
+    .dist_0              (addCompareSelect_83_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_83_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_83_state_weight[15:0]), //o
+    .decision            (addCompareSelect_83_decision          )  //o
   );
   BranchMetric branchMetric_84 (
-    .trellis_unit_0       (2'b10                                    ), //i
-    .trellis_unit_1       (2'b01                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_84_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_84_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b10                                  ), //i
+    .trellis_unit_1    (2'b01                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_84_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_84_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_84 (
-    .last_state_weight_0    (node_weight_40[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_41[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_84_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_84_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_84_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_84_decision            )  //o
+    .last_state_weight_0 (node_weight_40[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_41[15:0]                  ), //i
+    .dist_0              (addCompareSelect_84_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_84_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_84_state_weight[15:0]), //o
+    .decision            (addCompareSelect_84_decision          )  //o
   );
   BranchMetric branchMetric_85 (
-    .trellis_unit_0       (2'b00                                    ), //i
-    .trellis_unit_1       (2'b11                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_85_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_85_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b00                                  ), //i
+    .trellis_unit_1    (2'b11                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_85_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_85_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_85 (
-    .last_state_weight_0    (node_weight_42[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_43[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_85_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_85_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_85_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_85_decision            )  //o
+    .last_state_weight_0 (node_weight_42[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_43[15:0]                  ), //i
+    .dist_0              (addCompareSelect_85_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_85_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_85_state_weight[15:0]), //o
+    .decision            (addCompareSelect_85_decision          )  //o
   );
   BranchMetric branchMetric_86 (
-    .trellis_unit_0       (2'b10                                    ), //i
-    .trellis_unit_1       (2'b01                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_86_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_86_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b10                                  ), //i
+    .trellis_unit_1    (2'b01                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_86_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_86_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_86 (
-    .last_state_weight_0    (node_weight_44[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_45[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_86_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_86_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_86_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_86_decision            )  //o
+    .last_state_weight_0 (node_weight_44[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_45[15:0]                  ), //i
+    .dist_0              (addCompareSelect_86_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_86_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_86_state_weight[15:0]), //o
+    .decision            (addCompareSelect_86_decision          )  //o
   );
   BranchMetric branchMetric_87 (
-    .trellis_unit_0       (2'b00                                    ), //i
-    .trellis_unit_1       (2'b11                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_87_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_87_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b00                                  ), //i
+    .trellis_unit_1    (2'b11                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_87_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_87_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_87 (
-    .last_state_weight_0    (node_weight_46[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_47[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_87_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_87_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_87_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_87_decision            )  //o
+    .last_state_weight_0 (node_weight_46[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_47[15:0]                  ), //i
+    .dist_0              (addCompareSelect_87_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_87_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_87_state_weight[15:0]), //o
+    .decision            (addCompareSelect_87_decision          )  //o
   );
   BranchMetric branchMetric_88 (
-    .trellis_unit_0       (2'b10                                    ), //i
-    .trellis_unit_1       (2'b01                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_88_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_88_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b10                                  ), //i
+    .trellis_unit_1    (2'b01                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_88_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_88_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_88 (
-    .last_state_weight_0    (node_weight_48[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_49[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_88_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_88_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_88_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_88_decision            )  //o
+    .last_state_weight_0 (node_weight_48[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_49[15:0]                  ), //i
+    .dist_0              (addCompareSelect_88_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_88_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_88_state_weight[15:0]), //o
+    .decision            (addCompareSelect_88_decision          )  //o
   );
   BranchMetric branchMetric_89 (
-    .trellis_unit_0       (2'b00                                    ), //i
-    .trellis_unit_1       (2'b11                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_89_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_89_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b00                                  ), //i
+    .trellis_unit_1    (2'b11                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_89_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_89_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_89 (
-    .last_state_weight_0    (node_weight_50[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_51[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_89_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_89_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_89_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_89_decision            )  //o
+    .last_state_weight_0 (node_weight_50[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_51[15:0]                  ), //i
+    .dist_0              (addCompareSelect_89_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_89_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_89_state_weight[15:0]), //o
+    .decision            (addCompareSelect_89_decision          )  //o
   );
   BranchMetric branchMetric_90 (
-    .trellis_unit_0       (2'b10                                    ), //i
-    .trellis_unit_1       (2'b01                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_90_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_90_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b10                                  ), //i
+    .trellis_unit_1    (2'b01                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_90_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_90_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_90 (
-    .last_state_weight_0    (node_weight_52[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_53[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_90_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_90_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_90_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_90_decision            )  //o
+    .last_state_weight_0 (node_weight_52[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_53[15:0]                  ), //i
+    .dist_0              (addCompareSelect_90_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_90_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_90_state_weight[15:0]), //o
+    .decision            (addCompareSelect_90_decision          )  //o
   );
   BranchMetric branchMetric_91 (
-    .trellis_unit_0       (2'b00                                    ), //i
-    .trellis_unit_1       (2'b11                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_91_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_91_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b00                                  ), //i
+    .trellis_unit_1    (2'b11                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_91_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_91_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_91 (
-    .last_state_weight_0    (node_weight_54[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_55[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_91_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_91_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_91_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_91_decision            )  //o
+    .last_state_weight_0 (node_weight_54[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_55[15:0]                  ), //i
+    .dist_0              (addCompareSelect_91_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_91_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_91_state_weight[15:0]), //o
+    .decision            (addCompareSelect_91_decision          )  //o
   );
   BranchMetric branchMetric_92 (
-    .trellis_unit_0       (2'b01                                    ), //i
-    .trellis_unit_1       (2'b10                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_92_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_92_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b01                                  ), //i
+    .trellis_unit_1    (2'b10                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_92_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_92_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_92 (
-    .last_state_weight_0    (node_weight_56[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_57[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_92_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_92_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_92_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_92_decision            )  //o
+    .last_state_weight_0 (node_weight_56[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_57[15:0]                  ), //i
+    .dist_0              (addCompareSelect_92_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_92_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_92_state_weight[15:0]), //o
+    .decision            (addCompareSelect_92_decision          )  //o
   );
   BranchMetric branchMetric_93 (
-    .trellis_unit_0       (2'b11                                    ), //i
-    .trellis_unit_1       (2'b00                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_93_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_93_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b11                                  ), //i
+    .trellis_unit_1    (2'b00                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_93_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_93_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_93 (
-    .last_state_weight_0    (node_weight_58[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_59[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_93_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_93_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_93_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_93_decision            )  //o
+    .last_state_weight_0 (node_weight_58[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_59[15:0]                  ), //i
+    .dist_0              (addCompareSelect_93_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_93_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_93_state_weight[15:0]), //o
+    .decision            (addCompareSelect_93_decision          )  //o
   );
   BranchMetric branchMetric_94 (
-    .trellis_unit_0       (2'b01                                    ), //i
-    .trellis_unit_1       (2'b10                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_94_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_94_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b01                                  ), //i
+    .trellis_unit_1    (2'b10                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_94_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_94_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_94 (
-    .last_state_weight_0    (node_weight_60[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_61[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_94_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_94_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_94_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_94_decision            )  //o
+    .last_state_weight_0 (node_weight_60[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_61[15:0]                  ), //i
+    .dist_0              (addCompareSelect_94_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_94_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_94_state_weight[15:0]), //o
+    .decision            (addCompareSelect_94_decision          )  //o
   );
   BranchMetric branchMetric_95 (
-    .trellis_unit_0       (2'b11                                    ), //i
-    .trellis_unit_1       (2'b00                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_95_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_95_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b11                                  ), //i
+    .trellis_unit_1    (2'b00                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_95_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_95_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_95 (
-    .last_state_weight_0    (node_weight_62[15:0]                    ), //i
-    .last_state_weight_1    (node_weight_63[15:0]                    ), //i
-    .dist_0                 (addCompareSelect_95_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_95_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_95_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_95_decision            )  //o
+    .last_state_weight_0 (node_weight_62[15:0]                  ), //i
+    .last_state_weight_1 (node_weight_63[15:0]                  ), //i
+    .dist_0              (addCompareSelect_95_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_95_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_95_state_weight[15:0]), //o
+    .decision            (addCompareSelect_95_decision          )  //o
   );
   BranchMetric branchMetric_96 (
-    .trellis_unit_0       (2'b11                                    ), //i
-    .trellis_unit_1       (2'b00                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_96_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_96_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b11                                  ), //i
+    .trellis_unit_1    (2'b00                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_96_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_96_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_96 (
-    .last_state_weight_0    (node_weight_0[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_1[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_96_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_96_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_96_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_96_decision            )  //o
+    .last_state_weight_0 (node_weight_0[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_1[15:0]                   ), //i
+    .dist_0              (addCompareSelect_96_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_96_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_96_state_weight[15:0]), //o
+    .decision            (addCompareSelect_96_decision          )  //o
   );
   BranchMetric branchMetric_97 (
-    .trellis_unit_0       (2'b01                                    ), //i
-    .trellis_unit_1       (2'b10                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_97_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_97_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b01                                  ), //i
+    .trellis_unit_1    (2'b10                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_97_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_97_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_97 (
-    .last_state_weight_0    (node_weight_2[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_3[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_97_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_97_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_97_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_97_decision            )  //o
+    .last_state_weight_0 (node_weight_2[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_3[15:0]                   ), //i
+    .dist_0              (addCompareSelect_97_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_97_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_97_state_weight[15:0]), //o
+    .decision            (addCompareSelect_97_decision          )  //o
   );
   BranchMetric branchMetric_98 (
-    .trellis_unit_0       (2'b11                                    ), //i
-    .trellis_unit_1       (2'b00                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_98_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_98_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b11                                  ), //i
+    .trellis_unit_1    (2'b00                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_98_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_98_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_98 (
-    .last_state_weight_0    (node_weight_4[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_5[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_98_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_98_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_98_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_98_decision            )  //o
+    .last_state_weight_0 (node_weight_4[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_5[15:0]                   ), //i
+    .dist_0              (addCompareSelect_98_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_98_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_98_state_weight[15:0]), //o
+    .decision            (addCompareSelect_98_decision          )  //o
   );
   BranchMetric branchMetric_99 (
-    .trellis_unit_0       (2'b01                                    ), //i
-    .trellis_unit_1       (2'b10                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_99_dist_0[2:0]              ), //o
-    .dist_1               (branchMetric_99_dist_1[2:0]              )  //o
+    .trellis_unit_0    (2'b01                                  ), //i
+    .trellis_unit_1    (2'b10                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_99_dist_0[2:0]            ), //o
+    .dist_1            (branchMetric_99_dist_1[2:0]            )  //o
   );
   AddCompareSelect addCompareSelect_99 (
-    .last_state_weight_0    (node_weight_6[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_7[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_99_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_99_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_99_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_99_decision            )  //o
+    .last_state_weight_0 (node_weight_6[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_7[15:0]                   ), //i
+    .dist_0              (addCompareSelect_99_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_99_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_99_state_weight[15:0]), //o
+    .decision            (addCompareSelect_99_decision          )  //o
   );
   BranchMetric branchMetric_100 (
-    .trellis_unit_0       (2'b00                                    ), //i
-    .trellis_unit_1       (2'b11                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_100_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_100_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b00                                  ), //i
+    .trellis_unit_1    (2'b11                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_100_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_100_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_100 (
-    .last_state_weight_0    (node_weight_8[15:0]                      ), //i
-    .last_state_weight_1    (node_weight_9[15:0]                      ), //i
-    .dist_0                 (addCompareSelect_100_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_100_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_100_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_100_decision            )  //o
+    .last_state_weight_0 (node_weight_8[15:0]                    ), //i
+    .last_state_weight_1 (node_weight_9[15:0]                    ), //i
+    .dist_0              (addCompareSelect_100_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_100_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_100_state_weight[15:0]), //o
+    .decision            (addCompareSelect_100_decision          )  //o
   );
   BranchMetric branchMetric_101 (
-    .trellis_unit_0       (2'b10                                    ), //i
-    .trellis_unit_1       (2'b01                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_101_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_101_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b10                                  ), //i
+    .trellis_unit_1    (2'b01                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_101_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_101_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_101 (
-    .last_state_weight_0    (node_weight_10[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_11[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_101_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_101_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_101_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_101_decision            )  //o
+    .last_state_weight_0 (node_weight_10[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_11[15:0]                   ), //i
+    .dist_0              (addCompareSelect_101_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_101_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_101_state_weight[15:0]), //o
+    .decision            (addCompareSelect_101_decision          )  //o
   );
   BranchMetric branchMetric_102 (
-    .trellis_unit_0       (2'b00                                    ), //i
-    .trellis_unit_1       (2'b11                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_102_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_102_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b00                                  ), //i
+    .trellis_unit_1    (2'b11                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_102_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_102_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_102 (
-    .last_state_weight_0    (node_weight_12[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_13[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_102_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_102_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_102_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_102_decision            )  //o
+    .last_state_weight_0 (node_weight_12[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_13[15:0]                   ), //i
+    .dist_0              (addCompareSelect_102_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_102_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_102_state_weight[15:0]), //o
+    .decision            (addCompareSelect_102_decision          )  //o
   );
   BranchMetric branchMetric_103 (
-    .trellis_unit_0       (2'b10                                    ), //i
-    .trellis_unit_1       (2'b01                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_103_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_103_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b10                                  ), //i
+    .trellis_unit_1    (2'b01                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_103_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_103_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_103 (
-    .last_state_weight_0    (node_weight_14[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_15[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_103_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_103_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_103_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_103_decision            )  //o
+    .last_state_weight_0 (node_weight_14[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_15[15:0]                   ), //i
+    .dist_0              (addCompareSelect_103_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_103_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_103_state_weight[15:0]), //o
+    .decision            (addCompareSelect_103_decision          )  //o
   );
   BranchMetric branchMetric_104 (
-    .trellis_unit_0       (2'b00                                    ), //i
-    .trellis_unit_1       (2'b11                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_104_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_104_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b00                                  ), //i
+    .trellis_unit_1    (2'b11                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_104_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_104_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_104 (
-    .last_state_weight_0    (node_weight_16[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_17[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_104_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_104_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_104_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_104_decision            )  //o
+    .last_state_weight_0 (node_weight_16[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_17[15:0]                   ), //i
+    .dist_0              (addCompareSelect_104_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_104_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_104_state_weight[15:0]), //o
+    .decision            (addCompareSelect_104_decision          )  //o
   );
   BranchMetric branchMetric_105 (
-    .trellis_unit_0       (2'b10                                    ), //i
-    .trellis_unit_1       (2'b01                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_105_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_105_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b10                                  ), //i
+    .trellis_unit_1    (2'b01                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_105_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_105_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_105 (
-    .last_state_weight_0    (node_weight_18[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_19[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_105_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_105_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_105_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_105_decision            )  //o
+    .last_state_weight_0 (node_weight_18[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_19[15:0]                   ), //i
+    .dist_0              (addCompareSelect_105_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_105_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_105_state_weight[15:0]), //o
+    .decision            (addCompareSelect_105_decision          )  //o
   );
   BranchMetric branchMetric_106 (
-    .trellis_unit_0       (2'b00                                    ), //i
-    .trellis_unit_1       (2'b11                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_106_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_106_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b00                                  ), //i
+    .trellis_unit_1    (2'b11                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_106_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_106_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_106 (
-    .last_state_weight_0    (node_weight_20[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_21[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_106_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_106_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_106_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_106_decision            )  //o
+    .last_state_weight_0 (node_weight_20[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_21[15:0]                   ), //i
+    .dist_0              (addCompareSelect_106_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_106_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_106_state_weight[15:0]), //o
+    .decision            (addCompareSelect_106_decision          )  //o
   );
   BranchMetric branchMetric_107 (
-    .trellis_unit_0       (2'b10                                    ), //i
-    .trellis_unit_1       (2'b01                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_107_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_107_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b10                                  ), //i
+    .trellis_unit_1    (2'b01                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_107_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_107_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_107 (
-    .last_state_weight_0    (node_weight_22[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_23[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_107_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_107_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_107_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_107_decision            )  //o
+    .last_state_weight_0 (node_weight_22[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_23[15:0]                   ), //i
+    .dist_0              (addCompareSelect_107_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_107_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_107_state_weight[15:0]), //o
+    .decision            (addCompareSelect_107_decision          )  //o
   );
   BranchMetric branchMetric_108 (
-    .trellis_unit_0       (2'b11                                    ), //i
-    .trellis_unit_1       (2'b00                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_108_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_108_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b11                                  ), //i
+    .trellis_unit_1    (2'b00                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_108_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_108_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_108 (
-    .last_state_weight_0    (node_weight_24[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_25[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_108_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_108_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_108_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_108_decision            )  //o
+    .last_state_weight_0 (node_weight_24[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_25[15:0]                   ), //i
+    .dist_0              (addCompareSelect_108_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_108_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_108_state_weight[15:0]), //o
+    .decision            (addCompareSelect_108_decision          )  //o
   );
   BranchMetric branchMetric_109 (
-    .trellis_unit_0       (2'b01                                    ), //i
-    .trellis_unit_1       (2'b10                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_109_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_109_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b01                                  ), //i
+    .trellis_unit_1    (2'b10                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_109_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_109_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_109 (
-    .last_state_weight_0    (node_weight_26[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_27[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_109_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_109_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_109_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_109_decision            )  //o
+    .last_state_weight_0 (node_weight_26[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_27[15:0]                   ), //i
+    .dist_0              (addCompareSelect_109_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_109_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_109_state_weight[15:0]), //o
+    .decision            (addCompareSelect_109_decision          )  //o
   );
   BranchMetric branchMetric_110 (
-    .trellis_unit_0       (2'b11                                    ), //i
-    .trellis_unit_1       (2'b00                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_110_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_110_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b11                                  ), //i
+    .trellis_unit_1    (2'b00                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_110_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_110_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_110 (
-    .last_state_weight_0    (node_weight_28[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_29[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_110_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_110_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_110_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_110_decision            )  //o
+    .last_state_weight_0 (node_weight_28[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_29[15:0]                   ), //i
+    .dist_0              (addCompareSelect_110_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_110_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_110_state_weight[15:0]), //o
+    .decision            (addCompareSelect_110_decision          )  //o
   );
   BranchMetric branchMetric_111 (
-    .trellis_unit_0       (2'b01                                    ), //i
-    .trellis_unit_1       (2'b10                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_111_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_111_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b01                                  ), //i
+    .trellis_unit_1    (2'b10                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_111_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_111_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_111 (
-    .last_state_weight_0    (node_weight_30[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_31[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_111_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_111_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_111_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_111_decision            )  //o
+    .last_state_weight_0 (node_weight_30[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_31[15:0]                   ), //i
+    .dist_0              (addCompareSelect_111_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_111_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_111_state_weight[15:0]), //o
+    .decision            (addCompareSelect_111_decision          )  //o
   );
   BranchMetric branchMetric_112 (
-    .trellis_unit_0       (2'b10                                    ), //i
-    .trellis_unit_1       (2'b01                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_112_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_112_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b10                                  ), //i
+    .trellis_unit_1    (2'b01                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_112_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_112_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_112 (
-    .last_state_weight_0    (node_weight_32[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_33[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_112_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_112_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_112_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_112_decision            )  //o
+    .last_state_weight_0 (node_weight_32[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_33[15:0]                   ), //i
+    .dist_0              (addCompareSelect_112_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_112_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_112_state_weight[15:0]), //o
+    .decision            (addCompareSelect_112_decision          )  //o
   );
   BranchMetric branchMetric_113 (
-    .trellis_unit_0       (2'b00                                    ), //i
-    .trellis_unit_1       (2'b11                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_113_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_113_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b00                                  ), //i
+    .trellis_unit_1    (2'b11                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_113_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_113_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_113 (
-    .last_state_weight_0    (node_weight_34[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_35[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_113_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_113_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_113_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_113_decision            )  //o
+    .last_state_weight_0 (node_weight_34[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_35[15:0]                   ), //i
+    .dist_0              (addCompareSelect_113_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_113_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_113_state_weight[15:0]), //o
+    .decision            (addCompareSelect_113_decision          )  //o
   );
   BranchMetric branchMetric_114 (
-    .trellis_unit_0       (2'b10                                    ), //i
-    .trellis_unit_1       (2'b01                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_114_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_114_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b10                                  ), //i
+    .trellis_unit_1    (2'b01                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_114_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_114_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_114 (
-    .last_state_weight_0    (node_weight_36[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_37[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_114_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_114_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_114_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_114_decision            )  //o
+    .last_state_weight_0 (node_weight_36[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_37[15:0]                   ), //i
+    .dist_0              (addCompareSelect_114_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_114_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_114_state_weight[15:0]), //o
+    .decision            (addCompareSelect_114_decision          )  //o
   );
   BranchMetric branchMetric_115 (
-    .trellis_unit_0       (2'b00                                    ), //i
-    .trellis_unit_1       (2'b11                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_115_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_115_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b00                                  ), //i
+    .trellis_unit_1    (2'b11                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_115_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_115_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_115 (
-    .last_state_weight_0    (node_weight_38[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_39[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_115_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_115_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_115_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_115_decision            )  //o
+    .last_state_weight_0 (node_weight_38[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_39[15:0]                   ), //i
+    .dist_0              (addCompareSelect_115_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_115_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_115_state_weight[15:0]), //o
+    .decision            (addCompareSelect_115_decision          )  //o
   );
   BranchMetric branchMetric_116 (
-    .trellis_unit_0       (2'b01                                    ), //i
-    .trellis_unit_1       (2'b10                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_116_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_116_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b01                                  ), //i
+    .trellis_unit_1    (2'b10                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_116_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_116_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_116 (
-    .last_state_weight_0    (node_weight_40[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_41[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_116_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_116_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_116_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_116_decision            )  //o
+    .last_state_weight_0 (node_weight_40[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_41[15:0]                   ), //i
+    .dist_0              (addCompareSelect_116_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_116_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_116_state_weight[15:0]), //o
+    .decision            (addCompareSelect_116_decision          )  //o
   );
   BranchMetric branchMetric_117 (
-    .trellis_unit_0       (2'b11                                    ), //i
-    .trellis_unit_1       (2'b00                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_117_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_117_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b11                                  ), //i
+    .trellis_unit_1    (2'b00                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_117_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_117_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_117 (
-    .last_state_weight_0    (node_weight_42[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_43[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_117_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_117_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_117_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_117_decision            )  //o
+    .last_state_weight_0 (node_weight_42[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_43[15:0]                   ), //i
+    .dist_0              (addCompareSelect_117_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_117_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_117_state_weight[15:0]), //o
+    .decision            (addCompareSelect_117_decision          )  //o
   );
   BranchMetric branchMetric_118 (
-    .trellis_unit_0       (2'b01                                    ), //i
-    .trellis_unit_1       (2'b10                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_118_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_118_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b01                                  ), //i
+    .trellis_unit_1    (2'b10                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_118_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_118_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_118 (
-    .last_state_weight_0    (node_weight_44[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_45[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_118_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_118_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_118_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_118_decision            )  //o
+    .last_state_weight_0 (node_weight_44[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_45[15:0]                   ), //i
+    .dist_0              (addCompareSelect_118_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_118_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_118_state_weight[15:0]), //o
+    .decision            (addCompareSelect_118_decision          )  //o
   );
   BranchMetric branchMetric_119 (
-    .trellis_unit_0       (2'b11                                    ), //i
-    .trellis_unit_1       (2'b00                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_119_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_119_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b11                                  ), //i
+    .trellis_unit_1    (2'b00                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_119_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_119_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_119 (
-    .last_state_weight_0    (node_weight_46[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_47[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_119_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_119_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_119_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_119_decision            )  //o
+    .last_state_weight_0 (node_weight_46[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_47[15:0]                   ), //i
+    .dist_0              (addCompareSelect_119_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_119_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_119_state_weight[15:0]), //o
+    .decision            (addCompareSelect_119_decision          )  //o
   );
   BranchMetric branchMetric_120 (
-    .trellis_unit_0       (2'b01                                    ), //i
-    .trellis_unit_1       (2'b10                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_120_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_120_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b01                                  ), //i
+    .trellis_unit_1    (2'b10                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_120_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_120_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_120 (
-    .last_state_weight_0    (node_weight_48[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_49[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_120_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_120_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_120_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_120_decision            )  //o
+    .last_state_weight_0 (node_weight_48[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_49[15:0]                   ), //i
+    .dist_0              (addCompareSelect_120_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_120_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_120_state_weight[15:0]), //o
+    .decision            (addCompareSelect_120_decision          )  //o
   );
   BranchMetric branchMetric_121 (
-    .trellis_unit_0       (2'b11                                    ), //i
-    .trellis_unit_1       (2'b00                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_121_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_121_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b11                                  ), //i
+    .trellis_unit_1    (2'b00                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_121_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_121_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_121 (
-    .last_state_weight_0    (node_weight_50[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_51[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_121_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_121_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_121_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_121_decision            )  //o
+    .last_state_weight_0 (node_weight_50[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_51[15:0]                   ), //i
+    .dist_0              (addCompareSelect_121_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_121_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_121_state_weight[15:0]), //o
+    .decision            (addCompareSelect_121_decision          )  //o
   );
   BranchMetric branchMetric_122 (
-    .trellis_unit_0       (2'b01                                    ), //i
-    .trellis_unit_1       (2'b10                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_122_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_122_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b01                                  ), //i
+    .trellis_unit_1    (2'b10                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_122_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_122_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_122 (
-    .last_state_weight_0    (node_weight_52[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_53[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_122_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_122_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_122_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_122_decision            )  //o
+    .last_state_weight_0 (node_weight_52[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_53[15:0]                   ), //i
+    .dist_0              (addCompareSelect_122_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_122_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_122_state_weight[15:0]), //o
+    .decision            (addCompareSelect_122_decision          )  //o
   );
   BranchMetric branchMetric_123 (
-    .trellis_unit_0       (2'b11                                    ), //i
-    .trellis_unit_1       (2'b00                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_123_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_123_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b11                                  ), //i
+    .trellis_unit_1    (2'b00                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_123_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_123_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_123 (
-    .last_state_weight_0    (node_weight_54[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_55[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_123_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_123_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_123_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_123_decision            )  //o
+    .last_state_weight_0 (node_weight_54[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_55[15:0]                   ), //i
+    .dist_0              (addCompareSelect_123_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_123_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_123_state_weight[15:0]), //o
+    .decision            (addCompareSelect_123_decision          )  //o
   );
   BranchMetric branchMetric_124 (
-    .trellis_unit_0       (2'b10                                    ), //i
-    .trellis_unit_1       (2'b01                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_124_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_124_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b10                                  ), //i
+    .trellis_unit_1    (2'b01                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_124_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_124_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_124 (
-    .last_state_weight_0    (node_weight_56[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_57[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_124_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_124_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_124_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_124_decision            )  //o
+    .last_state_weight_0 (node_weight_56[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_57[15:0]                   ), //i
+    .dist_0              (addCompareSelect_124_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_124_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_124_state_weight[15:0]), //o
+    .decision            (addCompareSelect_124_decision          )  //o
   );
   BranchMetric branchMetric_125 (
-    .trellis_unit_0       (2'b00                                    ), //i
-    .trellis_unit_1       (2'b11                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_125_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_125_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b00                                  ), //i
+    .trellis_unit_1    (2'b11                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_125_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_125_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_125 (
-    .last_state_weight_0    (node_weight_58[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_59[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_125_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_125_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_125_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_125_decision            )  //o
+    .last_state_weight_0 (node_weight_58[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_59[15:0]                   ), //i
+    .dist_0              (addCompareSelect_125_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_125_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_125_state_weight[15:0]), //o
+    .decision            (addCompareSelect_125_decision          )  //o
   );
   BranchMetric branchMetric_126 (
-    .trellis_unit_0       (2'b10                                    ), //i
-    .trellis_unit_1       (2'b01                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_126_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_126_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b10                                  ), //i
+    .trellis_unit_1    (2'b01                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_126_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_126_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_126 (
-    .last_state_weight_0    (node_weight_60[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_61[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_126_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_126_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_126_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_126_decision            )  //o
+    .last_state_weight_0 (node_weight_60[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_61[15:0]                   ), //i
+    .dist_0              (addCompareSelect_126_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_126_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_126_state_weight[15:0]), //o
+    .decision            (addCompareSelect_126_decision          )  //o
   );
   BranchMetric branchMetric_127 (
-    .trellis_unit_0       (2'b00                                    ), //i
-    .trellis_unit_1       (2'b11                                    ), //i
-    .raw_data_data        (raw_data_payload_fragment_data[1:0]      ), //i
-    .raw_data_indicate    (raw_data_payload_fragment_indicate[1:0]  ), //i
-    .dist_0               (branchMetric_127_dist_0[2:0]             ), //o
-    .dist_1               (branchMetric_127_dist_1[2:0]             )  //o
+    .trellis_unit_0    (2'b00                                  ), //i
+    .trellis_unit_1    (2'b11                                  ), //i
+    .raw_data_data     (raw_data_payload_fragment_data[1:0]    ), //i
+    .raw_data_indicate (raw_data_payload_fragment_indicate[1:0]), //i
+    .dist_0            (branchMetric_127_dist_0[2:0]           ), //o
+    .dist_1            (branchMetric_127_dist_1[2:0]           )  //o
   );
   AddCompareSelect addCompareSelect_127 (
-    .last_state_weight_0    (node_weight_62[15:0]                     ), //i
-    .last_state_weight_1    (node_weight_63[15:0]                     ), //i
-    .dist_0                 (addCompareSelect_127_dist_0[15:0]        ), //i
-    .dist_1                 (addCompareSelect_127_dist_1[15:0]        ), //i
-    .state_weight           (addCompareSelect_127_state_weight[15:0]  ), //o
-    .decision               (addCompareSelect_127_decision            )  //o
+    .last_state_weight_0 (node_weight_62[15:0]                   ), //i
+    .last_state_weight_1 (node_weight_63[15:0]                   ), //i
+    .dist_0              (addCompareSelect_127_dist_0[15:0]      ), //i
+    .dist_1              (addCompareSelect_127_dist_1[15:0]      ), //i
+    .state_weight        (addCompareSelect_127_state_weight[15:0]), //o
+    .decision            (addCompareSelect_127_decision          )  //o
   );
   MinVal minVal_1 (
-    .data_0     (node_weight_0[15:0]     ), //i
-    .data_1     (node_weight_1[15:0]     ), //i
-    .data_2     (node_weight_2[15:0]     ), //i
-    .data_3     (node_weight_3[15:0]     ), //i
-    .data_4     (node_weight_4[15:0]     ), //i
-    .data_5     (node_weight_5[15:0]     ), //i
-    .data_6     (node_weight_6[15:0]     ), //i
-    .data_7     (node_weight_7[15:0]     ), //i
-    .data_8     (node_weight_8[15:0]     ), //i
-    .data_9     (node_weight_9[15:0]     ), //i
-    .data_10    (node_weight_10[15:0]    ), //i
-    .data_11    (node_weight_11[15:0]    ), //i
-    .data_12    (node_weight_12[15:0]    ), //i
-    .data_13    (node_weight_13[15:0]    ), //i
-    .data_14    (node_weight_14[15:0]    ), //i
-    .data_15    (node_weight_15[15:0]    ), //i
-    .data_16    (node_weight_16[15:0]    ), //i
-    .data_17    (node_weight_17[15:0]    ), //i
-    .data_18    (node_weight_18[15:0]    ), //i
-    .data_19    (node_weight_19[15:0]    ), //i
-    .data_20    (node_weight_20[15:0]    ), //i
-    .data_21    (node_weight_21[15:0]    ), //i
-    .data_22    (node_weight_22[15:0]    ), //i
-    .data_23    (node_weight_23[15:0]    ), //i
-    .data_24    (node_weight_24[15:0]    ), //i
-    .data_25    (node_weight_25[15:0]    ), //i
-    .data_26    (node_weight_26[15:0]    ), //i
-    .data_27    (node_weight_27[15:0]    ), //i
-    .data_28    (node_weight_28[15:0]    ), //i
-    .data_29    (node_weight_29[15:0]    ), //i
-    .data_30    (node_weight_30[15:0]    ), //i
-    .data_31    (node_weight_31[15:0]    ), //i
-    .data_32    (node_weight_32[15:0]    ), //i
-    .data_33    (node_weight_33[15:0]    ), //i
-    .data_34    (node_weight_34[15:0]    ), //i
-    .data_35    (node_weight_35[15:0]    ), //i
-    .data_36    (node_weight_36[15:0]    ), //i
-    .data_37    (node_weight_37[15:0]    ), //i
-    .data_38    (node_weight_38[15:0]    ), //i
-    .data_39    (node_weight_39[15:0]    ), //i
-    .data_40    (node_weight_40[15:0]    ), //i
-    .data_41    (node_weight_41[15:0]    ), //i
-    .data_42    (node_weight_42[15:0]    ), //i
-    .data_43    (node_weight_43[15:0]    ), //i
-    .data_44    (node_weight_44[15:0]    ), //i
-    .data_45    (node_weight_45[15:0]    ), //i
-    .data_46    (node_weight_46[15:0]    ), //i
-    .data_47    (node_weight_47[15:0]    ), //i
-    .data_48    (node_weight_48[15:0]    ), //i
-    .data_49    (node_weight_49[15:0]    ), //i
-    .data_50    (node_weight_50[15:0]    ), //i
-    .data_51    (node_weight_51[15:0]    ), //i
-    .data_52    (node_weight_52[15:0]    ), //i
-    .data_53    (node_weight_53[15:0]    ), //i
-    .data_54    (node_weight_54[15:0]    ), //i
-    .data_55    (node_weight_55[15:0]    ), //i
-    .data_56    (node_weight_56[15:0]    ), //i
-    .data_57    (node_weight_57[15:0]    ), //i
-    .data_58    (node_weight_58[15:0]    ), //i
-    .data_59    (node_weight_59[15:0]    ), //i
-    .data_60    (node_weight_60[15:0]    ), //i
-    .data_61    (node_weight_61[15:0]    ), //i
-    .data_62    (node_weight_62[15:0]    ), //i
-    .data_63    (node_weight_63[15:0]    ), //i
-    .min_val    (minVal_1_min_val[15:0]  ), //o
-    .min_idx    (minVal_1_min_idx[5:0]   ), //o
-    .clk        (clk                     ), //i
-    .reset      (reset                   )  //i
+    .data_0  (node_weight_0[15:0]   ), //i
+    .data_1  (node_weight_1[15:0]   ), //i
+    .data_2  (node_weight_2[15:0]   ), //i
+    .data_3  (node_weight_3[15:0]   ), //i
+    .data_4  (node_weight_4[15:0]   ), //i
+    .data_5  (node_weight_5[15:0]   ), //i
+    .data_6  (node_weight_6[15:0]   ), //i
+    .data_7  (node_weight_7[15:0]   ), //i
+    .data_8  (node_weight_8[15:0]   ), //i
+    .data_9  (node_weight_9[15:0]   ), //i
+    .data_10 (node_weight_10[15:0]  ), //i
+    .data_11 (node_weight_11[15:0]  ), //i
+    .data_12 (node_weight_12[15:0]  ), //i
+    .data_13 (node_weight_13[15:0]  ), //i
+    .data_14 (node_weight_14[15:0]  ), //i
+    .data_15 (node_weight_15[15:0]  ), //i
+    .data_16 (node_weight_16[15:0]  ), //i
+    .data_17 (node_weight_17[15:0]  ), //i
+    .data_18 (node_weight_18[15:0]  ), //i
+    .data_19 (node_weight_19[15:0]  ), //i
+    .data_20 (node_weight_20[15:0]  ), //i
+    .data_21 (node_weight_21[15:0]  ), //i
+    .data_22 (node_weight_22[15:0]  ), //i
+    .data_23 (node_weight_23[15:0]  ), //i
+    .data_24 (node_weight_24[15:0]  ), //i
+    .data_25 (node_weight_25[15:0]  ), //i
+    .data_26 (node_weight_26[15:0]  ), //i
+    .data_27 (node_weight_27[15:0]  ), //i
+    .data_28 (node_weight_28[15:0]  ), //i
+    .data_29 (node_weight_29[15:0]  ), //i
+    .data_30 (node_weight_30[15:0]  ), //i
+    .data_31 (node_weight_31[15:0]  ), //i
+    .data_32 (node_weight_32[15:0]  ), //i
+    .data_33 (node_weight_33[15:0]  ), //i
+    .data_34 (node_weight_34[15:0]  ), //i
+    .data_35 (node_weight_35[15:0]  ), //i
+    .data_36 (node_weight_36[15:0]  ), //i
+    .data_37 (node_weight_37[15:0]  ), //i
+    .data_38 (node_weight_38[15:0]  ), //i
+    .data_39 (node_weight_39[15:0]  ), //i
+    .data_40 (node_weight_40[15:0]  ), //i
+    .data_41 (node_weight_41[15:0]  ), //i
+    .data_42 (node_weight_42[15:0]  ), //i
+    .data_43 (node_weight_43[15:0]  ), //i
+    .data_44 (node_weight_44[15:0]  ), //i
+    .data_45 (node_weight_45[15:0]  ), //i
+    .data_46 (node_weight_46[15:0]  ), //i
+    .data_47 (node_weight_47[15:0]  ), //i
+    .data_48 (node_weight_48[15:0]  ), //i
+    .data_49 (node_weight_49[15:0]  ), //i
+    .data_50 (node_weight_50[15:0]  ), //i
+    .data_51 (node_weight_51[15:0]  ), //i
+    .data_52 (node_weight_52[15:0]  ), //i
+    .data_53 (node_weight_53[15:0]  ), //i
+    .data_54 (node_weight_54[15:0]  ), //i
+    .data_55 (node_weight_55[15:0]  ), //i
+    .data_56 (node_weight_56[15:0]  ), //i
+    .data_57 (node_weight_57[15:0]  ), //i
+    .data_58 (node_weight_58[15:0]  ), //i
+    .data_59 (node_weight_59[15:0]  ), //i
+    .data_60 (node_weight_60[15:0]  ), //i
+    .data_61 (node_weight_61[15:0]  ), //i
+    .data_62 (node_weight_62[15:0]  ), //i
+    .data_63 (node_weight_63[15:0]  ), //i
+    .min_val (minVal_1_min_val[15:0]), //o
+    .min_idx (minVal_1_min_idx[5:0] ), //o
+    .clk     (clk                   ), //i
+    .reset   (reset                 )  //i
   );
   assign when_PathMetric_l29 = (raw_data_payload_last && raw_data_valid);
   assign addCompareSelect_64_dist_0 = {13'd0, candidate_branches_0};
@@ -5526,24 +5528,24 @@ module StreamDemux (
   output     [15:0]   io_outputs_1_payload_fragment
 );
 
-  wire                when_Stream_l764;
-  wire                when_Stream_l764_1;
+  wire                when_Stream_l827;
+  wire                when_Stream_l827_1;
 
   always @(*) begin
     io_input_ready = 1'b0;
-    if(!when_Stream_l764) begin
+    if(!when_Stream_l827) begin
       io_input_ready = io_outputs_0_ready;
     end
-    if(!when_Stream_l764_1) begin
+    if(!when_Stream_l827_1) begin
       io_input_ready = io_outputs_1_ready;
     end
   end
 
   assign io_outputs_0_payload_last = io_input_payload_last;
   assign io_outputs_0_payload_fragment = io_input_payload_fragment;
-  assign when_Stream_l764 = (1'b0 != io_select);
+  assign when_Stream_l827 = (1'b0 != io_select);
   always @(*) begin
-    if(when_Stream_l764) begin
+    if(when_Stream_l827) begin
       io_outputs_0_valid = 1'b0;
     end else begin
       io_outputs_0_valid = io_input_valid;
@@ -5552,9 +5554,9 @@ module StreamDemux (
 
   assign io_outputs_1_payload_last = io_input_payload_last;
   assign io_outputs_1_payload_fragment = io_input_payload_fragment;
-  assign when_Stream_l764_1 = (1'b1 != io_select);
+  assign when_Stream_l827_1 = (1'b1 != io_select);
   always @(*) begin
-    if(when_Stream_l764_1) begin
+    if(when_Stream_l827_1) begin
       io_outputs_1_valid = 1'b0;
     end else begin
       io_outputs_1_valid = io_input_valid;
@@ -8471,7 +8473,7 @@ module StreamFifo (
   wire                logic_full;
   reg                 _zz_io_pop_valid;
   wire       [2:0]    _zz_io_pop_payload_last;
-  wire                when_Stream_l954;
+  wire                when_Stream_l1021;
   wire       [3:0]    logic_ptrDif;
   reg [2:0] logic_ram [0:15];
 
@@ -8557,7 +8559,7 @@ module StreamFifo (
   assign _zz_io_pop_payload_last = _zz_logic_ram_port0;
   assign io_pop_payload_last = _zz_io_pop_payload_last[0];
   assign io_pop_payload_fragment = _zz_io_pop_payload_last[2 : 1];
-  assign when_Stream_l954 = (logic_pushing != logic_popping);
+  assign when_Stream_l1021 = (logic_pushing != logic_popping);
   assign logic_ptrDif = (logic_pushPtr_value - logic_popPtr_value);
   assign io_occupancy = {(logic_risingOccupancy && logic_ptrMatch),logic_ptrDif};
   assign io_availability = {((! logic_risingOccupancy) && logic_ptrMatch),_zz_io_availability};
@@ -8571,7 +8573,7 @@ module StreamFifo (
       logic_pushPtr_value <= logic_pushPtr_valueNext;
       logic_popPtr_value <= logic_popPtr_valueNext;
       _zz_io_pop_valid <= (logic_popPtr_valueNext == logic_pushPtr_value);
-      if(when_Stream_l954) begin
+      if(when_Stream_l1021) begin
         logic_risingOccupancy <= logic_pushing;
       end
       if(io_flush) begin
@@ -9241,24 +9243,24 @@ module BranchMetric (
   assign _zz__zz_dist_1_1 = {2'd0, hammingDistance_259_distance};
   assign _zz_dist_1_2 = _zz_dist_1_1;
   HammingDistance hammingDistance_256 (
-    .in_a        (hammingDistance_256_in_a      ), //i
-    .in_b        (hammingDistance_256_in_b      ), //i
-    .distance    (hammingDistance_256_distance  )  //o
+    .in_a     (hammingDistance_256_in_a    ), //i
+    .in_b     (hammingDistance_256_in_b    ), //i
+    .distance (hammingDistance_256_distance)  //o
   );
   HammingDistance hammingDistance_257 (
-    .in_a        (hammingDistance_257_in_a      ), //i
-    .in_b        (hammingDistance_257_in_b      ), //i
-    .distance    (hammingDistance_257_distance  )  //o
+    .in_a     (hammingDistance_257_in_a    ), //i
+    .in_b     (hammingDistance_257_in_b    ), //i
+    .distance (hammingDistance_257_distance)  //o
   );
   HammingDistance hammingDistance_258 (
-    .in_a        (hammingDistance_258_in_a      ), //i
-    .in_b        (hammingDistance_258_in_b      ), //i
-    .distance    (hammingDistance_258_distance  )  //o
+    .in_a     (hammingDistance_258_in_a    ), //i
+    .in_b     (hammingDistance_258_in_b    ), //i
+    .distance (hammingDistance_258_distance)  //o
   );
   HammingDistance hammingDistance_259 (
-    .in_a        (hammingDistance_259_in_a      ), //i
-    .in_b        (hammingDistance_259_in_b      ), //i
-    .distance    (hammingDistance_259_distance  )  //o
+    .in_a     (hammingDistance_259_in_a    ), //i
+    .in_b     (hammingDistance_259_in_b    ), //i
+    .distance (hammingDistance_259_distance)  //o
   );
   assign _zz_in_a = trellis_unit_0;
   assign _zz_in_b = raw_data_data;

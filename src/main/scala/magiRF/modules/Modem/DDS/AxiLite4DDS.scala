@@ -5,7 +5,7 @@ import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
 import utils.bus.AxiLite.{AxiLite4, AxiLite4Config, AxiLite4SlaveFactory, AxiLite4SpecRenamer}
-import utils.common.ClkCrossing.ClkCrossing
+import utils.common.ClkCrossing.FFSynchronizer
 
 case class AxiLite4DDSConfig(
                                 dataWidth          : Int,
@@ -52,7 +52,7 @@ case class AxiLite4DDS(config : AxiLite4DDSConfig) extends Component{
             resetActiveLevel = LOW
         )
     )
-    val global_en_cross = ClkCrossing(this.clockDomain, rfClockDomain, global_en)
+    val global_en_cross = FFSynchronizer(this.clockDomain, rfClockDomain, global_en)
     for(idx <- 0 until config.channelsNum){
         val rfClockArea = new ClockingArea(rfClockDomain) {
             val dds_core = DDS(config.ddsConfig)

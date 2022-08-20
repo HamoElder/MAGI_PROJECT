@@ -5,7 +5,7 @@ import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
 import utils.bus.AxiLite.{AxiLite4, AxiLite4Config, AxiLite4SpecRenamer}
 import utils.bus.AxiStream4.{AxiStream4, AxiStream4Config, AxiStream4SpecRenamer}
-import utils.common.ClkCrossing.ClkCrossing
+import utils.common.ClkCrossing.FFSynchronizer
 import utils.common.DataSplitUnite.StreamSplitUnite.StreamPayloadSplit
 
 case class StreamPkgGenConfig(
@@ -91,8 +91,8 @@ case class StreamPkgGen(config: StreamPkgGenConfig) extends Component {
 		busCtrl.read(slices_cnt, address = baseAddress + 0x04, bitOffset = 0,
 			documentation = s"Slices Counter Indicator (${slices_cnt.getBitsWidth bits}).")
 
-		io.slices_limit := ClkCrossing(coreClockDomain, rfClockDomain, slices_limit)
-		slices_cnt := ClkCrossing(rfClockDomain, coreClockDomain, io.slices_cnt)
+		io.slices_limit := FFSynchronizer(coreClockDomain, rfClockDomain, slices_limit)
+		slices_cnt := FFSynchronizer(rfClockDomain, coreClockDomain, io.slices_cnt)
 	}
 }
 

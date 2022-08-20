@@ -3,7 +3,7 @@ package magiRF.modules.Modem.Misc
 import spinal.core._
 import spinal.lib.bus.misc.BusSlaveFactory
 import spinal.lib._
-import utils.common.ClkCrossing.ClkCrossing
+import utils.common.ClkCrossing.FFSynchronizer
 
 case class dataDivConfig(
 							baseDataWidth      : Int,
@@ -74,8 +74,8 @@ case class dataDivDynamic(config: dataDivConfig) extends Component {
 			documentation = "Data Divide Dynamic Module Counter Step.") init (0)
 		busCtrl.driveAndRead(cnt_limit, address = baseAddress + 0x08, bitOffset = 0,
 			documentation = "Data Divide Dynamic Module Counter Max Value.") init (0)
-		io.enable := ClkCrossing(coreClockDomain, rfClockDomain, enable)
-		io.cnt_step := ClkCrossing(coreClockDomain, rfClockDomain, cnt_step)
-		io.cnt_limit := ClkCrossing(coreClockDomain, rfClockDomain, cnt_limit)
+		io.enable := FFSynchronizer(coreClockDomain, rfClockDomain, enable)
+		io.cnt_step := FFSynchronizer(coreClockDomain, rfClockDomain, cnt_step)
+		io.cnt_limit := FFSynchronizer(coreClockDomain, rfClockDomain, cnt_limit)
 	}
 }

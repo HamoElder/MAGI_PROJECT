@@ -3,7 +3,7 @@ package magiRF.top.ASKDemodulator
 import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
-import utils.common.ClkCrossing.ClkCrossing
+import utils.common.ClkCrossing.FFSynchronizer
 
 case class ASKSymbolCounter(rawDataWidth: Int = 40) extends Component {
     val io = new Bundle{
@@ -50,12 +50,12 @@ case class ASKSymbolCounter(rawDataWidth: Int = 40) extends Component {
             documentation = "ASK Symbol Negative Threshold.") init(0)
         busCtrl.driveAndRead(cnt_limit, address = baseAddress + 0x08, bitOffset = 0,
             documentation = "ASK Symbol Counter Limit.") init(0)
-        val symbol_cnt = ClkCrossing(rfClockDomain, coreClockDomain, io.symbol_cnt)
+        val symbol_cnt = FFSynchronizer(rfClockDomain, coreClockDomain, io.symbol_cnt)
         busCtrl.read(symbol_cnt, address = baseAddress + 0x0C, bitOffset = 0,
             documentation = "ASK Symbol Symbol Counter.")
-        io.pos_threshold := ClkCrossing(coreClockDomain, rfClockDomain, pos_threshold)
-        io.neg_threshold := ClkCrossing(coreClockDomain, rfClockDomain, neg_threshold)
-        io.cnt_limit := ClkCrossing(coreClockDomain, rfClockDomain, cnt_limit)
+        io.pos_threshold := FFSynchronizer(coreClockDomain, rfClockDomain, pos_threshold)
+        io.neg_threshold := FFSynchronizer(coreClockDomain, rfClockDomain, neg_threshold)
+        io.cnt_limit := FFSynchronizer(coreClockDomain, rfClockDomain, cnt_limit)
     }
 }
 

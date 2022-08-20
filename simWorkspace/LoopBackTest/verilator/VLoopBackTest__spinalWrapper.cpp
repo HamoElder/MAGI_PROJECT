@@ -205,7 +205,7 @@ public:
       #ifdef TRACE
       Verilated::traceEverOn(true);
       top.trace(&tfp, 99);
-      tfp.open((std::string("/home/missdown/IdeaProjects/MAGI_PROJECT/./simWorkspace/LoopBackTest/") + name + ".vcd").c_str());
+      tfp.open((std::string("/mnt/Backup/IdeaProjects/MAGI_PROJECT/./simWorkspace/LoopBackTest/") + name + ".vcd").c_str());
       #endif
       this->name = name;
     }
@@ -220,7 +220,7 @@ public:
       tfp.close();
       #endif
       #ifdef COVERAGE
-      VerilatedCov::write((("/home/missdown/IdeaProjects/MAGI_PROJECT/./simWorkspace/LoopBackTest/") + name + ".dat").c_str());
+      VerilatedCov::write((("/mnt/Backup/IdeaProjects/MAGI_PROJECT/./simWorkspace/LoopBackTest/") + name + ".dat").c_str());
       #endif
     }
 

@@ -5,7 +5,7 @@ import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
 import utils.bus.IQBundle.IQBundle
-import utils.common.ClkCrossing.ClkCrossing
+import utils.common.ClkCrossing.FFSynchronizer
 
 case class MIMOTransmitter(iqWidth: Int, eleNum: Int, streamNum: Int) extends Component {
     require(streamNum <= eleNum, "The num of stream must equal or less than the num of Channels(Antenna elements).")
@@ -85,10 +85,10 @@ case class MIMOTransmitter(iqWidth: Int, eleNum: Int, streamNum: Int) extends Co
         busCtrl.drive(w_data, address = baseAddress + 0x08, bitOffset = 0,
             documentation = "MIMO Transmitter Shift IQ Map Ram Write Data Set.")
 
-        io.w_en := ClkCrossing(coreClockDomain, rfClockDomain, w_en)
-        io.w_sel := ClkCrossing(coreClockDomain, rfClockDomain, w_sel)
-        io.w_addr := ClkCrossing(coreClockDomain, rfClockDomain, w_addr)
-        io.w_data := ClkCrossing(coreClockDomain, rfClockDomain, w_data)
+        io.w_en := FFSynchronizer(coreClockDomain, rfClockDomain, w_en)
+        io.w_sel := FFSynchronizer(coreClockDomain, rfClockDomain, w_sel)
+        io.w_addr := FFSynchronizer(coreClockDomain, rfClockDomain, w_addr)
+        io.w_data := FFSynchronizer(coreClockDomain, rfClockDomain, w_data)
     }
 }
 object MIMOTransmitterBench{

@@ -4,7 +4,7 @@ import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
 import utils.bus.IQBundle.IQBundle
-import utils.common.ClkCrossing.ClkCrossing
+import utils.common.ClkCrossing.FFSynchronizer
 
 object CpStates extends SpinalEnum {
     val IDLE, CAPTURE, CP, DATA = newElement()
@@ -93,8 +93,8 @@ case class CyclicPrefix(config: CpConfig) extends Component(){
         busCtrl.driveAndRead(data_len, address = baseAddress + 0x04, bitOffset = 0,
             documentation = "Cyclic Prefix Data Length.") init (config.maxDataLength)
 
-        io.cp_len := ClkCrossing(coreClockDomain, rfClockDomain, cp_len)
-        io.data_len := ClkCrossing(coreClockDomain, rfClockDomain, data_len)
+        io.cp_len := FFSynchronizer(coreClockDomain, rfClockDomain, cp_len)
+        io.data_len := FFSynchronizer(coreClockDomain, rfClockDomain, data_len)
     }
 }
 

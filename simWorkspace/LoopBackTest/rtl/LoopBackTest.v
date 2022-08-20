@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.7.0    git head : eca519e78d4e6022e34911ec300a432ed9db8220
 // Component : LoopBackTest
-// Git hash  : 0727f9ff86b0428c52b898049d05b42f47380ee0
+// Git hash  : d47a2b4b2826148d75a008bb36a10246b9e9f377
 
 `timescale 1ns/1ps
 
@@ -4042,9 +4042,9 @@ module PhyTxICFront (
 
 
   assign raw_data_ready = result_data_ready;
-  assign result_data_payload_cha_i = (raw_data_valid ? raw_data_payload_fragment_cha_i : 12'h0);
-  assign result_data_payload_cha_q = (raw_data_valid ? raw_data_payload_fragment_cha_q : 12'h0);
-  assign result_data_valid = (raw_data_valid || 1'b1);
+  assign result_data_payload_cha_i = raw_data_payload_fragment_cha_i;
+  assign result_data_payload_cha_q = raw_data_payload_fragment_cha_q;
+  assign result_data_valid = raw_data_valid;
 
 endmodule
 
@@ -4106,7 +4106,7 @@ module PreambleExtender (
   assign _zz_preamble_data_q = 1'b1;
   assign _zz_preamble_data_q_1 = 1'b1;
   initial begin
-    $readmemb("/home/missdown/IdeaProjects/MAGI_PROJECT/tmp/job_1/LoopBackTest.v_toplevel_transmitter_stf_preamble_adder_I_mem.bin",I_mem);
+    $readmemb("/mnt/Backup/IdeaProjects/MAGI_PROJECT/tmp/job_1/LoopBackTest.v_toplevel_transmitter_stf_preamble_adder_I_mem.bin",I_mem);
   end
   always @(posedge clk) begin
     if(_zz_preamble_data_i) begin
@@ -4121,7 +4121,7 @@ module PreambleExtender (
   end
 
   initial begin
-    $readmemb("/home/missdown/IdeaProjects/MAGI_PROJECT/tmp/job_1/LoopBackTest.v_toplevel_transmitter_stf_preamble_adder_Q_mem.bin",Q_mem);
+    $readmemb("/mnt/Backup/IdeaProjects/MAGI_PROJECT/tmp/job_1/LoopBackTest.v_toplevel_transmitter_stf_preamble_adder_Q_mem.bin",Q_mem);
   end
   always @(posedge clk) begin
     if(_zz_preamble_data_q) begin
@@ -6397,11 +6397,11 @@ module Traceback (
   assign _zz_survival_path_ram_2_port_1 = ((ram_select == 2'b10) && s_path_valid);
   assign _zz_ram_2_value = 1'b1;
   initial begin
-    $readmemb("/home/missdown/IdeaProjects/MAGI_PROJECT/tmp/job_1/LoopBackTest.v_toplevel_receiver_phy_rx_decoder_tbu_core_states_shift_rom.bin",states_shift_rom);
+    $readmemb("/mnt/Backup/IdeaProjects/MAGI_PROJECT/tmp/job_1/LoopBackTest.v_toplevel_receiver_phy_rx_decoder_tbu_core_states_shift_rom.bin",states_shift_rom);
   end
   assign _zz_states_shift_rom_port0 = states_shift_rom[cursor];
   initial begin
-    $readmemb("/home/missdown/IdeaProjects/MAGI_PROJECT/tmp/job_1/LoopBackTest.v_toplevel_receiver_phy_rx_decoder_tbu_core_in_data_rom.bin",in_data_rom);
+    $readmemb("/mnt/Backup/IdeaProjects/MAGI_PROJECT/tmp/job_1/LoopBackTest.v_toplevel_receiver_phy_rx_decoder_tbu_core_in_data_rom.bin",in_data_rom);
   end
   assign _zz_in_data_rom_port0 = in_data_rom[cursor];
   always @(posedge clk) begin
@@ -10234,7 +10234,7 @@ module CrossCorrelator (
   assign _zz_iq_cursor_cha_i_2 = 1'b1;
   assign _zz_iq_cursor_cha_q_2 = 1'b1;
   initial begin
-    $readmemb("/home/missdown/IdeaProjects/MAGI_PROJECT/tmp/job_1/LoopBackTest.v_toplevel_receiver_phy_rx_cfo_cross_corr_core_I_mem.bin",I_mem);
+    $readmemb("/mnt/Backup/IdeaProjects/MAGI_PROJECT/tmp/job_1/LoopBackTest.v_toplevel_receiver_phy_rx_cfo_cross_corr_core_I_mem.bin",I_mem);
   end
   always @(posedge clk) begin
     if(_zz_iq_cursor_cha_i_2) begin
@@ -10243,7 +10243,7 @@ module CrossCorrelator (
   end
 
   initial begin
-    $readmemb("/home/missdown/IdeaProjects/MAGI_PROJECT/tmp/job_1/LoopBackTest.v_toplevel_receiver_phy_rx_cfo_cross_corr_core_Q_mem.bin",Q_mem);
+    $readmemb("/mnt/Backup/IdeaProjects/MAGI_PROJECT/tmp/job_1/LoopBackTest.v_toplevel_receiver_phy_rx_cfo_cross_corr_core_Q_mem.bin",Q_mem);
   end
   always @(posedge clk) begin
     if(_zz_iq_cursor_cha_q_2) begin

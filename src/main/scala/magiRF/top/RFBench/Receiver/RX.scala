@@ -7,7 +7,7 @@ import magiRF.top.RFBench.Config.{code_rate, codedDataType, codedDataWidth, de_p
 import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
-import utils.common.ClkCrossing.ClkCrossing
+import utils.common.ClkCrossing.FFSynchronizer
 
 case class RX() extends Component {
     val io = new Bundle{
@@ -104,18 +104,18 @@ case class RX() extends Component {
             documentation = s"Power Adjustor Shift Bias (${power_adjustor_config.ratioType.getBitsWidth} bits).") init (0)
         busCtrl.driveAndRead(pa_shift_dir, address = baseAddress + 0x04, bitOffset = 0,
             documentation = "Power Adjustor Shift Direction (1 bits).") init (False)
-        io.pa_shift_bias := ClkCrossing(coreClockDomain, rfClockDomain, pa_shift_bias)
-        io.pa_shift_dir := ClkCrossing(coreClockDomain, rfClockDomain, pa_shift_dir)
+        io.pa_shift_bias := FFSynchronizer(coreClockDomain, rfClockDomain, pa_shift_bias)
+        io.pa_shift_dir := FFSynchronizer(coreClockDomain, rfClockDomain, pa_shift_dir)
         if(!preamble_config.usePowerMeter){
             val gate_threshold = cloneOf(io.gate_threshold)
             busCtrl.driveAndRead(gate_threshold, address = baseAddress + 0x08, bitOffset = 0,
                 documentation = s"Preamble Detector Gate Threshold Reg (${preamble_config.gateThresholdDataType.getBitsWidth} bits).") init(0)
-            io.gate_threshold := ClkCrossing(coreClockDomain, rfClockDomain, gate_threshold)
+            io.gate_threshold := FFSynchronizer(coreClockDomain, rfClockDomain, gate_threshold)
         }
         val min_plateau = cloneOf(io.min_plateau)
         busCtrl.driveAndRead(min_plateau, address = baseAddress + 0x0C, bitOffset = 0,
             documentation = s"Preamble Detector Gate Minimum Plateau Reg (${preamble_config.plateauWinWidth} bits).") init(0)
-        io.min_plateau := ClkCrossing(coreClockDomain, rfClockDomain, min_plateau)
+        io.min_plateau := FFSynchronizer(coreClockDomain, rfClockDomain, min_plateau)
         if(genDemodulatorConfig.editable){
             val demod_w_en = cloneOf(io.demod_w_en)
             val demod_w_addr = cloneOf(io.demod_w_addr)
@@ -141,6 +141,6 @@ case class RX() extends Component {
         val phase_corrector_shift = cloneOf(io.phase_corrector_shift)
         busCtrl.driveAndRead(phase_corrector_shift, address = baseAddress + 0x20, bitOffset = 0,
             documentation = s"CFO Corrector Shift Size (${phase_corrector_shift.getBitsWidth} bits).") init (header_corrector_win_default)
-        io.phase_corrector_shift := ClkCrossing(coreClockDomain, rfClockDomain, phase_corrector_shift)
+        io.phase_corrector_shift := FFSynchronizer(coreClockDomain, rfClockDomain, phase_corrector_shift)
     }
 }

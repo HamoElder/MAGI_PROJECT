@@ -4,7 +4,7 @@ import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
 import spinal.lib.fsm._
-import utils.common.ClkCrossing.ClkCrossing
+import utils.common.ClkCrossing.FFSynchronizer
 
 /******************************************************************************
  * ---------------------------------------------------------------------------------------------------------------------------
@@ -269,7 +269,7 @@ case class CordicRotator(config: CordicConfig) extends Component {
 		if(!config.usePipeline){
 			busCtrl.driveAndRead(iter_limit, address = baseAddress + 0x00, bitOffset = 8,
 				documentation = s"Cordic Module Maximum Number of Iterations(Only Used in Iterative Mode). (${config.iterWidth} bits)") init(config.iterations)
-			io.iter_limit := ClkCrossing(coreClockDomain, rfClockDomain, iter_limit)
+			io.iter_limit := FFSynchronizer(coreClockDomain, rfClockDomain, iter_limit)
 		}
 		if(config.useProgrammable){
 			busCtrl.drive(w_en, address = baseAddress + 0x00, bitOffset = 3,
@@ -278,13 +278,13 @@ case class CordicRotator(config: CordicConfig) extends Component {
 				documentation = s"Cordic Module Ram Address Value Set. (${config.addressWidth} bits)") init(0)
 			busCtrl.drive(w_data, address = baseAddress + 0x08, bitOffset = 0,
 				documentation = s"Cordic Module Ram Data Value Set. (${config.dataType.getBitsWidth} bits)") init(0)
-			io.w_en := ClkCrossing(coreClockDomain, rfClockDomain, w_en)
-			io.w_addr := ClkCrossing(coreClockDomain, rfClockDomain, w_addr)
-			io.w_data := ClkCrossing(coreClockDomain, rfClockDomain, w_data)
+			io.w_en := FFSynchronizer(coreClockDomain, rfClockDomain, w_en)
+			io.w_addr := FFSynchronizer(coreClockDomain, rfClockDomain, w_addr)
+			io.w_data := FFSynchronizer(coreClockDomain, rfClockDomain, w_data)
 		}
 
-		io.rotate_mode := ClkCrossing(coreClockDomain, rfClockDomain, rotate_mode)
-		io.x_u := ClkCrossing(coreClockDomain, rfClockDomain, x_u)
+		io.rotate_mode := FFSynchronizer(coreClockDomain, rfClockDomain, rotate_mode)
+		io.x_u := FFSynchronizer(coreClockDomain, rfClockDomain, x_u)
 	}
 
 }

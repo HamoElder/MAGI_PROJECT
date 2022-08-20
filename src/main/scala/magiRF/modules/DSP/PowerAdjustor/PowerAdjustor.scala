@@ -4,7 +4,7 @@ import spinal.lib._
 import spinal.core._
 import spinal.lib.bus.misc.BusSlaveFactory
 import utils.bus.IQBundle.IQBundle
-import utils.common.ClkCrossing.ClkCrossing
+import utils.common.ClkCrossing.FFSynchronizer
 
 
 case class PowerAdjustorConfig(
@@ -53,8 +53,8 @@ case class PowerAdjustor(config: PowerAdjustorConfig) extends Component{
 		busCtrl.driveAndRead(shift_dir, address = baseAddress + 0x04, bitOffset = 0,
 			documentation = "Power Adjustor Shift Direction.(1 right shift, 0 left shift)") init(False)
 
-		io.shift_bias := ClkCrossing(coreClockDomain, rfClockDomain, shift_bias)
-		io.shift_dir := ClkCrossing(coreClockDomain, rfClockDomain, shift_dir)
+		io.shift_bias := FFSynchronizer(coreClockDomain, rfClockDomain, shift_bias)
+		io.shift_dir := FFSynchronizer(coreClockDomain, rfClockDomain, shift_dir)
 	}
 }
 
