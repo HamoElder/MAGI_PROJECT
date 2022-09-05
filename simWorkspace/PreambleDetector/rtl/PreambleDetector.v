@@ -1,8 +1,8 @@
-// Generator : SpinalHDL v1.6.4    git head : 598c18959149eb18e5eee5b0aa3eef01ecaa41a1
+// Generator : SpinalHDL v1.7.0    git head : eca519e78d4e6022e34911ec300a432ed9db8220
 // Component : PreambleDetector
-// Git hash  : e8efb225eaee335c55f2fe9a41a836040a0bb18f
+// Git hash  : 67899194e2943426e013ff8893c37acadb8b8b7d
 
-`timescale 1ns/1ps 
+`timescale 1ns/1ps
 
 module PreambleDetector (
   input      [7:0]    min_plateau,
@@ -56,7 +56,7 @@ module PreambleDetector (
   reg        [7:0]    plateau_cnt;
   reg        [23:0]   _zz_gate_pkg_det;
   reg                 powerMeter_1_power_result_valid_regNext;
-  wire                when_PreambleDetector_l67;
+  wire                when_PreambleDetector_l66;
   reg                 raw_data_regNext_valid;
   reg        [11:0]   raw_data_regNext_payload_cha_i;
   reg        [11:0]   raw_data_regNext_payload_cha_q;
@@ -87,26 +87,26 @@ module PreambleDetector (
   assign _zz_prod_avg_mag_9 = autoCorrelator_1_corr_result_payload_cha_q[35];
   assign _zz_prod_avg_mag_8 = {35'd0, _zz_prod_avg_mag_9};
   PowerMeter powerMeter_1 (
-    .raw_data_valid                (raw_data_valid                                 ), //i
-    .raw_data_payload_cha_i        (raw_data_payload_cha_i[11:0]                   ), //i
-    .raw_data_payload_cha_q        (raw_data_payload_cha_q[11:0]                   ), //i
-    .power_result_valid            (powerMeter_1_power_result_valid                ), //o
-    .power_result_payload_cha_i    (powerMeter_1_power_result_payload_cha_i[23:0]  ), //o
-    .power_result_payload_cha_q    (powerMeter_1_power_result_payload_cha_q[23:0]  ), //o
-    .clk                           (clk                                            ), //i
-    .reset                         (reset                                          )  //i
+    .raw_data_valid             (raw_data_valid                               ), //i
+    .raw_data_payload_cha_i     (raw_data_payload_cha_i[11:0]                 ), //i
+    .raw_data_payload_cha_q     (raw_data_payload_cha_q[11:0]                 ), //i
+    .power_result_valid         (powerMeter_1_power_result_valid              ), //o
+    .power_result_payload_cha_i (powerMeter_1_power_result_payload_cha_i[23:0]), //o
+    .power_result_payload_cha_q (powerMeter_1_power_result_payload_cha_q[23:0]), //o
+    .clk                        (clk                                          ), //i
+    .reset                      (reset                                        )  //i
   );
   AutoCorrelator autoCorrelator_1 (
-    .raw_data_valid               (raw_data_valid                                    ), //i
-    .raw_data_payload_cha_i       (raw_data_payload_cha_i[11:0]                      ), //i
-    .raw_data_payload_cha_q       (raw_data_payload_cha_q[11:0]                      ), //i
-    .corr_result_valid            (autoCorrelator_1_corr_result_valid                ), //o
-    .corr_result_payload_cha_i    (autoCorrelator_1_corr_result_payload_cha_i[35:0]  ), //o
-    .corr_result_payload_cha_q    (autoCorrelator_1_corr_result_payload_cha_q[35:0]  ), //o
-    .clk                          (clk                                               ), //i
-    .reset                        (reset                                             )  //i
+    .raw_data_valid            (raw_data_valid                                  ), //i
+    .raw_data_payload_cha_i    (raw_data_payload_cha_i[11:0]                    ), //i
+    .raw_data_payload_cha_q    (raw_data_payload_cha_q[11:0]                    ), //i
+    .corr_result_valid         (autoCorrelator_1_corr_result_valid              ), //o
+    .corr_result_payload_cha_i (autoCorrelator_1_corr_result_payload_cha_i[35:0]), //o
+    .corr_result_payload_cha_q (autoCorrelator_1_corr_result_payload_cha_q[35:0]), //o
+    .clk                       (clk                                             ), //i
+    .reset                     (reset                                           )  //i
   );
-  assign when_PreambleDetector_l67 = (plateau_cnt < 8'hff);
+  assign when_PreambleDetector_l66 = (plateau_cnt < 8'hff);
   assign raw_data_out_valid = raw_data_regNext_valid;
   assign raw_data_out_payload_cha_i = raw_data_regNext_payload_cha_i;
   assign raw_data_out_payload_cha_q = raw_data_regNext_payload_cha_q;
@@ -131,7 +131,7 @@ module PreambleDetector (
         gate_pkg_det <= 1'b0;
       end
       if(gate_pkg_det) begin
-        if(when_PreambleDetector_l67) begin
+        if(when_PreambleDetector_l66) begin
           plateau_cnt <= (plateau_cnt + 8'h01);
         end
       end else begin
@@ -173,28 +173,28 @@ module AutoCorrelator (
   wire       [35:0]   corr_core_corr_result_payload_cha_q;
 
   ShiftRegister_4 shiftRegister_5 (
-    .input_valid             (raw_data_valid                              ), //i
-    .input_payload_cha_i     (raw_data_payload_cha_i[11:0]                ), //i
-    .input_payload_cha_q     (raw_data_payload_cha_q[11:0]                ), //i
-    .output_valid            (shiftRegister_5_output_valid                ), //o
-    .output_payload_cha_i    (shiftRegister_5_output_payload_cha_i[11:0]  ), //o
-    .output_payload_cha_q    (shiftRegister_5_output_payload_cha_q[11:0]  ), //o
-    .enable                  (raw_data_valid                              ), //i
-    .clk                     (clk                                         ), //i
-    .reset                   (reset                                       )  //i
+    .input_valid          (raw_data_valid                            ), //i
+    .input_payload_cha_i  (raw_data_payload_cha_i[11:0]              ), //i
+    .input_payload_cha_q  (raw_data_payload_cha_q[11:0]              ), //i
+    .output_valid         (shiftRegister_5_output_valid              ), //o
+    .output_payload_cha_i (shiftRegister_5_output_payload_cha_i[11:0]), //o
+    .output_payload_cha_q (shiftRegister_5_output_payload_cha_q[11:0]), //o
+    .enable               (raw_data_valid                            ), //i
+    .clk                  (clk                                       ), //i
+    .reset                (reset                                     )  //i
   );
   Correlator corr_core (
-    .raw_data_0_valid             (raw_data_valid                              ), //i
-    .raw_data_0_payload_cha_i     (raw_data_payload_cha_i[11:0]                ), //i
-    .raw_data_0_payload_cha_q     (raw_data_payload_cha_q[11:0]                ), //i
-    .raw_data_1_valid             (shiftRegister_5_output_valid                ), //i
-    .raw_data_1_payload_cha_i     (shiftRegister_5_output_payload_cha_i[11:0]  ), //i
-    .raw_data_1_payload_cha_q     (shiftRegister_5_output_payload_cha_q[11:0]  ), //i
-    .corr_result_valid            (corr_core_corr_result_valid                 ), //o
-    .corr_result_payload_cha_i    (corr_core_corr_result_payload_cha_i[35:0]   ), //o
-    .corr_result_payload_cha_q    (corr_core_corr_result_payload_cha_q[35:0]   ), //o
-    .clk                          (clk                                         ), //i
-    .reset                        (reset                                       )  //i
+    .raw_data_0_valid          (raw_data_valid                            ), //i
+    .raw_data_0_payload_cha_i  (raw_data_payload_cha_i[11:0]              ), //i
+    .raw_data_0_payload_cha_q  (raw_data_payload_cha_q[11:0]              ), //i
+    .raw_data_1_valid          (shiftRegister_5_output_valid              ), //i
+    .raw_data_1_payload_cha_i  (shiftRegister_5_output_payload_cha_i[11:0]), //i
+    .raw_data_1_payload_cha_q  (shiftRegister_5_output_payload_cha_q[11:0]), //i
+    .corr_result_valid         (corr_core_corr_result_valid               ), //o
+    .corr_result_payload_cha_i (corr_core_corr_result_payload_cha_i[35:0] ), //o
+    .corr_result_payload_cha_q (corr_core_corr_result_payload_cha_q[35:0] ), //o
+    .clk                       (clk                                       ), //i
+    .reset                     (reset                                     )  //i
   );
   assign corr_result_valid = corr_core_corr_result_valid;
   assign corr_result_payload_cha_i = corr_core_corr_result_payload_cha_i;
@@ -241,18 +241,18 @@ module PowerMeter (
   assign _zz_power_val_q_1 = {{4{shiftRegister_6_output_1[19]}}, shiftRegister_6_output_1};
   assign _zz_power_val_q_2 = {{4{power_cal_q[19]}}, power_cal_q};
   ShiftRegister_2 shiftRegister_5 (
-    .input_1     (power_cal_i[19:0]               ), //i
-    .output_1    (shiftRegister_5_output_1[19:0]  ), //o
-    .enable      (power_cal_valid                 ), //i
-    .clk         (clk                             ), //i
-    .reset       (reset                           )  //i
+    .input_1  (power_cal_i[19:0]             ), //i
+    .output_1 (shiftRegister_5_output_1[19:0]), //o
+    .enable   (power_cal_valid               ), //i
+    .clk      (clk                           ), //i
+    .reset    (reset                         )  //i
   );
   ShiftRegister_2 shiftRegister_6 (
-    .input_1     (power_cal_q[19:0]               ), //i
-    .output_1    (shiftRegister_6_output_1[19:0]  ), //o
-    .enable      (power_cal_valid                 ), //i
-    .clk         (clk                             ), //i
-    .reset       (reset                           )  //i
+    .input_1  (power_cal_q[19:0]             ), //i
+    .output_1 (shiftRegister_6_output_1[19:0]), //o
+    .enable   (power_cal_valid               ), //i
+    .clk      (clk                           ), //i
+    .reset    (reset                         )  //i
   );
   assign sq_i = ($signed(raw_data_payload_cha_i) * $signed(raw_data_payload_cha_i));
   assign sq_q = ($signed(raw_data_payload_cha_q) * $signed(raw_data_payload_cha_q));
@@ -335,18 +335,18 @@ module Correlator (
   assign _zz_corr_val_q_2 = {{12{shiftRegister_6_output_1[23]}}, shiftRegister_6_output_1};
   assign _zz_corr_val_q_3 = {{12{_zz_corr_val_q[23]}}, _zz_corr_val_q};
   ShiftRegister shiftRegister_5 (
-    .input_1     (_zz_corr_val_i[23:0]            ), //i
-    .output_1    (shiftRegister_5_output_1[23:0]  ), //o
-    .enable      (_zz_enable                      ), //i
-    .clk         (clk                             ), //i
-    .reset       (reset                           )  //i
+    .input_1  (_zz_corr_val_i[23:0]          ), //i
+    .output_1 (shiftRegister_5_output_1[23:0]), //o
+    .enable   (_zz_enable                    ), //i
+    .clk      (clk                           ), //i
+    .reset    (reset                         )  //i
   );
   ShiftRegister shiftRegister_6 (
-    .input_1     (_zz_corr_val_q[23:0]            ), //i
-    .output_1    (shiftRegister_6_output_1[23:0]  ), //o
-    .enable      (_zz_enable                      ), //i
-    .clk         (clk                             ), //i
-    .reset       (reset                           )  //i
+    .input_1  (_zz_corr_val_q[23:0]          ), //i
+    .output_1 (shiftRegister_6_output_1[23:0]), //o
+    .enable   (_zz_enable                    ), //i
+    .clk      (clk                           ), //i
+    .reset    (reset                         )  //i
   );
   assign corr_result_payload_cha_i = corr_val_i;
   assign corr_result_payload_cha_q = corr_val_q;

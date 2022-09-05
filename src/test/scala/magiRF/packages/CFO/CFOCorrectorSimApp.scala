@@ -30,8 +30,8 @@ object CFOCorrectorSimApp extends App{
             for(idx <- 0 until 2560){
                 dut.io.raw_data.valid #= true
                 val raw_data = stf(idx % stf.length) * 2047
-              val fs = Complex(scala.math.cos(2 * scala.math.Pi * 0.215 * idx / 32),
-                scala.math.sin(2 * scala.math.Pi * 0.215 * idx / 32))
+              val fs = Complex(scala.math.cos(2 * scala.math.Pi * 0.115 * idx / 32),
+                scala.math.sin(2 * scala.math.Pi * 0.115 * idx / 32))
                 val cfo_data = raw_data * fs
 //                dut.io.ref_data.cha_i #= raw_data.re.toInt
 //                dut.io.ref_data.cha_q #= raw_data.im.toInt

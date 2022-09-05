@@ -1,13 +1,10 @@
-// Generator : SpinalHDL v1.6.4    git head : 598c18959149eb18e5eee5b0aa3eef01ecaa41a1
+// Generator : SpinalHDL v1.7.0    git head : eca519e78d4e6022e34911ec300a432ed9db8220
 // Component : CFOCorrector
-// Git hash  : 7ce20c2ff4009332a2c96be9ddbfa13c6df00a2a
+// Git hash  : 67899194e2943426e013ff8893c37acadb8b8b7d
 
-`timescale 1ns/1ps 
+`timescale 1ns/1ps
 
 module CFOCorrector (
-  input               ref_data_valid,
-  input      [11:0]   ref_data_payload_cha_i,
-  input      [11:0]   ref_data_payload_cha_q,
   input               raw_data_valid,
   input      [11:0]   raw_data_payload_cha_i,
   input      [11:0]   raw_data_payload_cha_q,
@@ -15,6 +12,7 @@ module CFOCorrector (
   output     [11:0]   rotated_data_payload_cha_i,
   output     [11:0]   rotated_data_payload_cha_q,
   input               enable,
+  output              phi_correct_valid,
   input               clk,
   input               reset
 );
@@ -31,46 +29,43 @@ module CFOCorrector (
   reg        [23:0]   delta_phi_mean;
   reg                 delta_phi_valid;
   wire                when_CFOCorrector_l45;
-  wire                raw_data_takeWhen_valid;
-  wire       [11:0]   raw_data_takeWhen_payload_cha_i;
-  wire       [11:0]   raw_data_takeWhen_payload_cha_q;
+  reg                 delta_phi_valid_regNext;
 
   assign _zz_delta_phi_mean_1 = (cfo_estimator_delta_phi_payload >>> 2);
   assign _zz_delta_phi_mean = {{2{_zz_delta_phi_mean_1[21]}}, _zz_delta_phi_mean_1};
   CFOEstimator cfo_estimator (
-    .rotated_data_valid            (raw_data_valid                         ), //i
-    .rotated_data_payload_cha_i    (raw_data_payload_cha_i[11:0]           ), //i
-    .rotated_data_payload_cha_q    (raw_data_payload_cha_q[11:0]           ), //i
-    .delta_phi_valid               (cfo_estimator_delta_phi_valid          ), //o
-    .delta_phi_payload             (cfo_estimator_delta_phi_payload[23:0]  ), //o
-    .clk                           (clk                                    ), //i
-    .reset                         (reset                                  )  //i
+    .rotated_data_valid         (raw_data_valid                       ), //i
+    .rotated_data_payload_cha_i (raw_data_payload_cha_i[11:0]         ), //i
+    .rotated_data_payload_cha_q (raw_data_payload_cha_q[11:0]         ), //i
+    .delta_phi_valid            (cfo_estimator_delta_phi_valid        ), //o
+    .delta_phi_payload          (cfo_estimator_delta_phi_payload[23:0]), //o
+    .clk                        (clk                                  ), //i
+    .reset                      (reset                                )  //i
   );
   PhaseRotator phase_rotator (
-    .raw_data_valid                (raw_data_takeWhen_valid                         ), //i
-    .raw_data_payload_cha_i        (raw_data_takeWhen_payload_cha_i[11:0]           ), //i
-    .raw_data_payload_cha_q        (raw_data_takeWhen_payload_cha_q[11:0]           ), //i
-    .delta_phi_valid               (delta_phi_valid                                 ), //i
-    .delta_phi_payload             (phase_rotator_delta_phi_payload[23:0]           ), //i
-    .rotated_data_valid            (phase_rotator_rotated_data_valid                ), //o
-    .rotated_data_payload_cha_i    (phase_rotator_rotated_data_payload_cha_i[11:0]  ), //o
-    .rotated_data_payload_cha_q    (phase_rotator_rotated_data_payload_cha_q[11:0]  ), //o
-    .clk                           (clk                                             ), //i
-    .reset                         (reset                                           )  //i
+    .raw_data_valid             (raw_data_valid                                ), //i
+    .raw_data_payload_cha_i     (raw_data_payload_cha_i[11:0]                  ), //i
+    .raw_data_payload_cha_q     (raw_data_payload_cha_q[11:0]                  ), //i
+    .delta_phi_valid            (delta_phi_valid                               ), //i
+    .delta_phi_payload          (phase_rotator_delta_phi_payload[23:0]         ), //i
+    .rotated_data_valid         (phase_rotator_rotated_data_valid              ), //o
+    .rotated_data_payload_cha_i (phase_rotator_rotated_data_payload_cha_i[11:0]), //o
+    .rotated_data_payload_cha_q (phase_rotator_rotated_data_payload_cha_q[11:0]), //o
+    .clk                        (clk                                           ), //i
+    .reset                      (reset                                         )  //i
   );
   assign when_CFOCorrector_l45 = (delta_phi_valid || (! enable));
-  assign raw_data_takeWhen_valid = (raw_data_valid && enable);
-  assign raw_data_takeWhen_payload_cha_i = raw_data_payload_cha_i;
-  assign raw_data_takeWhen_payload_cha_q = raw_data_payload_cha_q;
   assign phase_rotator_delta_phi_payload = (- delta_phi_mean);
   assign rotated_data_valid = phase_rotator_rotated_data_valid;
   assign rotated_data_payload_cha_i = phase_rotator_rotated_data_payload_cha_i;
   assign rotated_data_payload_cha_q = phase_rotator_rotated_data_payload_cha_q;
+  assign phi_correct_valid = delta_phi_valid_regNext;
   always @(posedge clk or posedge reset) begin
     if(reset) begin
       mean_cnt <= 2'b00;
       delta_phi_mean <= 24'h0;
       delta_phi_valid <= 1'b0;
+      delta_phi_valid_regNext <= 1'b0;
     end else begin
       if(when_CFOCorrector_l45) begin
         mean_cnt <= 2'b00;
@@ -83,6 +78,7 @@ module CFOCorrector (
           delta_phi_valid <= (mean_cnt == 2'b11);
         end
       end
+      delta_phi_valid_regNext <= delta_phi_valid;
     end
   end
 
@@ -205,27 +201,27 @@ module PhaseRotator (
   assign _zz_rotated_data_payload_cha_i = (- rotated_x_raw);
   assign _zz_rotated_data_payload_cha_q = (- rotated_y_raw);
   CordicRotator_1 cordic_pipeline_core (
-    .rotate_mode           (1'b1                                           ), //i
-    .x_u                   (2'b00                                          ), //i
-    .raw_data_valid        (raw_data_valid                                 ), //i
-    .raw_data_ready        (cordic_pipeline_core_raw_data_ready            ), //o
-    .raw_data_payload_x    (cordic_pipeline_core_raw_data_payload_x[24:0]  ), //i
-    .raw_data_payload_y    (cordic_pipeline_core_raw_data_payload_y[24:0]  ), //i
-    .raw_data_payload_z    (cordic_pipeline_core_raw_data_payload_z[24:0]  ), //i
-    .result_valid          (cordic_pipeline_core_result_valid              ), //o
-    .result_payload_x      (cordic_pipeline_core_result_payload_x[24:0]    ), //o
-    .result_payload_y      (cordic_pipeline_core_result_payload_y[24:0]    ), //o
-    .result_payload_z      (cordic_pipeline_core_result_payload_z[24:0]    ), //o
-    .clk                   (clk                                            ), //i
-    .reset                 (reset                                          )  //i
+    .rotate_mode        (1'b1                                         ), //i
+    .x_u                (2'b00                                        ), //i
+    .raw_data_valid     (raw_data_valid                               ), //i
+    .raw_data_ready     (cordic_pipeline_core_raw_data_ready          ), //o
+    .raw_data_payload_x (cordic_pipeline_core_raw_data_payload_x[24:0]), //i
+    .raw_data_payload_y (cordic_pipeline_core_raw_data_payload_y[24:0]), //i
+    .raw_data_payload_z (cordic_pipeline_core_raw_data_payload_z[24:0]), //i
+    .result_valid       (cordic_pipeline_core_result_valid            ), //o
+    .result_payload_x   (cordic_pipeline_core_result_payload_x[24:0]  ), //o
+    .result_payload_y   (cordic_pipeline_core_result_payload_y[24:0]  ), //o
+    .result_payload_z   (cordic_pipeline_core_result_payload_z[24:0]  ), //o
+    .clk                (clk                                          ), //i
+    .reset              (reset                                        )  //i
   );
   ShiftRegister_3 shiftRegister_4 (
-    .input_1     (xy_symbol                 ), //i
-    .output_1    (shiftRegister_4_output_1  ), //o
-    .enable      (raw_data_valid            ), //i
-    .clc         (shiftRegister_4_clc       ), //i
-    .clk         (clk                       ), //i
-    .reset       (reset                     )  //i
+    .input_1  (xy_symbol               ), //i
+    .output_1 (shiftRegister_4_output_1), //o
+    .enable   (raw_data_valid          ), //i
+    .clc      (shiftRegister_4_clc     ), //i
+    .clk      (clk                     ), //i
+    .reset    (reset                   )  //i
   );
   assign shiftRegister_4_clc = (! raw_data_valid);
   assign math_pi = 24'h003243;
@@ -452,29 +448,29 @@ module CFOEstimator (
   assign _zz_when_SInt_l137_1 = _zz_when_SInt_l130_4[23 : 23];
   assign _zz_impulse_cnt = (impulse_cnt + 5'h01);
   AutoCorrelator auto_corr_core (
-    .raw_data_valid               (rotated_data_valid                              ), //i
-    .raw_data_payload_cha_i       (rotated_data_payload_cha_i[11:0]                ), //i
-    .raw_data_payload_cha_q       (rotated_data_payload_cha_q[11:0]                ), //i
-    .corr_result_valid            (auto_corr_core_corr_result_valid                ), //o
-    .corr_result_payload_cha_i    (auto_corr_core_corr_result_payload_cha_i[27:0]  ), //o
-    .corr_result_payload_cha_q    (auto_corr_core_corr_result_payload_cha_q[27:0]  ), //o
-    .clk                          (clk                                             ), //i
-    .reset                        (reset                                           )  //i
+    .raw_data_valid            (rotated_data_valid                            ), //i
+    .raw_data_payload_cha_i    (rotated_data_payload_cha_i[11:0]              ), //i
+    .raw_data_payload_cha_q    (rotated_data_payload_cha_q[11:0]              ), //i
+    .corr_result_valid         (auto_corr_core_corr_result_valid              ), //o
+    .corr_result_payload_cha_i (auto_corr_core_corr_result_payload_cha_i[27:0]), //o
+    .corr_result_payload_cha_q (auto_corr_core_corr_result_payload_cha_q[27:0]), //o
+    .clk                       (clk                                           ), //i
+    .reset                     (reset                                         )  //i
   );
   CordicRotator cordic_core (
-    .rotate_mode           (1'b0                                ), //i
-    .x_u                   (2'b00                               ), //i
-    .raw_data_valid        (auto_corr_core_corr_result_valid    ), //i
-    .raw_data_ready        (cordic_core_raw_data_ready          ), //o
-    .raw_data_payload_x    (_zz_raw_data_payload_x[23:0]        ), //i
-    .raw_data_payload_y    (_zz_raw_data_payload_y[23:0]        ), //i
-    .raw_data_payload_z    (24'h0                               ), //i
-    .result_valid          (cordic_core_result_valid            ), //o
-    .result_payload_x      (cordic_core_result_payload_x[23:0]  ), //o
-    .result_payload_y      (cordic_core_result_payload_y[23:0]  ), //o
-    .result_payload_z      (cordic_core_result_payload_z[23:0]  ), //o
-    .clk                   (clk                                 ), //i
-    .reset                 (reset                               )  //i
+    .rotate_mode        (1'b0                              ), //i
+    .x_u                (2'b00                             ), //i
+    .raw_data_valid     (auto_corr_core_corr_result_valid  ), //i
+    .raw_data_ready     (cordic_core_raw_data_ready        ), //o
+    .raw_data_payload_x (_zz_raw_data_payload_x[23:0]      ), //i
+    .raw_data_payload_y (_zz_raw_data_payload_y[23:0]      ), //i
+    .raw_data_payload_z (24'h0                             ), //i
+    .result_valid       (cordic_core_result_valid          ), //o
+    .result_payload_x   (cordic_core_result_payload_x[23:0]), //o
+    .result_payload_y   (cordic_core_result_payload_y[23:0]), //o
+    .result_payload_z   (cordic_core_result_payload_z[23:0]), //o
+    .clk                (clk                               ), //i
+    .reset              (reset                             )  //i
   );
   assign _zz_when_SInt_l130_1 = {{24'h0,1'b1},3'b000};
   assign _zz_when_SInt_l337 = {25'h1ffffff,3'b000};
@@ -1806,29 +1802,29 @@ module AutoCorrelator (
   wire       [27:0]   corr_core_corr_result_payload_cha_q;
 
   ShiftRegister_2 shiftRegister_4 (
-    .input_valid             (raw_data_valid                              ), //i
-    .input_payload_cha_i     (raw_data_payload_cha_i[11:0]                ), //i
-    .input_payload_cha_q     (raw_data_payload_cha_q[11:0]                ), //i
-    .output_valid            (shiftRegister_4_output_valid                ), //o
-    .output_payload_cha_i    (shiftRegister_4_output_payload_cha_i[11:0]  ), //o
-    .output_payload_cha_q    (shiftRegister_4_output_payload_cha_q[11:0]  ), //o
-    .enable                  (raw_data_valid                              ), //i
-    .clc                     (shiftRegister_4_clc                         ), //i
-    .clk                     (clk                                         ), //i
-    .reset                   (reset                                       )  //i
+    .input_valid          (raw_data_valid                            ), //i
+    .input_payload_cha_i  (raw_data_payload_cha_i[11:0]              ), //i
+    .input_payload_cha_q  (raw_data_payload_cha_q[11:0]              ), //i
+    .output_valid         (shiftRegister_4_output_valid              ), //o
+    .output_payload_cha_i (shiftRegister_4_output_payload_cha_i[11:0]), //o
+    .output_payload_cha_q (shiftRegister_4_output_payload_cha_q[11:0]), //o
+    .enable               (raw_data_valid                            ), //i
+    .clc                  (shiftRegister_4_clc                       ), //i
+    .clk                  (clk                                       ), //i
+    .reset                (reset                                     )  //i
   );
   Correlator corr_core (
-    .raw_data_0_valid             (raw_data_valid                              ), //i
-    .raw_data_0_payload_cha_i     (raw_data_payload_cha_i[11:0]                ), //i
-    .raw_data_0_payload_cha_q     (raw_data_payload_cha_q[11:0]                ), //i
-    .raw_data_1_valid             (shiftRegister_4_output_valid                ), //i
-    .raw_data_1_payload_cha_i     (shiftRegister_4_output_payload_cha_i[11:0]  ), //i
-    .raw_data_1_payload_cha_q     (shiftRegister_4_output_payload_cha_q[11:0]  ), //i
-    .corr_result_valid            (corr_core_corr_result_valid                 ), //o
-    .corr_result_payload_cha_i    (corr_core_corr_result_payload_cha_i[27:0]   ), //o
-    .corr_result_payload_cha_q    (corr_core_corr_result_payload_cha_q[27:0]   ), //o
-    .clk                          (clk                                         ), //i
-    .reset                        (reset                                       )  //i
+    .raw_data_0_valid          (raw_data_valid                            ), //i
+    .raw_data_0_payload_cha_i  (raw_data_payload_cha_i[11:0]              ), //i
+    .raw_data_0_payload_cha_q  (raw_data_payload_cha_q[11:0]              ), //i
+    .raw_data_1_valid          (shiftRegister_4_output_valid              ), //i
+    .raw_data_1_payload_cha_i  (shiftRegister_4_output_payload_cha_i[11:0]), //i
+    .raw_data_1_payload_cha_q  (shiftRegister_4_output_payload_cha_q[11:0]), //i
+    .corr_result_valid         (corr_core_corr_result_valid               ), //o
+    .corr_result_payload_cha_i (corr_core_corr_result_payload_cha_i[27:0] ), //o
+    .corr_result_payload_cha_q (corr_core_corr_result_payload_cha_q[27:0] ), //o
+    .clk                       (clk                                       ), //i
+    .reset                     (reset                                     )  //i
   );
   assign shiftRegister_4_clc = (! raw_data_valid);
   assign corr_result_valid = corr_core_corr_result_valid;
@@ -1883,20 +1879,20 @@ module Correlator (
   assign _zz_corr_val_q_2 = {{4{shiftRegister_5_output_1[23]}}, shiftRegister_5_output_1};
   assign _zz_corr_val_q_3 = {{4{_zz_corr_val_q[23]}}, _zz_corr_val_q};
   ShiftRegister shiftRegister_4 (
-    .input_1     (_zz_corr_val_i[23:0]            ), //i
-    .output_1    (shiftRegister_4_output_1[23:0]  ), //o
-    .enable      (_zz_enable                      ), //i
-    .clc         (shiftRegister_4_clc             ), //i
-    .clk         (clk                             ), //i
-    .reset       (reset                           )  //i
+    .input_1  (_zz_corr_val_i[23:0]          ), //i
+    .output_1 (shiftRegister_4_output_1[23:0]), //o
+    .enable   (_zz_enable                    ), //i
+    .clc      (shiftRegister_4_clc           ), //i
+    .clk      (clk                           ), //i
+    .reset    (reset                         )  //i
   );
   ShiftRegister shiftRegister_5 (
-    .input_1     (_zz_corr_val_q[23:0]            ), //i
-    .output_1    (shiftRegister_5_output_1[23:0]  ), //o
-    .enable      (_zz_enable                      ), //i
-    .clc         (shiftRegister_5_clc             ), //i
-    .clk         (clk                             ), //i
-    .reset       (reset                           )  //i
+    .input_1  (_zz_corr_val_q[23:0]          ), //i
+    .output_1 (shiftRegister_5_output_1[23:0]), //o
+    .enable   (_zz_enable                    ), //i
+    .clc      (shiftRegister_5_clc           ), //i
+    .clk      (clk                           ), //i
+    .reset    (reset                         )  //i
   );
   assign shiftRegister_4_clc = (! _zz_enable);
   assign shiftRegister_5_clc = (! _zz_enable);

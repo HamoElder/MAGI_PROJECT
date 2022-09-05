@@ -1,8 +1,8 @@
-// Generator : SpinalHDL v1.6.0    git head : 73c8d8e2b86b45646e9d0b2e729291f2b65e6be3
+// Generator : SpinalHDL v1.7.0    git head : eca519e78d4e6022e34911ec300a432ed9db8220
 // Component : ConvEncoder
-// Git hash  : e700e7347423171eccd7b05bac962965acefbb15
+// Git hash  : 67899194e2943426e013ff8893c37acadb8b8b7d
 
-
+`timescale 1ns/1ps
 
 module ConvEncoder (
   input               tail_bits_valid,
@@ -17,6 +17,7 @@ module ConvEncoder (
   input               clk,
   input               resetn
 );
+
   wire       [7:0]    _zz_r_enc_0;
   wire       [7:0]    _zz_r_enc_1;
   wire       [7:0]    _zz_r_enc_2;
@@ -87,10 +88,15 @@ module ConvEncoder (
   always @(posedge clk) begin
     if(!resetn) begin
       coded_data_valid_1 <= 1'b0;
+      r_enc_buf <= 7'h0;
       raw_data_payload_last_regNext <= 1'b0;
     end else begin
-      if(!tail_bits_valid) begin
+      if(tail_bits_valid) begin
+        r_enc_buf <= tail_bits_payload;
+        coded_data_valid_1 <= 1'b0;
+      end else begin
         if(raw_data_fire) begin
+          r_enc_buf <= r_enc_7;
           coded_data_valid_1 <= 1'b1;
         end else begin
           coded_data_valid_1 <= 1'b0;
@@ -101,11 +107,8 @@ module ConvEncoder (
   end
 
   always @(posedge clk) begin
-    if(tail_bits_valid) begin
-      r_enc_buf <= tail_bits_payload;
-    end else begin
+    if(!tail_bits_valid) begin
       if(raw_data_fire) begin
-        r_enc_buf <= r_enc_7;
         coded_data <= {code_vec_0,code_vec_1};
       end
     end

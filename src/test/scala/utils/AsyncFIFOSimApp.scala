@@ -21,7 +21,6 @@ object AsyncFIFOSimApp {
         compiled.doSimUntilVoid{dut =>
             val queueModel = mutable.Queue[Long]()
             val clocksThread = fork {
-                // Clear the clock domains' signals, to be sure the simulation captures their first edges.
                 dut.pushClock.fallingEdge()
                 dut.popClock.fallingEdge()
                 dut.pushClock.deassertReset()

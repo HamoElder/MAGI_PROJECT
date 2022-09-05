@@ -7,8 +7,8 @@ import spinal.lib._
 
 object ConvEncoderSimApp extends App{
 
-    //	val conv_coder_config = ConvEncoderConfig(4, 7, List(91, 121))
-    val conv_coder_config = ConvEncoderConfig(7, 3, List(7, 5))
+    	val conv_coder_config = ConvEncoderConfig(4, 7, List(91, 121))
+//    val conv_coder_config = ConvEncoderConfig(7, 3, List(7, 5))
     SimConfig.withWave.doSim(new ConvEncoder(conv_coder_config)){ dut =>
         dut.clockDomain.forkStimulus(5)
         dut.io.raw_data.valid #= false

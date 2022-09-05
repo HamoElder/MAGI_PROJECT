@@ -1,6 +1,6 @@
 package magiSOC.core.Trident
 
-import magiSOC.core.Trident.Misc.InstructionsCtrl
+import magiSOC.core.Trident.Misc.{InstructionCtrl}
 import spinal.core._
 import spinal.lib._
 
@@ -11,6 +11,7 @@ case class CoreInstructionCmd()(implicit config : TridentRiscvConfig) extends Bu
 case class CoreInstructionRsp()(implicit config : TridentRiscvConfig) extends Bundle{
     val instruction = Bits(32 bit)
     val pc = UInt(config.addrWidth bit)
+    val branchCacheLine = if(config.branchPrediction == dynamic) BranchPredictorLine() else null
 }
 
 case class BranchPredictorLine()(implicit val config : TridentRiscvConfig)  extends Bundle{
@@ -34,13 +35,14 @@ case class CoreDataCmd()(implicit val config : TridentRiscvConfig) extends Bundl
 case class CoreDecodeOutput()(implicit val config : TridentRiscvConfig) extends Bundle{
     val pc = UInt(config.pcWidth bit)
     val instruction = Bits(32 bit)
-    val ctrl = InstructionsCtrl()
+    val ctrl = InstructionCtrl()
     val src0 = Bits(32 bit)
     val src1 = Bits(32 bit)
     val alu_op0 = Bits(32 bit)
     val alu_op1 = Bits(32 bit)
     val doSub = Bool()
     val predictorHasBranch = Bool()
+    val branchHistory = Flow(SInt(config.branchPredictorHistoryWidth bit))
 }
 
 case class CoreExecute0Output()(implicit val config : TridentRiscvConfig) extends Bundle{

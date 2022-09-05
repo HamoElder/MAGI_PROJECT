@@ -1,5 +1,6 @@
 package magiRF.packages.Preambler
 
+import Misc.math.Complex
 import magiRF.packages.Preamble.{PreambleDetector, PreambleDetectorConfig}
 import spinal.core.sim._
 import magiRF.top.IEEE802_11.IEEE802_11.ltf
@@ -25,8 +26,12 @@ object PreambleDetectorSimApp extends App{
         }
         for(idx <- 0 until 640){
             dut.io.raw_data.valid #= true
-            dut.io.raw_data.cha_i #= (stf(idx % 16).re * 1024).toInt
-            dut.io.raw_data.cha_q #= (stf(idx % 16).im * 1024).toInt
+            val raw_data = stf(idx % stf.length) * 512
+            val fs = Complex(scala.math.cos(2 * scala.math.Pi * 0.185 * idx / 32),
+                scala.math.sin(2 * scala.math.Pi * 0.185 * idx / 32))
+            val cfo_data = raw_data * fs
+            dut.io.raw_data.cha_i #= cfo_data.re.toInt + (ltf(Random.nextInt().abs % ltf.length).re * 512).toInt
+            dut.io.raw_data.cha_q #= cfo_data.im.toInt + (ltf(Random.nextInt().abs % ltf.length).im * 512).toInt
             dut.clockDomain.waitSampling(1)
         }
         for(idx <- 0 until 2600){

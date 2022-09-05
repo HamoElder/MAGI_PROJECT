@@ -179,14 +179,14 @@ public:
       signalAccess[5] = new CDataSignalAccess( top.raw_data_payload_fragment );
       signalAccess[6] = new CDataSignalAccess( top.coded_data_valid );
       signalAccess[7] = new CDataSignalAccess( top.coded_data_payload_last );
-      signalAccess[8] = new SDataSignalAccess( top.coded_data_payload_fragment );
+      signalAccess[8] = new CDataSignalAccess( top.coded_data_payload_fragment );
       signalAccess[9] = new CDataSignalAccess( top.clk );
       signalAccess[10] = new CDataSignalAccess( top.reset );
 
       #ifdef TRACE
       Verilated::traceEverOn(true);
       top.trace(&tfp, 99);
-      tfp.open((std::string("/mnt/Backup/IdeaProjects/MAGI_PROJECT/./simWorkspace/ConvEncoder/") + name + ".vcd").c_str());
+      tfp.open((std::string("/mnt/BackUp/IdeaProjects/MAGI_PROJECT/./simWorkspace/ConvEncoder/") + name + ".vcd").c_str());
       #endif
       this->name = name;
     }
@@ -201,7 +201,7 @@ public:
       tfp.close();
       #endif
       #ifdef COVERAGE
-      VerilatedCov::write((("/mnt/Backup/IdeaProjects/MAGI_PROJECT/./simWorkspace/ConvEncoder/") + name + ".dat").c_str());
+      VerilatedCov::write((("/mnt/BackUp/IdeaProjects/MAGI_PROJECT/./simWorkspace/ConvEncoder/") + name + ".dat").c_str());
       #endif
     }
 

@@ -7,10 +7,11 @@ case class IrqUsage(isException: Boolean)
 
 
 object Misc{
-    object PC extends SpinalEnum(binarySequential){
+    object PC extends SpinalEnum(binarySequential) {
         val INC, BRA, J, JR = newElement()
     }
-    object BR extends SpinalEnum{
+
+    object BR extends SpinalEnum {
         val N, NE, EQ, GE, GEU, LT, LTU, J, JR = newElement()
 
         defaultEncoding = SpinalEnumEncoding("opt")(
@@ -25,43 +26,52 @@ object Misc{
             N -> 8
         )
 
-        def isSignedComp(that : C): Bool = !that.asBits(1)
+        def isSignedComp(that: C): Bool = !that.asBits(1)
     }
 
-    object OP0 extends SpinalEnum(binarySequential){
+    object OP0 extends SpinalEnum(binarySequential) {
         val RS, IMU, IMZ, IMJB = newElement()
-        def X: SpinalEnumElement[OP0.this.type] = RS
+
+        def X = RS
     }
 
-    object OP1 extends SpinalEnum(binarySequential){
+
+    object OP1 extends SpinalEnum(binarySequential) {
         val RS, IMI, IMS, PC = newElement()
-        def X: SpinalEnumElement[OP1.this.type] = RS
+
+        def X = RS
     }
 
-    object WB extends SpinalEnum(binarySequential){
+    object WB extends SpinalEnum(binarySequential) {
         val ALU, MEM, PC4, CSR1 = newElement()
-        def X: SpinalEnumElement[WB.this.type] = ALU
+
+        def X = ALU
     }
 
-    object MWR extends SpinalEnum(binarySequential){
+    object MWR extends SpinalEnum(binarySequential) {
         val R, W, F = newElement()
     }
 
-    object MSK extends SpinalEnum(binarySequential){
+
+    object MSK extends SpinalEnum(binarySequential) {
         val B, H, W = newElement()
-        def X: SpinalEnumElement[MSK.this.type] = B
+
+        def X = B
     }
 
-    object MFS extends SpinalEnum{
+
+    object MFS extends SpinalEnum {
         val N, SI, SD, FA, FD = newElement()
     }
 
-    object M extends SpinalEnum(binarySequential){
+
+    object M extends SpinalEnum(binarySequential) {
         val XRD, XWR = newElement()
-        def X: SpinalEnumElement[M.this.type] = XRD
+
+        def X = XRD
     }
 
-    object ALU extends SpinalEnum{
+    object ALU extends SpinalEnum {
         val ADD, SLL1, SLT, SLTU, XOR, SRL, OR, AND, SUB, COPY, SRA = newElement()
 
         defaultEncoding = SpinalEnumEncoding("opt")(
@@ -77,31 +87,35 @@ object Misc{
             COPY -> 15,
             SRA -> (8 + 5)
         )
-        def X: SpinalEnumElement[ALU.this.type] = ADD
-        def isSltX(that : C): Bool =  that.asBits === M"-01-"
-        def isAddSub(that : C): Bool =  that.asBits === M"-000"
+
+        def X = ADD
+
+        def isSltX(that: C) = that.asBits === M"-01-"
+
+        def isAddSub(that: C) = that.asBits === M"-000"
     }
 
     def apply(x: Int) = 2
 
-    object CSR extends SpinalEnum(binarySequential){
+    object CSR extends SpinalEnum(binarySequential) {
         val N, W, S, C = newElement()
     }
 
-    case class InstructionsCtrl() extends Bundle{
+
+    case class InstructionCtrl() extends Bundle {
         val instVal = Bool()
         val br = BR()
         val jmp = Bool()
         val op0 = OP0()
         val op1 = OP1()
         val alu = ALU()
-        val wb  = WB()
+        val wb = WB()
         val rfen = Bool()
-        val execute0AluBypass  = Bool()
-        val execute1AluBypass  = Bool()
+        val execute0AluBypass = Bool()
+        val execute1AluBypass = Bool()
         val canInternalyStallWriteBack0 = Bool()
-        val men  = Bool()
-        val m  = M()
+        val men = Bool()
+        val m = M()
         val msk = MSK()
         val csr = CSR()
         val mfs = MFS()
@@ -109,33 +123,49 @@ object Misc{
         val useSrc1 = Bool()
         val extensionTag = Bits()
         val extensionData = Bits()
-        val fencei  = Bool()
+        val fencei = Bool()
     }
 
-    def BASE                 = M"------------------------------11"
-    def BASE_MEM             = M"-------------------------0-000--"
-    def BASE_MEM_L           = M"--------------------------0-----"
-    def BASE_MEM_S           = M"--------------------------1-----"
-    def BASE_AUIPC           = M"-------------------------00101--"
-    def BASE_LUI             = M"-------------------------01101--"
-    def BASE_OPX             = M"-------------------------0-100--"
-    def BASE_OPX_I           = M"--------------------------0-----"
-    def BASE_OPX_SHIFT       = M"------------------01------------"
-    def BASE_JALR            = M"-------------------------11001--"
-    def BASE_JAL             = M"-------------------------11011--"
-    def BASE_B               = M"-------------------------11000--"
-    def BASE_CSR             = M"-------------------------11100--"
-    def BASE_CSR_W           = M"------------------01------------"
-    def BASE_CSR_S           = M"------------------10------------"
-    def BASE_CSR_C           = M"------------------11------------"
-    def BASE_CSR_I           = M"-----------------1--------------"
-    def BASE_FENCEI          = M"000000000000000000010000000011--"
-    def EXTEND_MULX          = M"0000001----------0-------0110011"
-    def EXTEND_DIVX          = M"0000001----------1-------0110011"
+    def BASE = M"------------------------------11"
 
-    object InstructionsCtrl{
-        def apply(instruction : Bits) : InstructionsCtrl = {
-            val ctrl = InstructionsCtrl()
+    def BASE_MEM = M"-------------------------0-000--"
+
+    def BASE_MEM_L = M"--------------------------0-----"
+
+    def BASE_MEM_S = M"--------------------------1-----"
+
+    def BASE_AUIPC = M"-------------------------00101--"
+
+    def BASE_LUI = M"-------------------------01101--"
+
+    def BASE_OPX = M"-------------------------0-100--"
+
+    def BASE_OPX_I = M"--------------------------0-----"
+
+    def BASE_OPX_SHIFT = M"------------------01------------"
+
+    def BASE_JALR = M"-------------------------11001--"
+
+    def BASE_JAL = M"-------------------------11011--"
+
+    def BASE_B = M"-------------------------11000--"
+
+    def BASE_CSR = M"-------------------------11100--"
+
+    def BASE_CSR_W = M"------------------01------------"
+
+    def BASE_CSR_S = M"------------------10------------"
+
+    def BASE_CSR_C = M"------------------11------------"
+
+    def BASE_CSR_I = M"-----------------1--------------"
+
+    def BASE_FENCEI = M"000000000000000000010000000011--"
+
+
+    object InstructionCtrl {
+        def apply(instruction: Bits): InstructionCtrl = {
+            val ctrl = InstructionCtrl()
             ctrl.instVal := False
             ctrl.br := BR.N
             ctrl.jmp := False
@@ -144,7 +174,7 @@ object Misc{
             ctrl.alu := ALU.ADD
             ctrl.wb := WB.X
             ctrl.rfen := False
-            ctrl.execute0AluBypass  := False
+            ctrl.execute0AluBypass := False
             ctrl.execute1AluBypass := False
             ctrl.canInternalyStallWriteBack0 := False
             ctrl.men := False
@@ -158,45 +188,45 @@ object Misc{
             ctrl.extensionData := 0
             ctrl.fencei := False
 
-            when(instruction === BASE){
+            when(instruction === BASE) {
                 ctrl.fencei := instruction === BASE_FENCEI
-                when(instruction === BASE_MEM){
+                when(instruction === BASE_MEM) {
                     ctrl.instVal := True
                     ctrl.op0 := OP0.RS
                     ctrl.alu := ALU.ADD
                     ctrl.men := True
                     ctrl.useSrc0 := True
-                    when(instruction === BASE_MEM_L){
+                    when(instruction === BASE_MEM_L) {
                         ctrl.op1 := OP1.IMI
                         ctrl.wb := WB.MEM
                         ctrl.rfen := True
                         ctrl.m := M.XRD
-                    }otherwise{
+                    } otherwise {
                         ctrl.op1 := OP1.IMS
                         ctrl.m := M.XWR
                         ctrl.useSrc1 := True
                     }
                 }
-                when(instruction === BASE_AUIPC){
+                when(instruction === BASE_AUIPC) {
                     ctrl.instVal := True
                     ctrl.op0 := OP0.IMU
                     ctrl.op1 := OP1.PC
                     ctrl.alu := ALU.ADD
-                    ctrl.wb  := WB.ALU
+                    ctrl.wb := WB.ALU
                     ctrl.rfen := True
                     ctrl.execute0AluBypass := True
                     ctrl.execute1AluBypass := True
                 }
-                when(instruction === BASE_LUI){
+                when(instruction === BASE_LUI) {
                     ctrl.instVal := True
                     ctrl.op0 := OP0.IMU
                     ctrl.alu := ALU.COPY
-                    ctrl.wb  := WB.ALU
+                    ctrl.wb := WB.ALU
                     ctrl.rfen := True
                     ctrl.execute0AluBypass := True
                     ctrl.execute1AluBypass := True
                 }
-                when(instruction === BASE_OPX){
+                when(instruction === BASE_OPX) {
                     val isShift = instruction === BASE_OPX_SHIFT
                     when(instruction === BASE_OPX_I) {
                         when(!isShift || (instruction === M"0-00000-------------------------" && !(instruction(30) && !instruction(14)))) {
@@ -204,20 +234,20 @@ object Misc{
                             ctrl.op0 := OP0.RS
                             ctrl.op1 := OP1.IMI
                             ctrl.alu.assignFromBits((isShift && instruction(30)) ## instruction(14 downto 12))
-                            ctrl.wb  := WB.ALU
+                            ctrl.wb := WB.ALU
                             ctrl.rfen := True
                             ctrl.execute0AluBypass := !isShift
                             ctrl.execute1AluBypass := True
                             ctrl.useSrc0 := True
                         }
-                    }otherwise{
-                        when(instruction === M"0-00000-------------------------"){
-                            when(instruction(30) === False || instruction(14 downto 12) === B"000" || instruction(14 downto 12) === B"101"){
+                    } otherwise {
+                        when(instruction === M"0-00000-------------------------") {
+                            when(instruction(30) === False || instruction(14 downto 12) === B"000" || instruction(14 downto 12) === B"101") {
                                 ctrl.instVal := True
                                 ctrl.op0 := OP0.RS
                                 ctrl.op1 := OP1.RS
                                 ctrl.alu.assignFromBits(instruction(30) ## instruction(14 downto 12))
-                                ctrl.wb  := WB.ALU
+                                ctrl.wb := WB.ALU
                                 ctrl.rfen := True
                                 ctrl.execute0AluBypass := !isShift
                                 ctrl.execute1AluBypass := True
@@ -227,7 +257,7 @@ object Misc{
                         }
                     }
                 }
-                when(instruction === BASE_JAL){
+                when(instruction === BASE_JAL) {
                     ctrl.instVal := True
                     ctrl.br := BR.J
                     ctrl.alu := ALU.ADD
@@ -237,7 +267,7 @@ object Misc{
                     ctrl.wb := WB.PC4
                     ctrl.rfen := True
                 }
-                when(instruction === BASE_JALR){
+                when(instruction === BASE_JALR) {
                     ctrl.instVal := True
                     ctrl.br := BR.JR
                     ctrl.jmp := True
@@ -248,7 +278,7 @@ object Misc{
                     ctrl.rfen := True
                     ctrl.useSrc0 := True
                 }
-                when(instruction === BASE_B){
+                when(instruction === BASE_B) {
                     ctrl.instVal := True
                     ctrl.alu := ALU.ADD
                     ctrl.op0 := OP0.IMJB
@@ -257,11 +287,11 @@ object Misc{
                     ctrl.useSrc0 := True
                     ctrl.useSrc1 := True
                 }
-                when(instruction === BASE_CSR){
+                when(instruction === BASE_CSR) {
                     ctrl.instVal := True
-                    when(instruction === BASE_CSR_I){
+                    when(instruction === BASE_CSR_I) {
                         ctrl.op0 := OP0.IMZ
-                    }otherwise {
+                    } otherwise {
                         ctrl.op0 := OP0.RS
                     }
                     ctrl.alu := ALU.COPY
@@ -269,49 +299,39 @@ object Misc{
                     ctrl.rfen := True
                     ctrl.csr.assignFromBits(instruction(13 downto 12))
                 }
-                when(instruction === EXTEND_MULX){
-                    ctrl.op0 := OP0.RS
-                    ctrl.op1 := OP1.RS
-                    ctrl.wb  := WB.ALU
-                    ctrl.rfen := True
-                    ctrl.execute0AluBypass := False
-                    ctrl.execute1AluBypass := False //instruction(14 downto 12) === B"000"
-                    ctrl.useSrc0 := True
-                    ctrl.useSrc1 := True
-                }
-                when(instruction === EXTEND_DIVX){
-                    ctrl.instVal := True
-                    ctrl.op0 := OP0.RS
-                    ctrl.op1 := OP1.RS
-                    ctrl.wb  := WB.ALU
-                    ctrl.rfen := True
-                    ctrl.execute0AluBypass := False
-                    ctrl.execute1AluBypass := True
-                    ctrl.useSrc0 := True
-                    ctrl.useSrc1 := True
-                }
             }
             ctrl
         }
     }
 
-    case class IMM(instruction  : Bits) extends Area{
+
+    case class IMM(instruction: Bits) extends Area {
         // immediates
-        def i:Bits = instruction(31 downto 20)
-        def s:Bits = instruction(31 downto  25) ## instruction(11 downto  7)
-        def b:Bits = instruction(31) ## instruction(7) ## instruction(30 downto 25) ## instruction(11 downto 8)
-        def u:Bits = instruction(31 downto 12) ## U"x000"
-        def j:Bits = instruction(31) ## instruction(19 downto 12) ## instruction(20) ## instruction(30 downto 21)
-        def z:Bits = instruction(19 downto 15)
+        def i = instruction(31 downto 20)
+
+        def s = instruction(31 downto 25) ## instruction(11 downto 7)
+
+        def b = instruction(31) ## instruction(7) ## instruction(30 downto 25) ## instruction(11 downto 8)
+
+        def u = instruction(31 downto 12) ## U"x000"
+
+        def j = instruction(31) ## instruction(19 downto 12) ## instruction(20) ## instruction(30 downto 21)
+
+        def z = instruction(19 downto 15)
 
         // sign-extend immediates
-        def i_sext:Bits = B((19 downto 0) -> i(11)) ## i
-        def s_sext:Bits = B((19 downto 0) -> s(11)) ## s
-        def b_sext:Bits = B((18 downto 0) -> b(11)) ## b ## False
-        def j_sext:Bits = B((10 downto 0) -> j(19)) ## j ## False
+        def i_sext = B((19 downto 0) -> i(11)) ## i
+
+        def s_sext = B((19 downto 0) -> s(11)) ## s
+
+        def b_sext = B((18 downto 0) -> b(11)) ## b ## False
+
+        def j_sext = B((10 downto 0) -> j(19)) ## j ## False
     }
 
-    def src0Range: Range.Inclusive = 19 downto 15
-    def src1Range: Range.Inclusive = 24 downto 20
-    def dstRange: Range.Inclusive = 11 downto 7
+    def src0Range = 19 downto 15
+
+    def src1Range = 24 downto 20
+
+    def dstRange = 11 downto 7
 }

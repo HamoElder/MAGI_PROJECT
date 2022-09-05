@@ -47,8 +47,8 @@ case class CombCDMABench(spread_config: AxiLite4CDMASpreadConfig, despread_confi
 
 object CombCDMASimApp extends App {
     val walsh_8_order = Seq[BigInt](0xff, 0xaa, 0xcc, 0x99, 0xf0, 0xa5, 0xc3, 0x96)
-    val axiLite4_cdma_spreading_config = AxiLite4CDMASpreadConfig(16, 8, 8, 32, true, walsh_8_order)
-    val axiLite4_cdma_despread_config = AxiLite4CDMADespreadConfig(16, 8, 8, 32, true, walsh_8_order)
+    val axiLite4_cdma_spreading_config = AxiLite4CDMASpreadConfig(16, 8, 8, 32, useDynamic = true, walsh_8_order)
+    val axiLite4_cdma_despread_config = AxiLite4CDMADespreadConfig(16, 8, 8, 32, useDynamic = true, walsh_8_order)
     SimConfig.withWave.allOptimisation.doSim(new CombCDMABench(axiLite4_cdma_spreading_config, axiLite4_cdma_despread_config)) { dut =>
         dut.clockDomain.forkStimulus(5)
         dut.rfClockDomain.forkStimulus(3)
@@ -77,8 +77,8 @@ object CombCDMASimApp extends App {
         dut.rfClockDomain.waitSampling(10)
 
         for (idx <- 100 until 250) {
-//            dut.io.base_iq_in.valid #= true
-            dut.io.base_iq_in.valid.randomize()
+            dut.io.base_iq_in.valid #= true
+//            dut.io.base_iq_in.valid.randomize()
             for (cha <- 0 until 8) {
                 dut.io.base_iq_in.payload(cha).cha_i #= (idx + cha) * 8
                 dut.io.base_iq_in.payload(cha).cha_q #= (idx + cha + 1) * 8

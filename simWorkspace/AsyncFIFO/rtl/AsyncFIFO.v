@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.7.0    git head : eca519e78d4e6022e34911ec300a432ed9db8220
 // Component : AsyncFIFO
-// Git hash  : 33a01c0dbb52841aede0155180674064564d3d7a
+// Git hash  : 67899194e2943426e013ff8893c37acadb8b8b7d
 
 `timescale 1ns/1ps
 
