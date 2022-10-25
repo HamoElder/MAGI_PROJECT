@@ -11,10 +11,12 @@ case class Decode(implicit config: TridentRiscvConfig) extends Component {
         val outInst = master(Stream(CoreDecodeOutput()))
         val hazard = in(Bool())
 
-        val regFileReadAddress0 = out(Bits(5 bits))
-        val regFileReadAddress1 = out(Bits(5 bits))
-        val regFileSrc0 = in(Bits(32 bits))
-        val regFileSrc1 = in(Bits(32 bits))
+        val raddr_0 = out(UInt(5 bits))
+        val rdata_0 = in(Bits(32 bits))
+
+        val raddr_1 = out(UInt(5 bits))
+        val rdata_1 = in(Bits(32 bits))
+
         val fetch_throwIt = out(Bool())
 
         val fetch_to_decode_msg = slave(Stream(CoreFetchOutput()))
@@ -42,10 +44,8 @@ case class Decode(implicit config: TridentRiscvConfig) extends Component {
     val regFileReadAddress0 = srcInstruction(src0Range).asUInt
     val regFileReadAddress1 = srcInstruction(src1Range).asUInt
 
-//    val (src0, src1) = config.regFileReadyKind match {
-//        case `async` => (regFile.readAsync(regFileReadAddress0), regFile.readAsync(regFileReadAddress1))
-//        case `sync` => (regFile.readSync(regFileReadAddress0), regFile.readSync(regFileReadAddress1))
-//    }
+    io.raddr_0 := regFileReadAddress0
+    io.raddr_1 := regFileReadAddress1
 
     val imm = IMM(inInst.instruction)
 
@@ -79,8 +79,8 @@ case class Decode(implicit config: TridentRiscvConfig) extends Component {
     io.outInst.instruction := inInst.instruction
     io.outInst.ctrl := ctrl
     io.outInst.doSub := io.outInst.ctrl.alu =/= ALU.ADD
-//    io.outInst.src0 := Mux(!addr0IsZero, src0, B(0, 32 bit))
-//    io.outInst.src1 := Mux(!addr1IsZero, src1, B(0, 32 bit))
+    io.outInst.src0 := Mux(!addr0IsZero, io.rdata_0, B(0, 32 bit))
+    io.outInst.src1 := Mux(!addr1IsZero, io.rdata_1, B(0, 32 bit))
     io.outInst.alu_op0 := io.outInst.ctrl.op0.mux(
         default -> io.outInst.src0,
         OP0.IMU -> imm.u.resized,
@@ -98,11 +98,6 @@ case class Decode(implicit config: TridentRiscvConfig) extends Component {
     io.outInst.branchHistory.payload := inInst.branchCacheLine.history
 
 
-    val flush = False
-    when(flush) {
-        io.fetch_throwIt := True
-        throwIt := True
-    }
     lazy val applyExtensionTags: Unit = {
         var tagCounter = 0
         for (extension <- config.extensions) {

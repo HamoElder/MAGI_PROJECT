@@ -35,14 +35,18 @@ case class TridentRiscvCore(implicit val config : TridentRiscvConfig) extends Co
     val irqExceptionMask = irqUsages.foldLeft(0)((mask, e) => if (e._2.isException) mask + 1 << e._1 else mask)
 
     //Memories
-    val regFile = Mem(Bits(32 bit), 32)
     val brancheCache = Mem(BranchPredictorLine(), 1 << config.dynamicBranchPredictorCacheSizeLog2).randBoot()
-
+    // RegFile
+    val reg_file_module = RegCtrl()
     val fetch_module = Fetch()
 
     fetch_module.io.iCmd << iCmd
     fetch_module.io.iRsp << iRsp
 
     val decode_module = Decode()
-
+    decode_module.io.fetch_throwIt := fetch_module.throwIt
+    reg_file_module.io.raddr_0 := decode_module.io.raddr_0
+    reg_file_module.io.raddr_1 := decode_module.io.raddr_1
+    decode_module.io.rdata_0 := reg_file_module.io.rdata_0
+    decode_module.io.rdata_1 := reg_file_module.io.rdata_1
 }

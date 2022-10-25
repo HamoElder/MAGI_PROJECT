@@ -107,7 +107,7 @@ case class DDS(config: DDS_Config) extends Component {
     }
 
     // Bus interface function module
-    def driveFrom(busCtrl: BusSlaveFactory, baseAddress: BigInt, coreClockDomain: ClockDomain, rfClockDomain: ClockDomain): Area = new Area {
+    def driveFrom(busCtrl: BusSlaveFactory, baseAddress: BigInt, currentIndex: Int, coreClockDomain: ClockDomain, rfClockDomain: ClockDomain): Area = new Area {
         val channel_en = cloneOf(io.channel_en)
         val w_en = if(config.useRam) cloneOf(io.w_en) else null
         val w_addr = if(config.useRam) cloneOf(io.w_addr) else null
@@ -117,30 +117,30 @@ case class DDS(config: DDS_Config) extends Component {
         val phase_inc = if(config.usePhaseIncProg) cloneOf(io.phase_inc) else null
 
         busCtrl.driveAndRead(channel_en, address = baseAddress + 0x00, bitOffset = 1,
-            documentation = "DDS Local Channel enable") init(False)
+            documentation = s"DDS${currentIndex} Local Channel enable") init(False)
         if(config.useRam){
             busCtrl.drive(w_en, address = baseAddress + 0x00, bitOffset = 2,
-                documentation = "DDS Ram Write Enable") init(False)
+                documentation = s"DDS${currentIndex} Ram Write Enable") init(False)
             busCtrl.drive(w_addr, address = baseAddress + 0x04, bitOffset = 0,
-                documentation = "DDS Ram Address Value Set") init(0)
+                documentation = s"DDS${currentIndex} Ram Address Value Set") init(0)
             busCtrl.drive(w_data, address = baseAddress + 0x08, bitOffset = 0,
-                documentation = "DDS Ram Data Value Set") init(0)
+                documentation = s"DDS${currentIndex} Ram Data Value Set") init(0)
             io.w_en := FFSynchronizer(coreClockDomain, rfClockDomain, w_en)
             io.w_addr := FFSynchronizer(coreClockDomain, rfClockDomain, w_addr)
             io.w_data := FFSynchronizer(coreClockDomain, rfClockDomain, w_data)
         }
 
         busCtrl.driveAndRead(phase_limit, address = baseAddress + 0x0C, bitOffset = 0,
-            documentation = "DDS phase max value") init(config.memorySize - 1)
+            documentation = s"DDS${currentIndex} phase max value") init(config.memorySize - 1)
 
         if(config.usePhaseOffsetProg){
             busCtrl.driveAndRead(phase_offset, address = baseAddress + 0x10, bitOffset = 0,
-                documentation = "DDS phase offset Value") init(0)
+                documentation = s"DDS${currentIndex} phase offset Value") init(0)
             io.phase_offset := FFSynchronizer(coreClockDomain, rfClockDomain, phase_offset)
         }
         if(config.usePhaseIncProg){
             busCtrl.driveAndRead(phase_inc, address = baseAddress + 0x14, bitOffset = 0,
-                documentation = "DDS phase increment Step") init(1)
+                documentation = s"DDS${currentIndex} phase increment Step") init(1)
             io.phase_inc := FFSynchronizer(coreClockDomain, rfClockDomain, phase_inc)
         }
 

@@ -66,7 +66,7 @@ case class AxiLite4DDS(config : AxiLite4DDSConfig) extends Component{
             dds_core.io.sync_en := global_en_cross
             if(config.useSysRef) {dds_core.io.sysref := RegNext(io.sysref)init(False)}
         }
-        val _ = rfClockArea.dds_core.driveFrom(axil4busCtrl, 0x20 * idx, this.clockDomain, rfClockDomain)
+        val _ = rfClockArea.dds_core.driveFrom(axil4busCtrl, 0x20 * idx, idx, this.clockDomain, rfClockDomain)
 
     }
     axil4busCtrl.printDataModel()
@@ -76,7 +76,7 @@ case class AxiLite4DDS(config : AxiLite4DDSConfig) extends Component{
 
 object AxiLite4DDSBench {
     def main(args: Array[String]): Unit = {
-        val axi4ddsConfig = AxiLite4DDSConfig(32, 8, 4, 32, 1 Hz, usePhaseChannel = false, usePhaseIncProg = false, usePhaseOffsetProg = false, useSysRef = true)
+        val axi4ddsConfig = AxiLite4DDSConfig(32, 8, 8, 32, 1 Hz, usePhaseChannel = false, usePhaseIncProg = false, usePhaseOffsetProg = false, useSysRef = true)
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
             targetDirectory = "rtl/AxiLite4DDS").generateSystemVerilog(new AxiLite4DDS(axi4ddsConfig)).printPruned()
     }
