@@ -116,11 +116,19 @@ case class DDS(config: DDS_Config) extends Component {
         val phase_offset = if(config.usePhaseOffsetProg) cloneOf(io.phase_offset) else null
         val phase_inc = if(config.usePhaseIncProg) cloneOf(io.phase_inc) else null
 
+        var addr_offset = 0
+
         busCtrl.driveAndRead(channel_en, address = baseAddress + 0x00, bitOffset = 1,
             documentation = s"DDS${currentIndex} Local Channel enable") init(False)
         if(config.useRam){
             busCtrl.drive(w_en, address = baseAddress + 0x00, bitOffset = 2,
                 documentation = s"DDS${currentIndex} Ram Write Enable") init(False)
+            println(w_addr.getWidth, busCtrl.busDataWidth)
+            for(idx <- 0 until w_addr.getWidth by busCtrl.busDataWidth){
+                busCtrl.drive(w_addr, address = baseAddress + 0x04, bitOffset = 0,
+                    documentation = s"DDS${currentIndex} Ram Address Value Set") init (0)
+                addr_offset = addr_offset + busCtrl.addr
+            }
             busCtrl.drive(w_addr, address = baseAddress + 0x04, bitOffset = 0,
                 documentation = s"DDS${currentIndex} Ram Address Value Set") init(0)
             busCtrl.drive(w_data, address = baseAddress + 0x08, bitOffset = 0,

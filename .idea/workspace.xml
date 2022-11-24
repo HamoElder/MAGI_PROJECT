@@ -5,78 +5,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1d7c38c-7d73-4f67-af7f-9cf19bfff978" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv_toplevel_dDS_14_mem.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv_toplevel_dDS_15_mem.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv_toplevel_dDS_8_mem.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv_toplevel_dDS_9_mem.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rtl/BlockDMA/BDMAs2m.sv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Filters/AdaptiveFilter/LMSFilter.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/core/Trident/HazardTracker.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/core/Trident/PipelineCtrl.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/core/Trident/RegCtrl.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rtl/KalmanFilter/KalmanFilter.sv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rtl/KalmanFilter/KalmanFilter.sv_toplevel_div_cordic__zz_1.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/bundle/Rgb$.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/bundle/Rgb.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/core/EASUCore$$anon$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/core/EASUCore$.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/core/EASUCore.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/top/FSRTop.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/utils/DiffCalcX$$anon$1$$anonfun$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/utils/DiffCalcX$$anon$1$$anonfun$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/utils/DiffCalcX$$anon$1$$anonfun$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/utils/DiffCalcX$$anon$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/utils/DiffCalcX$.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/utils/DiffCalcX.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/utils/LuminanceCalc$$anon$1$$anonfun$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/utils/LuminanceCalc$$anon$1$$anonfun$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/utils/LuminanceCalc$$anon$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/utils/LuminanceCalc$$anonfun$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/utils/LuminanceCalc$$anonfun$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/utils/LuminanceCalc$$anonfun$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/utils/LuminanceCalc$$anonfun$6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/utils/LuminanceCalc$.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiFSR/utils/LuminanceCalc.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anonfun$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anonfun$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDSBench$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDSBench$.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS$$anon$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS$$anon$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS_Config$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS_Config$.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS_Config.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS_Config.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/Decode$$anon$1$$anonfun$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/Decode$$anon$1$$anonfun$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/Decode$$anon$1$$anonfun$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/Decode$$anon$1$$anonfun$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/Decode$$anon$1$$anonfun$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/Decode$$anon$1$$anonfun$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/Decode$$anon$1$$anonfun$7.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/Decode$$anon$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/Decode$$anon$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/Decode$$anonfun$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/Decode$$anonfun$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/Decode$$anonfun$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/Decode$$anonfun$applyExtensionTags$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/Decode$$anonfun$applyExtensionTags$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/Decode$$anonfun$getInstructionCtrl$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/Decode$$anonfun$getInstructionCtrl$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/Decode.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/Decode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/TridentRiscvCore$$anonfun$10.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/TridentRiscvCore$$anonfun$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/TridentRiscvCore$$anonfun$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/TridentRiscvCore.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiSOC/core/Trident/TridentRiscvCore.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiDSP/bus/Axi4CrossBar$.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiDSP/bus/Axi4CrossBar.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiDSP/core/Alu.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiDSP/core/Misc.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/Demodulator/DemodulatorRTLConfig$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/Demodulator/DemodulatorRTLConfig$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/Demodulator/DemodulatorRTLConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/Demodulator/DemodulatorRTLConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/Modulator/modRTLConfig$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/Modulator/modRTLConfig$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/Modulator/modRTLConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/Modulator/modRTLConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/packages/CDMA/Despreador/CDMADespreading$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/packages/CDMA/Despreador/CDMADespreading$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/packages/CDMA/Despreador/CDMADespreading.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/packages/CDMA/Despreador/CDMADespreading.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/packages/CDMA/Spreador/CDMASpreading$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/packages/CDMA/Spreador/CDMASpreading$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/packages/CDMA/Spreador/CDMASpreading.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/packages/CDMA/Spreador/CDMASpreading.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/packages/PackageGen/StreamPkgGenConfig$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/packages/PackageGen/StreamPkgGenConfig$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/packages/PackageGen/StreamPkgGenConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/packages/PackageGen/StreamPkgGenConfig.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.analysis" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.analysis" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.mapping" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.mapping" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv" beforeDir="false" afterPath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv_toplevel_dDS_4_mem.bin" beforeDir="false" afterPath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv_toplevel_dDS_10_mem.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv_toplevel_dDS_5_mem.bin" beforeDir="false" afterPath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv_toplevel_dDS_11_mem.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv_toplevel_dDS_6_mem.bin" beforeDir="false" afterPath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv_toplevel_dDS_12_mem.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv_toplevel_dDS_7_mem.bin" beforeDir="false" afterPath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv_toplevel_dDS_13_mem.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script/ADS/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/script/ADS/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script/ADS/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/script/ADS/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiFSR/bundle/Rgb.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiFSR/core/EASUCore.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiFSR/top/FSRTop.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiFSR/utils/FeatureCalcX.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiFSR/utils/LuminanceCalc.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiDSP/bus/Axi4CrossBar.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiDSP/core/Alu.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/magiDSP/core/Misc.scala" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/DDS/AxiLite4DDS.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/DDS/AxiLite4DDS.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/DDS/DDS.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/DDS/DDS.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/core/Trident/Decode.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/core/Trident/Decode.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/magiSOC/core/Trident/TridentRiscvCore.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiSOC/core/Trident/TridentRiscvCore.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,6 +81,9 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="asys6e87" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -214,12 +180,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SyncClkSwitchSimApp" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="utils.common.ClkSwitch.SyncClkSwitchSimApp" />
+    <configuration name="KalmanFilterBench" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="magiRF.modules.Filters.Kalman.KalmanFilterBench" />
       <module name="MAGI_PROJECT.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="utils.common.ClkSwitch.*" />
+          <option name="PATTERN" value="magiRF.modules.Filters.Kalman.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -229,19 +195,19 @@
     </configuration>
     <list>
       <item itemvalue="Application.Unnamed" />
+      <item itemvalue="Application.KalmanFilterBench" />
       <item itemvalue="Application.AxiLite4DDSBench" />
       <item itemvalue="Application.BDMAs2mBench" />
       <item itemvalue="Application.AsyncClkSwitchBench" />
       <item itemvalue="Application.AsyncClkSwitchSimApp" />
-      <item itemvalue="Application.SyncClkSwitchSimApp" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.KalmanFilterBench" />
         <item itemvalue="Application.AxiLite4DDSBench" />
         <item itemvalue="Application.BDMAs2mBench" />
         <item itemvalue="Application.AsyncClkSwitchSimApp" />
         <item itemvalue="Application.AsyncClkSwitchBench" />
-        <item itemvalue="Application.SyncClkSwitchSimApp" />
       </list>
     </recent_temporary>
   </component>
