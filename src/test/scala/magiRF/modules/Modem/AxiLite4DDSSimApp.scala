@@ -10,7 +10,7 @@ import spinal.core._
 
 object AxiLite4DDSSimApp extends App{
 
-    val axi4ddsConfig = AxiLite4DDSConfig(32, 8, 4, 32, 1 Hz, usePhaseChannel = false, usePhaseIncProg = false, usePhaseOffsetProg = false)
+    val axi4ddsConfig = AxiLite4DDSConfig(32, 8, 4, 8, 32, 1 Hz, usePhaseChannel = false, usePhaseIncProg = false, usePhaseOffsetProg = false)
     SimConfig.withWave.doSim(new AxiLite4DDS(axi4ddsConfig)){ dut =>
         dut.clockDomain.forkStimulus(10)
         dut.rfClockDomain.forkStimulus(3)

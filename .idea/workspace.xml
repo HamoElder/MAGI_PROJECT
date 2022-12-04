@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1d7c38c-7d73-4f67-af7f-9cf19bfff978" name="Changes" comment="">
+    <list default="true" id="a1d7c38c-7d73-4f67-af7f-9cf19bfff978" name="Changes" comment="GMSK Modulator extensions Completed.">
       <change afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anon$1$$anonfun$4.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anonfun$2.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS$$anon$2$$anonfun$10.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS$$anon$2$$anonfun$11.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/DDS$$anonfun$7.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/regFile.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv_toplevel_dDS_1_mem.bin" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/rtl/GMSKMod/GMSKMod.sv" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/rtl/GMSKMod/GMSKMod.sv_toplevel_filter_coff.bin" afterDir="false" />
@@ -177,6 +176,7 @@
       <change afterPath="$PROJECT_DIR$/simWorkspace/GMSKMod/verilator/wrapper_verilator/VerilatorNative.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/simWorkspace/GMSKMod/verilatorScript.sh" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/scala/utils/common/SymbolExtender/SymbolExtender.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/scala/magiRF/modules/Modem/GMSKModSimApp.scala" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/tmp/job_1/GMSKMod.v" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/tmp/job_1/GMSKMod.v_toplevel_cosTable.bin" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/tmp/job_1/GMSKMod.v_toplevel_sinTable.bin" afterDir="false" />
@@ -185,6 +185,7 @@
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.2/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/scala/main/Misc/math/GaussianLPF$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/Misc/math/GaussianLPF$.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anon$1$$anonfun$2$$anonfun$apply$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/magiRF/modules/Modem/DDS/AxiLite4DDS$$anon$1$$anonfun$3$$anonfun$apply$1.class" afterDir="false" />
@@ -233,7 +234,9 @@
       <change beforePath="$PROJECT_DIR$/build/classes/scala/main/utils/bus/AxiLite/AxiLite4SpecRenamer$$anonfun$apply$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/utils/bus/AxiLite/AxiLite4SpecRenamer$$anonfun$apply$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/scala/main/utils/bus/AxiLite/AxiLite4SpecRenamer$$anonfun$utils$bus$AxiLite$AxiLite4SpecRenamer$$doIt$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/utils/bus/AxiLite/AxiLite4SpecRenamer$$anonfun$utils$bus$AxiLite$AxiLite4SpecRenamer$$doIt$1$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/scala/main/utils/bus/AxiLite/AxiLite4SpecRenamer$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/main/utils/bus/AxiLite/AxiLite4SpecRenamer$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/scala/test/magiRF/modules/Modem/AxiLite4DDSSimApp$.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/scala/test/magiRF/modules/Modem/AxiLite4DDSSimApp$.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.analysis" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileScala.analysis" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileTestScala.analysis" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/scala/compilerAnalysis/compileTestScala.analysis" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv" beforeDir="false" afterPath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv_toplevel_dDS_10_mem.bin" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/rtl/AxiLite4DDS/AxiLite4DDS.sv_toplevel_dDS_11_mem.bin" beforeDir="false" />
@@ -389,6 +392,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/Modulator/extensions/GMSKMod.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/modules/Modem/Modulator/extensions/GMSKMod.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/magiRF/packages/Coder/Reed_Solomon/Encoder/RSEncoder.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/magiRF/packages/Coder/Reed_Solomon/Encoder/RSEncoder.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/utils/bus/AxiLite/AxiLite4.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/utils/bus/AxiLite/AxiLite4.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/scala/magiRF/modules/Modem/AxiLite4DDSSimApp.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/scala/magiRF/modules/Modem/AxiLite4DDSSimApp.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -476,7 +480,7 @@
       <recent name="magiRF.interfaces.frontend.AD9375" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.GMSKModSimApp">
+  <component name="RunManager" selected="Application.magiRF.modules.Modem.GMSKModSimApp">
     <configuration name="DDSBench" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="magiRF.modules.Modem.DDS.DDSBench" />
       <module name="MAGI_PROJECT.main" />
@@ -516,19 +520,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="KalmanFilterBench" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="magiRF.modules.Filters.Kalman.KalmanFilterBench" />
-      <module name="MAGI_PROJECT.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="magiRF.modules.Filters.Kalman.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="SymbolExtenderBench" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="utils.common.SymbolExtender.SymbolExtenderBench" />
       <module name="MAGI_PROJECT.main" />
@@ -542,21 +533,34 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="magiRF.modules.Modem.GMSKModSimApp" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="magiRF.modules.Modem.GMSKModSimApp" />
+      <module name="MAGI_PROJECT.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="magiRF.modules.Modem.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Unnamed" />
       <item itemvalue="Application.GMSKModSimApp" />
+      <item itemvalue="Application.magiRF.modules.Modem.GMSKModSimApp" />
       <item itemvalue="Application.DDSBench" />
       <item itemvalue="Application.GMSKModBench" />
       <item itemvalue="Application.SymbolExtenderBench" />
-      <item itemvalue="Application.KalmanFilterBench" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.magiRF.modules.Modem.GMSKModSimApp" />
         <item itemvalue="Application.GMSKModSimApp" />
         <item itemvalue="Application.DDSBench" />
         <item itemvalue="Application.GMSKModBench" />
         <item itemvalue="Application.SymbolExtenderBench" />
-        <item itemvalue="Application.KalmanFilterBench" />
       </list>
     </recent_temporary>
   </component>
@@ -569,6 +573,14 @@
       <option name="presentableId" value="Default" />
       <updated>1648452099376</updated>
     </task>
+    <task id="LOCAL-00001" summary="GMSK Modulator extensions Completed.">
+      <created>1670172216576</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1670172216576</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -596,6 +608,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="GMSK Modulator extensions Completed." />
+    <option name="LAST_COMMIT_MESSAGE" value="GMSK Modulator extensions Completed." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
