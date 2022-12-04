@@ -11,6 +11,7 @@ case class AxiLite4DDSConfig(
                                 dataWidth          : Int,
                                 phaseWidth         : Int,
                                 channelsNum        : Int             = 2,
+                                cfgAddrWidth       : Int             = 8,
                                 cfgDataWidth       : Int             = 32,
                                 frequency          : HertzNumber     = 1 Hz,
                                 usePhaseChannel    : Boolean         = false,
@@ -19,11 +20,10 @@ case class AxiLite4DDSConfig(
                                 useSysRef          : Boolean         = false)
                             {
 
-    def addressWidth = 8
     def ddsConfig: DDS_Config = DDS_Config(dataWidth, phaseWidth, useRam = true,
         frequency = frequency, usePhaseChannel= usePhaseChannel,
         usePhaseIncProg = usePhaseIncProg, usePhaseOffsetProg= usePhaseOffsetProg, useSysRef = useSysRef)
-    def axiLite4Config: AxiLite4Config = AxiLite4Config(addressWidth, cfgDataWidth)
+    def axiLite4Config: AxiLite4Config = AxiLite4Config(cfgAddrWidth, cfgDataWidth)
 
 }
 
@@ -53,6 +53,7 @@ case class AxiLite4DDS(config : AxiLite4DDSConfig) extends Component{
         )
     )
     val global_en_cross = FFSynchronizer(this.clockDomain, rfClockDomain, global_en)
+    var addr_offset = 0
     for(idx <- 0 until config.channelsNum){
         val rfClockArea = new ClockingArea(rfClockDomain) {
             val dds_core = DDS(config.ddsConfig)
@@ -66,17 +67,17 @@ case class AxiLite4DDS(config : AxiLite4DDSConfig) extends Component{
             dds_core.io.sync_en := global_en_cross
             if(config.useSysRef) {dds_core.io.sysref := RegNext(io.sysref)init(False)}
         }
-        val _ = rfClockArea.dds_core.driveFrom(axil4busCtrl, 0x20 * idx, idx, this.clockDomain, rfClockDomain)
-
+        val area = rfClockArea.dds_core.driveFrom(axil4busCtrl, addr_offset, idx, this.clockDomain, rfClockDomain)
+        addr_offset = addr_offset + area._2 + axil4busCtrl.wordAddressInc
     }
     axil4busCtrl.printDataModel()
-//    axil4busCtrl.addDataModel("AxiLite4DDS", 0x00)
-//    addPrePopTask(()=>genRegFileByMarkdown())
+    axil4busCtrl.addDataModel("AxiLite4DDS", 0x00)
+    addPrePopTask(()=>genRegFileByMarkdown())
 }
 
 object AxiLite4DDSBench {
     def main(args: Array[String]): Unit = {
-        val axi4ddsConfig = AxiLite4DDSConfig(32, 8, 8, 32, 1 Hz, usePhaseChannel = false, usePhaseIncProg = false, usePhaseOffsetProg = false, useSysRef = false)
+        val axi4ddsConfig = AxiLite4DDSConfig(128, 8, 1, 8, 32, 1 Hz, usePhaseChannel = false, usePhaseIncProg = false, usePhaseOffsetProg = false, useSysRef = false)
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
             targetDirectory = "rtl/AxiLite4DDS").generateSystemVerilog(new AxiLite4DDS(axi4ddsConfig)).printPruned()
     }
