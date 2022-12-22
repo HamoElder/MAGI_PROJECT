@@ -33,7 +33,7 @@ case class DirectFIRCore(dataWidth: Int, filteredDataWidth: Int, coffDataWidth: 
     }
     val sum_result = Reg(filteredDataType) init(0)
     when(internal_en(1)){
-        sum_result := mult_data_vec.reduce(_+_)
+        sum_result := mult_data_vec.reduceBalancedTree(_+_)
     }
     io.filtered_data.valid := internal_en(2)
     io.filtered_data.payload := sum_result

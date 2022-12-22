@@ -1,6 +1,6 @@
 // Generator : SpinalHDL v1.7.0    git head : eca519e78d4e6022e34911ec300a432ed9db8220
 // Component : GMSKMod
-// Git hash  : 43464962f09f36778ab2e1388e0f698ce817f0a6
+// Git hash  : a4ae68a543610370bf0b0ac0cce890798f851cf2
 
 `timescale 1ns/1ps
 
@@ -53,7 +53,7 @@ module GMSKMod (
   assign _zz_mod_iq_payload_fragment_cha_i_2 = 1'b1;
   assign _zz_mod_iq_payload_fragment_cha_q_2 = 1'b1;
   initial begin
-    $readmemb("/home/lry/IdeaProjects/MAGI_PROJECT/tmp/job_1/GMSKMod.v_toplevel_cosTable.bin",cosTable);
+    $readmemb("/home/missdown/IdeaProjects/MAGI_PROJECT/tmp/job_1/GMSKMod.v_toplevel_cosTable.bin",cosTable);
   end
   always @(posedge clk) begin
     if(_zz_mod_iq_payload_fragment_cha_i_2) begin
@@ -62,7 +62,7 @@ module GMSKMod (
   end
 
   initial begin
-    $readmemb("/home/lry/IdeaProjects/MAGI_PROJECT/tmp/job_1/GMSKMod.v_toplevel_sinTable.bin",sinTable);
+    $readmemb("/home/missdown/IdeaProjects/MAGI_PROJECT/tmp/job_1/GMSKMod.v_toplevel_sinTable.bin",sinTable);
   end
   always @(posedge clk) begin
     if(_zz_mod_iq_payload_fragment_cha_q_2) begin
