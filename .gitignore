@@ -3,7 +3,8 @@
 
 # gradle specific
 .gradle
-build
+build/
+build/*
 
 # Scala-IDE specific
 .scala_dependencies
