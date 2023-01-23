@@ -1,16 +1,44 @@
-build/
-build/*
+*.log
+*.bak
 
-rtl/
-rtl/*
+# gradle specific
+.gradle
+build
 
+# Scala-IDE specific
+.scala_dependencies
+.worksheet
+
+.idea
+out
+
+# Eclipse
+bin/
+.classpath
+.project
+.settings
+.cache-main
+
+# IntelliJ
+*.iws
+*.iml
+*.ipr
+
+#User
+/*.vhd
+/*.v
+*.cf
+*.json
+*.vcd
+!tester/src/test/resources/*.vhd
+
+# SpinalHDL
 simWorkspace/
-simWorkspace/*
+tmp/
+rtl/
 # clion 产生的编译目录
 cmake-build-debug/
 cmake-build-release/
-# clion 产生的缓存文件
-.idea/
 # vscode 产生的缓存文件
 .vscode/
 # python 运行产生的文件
