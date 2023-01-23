@@ -1,0 +1,17 @@
+build/
+build/*
+
+rtl/
+rtl/*
+
+simWorkspace/
+simWorkspace/*
+# clion 产生的编译目录
+cmake-build-debug/
+cmake-build-release/
+# clion 产生的缓存文件
+.idea/
+# vscode 产生的缓存文件
+.vscode/
+# python 运行产生的文件
+*.pyc

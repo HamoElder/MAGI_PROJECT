@@ -21,7 +21,7 @@ case class AxiLite4Gpios(config: AxiLite4GpiosConfig) extends Component {
     val io = new Bundle{
         val axil4Ctrl = slave(AxiLite4(config.axiLite4Config))
         val gpio = Vec(inout(Analog(Bits(config.gpioWidth bits))), config.channelNum)
-        val interrupt = Vec(out(Bool), config.channelNum)
+        val interrupt = Vec(out(Bool()), config.channelNum)
     }
 
     noIoPrefix()

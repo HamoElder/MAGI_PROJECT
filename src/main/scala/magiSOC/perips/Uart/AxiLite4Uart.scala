@@ -2,6 +2,7 @@ package magiSOC.perips.Uart
 
 import spinal.core._
 import spinal.lib._
+import spinal.lib.com.uart.{Uart, UartCtrl, UartCtrlGenerics, UartCtrlInitConfig, UartCtrlMemoryMappedConfig}
 import utils.bus.AxiLite.{AxiLite4, AxiLite4Config, AxiLite4SlaveFactory, AxiLite4SpecRenamer}
 
 case class AxiLite4UartConfig(
@@ -46,7 +47,7 @@ case class AxiLite4Uart(config : AxiLite4UartConfig) extends Component{
 }
 
 object AxiLite4UartBench {
-    def main(args: Array[String]) {
+    def main(args: Array[String]): Unit = {
         val axil4_uart_config = AxiLite4UartConfig()
         SpinalConfig(defaultConfigForClockDomains = ClockDomainConfig(resetKind = SYNC, resetActiveLevel = LOW),
             defaultClockDomainFrequency=FixedFrequency(100 MHz), targetDirectory = "rtl/AxiLite4Uart").generateSystemVerilog(new AxiLite4Uart(axil4_uart_config)).printPruned()

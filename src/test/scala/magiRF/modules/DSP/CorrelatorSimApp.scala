@@ -11,7 +11,7 @@ object CorrelatorSimApp extends App{
     dut.io.raw_data_0.valid #= false
     dut.io.raw_data_1.valid #= false
     dut.clockDomain.waitSampling(10)
-    for(idx <- 1 until 32767){
+    for(idx <- 1 until 1200){
       dut.io.raw_data_0.valid #= true
       dut.io.raw_data_1.valid #= true
 

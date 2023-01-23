@@ -159,11 +159,12 @@ public:
     uint32_t timeCheck;
     bool waveEnabled;
     VTX top;
-    ISignalAccess *signalAccess[14];
+    ISignalAccess *signalAccess[15];
     #ifdef TRACE
 	  VerilatedVcdC tfp;
 	  #endif
     string name;
+    int32_t time_precision;
 
     Wrapper_1(const char * name){
       simHandle1 = this;
@@ -175,16 +176,17 @@ public:
       signalAccess[1] = new CDataSignalAccess( top.raw_data_ready );
       signalAccess[2] = new CDataSignalAccess( top.raw_data_payload_last );
       signalAccess[3] = new CDataSignalAccess( top.raw_data_payload_fragment );
-      signalAccess[4] = new CDataSignalAccess( top.rf_data_valid );
-      signalAccess[5] = new CDataSignalAccess( top.rf_data_ready );
-      signalAccess[6] = new SDataSignalAccess( top.rf_data_payload_cha_i );
-      signalAccess[7] = new SDataSignalAccess( top.rf_data_payload_cha_q );
-      signalAccess[8] = new CDataSignalAccess( top.div_enable );
-      signalAccess[9] = new CDataSignalAccess( top.div_cnt_step );
-      signalAccess[10] = new CDataSignalAccess( top.div_cnt_limit );
-      signalAccess[11] = new CDataSignalAccess( top.mod_method_select );
-      signalAccess[12] = new CDataSignalAccess( top.clk );
-      signalAccess[13] = new CDataSignalAccess( top.reset );
+      signalAccess[4] = new CDataSignalAccess( top.result_data_valid );
+      signalAccess[5] = new CDataSignalAccess( top.result_data_ready );
+      signalAccess[6] = new CDataSignalAccess( top.result_data_payload_last );
+      signalAccess[7] = new CDataSignalAccess( top.result_data_payload_fragment );
+      signalAccess[8] = new CDataSignalAccess( top.block_msg_ctrl_valid );
+      signalAccess[9] = new CDataSignalAccess( top.block_msg_ctrl_ready );
+      signalAccess[10] = new CDataSignalAccess( top.block_msg_ctrl_payload_pkg_type );
+      signalAccess[11] = new IDataSignalAccess( top.block_msg_ctrl_payload_pkg_length );
+      signalAccess[12] = new SDataSignalAccess( top.block_msg_ctrl_payload_rnti_scramble );
+      signalAccess[13] = new CDataSignalAccess( top.clk );
+      signalAccess[14] = new CDataSignalAccess( top.reset );
 
       #ifdef TRACE
       Verilated::traceEverOn(true);
@@ -192,10 +194,11 @@ public:
       tfp.open((std::string("/home/missdown/IdeaProjects/MAGI_PROJECT/./simWorkspace/TX/") + name + ".vcd").c_str());
       #endif
       this->name = name;
+      this->time_precision = VL_TIME_PRECISION;
     }
 
     virtual ~Wrapper_1(){
-      for(int idx = 0;idx < 14;idx++){
+      for(int idx = 0;idx < 15;idx++){
           delete signalAccess[idx];
       }
 
@@ -244,6 +247,10 @@ JNIEXPORT jboolean API JNICALL Java_wrapper_1verilator_VerilatorNative_eval_11
    return Verilated::gotFinish();
 }
 
+JNIEXPORT jint API JNICALL Java_wrapper_1verilator_VerilatorNative_getTimePrecision_11
+  (JNIEnv *, jobject, Wrapper_1 *handle){
+  return handle->time_precision;
+}
 
 JNIEXPORT void API JNICALL Java_wrapper_1verilator_VerilatorNative_sleep_11
   (JNIEnv *, jobject, Wrapper_1 *handle, uint64_t cycles){

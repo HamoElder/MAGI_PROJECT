@@ -1,7 +1,8 @@
 package magiRF.packages.PackageGen
 
+import spinal.core.LITTLE
 import spinal.core.sim._
-import spinal.lib.LITTLE
+
 
 object StreamPkgGenSimApp extends App{
 

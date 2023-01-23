@@ -2,6 +2,7 @@ package magiSOC.perips.SPI
 
 import spinal.core._
 import spinal.lib._
+import spinal.lib.com.spi.{SpiMaster, SpiMasterCtrl, SpiMasterCtrlGenerics, SpiMasterCtrlMemoryMappedConfig}
 import utils.bus.AxiLite.{AxiLite4, AxiLite4Config, AxiLite4SlaveFactory, AxiLite4SpecRenamer}
 
 
@@ -23,7 +24,7 @@ case class AxiLite4SpiMaster(config : AxiLite4SpiMasterConfig) extends Component
     val io = new Bundle{
         val axil4Ctrl =  slave(AxiLite4(config.axiLite4Config))
         val spi = master(SpiMaster(ssWidth = config.ssWidth, config.useSclk))
-        val interrupt = out Bool()
+        val interrupt = out(Bool())
     }
     noIoPrefix()
     AxiLite4SpecRenamer(io.axil4Ctrl)

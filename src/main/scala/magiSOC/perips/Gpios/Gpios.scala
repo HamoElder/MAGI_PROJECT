@@ -3,6 +3,7 @@ package magiSOC.perips.Gpios
 import spinal.core._
 import spinal.lib._
 import spinal.lib.bus.misc.BusSlaveFactory
+import spinal.lib.io.TriStateArray
 
 case class GpiosConfig(
                           width: Int,

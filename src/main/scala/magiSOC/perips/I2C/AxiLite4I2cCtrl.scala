@@ -2,6 +2,7 @@ package magiSOC.perips.I2C
 
 import spinal.core._
 import spinal.lib._
+import spinal.lib.com.i2c.{I2c, I2cMasterMemoryMappedGenerics, I2cSlave, I2cSlaveGenerics, I2cSlaveMemoryMappedGenerics}
 import utils.bus.AxiLite.{AxiLite4, AxiLite4Config, AxiLite4SlaveFactory, AxiLite4SpecRenamer}
 
 case class AxiLite4I2cCtrlConfig(

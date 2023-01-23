@@ -2,6 +2,7 @@ package magiSOC.perips.SPI
 
 import spinal.core._
 import spinal.lib._
+import spinal.lib.com.spi.{SpiSlave, SpiSlaveCtrl, SpiSlaveCtrlGenerics, SpiSlaveCtrlMemoryMappedConfig}
 import utils.bus.AxiLite.{AxiLite4, AxiLite4Config, AxiLite4SlaveFactory, AxiLite4SpecRenamer}
 
 case class AxiLite4SpiSlaveConfig(

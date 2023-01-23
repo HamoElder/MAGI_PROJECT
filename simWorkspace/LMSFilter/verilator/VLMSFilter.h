@@ -47,7 +47,7 @@ VL_MODULE(VLMSFilter) {
     CData/*0:0*/ LMSFilter__DOT__raw_data_payload_last_delay_2;
     CData/*0:0*/ LMSFilter__DOT__raw_data_payload_last_delay_3;
     CData/*4:0*/ LMSFilter__DOT__cnt;
-    CData/*0:0*/ LMSFilter__DOT__when_AdaptiveFilter_l78;
+    CData/*0:0*/ LMSFilter__DOT__when_LMSFilter_l78;
     SData/*8:0*/ LMSFilter__DOT__raw_data_vec_0;
     SData/*8:0*/ LMSFilter__DOT__raw_data_vec_1;
     SData/*8:0*/ LMSFilter__DOT__raw_data_vec_2;
@@ -58,6 +58,12 @@ VL_MODULE(VLMSFilter) {
     SData/*8:0*/ LMSFilter__DOT__raw_data_vec_7;
     SData/*8:0*/ LMSFilter__DOT__raw_data_vec_8;
     SData/*8:0*/ LMSFilter__DOT__raw_data_vec_9;
+    SData/*8:0*/ LMSFilter__DOT__raw_data_vec_10;
+    SData/*8:0*/ LMSFilter__DOT__raw_data_vec_11;
+    SData/*8:0*/ LMSFilter__DOT__raw_data_vec_12;
+    SData/*8:0*/ LMSFilter__DOT__raw_data_vec_13;
+    SData/*8:0*/ LMSFilter__DOT__raw_data_vec_14;
+    SData/*8:0*/ LMSFilter__DOT__raw_data_vec_15;
     IData/*19:0*/ LMSFilter__DOT___zz_ref_mem_port0;
     IData/*18:0*/ LMSFilter__DOT__coff_mem_0;
     IData/*18:0*/ LMSFilter__DOT__coff_mem_1;
@@ -69,6 +75,12 @@ VL_MODULE(VLMSFilter) {
     IData/*18:0*/ LMSFilter__DOT__coff_mem_7;
     IData/*18:0*/ LMSFilter__DOT__coff_mem_8;
     IData/*18:0*/ LMSFilter__DOT__coff_mem_9;
+    IData/*18:0*/ LMSFilter__DOT__coff_mem_10;
+    IData/*18:0*/ LMSFilter__DOT__coff_mem_11;
+    IData/*18:0*/ LMSFilter__DOT__coff_mem_12;
+    IData/*18:0*/ LMSFilter__DOT__coff_mem_13;
+    IData/*18:0*/ LMSFilter__DOT__coff_mem_14;
+    IData/*18:0*/ LMSFilter__DOT__coff_mem_15;
     IData/*19:0*/ LMSFilter__DOT__mult_data_vec_0;
     IData/*19:0*/ LMSFilter__DOT__mult_data_vec_1;
     IData/*19:0*/ LMSFilter__DOT__mult_data_vec_2;
@@ -79,14 +91,27 @@ VL_MODULE(VLMSFilter) {
     IData/*19:0*/ LMSFilter__DOT__mult_data_vec_7;
     IData/*19:0*/ LMSFilter__DOT__mult_data_vec_8;
     IData/*19:0*/ LMSFilter__DOT__mult_data_vec_9;
+    IData/*19:0*/ LMSFilter__DOT__mult_data_vec_10;
+    IData/*19:0*/ LMSFilter__DOT__mult_data_vec_11;
+    IData/*19:0*/ LMSFilter__DOT__mult_data_vec_12;
+    IData/*19:0*/ LMSFilter__DOT__mult_data_vec_13;
+    IData/*19:0*/ LMSFilter__DOT__mult_data_vec_14;
+    IData/*19:0*/ LMSFilter__DOT__mult_data_vec_15;
     IData/*19:0*/ LMSFilter__DOT__sum_result;
     IData/*19:0*/ LMSFilter__DOT__error_measured;
     IData/*19:0*/ LMSFilter__DOT__ref_mem[32];
     
     // LOCAL VARIABLES
     // Internals; generally not touched by application code
+    CData/*4:0*/ __Vdly__LMSFilter__DOT__cnt;
     CData/*0:0*/ __Vclklast__TOP__clk;
     CData/*0:0*/ __Vclklast__TOP__reset;
+    IData/*18:0*/ __Vdly__LMSFilter__DOT__coff_mem_15;
+    IData/*18:0*/ __Vdly__LMSFilter__DOT__coff_mem_14;
+    IData/*18:0*/ __Vdly__LMSFilter__DOT__coff_mem_13;
+    IData/*18:0*/ __Vdly__LMSFilter__DOT__coff_mem_12;
+    IData/*18:0*/ __Vdly__LMSFilter__DOT__coff_mem_11;
+    IData/*18:0*/ __Vdly__LMSFilter__DOT__coff_mem_10;
     IData/*18:0*/ __Vdly__LMSFilter__DOT__coff_mem_9;
     IData/*18:0*/ __Vdly__LMSFilter__DOT__coff_mem_2;
     IData/*18:0*/ __Vdly__LMSFilter__DOT__coff_mem_1;
@@ -131,7 +156,7 @@ VL_MODULE(VLMSFilter) {
     static QData _change_request(VLMSFilter__Syms* __restrict vlSymsp);
     static QData _change_request_1(VLMSFilter__Syms* __restrict vlSymsp);
   public:
-    static void _combo__TOP__8(VLMSFilter__Syms* __restrict vlSymsp);
+    static void _combo__TOP__9(VLMSFilter__Syms* __restrict vlSymsp);
   private:
     void _ctor_var_reset() VL_ATTR_COLD;
   public:
@@ -143,12 +168,13 @@ VL_MODULE(VLMSFilter) {
   public:
     static void _eval_initial(VLMSFilter__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _eval_settle(VLMSFilter__Syms* __restrict vlSymsp) VL_ATTR_COLD;
-    static void _initial__TOP__5(VLMSFilter__Syms* __restrict vlSymsp) VL_ATTR_COLD;
+    static void _initial__TOP__6(VLMSFilter__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void _sequent__TOP__1(VLMSFilter__Syms* __restrict vlSymsp);
     static void _sequent__TOP__3(VLMSFilter__Syms* __restrict vlSymsp);
     static void _sequent__TOP__4(VLMSFilter__Syms* __restrict vlSymsp);
-    static void _sequent__TOP__7(VLMSFilter__Syms* __restrict vlSymsp);
-    static void _settle__TOP__6(VLMSFilter__Syms* __restrict vlSymsp) VL_ATTR_COLD;
+    static void _sequent__TOP__5(VLMSFilter__Syms* __restrict vlSymsp);
+    static void _sequent__TOP__8(VLMSFilter__Syms* __restrict vlSymsp);
+    static void _settle__TOP__7(VLMSFilter__Syms* __restrict vlSymsp) VL_ATTR_COLD;
     static void traceChgThis(VLMSFilter__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__2(VLMSFilter__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
     static void traceChgThis__3(VLMSFilter__Syms* __restrict vlSymsp, VerilatedVcd* vcdp, uint32_t code);
